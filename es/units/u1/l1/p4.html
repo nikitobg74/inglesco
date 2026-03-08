@@ -4,12 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leccion 1 - 4</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- ✅ Correct JS path (same style as p2/p3) -->
   <script defer src="../../../../js/u1/p4.js"></script>
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body { padding: 20px; background: #eef2ff; }
@@ -26,11 +22,9 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    h1 { text-align: center; margin-bottom: 25px; color: #2563eb; }
-
     .unit-title {
       text-align: center;
-      font-size: 30px;
+      font-size: 26px;
       font-weight: 700;
       margin-bottom: 20px;
       color: #2563eb;
@@ -40,7 +34,7 @@
     .step {
       width:40px; height:40px; border-radius:50%;
       background:#d1d5db; display:flex; align-items:center; justify-content:center;
-      font-weight:600; margin:0 10px; color:black; cursor:pointer;
+      font-weight:600; margin:0 8px; color:black; cursor:pointer;
       transition: all 0.3s ease;
     }
     .step.active { background:#2563eb; color:white; }
@@ -50,14 +44,16 @@
       max-width: 750px;
       margin: 0 auto;
       background: white;
-      padding: 35px;
+      padding: 20px;
       border-radius: 15px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       text-align: center;
     }
 
-    button {
-      margin-top: 20px;
+    h2 { font-size: 18px; color: #1e293b; margin-bottom: 10px; }
+
+    .play-btn {
+      margin-top: 10px;
       padding: 12px 22px;
       font-size: 16px;
       border: none;
@@ -67,64 +63,109 @@
       color: white;
       font-weight: 600;
     }
-    button:hover { background: #1e40af; }
+    .play-btn:hover { background: #1e40af; }
 
     .word-bank, .drop-zone {
-      min-height: 90px;
-      padding: 20px;
-      margin-top: 20px;
+      min-height: 70px;
+      padding: 15px;
+      margin-top: 15px;
       border: 2px dashed #cbd5e1;
       border-radius: 12px;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       justify-content: center;
+      align-items: center;
+    }
+
+    .drop-zone {
+      background: #f8faff;
+      min-height: 70px;
+    }
+
+    .zone-label {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-align: left;
+      margin-top: 15px;
+      margin-bottom: -8px;
+      padding-left: 4px;
     }
 
     .word {
-      padding: 14px 22px;
+      padding: 10px 16px;
       background: #3b82f6;
       color: white;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 600;
       border-radius: 10px;
-      cursor: grab;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+      user-select: none;
     }
+    .word:active { transform: scale(0.95); }
+    .word:hover { background: #2563eb; }
+
+    .word.in-zone {
+      background: #7c3aed;
+    }
+    .word.in-zone:hover { background: #6d28d9; }
 
     .feedback {
-      margin-top: 18px;
+      margin-top: 15px;
       font-weight: 600;
-      font-size: 18px;
+      font-size: 16px;
+      min-height: 24px;
     }
 
+    .check-btn {
+      margin-top: 15px;
+      padding: 12px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #22c55e;
+      color: white;
+      font-weight: 700;
+      width: 100%;
+      max-width: 300px;
+    }
+    .check-btn:hover { background: #16a34a; }
+
     input {
-      margin-top: 20px;
+      margin-top: 15px;
       padding: 14px;
-      width: 85%;
-      font-size: 18px;
+      width: 100%;
+      font-size: 16px;
       border-radius: 8px;
       border: 2px solid #cbd5e1;
+      font-family: 'Poppins', sans-serif;
     }
 
     .round-counter {
       margin-top: 15px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 14px;
       color: #2563eb;
     }
 
-    /* Hidden language strings (JS reads these; JS has no Spanish) */
     .i18n { display:none; }
+
+    @media (min-width: 600px) {
+      .word { font-size: 18px; padding: 12px 20px; }
+      .unit-title { font-size: 30px; }
+      h2 { font-size: 20px; }
+    }
   </style>
 </head>
-
 <body>
 
   <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
 
   <div class="unit-title">Lección 1</div>
 
-  <!-- Progress bar (data-page for language-neutral navigation) -->
   <div class="progress-container">
     <div class="step" data-page="p1.html">1</div>
     <div class="step" data-page="p2.html">2</div>
@@ -132,9 +173,6 @@
     <div class="step active" data-page="p4.html">4</div>
   </div>
 
-  <h1>Práctica de la lección</h1>
-
-  <!-- Language strings stored in HTML -->
   <div class="i18n">
     <span id="msg-correct">✅ ¡Correcto!</span>
     <span id="msg-try-again">❌ Intenta otra vez!</span>
@@ -144,31 +182,32 @@
 
   <div class="exercise-box">
 
+    <!-- Exercise 1: Word order -->
     <div id="exercise1">
       <h2>Ordena las palabras</h2>
+      <button class="play-btn" id="playAudio">🔊 Escuchar</button>
 
-      <button id="playAudio">🔊 Play Audio</button>
-
-      <div class="word-bank" id="wordBank"></div>
+      <p class="zone-label">Tu respuesta:</p>
       <div class="drop-zone" id="dropZone"></div>
 
-      <button id="checkBtn">Check</button>
+      <p class="zone-label">Palabras:</p>
+      <div class="word-bank" id="wordBank"></div>
+
+      <button class="check-btn" id="checkBtn">Verificar ✓</button>
       <div class="feedback" id="feedback"></div>
     </div>
 
+    <!-- Exercise 2: Write -->
     <div id="exercise2" style="display:none;">
-      <h2>Write the sentence</h2>
-
-      <button id="playWriteAudio">🔊 Play Audio</button>
-
-      <input type="text" id="writeInput" placeholder="Type the full sentence">
+      <h2>Escribe la oración</h2>
+      <button class="play-btn" id="playWriteAudio">🔊 Escuchar</button>
+      <input type="text" id="writeInput" placeholder="Escribe la oración completa...">
       <br>
-      <button id="checkWrite">Check</button>
+      <button class="check-btn" id="checkWrite">Verificar ✓</button>
       <div class="feedback" id="writeFeedback"></div>
     </div>
 
     <div class="round-counter" id="roundCounter"></div>
-
   </div>
 
 </body>
