@@ -24,15 +24,15 @@ const sentences = [
 
 let current = null;
 
-const wordBank    = document.getElementById("wordBank");
-const dropZone    = document.getElementById("dropZone");
-const feedback    = document.getElementById("feedback");
-const checkBtn    = document.getElementById("checkBtn");
-const exercise1   = document.getElementById("exercise1");
-const exercise2   = document.getElementById("exercise2");
-const writeInput  = document.getElementById("writeInput");
+const wordBank     = document.getElementById("wordBank");
+const dropZone     = document.getElementById("dropZone");
+const feedback     = document.getElementById("feedback");
+const checkBtn     = document.getElementById("checkBtn");
+const exercise1    = document.getElementById("exercise1");
+const exercise2    = document.getElementById("exercise2");
+const writeInput   = document.getElementById("writeInput");
 const writeFeedback = document.getElementById("writeFeedback");
-const checkWrite  = document.getElementById("checkWrite");
+const checkWrite   = document.getElementById("checkWrite");
 const roundCounter = document.getElementById("roundCounter");
 
 function shuffle(arr) {
@@ -52,23 +52,37 @@ function playCurrentAudio() {
   a.play();
 }
 
+// iOS-safe tap handler: fires on touchend OR click, never both
+function onTap(el, handler) {
+  let touchMoved = false;
+
+  el.addEventListener("touchstart", () => { touchMoved = false; }, { passive: true });
+  el.addEventListener("touchmove",  () => { touchMoved = true;  }, { passive: true });
+
+  el.addEventListener("touchend", (e) => {
+    if (touchMoved) return;        // was a scroll, not a tap
+    e.preventDefault();            // stops the 300 ms ghost click
+    handler(e);
+  });
+
+  el.addEventListener("click", handler); // desktop fallback
+}
+
 // Create a clickable word tile
-function createWord(word, zone) {
+function createWord(word) {
   const div = document.createElement("div");
   div.textContent = word;
-  div.className = "word" + (zone === "drop" ? " in-zone" : "");
+  div.className = "word";
 
-  div.addEventListener("click", () => {
-    if (zone === "bank") {
-      // move to drop zone
+  // FIX: read current location from the DOM instead of a stale closure var
+  onTap(div, () => {
+    const inZone = div.classList.contains("in-zone");
+    if (!inZone) {
       dropZone.appendChild(div);
       div.classList.add("in-zone");
-      zone = "drop";
     } else {
-      // move back to word bank
       wordBank.appendChild(div);
       div.classList.remove("in-zone");
-      zone = "bank";
     }
     feedback.textContent = "";
   });
@@ -84,7 +98,7 @@ function loadRound() {
 
   const words = shuffle(current.answer.split(" "));
   words.forEach(word => {
-    wordBank.appendChild(createWord(word, "bank"));
+    wordBank.appendChild(createWord(word));
   });
 
   setCounter(round, totalRounds);
