@@ -82,8 +82,16 @@ body { padding:20px; background:#eef2ff; color:#2c3e50; }
 }
 .exercise-row span.word { min-width:55px; }
 
-.number-input, .word-input {
-  flex:1; padding:10px 12px; border-radius:8px;
+.number-input {
+  width: 80px;
+  padding:10px 12px; border-radius:8px;
+  border:2px solid #cbd5e1; font-size:16px;
+  font-family:'Poppins', sans-serif;
+  -webkit-appearance:none; transition:border-color 0.2s;
+}
+.word-input {
+  width: 130px;
+  padding:10px 12px; border-radius:8px;
   border:2px solid #cbd5e1; font-size:16px;
   font-family:'Poppins', sans-serif;
   -webkit-appearance:none; transition:border-color 0.2s;
@@ -91,6 +99,11 @@ body { padding:20px; background:#eef2ff; color:#2c3e50; }
 .number-input:focus, .word-input:focus { border-color:#2563eb; outline:none; }
 .number-input.correct, .word-input.correct { border-color:#16a34a; background:#f0fdf4; }
 .number-input.wrong,   .word-input.wrong   { border-color:#dc2626; background:#fef2f2; }
+
+@media(max-width:600px){
+  .exercise-box { padding:20px 16px; }
+  .numbers-layout { flex-direction:column; }
+}
 
 .controls {
   margin-top:25px; text-align:center;
