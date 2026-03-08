@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <title>Unidad 1 - Lección 3 - Parte 2</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -107,16 +108,40 @@ body { padding:20px; background:#eef2ff; }
 
 .word {
   display: inline-block;
-  margin: 4px 6px;
-  padding: 4px 8px;
+  margin: 6px 8px;
+  padding: 10px 16px;
   background: #f3f4f6;
-  border-radius: 6px;
-  cursor: grab;
+  border-radius: 10px;
+  cursor: pointer;
   user-select: none;
+  font-size: 17px;
+  font-weight: 600;
+  border: 2px solid #d1d5db;
+  transition: background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
-.word:active { cursor: grabbing; }
-.ana-box .word { background: #fde2f0; }
-.george-box .word { background: #d0f0ff; }
+.word:active { transform: scale(0.95); }
+.ana-box .word { background: #fde2f0; border-color: #f9a8d4; }
+.george-box .word { background: #d0f0ff; border-color: #7dd3fc; }
+
+.instruction-banner {
+  background: #eff6ff;
+  border-left: 5px solid #2563eb;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+/* Prevent iOS auto-links */
+a[href^="tel"], a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
+  pointer-events: none !important;
+}
 
 .controls {
   text-align:center;
@@ -162,6 +187,10 @@ body { padding:20px; background:#eef2ff; }
     <div class="character">
       <img src="../../../../assets/images/u1/george.png" alt="George"><p><strong>George</strong></p>
     </div>
+  </div>
+
+  <div class="instruction-banner">
+    🎧 Escucha cada línea del diálogo y ordena las palabras en el orden correcto. Toca ▶ para escuchar, luego toca las palabras para armarlas.
   </div>
 
   <!-- This is where JS will render dialogue rows -->

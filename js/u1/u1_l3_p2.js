@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  // ==========================
+  // iOS-SAFE TAP HELPER
+  // ==========================
+  function onTap(el, handler) {
+    let touchMoved = false;
+    el.addEventListener("touchstart", () => { touchMoved = false; }, { passive: true });
+    el.addEventListener("touchmove",  () => { touchMoved = true;  }, { passive: true });
+    el.addEventListener("touchend", (e) => {
+      if (touchMoved) return;
+      e.preventDefault();
+      handler(e);
+    });
+    el.addEventListener("click", handler);
+  }
+
   // ==========================
   // DATA
   // ==========================
@@ -87,6 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
         span.classList.add("word");
         span.draggable = true;
 
+        // tap to send back to bank (mobile friendly)
+        onTap(span, () => {
+          bankWords.push(userOrder[i]);
+          userOrder.splice(i, 1);
+          renderBank();
+          renderAnswer();
+        });
+
         span.addEventListener("dragstart", (e) => {
           e.dataTransfer.setData("text/plain", String(i));
         });
@@ -117,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
         span.textContent = word;
         span.classList.add("word");
 
-        span.addEventListener("click", () => {
+        onTap(span, () => {
           userOrder.push(word);
           bankWords.splice(i, 1);
           renderBank();
