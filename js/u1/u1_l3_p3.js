@@ -26,13 +26,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const checkNumbersBtn = document.getElementById("checkNumbers");
 
   // ==========================
-  // STATE
+  // TAP STATE
   // ==========================
-  let currentClientKey = "gabriela";
-  let currentClient = null;
+  let selectedOption = null; // the currently highlighted option div
 
-  let dragSourceContainer = null;
-  let draggableCounter = 0;
+  // ==========================
+  // iOS-SAFE TAP HELPER
+  // ==========================
+  function onTap(el, handler) {
+    let touchMoved = false;
+    let handledByTouch = false;
+
+    el.addEventListener("touchstart", () => {
+      touchMoved = false;
+      handledByTouch = false;
+    }, { passive: true });
+
+    el.addEventListener("touchmove", () => {
+      touchMoved = true;
+    }, { passive: true });
+
+    el.addEventListener("touchend", (e) => {
+      if (touchMoved) return;
+      e.preventDefault();
+      handledByTouch = true;
+      handler(e);
+    });
+
+    el.addEventListener("click", (e) => {
+      if (handledByTouch) { handledByTouch = false; return; }
+      handler(e);
+    });
+  }
 
   // ==========================
   // I18N (STRINGS LIVE IN HTML)
@@ -43,11 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setFeedback(code, isCorrect) {
     if (!formFeedback) return;
-
-    // language-neutral codes -> localized text from HTML
-    const text = M[code] || "";
-
-    formFeedback.textContent = text;
+    formFeedback.textContent = M[code] || "";
     formFeedback.className = "feedback " + (isCorrect ? "correct" : "wrong");
   }
 
@@ -87,21 +108,17 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".step").forEach((step) => {
     step.addEventListener("click", () => {
       const page = step.dataset.page;
-      if (page) {
-        stopAudio();
-        window.location.href = page;
-      }
+      if (page) { stopAudio(); window.location.href = page; }
     });
   });
 
   // ==========================
-  // CLIENTS DATA (PATHS FIXED)
+  // CLIENTS DATA
   // ==========================
   const clients = {
     gabriela: {
-      title: "Cliente: Gabriela Sanchez", // (content data, not UI feedback)
-      instruction:
-        "Haz clic en las cajas a la derecha para escuchar la información y completa el formulario abajo.", // (content data)
+      title: "Cliente: Gabriela Sanchez",
+      instruction: "Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.",
       answers: {
         name: "Gabriela Sanchez",
         nationality: "Cuban",
@@ -122,8 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     pedro: {
       title: "Cliente: Pedro Martinez",
-      instruction:
-        "Haz clic en las cajas a la derecha para escuchar la información y completa el formulario abajo.",
+      instruction: "Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.",
       answers: {
         name: "Pedro Martinez",
         nationality: "Chilean",
@@ -144,6 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   };
 
+  let currentClientKey = "gabriela";
+  let currentClient = null;
+
   // ==========================
   // SCENE AUDIO
   // ==========================
@@ -159,23 +178,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ==========================
-  // CONTINUE TO CLIENT
-  // ==========================
   if (continueBtn) {
     continueBtn.addEventListener("click", () => startClient(currentClientKey));
   }
 
+  // ==========================
+  // START CLIENT
+  // ==========================
   function startClient(key) {
     currentClientKey = key;
     currentClient = clients[key];
 
     if (sceneSection) sceneSection.classList.add("hidden");
     if (clientSection) clientSection.classList.remove("hidden");
-
     if (clientTitle) clientTitle.textContent = currentClient.title;
     if (instructionBox) instructionBox.textContent = currentClient.instruction;
 
+    selectedOption = null;
     clearFeedback();
 
     if (finishSection) finishSection.classList.add("hidden");
@@ -201,18 +220,28 @@ document.addEventListener("DOMContentLoaded", function () {
   if (playIdBtn) playIdBtn.addEventListener("click", () => playClientAudio("id"));
 
   // ==========================
-  // DRAG & DROP
+  // TAP-TO-SELECT / TAP-TO-PLACE
   // ==========================
-  function makeDraggableElement(text) {
+  function deselectOption() {
+    if (selectedOption) {
+      selectedOption.classList.remove("selected");
+      selectedOption = null;
+    }
+  }
+
+  function makeOptionElement(text) {
     const div = document.createElement("div");
     div.className = "draggable";
     div.textContent = text;
-    div.draggable = true;
-    div.id = "drag-item-" + draggableCounter++;
 
-    div.addEventListener("dragstart", (e) => {
-      dragSourceContainer = div.parentElement;
-      e.dataTransfer.setData("text/plain", div.id);
+    onTap(div, () => {
+      if (selectedOption === div) {
+        deselectOption(); // tap again to deselect
+        return;
+      }
+      deselectOption();
+      selectedOption = div;
+      div.classList.add("selected");
     });
 
     return div;
@@ -220,61 +249,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function loadOptions() {
     if (!optionsContainer || !currentClient) return;
-
     optionsContainer.innerHTML = "";
 
-    const options = [
+    [
       currentClient.answers.name,
       currentClient.answers.nationality,
       currentClient.answers.address,
       currentClient.answers.city,
       currentClient.answers.state,
-    ];
-
-    options.forEach((text) => {
-      optionsContainer.appendChild(makeDraggableElement(text));
+    ].forEach((text) => {
+      optionsContainer.appendChild(makeOptionElement(text));
     });
   }
 
+  // Attach tap listeners to all dropzones
   document.querySelectorAll(".dropzone").forEach((zone) => {
-    zone.addEventListener("dragover", (e) => e.preventDefault());
-
-    zone.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const id = e.dataTransfer.getData("text/plain");
-      const dragged = document.getElementById(id);
-      if (!dragged) return;
-
-      if (zone.firstChild) {
-        optionsContainer.appendChild(zone.firstChild);
+    onTap(zone, () => {
+      if (selectedOption) {
+        // Return existing content to options bank first
+        if (zone.dataset.placedText) {
+          optionsContainer.appendChild(makeOptionElement(zone.dataset.placedText));
+        }
+        // Place selected option here
+        zone.textContent = selectedOption.textContent;
+        zone.dataset.placedText = selectedOption.textContent;
+        zone.classList.add("filled");
+        selectedOption.remove();
+        deselectOption();
+        clearFeedback();
+      } else if (zone.dataset.placedText) {
+        // Tap filled zone with nothing selected → return to bank
+        optionsContainer.appendChild(makeOptionElement(zone.dataset.placedText));
+        zone.textContent = "";
+        zone.dataset.placedText = "";
+        zone.classList.remove("filled");
+        clearFeedback();
       }
-
-      zone.textContent = "";
-      zone.appendChild(dragged);
-      zone.classList.add("filled");
     });
   });
 
-  if (optionsContainer) {
-    optionsContainer.addEventListener("dragover", (e) => e.preventDefault());
-
-    optionsContainer.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const id = e.dataTransfer.getData("text/plain");
-      const dragged = document.getElementById(id);
-      if (!dragged) return;
-
-      if (dragSourceContainer && dragSourceContainer.classList.contains("dropzone")) {
-        dragSourceContainer.classList.remove("filled");
-        dragSourceContainer.textContent = "";
-      }
-
-      optionsContainer.appendChild(dragged);
-    });
-  }
-
   // ==========================
-  // CHECK FORM (LANGUAGE-NEUTRAL CODES)
+  // CHECK FORM
   // ==========================
   if (checkFormBtn) {
     checkFormBtn.addEventListener("click", () => {
@@ -284,20 +299,15 @@ document.addEventListener("DOMContentLoaded", function () {
       let correct = true;
 
       document.querySelectorAll(".dropzone").forEach((zone) => {
-        const field = zone.dataset.field;
-        const value = zone.firstChild ? zone.firstChild.textContent : "";
-
+        const value = zone.dataset.placedText || "";
         if (!value) {
           allFilled = false;
-        } else if (value !== currentClient.answers[field]) {
+        } else if (value !== currentClient.answers[zone.dataset.field]) {
           correct = false;
         }
       });
 
-      if (!allFilled) {
-        setFeedback("fill_all", false);
-        return;
-      }
+      if (!allFilled) { setFeedback("fill_all", false); return; }
 
       if (correct) {
         setFeedback("all_correct", true);
@@ -309,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==========================
-  // NUMBERS CHECK (LANGUAGE-NEUTRAL CODES)
+  // NUMBERS CHECK
   // ==========================
   if (checkNumbersBtn) {
     checkNumbersBtn.addEventListener("click", () => {
@@ -317,13 +327,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const zipInput = document.getElementById("zipInput");
       const idInput = document.getElementById("idInput");
-
       const zip = zipInput ? zipInput.value.trim() : "";
       const id = idInput ? idInput.value.trim() : "";
 
       if (zip === currentClient.answers.zip && id === currentClient.answers.id) {
         setFeedback("all_correct", true);
-
         if (currentClientKey === "gabriela") {
           setTimeout(() => startClient("pedro"), 700);
         } else {
@@ -341,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function resetForm() {
     document.querySelectorAll(".dropzone").forEach((z) => {
       z.textContent = "";
+      z.dataset.placedText = "";
       z.classList.remove("filled");
     });
 

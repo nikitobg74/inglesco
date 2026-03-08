@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <title>Unidad 1 - Lección 3 - Parte 3</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -151,39 +152,52 @@ button:hover { background:#1e40af; }
   font-size:16px;
 }
 
-/* DROPZONES */
-.dropzone {
-  min-height:42px;
-  border:2px dashed #c7c7c7;
-  border-radius:8px;
-  padding:8px 10px;
-  background:#f3f4f6;
-  font-size:15px;
-  display:flex;
-  align-items:center;
-  font-weight:600;
-  color:#111827;
-  margin-bottom:8px;
-}
-
-.dropzone.filled {
-  border:2px solid #2563eb;
-  background:#e0f2fe;
-}
+/* DRAGGABLE OPTIONS replaced below */
 
 /* DRAGGABLE OPTIONS */
 .draggable {
-  padding:8px 12px;
-  margin:4px 0;
-  background:#e0f2fe;
-  border-radius:6px;
-  cursor:grab;
-  font-size:14px;
-  border:1px solid #bfdbfe;
-  font-weight:600;
-  color:#111827;
+  padding: 12px 16px;
+  margin: 6px 0;
+  background: #e0f2fe;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  border: 2px solid #bfdbfe;
+  font-weight: 600;
+  color: #111827;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
 }
-.draggable:hover { background:#dbeafe; }
+.draggable:active { transform: scale(0.97); }
+.draggable.selected {
+  background: #fef08a;
+  border-color: #ca8a04;
+  box-shadow: 0 0 0 3px #fde047;
+}
+
+/* Dropzone hint when option selected */
+.dropzone {
+  min-height: 42px;
+  border: 2px dashed #c7c7c7;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #f3f4f6;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dropzone.filled {
+  border: 2px solid #2563eb;
+  background: #e0f2fe;
+}
 
 /* NUMBER INPUTS */
 .number-input {
@@ -256,16 +270,16 @@ button:hover { background:#1e40af; }
 <!-- CLIENT SECTION -->
 <div id="clientSection" class="hidden">
 
+  <div class="instruction-box" id="instructionBox">
+    Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.
+  </div>
+
   <!-- FORM IMAGE -->
   <div class="center" style="margin-bottom:20px;">
     <img src="../../../../assets/images/u1/u1.l3.p3.form.jpg" alt="Hotel registration form" class="small-img">
   </div>
 
   <h2 id="clientTitle"></h2>
-
-  <div class="instruction-box" id="instructionBox">
-    Haz clic en las cajas a la derecha para escuchar la información y completa el formulario abajo.
-  </div>
 
   <div class="flex">
 
