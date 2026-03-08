@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leccion 1 - 4</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ✅ Correct JS path (same style as p2/p3) -->
+  <script defer src="../../../../js/u1/p4.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { padding: 20px; background: #eef2ff; }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 30px;
+      padding: 8px 15px;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    h1 { text-align: center; margin-bottom: 25px; color: #2563eb; }
+
+    .unit-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #2563eb;
+    }
+
+    .progress-container { display:flex; justify-content:center; margin-bottom:30px; }
+    .step {
+      width:40px; height:40px; border-radius:50%;
+      background:#d1d5db; display:flex; align-items:center; justify-content:center;
+      font-weight:600; margin:0 10px; color:black; cursor:pointer;
+      transition: all 0.3s ease;
+    }
+    .step.active { background:#2563eb; color:white; }
+    .step:hover { transform: scale(1.1); }
+
+    .exercise-box {
+      max-width: 750px;
+      margin: 0 auto;
+      background: white;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 22px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+    }
+    button:hover { background: #1e40af; }
+
+    .word-bank, .drop-zone {
+      min-height: 90px;
+      padding: 20px;
+      margin-top: 20px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .word {
+      padding: 14px 22px;
+      background: #3b82f6;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: grab;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    input {
+      margin-top: 20px;
+      padding: 14px;
+      width: 85%;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 2px solid #cbd5e1;
+    }
+
+    .round-counter {
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #2563eb;
+    }
+
+    /* Hidden language strings (JS reads these; JS has no Spanish) */
+    .i18n { display:none; }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+
+  <div class="unit-title">Lección 1</div>
+
+  <!-- Progress bar (data-page for language-neutral navigation) -->
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step" data-page="p3.html">3</div>
+    <div class="step active" data-page="p4.html">4</div>
+  </div>
+
+  <h1>Práctica de la lección</h1>
+
+  <!-- Language strings stored in HTML -->
+  <div class="i18n">
+    <span id="msg-correct">✅ ¡Correcto!</span>
+    <span id="msg-try-again">❌ Intenta otra vez!</span>
+    <span id="msg-excellent">✅ ¡Excelente!</span>
+    <span id="counter-template">Ejercicio {n} / {total}</span>
+  </div>
+
+  <div class="exercise-box">
+
+    <div id="exercise1">
+      <h2>Ordena las palabras</h2>
+
+      <button id="playAudio">🔊 Play Audio</button>
+
+      <div class="word-bank" id="wordBank"></div>
+      <div class="drop-zone" id="dropZone"></div>
+
+      <button id="checkBtn">Check</button>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div id="exercise2" style="display:none;">
+      <h2>Write the sentence</h2>
+
+      <button id="playWriteAudio">🔊 Play Audio</button>
+
+      <input type="text" id="writeInput" placeholder="Type the full sentence">
+      <br>
+      <button id="checkWrite">Check</button>
+      <div class="feedback" id="writeFeedback"></div>
+    </div>
+
+    <div class="round-counter" id="roundCounter"></div>
+
+  </div>
+
+</body>
+</html>

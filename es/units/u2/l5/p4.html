@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 2 - Lección 5 - Parte 4</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+    /* ✅ Softer sage green background */
+    body{ padding:20px; background:#f6fbf8; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.08); }
+
+    .exercise-box{
+      max-width:950px;
+      margin:0 auto;
+      background:#fff;
+      padding:26px 26px;
+      border-radius:18px;
+      box-shadow:0 10px 25px rgba(34,139,94,0.08);
+      color:#0f172a;
+    }
+
+    .unit-title{
+      color:#2563eb;
+      font-size:26px;
+      font-weight:900;
+      text-align:center;
+      margin-bottom:12px;
+    }
+
+    /* ✅ Bigger ES explanation */
+    .explain-box{
+      background:#e6f4ee;
+      border:1px solid #cfe9dd;
+      padding:16px 16px;
+      border-radius:14px;
+      font-weight:800;
+      margin-bottom:16px;
+      line-height:1.35;
+      font-size:16px;  /* bigger */
+    }
+    .explain-title{
+      font-size:20px;
+      font-weight:900;
+      text-align:center;
+      margin-bottom:8px;
+    }
+    .explain-we .explain-title{ color:#0f172a; }
+    .explain-they .explain-title{ color:#1d4ed8; } /* different color */
+    .explain-they{ background:#eef2ff; border-color:#c7d2fe; }
+
+    .counter-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin:10px 0 12px 0;
+      flex-wrap:wrap;
+    }
+    .counter-pill{
+      background:#2563eb;
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:900;
+    }
+    .status-text{
+      font-weight:900;
+      color:#0f172a;
+      text-align:center;
+    }
+
+    .panel{
+      border:1px solid #e5e7eb;
+      background:#f8fafc;
+      border-radius:16px;
+      padding:14px;
+      margin-top:12px;
+    }
+
+    /* ✅ Image smaller + mobile-friendly */
+    .image-box{
+      display:flex;
+      justify-content:center;
+      margin:10px 0 12px 0;
+    }
+    .image-box img{
+      width:100%;
+      max-width:520px;
+      max-height:240px;      /* key: keeps it small */
+      object-fit:contain;    /* keeps full image visible */
+      border-radius:14px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+    }
+
+    .audio-row{
+      display:flex;
+      justify-content:center;
+      margin-bottom:10px;
+    }
+    .play-btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      width:56px;
+      height:56px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all .2s;
+    }
+    .play-btn:hover{ background:#1e40af; }
+
+    .q-title{
+      font-weight:900;
+      text-align:center;
+      margin:8px 0 10px 0;
+      color:#0f172a;
+    }
+
+    /* ✅ Big tap targets: whole row clickable */
+    .options{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+    .option{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      cursor:pointer;
+      user-select:none;
+    }
+    .option:hover{ border-color:#c7d2fe; box-shadow:0 0 0 3px rgba(37,99,235,.08); }
+
+    .option input{
+      width:22px;
+      height:22px;
+      margin-top:2px;
+      flex:0 0 auto;
+      cursor:pointer;
+    }
+    .option span{
+      font-weight:900;
+      color:#0f172a;
+      line-height:1.25;
+    }
+
+    .btn-row{
+      display:flex;
+      justify-content:center;
+      margin-top:12px;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
+      transition:all .2s;
+      white-space:nowrap;
+    }
+    .btn:hover{ background:#1e40af; }
+
+    .mark{
+      text-align:center;
+      font-weight:900;
+      font-size:18px;
+      margin-top:10px;
+      min-height:22px;
+    }
+    .ok{ color:#0a7a2f; }
+    .bad{ color:#b00020; }
+
+    .great{
+      background:#dcfce7;
+      border:1px solid #22c55e;
+      color:#14532d;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      text-align:center;
+      margin-top:12px;
+    }
+
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:20px;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+
+    .hidden{ display:none !important; }
+
+    @media (max-width:520px){
+      body{ padding:14px; }
+      .exercise-box{ padding:18px 16px; }
+      .unit-title{ font-size:22px; }
+      .explain-box{ font-size:15px; }
+      .explain-title{ font-size:18px; }
+      .image-box img{ max-height:200px; }
+      .play-btn{ width:52px; height:52px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <!-- ✅ Progress bar back -->
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step" data-page="p3.html">3</div>
+    <div class="step active" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+    <div class="unit-title">Unidad 2 – Lección 5 – Parte 4</div>
+
+    <!-- ✅ Explanation: WE ARE (first 4) -->
+    <div class="explain-box explain-we" id="explainWe">
+      <div class="explain-title">WE ARE</div>
+      <div><b>We are</b> = Nosotros estamos</div>
+      <div><b>Where are you?</b> ¿Dónde estás?</div>
+      <div>En inglés siempre necesitamos el sujeto.</div>
+      <div>Debemos decir <b>“We are”</b>.</div>
+      <div style="margin-top:8px;"><b>We are in the kitchen.</b> → Nosotros estamos en la cocina.</div>
+    </div>
+
+    <!-- ✅ Explanation: THEY ARE (last 4) -->
+    <div class="explain-box explain-they hidden" id="explainThey">
+      <div class="explain-title">THEY ARE</div>
+      <div><b>They are</b> = Ellos están / Ellas están</div>
+      <div><b>Where are they?</b> ¿Dónde están?</div>
+      <div>En inglés siempre necesitamos el sujeto.</div>
+      <div>Debemos decir <b>“They are”</b>.</div>
+      <div style="margin-top:8px;"><b>They are in the kitchen.</b> → Están en la cocina.</div>
+    </div>
+
+    <div class="counter-row">
+      <span class="counter-pill" id="counter">1 / 8</span>
+      <span class="status-text" id="status">Escucha ▶ y selecciona la oración correcta.</span>
+    </div>
+
+    <div class="panel">
+      <div class="image-box">
+        <img id="exerciseImage" alt="exercise image">
+      </div>
+
+      <div class="audio-row">
+        <button class="play-btn" id="playBtn" type="button" aria-label="Play/Pause">▶</button>
+      </div>
+
+      <div class="q-title" id="questionText">Select the correct sentence:</div>
+
+      <div class="options" id="optionsBox"></div>
+
+      <div class="btn-row">
+        <button class="btn" id="checkBtn" type="button">Check</button>
+      </div>
+
+      <div class="mark" id="mark"></div>
+      <div class="great hidden" id="great">¡Great job!! ✅</div>
+    </div>
+
+    <div class="footer-actions">
+      <a href="../index.html" class="next-btn hidden" id="finishBtn">Finish ▶</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u2/u2_l5_p4.js"></script>
+</body>
+</html>

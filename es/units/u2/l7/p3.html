@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 2 - Lección 7 - Parte 3</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color:#0f172a;
+    }
+
+    .wrap{
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR TOP ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{
+      background:#2563eb;
+      color:#fff;
+    }
+    .step:hover{ transform:scale(1.1); }
+
+    @media (max-width:520px){
+      .step{
+        width:34px;
+        height:34px;
+        font-size:14px;
+      }
+    }
+
+    /* ===== CARD ===== */
+    .card{
+      background: rgba(255,255,255,.88);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
+      margin-bottom: 14px;
+    }
+
+    .lesson-subtitle{
+      text-align:center;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+      opacity: .85;
+    }
+
+    .title{
+      font-size: 26px;
+      font-weight: 900;
+      margin: 6px 0 10px 0;
+      letter-spacing: .2px;
+      text-align:center;
+    }
+
+    .hint-es{
+      text-align:center;
+      font-weight: 900;
+      margin: 6px 0 0 0;
+      font-size: 15px;
+      opacity:.9;
+    }
+
+    .hint{
+      text-align:center;
+      font-weight: 700;
+      opacity: .75;
+      margin: 6px 0 0 0;
+      font-size: 14px;
+    }
+
+    /* ===== ROUND PROGRESS ===== */
+    .round-box{
+      margin-top: 14px;
+      text-align:center;
+      font-weight:900;
+      font-size:15px;
+      color:#1e3a8a;
+    }
+
+    /* ===== AUDIO AREA ===== */
+    .audio-box{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .audio-btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background:#2563eb;
+      color:#fff;
+      font-weight: 900;
+      font-size: 16px;
+      min-width: 220px;
+      box-shadow: 0 8px 18px rgba(37,99,235,.22);
+    }
+    .audio-btn:hover{ background:#1e40af; }
+    .audio-btn:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
+    /* ===== CHOICES ===== */
+    .choices{
+      margin-top: 20px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 700px){
+      .choices{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .choice{
+      background: rgba(255,255,255,.95);
+      border: 3px solid #cbd5e1;
+      border-radius: 18px;
+      padding: 10px;
+      cursor:pointer;
+      transition: all .2s ease;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height: 220px;
+    }
+
+    .choice:hover{
+      transform: translateY(-2px);
+      border-color:#2563eb;
+    }
+
+    .choice.selected{
+      border-color:#2563eb;
+      background:#dbeafe;
+    }
+
+    .choice.correct{
+      border-color:#16a34a;
+      background:#dcfce7;
+    }
+
+    .choice.wrong{
+      border-color:#dc2626;
+      background:#fee2e2;
+    }
+
+    .choice img{
+      width: 100%;
+      max-width: 220px;
+      height: 160px;
+      object-fit: contain;
+      background:#e5e7eb;
+      border-radius: 14px;
+      display:block;
+    }
+
+    .choice-label{
+      margin-top: 10px;
+      font-weight: 900;
+      font-size: 15px;
+      text-align:center;
+      color:#0f172a;
+    }
+
+    /* ===== FEEDBACK ===== */
+    .feedback{
+      min-height: 30px;
+      margin-top: 16px;
+      text-align:center;
+      font-weight:900;
+      font-size:15px;
+    }
+    .feedback.ok{ color:#166534; }
+    .feedback.bad{ color:#b91c1c; }
+
+    /* ===== ACTIONS ===== */
+    .actions{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-bottom: 22px;
+    }
+
+    .check-btn,
+    .next-btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 12px 18px;
+      border-radius: 14px;
+      color:#fff;
+      font-weight: 900;
+      font-size: 16px;
+      min-width: 220px;
+    }
+
+    .check-btn{
+      background:#16a34a;
+      box-shadow: 0 8px 18px rgba(22,163,74,.22);
+    }
+    .check-btn:hover{ filter: brightness(.96); }
+    .check-btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    .next-btn{
+      background:#2563eb;
+      box-shadow: 0 8px 18px rgba(37,99,235,.22);
+    }
+    .next-btn:hover{ background:#1e40af; }
+
+    .finish-btn{
+      display:inline-block;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background:#2563eb;
+      color:#fff;
+      font-weight: 900;
+      text-decoration:none;
+      min-width: 220px;
+      text-align:center;
+    }
+    .finish-btn:hover{ background:#1e40af; }
+
+    .hidden{ display:none !important; }
+
+    .done-badge{
+      display:inline-block;
+      margin: 10px auto 0 auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background:#dcfce7;
+      color:#166534;
+      font-weight: 900;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <div class="progress-container" aria-label="Progreso de la lección">
+      <div class="step" data-go="p1.html">1</div>
+      <div class="step" data-go="p2.html">2</div>
+ <div class="step active" data-go="p3.html" aria-current="page">3</div>
+      <div class="step" data-go="p4.html">4</div>
+        </div>
+
+    <div class="card">
+      <div class="lesson-subtitle">Unidad 2 · Lección 7 · Parte 3</div>
+      <div class="title">Escucha y selecciona la imagen</div>
+
+      <div class="hint-es">Primero escucha el audio. Después elige la imagen correcta.</div>
+      
+      <div id="roundBox" class="round-box">1 / 15</div>
+
+      <div class="audio-box">
+        <button id="audioBtn" class="audio-btn" type="button">🔊 Escuchar audio</button>
+      </div>
+
+      <div id="choices" class="choices hidden"></div>
+
+      <div id="feedback" class="feedback"></div>
+
+      <div class="actions">
+                <button id="nextBtn" class="next-btn hidden" type="button">Siguiente ▶</button>
+        <a id="finishBtn" class="finish-btn hidden" href="../index.html">Finalizar ▶</a>
+      </div>
+
+      <div id="doneBadge" class="done-badge hidden">🎉 Buen trabajo, felicitaciones.</div>
+    </div>
+
+  </div>
+
+  <script src="../../../../js/u2/u2_l7_p3.js"></script>
+</body>
+</html>

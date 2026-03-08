@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 3 - Parte 4</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body{ padding:20px; background:#eef2ff; }
+
+.back-btn{
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover{ background:#1e40af; }
+
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .3s;
+  color:#1f2933;
+}
+.step.active{ background:#2563eb; color:#fff; }
+.step:hover{ transform:scale(1.1); }
+
+.exercise-box{
+  max-width:950px;
+  margin:0 auto;
+  background:#fff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title{
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.instruction-box{
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+.counter-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  color:#1f2933;
+  font-weight:700;
+}
+.counter-pill{
+  background:#2563eb;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.main-row{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.play-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-width:90px;
+}
+.play-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  width:54px;
+  height:54px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .2s;
+}
+.play-btn:hover{ background:#1e40af; }
+.play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+.small-note{
+  font-weight:700;
+  color:#334155;
+  font-size:13px;
+  text-align:center;
+}
+
+.panel{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:14px;
+  width:100%;
+  max-width:620px;
+}
+
+.panel-title{
+  font-weight:800;
+  color:#1f2933;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+/* Sentence builder */
+.builder{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:6px;
+}
+
+.sentence-row{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.slot{
+  border:2px dashed #cbd5e1;
+  background:#f1f5f9;
+  color:#0f172a;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:900;
+  min-width:140px;
+  text-align:center;
+  cursor:pointer;
+  transition: transform .12s, border-color .12s, background .12s;
+}
+.slot:hover{ transform:scale(1.02); }
+.slot.active{
+  border-color:#2563eb;
+  background:#dbeafe;
+}
+.slot.filled{
+  border-style:solid;
+  border-color:#94a3b8;
+  background:#fff;
+}
+.slot.wrong{
+  border-color:#ef4444;
+  background:#fee2e2;
+}
+.slot.correct{
+  border-color:#22c55e;
+  background:#dcfce7;
+}
+
+.bank{
+  margin-top:6px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.word-row{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.tile{
+  border:2px solid #dbeafe;
+  background:#eff6ff;
+  color:#1e40af;
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:900;
+  cursor:pointer;
+  transition: transform .12s, filter .12s, border-color .12s;
+  user-select:none;
+}
+.tile:hover{ transform:scale(1.03); }
+.tile:disabled{ opacity:.6; cursor:not-allowed; }
+
+.controls{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.control-btn{
+  border:none;
+  cursor:pointer;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:800;
+  transition:all .2s;
+}
+.control-btn:hover{ filter:brightness(0.95); }
+.control-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+.btn-blue{ background:#2563eb; }
+.btn-green{ background:#22c55e; }
+.btn-gray{ background:#6b7280; }
+
+.message-row{
+  margin-top:12px;
+  display:flex;
+  justify-content:center;
+  min-height:22px;
+  font-weight:900;
+  color:#1f2933;
+}
+
+.next-lesson-wrap{
+  margin-top:16px;
+  display:flex;
+  justify-content:center;
+}
+.next-btn{
+  display:inline-block;
+  text-decoration:none;
+  background:#0ea5e9;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:900;
+}
+.next-btn:hover{ filter:brightness(0.95); }
+
+.hidden{ display:none !important; }
+
+@media (max-width:768px){
+  .exercise-box{ padding:22px 18px; }
+  .panel{ max-width:100%; }
+  .slot{ min-width:130px; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step active" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+  <div class="unit-title">Unidad 2 – Lección 3 - Parte 4</div>
+
+  <div class="instruction-box">
+    Toca ▶ para escuchar. Luego arma la frase tocando un espacio y eligiendo palabras.
+    Cuando termines, toca <b>Check ✅</b>. Puedes repetir el audio.
+  </div>
+
+  <div class="counter-row">
+    <span class="counter-pill" id="roundPill">1/15</span>
+  </div>
+
+  <div class="main-row">
+    <div class="play-wrap">
+      <button class="play-btn" id="playBtn" type="button" aria-label="Play">▶</button>
+      <div class="small-note" id="statusText">Play</div>
+    </div>
+
+    <div class="panel" aria-label="exercise panel">
+      <div class="panel-title">Arma la frase completa</div>
+
+      <div class="builder">
+        <div class="sentence-row" aria-label="sentence slots">
+          <button class="slot" id="slot1" type="button">[ sujeto ]</button>
+          <button class="slot" id="slot2" type="button">[ at the ]</button>
+          <button class="slot" id="slot3" type="button">[ lugar ]</button>
+        </div>
+
+        <div class="bank">
+          <div class="panel-title" style="margin:4px 0 0;">Banco de palabras</div>
+          <div class="word-row">
+            <button class="tile" id="t1" type="button" disabled></button>
+            <button class="tile" id="t2" type="button" disabled></button>
+            <button class="tile" id="t3" type="button" disabled></button>
+            <button class="tile" id="t4" type="button" disabled></button>
+            <button class="tile" id="t5" type="button" disabled></button>
+            <button class="tile" id="t6" type="button" disabled></button>
+          </div>
+        </div>
+
+        <div class="message-row">
+          <span id="msgPlayFirst" class="hidden">▶ Primero toca Play</span>
+          <span id="msgPickSlot" class="hidden">👆 Toca un espacio primero</span>
+          <span id="msgIncomplete" class="hidden">⚠️ Completa los 3 espacios</span>
+          <span id="msgCorrect" class="hidden">✅ Correcto</span>
+          <span id="msgWrong" class="hidden">❌ Incorrecto. Intenta otra vez</span>
+        </div>
+
+        <div class="controls">
+          <button class="control-btn btn-gray" id="replayBtn" type="button">Repeat ↺</button>
+          <button class="control-btn btn-blue" id="clearBtn" type="button">Clear ✖</button>
+          <button class="control-btn btn-green" id="checkBtn" type="button" disabled>Check ✅</button>
+        </div>
+
+        <div class="next-lesson-wrap">
+          <!-- Change this link if you want to go somewhere else after finishing -->
+          <a href="../index.html" class="next-btn hidden" id="nextBtn">Continuar ▶</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../../../js/u2/u2_l3_p4.js"></script>
+</body>
+</html>

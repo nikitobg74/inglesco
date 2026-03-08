@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 1 Parte 3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#eef2ff; }
+
+    .back-btn { display:inline-block; margin-bottom:20px; padding:8px 15px; background:#2563eb; color:white; border-radius:10px; text-decoration:none; font-weight:600; }
+    .back-btn:hover { background:#1e40af; }
+
+    h1 { text-align:center; margin-bottom:15px; color:#2563eb; }
+
+    .progress-container { display:flex; justify-content:center; margin-bottom:30px; }
+    .step { width:40px; height:40px; border-radius:50%; background:#d1d5db; display:flex; align-items:center; justify-content:center; font-weight:600; margin:0 10px; color:black; cursor:pointer; transition: all 0.3s ease; }
+    .step.active { background:#2563eb; color:white; }
+    .step:hover { transform: scale(1.1); }
+
+    .instructions { text-align:center; margin-bottom:20px; font-size:18px; color:#374151; }
+
+    .audio-boxes { display:flex; flex-direction:column; gap:60px; }
+    .audio-box { background:#c2c746; color:white; padding:25px; border-radius:10px; font-weight:600; font-size:20px; cursor:pointer; text-align:center; transition: all 0.2s ease; }
+
+    .exercise-container { display:flex; gap:200px; max-width:900px; margin:0 auto; justify-content:center; }
+
+    .characters { display:flex; flex-direction:column; gap:20px; }
+    .character { display:flex; align-items:center; gap:15px; background:#2563eb; color:white; padding:10px 15px; border-radius:10px; cursor:pointer; transition: all 0.3s ease; }
+    .character img { width:180px; border-radius:10px; transition: transform 0.3s ease; }
+    .character img:hover { transform:scale(1.05); }
+    .character-name { font-size:18px; font-weight:600; }
+    .character-played { font-size:22px; margin-left:auto; font-weight:600; }
+
+    .feedback-wrong {
+      color:#ef4444;
+      font-weight:600;
+      margin-left:10px;
+      display:inline-block;
+      animation: jump 0.3s;
+    }
+    @keyframes jump {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+
+    .continue-btn { display:block; margin:40px auto 0; padding:12px 30px; background:#22c55e; color:white; border:none; border-radius:10px; font-size:18px; font-weight:600; cursor:not-allowed; opacity:0.5; transition: all 0.3s ease; }
+    .continue-btn.enabled { cursor:pointer; opacity:1; }
+
+    /* Hidden messages (language lives here, JS reads it) */
+    .i18n { display:none; }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+
+  <h1>Lección 1</h1>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step active" data-page="p3.html">3</div>
+    <div class="step" data-page="p4.html">4</div>
+  </div>
+
+  <div class="instructions">
+    Elige al hablante correcto. Haz clic en el recuadro de la izquierda para escuchar el audio y luego selecciona la imagen correcta.
+  </div>
+
+  <!-- Language strings stored in HTML -->
+  <div class="i18n">
+    <span id="msg-try-again">❌ ¡Inténtalo de nuevo!</span>
+  </div>
+
+  <div class="exercise-container">
+    <!-- Left: Audio Boxes -->
+    <div class="audio-boxes">
+      <div class="audio-box" id="box1">1</div>
+      <div class="audio-box" id="box2">2</div>
+      <div class="audio-box" id="box3">3</div>
+      <div class="audio-box" id="box4">4</div>
+    </div>
+
+    <!-- Right: Characters -->
+    <div class="characters">
+      <div class="character" id="ana-card">
+        <img src="../../../../assets/images/u1/ana.png" alt="Ana">
+        <div class="character-name">Ana</div>
+        <div class="character-played" id="ana-feedback"></div>
+        <audio id="ana-audio" src="../../../../assets/audio/u1/ana.mp3"></audio>
+      </div>
+
+      <div class="character" id="pedro-card">
+        <img src="../../../../assets/images/u1/pedro.png" alt="Pedro">
+        <div class="character-name">Pedro</div>
+        <div class="character-played" id="pedro-feedback"></div>
+        <audio id="pedro-audio" src="../../../../assets/audio/u1/pedro.mp3"></audio>
+      </div>
+
+      <div class="character" id="george-card">
+        <img src="../../../../assets/images/u1/george.png" alt="George">
+        <div class="character-name">George</div>
+        <div class="character-played" id="george-feedback"></div>
+        <audio id="george-audio" src="../../../../assets/audio/u1/george.mp3"></audio>
+      </div>
+
+      <div class="character" id="julie-card">
+        <img src="../../../../assets/images/u1/julie.png" alt="Julie">
+        <div class="character-name">Julie</div>
+        <div class="character-played" id="julie-feedback"></div>
+        <audio id="julie-audio" src="../../../../assets/audio/u1/julie.mp3"></audio>
+      </div>
+    </div>
+  </div>
+
+  <button id="continue-btn" class="continue-btn" data-next="p4.html" disabled>
+    Continuar →
+  </button>
+
+  <script src="../../../../js/u1/p3.js"></script>
+</body>
+</html>

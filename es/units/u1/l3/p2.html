@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 1 - Lección 3 - Parte 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Use the external JS only -->
+<script defer src="../../../../js/u1/u1_l3_p2.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+.back-btn:hover { background:#1e40af; }
+
+.unit-title {
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#2563eb;
+}
+
+.progress-container {
+  display:flex;
+  justify-content:center;
+  margin:15px 0 25px 0;
+  gap:10px;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.step.active { background:#2563eb; color:white; }
+.step:hover { transform: scale(1.1); }
+
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:white;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.top-characters {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+.character { width:220px; text-align:center; }
+.character img { width:100%; border-radius:16px; border:4px solid #2563eb; }
+
+.play-btn {
+  padding:8px 18px;
+  border:none;
+  border-radius:12px;
+  background:#7c3aed;
+  color:white;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  margin-right:10px;
+}
+.play-btn:hover { background:#6d28d9; }
+
+.check-btn {
+  padding:8px 18px;
+  border:none;
+  border-radius:12px;
+  background:#16a34a;
+  color:white;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  margin-left:10px;
+}
+.feedback { font-weight:600; margin-left:10px; }
+
+.dialogue-container { display:flex; flex-direction:column; gap:18px; }
+.dialogue-row { display:flex; align-items:center; flex-wrap:wrap; width:100%; }
+.dialogue-box { padding:12px 16px; border-radius:16px; font-size:16px; line-height:1.5; min-width:50px; margin-top:6px; }
+.ana-box { background:#fce7f3; color:#111; text-align:left; }
+.george-box { background:#e0f2fe; color:#111; text-align:right; }
+.locked { opacity:0.5; pointer-events:none; }
+
+.word {
+  display: inline-block;
+  margin: 4px 6px;
+  padding: 4px 8px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  cursor: grab;
+  user-select: none;
+}
+.word:active { cursor: grabbing; }
+.ana-box .word { background: #fde2f0; }
+.george-box .word { background: #d0f0ff; }
+
+.controls {
+  text-align:center;
+  margin-top:35px;
+}
+.next-btn {
+  padding:12px 25px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+}
+.next-btn:hover { background:#1e40af; }
+
+@media(max-width:768px){
+  .top-characters{ flex-direction:column; gap:20px; }
+  .dialogue-row{ flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+
+<div class="unit-title">Lección 3 - Parte 2</div>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step active" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+  <div class="top-characters">
+    <div class="character">
+      <img src="../../../../assets/images/u1/ana.png" alt="Ana"><p><strong>Ana</strong></p>
+    </div>
+    <div class="character">
+      <img src="../../../../assets/images/u1/george.png" alt="George"><p><strong>George</strong></p>
+    </div>
+  </div>
+
+  <!-- This is where JS will render dialogue rows -->
+  <div class="dialogue-container" id="dialogueContainer"></div>
+
+  <div class="controls">
+    <button class="next-btn" id="nextBtn">Siguiente →</button>
+  </div>
+</div>
+
+</body>
+</html>

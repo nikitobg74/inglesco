@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inglesco - Lista de Unidades</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .back-btn {
+      align-self: flex-start;
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+    }
+
+    .logo-dashboard {
+      font-size: 80px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    .logo-dashboard span:nth-child(1) { color: #ff4d4d; }
+    .logo-dashboard span:nth-child(2) { color: #ff9900; }
+    .logo-dashboard span:nth-child(3) { color: #22c55e; }
+    .logo-dashboard span:nth-child(4) { color: #3b82f6; }
+    .logo-dashboard span:nth-child(5) { color: #a855f7; }
+    .logo-dashboard span:nth-child(6) { color: #ec4899; }
+    .logo-dashboard span:nth-child(7) { color: #06b6d4; }
+    .logo-dashboard span:nth-child(8) { color: #f97316; }
+
+    .logo-divider {
+      border: none;
+      height: 5px;
+      background-color: #ccc;
+      width: 200px;
+      margin: 0 auto 30px auto;
+      border-radius: 2px;
+    }
+
+    .main-content {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      gap: 80px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .left {
+      width: 40%;
+      min-width: 300px;
+      padding-top: 60px;
+    }
+
+    .left h1 {
+      font-size: 34px;
+      margin-bottom: 20px;
+      color: #2563eb;
+    }
+
+    .left p {
+      font-size: 18px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .right {
+      width: 50%;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    /* NEW TITLE ABOVE UNITS */
+    .units-title {
+      width: 300px;
+      font-size: 26px;
+      font-weight: 600;
+      color: #1e40af;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .unit {
+      background: #2563eb;
+      color: white;
+      padding: 20px 25px;
+      border-radius: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 60px;
+      max-width: 300px;
+      text-align: left;
+    }
+
+    .unit:hover {
+      transform: scale(1.05);
+      background: #1e40af;
+    }
+
+    .unit span {
+      display: block;
+      font-size: 14px;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      line-height: 1.4;
+    }
+
+    .unit:hover span {
+      opacity: 1;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .left, .right {
+        width: 100%;
+        text-align: center;
+      }
+
+      .units-title {
+        text-align: center;
+      }
+
+      .unit span {
+        margin-left: 0;
+        display: inline-block;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html" class="back-btn">← Volver</a>
+
+  <div class="logo-dashboard">
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+    <span>L</span>
+    <span>E</span>
+    <span>S</span>
+    <span>C</span>
+    <span>O</span>
+  </div>
+
+  <hr class="logo-divider">
+
+  <div class="main-content">
+
+    <div class="left">
+      <h1>Bienvenido a Inglesco</h1>
+      <p>
+        Aquí aprenderás inglés paso a paso.
+        Cada unidad está diseñada para ayudarte a hablar,
+        entender y usar el inglés con confianza.
+      </p>
+    </div>
+
+    <div class="right">
+
+      <div class="units-title">
+        Lista de Unidades
+      </div>
+
+      <a href="units/u1/index.html">
+        <div class="unit">
+          Unidad 1
+          <span>Saludos – Aprende a saludar y presentarte.</span>
+        </div>
+      </a>
+
+	<a href="units/u2/index.html">
+
+      <div class="unit">
+        Unidad 2 – Where is? Dónde es
+        <span>Aprendemos a usar "Where is...?Dónde es" Dónde espara hablar de ubicación.</span>
+      </div>
+	 </a>
+	
+	<a href="units/u3/index.html">
+
+      <div class="unit">
+        Unidad 3
+        <span>What are you doing? Vida diaria – Vocabulario básico del día a día.</span>
+      </div>
+	 </a>
+
+<a href="units/u4/index.html">
+
+      <div class="unit">
+        Unidad 4
+        <span>TBD </span>
+      </div>
+	 </a>
+
+<a href="units/u5/index.html">
+
+      <div class="unit">
+        Unidad 5
+        <span>Unit 5 TBD</span>
+      </div>
+	 </a>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 2 - Lección 1 - Parte 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover { background:#1e40af; }
+
+.progress-container {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active {
+  background:#2563eb;
+  color:#ffffff;
+}
+.step:hover { transform:scale(1.1); }
+
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title {
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.instruction-box {
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:25px;
+}
+
+.images-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.image-box {
+  flex:1 1 45%;
+  text-align:center;
+  min-width:200px;
+}
+
+.image-box img {
+  width:100%;
+  max-width:400px;
+  border-radius:14px;
+  margin-bottom:8px;
+}
+
+.image-description {
+  font-weight:600;
+}
+
+.words-container {
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.word-box {
+  background:#e0f2fe;
+  border:1px solid #bfdbfe;
+  padding:15px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  text-align:center;
+  min-width:140px;
+  transition:all 0.3s;
+}
+.word-box:hover { background:#dbeafe; }
+.word-box.played { background:#bbf7d0; border:1px solid #16a34a; }
+
+.word-en { font-weight:700; font-size:18px; color:#111827; }
+.word-es { font-size:14px; color:#ffffff; margin-top:5px; }
+
+.next-btn {
+  display:inline-block;
+  margin-top:15px;
+  background:#2563eb;
+  color:white;
+  padding:10px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+.next-btn:hover { background:#1e40af; }
+
+/* Responsive */
+@media (max-width:768px){
+  .images-row { flex-direction:column; align-items:center; }
+  .image-box { flex:1 1 100%; max-width:90%; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+<h1 class="unit-title">Lección 1 - Parte 1<br>Rooms in the House – Habitaciones de la casa</h1>
+
+<div class="instruction-box">
+Haz clic en cada palabra para escuchar la pronunciación en inglés.
+</div>
+
+<div class="words-container" id="wordsContainer"></div>
+
+<div class="images-row">
+  <div class="image-box">
+    <img src="../../../../assets/images/u2/u2.l1.p1.house1.jpg" alt="House">
+    <div class="image-description">My house – mi casa</div>
+  </div>
+  <div class="image-box">
+    <img src="../../../../assets/images/u2/u2.l1.p1.garage1.jpg" alt="Garage">
+    <div class="image-description">My garage – mi garaje</div>
+  </div>
+</div>
+
+<a href="p2.html" class="next-btn">Siguiente →</a>
+
+</div>
+
+<script src="../../../../js/u2/u2_l1_p1.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 2 - Parte 3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn{
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover{ background:#1e40af; }
+
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active{ background:#2563eb; color:#ffffff; }
+.step:hover{ transform:scale(1.1); }
+
+.exercise-box{
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title{
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.instruction-box{
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+/* NEW: list cards */
+.cards{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:14px;
+  margin-top:14px;
+}
+
+.loc-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:10px;                 /* smaller padding */
+  box-shadow:0 6px 14px rgba(0,0,0,0.05);
+  max-width:420px;              /* limits card width */
+  margin:0 auto;                /* center on mobile */
+  transition:transform 0.15s;
+}
+.loc-card:hover{ transform:translateY(-1px); }
+
+.loc-card.played{
+  filter: grayscale(1);
+  opacity: 0.78;
+  outline: 3px solid rgba(22,163,74,0.30);
+  background:#f0fdf4;
+}
+
+.loc-img{
+  width:100%;
+  height:150px;                 /* fixed smaller height */
+  border-radius:12px;
+  display:block;
+  object-fit:cover;
+  background:#f3f4f6;
+}
+
+.loc-words{
+  margin-top:8px;
+  text-align:center;
+}
+.loc-en{
+  font-size:18px;
+  font-weight:900;
+  color:#111827;
+}
+.loc-es{
+  margin-top:2px;
+  font-size:12px;
+  font-weight:700;
+  color:#6b7280;
+}
+
+.play-row{
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+}
+
+.play-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  width:40px;            /* smaller */
+  height:40px;           /* smaller */
+  border-radius:10px;    /* tighter */
+  font-size:16px;        /* smaller icon */
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 10px rgba(37,99,235,0.20);
+  transition:all 0.2s ease;
+}
+
+.play-btn:hover{
+  transform:scale(1.05);
+}
+
+.play-btn:active{
+  transform:scale(0.95);
+}
+.play-btn:active{ transform:translateY(1px); }
+
+.counter-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+  color:#1f2933;
+  font-weight:700;
+}
+.counter-pill{
+  background:#2563eb;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.next-btn{
+  display:inline-block;
+  margin-top:18px;
+  padding:10px 18px;
+  border-radius:12px;
+  background:#2563eb;
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+}
+.next-btn.disabled{
+  opacity:0.55;
+  pointer-events:none;
+}
+@media (max-width:520px){
+
+  .loc-img{
+    height:170px;   /* a bit taller on phone */
+  }
+
+}
+@media (max-width:900px){
+  .cards{ grid-template-columns: 1fr; }
+}
+@media (max-width:768px){
+  .exercise-box{ padding:22px 18px; }
+}
+</style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step active" data-page="p3.html">3</div>
+    <div class="step" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+
+    <h1 class="unit-title">Lugares públicos</h1>
+
+    <div class="instruction-box">
+      Escucha la pronunciación. Puedes repetir el audio. <br />
+      Cuando escuches todos, toca <strong>Siguiente →</strong>
+    </div>
+
+    <div class="counter-row">
+      <span class="counter-pill">Escuchados: <span id="playedCount">0</span>/<span id="totalCount">0</span></span>
+    </div>
+
+    <!-- Cards rendered by JS -->
+    <div class="cards" id="cards"></div>
+
+    <a href="p4.html" class="next-btn disabled" id="nextBtn">Siguiente →</a>
+
+  </div>
+
+  <script src="../../../../js/u2/u2_l2_p3.js"></script>
+</body>
+</html>

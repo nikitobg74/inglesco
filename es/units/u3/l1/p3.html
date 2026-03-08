@@ -1,0 +1,215 @@
+<!-- u3/l1/p3.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 3 – Lección 1 – P3</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color:#0f172a;
+    }
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px; height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== NEXT BUTTON (BOTTOM) ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:25px;
+      padding-bottom: 10px;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    /* ===== SECTIONS ===== */
+    .section{
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      margin-bottom: 18px;
+    }
+    h1{ font-size: 22px; margin: 0 0 8px 0; }
+    .subtitle{ margin: 0 0 14px 0; font-size: 16px; line-height: 1.35; }
+    .mini{ font-size: 13px; color:#475569; margin: 0 0 10px 0; }
+
+    .imgbox{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: rgba(219,234,254,.55);
+      border-radius: 14px;
+      padding: 10px;
+      overflow:hidden;
+      margin-bottom: 12px;
+    }
+    .imgbox img{
+      max-width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+    }
+
+    .btn{
+      border: 0;
+      background:#2563eb;
+      color:#fff;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      width: 100%;
+    }
+    .btn:hover{ background:#1e40af; }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    /* ===== OPTIONS ===== */
+    .options{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .opt{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 12px;
+      background:#fff;
+      border-radius: 16px;
+      border: 2px solid rgba(15,23,42,.12);
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s, border-color .15s, background .15s;
+    }
+    .opt:active{ transform: scale(.99); }
+    .badge{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      background: rgba(15,23,42,.07);
+      flex: 0 0 auto;
+    }
+    .opt-text{
+      font-weight: 900;
+      line-height: 1.2;
+      font-size: 16px;
+    }
+
+    .opt.correct{
+      border-color: rgba(34,197,94,.55);
+      background: rgba(34,197,94,.10);
+    }
+    .opt.wrong{
+      border-color: rgba(239,68,68,.45);
+      background: rgba(239,68,68,.10);
+    }
+    .opt.disabled{
+      opacity: .8;
+      cursor: not-allowed;
+    }
+
+    /* ===== MOBILE SAFE ===== */
+    @media (max-width:520px){
+      .step{ width:34px; height:34px; font-size:14px; }
+      h1{ font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+
+    <!-- Progress 1-4 -->
+    <div class="progress-container" aria-label="Progreso de la lección">
+      <div class="step" data-go="p1.html">1</div>
+      <div class="step" data-go="p2.html">2</div>
+      <div class="step active" data-go="p3.html" aria-current="page">3</div>
+      <div class="step" data-go="p4.html">4</div>
+    </div>
+
+    <h1>Lección 1 – P3</h1>
+    <p class="subtitle">
+      1) Mira la imagen y toca <b>Escuchar</b>.<br/>
+      2) Después elige la opción correcta.
+    </p>
+
+    <section class="section">
+      <div id="counter" class="mini" style="font-weight:900; text-align:center; margin-bottom:10px;">1/8</div>
+
+      <div class="imgbox">
+        <img id="sceneImg" alt="">
+      </div>
+
+      <button id="playBtn" class="btn" type="button">🔊 Escuchar</button>
+      <p class="mini" style="margin-top:10px;">
+        (Primero escucha el audio. Después aparecerán las opciones.)
+      </p>
+
+      <div id="options" class="options" aria-label="Opciones" style="display:none;"></div>
+    </section>
+
+    <div class="footer-actions">
+      <a id="nextBtn" class="next-btn hidden" href="p4.html">Continuar → P4</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u3/u3_l1_p3.js"></script>
+</body>
+</html>

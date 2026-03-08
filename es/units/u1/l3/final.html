@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 1 Completada | Unit 1 Completed</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #fff7ed 0%, #eef2ff 45%, #ecfeff 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      color: #111827;
+      overflow-x: hidden;
+    }
+
+    /* Soft bubbly confetti */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -120px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(251, 113, 133, 0.22) 0 42px, transparent 44px),
+        radial-gradient(circle at 84% 16%, rgba(34, 211, 238, 0.22) 0 52px, transparent 54px),
+        radial-gradient(circle at 20% 78%, rgba(167, 139, 250, 0.20) 0 58px, transparent 60px),
+        radial-gradient(circle at 78% 82%, rgba(74, 222, 128, 0.18) 0 56px, transparent 58px),
+        radial-gradient(circle at 52% 12%, rgba(250, 204, 21, 0.18) 0 44px, transparent 46px);
+      filter: blur(0px);
+      opacity: 0.9;
+    }
+    body::after{
+      background:
+        radial-gradient(circle at 30% 22%, rgba(59, 130, 246, 0.14) 0 80px, transparent 82px),
+        radial-gradient(circle at 70% 26%, rgba(244, 114, 182, 0.14) 0 76px, transparent 78px),
+        radial-gradient(circle at 18% 60%, rgba(45, 212, 191, 0.12) 0 88px, transparent 90px),
+        radial-gradient(circle at 82% 62%, rgba(251, 146, 60, 0.12) 0 84px, transparent 86px);
+      opacity: 0.7;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.92);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 560px;
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(229,231,235,0.8);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Colorful corner glow */
+    .box::before {
+      content: "";
+      position: absolute;
+      inset: -140px -140px auto auto;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at center,
+        rgba(59,130,246,0.22),
+        rgba(167,139,250,0.18),
+        rgba(244,114,182,0.16),
+        rgba(34,211,238,0.12),
+        rgba(255,255,255,0));
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    /* Soft bubbles inside card */
+    .box::after{
+      content:"";
+      position:absolute;
+      left:-120px;
+      bottom:-160px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle at 35% 35%,
+        rgba(250,204,21,0.18),
+        rgba(251,146,60,0.12),
+        rgba(255,255,255,0));
+      transform: rotate(-12deg);
+      pointer-events:none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #e0f2fe, #ede9fe, #ffe4e6);
+      color: #1f2937;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(229,231,235,0.9);
+    }
+
+    h1 {
+      color: #1d4ed8;
+      margin-bottom: 10px;
+      font-size: 2.15rem;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+
+    .stars {
+      font-size: 22px;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.06));
+    }
+
+    p {
+      font-size: 20px;
+      margin: 0 auto 18px auto;
+      color: #374151;
+      line-height: 1.6;
+      max-width: 46ch;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+      margin: 22px 0;
+    }
+
+    .bilingual {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .line {
+      background: rgba(249,250,251,0.85);
+      border: 1px solid rgba(229,231,235,0.9);
+      border-radius: 14px;
+      padding: 12px 14px;
+      text-align: center;
+      font-size: 20px;
+      color: #111827;
+    }
+
+    .line strong {
+      color: #1d4ed8;
+      font-weight: 800;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    a.btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+      font-size: 15px;
+      border: 1px solid rgba(229,231,235,0.9);
+    }
+
+    a.primary {
+      background: linear-gradient(90deg, #3b82f6, #a78bfa, #f472b6);
+      color: white;
+      box-shadow: 0 14px 22px rgba(59,130,246,0.20);
+    }
+    a.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 26px rgba(59,130,246,0.26);
+    }
+
+    a.secondary {
+      background: rgba(255,255,255,0.85);
+      color: #1f2937;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.06);
+    }
+    a.secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.95);
+    }
+
+    @media (max-width: 480px){
+      .box{ padding: 36px 22px; border-radius: 18px; }
+      h1{ font-size: 1.85rem; }
+      .stars{ letter-spacing: 2px; }
+      a.btn{ width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="badge">🎉 Unidad 1 </div>
+
+    <h1>¡Felicidades!<br/>Unidad 1 Completada</h1>
+    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+
+    <p>
+      ¡Gran trabajo! Has terminado la Unidad 1. Sigue así — cada lección te hace más fuerte.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="bilingual">
+      <div class="line"><strong>    </strong> ¡Excelente trabajo! Has completado la <strong>Unidad 1</strong>.</div>
+         </div>
+
+    <div class="buttons">
+      <a class="btn secondary" href="../index.html">← Volver a Unidad 1</a>
+      <a class="btn primary" href="../../u2/index.html">Siguiente a Unidad 2 →</a>
+    </div>
+  </div>
+</body>
+</html>

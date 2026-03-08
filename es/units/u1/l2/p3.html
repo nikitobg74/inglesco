@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 1 - Lección 2 - Parte 3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ Correct JS path -->
+<script defer src="../../../../js/u1/u1_l2_p3.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#dbeafe; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+.back-btn:hover { background:#1e40af; }
+
+.unit-title {
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:15px;
+  color:#2563eb;
+}
+
+/* Progress bar */
+.progress-container {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:25px;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+.step.active { background:#2563eb; color:white; }
+.step:hover { transform:scale(1.1); }
+
+.exercise-box {
+  max-width:1000px;
+  margin:0 auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.exercise-text { text-align:center; margin-top:10px; }
+.exercise-text .en { font-size:18px; color:#1e40af; font-weight:600; }
+.exercise-text .es { font-size:14px; color:#2563eb; display:block; margin-top:4px; }
+
+/* MATCHING LAYOUT */
+.matching-container {
+  display:flex;
+  justify-content:center;
+  gap:60px;
+  margin-top:30px;
+  align-items:flex-start;
+}
+
+/* LEFT COLUMN */
+.audio-column {
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  width:180px;
+}
+
+.audio-box {
+  height:60px;
+  background:#e0f2fe;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+}
+.audio-box:hover { background:#bae6fd; }
+
+.audio-box.active {
+  background:#2563eb;
+  color:white;
+  transform:scale(1.05);
+}
+
+.audio-box.answered {
+  background:#bbf7d0;
+  color:#166534;
+  cursor:default;
+}
+
+/* RIGHT COLUMN */
+.right-column {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* NUMBER GRID */
+.number-container {
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  max-width:500px;
+}
+
+/* NUMBER CARD WITH WORD INSIDE */
+.number-card {
+  width:100px;
+  height:100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.2s;
+  color:white; /* for the digit */
+}
+
+.number-card:hover { transform:scale(1.1); }
+
+.number-digit {
+  font-size:36px;
+  font-weight:700;
+  line-height:1;
+}
+
+.number-word {
+  font-size:16px;       /* smaller so it fits */
+  font-weight:800;      /* bold */
+  color:black;          /* black letters */
+  margin-top:5px;
+  letter-spacing:1px;
+  line-height:1.1;
+  text-align:center;
+}
+
+.number-card.correct {
+  background:#16a34a !important;
+  position:relative;
+}
+.number-card.correct::after {
+  content:"✔";
+  position:absolute;
+  top:6px;
+  right:10px;
+  font-size:20px;
+  color:white;
+}
+
+.number-card.disabled {
+  pointer-events:none;
+  opacity:0.6;
+}
+
+.number-card.wrong {
+  animation:shake 0.3s;
+  border:3px solid #dc2626;
+}
+
+@keyframes shake {
+  0% { transform:translateX(0); }
+  25% { transform:translateX(-5px); }
+  50% { transform:translateX(5px); }
+  75% { transform:translateX(-5px); }
+  100% { transform:translateX(0); }
+}
+
+/* FEEDBACK */
+#feedback {
+  margin-top:18px;
+  font-weight:600;
+  font-size:18px;
+  min-height:28px;
+  text-align:center;
+}
+
+/* NEXT BUTTON */
+.next-btn {
+  margin:30px auto 0 auto;
+  padding:12px 25px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  display:none;
+}
+.next-btn:hover { background:#1e40af; }
+
+/* Hidden language strings */
+.i18n { display:none; }
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+
+<div class="unit-title">Lección 2 - Parte 3</div>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step active" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+  <p class="exercise-text">
+    <span class="en">Listen to the audio and click the correct number.</span><br>
+    <span class="es">Escucha el audio y selecciona el número correcto.</span>
+  </p>
+
+  <!-- ✅ Language text stored in HTML -->
+  <div class="i18n">
+    <span id="txt-listen">🔊 Listen</span>
+    <span id="msg-wrong">❌ Intentar otra vez</span>
+    <span id="msg-good-1">Excellent!</span>
+    <span id="msg-good-2">Great!</span>
+  </div>
+
+  <div class="matching-container">
+    <!-- ✅ base path + next target stored in HTML -->
+    <div class="audio-column" id="audioColumn"
+         data-audio-base="../../../../assets/audio/u1/"
+         data-next="p4.html"></div>
+
+    <div class="right-column">
+      <div class="number-container" id="numberContainer"></div>
+      <div id="feedback"></div>
+    </div>
+  </div>
+
+  <button class="next-btn" id="nextBtn">Siguiente →</button>
+</div>
+
+</body>
+</html>

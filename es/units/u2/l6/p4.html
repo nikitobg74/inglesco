@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 2 - Lección 6 - Parte 4</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color:#0f172a;
+    }
+    .wrap{ max-width: 900px; margin: 0 auto; }
+
+    .back-btn{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:800;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:12px 0 18px 0;
+    }
+    .step{
+      width:40px; height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.08); }
+    @media (max-width:520px){
+      .step{ width:34px; height:34px; font-size:14px; }
+    }
+
+    .card{
+      background: rgba(255,255,255,.88);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
+      margin-bottom: 14px;
+    }
+
+    .title{
+      font-size: 28px;
+      font-weight: 900;
+      color:#2563eb;
+      text-align:center;
+      margin: 6px 0 10px 0;
+    }
+
+    .subtitle{
+      text-align:center;
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      opacity: .9;
+    }
+
+    .es-line{
+      text-align:center;
+      font-weight: 900;
+      background: rgba(255,255,255,.92);
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+      margin: 10px auto 12px auto;
+      max-width: 520px;
+      line-height: 1.25;
+      font-size: 18px;
+    }
+
+    .img{
+      width: 100%;
+      max-width: 320px;
+      max-height: 210px;
+      height: auto;
+      border-radius: 16px;
+      object-fit: contain;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(15,23,42,.10);
+    }
+
+    .img-hero{
+      max-width: 420px;
+      max-height: 240px;
+    }
+
+    .center{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 12px;
+    }
+
+    .toprow{
+      width:100%;
+      max-width:420px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-weight: 900;
+    }
+
+    .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    }
+
+    .play-audio{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background:#2563eb;
+      color:#fff;
+      font-weight: 900;
+    }
+    .play-audio:hover{ background:#1e40af; }
+    .play-audio:disabled{ opacity:.65; cursor:not-allowed; }
+
+    .status{
+      width:100%;
+      max-width:420px;
+      text-align:center;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    }
+
+    .actions{
+      width:100%;
+      max-width:420px;
+      display:flex;
+      gap: 12px;
+      justify-content:center;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      background:#2563eb;
+      color:#fff;
+    }
+    .btn:hover{ background:#1e40af; }
+    .btn:disabled{ opacity:.65; cursor:not-allowed; }
+
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top: 18px;
+      padding-bottom: 30px;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:900;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    .word{
+      width:100%;
+      max-width:420px;
+      text-align:center;
+      font-weight: 900;
+      font-size: 26px;
+      color:#0f172a;
+      letter-spacing: .5px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+    <div class="progress-container">
+      <div class="step" data-go="p1.html">1</div>
+      <div class="step" data-go="p2.html">2</div>
+      <div class="step" data-go="p3.html">3</div>
+      <div class="step active" data-go="p4.html">4</div>
+    </div>
+
+    <div class="card">
+      <div class="title">Unidad 2 · Lección 6 · Parte 4</div>
+
+      <div class="center">
+        <div class="subtitle">Mi aula</div>
+        <img id="classroomImg" class="img img-hero" alt="Classroom" />
+
+        <div class="es-line" id="esLine">Escucha y repite la palabra.</div>
+
+        <div class="toprow">
+          <div class="pill">Palabra: <span id="now">1</span>/<span id="total">7</span></div>
+          <button id="playBtn" class="play-audio" type="button">▶ Play</button>
+        </div>
+
+        <img id="objImg" class="img" alt="Object" />
+        <div id="word" class="word">...</div>
+
+        <div id="status" class="status">Presiona ▶ Play.</div>
+
+        <div class="actions">
+          <button id="nextWordBtn" class="btn" type="button">Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-actions">
+      <a href="../index.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+    </div>
+
+  </div>
+
+  <!-- UI TEXT lives in HTML (so JS stays language-neutral) -->
+  <div id="uiText" hidden
+    data-status-ready="Presiona ▶ Play."
+    data-status-playing="Reproduciendo..."
+    data-status-after="Ahora presiona Next ▶"
+    data-status-done="✅ Excelente!"
+    data-audio-blocked="Audio bloqueado. Intenta otra vez."
+    data-play="▶ Play"
+    data-replay="▶ Replay"
+    data-no-items="No hay elementos."
+  ></div>
+
+  <!-- Lesson content lives in HTML (so JS stays language-neutral) -->
+  <script id="lessonData" type="application/json">
+  {
+    "classroomImage": "u2.l6.p4.classroom.jpg",
+    "items": [
+      { "img": "u2.l6.p4.bookshelf.jpg",        "audio": "u2.l6.p4.bookshelf.mp3",      "text": "bookshelf" },
+      { "img": "u2.l6.p4.pencil.jpg",           "audio": "u2.l6.p4.pencil.mp3",         "text": "pencil" },
+      { "img": "u2.l6.p4.map.jpg",              "audio": "u2.l6.p4.map.mp3",            "text": "map" },
+      { "img": "u2.l6.p4.board.jpg",            "audio": "u2.l6.p4.board.mp3",          "text": "board" },
+      { "img": "u2.l6.p4.clock.jpg",            "audio": "u2.l6.p4.clock.mp3",          "text": "clock" },
+      { "img": "u2.l6.p4.bulletin.board.jpg",   "audio": "u2.l6.p4.bulletin.mp3",       "text": "bulletin board" },
+      { "img": "u2.l6.p4.table.jpg",            "audio": "u2.l6.p4.table.mp3",          "text": "table" }
+    ]
+  }
+  </script>
+
+  <script src="../../../../js/u2/u2_l6_p4.js"></script>
+</body>
+</html>

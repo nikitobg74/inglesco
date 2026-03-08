@@ -1,0 +1,380 @@
+<!-- p3.html (Unidad 2 - Lección 5 - Parte 3) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 2 - Lección 5 - Parte 3</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body{ padding:20px; background:#f0fdf4; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== FOOTER BUTTONS ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:22px;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    /* ===== PAGE BOX ===== */
+    .exercise-box{
+      max-width:950px;
+      margin:0 auto;
+      background:#fff;
+      padding:30px 40px;
+      border-radius:18px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      color:#2c3e50;
+    }
+.exercise-box{
+  box-shadow:0 10px 25px rgba(139,92,246,0.12);
+}
+    .unit-title{
+      color:#2563eb;
+      font-size:28px;
+      font-weight:800;
+      text-align:center;
+      margin-bottom:10px;
+    }
+    .instruction-box{
+      background:#d1fae5;
+      padding:15px 20px;
+      border-radius:12px;
+      text-align:center;
+      font-weight:700;
+      margin-bottom:16px;
+      color:#0f172a;
+      line-height:1.35;
+    }
+
+    .section{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:16px;
+      margin-top:14px;
+    }
+    .section-title{
+      font-weight:900;
+      color:#0f172a;
+      text-align:center;
+      margin-bottom:10px;
+    }
+
+    .main-row{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .play-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-width:110px;
+    }
+    .play-btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      width:60px;
+      height:60px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all .2s;
+    }
+    .play-btn:hover{ background:#1e40af; }
+    .play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .panel{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px;
+      width:100%;
+      max-width:720px;
+    }
+
+    .status{
+      text-align:center;
+      font-weight:900;
+      color:#0f172a;
+      margin-bottom:10px;
+    }
+    .substatus{
+      text-align:center;
+      font-weight:700;
+      color:#334155;
+      font-size:13px;
+      margin-top:6px;
+    }
+
+    /* STORY BOX */
+    .story{
+      background:#f1f5f9;
+      border:1px solid #cbd5e1;
+      border-radius:14px;
+      padding:14px;
+      margin-top:10px;
+      white-space:pre-line;
+      font-weight:800;
+      color:#0f172a;
+    }
+    .story.hidden-text{
+      filter: blur(9px);
+      opacity:.85;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    /* QUESTIONS (one by one) */
+    .counter-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin:10px 0 12px 0;
+      flex-wrap:wrap;
+    }
+    .counter-pill{
+      background:#2563eb;
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .q{
+      border:1px solid #e5e7eb;
+      background:#fff;
+      border-radius:16px;
+      padding:14px;
+      margin-top:10px;
+    }
+    .q-title{
+      font-weight:900;
+      color:#0f172a;
+      margin-bottom:10px;
+    }
+    .opt{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      background:#f8fafc;
+      margin-bottom:8px;
+    }
+    .opt input{ transform: translateY(2px); }
+    .opt label{
+      font-weight:800;
+      color:#0f172a;
+      line-height:1.25;
+      cursor:pointer;
+      width:100%;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
+      transition:all .2s;
+      white-space:nowrap;
+    }
+    .btn:hover{ background:#1e40af; }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .result-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .mark{
+      font-weight:900;
+      font-size:18px;
+      min-width:20px;
+      text-align:center;
+    }
+    .ok{ color:#0a7a2f; }
+    .bad{ color:#b00020; }
+
+    .great{
+      background:#dcfce7;
+      border:1px solid #22c55e;
+      color:#14532d;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      text-align:center;
+      margin-top:14px;
+    }
+
+    .disabled-area{
+      opacity:.65;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 520px){
+      body{ padding:14px; }
+      .exercise-box{ padding:18px 16px; }
+      .unit-title{ font-size:22px; }
+      .play-wrap{ min-width:92px; }
+      .play-btn{ width:56px; height:56px; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step active" data-page="p3.html">3</div>
+    <div class="step" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+    <div class="unit-title">Unidad 2 – Lección 5 – Parte 3</div>
+
+    <div class="instruction-box">
+      Escucha el texto. (1ª vez: el texto está escondido).
+      <br>
+      <span style="font-weight:600;">
+        Después escucha <b>otra vez</b> y sigue el texto.
+        Luego responde las preguntas (una por una).
+      </span>
+    </div>
+
+    <!-- LISTEN SECTION -->
+    <div class="section">
+      <div class="section-title">Listening</div>
+
+      <div class="main-row">
+        <div class="play-wrap">
+          <button class="play-btn" id="playBtn" aria-label="Play">▶</button>
+          <div class="substatus" id="playLabel">Escuchar</div>
+        </div>
+
+        <div class="panel">
+          <div class="status" id="status">1ª escucha: texto escondido.</div>
+          <div class="story hidden-text" id="story">
+The Baker family is not at home today.
+Anna is at the office.
+Daniel is at the hospital.
+Lily is at the supermarket.
+Ben is at the library.
+Emma is at the bank.
+I am at the restaurant.
+The Baker family is not at home today.
+          </div>
+          <div class="substatus" id="hint">
+Pulsa ▶ para escuchar. Cuando termine, escucha otra vez para ver el texto.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="section" id="qaSection">
+      <div class="section-title">Preguntas</div>
+
+      <div id="qaWrap" class="disabled-area">
+        <div class="counter-row">
+          <span class="counter-pill" id="qCounter">1 / 7</span>
+          <span id="qStatus" style="font-weight:900; color:#0f172a;">Selecciona la respuesta.</span>
+        </div>
+
+        <div class="q" id="qBox"></div>
+
+        <div class="result-row">
+          <button class="btn" id="checkBtn" type="button" disabled>Revisar</button>
+          <span class="mark" id="mark"></span>
+        </div>
+
+        <div class="great hidden" id="great">¡Great job!! ✅</div>
+      </div>
+    </div>
+
+    <!-- NEXT -->
+    <div class="footer-actions">
+      <a href="p4.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u2/u2_l5_p3.js"></script>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 2 - Lección 4 - Parte 3</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body{ padding:20px; background:#eef2ff; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px; height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== BOX ===== */
+    .exercise-box{
+      max-width:950px;
+      margin:0 auto;
+      background:#fff;
+      padding:30px 40px;
+      border-radius:18px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      color:#2c3e50;
+    }
+
+    .unit-title{
+      color:#2563eb;
+      font-size:28px;
+      font-weight:800;
+      text-align:center;
+      margin-bottom:10px;
+    }
+
+    .instruction-box{
+      background:#e0e7ff;
+      padding:15px 20px;
+      border-radius:12px;
+      text-align:center;
+      font-weight:700;
+      margin-bottom:16px;
+      color:#0f172a;
+    }
+
+    .top-actions{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:800;
+      transition:all .2s;
+    }
+    .btn:hover{ background:#1e40af; }
+
+    .wordbank{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:10px 0 16px 0;
+    }
+    .pill{
+      padding:8px 10px;
+      background:#e0e7ff;
+      border:1px solid #c7d2fe;
+      border-radius:999px;
+      font-weight:800;
+      color:#1f2933;
+      font-size:14px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px;
+    }
+
+    .line{
+      font-weight:750;
+      color:#0f172a;
+      line-height:1.4;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      align-items:center;
+    }
+
+    .qnum{
+      font-weight:900;
+      margin-right:6px;
+      color:#0f172a;
+    }
+
+    input.word{
+      width:160px;
+      max-width:60vw;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid #cbd5e1;
+      font-size:14px;
+      font-weight:800;
+      outline:none;
+      background:#fff;
+    }
+    input.word:focus{
+      border-color:#2563eb;
+      box-shadow:0 0 0 3px rgba(37,99,235,.15);
+    }
+
+    .mark{
+      margin-left:8px;
+      font-weight:900;
+    }
+    .ok{ color:#0a7a2f; }
+    .bad{ color:#b00020; }
+
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:18px;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:900;
+    }
+    .next-btn:hover{ background:#1e40af; }
+
+    @media (max-width: 520px){
+      body{ padding:14px; }
+      .exercise-box{ padding:18px 16px; }
+      .unit-title{ font-size:22px; }
+      .step{ width:34px; height:34px; font-size:14px; }
+      input.word{ width:150px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BACK BUTTON -->
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step active" data-page="p3.html">3</div>
+    <div class="step" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+    <div class="unit-title">Unidad 2 – Lección 4 – Parte 3</div>
+
+    <div class="instruction-box">
+      Ejercicio A: Mira el <b>Word bank</b> y <b>escribe</b> la palabra que falta en cada frase.
+      <br>✅ Usa solo estas opciones: <b>where is</b>, <b>he is</b>, <b>she is</b>, <b>i am</b>.
+    </div>
+
+    <div class="top-actions">
+      <button class="btn" id="checkBtn" type="button">Revisar</button>
+    </div>
+
+    <!-- WORD BANK -->
+    <div class="wordbank" id="wordBank"></div>
+
+    <!-- EXERCISE A LIST -->
+    <div class="list" id="exerciseList"></div>
+
+    <!-- NEXT BUTTON -->
+    <div class="footer-actions">
+      <a href="p4.html" class="next-btn">Next ▶</a>
+    </div>
+  </div>
+
+  <script>
+    // ===== Progress navigation (click steps) =====
+    document.querySelectorAll(".step").forEach(step => {
+      step.addEventListener("click", () => {
+        const page = step.getAttribute("data-page");
+        if (page) window.location.href = page;
+      });
+    });
+
+    // ===== DATA =====
+    const WORD_BANK = ["where is", "she is", "he is", "i am"];
+    const ROOMS = ["bedroom","garage","living room","basement","bathroom","kitchen","yard","attic"];
+
+    const MALE_NAMES = ["George","Pedro","Luis","Carlos","Mateo","Bruno","David","Javier","Hector","Ruben"];
+    const FEMALE_NAMES = ["Karen","Maria","Ana","Lucia","Paula","Elena","Carmen","Valeria","Diana","Marta"];
+
+    // ===== HELPERS =====
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const shuffle = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    // Normalize: ignore caps, spaces, punctuation (so "whereis" == "where is")
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[^a-z]/g, "");
+    }
+
+    // ===== RENDER WORD BANK =====
+    function renderWordBank(){
+      const wb = document.getElementById("wordBank");
+      wb.innerHTML = "";
+      WORD_BANK.forEach(w => {
+        const d = document.createElement("div");
+        d.className = "pill";
+        d.textContent = w;
+        wb.appendChild(d);
+      });
+    }
+
+    // ===== BUILD ONE LINE =====
+    function buildLine(number, parts){
+      const item = document.createElement("div");
+      item.className = "item";
+
+      const line = document.createElement("div");
+      line.className = "line";
+
+      const qnum = document.createElement("span");
+      qnum.className = "qnum";
+      qnum.textContent = number + ".";
+      line.appendChild(qnum);
+
+      parts.forEach((p, idx) => {
+        if (typeof p === "string"){
+          const span = document.createElement("span");
+          span.textContent = p;
+          line.appendChild(span);
+        } else {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.className = "word";
+          input.setAttribute("data-answer", p.answer);
+          input.placeholder = "escribe aquí";
+          input.autocomplete = "off";
+          input.autocapitalize = "none";
+          input.spellcheck = false;
+
+          const mark = document.createElement("span");
+          mark.className = "mark";
+          mark.id = "mark_" + number + "_" + idx;
+
+          input.setAttribute("data-mark-id", mark.id);
+
+          line.appendChild(input);
+          line.appendChild(mark);
+        }
+      });
+
+      item.appendChild(line);
+      return item;
+    }
+
+    // ===== MAKE 10 SHUFFLED ITEMS (ALL GENERATED) =====
+    function generateExercise(){
+      const list = document.getElementById("exerciseList");
+      list.innerHTML = "";
+
+      // We keep 10 “patterns” (similar to what you wrote), but everything inside is randomized.
+      // Patterns only use the word bank answers:
+      // - where is / he is / she is / i am
+
+      const patterns = [
+        // 1) Where is NAME? ___ in the ROOM.
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return ["Where is " + name + "?", {answer: pron}, "in the", room + "."];
+        },
+
+        // 2) ___ is NAME? ___ in the ROOM.
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
+        },
+
+        // 3) Where are you? ___ in the ROOM.
+        () => {
+          const room = pick(ROOMS);
+          return ["Where are you?", {answer:"i am"}, "in the", room + "."];
+        },
+
+        // 4) ___ NAME? ___ in the ROOM. (still becomes "Where is NAME?")
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
+        },
+
+        // 5) Where are you? ___ in the ROOM. (same as #3 but different room)
+        () => {
+          const room = pick(ROOMS);
+          return ["Where are you?", {answer:"i am"}, "in the", room + "."];
+        },
+
+        // 6) Where is NAME? ___ in the ROOM.
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return ["Where is " + name + "?", {answer: pron}, "in the", room + "."];
+        },
+
+        // 7) ___ is NAME? ___ in the ROOM.
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
+        },
+
+        // 8) Where are you? ___ in the ROOM.
+        () => {
+          const room = pick(ROOMS);
+          return ["Where are you?", {answer:"i am"}, "in the", room + "."];
+        },
+
+        // 9) Where is NAME? ___ in the ROOM.
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return ["Where is " + name + "?", {answer: pron}, "in the", room + "."];
+        },
+
+        // 10) ___ is NAME? ___ in the ROOM.
+        () => {
+          const male = Math.random() < 0.5;
+          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
+          const pron = male ? "he is" : "she is";
+          const room = pick(ROOMS);
+          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
+        },
+      ];
+
+      // Generate 10 items and render
+      patterns.forEach((makeParts, i) => {
+        const parts = makeParts();
+        list.appendChild(buildLine(i + 1, parts));
+      });
+    }
+
+    // ===== CHECK =====
+    function checkAnswers(){
+      const inputs = document.querySelectorAll('input.word');
+      inputs.forEach(input => {
+        const expected = input.getAttribute("data-answer") || "";
+        const got = input.value || "";
+
+        const markId = input.getAttribute("data-mark-id");
+        const mark = document.getElementById(markId);
+        if (!mark) return;
+
+        if (norm(got) === norm(expected)) {
+          mark.textContent = "✓";
+          mark.classList.remove("bad");
+          mark.classList.add("ok");
+        } else {
+          mark.textContent = "✗";
+          mark.classList.remove("ok");
+          mark.classList.add("bad");
+        }
+      });
+    }
+
+    // ===== INIT =====
+    renderWordBank();
+    generateExercise();
+
+    document.getElementById("checkBtn").addEventListener("click", checkAnswers);
+    document.addEventListener("keydown", (e) => { if (e.key === "Enter") checkAnswers(); });
+  </script>
+</body>
+</html>

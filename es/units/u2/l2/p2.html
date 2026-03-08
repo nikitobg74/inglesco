@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 2 - Parte 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn{
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover{ background:#1e40af; }
+
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active{ background:#2563eb; color:#ffffff; }
+.step:hover{ transform:scale(1.1); }
+
+.exercise-box{
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title{
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.instruction-box{
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+.counter-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  color:#1f2933;
+  font-weight:700;
+}
+.counter-pill{
+  background:#2563eb;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.center-wrap{
+  display:flex;
+  justify-content:center;
+}
+
+.col{
+  width:100%;
+  max-width:520px;
+  text-align:center;
+}
+
+.image-box{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:14px;
+}
+
+.image-box img{
+  width:100%;
+  max-width:480px;
+  border-radius:14px;
+  margin-bottom:6px;
+}
+
+.section-title{
+  margin:14px 0 10px 0;
+  font-weight:800;
+  color:#111827;
+}
+
+.builder{
+  margin-top:10px;
+  background:#ffffff;
+  border:1px dashed #93c5fd;
+  border-radius:14px;
+  padding:14px;
+}
+
+.slots{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.slot{
+  min-width:92px;
+  padding:12px 10px;
+  border-radius:12px;
+  background:#eef2ff;
+  border:2px solid #bfdbfe;
+  font-weight:800;
+  color:#111827;
+}
+.slot.empty{ color:#6b7280; font-weight:700; }
+
+.wordbank{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.token{
+  background:#e0f2fe;
+  border:1px solid #bfdbfe;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:grab;
+  user-select:none;
+  font-weight:800;
+  color:#111827;
+  min-width:80px;
+  text-align:center;
+  transition:all 0.2s;
+}
+.token:hover{ background:#dbeafe; }
+
+.small-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+.small-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:700;
+  transition:all 0.2s;
+}
+.small-btn:hover{ background:#1e40af; }
+
+.controls{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.control-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:800;
+  transition:all 0.2s;
+}
+.control-btn.secondary{ background:#0ea5e9; }
+.control-btn.gray{ background:#6b7280; }
+.control-btn:hover{ filter:brightness(0.95); }
+.control-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+
+.feedback{
+  margin-top:14px;
+  text-align:center;
+  font-weight:900;
+  font-size:18px;
+}
+.feedback.good{ color:#16a34a; }
+.feedback.bad{ color:#dc2626; }
+
+@media (max-width:768px){
+  .exercise-box{ padding:22px 18px; }
+}
+</style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step active" data-page="p2.html">2</div>
+    <div class="step" data-page="p3.html">3</div>
+    <div class="step" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+
+    <h1 class="unit-title">Where is he? • Where is she?</h1>
+
+    <!-- extra local styles (safe) -->
+    <style>
+      .mini-table-wrap{ display:flex; justify-content:center; margin:10px 0 14px 0; }
+      .mini-table{
+        width:min(720px, 100%);
+        border-collapse:separate;
+        border-spacing:0;
+        background:#ffffff;
+        border:1px solid rgba(37,99,235,0.18);
+        border-radius:14px;
+        overflow:hidden;
+      }
+      .mini-table th, .mini-table td{
+        padding:12px 12px;
+        border-bottom:1px solid rgba(0,0,0,0.06);
+        font-weight:800;
+        text-align:left;
+        vertical-align:top;
+      }
+      .mini-table tr:last-child td{ border-bottom:none; }
+      .mini-table th{
+        background:#eef2ff;
+        color:#111827;
+        text-align:center;
+        font-weight:900;
+      }
+      .qcol{ width:50%; }
+      .acol{ width:50%; }
+
+      .hl-he{ color:#2563eb; font-weight:900; }
+      .hl-she{ color:#e11d48; font-weight:900; }
+      .hl-is{ color:#16a34a; font-weight:900; } /* green IS */
+      .ans-line{ margin-top:4px; }
+
+      .images-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+      .image-description{ display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:10px; }
+
+      /* bigger text under images */
+      .qa{ text-align:left; font-size:18px; line-height:1.25; }
+      @media (max-width:768px){
+        .qa{ font-size:18px; }
+      }
+
+      .qa .q{ font-weight:900; color:#111827; }
+      .qa .a{ margin-top:4px; font-weight:900; }
+
+      .image-box.played{ outline:3px solid rgba(22,163,74,0.35); background:#f0fdf4; }
+
+      /* smaller images (desktop + phone) */
+      .image-box img{
+        max-width:220px;
+        margin-left:auto;
+        margin-right:auto;
+        display:block;
+      }
+      @media (max-width:768px){
+        .image-box img{ max-width:240px; }
+      }
+
+      /* ONE CARD PER ROW on phones */
+      @media (max-width:520px){
+        .images-row{ flex-direction:column; align-items:stretch; }
+        .image-box{ width:100%; }
+      }
+
+      /* play button */
+      .play-btn{
+        border:none;
+        cursor:pointer;
+        background:#2563eb;
+        color:#fff;
+        width:48px;
+        height:48px;
+        border-radius:14px;
+        font-size:20px;
+        font-weight:900;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 6px 14px rgba(37,99,235,0.25);
+        flex:0 0 auto;
+      }
+      .play-btn.alt{ background:#e11d48; box-shadow:0 6px 14px rgba(225,29,72,0.22); }
+
+      /* NEW: narrower centered instruction box (less left/right space) */
+      .instruction-narrow{
+        width:min(620px, 100%);
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      /* NEW: Spanish box (not yellow) + narrower + centered */
+      .lang-box{
+        width:min(620px, 100%);
+        margin:10px auto 14px auto;
+        padding:12px 14px;
+        border-radius:14px;
+        text-align:center;
+        font-weight:800;
+
+        background:#ede9fe;                 /* soft purple */
+        border:1px solid rgba(139,92,246,0.35);
+        color:#111827;
+      }
+      .lang-box strong{ color:#4c1d95; }
+
+      .next-btn{
+        display:inline-block;
+        margin-top:18px;
+        padding:10px 18px;
+        border-radius:12px;
+        background:#2563eb;
+        color:#fff;
+        text-decoration:none;
+        font-weight:900;
+      }
+    </style>
+
+    <!-- narrower instruction box -->
+    <div class="instruction-box instruction-narrow">
+      Escucha y repite. Puedes repetir el audio. Luego toca <strong>Next ▶</strong>.
+    </div>
+
+    <!-- 1) Spanish first (narrow + new color) -->
+    <div class="lang-box">
+      <div><strong>Español</strong></div>
+      <div>Where is he? = ¿Dónde está él?</div>
+      <div>Where is she? = ¿Dónde está ella?</div>
+    </div>
+
+    <!-- 1) Table after Spanish -->
+    <div class="mini-table-wrap">
+      <table class="mini-table" aria-label="Where is he/she table">
+        <tr>
+          <th class="qcol">Pregunta</th>
+          <th class="acol">Respuesta</th>
+        </tr>
+        <tr>
+          <td class="qcol">Where is <span class="hl-he">he</span>?</td>
+          <td class="acol">
+            <div class="ans-line"><span class="hl-he">He</span> <span class="hl-is">is</span> in the bedroom.</div>
+            <div class="ans-line"><span class="hl-he">He</span> <span class="hl-is">is</span> in the garage.</div>
+          </td>
+        </tr>
+      <tr>
+  <td class="qcol">Where is <span class="hl-she">she</span>?</td>
+  <td class="acol">
+    <div class="ans-line"><span class="hl-she">She</span> <span class="hl-is">is</span> in the bedroom.</div>
+    <div class="ans-line"><span class="hl-she">She</span> <span class="hl-is">is</span> in the living room.</div>
+  </td>
+</tr>
+      </table>
+    </div>
+
+    <div class="words-container" id="wordsContainer"></div>
+
+    <div class="images-row">
+      <div class="image-box" id="heBox">
+        <img id="heImg" src="../../../../assets/images/u2/u2.l2.p2.man.bedroom.jpg" alt="He">
+        <div class="image-description">
+          <div class="qa" id="heQA">
+            <div class="q">Where is <span class="hl-he">he</span>?</div>
+            <div class="a"><span class="hl-he">He</span> <span class="hl-is">is</span> in the bedroom.</div>
+          </div>
+          <button type="button" class="play-btn" id="hePlayBtn" aria-label="Play HE audio">▶</button>
+        </div>
+      </div>
+
+      <div class="image-box" id="sheBox">
+        <img id="sheImg" src="../../../../assets/images/u2/u2.l2.p2.woman.kitchen.jpg" alt="She">
+        <div class="image-description">
+          <div class="qa" id="sheQA">
+            <div class="q">Where is <span class="hl-she">she</span>?</div>
+            <div class="a"><span class="hl-she">She</span> <span class="hl-is">is</span> in the kitchen.</div>
+          </div>
+          <button type="button" class="play-btn alt" id="shePlayBtn" aria-label="Play SHE audio">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-row" style="margin-top:14px;">
+      <span class="counter-pill">Progreso: <span id="roundNow">1</span>/4</span>
+    </div>
+
+    <div class="controls" style="margin-top:8px;">
+      <button type="button" class="control-btn secondary" id="roundNextBtn" disabled>Next ▶</button>
+    </div>
+
+    <a href="p3.html" class="next-btn" id="nextBtn">Siguiente →</a>
+
+  </div>
+
+  <script src="../../../../js/u2/u2_l2_p2.js"></script>
+</body>
+</html>

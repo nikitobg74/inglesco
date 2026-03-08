@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unidad 1 - Lección 2 - Parte 1</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ✅ Correct JS path -->
+  <script defer src="../../../../js/u1/u1_l2_p1.js"></script>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#dbeafe; } /* soft blue for warmth */
+
+    .back-btn {
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:white;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+    }
+    .back-btn:hover { background:#1e40af; }
+
+    .unit-title {
+      text-align:center;
+      font-size:28px;
+      font-weight:700;
+      margin-bottom:10px;
+      color:#2563eb;
+    }
+
+    /* Progress bar for parts */
+    .progress-container {
+      display:flex;
+      justify-content:center;
+      margin:15px 0 25px 0;
+      gap:10px;
+    }
+    .step {
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      color:black;
+      cursor:pointer;
+      transition:all 0.3s;
+    }
+    .step.active { background:#2563eb; color:white; }
+    .step:hover { transform: scale(1.1); }
+
+    .exercise-box {
+      max-width:900px;
+      margin:0 auto;
+      background:white;
+      padding:35px;
+      border-radius:15px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      text-align:center;
+    }
+
+    .character-container {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:30px;
+      margin-top:20px;
+    }
+
+    .character-card {
+      width:180px;
+      text-align:center;
+      cursor:pointer;
+      transition: transform 0.2s;
+    }
+    .character-card:hover { transform: scale(1.05); }
+
+    .character-card img {
+      width:100%;
+      border-radius:12px;
+      border: 3px solid #2563eb;
+    }
+
+    .character-text {
+      margin-top:12px;
+      font-weight:600;
+    }
+    .character-text .es {
+      display:block;
+      font-weight:400;
+      color:#555;
+      font-size:14px;
+      margin-top:3px;
+    }
+
+    .played-mark {
+      color:green;
+      font-size:18px;
+      margin-top:5px;
+      display:block;
+      opacity:0;
+      transition: opacity 0.3s;
+    }
+    .played-mark.active { opacity:1; }
+
+    .next-btn {
+      margin-top:25px;
+      padding:12px 25px;
+      font-size:16px;
+      border:none;
+      border-radius:10px;
+      background:#2563eb;
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      display:none;
+    }
+    .next-btn:hover { background:#1e40af; }
+  </style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+
+<div class="unit-title">Lección 2 - Parte 1</div>
+
+<!-- Fast-jump progress bar -->
+<div class="progress-container" id="progressContainer">
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+  <h2>Conoce a los personajes</h2>
+  <p>Haz click en la imagen para escuchar y aprender</p>
+
+  <!-- ✅ Paths + language text live in HTML (JS reads it) -->
+  <div class="character-container" id="charactersContainer"
+       data-img-base="../../../../assets/images/u1/"
+       data-audio-base="../../../../assets/audio/u1/">
+
+    <!-- These are “data cards” JS will turn into real cards -->
+    <div class="character-data"
+         data-key="maria"
+         data-name="Maria"
+         data-en="I am Maria. I am from Mexico City. I am Mexican."
+         data-es="Soy Maria. Soy de Ciudad de México. Soy mexicana."
+         data-img="maria.png"
+         data-audio="maria_1_2_1.mp3"></div>
+
+    <div class="character-data"
+         data-key="carlos"
+         data-name="Carlos"
+         data-en="I am Carlos. I am from Buenos Aires. I am Argentinian."
+         data-es="Soy Carlos. Soy de Buenos Aires. Soy argentino."
+         data-img="carlos.png"
+         data-audio="carlos_1_2_1.mp3"></div>
+
+    <div class="character-data"
+         data-key="pedro"
+         data-name="Pedro"
+         data-en="I am Pedro. I am from Santiago. I am Chilean."
+         data-es="Soy Pedro. Soy de Santiago. Soy chileno."
+         data-img="pedro.png"
+         data-audio="pedro_1_2_1.mp3"></div>
+
+    <div class="character-data"
+         data-key="george"
+         data-name="George"
+         data-en="I am George. I am from Caracas. I am Venezuelan."
+         data-es="Soy George. Soy de Caracas. Soy venezolano."
+         data-img="george.png"
+         data-audio="george_1_2_1.mp3"></div>
+
+    <div class="character-data"
+         data-key="julie"
+         data-name="Julie"
+         data-en="I am Julie. I am from San José. I am Costa Rican."
+         data-es="Soy Julie. Soy de San José. Soy costarricense."
+         data-img="julie.png"
+         data-audio="julie_1_2_1.mp3"></div>
+
+  </div>
+
+  <button class="next-btn" id="nextBtn">Siguiente →</button>
+</div>
+
+</body>
+</html>

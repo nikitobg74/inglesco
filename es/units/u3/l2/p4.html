@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>U3 L2 P4</title>
+
+  <style>
+    :root{
+      --blue:#2563eb;
+      --blueDark:#1e40af;
+      --text:#111827;
+      --muted:#374151;
+      --card: rgba(255,255,255,0.88);
+    }
+
+    /* ===== GLOBAL FIXES (prevents "broken boxes") ===== */
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      padding: clamp(14px, 3.5vw, 20px);
+      padding-bottom: calc(clamp(14px, 3.5vw, 20px) + env(safe-area-inset-bottom));
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      overflow-x:hidden;
+    }
+    img{ max-width:100%; height:auto; display:block; }
+    button{ font-family: inherit; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin: 0 0 18px 0;
+      padding: 10px 14px;
+      background: var(--blue);
+      color:#fff;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:900;
+      box-shadow: 0 8px 18px rgba(37,99,235,0.22);
+    }
+    .back-btn:hover{ background: var(--blueDark); }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin: 10px 0 18px 0;
+      flex-wrap:wrap;
+    }
+    .step{
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      cursor:pointer;
+      transition:transform .2s ease, background .2s ease;
+      color:#1f2933;
+      user-select:none;
+      flex: 0 0 auto;
+    }
+    .step.active{
+      background: var(--blue);
+      color:#fff;
+    }
+    .step:hover{ transform:scale(1.06); }
+
+    /* ===== CARD UI ===== */
+    .card{
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 18px;
+      padding: clamp(14px, 3.5vw, 18px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+      border: 1px solid rgba(17,24,39,0.08);
+    }
+    .title{
+      font-size: 20px;
+      font-weight: 1000;
+      margin: 0 0 6px 0;
+      line-height:1.15;
+    }
+    .subtitle{
+      margin: 0 0 14px 0;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.35;
+      font-weight:800;
+    }
+
+    /* ===== GRAMMAR BOX ===== */
+    .grammar-box{
+      max-width:520px;
+      width:100%;
+      margin: 10px auto 16px auto;
+      background:#ffffff;
+      border-left:6px solid var(--blue);
+      border-radius:14px;
+      padding:12px 14px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+      overflow:hidden;
+    }
+    .grammar-title{
+      font-weight:1000;
+      font-size:16px;
+      color: var(--blueDark);
+      margin-bottom:6px;
+    }
+    .grammar-text{
+      font-size:15px;
+      line-height:1.42;
+      font-weight:800;
+      color: var(--text);
+      word-break:break-word;
+    }
+    .grammar-text span{
+      color: var(--blue);
+      font-weight:1000;
+    }
+
+    /* ===== SCENE ===== */
+    .scene{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+    .img-wrap{
+      width:100%;
+      display:flex;
+      justify-content:center;
+    }
+    .scene-img{
+      width:100%;
+      max-width:520px;
+      border-radius: 16px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+      border: 1px solid rgba(17,24,39,0.08);
+      background:#fff;
+    }
+
+    .row{
+      width:100%;
+      max-width:520px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .qtext{
+      margin:0;
+      font-weight:1000;
+      font-size:16px;
+      color: var(--text);
+      line-height:1.2;
+      flex: 1 1 220px;
+      min-width: 200px;
+    }
+    .play-btn{
+      padding:12px 14px;
+      border-radius:14px;
+      border:none;
+      background:#111827;
+      color:#fff;
+      font-weight:1000;
+      cursor:pointer;
+      flex: 0 0 auto;
+      min-width: 120px;
+      touch-action: manipulation;
+    }
+    .play-btn:disabled{ opacity:0.55; cursor:not-allowed; }
+
+    .exercise{
+      width:100%;
+      max-width:520px;
+      background:#ffffff;
+      border-radius: 16px;
+      padding: 14px;
+      border:1px solid rgba(17,24,39,0.10);
+      overflow:hidden;
+    }
+
+    .prompt{
+      margin:0 0 10px 0;
+      font-size: 15px;
+      font-weight: 1000;
+      color: var(--text);
+      line-height:1.3;
+      word-break:break-word;
+    }
+
+    /* Slots */
+    .slots{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding: 10px;
+      border-radius: 14px;
+      border:2px dashed rgba(17,24,39,0.20);
+      background:#f9fafb;
+      min-height: 56px;
+      align-content:flex-start;
+    }
+    .slot{
+      min-width: 84px;
+      height: 40px;
+      padding: 0 10px;
+      border-radius: 12px;
+      background:#ffffff;
+      border:1px solid rgba(17,24,39,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 1000;
+      color:#9ca3af;
+      user-select:none;
+      max-width: 100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .slot.filled{
+      color: var(--text);
+      border:2px solid rgba(17,24,39,0.15);
+      cursor:pointer;
+    }
+    .slot.ok{
+      border:2px solid rgba(16,185,129,0.95) !important;
+      background: rgba(16,185,129,0.12) !important;
+      color:#065f46 !important;
+    }
+    .slot.no{
+      border:2px solid rgba(239,68,68,0.95) !important;
+      background: rgba(239,68,68,0.10) !important;
+      color:#991b1b !important;
+    }
+
+    /* Tiles */
+    .tiles{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .tile{
+      border:none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background:#111827;
+      color:#fff;
+      font-weight: 1000;
+      cursor:pointer;
+      user-select:none;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      touch-action: manipulation;
+    }
+    .tile:disabled{ opacity:0.45; cursor:not-allowed; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top: 12px;
+      justify-content:flex-start;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 1000;
+      cursor:pointer;
+      touch-action: manipulation;
+    }
+    .btn.secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .feedback{
+      margin-top: 10px;
+      font-weight: 1000;
+      font-size: 16px;
+      min-height: 22px;
+      word-break:break-word;
+    }
+    .feedback.ok{ color:#047857; }
+    .feedback.no{ color:#b91c1c; }
+
+    .mini-status{
+      width:100%;
+      max-width: 520px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color: var(--muted);
+      font-weight: 1000;
+      font-size: 14px;
+      margin-top: 10px;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .finish{
+      width:100%;
+      max-width:520px;
+      background:#ecfeff;
+      border:1px solid #a5f3fc;
+      border-radius:16px;
+      padding:14px;
+      margin-top:12px;
+    }
+    .finish h3{ margin:0 0 6px 0; font-size:18px; font-weight:1000; }
+    .finish p{ margin:0; color:#0f172a; font-weight:900; line-height:1.35; }
+
+    /* ===== NEXT BUTTON (BOTTOM) ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:18px;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:12px 18px;
+      background: var(--blue);
+      color:#fff;
+      text-decoration:none;
+      border-radius:14px;
+      font-weight:1000;
+      box-shadow: 0 10px 22px rgba(37,99,235,0.22);
+    }
+    .next-btn:hover{ background: var(--blueDark); }
+
+    .hidden{ display:none !important; }
+
+    /* ===== MOBILE TUNING ===== */
+    @media (max-width:520px){
+      .step{ width:34px; height:34px; font-size:14px; }
+      .qtext{ min-width: 0; flex-basis: 100%; }
+      .play-btn{ width:100%; }
+      .slot{ min-width: 76px; }
+      .tile{ flex: 1 1 auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+
+  <div class="progress-container" aria-label="Progreso">
+    <div class="step" onclick="location.href='p1.html'">1</div>
+    <div class="step" onclick="location.href='p2.html'">2</div>
+    <div class="step" onclick="location.href='p3.html'">3</div>
+    <div class="step active" onclick="location.href='p4.html'">4</div>
+  </div>
+
+  <div class="card"
+       id="app"
+       data-correct="¡Correcto!"
+       data-wrong="✘"
+       data-instr="Escucha el diálogo. Luego ordena las palabras."
+       data-reset="Borrar"
+       data-step-label="Paso"
+       data-finish-title="🎉 ¡Excelente!"
+       data-finish-body="Terminaste la Lección 2. Ahora sabes usar: We are / They are.">
+
+    <h1 class="title">Unidad 3 · Lección 2 · Parte 4</h1>
+    <p class="subtitle" id="instrText">Escucha el diálogo. Luego ordena las palabras.</p>
+
+    <div class="grammar-box">
+      <div class="grammar-title">Nueva expresión</div>
+      <div class="grammar-text">
+        <span>They are</span> = Ellos están / Ellas están.<br><br>
+        Usamos <span>They are</span> cuando hablamos de varias personas.<br><br>
+        Ejemplo:<br>
+        They are in the kitchen.<br>
+        Ellos están en la cocina.
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="img-wrap">
+        <img id="sceneImg" class="scene-img" alt="Escena" />
+      </div>
+
+      <div class="row">
+        <p id="questionText" class="qtext">▶ Escucha primero</p>
+        <button id="playBtn" class="play-btn" type="button">▶ Play</button>
+      </div>
+
+      <div class="exercise">
+        <p id="prompt" class="prompt">Pulsa Play para escuchar.</p>
+
+        <div id="slots" class="slots"></div>
+        <div id="tiles" class="tiles"></div>
+
+        <div class="actions">
+          <button id="resetBtn" class="btn secondary" type="button">Borrar</button>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <div class="mini-status">
+          <div id="roundStatus">1/5</div>
+          <div id="stepStatus">Paso 1/10</div>
+        </div>
+
+        <div id="finishBox" class="finish hidden">
+          <h3 id="finishTitle">🎉 ¡Excelente!</h3>
+          <p id="finishBody">Terminaste la Lección 2. Ahora sabes usar: We are / They are.</p>
+        </div>
+      </div>
+
+      <audio id="audioEl" preload="auto"></audio>
+    </div>
+
+    <div class="footer-actions">
+      <a id="nextBtn" class="next-btn hidden" href="../index.html">Continuar → Unidad 3</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u3/u3_l2_p4.js"></script>
+</body>
+</html>

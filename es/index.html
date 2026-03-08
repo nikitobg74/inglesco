@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inglesco</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+   
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #dbeafe, #fef9c3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+.logo {
+  font-size: 82px;
+  font-weight: 700;
+  margin-top: 50px;
+  text-align: center;
+  letter-spacing: 4px;
+  position: relative;
+}
+.logo::after {
+  content: "";
+  width: 220px;
+  height: 5px;
+  background: linear-gradient(to right, #2563eb, #9333ea);
+  display: block;
+  margin: 6px auto 0 auto;
+  border-radius: 10px;
+}
+
+  .logo span:nth-child(1) { color: #ff4d4d; }
+  .logo span:nth-child(2) { color: #ff9900; }
+  .logo span:nth-child(3) { color: #22c55e; }
+  .logo span:nth-child(4) { color: #3b82f6; }
+  .logo span:nth-child(5) { color: #a855f7; }
+  .logo span:nth-child(6) { color: #ec4899; }
+  .logo span:nth-child(7) { color: #06b6d4; }
+  .logo span:nth-child(8) { color: #f97316; }
+
+  .subtitle {
+    font-size: 22px;
+    margin-top: 10px;
+    color: #333;
+    text-align: center;
+  }
+
+  .start-btn {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 18px;
+  border-radius: 30px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  text-decoration: none;
+  display: inline-block;
+}
+  .start-btn:hover {
+    background: #1e40af;
+    transform: translateY(-3px);
+  }
+
+  .content {
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+  }
+
+  /* LEFT BIG IMAGE */
+  .left img {
+    width: 420px;
+    max-width: 100%;
+  }
+
+  /* RIGHT TESTIMONIALS */
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .student-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    max-width: 480px;
+  }
+
+  .student-card img {
+    width: 150px;
+    border-radius: 15px;
+  }
+
+  .student-text {
+    font-size: 15px;
+    color: #333;
+  }
+
+  .student-text strong {
+    font-weight: 600;
+    color: #2563eb;
+  }
+
+  @media (max-width: 900px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .right {
+      align-items: center;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="logo">
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+    <span>L</span>
+    <span>E</span>
+    <span>S</span>
+    <span>C</span>
+    <span>O</span>
+  </div>
+
+  <div class="subtitle">
+    Aprende inglés fácil y gratis
+  </div>
+
+ <a href="dashboard.html" class="start-btn">
+  Empieza ahora
+</a>
+
+  <div class="content">
+
+    <div class="left">
+      <img src="../assets/images/english10.png" alt="Girl learning English">
+    </div>
+
+    <div class="right">
+
+  <div class="student-card">
+    <img src="../assets/images/english1.png" alt="">
+    <div class="student-text">
+      <strong>Soy María,</strong><br>
+      estoy aprendiendo inglés para crecer profesionalmente.
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="../assets/images/english2.png" alt="">
+    <div class="student-text">
+      <strong>Me llamo Carlos, soy de Colombia.</strong><br>
+      Ahora entiendo inglés mucho mejor.
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="../assets/images/english3.png" alt="">
+    <div class="student-text">
+      <strong>Soy Ana, de México.</strong><br>
+      Estoy construyendo un mejor futuro con inglés.
+    </div>
+  </div>
+
+</div>
+
+  </div>
+
+</body>
+</html>

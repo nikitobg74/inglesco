@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 1 - Parte 4</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn{
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover{ background:#1e40af; }
+
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active{ background:#2563eb; color:#ffffff; }
+.step:hover{ transform:scale(1.1); }
+
+.exercise-box{
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title{
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.instruction-box{
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+.counter-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  color:#1f2933;
+  font-weight:700;
+}
+.counter-pill{
+  background:#2563eb;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.split-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:22px;
+}
+
+.col{
+  flex:1 1 45%;
+  min-width:240px;
+  text-align:center;
+}
+
+.image-box{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:14px;
+}
+
+.image-box img{
+  width:100%;
+  max-width:420px;
+  border-radius:14px;
+  margin-bottom:10px;
+}
+
+.small-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+.small-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:700;
+  transition:all 0.2s;
+}
+.small-btn:hover{ background:#1e40af; }
+
+.section-title{
+  margin:14px 0 10px 0;
+  font-weight:800;
+  color:#111827;
+}
+
+.builder{
+  margin-top:10px;
+  background:#ffffff;
+  border:1px dashed #93c5fd;
+  border-radius:14px;
+  padding:14px;
+}
+
+.slots{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.slot{
+  min-width:92px;
+  padding:12px 10px;
+  border-radius:12px;
+  background:#eef2ff;
+  border:2px solid #bfdbfe;
+  font-weight:800;
+  color:#111827;
+}
+.slot.empty{ color:#6b7280; font-weight:700; }
+
+.wordbank{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.token{
+  background:#e0f2fe;
+  border:1px solid #bfdbfe;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:grab;
+  user-select:none;
+  font-weight:800;
+  color:#111827;
+  min-width:80px;
+  text-align:center;
+  transition:all 0.2s;
+}
+.token:hover{ background:#dbeafe; }
+
+.controls{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.control-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:800;
+  transition:all 0.2s;
+}
+.control-btn.secondary{ background:#0ea5e9; }
+.control-btn.gray{ background:#6b7280; }
+.control-btn:hover{ filter:brightness(0.95); }
+
+.feedback{
+  margin-top:14px;
+  text-align:center;
+  font-weight:900;
+  font-size:18px;
+}
+.feedback.good{ color:#16a34a; }
+.feedback.bad{ color:#dc2626; }
+
+.next-link{
+  display:none;
+  margin-top:15px;
+  background:#2563eb;
+  color:white;
+  padding:10px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+.next-link:hover{ background:#1e40af; }
+
+@media (max-width:768px){
+  .exercise-box{ padding:22px 18px; }
+  .split-row{ flex-direction:column; align-items:center; }
+  .col{ flex:1 1 100%; max-width:95%; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn" id="backBtn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step active" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+  <div class="unit-title" id="unitTitle">Unidad 2 – Lección 1</div>
+
+  <!-- This visible instruction text can be translated per page -->
+  <div class="instruction-box" id="instructionBox">
+    Mira las imágenes y ordena las palabras para formar la pregunta y la respuesta.
+  </div>
+
+  <div class="counter-row">
+    <span class="counter-pill" id="counterPill">Ejercicio 1/4</span>
+  </div>
+
+  <div class="split-row">
+    <!-- LEFT -->
+    <div class="col">
+      <div class="image-box">
+        <img id="personImg" src="" alt="Persona" />
+        <div class="small-actions">
+          <button class="small-btn" id="playPersonAudioBtn">🔊 Audio (Pregunta)</button>
+        </div>
+      </div>
+
+      <div class="section-title" id="qTitle">Ordena la pregunta</div>
+      <div class="builder">
+        <div class="slots" id="qSlots"></div>
+        <div class="wordbank" id="qBank"></div>
+        <div class="small-actions" style="margin-top:10px;">
+          <button class="small-btn" id="resetQBtn" style="background:#6b7280;">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col">
+      <div class="image-box">
+        <img id="roomImg" src="" alt="Habitación" />
+        <div class="small-actions">
+          <button class="small-btn" id="playRoomAudioBtn">🔊 Audio (Lugar)</button>
+        </div>
+      </div>
+
+      <div class="section-title" id="aTitle">Ordena la respuesta</div>
+      <div class="builder">
+        <div class="slots" id="aSlots"></div>
+        <div class="wordbank" id="aBank"></div>
+        <div class="small-actions" style="margin-top:10px;">
+          <button class="small-btn" id="resetABtn" style="background:#6b7280;">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn gray" id="shuffleBtn">Cambiar imágenes</button>
+    <button class="control-btn secondary" id="checkBtn">Comprobar</button>
+    <button class="control-btn" id="nextBtn" style="display:none;">Siguiente</button>
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <a href="../l2/index.html" class="next-link" id="goL2Link">➡️ Ir a Lección 2</a>
+</div>
+
+<script>
+/**
+ * ✅ ALL language strings live here (NOT in JS).
+ * For Portuguese version, you change only this object + the visible HTML text above.
+ */
+window.P4_CONFIG = {
+  // asset base paths
+  IMG_BASE: "../../../../assets/images/u2/",
+  AUDIO_BASE: "../../../../assets/audio/u2/",
+
+  // total exercises
+  totalExercises: 4,
+
+  // people (images + question audio)
+  people: [
+    { key: "man",    image: "u2.l1.p4.man.jpg",    audio: "u2.l1.p4.man.whereareyou.mp3" },
+    { key: "man1",   image: "u2.l1.p4.man1.jpg",   audio: "u2.l1.p4.man1.whereareyou.mp3" },
+    { key: "woman",  image: "u2.l1.p4.woman.jpg",  audio: "u2.l1.p4.woman.whereareyou.mp3" },
+    { key: "woman1", image: "u2.l1.p4.woman1.jpg", audio: "u2.l1.p4.woman1.whereareyou.mp3" }
+  ],
+
+  // rooms (images + room audio)
+  items: [
+    { id: "livingroom", display: "Living room", image: "u2.l1.p2.livingroom1.jpg", audio: "u2.l1.p2.livingroom.mp3" },
+    { id: "kitchen",    display: "Kitchen",     image: "u2.l1.p2.kitchen1.jpg",    audio: "u2.l1.p2.kitchen.mp3" },
+    { id: "bedroom",    display: "Bedroom",     image: "u2.l1.p2.bedroom1.jpg",    audio: "u2.l1.p2.bedroom.mp3" },
+    { id: "garage",     display: "Garage",      image: "u2.l1.p1.garage1.jpg",     audio: "u2.l1.p2.garage.mp3" },
+    { id: "bathroom",   display: "Bathroom",    image: "u2.l1.p2.bathroom1.jpg",   audio: "u2.l1.p2.bathroom.mp3" },
+    { id: "basement",   display: "Basement",    image: "u2.l1.p2.basement1.jpg",   audio: "u2.l1.p2.basement.mp3" },
+    { id: "yard",       display: "Yard",        image: "u2.l1.p2.yard1.jpg",       audio: "u2.l1.p2.yard.mp3" },
+    { id: "attic",      display: "Attic",       image: "u2.l1.p2.attic1.jpg",      audio: "u2.l1.p2.attic.mp3" }
+  ],
+
+  // targets (the English you are teaching)
+  targets: {
+    question: ["Where", "are", "you?"],
+    answerPrefix: ["I", "am", "in", "the"],
+
+    // how to convert room display into the word used in the answer (bedroom, kitchen...)
+    roomWordTransform: "lowercase" // "lowercase" | "none"
+  },
+
+  // UI text (ALL strings used by JS)
+  ui: {
+    counterFormat: (current, total) => `Ejercicio ${current}/${total}`,
+    completedFormat: (total) => `Completado: ${total}/${total}`,
+
+    buttons: {
+      playQuestion: "🔊 Audio (Pregunta)",
+      playPlace: "🔊 Audio (Lugar)",
+      reset: "Reiniciar",
+      shuffle: "Cambiar imágenes",
+      check: "Comprobar",
+      next: "Siguiente",
+      goL2: "➡️ Ir a Lección 2"
+    },
+
+    feedback: {
+      success: ["¡Muy bien!", "¡Excelente!", "Great!"],
+      fail: ["Intenta otra vez.", "Revisa el orden.", "Casi. Inténtalo de nuevo."]
+    }
+  }
+};
+</script>
+
+<script src="../../../../js/u2/u2_l1_p4.js"></script>
+</body>
+</html>

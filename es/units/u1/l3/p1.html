@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 1 - Lección 3 - Parte 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ Correct JS path -->
+<script defer src="../../../../js/u1/u1_l3_p1.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+.back-btn:hover { background:#1e40af; }
+
+.unit-title {
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#2563eb;
+}
+
+/* Progress bar */
+.progress-container {
+  display:flex;
+  justify-content:center;
+  margin:15px 0 25px 0;
+  gap:10px;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.step.active { background:#2563eb; color:white; }
+.step:hover { transform: scale(1.1); }
+
+/* Main Box */
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:white;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Characters */
+.top-characters {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.character {
+  width:220px;
+  text-align:center;
+}
+
+.character img {
+  width:100%;
+  border-radius:16px;
+  border:4px solid #2563eb;
+}
+
+/* Play button */
+.player-controls {
+  text-align:center;
+  margin:20px 0 30px 0;
+}
+
+.play-btn {
+  padding:12px 30px;
+  border:none;
+  border-radius:12px;
+  background:#7c3aed;
+  color:white;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+}
+.play-btn:hover { background:#6d28d9; }
+
+/* Dialogue */
+.dialogue-container {
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.dialogue-row {
+  display:flex;
+  width:100%;
+}
+
+.dialogue-box {
+  padding:16px 22px;
+  border-radius:18px;
+  font-size:18px;
+  line-height:1.6;
+  max-width:70%;
+  transition:all 0.3s;
+}
+
+/* ANA left */
+.ana-row { justify-content:flex-start; }
+.ana-box { background:#fce7f3; color:#111; text-align:left; }
+
+/* GEORGE right */
+.george-row { justify-content:flex-end; }
+.george-box { background:#e0f2fe; color:#111; text-align:right; }
+
+.dialogue-box.active { box-shadow:0 0 0 3px #facc15; }
+
+/* Bottom buttons */
+.controls {
+  text-align:center;
+  margin-top:35px;
+}
+
+.replay-btn {
+  padding:12px 25px;
+  border:none;
+  border-radius:12px;
+  background:#f97316;
+  color:white;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  margin-right:15px;
+}
+.replay-btn:hover { background:#ea580c; }
+
+.next-btn {
+  padding:12px 25px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  display:none;
+}
+.next-btn:hover { background:#1e40af; }
+
+@media(max-width:768px){
+  .top-characters{ flex-direction:column; gap:20px; }
+}
+
+/* hidden language strings */
+.i18n { display:none; }
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+
+<div class="unit-title">Lección 3 - Parte 1</div>
+
+<div class="progress-container">
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+  <div class="top-characters">
+    <div class="character">
+      <img src="../../../../assets/images/u1/ana.png" alt="Ana">
+      <p><strong>Ana</strong></p>
+    </div>
+
+    <div class="character">
+      <img src="../../../../assets/images/u1/george.png" alt="George">
+      <p><strong>George</strong></p>
+    </div>
+  </div>
+
+  <!-- ✅ Language text lives in HTML -->
+  <div class="i18n">
+    <span id="txt-play">▶️ Reproducir</span>
+    <span id="txt-pause">⏸ Pausar</span>
+    <span id="txt-next">Siguiente →</span>
+  </div>
+
+  <div class="player-controls">
+    <button class="play-btn" id="playPauseBtn">▶️ Reproducir</button>
+  </div>
+
+  <div class="dialogue-container" id="dialogueContainer"
+       data-audio-base="../../../../assets/audio/u1/"
+       data-next="p2.html">
+
+    <div class="dialogue-row ana-row">
+      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana1.mp3">Hello George. I am Ana. Where are you from?</div>
+    </div>
+
+    <div class="dialogue-row george-row">
+      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george1.mp3">Hello Ana. I am from Caracas. I am Venezuelan. Where are you from?</div>
+    </div>
+
+    <div class="dialogue-row ana-row">
+      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana2.mp3">I am from Medellin. I am Colombian.</div>
+    </div>
+
+    <div class="dialogue-row george-row">
+      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george2.mp3">What is your address?</div>
+    </div>
+
+    <div class="dialogue-row ana-row">
+      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana3.mp3">My address is 213 Main Street. And you?</div>
+    </div>
+
+    <div class="dialogue-row george-row">
+      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george3.mp3">My address is 94 River Street, apartment 2.</div>
+    </div>
+
+    <div class="dialogue-row george-row">
+      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george4.mp3">What is your phone number?</div>
+    </div>
+
+    <div class="dialogue-row ana-row">
+      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana4.mp3">My telephone number is 758 9251. And you? What is your phone number?</div>
+    </div>
+
+    <div class="dialogue-row george-row">
+      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george5.mp3">My phone number is 549 2137.</div>
+    </div>
+
+  </div>
+
+  <div class="controls">
+    <button class="replay-btn" id="replayBtn">Repetir diálogo</button>
+    <button class="next-btn" id="nextBtn">Siguiente →</button>
+  </div>
+
+</div>
+
+</body>
+</html>

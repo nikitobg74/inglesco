@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 2 - Lección 6 - Parte 2</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color:#0f172a;
+    }
+    .wrap{ max-width: 900px; margin: 0 auto; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px; height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== NEXT BUTTON ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:25px;
+      padding-bottom: 30px;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    @media (max-width:520px){
+      .step{ width:34px; height:34px; font-size:14px; }
+    }
+
+    .card{
+      background: rgba(255,255,255,.88);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
+      margin-bottom: 14px;
+    }
+
+    /* ===== BIG BLUE TITLE ===== */
+    .sub{
+      font-size: 28px;
+      font-weight: 900;
+      color: #2563eb;
+      text-align:center;
+      margin: 6px 0 16px 0;
+    }
+
+    /* ES Instructions */
+    .es-instructions{
+      background: rgba(255,255,255,.92);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+      margin-bottom: 14px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .es-instructions ul{
+      margin: 0;
+      padding-left: 18px;
+    }
+    .es-instructions li{
+      margin: 6px 0;
+    }
+
+    .game{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      align-items:center;
+    }
+
+    .img{
+      width: 100%;
+      max-width: 360px;
+      max-height: 240px;
+      border-radius: 16px;
+      object-fit: cover;
+      background:#e5e7eb;
+      box-shadow: 0 6px 18px rgba(15,23,42,.10);
+    }
+
+    .toprow{
+      width:100%;
+      max-width:360px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-weight: 900;
+    }
+
+    .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    }
+
+    .play-audio{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background:#2563eb;
+      color:#fff;
+      font-weight: 900;
+    }
+    .play-audio:hover{ background:#1e40af; }
+
+    .controls{
+      width:100%;
+      max-width:360px;
+      display:flex;
+      gap: 12px;
+    }
+
+    .btn{
+      flex:1;
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 14px 12px;
+      border-radius: 16px;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .yes{ background:#16a34a; color:#fff; }
+    .no{ background:#dc2626; color:#fff; }
+
+    .status{
+      width:100%;
+      max-width:360px;
+      text-align:center;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+    <div class="progress-container">
+      <div class="step" data-go="p1.html">1</div>
+      <div class="step active" data-go="p2.html">2</div>
+      <div class="step" data-go="p3.html">3</div>
+      <div class="step" data-go="p4.html">4</div>
+    </div>
+
+    <div class="card">
+
+      <div class="sub">Unidad 2 · Lección 6 · Parte 2</div>
+
+      <div class="es-instructions">
+        <ul>
+          <li>▶ Play audio</li>
+          <li>Correcto → YES</li>
+          <li>Incorrecto → NO</li>
+        </ul>
+      </div>
+
+      <div class="game">
+
+        <div class="toprow">
+          <div class="pill">Progreso: <span id="progNow">1</span>/<span id="progTotal">8</span></div>
+          <button id="playBtn" class="play-audio" type="button">▶ Play</button>
+        </div>
+
+        <img id="mainImg" class="img" alt="Object" />
+
+        <div class="controls">
+          <button id="yesBtn" class="btn yes" type="button">YES</button>
+          <button id="noBtn" class="btn no" type="button">NO</button>
+        </div>
+
+        <div id="status" class="status">Presiona ▶ Play y luego YES / NO.</div>
+      </div>
+
+    </div>
+
+    <div class="footer-actions">
+      <a href="p3.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+    </div>
+
+  </div>
+
+  <!-- ✅ UI TEXT SOURCE (Spanish for this page). JS reads from here. -->
+  <div id="uiText" hidden
+    data-status-ready="Presiona ▶ Play y luego YES / NO."
+    data-status-playing="Reproduciendo..."
+    data-status-answer="Ahora responde: YES o NO."
+    data-status-play-first="Primero presiona ▶ Play 🙂"
+    data-status-blocked="Si no se escucha, intenta otra vez o responde."
+    data-status-correct="✅ Correcto!"
+    data-status-wrong="❌ Intenta otra vez. Presiona ▶ Replay."
+    data-status-done="✅ Excellent!"
+    data-play-label="▶ Play"
+    data-replay-label="▶ Replay"
+  ></div>
+
+  <script src="../../../../js/u2/u2_l6_p2.js"></script>
+</body>
+</html>

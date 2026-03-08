@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 1 - Parte 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover { background:#1e40af; }
+
+.progress-container {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active {
+  background:#2563eb;
+  color:#ffffff;
+}
+.step:hover { transform:scale(1.1); }
+
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title {
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.instruction-box {
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:25px;
+}
+
+/* Top row */
+.p2-top {
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+.p2-man {
+  flex:0 0 260px;
+  text-align:center;
+  cursor:pointer;
+}
+.p2-man img {
+  width:100%;
+  max-width:240px;
+  border-radius:14px;
+}
+.p2-right {
+  flex:1 1 360px;
+  min-width:260px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.p2-question {
+  font-size:20px;
+  font-weight:700;
+  margin-top:8px;
+}
+.p2-translation {
+  font-size:14px;
+  font-weight:400;
+  margin-top:2px;
+}
+
+/* ✅ NEW PLAY BUTTON (big, square-ish, right) */
+.play-box {
+  position:relative;
+  margin-left:auto;              /* push to the right */
+  width:110px;
+  height:110px;
+  border-radius:16px;
+
+  background:#fff7ed;            /* warm bg */
+  border:2px solid #fb923c;      /* orange border */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+  transition:all 0.25s;
+}
+.play-box:hover {
+  background:#ffedd5;
+  transform:scale(1.05);
+}
+
+/* 1/8 badge */
+.play-badge {
+  position:absolute;
+  top:-10px;
+  left:-10px;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:#ea580c;            /* darker orange */
+  color:#ffffff;
+  font-weight:800;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* big ▶ icon */
+.play-icon {
+  font-size:46px;
+  font-weight:900;
+  color:#ea580c;
+  line-height:1;
+}
+
+/* Feedback */
+#feedback {
+  text-align:center;
+  font-weight:800;
+  min-height:24px;
+}
+
+/* 3-choice image row */
+.choices-wrap{
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.choice-card{
+  flex:1 1 220px;
+  max-width:260px;
+  background:#ffffff;
+  border-radius:16px;
+  padding:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.06);
+  cursor:pointer;
+  transition:transform 0.2s;
+  border:2px solid transparent;
+  text-align:center;
+}
+.choice-card:hover { transform:scale(1.02); }
+.choice-card img{
+  width:100%;
+  border-radius:14px;
+  display:block;
+}
+.choice-label{
+  margin-top:10px;
+  font-weight:800;
+}
+
+/* Next button */
+.next-btn {
+  display:inline-block;
+  margin-top:18px;
+  background:#2563eb;
+  color:white;
+  padding:10px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:800;
+  text-align:center;
+}
+.next-btn:hover { background:#1e40af; }
+.next-btn.disabled{
+  opacity:0.45;
+  pointer-events:none;
+}
+
+/* Responsive */
+@media (max-width:768px){
+  .p2-top { flex-direction:column; align-items:center; }
+  .p2-right { width:100%; align-items:center; }
+  .play-box { margin-left:0; }   /* center on mobile */
+  .choice-card{ max-width:90%; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step active" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+  <h1 class="unit-title">Lección 1 - Parte 2<br>Where are you? – ¿Dónde estás?</h1>
+
+  <div class="instruction-box">
+    1) Haz clic en el hombre para escuchar la pregunta. <br>
+    2) Haz clic en la caja <b>1/8</b> para escuchar la frase. <br>
+    3) Elige la imagen correcta.
+  </div>
+
+  <div class="p2-top">
+    <div class="p2-man" id="manBox" title="Play question">
+      <img src="../../../../assets/images/u2/u2.l1.p2.man.jpg" alt="Man">
+      <div class="image-description">
+        <div class="p2-question">Where are you?</div>
+        <div class="p2-translation">¿Dónde estás?</div>
+      </div>
+    </div>
+
+    <div class="p2-right">
+
+      <!-- ✅ Big orange play button (only ▶ + 1/8) -->
+      <div class="play-box" id="playPhraseBox" title="Play phrase">
+        <div class="play-badge" id="counterBadge">1/8</div>
+        <div class="play-icon">▶</div>
+      </div>
+
+      <!-- Feedback text comes from data attributes -->
+      <div id="feedback"
+           data-try-again="Intenta otra vez"
+           data-correct="¡Correcto!"
+           data-complete="¡Parte 2 completada! ✅"
+      ></div>
+
+    </div>
+  </div>
+
+  <!-- 3 image choices -->
+  <div class="choices-wrap" id="choicesWrap"></div>
+
+  <a href="p3.html" class="next-btn disabled" id="nextBtn">Siguiente →</a>
+
+</div>
+
+<script src="../../../../js/u2/u2_l1_p2.js"></script>
+</body>
+</html>

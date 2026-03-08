@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 2 - Parte 4</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:800;
+}
+.back-btn:hover { background:#1e40af; }
+
+.progress-container {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active { background:#2563eb; color:#ffffff; }
+.step:hover { transform:scale(1.1); }
+
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:28px 18px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title {
+  color:#2563eb;
+  font-size:28px;
+  font-weight:800;
+  text-align:center;
+  margin-bottom:14px;
+  line-height:1.2;
+}
+
+.instruction-box {
+  background:#e0e7ff;
+  padding:12px 14px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:700;
+  margin:0 auto 16px auto;
+  max-width:760px;
+}
+
+/* SINGLE play button centered */
+.play-row{
+  display:flex;
+  justify-content:center;
+  margin:6px 0 10px 0;
+}
+.play-box{
+  position:relative;
+  width:120px;
+  height:110px;
+  border-radius:16px;
+  background:#fff7ed;
+  border:2px solid #fb923c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:all 0.25s;
+  user-select:none;
+}
+.play-box:hover{
+  background:#ffedd5;
+  transform:scale(1.05);
+}
+.play-badge{
+  position:absolute;
+  top:-10px;
+  left:-10px;
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  background:#ea580c;
+  color:#ffffff;
+  font-weight:900;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+.play-icon{
+  font-size:48px;
+  font-weight:900;
+  color:#ea580c;
+  line-height:1;
+}
+
+/* Feedback */
+#feedback{
+  text-align:center;
+  font-weight:900;
+  min-height:24px;
+  margin-top:8px;
+}
+
+/* 3-choice images */
+.choices-wrap{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.choice-card{
+  flex:1 1 220px;
+  max-width:260px;
+  background:#ffffff;
+  border-radius:16px;
+  padding:10px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.06);
+  cursor:pointer;
+  transition:transform 0.2s, border-color 0.2s;
+  border:2px solid transparent;
+  text-align:center;
+}
+.choice-card:hover { transform:scale(1.02); }
+.choice-card img{
+  width:100%;
+  max-height:180px;
+  object-fit:cover;
+  border-radius:14px;
+  display:block;
+}
+
+/* Final NEXT button */
+.next-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:18px;
+}
+.next-btn{
+  display:inline-block;
+  background:#2563eb;
+  color:white;
+  padding:12px 22px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:900;
+  text-align:center;
+}
+.next-btn:hover{ background:#1e40af; }
+.hidden{ display:none !important; }
+
+/* Mobile */
+@media (max-width:768px){
+  .exercise-box{ padding:22px 14px; }
+  .choice-card{ max-width:92%; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step active" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+  <h1 class="unit-title">Lección 2 - Parte 4</h1>
+
+  <div class="instruction-box">
+    Haz clic para escuchar el audio y elige la imagen correcta.
+  </div>
+
+  <div class="play-row">
+    <div class="play-box" id="playBox" title="Play audio">
+      <div class="play-badge" id="counterBadge">1/10</div>
+      <div class="play-icon">▶</div>
+    </div>
+  </div>
+
+  <div id="feedback"
+       data-try-again="Intenta otra vez"
+       data-correct="¡Correcto!"
+       data-complete="¡Parte completada! ✅"
+  ></div>
+
+  <div class="choices-wrap" id="choicesWrap"></div>
+
+  <div class="next-wrap">
+    <a href="../index.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+  </div>
+
+</div>
+
+<script src="../../../../js/u2/u2_l2_p4.js"></script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!-- u3/l1/p2.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 3 – Lección 1 – P2</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color:#0f172a;
+    }
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px; height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== NEXT BUTTON (BOTTOM) ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:25px;
+      padding-bottom: 10px;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    /* ===== SECTIONS / CARD ===== */
+    .section{
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      margin-bottom: 18px;
+    }
+
+    h1{ font-size: 22px; margin: 0 0 8px 0; }
+    .subtitle{ margin: 0 0 14px 0; font-size: 16px; line-height: 1.35; }
+    .mini{ font-size: 13px; color:#475569; margin: 0 0 10px 0; }
+    .imgbox{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: rgba(219,234,254,.55);
+      border-radius: 14px;
+      padding: 10px;
+      overflow:hidden;
+      margin-bottom: 12px;
+    }
+    .imgbox img{
+      max-width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+    }
+
+    .btn{
+      border: 0;
+      background:#2563eb;
+      color:#fff;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      width: 100%;
+    }
+    .btn:hover{ background:#1e40af; }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    /* ===== BUILDER ===== */
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .col{
+      background:#fff;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.08);
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+      min-height: 120px;
+    }
+    .col-title{
+      font-weight: 900;
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      color:#334155;
+    }
+
+    .slots{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 14px;
+      background: rgba(241,245,249,.8);
+      border: 1px dashed rgba(15,23,42,.2);
+      min-height: 56px;
+    }
+    .slot{
+      min-width: 56px;
+      height: 38px;
+      border-radius: 12px;
+      border: 2px solid rgba(15,23,42,.18);
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      padding: 0 10px;
+      user-select:none;
+    }
+    .slot.filled{
+      border-color: rgba(37,99,235,.45);
+      background: rgba(219,234,254,.55);
+      cursor:pointer;
+    }
+
+    .bank{
+      margin-top: 12px;
+      background:#fff;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.08);
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    }
+    .bank-title{
+      font-weight: 900;
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      color:#334155;
+    }
+    .words{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .word{
+      border: 2px solid rgba(15,23,42,.18);
+      background:#fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s;
+    }
+    .word:active{ transform: scale(.98); }
+    .word.disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    .actions-row{
+      display:flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .small-btn{
+      flex: 1 1 160px;
+      border: 0;
+      background: rgba(15,23,42,.08);
+      color:#0f172a;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+    }
+    .small-btn:hover{ background: rgba(15,23,42,.12); }
+    .small-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .status{
+      margin-top: 12px;
+      font-weight: 900;
+      text-align:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(241,245,249,.9);
+      border: 1px solid rgba(15,23,42,.12);
+    }
+    .good{
+      background: rgba(34,197,94,.12);
+      border-color: rgba(34,197,94,.35);
+      color: #166534;
+    }
+    .bad{
+      background: rgba(239,68,68,.10);
+      border-color: rgba(239,68,68,.25);
+      color: #991b1b;
+    }
+
+    /* ===== MOBILE SAFE ===== */
+    @media (max-width:520px){
+      .step{ width:34px; height:34px; font-size:14px; }
+      .two-col{ grid-template-columns: 1fr; }
+      h1{ font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+
+    <!-- Progress 1-4 -->
+    <div class="progress-container" aria-label="Progreso de la lección">
+      <div class="step" data-go="p1.html">1</div>
+      <div class="step active" data-go="p2.html" aria-current="page">2</div>
+      <div class="step" data-go="p3.html">3</div>
+      <div class="step" data-go="p4.html">4</div>
+    </div>
+
+    <h1>Lección 1 – P2</h1>
+    <p class="subtitle">
+      1) Mira la imagen y toca <b>Escuchar</b>.<br/>
+      2) Luego ordena las palabras (pregunta a la izquierda, respuesta a la derecha).
+    </p>
+
+    <section class="section">
+<div id="counter" class="mini" style="font-weight:800; text-align:center; margin-bottom:16px;">1/8</div>
+
+      <div class="imgbox">
+        <img id="sceneImg" alt="">
+      </div>
+
+      <button id="playBtn" class="btn" type="button">🔊 Escuchar</button>
+      <p class="mini" style="margin-top:10px;">
+        (Primero escucha el audio. Después podrás mover las palabras.)
+      </p>
+
+      <div class="two-col" aria-label="Constructor de oraciones">
+        <div class="col">
+          <div class="col-title">Pregunta</div>
+          <div id="qSlots" class="slots" aria-label="Pregunta"></div>
+        </div>
+
+        <div class="col">
+          <div class="col-title">Respuesta</div>
+          <div id="aSlots" class="slots" aria-label="Respuesta"></div>
+        </div>
+      </div>
+
+      <div class="bank" aria-label="Palabras">
+        <div class="bank-title">Palabras</div>
+        <div id="wordBank" class="words"></div>
+
+        <div class="actions-row">
+          <button id="undoBtn" class="small-btn" type="button" disabled>↩︎ Deshacer</button>
+          <button id="resetBtn" class="small-btn" type="button" disabled>⟲ Reiniciar</button>
+        </div>
+
+        <div id="statusBox" class="status">—</div>
+      </div>
+    </section>
+
+    <div class="footer-actions">
+      <a id="nextBtn" class="next-btn hidden" href="p3.html">Continuar</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u3/u3_l1_p2.js"></script>
+</body>
+</html>

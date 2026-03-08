@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 3 - Parte 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn{
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover{ background:#1e40af; }
+
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active{ background:#2563eb; color:#ffffff; }
+.step:hover{ transform:scale(1.1); }
+
+.exercise-box{
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title{
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.instruction-box{
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+.counter-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  color:#1f2933;
+  font-weight:700;
+}
+.counter-pill{
+  background:#2563eb;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.dialogue-row{
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.image-box{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:14px;
+  width:100%;
+  max-width:360px;
+  text-align:center;
+}
+
+.image-box img{
+  width:100%;
+  max-width:330px;
+  border-radius:14px;
+  display:block;
+  margin:0 auto;
+}
+
+.right-stack{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* "reduce photo size box right side" */
+.image-box.small{
+  max-width:320px;
+  padding:12px;
+}
+.image-box.small img{
+  max-width:280px;
+}
+
+/* bottom right image slightly smaller too */
+.image-box.small.bottom img{
+  max-width:260px;
+}
+
+.play-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.play-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  width:54px;
+  height:54px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .2s;
+}
+.play-btn:hover{ background:#1e40af; }
+.play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+.small-note{
+  font-weight:700;
+  color:#334155;
+  font-size:13px;
+  text-align:center;
+}
+
+.controls{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.control-btn{
+  border:none;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:800;
+  transition:all 0.2s;
+}
+.control-btn.secondary{ background:#0ea5e9; }
+.control-btn.gray{ background:#6b7280; }
+.control-btn:hover{ filter:brightness(0.95); }
+.control-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+
+.next-lesson-wrap{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+}
+.next-btn{
+  display:inline-block;
+  text-decoration:none;
+  background:#0ea5e9;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:900;
+}
+.next-btn:hover{ filter:brightness(0.95); }
+
+.hidden{ display:none !important; }
+
+@media (max-width:768px){
+  .exercise-box{ padding:22px 18px; }
+  .image-box{ max-width:520px; }
+  .image-box.small{ max-width:520px; }
+  .image-box.small img{ max-width:420px; }
+  .image-box.small.bottom img{ max-width:420px; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn" id="backBtn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+  <div class="unit-title" id="unitTitle">Unidad 2 – Lección 3 - Parte 1</div>
+
+  <div class="instruction-box" id="instructionBox">
+    Mira las tres imágenes. Toca ▶ para escuchar el diálogo. Puedes repetir el audio. Cuando termine, toca “Siguiente diálogo”.
+  </div>
+
+  <div class="counter-row">
+    <span class="counter-pill" id="dialoguePill">Dialogue 1/4</span>
+  </div>
+
+  <div class="dialogue-row">
+    <!-- LEFT (Question speaker) -->
+    <div class="image-box">
+      <img id="leftImg" src="" alt="Left image" />
+    </div>
+
+    <!-- PLAY -->
+    <div class="play-wrap">
+      <button class="play-btn" id="playBtn" type="button" aria-label="Play">▶</button>
+      <div class="small-note" id="statusText">Play</div>
+    </div>
+
+    <!-- RIGHT (Two answers stacked) -->
+    <div class="right-stack">
+      <div class="image-box small">
+        <img id="rightTopImg" src="" alt="Right top image" />
+      </div>
+      <div class="image-box small bottom">
+        <img id="rightBottomImg" src="" alt="Right bottom image" />
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn gray" id="replayBtn">Repeat ↺</button>
+    <button class="control-btn secondary" id="nextDialogueBtn" disabled>Next dialogue ▶</button>
+  </div>
+
+  <div class="next-lesson-wrap">
+    <a href="../index.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+  </div>
+</div>
+
+<script src="../../../../js/u2/u2_l3_p1.js"></script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!-- p4.html (FULL FIXED COPY / PASTE) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 2 - Lección 4 - Parte 4</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body{ padding:20px; background:#eef2ff; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== FOOTER BUTTONS ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:25px;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    /* ===== PAGE BOX ===== */
+    .exercise-box{
+      max-width:950px;
+      margin:0 auto;
+      background:#fff;
+      padding:30px 40px;
+      border-radius:18px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      color:#2c3e50;
+    }
+    .unit-title{
+      color:#2563eb;
+      font-size:28px;
+      font-weight:800;
+      text-align:center;
+      margin-bottom:10px;
+    }
+    .instruction-box{
+      background:#e0e7ff;
+      padding:15px 20px;
+      border-radius:12px;
+      text-align:center;
+      font-weight:700;
+      margin-bottom:16px;
+      color:#0f172a;
+    }
+
+    .section{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:16px;
+      margin-top:14px;
+    }
+    .section-title{
+      font-weight:900;
+      color:#0f172a;
+      text-align:center;
+      margin-bottom:10px;
+    }
+
+    .counter-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin:10px 0 12px 0;
+      color:#1f2933;
+      font-weight:800;
+      flex-wrap:wrap;
+    }
+    .counter-pill{
+      background:#2563eb;
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .main-row{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .play-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-width:90px;
+    }
+    .play-btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      width:54px;
+      height:54px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all .2s;
+    }
+    .play-btn:hover{ background:#1e40af; }
+    .play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .panel{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px;
+      width:100%;
+      max-width:680px;
+    }
+    .panel-title{
+      font-weight:900;
+      color:#1f2933;
+      margin-bottom:8px;
+      text-align:center;
+    }
+
+    .small-note{
+      font-weight:700;
+      color:#334155;
+      font-size:13px;
+      text-align:center;
+    }
+
+    .wordbank{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:10px 0 12px 0;
+    }
+    .pill{
+      padding:8px 10px;
+      background:#e0e7ff;
+      border:1px solid #c7d2fe;
+      border-radius:999px;
+      font-weight:900;
+      color:#1f2933;
+      font-size:14px;
+      user-select:none;
+    }
+
+    /* Part B masking */
+    .masked{
+      filter: blur(7px);
+      opacity: .85;
+      pointer-events: none;
+      user-select:none;
+    }
+
+    /* ✅ THE FIX: one-line sentence + input using GRID */
+    .sentence-row{
+      display:grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap:10px;
+      align-items:center;
+      margin-top:10px;
+    }
+    .sentence-text{
+      font-weight:900;
+      font-size:18px;
+      color:#0f172a;
+      white-space:nowrap;
+    }
+    input.location{
+      width:100%;
+      min-width:140px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid #cbd5e1;
+      font-size:14px;
+      font-weight:900;
+      outline:none;
+      background:#fff;
+      text-align:center;
+    }
+    input.location:disabled{
+      background:#f1f5f9;
+      opacity:.9;
+      cursor:not-allowed;
+    }
+    input.location:focus{
+      border-color:#2563eb;
+      box-shadow:0 0 0 3px rgba(37,99,235,.15);
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
+      transition:all .2s;
+      white-space:nowrap;
+    }
+    .btn:hover{ background:#1e40af; }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .mark{
+      font-weight:900;
+      font-size:18px;
+      min-width:20px;
+      text-align:center;
+    }
+    .ok{ color:#0a7a2f; }
+    .bad{ color:#b00020; }
+
+    .great{
+      background:#dcfce7;
+      border:1px solid #22c55e;
+      color:#14532d;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      text-align:center;
+      margin-top:14px;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 520px){
+      body{ padding:14px; }
+      .exercise-box{ padding:18px 16px; }
+      .unit-title{ font-size:22px; }
+      .play-wrap{ min-width:72px; }
+      .play-btn{ width:50px; height:50px; }
+      .sentence-text{ font-size:16px; }
+      input.location{ min-width:120px; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step" data-page="p3.html">3</div>
+    <div class="step active" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+    <div class="unit-title">Unidad 2 – Lección 4 – Parte 4</div>
+
+    <div class="instruction-box">
+      Dictado corto: escucha (▶) y escribe <b>solo</b> el lugar (location).
+      <br><span style="font-weight:600;">Primero escucha. Después escribe. Luego pulsa <b>Revisar</b>.</span>
+    </div>
+
+    <!-- ===== PART A ===== -->
+    <div class="section" id="partA">
+      <div class="section-title">Parte A</div>
+
+      <div class="counter-row">
+        <span class="counter-pill" id="counterA">1 / 10</span>
+        <span id="statusA">Play ▶.</span>
+      </div>
+
+      <div class="main-row">
+        <div class="play-wrap">
+          <button class="play-btn" id="playA" aria-label="Play A">▶</button>
+          <div class="small-note">Play</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Word bank</div>
+          <div class="wordbank" id="bankA"></div>
+
+          <!-- ✅ ONE LINE -->
+          <div class="sentence-row">
+            <span class="sentence-text" id="promptA">...</span>
+            <input class="location" id="inputA" type="text" placeholder="lugar" disabled />
+            <button class="btn" id="checkA" disabled>Revisar</button>
+            <span class="mark" id="markA"></span>
+          </div>
+
+          <div class="small-note" style="margin-top:10px;">
+            Consejo: escucha 2 veces si necesitas.
+          </div>
+        </div>
+      </div>
+
+      <div class="great hidden" id="greatA">¡Great job!! ✅</div>
+
+      <div class="footer-actions">
+        <button class="btn hidden" id="toPartB" type="button">Continuar a Parte B ▶</button>
+      </div>
+    </div>
+
+    <!-- ===== PART B ===== -->
+    <div class="section hidden" id="partB">
+      <div class="section-title">Parte B</div>
+
+      <div class="counter-row">
+        <span class="counter-pill" id="counterB">1 / 10</span>
+        <span id="statusB">Play ▶</span>
+      </div>
+
+      <div class="main-row">
+        <div class="play-wrap">
+          <button class="play-btn" id="playB" aria-label="Play B">▶</button>
+          <div class="small-note">Audio</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Word bank</div>
+
+          <div class="footer-actions" style="margin-top:0;">
+            <button class="btn" id="revealBtn" type="button">Mostrar palabras (3s)</button>
+          </div>
+
+          <div class="wordbank masked" id="bankB"></div>
+
+          <!-- ✅ ONE LINE -->
+          <div class="sentence-row">
+            <span class="sentence-text" id="promptB">...</span>
+            <input class="location" id="inputB" type="text" placeholder="lugar" disabled />
+            <button class="btn" id="checkB" disabled>Revisar</button>
+            <span class="mark" id="markB"></span>
+          </div>
+
+          <div class="small-note" style="margin-top:10px;">
+            En Parte B las palabras están escondidas. Usa “Mostrar” si necesitas.
+          </div>
+        </div>
+      </div>
+
+      <div class="great hidden" id="greatB">¡Great job!! ✅</div>
+    </div>
+
+    <!-- FINAL NEXT BUTTON -->
+    <div class="footer-actions">
+      <a href="../index.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u2/u2_l4_p4.js"></script>
+</body>
+</html>

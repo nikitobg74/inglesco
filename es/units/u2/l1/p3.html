@@ -1,0 +1,324 @@
+<!-- p3.html (COPY/PASTE WHOLE FILE) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 2 - Lección 1 - Parte 3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:#ffffff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+.back-btn:hover { background:#1e40af; }
+
+.progress-container {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px 0;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+  color:#1f2933;
+}
+.step.active { background:#2563eb; color:#ffffff; }
+.step:hover { transform:scale(1.1); }
+
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  color:#2c3e50;
+}
+
+.unit-title {
+  color:#2563eb;
+  font-size:28px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.instruction-box {
+  background:#e0e7ff;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+.p3-top {
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.p3-man {
+  flex:0 0 260px;
+  text-align:center;
+}
+.p3-man img {
+  width:100%;
+  max-width:240px;
+  border-radius:14px;
+  cursor:pointer;
+}
+.p3-question { font-size:20px; font-weight:700; margin-top:8px; }
+.p3-translation { font-size:14px; font-weight:400; margin-top:2px; }
+
+.p3-right {
+  flex:1 1 360px;
+  min-width:260px;
+}
+
+.mini-progress {
+  text-align:center;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.room-card {
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  min-height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:10px;
+}
+.room-card.solved {
+  border:2px solid #16a34a;
+  box-shadow:0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+.room-card img {
+  width:100%;
+  max-width:420px;
+  border-radius:14px;
+}
+
+.room-placeholder {
+  width:100%;
+  max-width:420px;
+  border-radius:14px;
+  padding:22px 14px;
+  background:#eef2ff;
+  border:2px dashed #cbd5e1;
+  color:#334155;
+  font-weight:700;
+  text-align:center;
+}
+
+.wordbank {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  margin:16px 0 12px 0;
+}
+
+.word {
+  background:#e0f2fe;
+  border:1px solid #bfdbfe;
+  padding:12px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  transition:all 0.2s;
+  user-select:none;
+}
+.word:hover { background:#dbeafe; }
+.word.selected {
+  outline:3px solid #2563eb;
+  box-shadow:0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.sentence {
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.slot {
+  min-width:95px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:2px dashed #cbd5e1;
+  background:#ffffff;
+  font-weight:700;
+  text-align:center;
+  cursor:pointer;
+  user-select:none;
+}
+.slot.filled {
+  border-style:solid;
+  border-color:#93c5fd;
+  background:#eff6ff;
+}
+
+.controls {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+
+.btn {
+  display:inline-block;
+  background:#2563eb;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  cursor:pointer;
+  border:none;
+}
+.btn:hover { background:#1e40af; }
+.btn.secondary {
+  background:#64748b;
+}
+.btn.secondary:hover {
+  background:#475569;
+}
+.btn:disabled {
+  opacity:0.55;
+  cursor:not-allowed;
+}
+
+#feedback {
+  text-align:center;
+  font-weight:700;
+  margin:10px 0 0 0;
+  min-height:24px;
+}
+#feedback[data-state="ok"] { color:#16a34a; }
+#feedback[data-state="bad"] { color:#dc2626; }
+
+.next-btn {
+  display:inline-block;
+  margin-top:18px;
+  background:#2563eb;
+  color:white;
+  padding:10px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+.next-btn:hover { background:#1e40af; }
+
+@media (max-width:768px){
+  .p3-top { flex-direction:column; align-items:center; }
+  .p3-right { width:100%; }
+  .slot { min-width:90px; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step active" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+  <h1 class="unit-title">Lección 1 - Parte 3<br>Where are you? – ¿Dónde estás?</h1>
+
+  <div class="instruction-box">
+    1) Haz clic en la persona para escuchar la pregunta. <br>
+    2) Mira la imagen. <br>
+    3) Completa: <b>I am in the ____</b> y haz clic en <b>Check</b>.
+  </div>
+
+  <div class="p3-top">
+    <div class="p3-man" id="manBox">
+      <!-- UPDATED: new image you said -->
+      <img src="../../../../assets/images/u2/u2.l1.p3.woman.jpg" alt="Person">
+      <div class="p3-question">Where are you?</div>
+      <div class="p3-translation">¿Dónde estás?</div>
+      <div style="margin-top:8px; font-size:12px; opacity:0.85;">
+        (Primero haz clic aquí)
+      </div>
+    </div>
+
+    <div class="p3-right">
+      <div class="mini-progress" id="miniProgress">0/4</div>
+
+      <div class="room-card" id="roomCard">
+        <!-- IMPORTANT FIX: no src, hidden => no broken image icon -->
+        <img id="roomImg" alt="Room" style="display:none;">
+        <div class="room-placeholder" id="roomPlaceholder">
+          🔒 Primero haz clic en la persona para empezar.
+        </div>
+      </div>
+
+      <div class="wordbank" id="wordBank"></div>
+
+      <div class="sentence" id="sentenceSlots">
+        <div class="slot" data-slot="0">____</div>
+        <div class="slot" data-slot="1">____</div>
+        <div class="slot" data-slot="2">____</div>
+        <div class="slot" data-slot="3">____</div>
+        <div class="slot" data-slot="4">____</div>
+      </div>
+
+      <div class="controls">
+        <button class="btn secondary" id="clearBtn" disabled>Clear</button>
+        <button class="btn" id="checkBtn" disabled>Check</button>
+      </div>
+
+      <div id="feedback"
+           data-locked="Primero haz clic en la persona"
+           data-try-again="Intenta otra vez"
+           data-correct="¡Correcto!">
+      </div>
+    </div>
+  </div>
+
+  <a href="p4.html" class="next-btn" id="nextBtn">Siguiente →</a>
+
+</div>
+
+<script src="../../../../js/u2/u2_l1_p3.js"></script>
+</body>
+</html>

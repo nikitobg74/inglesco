@@ -1,0 +1,234 @@
+<!-- u3/l1/p4.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 3 – Lección 1 – P4</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color:#0f172a;
+    }
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn{
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .back-btn:hover{ background:#1e40af; }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:15px 0 25px 0;
+    }
+    .step{
+      width:40px; height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      color:#1f2933;
+      user-select:none;
+    }
+    .step.active{ background:#2563eb; color:#fff; }
+    .step:hover{ transform:scale(1.1); }
+
+    /* ===== NEXT BUTTON (BOTTOM) ===== */
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      margin-top:25px;
+      padding-bottom: 10px;
+    }
+    .next-btn{
+      display:inline-block;
+      padding:10px 18px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+    }
+    .next-btn:hover{ background:#1e40af; }
+    .hidden{ display:none !important; }
+
+    /* ===== SECTIONS ===== */
+    .section{
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      margin-bottom: 18px;
+    }
+    h1{ font-size: 22px; margin: 0 0 8px 0; }
+    .subtitle{ margin: 0 0 14px 0; font-size: 16px; line-height: 1.35; }
+    .mini{ font-size: 13px; color:#475569; margin: 0 0 10px 0; }
+
+    .imgbox{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: rgba(219,234,254,.55);
+      border-radius: 14px;
+      padding: 10px;
+      overflow:hidden;
+      margin-bottom: 12px;
+    }
+    .imgbox img{
+      max-width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+    }
+
+    /* ===== PROMPT ===== */
+    .prompt{
+      background:#fff;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.10);
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+      margin-top: 10px;
+    }
+    .ctx{
+      font-weight: 900;
+      font-size: 16px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .q{
+      font-weight: 900;
+      font-size: 16px;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .answer-row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .frame{
+      font-weight: 900;
+      font-size: 16px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(241,245,249,.9);
+      border: 1px solid rgba(15,23,42,.12);
+      flex: 1 1 240px;
+      line-height: 1.2;
+    }
+    .blank{
+      display:inline-block;
+      min-width: 120px;
+      border-bottom: 3px solid rgba(15,23,42,.35);
+      padding: 0 4px 2px 4px;
+      margin: 0 6px;
+    }
+
+    .word-input{
+      flex: 1 1 220px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(15,23,42,.18);
+      font-size: 16px;
+      outline: none;
+      background: #fff;
+    }
+    .status{
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(241,245,249,.9);
+      border: 1px solid rgba(15,23,42,.12);
+      min-width: 120px;
+      text-align:center;
+    }
+    .ok{
+      background: rgba(34,197,94,.12);
+      border-color: rgba(34,197,94,.35);
+      color: #166534;
+    }
+
+    /* ===== MOBILE SAFE ===== */
+    @media (max-width:520px){
+      .step{ width:34px; height:34px; font-size:14px; }
+      h1{ font-size: 20px; }
+      .frame{ flex: 1 1 100%; }
+      .word-input{ flex: 1 1 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+
+    <!-- Progress 1-4 -->
+    <div class="progress-container" aria-label="Progreso de la lección">
+      <div class="step" data-go="p1.html">1</div>
+      <div class="step" data-go="p2.html">2</div>
+      <div class="step" data-go="p3.html">3</div>
+      <div class="step active" data-go="p4.html" aria-current="page">4</div>
+    </div>
+
+    <h1>Lección 1 – P4</h1>
+    <p class="subtitle">
+      Mira la imagen y escribe la palabra correcta (verbo + <b>-ing</b>).
+    </p>
+
+    <section class="section">
+      <div id="counter" class="mini" style="font-weight:900; text-align:center; margin-bottom:10px;">1/8</div>
+
+      <div class="imgbox">
+        <img id="sceneImg" alt="">
+      </div>
+
+      <div class="prompt" aria-label="Pregunta y respuesta">
+        <div id="ctxLine" class="ctx">—</div>
+        <div id="qLine" class="q">—</div>
+
+        <div class="answer-row">
+          <div id="frame" class="frame">
+            <span id="frameLeft">She is</span><span class="blank"></span><span id="frameRight">.</span>
+          </div>
+
+          <input id="wordInput" class="word-input" type="text" inputmode="latin" autocomplete="off" spellcheck="false" />
+
+          <div id="statusBox" class="status">—</div>
+        </div>
+
+        <p class="mini" style="margin-top:10px;">
+          Ejemplo: <b>eating</b>, <b>drinking</b>, <b>playing</b>.
+        </p>
+      </div>
+    </section>
+
+    <div class="footer-actions">
+      <a id="nextBtn" class="next-btn hidden" href="../l2/p1.html">Continuar → Lección 2</a>
+    </div>
+  </div>
+
+  <script src="../../../../js/u3/u3_l1_p4.js"></script>
+</body>
+</html>
