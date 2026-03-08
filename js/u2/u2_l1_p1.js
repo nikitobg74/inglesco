@@ -1,25 +1,28 @@
 const words = [
-  { en: "Garage", file: "u2.l1.p1.garage1.mp3" },
-  { en: "Bedroom", file: "u2.l1.p1.bedroom1.mp3" },
-  { en: "Kitchen", file: "u2.l1.p1.kitchen1.mp3" },
-  { en: "Bathroom", file: "u2.l1.p1.bathroom1.mp3" },
-  { en: "Living room", file: "u2.l1.p1.livingroom1.mp3" },
-  { en: "Basement", file: "u2.l1.p1.basement1.mp3" },
-  { en: "Yard", file: "u2.l1.p1.yard1.mp3" },
-  { en: "Attic", file: "u2.l1.p1.attic1.mp3" }
+  { en: "Garage",      es: "garaje",        file: "u2.l1.p1.garage1.mp3",     img: "u2.l1.p1.garage.jpg" },
+  { en: "Bedroom",     es: "habitación",    file: "u2.l1.p1.bedroom1.mp3",    img: "u2.l1.p2.bedroom1.jpg" },
+  { en: "Kitchen",     es: "cocina",        file: "u2.l1.p1.kitchen1.mp3",    img: "u2.l1.p2.kitchen1.jpg" },
+  { en: "Bathroom",    es: "baño",          file: "u2.l1.p1.bathroom1.mp3",   img: "u2.l1.p2.bathroom1.jpg" },
+  { en: "Living room", es: "sala de estar", file: "u2.l1.p1.livingroom1.mp3", img: "u2.l1.p2.livingroom1.jpg" },
+  { en: "Basement",    es: "sótano",        file: "u2.l1.p1.basement1.mp3",   img: "u2.l1.p2.basement1.jpg" },
+  { en: "Yard",        es: "jardín",        file: "u2.l1.p1.yard1.mp3",       img: "u2.l1.p2.yard1.jpg" },
+  { en: "Attic",       es: "ático",         file: "u2.l1.p1.attic1.mp3",      img: "u2.l1.p2.attic1.jpg" }
 ];
+
+const IMAGE_BASE = "../../../../assets/images/u2/";
+const AUDIO_BASE = "../../../../assets/audio/u2/";
 
 const container = document.getElementById("wordsContainer");
 
 let currentAudio = null;
-let currentBox = null;
+let currentBox   = null;
 
 function stopCurrentAudio() {
   if (!currentAudio) return;
   currentAudio.pause();
   currentAudio.currentTime = 0;
   currentAudio = null;
-  currentBox = null;
+  currentBox   = null;
 }
 
 function shuffle(array) {
@@ -32,47 +35,55 @@ function shuffle(array) {
 shuffle(words);
 
 words.forEach(word => {
-  const box = document.createElement("div");
-  box.classList.add("word-box");
+  const card = document.createElement("div");
+  card.classList.add("word-card");
 
-  box.innerHTML = `
-    <div class="word-en">${word.en}</div>
-    <div class="word-es">&nbsp;</div>
+  card.innerHTML = `
+    <div class="card-img-wrap">
+      <img src="${IMAGE_BASE}${word.img}" alt="${word.en}" loading="lazy">
+      <div class="speaker-overlay">🔊</div>
+    </div>
+    <div class="card-text">
+      <div class="word-en">${word.en}</div>
+      <div class="word-es">${word.es}</div>
+    </div>
   `;
 
-  box.addEventListener("click", () => {
-    const audioPath = "../../../../assets/audio/u2/" + word.file;
-
-    // If the same box is clicked while playing, stop it.
-    if (currentAudio && currentBox === box) {
+  card.addEventListener("click", () => {
+    // Tap same card while playing → stop
+    if (currentAudio && currentBox === card) {
       stopCurrentAudio();
       return;
     }
 
-    // Always stop previous audio to prevent overlap.
+    // Stop any previous audio
     stopCurrentAudio();
 
-    const audio = new Audio(audioPath);
+    const audio = new Audio(AUDIO_BASE + word.file);
     currentAudio = audio;
-    currentBox = box;
+    currentBox   = card;
 
-    box.classList.add("played");
+    card.classList.add("played");
+
+    // Swap icon to checkmark while playing
+    const icon = card.querySelector(".speaker-overlay");
+    if (icon) icon.textContent = "✔";
 
     audio.addEventListener("ended", () => {
       currentAudio = null;
-      currentBox = null;
+      currentBox   = null;
     });
 
     audio.play().catch(() => {
-      // If autoplay is blocked or file missing, just reset state safely
       currentAudio = null;
-      currentBox = null;
+      currentBox   = null;
     });
   });
 
-  container.appendChild(box);
+  container.appendChild(card);
 });
 
+// Progress step navigation
 document.querySelectorAll(".step").forEach(step => {
   step.addEventListener("click", () => {
     stopCurrentAudio();
@@ -81,7 +92,7 @@ document.querySelectorAll(".step").forEach(step => {
   });
 });
 
-// Safety: stop audio if user leaves/refreshes the page
+// Stop audio on page leave
 window.addEventListener("beforeunload", () => {
   stopCurrentAudio();
 });
