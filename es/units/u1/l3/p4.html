@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <title>Unidad 1 - Lección 3 - Parte 4</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -10,184 +11,119 @@
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-
-/* PAGE BACKGROUND */
 body { padding:20px; background:#eef2ff; color:#2c3e50; }
 
-/* BACK BUTTON */
 .back-btn {
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
+  display:inline-block; margin-bottom:20px; padding:8px 15px;
+  background:#2563eb; color:white; border-radius:10px;
+  text-decoration:none; font-weight:600;
 }
 .back-btn:hover { background:#1e40af; }
 
-/* UNIT TITLE */
 .unit-title {
-  text-align:center;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:#2563eb;
+  text-align:center; font-size:28px; font-weight:700;
+  margin-bottom:10px; color:#2563eb;
 }
 
-/* PROGRESS BAR */
 .progress-container {
-  display:flex;
-  justify-content:center;
-  margin:15px 0 25px 0;
-  gap:10px;
+  display:flex; justify-content:center;
+  margin:15px 0 25px 0; gap:10px;
 }
 .step {
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-  color:#1f2933;
+  width:40px; height:40px; border-radius:50%;
+  background:#d1d5db; display:flex; align-items:center;
+  justify-content:center; font-weight:600; cursor:pointer;
+  transition:all 0.3s; color:#1f2933;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
 }
 .step.active { background:#2563eb; color:white; }
-.step:hover { transform: scale(1.1); }
+.step:hover { transform:scale(1.1); }
 
-/* MAIN BOX */
 .exercise-box {
-  max-width:950px;
-  margin:0 auto;
-  background:#ffffff;
-  padding:40px;
-  border-radius:18px;
+  max-width:950px; margin:0 auto; background:#ffffff;
+  padding:30px; border-radius:18px;
   box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* SECTION TITLE */
-.section-title {
-  font-size:22px;
-  font-weight:700;
-  margin-bottom:20px;
+.instruction-banner {
+  background:#eff6ff; border-left:5px solid #2563eb;
+  border-radius:10px; padding:14px 18px; margin-bottom:24px;
+  font-size:16px; color:#1e3a8a; font-weight:500;
 }
 
-/* THREE COLUMN LAYOUT */
-.numbers-layout{
-  display:flex;
-  gap:40px;
-}
+.section-title { font-size:22px; font-weight:700; margin-bottom:20px; }
 
-/* LEFT COLUMN: reference list */
-.reference-box{
-  flex:1;
-  background:#f9fafb;
-  border-radius:16px;
-  padding:18px 20px;
+.numbers-layout { display:flex; gap:20px; flex-wrap:wrap; }
+
+.reference-box {
+  flex:1; min-width:130px; background:#f9fafb;
+  border-radius:16px; padding:18px 20px;
   box-shadow:0 6px 16px rgba(0,0,0,0.06);
-  font-size:15px;
-  font-weight:600;
+  font-size:15px; font-weight:600;
 }
-
-.reference-title{
-  font-weight:700;
-  margin-bottom:10px;
+.reference-title { font-weight:700; margin-bottom:10px; color:#2563eb; }
+.reference-row {
+  display:flex; justify-content:space-between;
+  padding:6px 0; border-bottom:1px solid #e5e7eb;
 }
+.reference-row:last-child { border-bottom:none; }
 
-.reference-row{
-  display:flex;
-  justify-content:space-between;
-  padding:4px 0;
-}
-
-/* CENTER & RIGHT COLUMNS */
-.exercise-column{
-  flex:1;
-  background:#f9fafb;
-  border-radius:16px;
-  padding:18px 20px;
+.exercise-column {
+  flex:1; min-width:200px; background:#f9fafb;
+  border-radius:16px; padding:18px 20px;
   box-shadow:0 6px 16px rgba(0,0,0,0.06);
 }
+.exercise-column h3 { font-size:17px; font-weight:700; margin-bottom:14px; color:#2563eb; }
 
-.exercise-column h3{
-  font-size:17px;
-  font-weight:700;
-  margin-bottom:10px;
+.exercise-row {
+  display:flex; align-items:center;
+  gap:12px; margin-bottom:10px;
+  font-size:16px; font-weight:600;
 }
+.exercise-row span.word { min-width:55px; }
 
-/* ROWS */
-.exercise-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:8px;
-  gap:10px;
-  font-size:16px;
-  font-weight:600;
+.number-input, .word-input {
+  flex:1; padding:10px 12px; border-radius:8px;
+  border:2px solid #cbd5e1; font-size:16px;
+  font-family:'Poppins', sans-serif;
+  -webkit-appearance:none; transition:border-color 0.2s;
 }
+.number-input:focus, .word-input:focus { border-color:#2563eb; outline:none; }
+.number-input.correct, .word-input.correct { border-color:#16a34a; background:#f0fdf4; }
+.number-input.wrong,   .word-input.wrong   { border-color:#dc2626; background:#fef2f2; }
 
-.exercise-row span.word{
-  min-width:70px;
+.controls {
+  margin-top:25px; text-align:center;
+  display:flex; flex-wrap:wrap;
+  justify-content:center; align-items:center; gap:10px;
 }
-
-/* INPUTS */
-.number-input, .word-input{
-  flex:1;
-  padding:6px 8px;
-  border-radius:6px;
-  border:1px solid #cbd5e1;
-  font-size:15px;
+button {
+  padding:12px 24px; border:none; border-radius:12px;
+  background:#2563eb; color:white; font-weight:700; font-size:15px;
+  cursor:pointer; transition:background 0.3s;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
 }
+button:hover { background:#1e40af; }
 
-/* BUTTONS & FEEDBACK */
-.controls{
-  margin-top:25px;
-  text-align:center;
+.feedback { width:100%; margin-top:4px; font-weight:600; font-size:15px; text-align:center; }
+.feedback.correct { color:#16a34a; }
+.feedback.wrong   { color:#dc2626; }
+
+.next-btn {
+  display:inline-block; padding:12px 24px; border-radius:12px;
+  background:#16a34a; color:white; font-weight:700;
+  font-size:15px; text-decoration:none; touch-action:manipulation;
 }
+.next-btn:hover { background:#15803d; }
 
-button{
-  padding:10px 20px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:700;
-  font-size:15px;
-  cursor:pointer;
-  transition:background 0.3s;
-  margin:0 5px;
+a[href^="tel"], a[x-apple-data-detectors] {
+  color:inherit !important; text-decoration:none !important; pointer-events:none !important;
 }
-button:hover{ background:#1e40af; }
+.hidden { display:none; }
 
-.feedback{
-  margin-top:12px;
-  font-weight:600;
-  font-size:15px;
-}
-.feedback.correct{ color:#16a34a; }
-.feedback.wrong{ color:#dc2626; }
-
-.next-btn{
-  display:inline-block;
-  padding:10px 20px;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:700;
-  font-size:15px;
-  text-decoration:none;
-  margin-left:10px;
-}
-.next-btn:hover{ background:#1e40af; }
-
-@media(max-width:768px){
-  .numbers-layout{
-    flex-direction:column;
-  }
+@media(max-width:600px){
+  .exercise-box { padding:20px 16px; }
+  .numbers-layout { flex-direction:column; }
 }
 </style>
 </head>
@@ -195,7 +131,6 @@ button:hover{ background:#1e40af; }
 <body>
 
 <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
-
 <h1 class="unit-title">Lección 3 - Parte 4</h1>
 
 <div class="progress-container">
@@ -207,13 +142,16 @@ button:hover{ background:#1e40af; }
 
 <div class="exercise-box">
 
-  <div class="section-title">Numbers 0–10</div>
+  <div class="instruction-banner">
+    ✏️ Escribe el número o la palabra que corresponde. Usa la lista de referencia si necesitas ayuda.
+  </div>
+
+  <div class="section-title">Números 0–10</div>
 
   <div class="numbers-layout">
 
-    <!-- LEFT: REFERENCE LIST -->
     <div class="reference-box">
-      <div class="reference-title">Numbers</div>
+      <div class="reference-title">Referencia</div>
       <div class="reference-row"><span>zero</span><span>0</span></div>
       <div class="reference-row"><span>one</span><span>1</span></div>
       <div class="reference-row"><span>two</span><span>2</span></div>
@@ -227,96 +165,32 @@ button:hover{ background:#1e40af; }
       <div class="reference-row"><span>ten</span><span>10</span></div>
     </div>
 
-    <!-- CENTER: WRITE THE NUMBER -->
     <div class="exercise-column" id="writeNumberColumn">
-      <h3>Escribe el numero.</h3>
-
-      <div class="exercise-row">
-        <span class="word">four</span>
-        <input type="text" class="number-input" data-answer="4">
-      </div>
-      <div class="exercise-row">
-        <span class="word">seven</span>
-        <input type="text" class="number-input" data-answer="7">
-      </div>
-      <div class="exercise-row">
-        <span class="word">one</span>
-        <input type="text" class="number-input" data-answer="1">
-      </div>
-      <div class="exercise-row">
-        <span class="word">eight</span>
-        <input type="text" class="number-input" data-answer="8">
-      </div>
-      <div class="exercise-row">
-        <span class="word">ten</span>
-        <input type="text" class="number-input" data-answer="10">
-      </div>
-      <div class="exercise-row">
-        <span class="word">two</span>
-        <input type="text" class="number-input" data-answer="2">
-      </div>
-      <div class="exercise-row">
-        <span class="word">nine</span>
-        <input type="text" class="number-input" data-answer="9">
-      </div>
-      <div class="exercise-row">
-        <span class="word">six</span>
-        <input type="text" class="number-input" data-answer="6">
-      </div>
-      <div class="exercise-row">
-        <span class="word">five</span>
-        <input type="text" class="number-input" data-answer="5">
-      </div>
-      <div class="exercise-row">
-        <span class="word">three</span>
-        <input type="text" class="number-input" data-answer="3">
-      </div>
+      <h3>Escribe el número.</h3>
+      <div class="exercise-row"><span class="word">four</span><input type="number" inputmode="numeric" class="number-input" data-answer="4"></div>
+      <div class="exercise-row"><span class="word">seven</span><input type="number" inputmode="numeric" class="number-input" data-answer="7"></div>
+      <div class="exercise-row"><span class="word">one</span><input type="number" inputmode="numeric" class="number-input" data-answer="1"></div>
+      <div class="exercise-row"><span class="word">eight</span><input type="number" inputmode="numeric" class="number-input" data-answer="8"></div>
+      <div class="exercise-row"><span class="word">ten</span><input type="number" inputmode="numeric" class="number-input" data-answer="10"></div>
+      <div class="exercise-row"><span class="word">two</span><input type="number" inputmode="numeric" class="number-input" data-answer="2"></div>
+      <div class="exercise-row"><span class="word">nine</span><input type="number" inputmode="numeric" class="number-input" data-answer="9"></div>
+      <div class="exercise-row"><span class="word">six</span><input type="number" inputmode="numeric" class="number-input" data-answer="6"></div>
+      <div class="exercise-row"><span class="word">five</span><input type="number" inputmode="numeric" class="number-input" data-answer="5"></div>
+      <div class="exercise-row"><span class="word">three</span><input type="number" inputmode="numeric" class="number-input" data-answer="3"></div>
     </div>
 
-    <!-- RIGHT: WRITE THE WORD (1–10) -->
     <div class="exercise-column" id="writeWordColumn">
       <h3>Escribe la palabra.</h3>
-
-      <div class="exercise-row">
-        <span class="word">6</span>
-        <input type="text" class="word-input" data-answer="six">
-      </div>
-      <div class="exercise-row">
-        <span class="word">2</span>
-        <input type="text" class="word-input" data-answer="two">
-      </div>
-      <div class="exercise-row">
-        <span class="word">7</span>
-        <input type="text" class="word-input" data-answer="seven">
-      </div>
-      <div class="exercise-row">
-        <span class="word">3</span>
-        <input type="text" class="word-input" data-answer="three">
-      </div>
-      <div class="exercise-row">
-        <span class="word">1</span>
-        <input type="text" class="word-input" data-answer="one">
-      </div>
-      <div class="exercise-row">
-        <span class="word">8</span>
-        <input type="text" class="word-input" data-answer="eight">
-      </div>
-      <div class="exercise-row">
-        <span class="word">10</span>
-        <input type="text" class="word-input" data-answer="ten">
-      </div>
-      <div class="exercise-row">
-        <span class="word">4</span>
-        <input type="text" class="word-input" data-answer="four">
-      </div>
-      <div class="exercise-row">
-        <span class="word">9</span>
-        <input type="text" class="word-input" data-answer="nine">
-      </div>
-      <div class="exercise-row">
-        <span class="word">5</span>
-        <input type="text" class="word-input" data-answer="five">
-      </div>
+      <div class="exercise-row"><span class="word">6</span><input type="text" class="word-input" data-answer="six"></div>
+      <div class="exercise-row"><span class="word">2</span><input type="text" class="word-input" data-answer="two"></div>
+      <div class="exercise-row"><span class="word">7</span><input type="text" class="word-input" data-answer="seven"></div>
+      <div class="exercise-row"><span class="word">3</span><input type="text" class="word-input" data-answer="three"></div>
+      <div class="exercise-row"><span class="word">1</span><input type="text" class="word-input" data-answer="one"></div>
+      <div class="exercise-row"><span class="word">8</span><input type="text" class="word-input" data-answer="eight"></div>
+      <div class="exercise-row"><span class="word">10</span><input type="text" class="word-input" data-answer="ten"></div>
+      <div class="exercise-row"><span class="word">4</span><input type="text" class="word-input" data-answer="four"></div>
+      <div class="exercise-row"><span class="word">9</span><input type="text" class="word-input" data-answer="nine"></div>
+      <div class="exercise-row"><span class="word">5</span><input type="text" class="word-input" data-answer="five"></div>
     </div>
 
   </div>
@@ -330,19 +204,21 @@ button:hover{ background:#1e40af; }
 
 </div>
 
-<!-- i18n strings live in HTML so JS stays language-neutral -->
 <div id="i18n" class="hidden">
   <span data-msg="all_correct">¡Excelente! Todas las respuestas son correctas.</span>
   <span data-msg="check_red">Revisa las respuestas marcadas en rojo.</span>
 </div>
 
 <script>
-  // Progress bar navigation
+  function onTap(el, handler) {
+    let touchMoved = false, handledByTouch = false;
+    el.addEventListener("touchstart", () => { touchMoved = false; handledByTouch = false; }, { passive: true });
+    el.addEventListener("touchmove",  () => { touchMoved = true; }, { passive: true });
+    el.addEventListener("touchend", (e) => { if (touchMoved) return; e.preventDefault(); handledByTouch = true; handler(); });
+    el.addEventListener("click", () => { if (handledByTouch) { handledByTouch = false; return; } handler(); });
+  }
   document.querySelectorAll(".step").forEach(step => {
-    step.addEventListener("click", () => {
-      const page = step.dataset.page;
-      if(page) window.location.href = page;
-    });
+    onTap(step, () => { const p = step.dataset.page; if (p) window.location.href = p; });
   });
 </script>
 
