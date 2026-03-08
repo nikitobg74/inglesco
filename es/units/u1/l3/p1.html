@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <title>Unidad 1 - Lección 3 - Parte 1</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -172,6 +173,16 @@ body { padding:20px; background:#eef2ff; }
 
 /* hidden language strings */
 .i18n { display:none; }
+
+/* Prevent iOS from auto-linking phone numbers, addresses etc */
+a[href^="tel"], a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
+  pointer-events: none !important;
+}
+.no-link {
+  unicode-bidi: isolate;
+}
 </style>
 </head>
 
@@ -190,6 +201,10 @@ body { padding:20px; background:#eef2ff; }
 
 <div class="exercise-box">
 
+  <div class="player-controls">
+    <button class="play-btn" id="playPauseBtn">▶️ Reproducir</button>
+  </div>
+
   <div class="top-characters">
     <div class="character">
       <img src="../../../../assets/images/u1/ana.png" alt="Ana">
@@ -207,10 +222,6 @@ body { padding:20px; background:#eef2ff; }
     <span id="txt-play">▶️ Reproducir</span>
     <span id="txt-pause">⏸ Pausar</span>
     <span id="txt-next">Siguiente →</span>
-  </div>
-
-  <div class="player-controls">
-    <button class="play-btn" id="playPauseBtn">▶️ Reproducir</button>
   </div>
 
   <div class="dialogue-container" id="dialogueContainer"
@@ -246,11 +257,11 @@ body { padding:20px; background:#eef2ff; }
     </div>
 
     <div class="dialogue-row ana-row">
-      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana4.mp3">My telephone number is 758 9251. And you? What is your phone number?</div>
+      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana4.mp3">My telephone number is <span class="no-link">758 9251</span>. And you? What is your phone number?</div>
     </div>
 
     <div class="dialogue-row george-row">
-      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george5.mp3">My phone number is 549 2137.</div>
+      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george5.mp3">My phone number is <span class="no-link">549 2137</span>.</div>
     </div>
 
   </div>
