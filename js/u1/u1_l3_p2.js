@@ -5,14 +5,28 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================
   function onTap(el, handler) {
     let touchMoved = false;
-    el.addEventListener("touchstart", () => { touchMoved = false; }, { passive: true });
-    el.addEventListener("touchmove",  () => { touchMoved = true;  }, { passive: true });
+    let handledByTouch = false;
+
+    el.addEventListener("touchstart", () => {
+      touchMoved = false;
+      handledByTouch = false;
+    }, { passive: true });
+
+    el.addEventListener("touchmove", () => {
+      touchMoved = true;
+    }, { passive: true });
+
     el.addEventListener("touchend", (e) => {
       if (touchMoved) return;
       e.preventDefault();
+      handledByTouch = true;
       handler(e);
     });
-    el.addEventListener("click", handler);
+
+    el.addEventListener("click", (e) => {
+      if (handledByTouch) { handledByTouch = false; return; }
+      handler(e);
+    });
   }
 
   // ==========================
@@ -101,6 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const span = document.createElement("span");
         span.textContent = word;
         span.classList.add("word");
+        span.title = "Toca para quitar";
+        span.style.cursor = "pointer";
         span.draggable = true;
 
         // tap to send back to bank (mobile friendly)
