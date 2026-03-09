@@ -5,224 +5,297 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Unidad 2 - Lección 1 - Parte 2</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-body { padding:20px; background:#eef2ff; }
-
-.back-btn {
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:#ffffff;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
+:root {
+  --blue:        #2563eb;
+  --blue-dark:   #1e40af;
+  --blue-light:  #dbeafe;
+  --green:       #16a34a;
+  --green-light: #dcfce7;
+  --red:         #dc2626;
+  --red-light:   #fee2e2;
+  --orange:      #ea580c;
+  --orange-light:#fff7ed;
+  --orange-border:#fb923c;
+  --bg:          #f0f4ff;
+  --card-bg:     #ffffff;
+  --text:        #1e293b;
+  --muted:       #64748b;
+  --radius:      16px;
 }
-.back-btn:hover { background:#1e40af; }
 
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 12px 16px;
+}
+
+/* ── Back button ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+.back-btn:hover { background: var(--blue-dark); }
+
+/* ── Progress steps ── */
 .progress-container {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:15px 0 25px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 .step {
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-  color:#1f2933;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #1f2933;
 }
-.step.active {
-  background:#2563eb;
-  color:#ffffff;
-}
-.step:hover { transform:scale(1.1); }
+.step.active { background: var(--blue); color: #fff; }
+.step:hover  { transform: scale(1.1); }
 
+/* ── Main card ── */
 .exercise-box {
-  max-width:950px;
-  margin:0 auto;
-  background:#ffffff;
-  padding:30px 40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  color:#2c3e50;
+  max-width: 950px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 20px 20px 24px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(37,99,235,0.10);
 }
 
 .unit-title {
-  color:#2563eb;
-  font-size:28px;
-  font-weight:700;
-  text-align:center;
-  margin-bottom:15px;
+  color: var(--blue);
+  font-size: clamp(16px, 3.5vw, 24px);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+  line-height: 1.3;
 }
 
 .instruction-box {
-  background:#e0e7ff;
-  padding:15px 20px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:600;
-  margin-bottom:25px;
+  background: var(--blue-light);
+  padding: 10px 16px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(12px, 2.8vw, 14px);
+  margin-bottom: 16px;
+  color: var(--blue-dark);
+  line-height: 1.5;
 }
 
-/* Top row */
+/* ── Top section: man + play button side by side ── */
 .p2-top {
-  display:flex;
-  gap:20px;
-  align-items:flex-start;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  margin-bottom:15px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+  justify-content: center;
 }
+
+/* Man image — compact */
 .p2-man {
-  flex:0 0 260px;
-  text-align:center;
-  cursor:pointer;
+  flex: 0 0 auto;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .p2-man img {
-  width:100%;
-  max-width:240px;
-  border-radius:14px;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid #e0e7ff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: block;
 }
-.p2-right {
-  flex:1 1 360px;
-  min-width:260px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+.p2-man:hover img {
+  transform: scale(1.04);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.18);
 }
-.p2-question {
-  font-size:20px;
-  font-weight:700;
-  margin-top:8px;
-}
-.p2-translation {
-  font-size:14px;
-  font-weight:400;
-  margin-top:2px;
+.p2-man-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-top: 4px;
 }
 
-/* ✅ NEW PLAY BUTTON (big, square-ish, right) */
+/* Divider arrow */
+.p2-arrow {
+  font-size: 22px;
+  color: #94a3b8;
+}
+
+/* Play box */
 .play-box {
-  position:relative;
-  margin-left:auto;              /* push to the right */
-  width:110px;
-  height:110px;
-  border-radius:16px;
-
-  background:#fff7ed;            /* warm bg */
-  border:2px solid #fb923c;      /* orange border */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  cursor:pointer;
-  transition:all 0.25s;
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  background: var(--orange-light);
+  border: 2px solid var(--orange-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
 }
 .play-box:hover {
-  background:#ffedd5;
-  transform:scale(1.05);
+  background: #ffedd5;
+  transform: scale(1.05);
 }
+.play-box:active { transform: scale(0.97); }
 
-/* 1/8 badge */
 .play-badge {
-  position:absolute;
-  top:-10px;
-  left:-10px;
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  background:#ea580c;            /* darker orange */
-  color:#ffffff;
-  font-weight:800;
-  font-size:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
+.play-icon {
+  font-size: 36px;
+  color: var(--orange);
+  line-height: 1;
 }
 
-/* big ▶ icon */
-.play-icon {
-  font-size:46px;
-  font-weight:900;
-  color:#ea580c;
-  line-height:1;
+/* Info panel next to buttons */
+.p2-info {
+  flex: 1;
+  min-width: 0;
+}
+.p2-question {
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 900;
+  color: var(--text);
+}
+.p2-translation {
+  font-size: clamp(12px, 2.5vw, 14px);
+  color: var(--muted);
+  margin-top: 2px;
 }
 
 /* Feedback */
 #feedback {
-  text-align:center;
-  font-weight:800;
-  min-height:24px;
+  text-align: center;
+  font-weight: 800;
+  font-size: clamp(13px, 3vw, 15px);
+  min-height: 22px;
+  margin-bottom: 12px;
+}
+#feedback.correct { color: var(--green); }
+#feedback.wrong   { color: var(--red); }
+
+/* ── 3 choice cards ── */
+.choices-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-/* 3-choice image row */
-.choices-wrap{
-  margin-top:10px;
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  flex-wrap:wrap;
+.choice-card {
+  background: #f8faff;
+  border: 2px solid #e0e7ff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
-.choice-card{
-  flex:1 1 220px;
-  max-width:260px;
-  background:#ffffff;
-  border-radius:16px;
-  padding:12px;
-  box-shadow:0 8px 18px rgba(0,0,0,0.06);
-  cursor:pointer;
-  transition:transform 0.2s;
-  border:2px solid transparent;
-  text-align:center;
+.choice-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+  box-shadow: 0 6px 16px rgba(37,99,235,0.12);
 }
-.choice-card:hover { transform:scale(1.02); }
-.choice-card img{
-  width:100%;
-  border-radius:14px;
-  display:block;
+.choice-card:active { transform: scale(0.97); }
+
+.choice-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
 }
-.choice-label{
-  margin-top:10px;
-  font-weight:800;
+.choice-label {
+  padding: 8px 4px;
+  font-weight: 800;
+  font-size: clamp(11px, 2.5vw, 14px);
+  color: var(--text);
 }
 
-/* Next button */
+.choice-card.correct-pick {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.15);
+  background: var(--green-light);
+}
+.choice-card.wrong-pick {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.12);
+  background: var(--red-light);
+}
+
+/* ── Next button ── */
 .next-btn {
-  display:inline-block;
-  margin-top:18px;
-  background:#2563eb;
-  color:white;
-  padding:10px 20px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:800;
-  text-align:center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue);
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+  transition: background 0.2s;
 }
-.next-btn:hover { background:#1e40af; }
-.next-btn.disabled{
-  opacity:0.45;
-  pointer-events:none;
+.next-btn:hover { background: var(--blue-dark); }
+.next-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-/* Responsive */
-@media (max-width:768px){
-  .p2-top { flex-direction:column; align-items:center; }
-  .p2-right { width:100%; align-items:center; }
-  .play-box { margin-left:0; }   /* center on mobile */
-  .choice-card{ max-width:90%; }
+/* ── Responsive: on very small screens shrink man/play further ── */
+@media (max-width: 380px) {
+  .p2-man img, .play-box { width: 72px; height: 72px; }
+  .p2-arrow { display: none; }
+  .choices-wrap { gap: 8px; }
 }
 </style>
 </head>
@@ -240,40 +313,42 @@ body { padding:20px; background:#eef2ff; }
 
 <div class="exercise-box">
 
-  <h1 class="unit-title">Lección 1 - Parte 2<br>Where are you? – ¿Dónde estás?</h1>
+  <h1 class="unit-title">Lección 1 · Parte 2<br>Where are you? – ¿Dónde estás?</h1>
 
   <div class="instruction-box">
-    1) Haz clic en el hombre para escuchar la pregunta. <br>
-    2) Haz clic en la caja <b>1/8</b> para escuchar la frase. <br>
-    3) Elige la imagen correcta.
+    1) Toca al hombre para escuchar la pregunta &nbsp;·&nbsp;
+    2) Toca <b>▶</b> para escuchar la habitación &nbsp;·&nbsp;
+    3) Elige la imagen correcta
   </div>
 
+  <!-- Man + Play side by side -->
   <div class="p2-top">
+
     <div class="p2-man" id="manBox" title="Play question">
       <img src="../../../../assets/images/u2/u2.l1.p2.man.jpg" alt="Man">
-      <div class="image-description">
-        <div class="p2-question">Where are you?</div>
-        <div class="p2-translation">¿Dónde estás?</div>
-      </div>
+      <div class="p2-man-label">¿Dónde estás?</div>
     </div>
 
-    <div class="p2-right">
+    <div class="p2-arrow">→</div>
 
-      <!-- ✅ Big orange play button (only ▶ + 1/8) -->
-      <div class="play-box" id="playPhraseBox" title="Play phrase">
-        <div class="play-badge" id="counterBadge">1/8</div>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <!-- Feedback text comes from data attributes -->
-      <div id="feedback"
-           data-try-again="Intenta otra vez"
-           data-correct="¡Correcto!"
-           data-complete="¡Parte 2 completada! ✅"
-      ></div>
-
+    <div class="play-box" id="playPhraseBox" title="Play phrase">
+      <div class="play-badge" id="counterBadge">1/8</div>
+      <div class="play-icon">▶</div>
     </div>
+
+    <div class="p2-info">
+      <div class="p2-question">Where are you?</div>
+      <div class="p2-translation">¿En qué habitación estás?</div>
+    </div>
+
   </div>
+
+  <!-- Feedback -->
+  <div id="feedback"
+       data-try-again="Intenta otra vez 🔄"
+       data-correct="¡Correcto! ✅"
+       data-complete="¡Parte 2 completada! 🎉"
+  ></div>
 
   <!-- 3 image choices -->
   <div class="choices-wrap" id="choicesWrap"></div>
