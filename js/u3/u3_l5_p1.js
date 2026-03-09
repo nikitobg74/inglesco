@@ -5,46 +5,66 @@
   const IMAGE_BASE = "../../../../assets/images/u3/";
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
-  const noteCard    = document.getElementById("noteCard");
-  const noteTitle   = document.getElementById("noteTitle");
-  const noteBody    = document.getElementById("noteBody");
-  const dismissBtn  = document.getElementById("dismissBtn");
+  const noteCard      = document.getElementById("noteCard");
+  const noteTitle     = document.getElementById("noteTitle");
+  const noteSubtitle  = document.getElementById("noteSubtitle");
+  const thOrig        = document.getElementById("thOrig");
+  const thIt          = document.getElementById("thIt");
+  const noteTableBody = document.getElementById("noteTableBody");
+  const noteFooter    = document.getElementById("noteFooter");
+  const dismissBtn    = document.getElementById("dismissBtn");
 
-  const roundLabel  = document.getElementById("roundLabel");
-  const exerciseBox = document.getElementById("exerciseBox");
-  const endScreen   = document.getElementById("endScreen");
+  const roundLabel    = document.getElementById("roundLabel");
+  const exerciseBox   = document.getElementById("exerciseBox");
+  const endScreen     = document.getElementById("endScreen");
 
-  const itemImg     = document.getElementById("itemImg");
-  const playBtn     = document.getElementById("playBtn");
-  const playLabel   = document.getElementById("playLabel");
+  const itemImg       = document.getElementById("itemImg");
+  const playBtn       = document.getElementById("playBtn");
+  const playLabel     = document.getElementById("playLabel");
 
-  const q1Block     = document.getElementById("q1Block");
-  const q1Title     = document.getElementById("q1Title");
-  const q1Options   = document.getElementById("q1Options");
+  const q1Block       = document.getElementById("q1Block");
+  const q1Title       = document.getElementById("q1Title");
+  const q1Options     = document.getElementById("q1Options");
 
-  const q2Block     = document.getElementById("q2Block");
-  const q2Title     = document.getElementById("q2Title");
-  const q2Options   = document.getElementById("q2Options");
+  const q2Block       = document.getElementById("q2Block");
+  const q2Title       = document.getElementById("q2Title");
+  const q2Options     = document.getElementById("q2Options");
 
-  const statusLine  = document.getElementById("statusLine");
+  const statusLine    = document.getElementById("statusLine");
 
-  const endTitle    = document.getElementById("endTitle");
-  const endMsg1     = document.getElementById("endMsg1");
-  const endMsg2     = document.getElementById("endMsg2");
+  const endTitle      = document.getElementById("endTitle");
+  const endMsg1       = document.getElementById("endMsg1");
+  const endMsg2       = document.getElementById("endMsg2");
 
-  // ── Config ────────────────────────────────────────────────────────────────
+  // ── Config (all UI strings here — language-neutral logic) ─────────────────
   const CONFIG = {
     note: {
-      title:   "Usamos \"it\" para animales y objetos.",
-      body:    [
-        "Por ejemplo:",
-        "<br>",
-        "<b>The dog is in the garage.</b>",
-        "<b>It is in the garage.</b>",
-        "<i>El perro está en el garaje.</i>",
-        "<i>Está en el garaje.</i>"
+      title:    "Usamos \"it\" para animales y objetos.",
+      subtitle: "En inglés, cuando hablamos de un animal o un objeto, usamos \"it\" en lugar de repetir su nombre.",
+      colOrig:  "Con nombre",
+      colIt:    "Con \"it\"",
+      rows: [
+        {
+          orig:   "The dog is in the garage.",
+          origEs: "El perro está en el garaje.",
+          it:     ["It", " is in the garage."],
+          itEs:   "Está en el garaje."
+        },
+        {
+          orig:   "The cat is in the kitchen.",
+          origEs: "El gato está en la cocina.",
+          it:     ["It", " is in the kitchen."],
+          itEs:   "Está en la cocina."
+        },
+        {
+          orig:   "The globe is on the desk.",
+          origEs: "El globo está en el escritorio.",
+          it:     ["It", " is on the desk."],
+          itEs:   "Está en el escritorio."
+        }
       ],
-      dismiss: "¡Entendido!"
+      footer:  "💡 \"It\" reemplaza el nombre del animal u objeto para no repetirlo.",
+      dismiss: "¡Entendido, vamos!"
     },
     play:    "Escuchar",
     correct: "✓",
@@ -56,7 +76,7 @@
     }
   };
 
-  // ── Rounds data ───────────────────────────────────────────────────────────
+  // ── Rounds ────────────────────────────────────────────────────────────────
   // type "animal" → two questions (where + doing)
   // type "object" → one question (where only)
   const ROUNDS = [
@@ -155,9 +175,8 @@
   ];
 
   const TOTAL = ROUNDS.length;
-  let idx     = 0;
-  let audio   = null;
-  let stage   = "q1"; // "q1" | "q2"
+  let idx   = 0;
+  let audio = null;
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   function shuffle(arr) {
@@ -186,6 +205,14 @@
       .forEach(btn => { btn.disabled = true; });
   }
 
+  function enableOptions(container) {
+    Array.from(container.querySelectorAll(".option-btn"))
+      .forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove("wrong", "correct");
+      });
+  }
+
   // ── Build option buttons ──────────────────────────────────────────────────
   function buildOptions(container, qData, onCorrect) {
     container.innerHTML = "";
@@ -211,14 +238,9 @@
         } else {
           btn.classList.add("wrong");
           setStatus("bad", CONFIG.wrong);
-          // Re-enable after short delay so student can try again
           setTimeout(() => {
             setStatus("", "");
-            Array.from(container.querySelectorAll(".option-btn"))
-              .forEach(b => {
-                b.disabled = false;
-                b.classList.remove("wrong", "correct");
-              });
+            enableOptions(container);
           }, 700);
         }
       });
@@ -227,29 +249,25 @@
     });
   }
 
-  // ── Load a round ─────────────────────────────────────────────────────────
+  // ── Load a round ──────────────────────────────────────────────────────────
   function loadRound(i) {
-    idx   = i;
-    stage = "q1";
+    idx = i;
     stopAudio();
     setStatus("", "");
 
     const round = ROUNDS[idx];
     roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
 
-    // Image
     itemImg.src = IMAGE_BASE + round.image;
     itemImg.alt = round.label;
 
-    // Play button
     playLabel.textContent = CONFIG.play;
     playBtn.disabled = false;
 
-    // Hide q2 until needed
+    // Reset blocks
     q2Block.classList.add("hidden");
     q1Block.classList.remove("hidden");
 
-    // Build Q1 options (hidden until audio played)
     q1Title.textContent = round.q1.question;
     buildOptions(q1Options, round.q1, () => {
       if (round.type === "animal") {
@@ -259,18 +277,16 @@
       }
     });
 
-    // Disable Q1 options until play is pressed
+    // Options locked until audio plays
     disableOptions(q1Options);
   }
 
   function showQ2(round) {
-    stage = "q2";
     q2Title.textContent = round.q2.question;
     buildOptions(q2Options, round.q2, () => {
       advanceOrFinish();
     });
     q2Block.classList.remove("hidden");
-    // Scroll q2 into view on mobile
     q2Block.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
@@ -285,21 +301,10 @@
   // ── Play button ───────────────────────────────────────────────────────────
   playBtn.addEventListener("click", () => {
     stopAudio();
-    const round = ROUNDS[idx];
-    audio = new Audio(AUDIO_BASE + round.audio);
-
-    audio.play().catch(() => {
-      // If audio fails, enable options anyway
-      enableCurrentQ();
-    });
-
-    audio.onended = () => { enableCurrentQ(); };
+    audio = new Audio(AUDIO_BASE + ROUNDS[idx].audio);
+    audio.onended = () => { enableOptions(q1Options); };
+    audio.play().catch(() => { enableOptions(q1Options); });
   });
-
-  function enableCurrentQ() {
-    Array.from(q1Options.querySelectorAll(".option-btn"))
-      .forEach(b => { b.disabled = false; });
-  }
 
   // ── Finish ────────────────────────────────────────────────────────────────
   function finish() {
@@ -314,9 +319,36 @@
 
   // ── Note card ─────────────────────────────────────────────────────────────
   function initNoteCard() {
-    noteTitle.textContent = CONFIG.note.title;
-    noteBody.innerHTML    = CONFIG.note.body.join(" ");
-    dismissBtn.textContent = CONFIG.note.dismiss;
+    noteTitle.textContent    = CONFIG.note.title;
+    noteSubtitle.textContent = CONFIG.note.subtitle;
+    thOrig.textContent       = CONFIG.note.colOrig;
+    thIt.textContent         = CONFIG.note.colIt;
+    noteFooter.textContent   = CONFIG.note.footer;
+    dismissBtn.textContent   = CONFIG.note.dismiss;
+
+    CONFIG.note.rows.forEach(row => {
+      const tr = document.createElement("tr");
+
+      // Original column
+      const tdOrig = document.createElement("td");
+      tdOrig.className = "col-orig";
+      tdOrig.innerHTML = row.orig + `<span class="es">${row.origEs}</span>`;
+
+      // Arrow column
+      const tdArrow = document.createElement("td");
+      tdArrow.className = "arrow";
+      tdArrow.textContent = "→";
+
+      // "It" column
+      const tdIt = document.createElement("td");
+      tdIt.className = "col-it";
+      tdIt.innerHTML = `<b>${row.it[0]}</b>${row.it[1]}<span class="es">${row.itEs}</span>`;
+
+      tr.appendChild(tdOrig);
+      tr.appendChild(tdArrow);
+      tr.appendChild(tdIt);
+      noteTableBody.appendChild(tr);
+    });
 
     dismissBtn.addEventListener("click", () => {
       noteCard.classList.add("hidden");

@@ -50,7 +50,7 @@
       user-select: none;
     }
     .step.active { background: #2563eb; color: #fff; }
-    .step:hover { transform: scale(1.1); }
+    .step:hover  { transform: scale(1.1); }
 
     .top-title {
       text-align: center;
@@ -80,38 +80,104 @@
 
     /* ── Note card ── */
     .note-card {
-      background: #fffbeb;
-      border: 2px solid #fbbf24;
+      background: #f0fdf4;
+      border: 2px solid #86efac;
       border-radius: 16px;
-      padding: 18px 16px 14px;
+      padding: 18px 16px 16px;
       margin-bottom: 18px;
-      position: relative;
     }
     .note-card h3 {
-      margin: 0 0 10px 0;
+      margin: 0 0 2px 0;
       font-size: 16px;
       font-weight: 900;
-      color: #92400e;
+      color: #166534;
     }
-    .note-card p {
-      margin: 4px 0;
+    .note-subtitle {
+      font-size: 13px;
+      color: #4b7c5e;
+      font-style: italic;
+      margin: 0 0 14px 0;
+    }
+
+    .sub-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
       font-size: 15px;
-      line-height: 1.5;
     }
-    .note-card .dismiss-btn {
-      margin-top: 14px;
-      display: inline-block;
-      padding: 8px 20px;
-      background: #f59e0b;
+    .sub-table thead th {
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 900;
+      padding: 7px 10px;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .sub-table thead th:first-child { border-radius: 10px 0 0 0; }
+    .sub-table thead th:last-child  { border-radius: 0 10px 0 0; }
+
+    .sub-table tbody tr:nth-child(odd)  { background: #fff; }
+    .sub-table tbody tr:nth-child(even) { background: #f0fdf4; }
+
+    .sub-table td {
+      padding: 9px 10px;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+    .sub-table td.arrow {
+      text-align: center;
+      font-size: 20px;
+      color: #16a34a;
+      font-weight: 900;
+      width: 28px;
+    }
+    .sub-table td.col-orig {
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .sub-table td.col-it {
+      font-weight: 700;
+      color: #166534;
+    }
+    .sub-table td.col-it b {
+      font-size: 17px;
+      color: #15803d;
+    }
+    .sub-table td .es {
+      display: block;
+      font-size: 12px;
+      color: #6b7280;
+      font-style: italic;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .note-footer {
+      font-size: 13px;
+      color: #374151;
+      background: #dcfce7;
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .dismiss-btn {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      background: #16a34a;
       color: #fff;
       border: none;
       border-radius: 10px;
-      font-weight: 800;
-      font-size: 14px;
+      font-weight: 900;
+      font-size: 15px;
       cursor: pointer;
-      width: 100%;
+      transition: background .2s;
     }
-    .note-card .dismiss-btn:hover { background: #d97706; }
+    .dismiss-btn:hover { background: #15803d; }
 
     /* ── Round label ── */
     .round {
@@ -121,7 +187,7 @@
       opacity: .85;
     }
 
-    /* ── Exercise box ── */
+    /* ── Exercise ── */
     .exercise {
       max-width: 620px;
       margin: 0 auto;
@@ -129,10 +195,7 @@
       gap: 16px;
     }
 
-    /* ── Image + play ── */
-    .img-block {
-      text-align: center;
-    }
+    .img-block { text-align: center; }
     .item-img {
       width: 100%;
       max-width: 340px;
@@ -159,11 +222,10 @@
       box-shadow: 0 6px 14px rgba(37,99,235,.30);
       transition: background .2s, transform .1s;
     }
-    .play-btn:hover { background: #1e40af; }
+    .play-btn:hover  { background: #1e40af; }
     .play-btn:active { transform: scale(.97); }
-    .play-btn svg { width: 22px; height: 22px; fill: #fff; }
+    .play-btn svg    { width: 22px; height: 22px; fill: #fff; }
 
-    /* ── Question block ── */
     .block {
       background: rgba(255,255,255,.78);
       border-radius: 16px;
@@ -177,7 +239,6 @@
       margin-bottom: 14px;
     }
 
-    /* ── Answer options ── */
     .options {
       display: flex;
       flex-direction: column;
@@ -213,7 +274,6 @@
       color: #991b1b !important;
     }
 
-    /* ── Status ── */
     .status-line {
       text-align: center;
       min-height: 24px;
@@ -225,44 +285,18 @@
 
     .hidden { display: none !important; }
 
-    /* ── End screen ── */
-    .end {
-      text-align: center;
-      padding: 16px 10px 4px;
-    }
-    .end h2 {
-      margin: 8px 0;
-      font-size: 24px;
-      font-weight: 900;
-    }
-    .end p {
-      margin: 6px 0;
-      font-weight: 800;
-    }
-
-    .footer-actions {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .next-btn {
-      display: inline-block;
-      padding: 10px 18px;
-      background: #2563eb;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 800;
-    }
-    .next-btn:hover { background: #1e40af; }
+    .end { text-align: center; padding: 16px 10px 4px; }
+    .end h2 { margin: 8px 0; font-size: 24px; font-weight: 900; }
+    .end p  { margin: 6px 0; font-weight: 800; }
 
     @media (max-width: 520px) {
-      .step         { width: 34px; height: 34px; font-size: 14px; }
-      .top-title    { font-size: 18px; }
-      .subline      { font-size: 15px; }
-      .option-btn   { font-size: 15px; padding: 12px 14px; }
-      .block-title  { font-size: 15px; }
-      .item-img     { height: 180px; }
+      .step        { width: 34px; height: 34px; font-size: 14px; }
+      .top-title   { font-size: 18px; }
+      .subline     { font-size: 15px; }
+      .option-btn  { font-size: 15px; padding: 12px 14px; }
+      .block-title { font-size: 15px; }
+      .item-img    { height: 180px; }
+      .sub-table   { font-size: 13px; }
     }
   </style>
 </head>
@@ -272,7 +306,7 @@
 
     <div class="top-title">Unidad 3 • Lección 5 • Parte 1</div>
     <div class="subline">
-      <span id="instrLine"><b>Instrucción:</b> escucha y elige la respuesta correcta.</span>
+      <span><b>Instrucción:</b> escucha y elige la respuesta correcta.</span>
     </div>
 
     <div class="progress-container">
@@ -287,7 +321,18 @@
       <!-- Note card (dismissible) -->
       <div class="note-card" id="noteCard">
         <h3 id="noteTitle"></h3>
-        <div id="noteBody"></div>
+        <p class="note-subtitle" id="noteSubtitle"></p>
+        <table class="sub-table">
+          <thead>
+            <tr>
+              <th id="thOrig"></th>
+              <th></th>
+              <th id="thIt"></th>
+            </tr>
+          </thead>
+          <tbody id="noteTableBody"></tbody>
+        </table>
+        <div class="note-footer" id="noteFooter"></div>
         <button class="dismiss-btn" id="dismissBtn"></button>
       </div>
 
@@ -295,7 +340,6 @@
 
       <div class="exercise hidden" id="exerciseBox">
 
-        <!-- Image + play -->
         <div class="img-block">
           <img class="item-img" id="itemImg" src="" alt="" />
           <button class="play-btn" id="playBtn">
@@ -304,13 +348,11 @@
           </button>
         </div>
 
-        <!-- Question 1 -->
         <div class="block" id="q1Block">
           <div class="block-title" id="q1Title"></div>
           <div class="options" id="q1Options"></div>
         </div>
 
-        <!-- Question 2 (animals only) -->
         <div class="block hidden" id="q2Block">
           <div class="block-title" id="q2Title"></div>
           <div class="options" id="q2Options"></div>
