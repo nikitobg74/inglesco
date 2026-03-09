@@ -145,18 +145,24 @@ function buildWordBank(roomLabel) {
     el.textContent = w;
     wordEls[w]     = el;
 
-    el.addEventListener("click", () => {
+    function placeWord(e) {
+      e.preventDefault();
+      e.stopPropagation();
       if (el.classList.contains("used")) return;
+      if (!unlocked) return;
       clearFeedback();
 
-      // Find next empty slot
+      // Always fill the next empty slot automatically
       const nextIdx = slotValues.indexOf("");
       if (nextIdx === -1) return; // all slots full
 
       slotValues[nextIdx] = w;
       renderSlots();
       refreshWordUsed();
-    });
+    }
+
+    el.addEventListener("touchend", placeWord, { passive: false });
+    el.addEventListener("click",    placeWord);
 
     wordBank.appendChild(el);
   });
@@ -165,7 +171,9 @@ function buildWordBank(roomLabel) {
 // ── Wire slot taps (tap filled slot → remove word) ────────
 function wireSlots() {
   slots.forEach((slot, idx) => {
-    slot.addEventListener("click", () => {
+    function removeWord(e) {
+      e.preventDefault();
+      e.stopPropagation();
       if (!unlocked) {
         setFeedback("locked");
         return;
@@ -177,7 +185,9 @@ function wireSlots() {
         refreshWordUsed();
         clearFeedback();
       }
-    });
+    }
+    slot.addEventListener("touchend", removeWord, { passive: false });
+    slot.addEventListener("click",    removeWord);
   });
 }
 
