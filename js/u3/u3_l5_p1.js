@@ -2,7 +2,7 @@
   "use strict";
 
   const AUDIO_BASE = "../../../../assets/audio/u3/l5/";
-  const IMAGE_BASE = "../../../../assets/images/u3/l5/";
+  const IMAGE_BASE = "../../../../assets/images/u3/";
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
   const noteCard    = document.getElementById("noteCard");
