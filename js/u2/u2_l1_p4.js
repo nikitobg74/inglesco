@@ -271,6 +271,7 @@
     else aSlotsState[index] = word;
 
     renderBuilder();
+    autoCheck(kind);
   }
 
   function clearSlot(kind, index) {
@@ -377,16 +378,45 @@
     }
   }
 
+  // ── Auto-check when all slots in a builder are filled ────
+  function autoCheck(kind) {
+    if (courseCompleted || exerciseSolved) return;
+
+    if (kind === "q" && !questionLocked) {
+      // All q slots filled?
+      if (qSlotsState.every(v => v)) {
+        if (isQuestionCorrect()) {
+          setQuestionLocked(true);
+          phase = "answer";
+          setFeedback(chooseMsg(FB.questionOk, chooseMsg(FB.success, "")), true);
+        }
+        // wrong: leave slots open, user can tap to remove and retry
+      }
+    }
+
+    if (kind === "a" && !answerLocked && phase === "answer") {
+      if (aSlotsState.every(v => v)) {
+        if (isAnswerCorrect()) {
+          finishExerciseOnce();
+        }
+        // wrong: leave open for correction
+      }
+    }
+  }
+
   function checkFlow() {
     if (courseCompleted) return;
 
     if (exerciseSolved) {
-      // solved already; don't increment again
       setFeedback(chooseMsg(FB.success, ""), true);
       return;
     }
 
     if (phase === "question") {
+      if (!qSlotsState.every(v => v)) {
+        setFeedback(chooseMsg(FB.failQuestion, chooseMsg(FB.fail, "")), false);
+        return;
+      }
       if (isQuestionCorrect()) {
         setQuestionLocked(true);
         phase = "answer";
@@ -398,6 +428,10 @@
     }
 
     if (phase === "answer") {
+      if (!aSlotsState.every(v => v)) {
+        setFeedback(chooseMsg(FB.failAnswer, chooseMsg(FB.fail, "")), false);
+        return;
+      }
       if (isAnswerCorrect()) finishExerciseOnce();
       else setFeedback(chooseMsg(FB.failAnswer, chooseMsg(FB.fail, "")), false);
     }

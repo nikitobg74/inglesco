@@ -112,6 +112,8 @@ body { padding:20px; background:#eef2ff; }
 .image-box img{
   width:100%;
   max-width:420px;
+  max-height:180px;
+  object-fit:cover;
   border-radius:14px;
   margin-bottom:10px;
 }
@@ -235,9 +237,11 @@ body { padding:20px; background:#eef2ff; }
 .next-link:hover{ background:#1e40af; }
 
 @media (max-width:768px){
-  .exercise-box{ padding:22px 18px; }
+  .exercise-box{ padding:14px 12px; }
+  .unit-title{ font-size:20px; }
   .split-row{ flex-direction:column; align-items:center; }
-  .col{ flex:1 1 100%; max-width:95%; }
+  .col{ flex:1 1 100%; max-width:100%; }
+  .image-box img{ max-height:140px; }
 }
 </style>
 </head>
