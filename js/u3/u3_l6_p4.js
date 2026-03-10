@@ -5,33 +5,33 @@
   const AUDIO_BASE = "../../../../assets/audio/u3/l6/";
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
-  const roundLabel     = document.getElementById("roundLabel");
-  const exerciseBox    = document.getElementById("exerciseBox");
-  const endScreen      = document.getElementById("endScreen");
-  const instrLine      = document.getElementById("instrLine");
+  const roundLabel      = document.getElementById("roundLabel");
+  const exerciseBox     = document.getElementById("exerciseBox");
+  const endScreen       = document.getElementById("endScreen");
+  const instrLine       = document.getElementById("instrLine");
 
-  const itemImg        = document.getElementById("itemImg");
-  const playBtn        = document.getElementById("playBtn");
-  const playLabel      = document.getElementById("playLabel");
+  const itemImg         = document.getElementById("itemImg");
+  const playBtn         = document.getElementById("playBtn");
+  const playLabel       = document.getElementById("playLabel");
 
-  const buildBlock     = document.getElementById("buildBlock");
+  const buildBlock      = document.getElementById("buildBlock");
   const sentenceDisplay = document.getElementById("sentenceDisplay");
-  const checkBtn       = document.getElementById("checkBtn");
-  const hintBox        = document.getElementById("hintBox");
+  const checkBtn        = document.getElementById("checkBtn");
+  const hintBox         = document.getElementById("hintBox");
 
-  const statusLine     = document.getElementById("statusLine");
-  const endTitle       = document.getElementById("endTitle");
-  const endMsg1        = document.getElementById("endMsg1");
-  const endMsg2        = document.getElementById("endMsg2");
+  const statusLine      = document.getElementById("statusLine");
+  const endTitle        = document.getElementById("endTitle");
+  const endMsg1         = document.getElementById("endMsg1");
+  const endMsg2         = document.getElementById("endMsg2");
 
   // ── Config ────────────────────────────────────────────────────────────────
   const CONFIG = {
-    instr:     "Escucha y completa la oración.",
-    play:      "Escuchar",
-    checkBtn:  "Verificar",
-    correct:   "✓",
-    wrong:     "✗",
-    hintLabel: "💡",
+    instr:    "Escucha y completa la oración.",
+    play:     "Escuchar",
+    checkBtn: "Verificar",
+    correct:  "✓",
+    wrong:    "✗",
+    hintLabel:"💡",
     end: {
       title: "¡Fantástico!",
       msg1:  "Felicitaciones.",
@@ -40,10 +40,12 @@
   };
 
   // ── Rounds ────────────────────────────────────────────────────────────────
-  // template: sentence with {0} and optionally {1} as blank placeholders
-  // blanks: array of correct answers (lowercase, trimmed for comparison)
-  // First 6 rounds → one blank (verb). Last 5 rounds → two blanks (verb + possessive).
-  const ROUNDS = [
+  // GROUP_A (6 items) — blank is the VERB
+  // GROUP_B (5 items) — blank is the POSSESSIVE PRONOUN
+  // Both groups are shuffled independently then interleaved A‑B‑A‑B…
+  // so the three "fixing" items can never appear consecutively.
+
+  const GROUP_A = [
     {
       image:    "u3.l6.p1.fix.car.jpg",
       audio:    "u3.l6.p3.fix.car.mp3",
@@ -69,57 +71,80 @@
       blanks:   ["cleaning"]
     },
     {
-      image:    "u3.l6.p1.man.clean.window.jpg",
-      audio:    "u3.l6.p3.man.clean.window.mp3",
-      template: ["He is ", "{0}", " his window."],
-      blanks:   ["cleaning"]
-    },
-    {
       image:    "u3.l6.p1.feed.cat.jpg",
       audio:    "u3.l6.p3.feed.cat.mp3",
       template: ["I am ", "{0}", " my cat."],
       blanks:   ["feeding"]
     },
-    // ── Two blanks from here ──────────────────────────────────────────────
+    {
+      image:    "u3.l6.p1.man.clean.window.jpg",
+      audio:    "u3.l6.p3.man.clean.window.mp3",
+      template: ["He is ", "{0}", " his window."],
+      blanks:   ["cleaning"]
+    }
+  ];
+
+  const GROUP_B = [
     {
       image:    "u3.l6.p1.doing.homework.jpg",
       audio:    "u3.l6.p3.doing.homework.mp3",
-      template: ["They are ", "{0}", " ", "{1}", " homework."],
-      blanks:   ["doing", "their"]
+      template: ["They are doing ", "{0}", " homework."],
+      blanks:   ["their"]
     },
     {
       image:    "u3.l6.p1.woman.washing.clothes.jpg",
       audio:    "u3.l6.p3.woman.washing.clothes.mp3",
-      template: ["She is ", "{0}", " ", "{1}", " clothes."],
-      blanks:   ["washing", "her"]
+      template: ["She is washing ", "{0}", " clothes."],
+      blanks:   ["her"]
     },
     {
       image:    "u3.l6.p1.painting.jpg",
       audio:    "u3.l6.p3.painting.mp3",
-      template: ["We are ", "{0}", " ", "{1}", " bedroom."],
-      blanks:   ["painting", "our"]
+      template: ["We are painting ", "{0}", " bedroom."],
+      blanks:   ["our"]
     },
     {
       image:    "u3.l6.p1.girl.brushing.teeth.jpg",
       audio:    "u3.l6.p3.girl.brushing.teeth.mp3",
-      template: ["I am ", "{0}", " ", "{1}", " teeth."],
-      blanks:   ["brushing", "my"]
+      template: ["I am brushing ", "{0}", " teeth."],
+      blanks:   ["my"]
     },
     {
       image:    "u3.l6.p1.man.read.email.jpg",
       audio:    "u3.l6.p3.man.read.email.mp3",
-      template: ["He is ", "{0}", " ", "{1}", " emails."],
-      blanks:   ["reading", "his"]
+      template: ["He is reading ", "{0}", " emails."],
+      blanks:   ["his"]
     }
   ];
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  const ORDERED_ROUNDS = ROUNDS; // no shuffle — difficulty ramps up intentionally
-  const TOTAL          = ORDERED_ROUNDS.length;
-  let idx              = 0;
-  let audio            = null;
-  let isLocked         = false;
-  let hintTimer        = null;
+  // ── Shuffle ───────────────────────────────────────────────────────────────
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ── Interleave A‑B‑A‑B… (A has 6, B has 5 → 11 items, no two same-group adjacent)
+  function interleave(a, b) {
+    const result = [];
+    const len = Math.max(a.length, b.length);
+    for (let i = 0; i < len; i++) {
+      if (i < a.length) result.push(a[i]);
+      if (i < b.length) result.push(b[i]);
+    }
+    return result;
+  }
+
+  const ROUNDS = interleave(shuffle(GROUP_A), shuffle(GROUP_B));
+  const TOTAL  = ROUNDS.length;
+
+  let idx       = 0;
+  let audio     = null;
+  let isLocked  = false;
+  let hintTimer = null;
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   function stopAudio() {
@@ -151,31 +176,29 @@
 
   function showHint(round) {
     clearHintTimer();
-    hintBox.textContent = CONFIG.hintLabel + " " + round.blanks.join("  /  ");
+    hintBox.textContent = CONFIG.hintLabel + " " + round.blanks[0];
     hintBox.classList.add("visible");
     hintTimer = setTimeout(() => {
       hintBox.classList.remove("visible");
     }, 1200);
   }
 
-  // ── Build sentence with input fields ─────────────────────────────────────
+  // ── Build sentence with input field ──────────────────────────────────────
   function buildSentence(round) {
     while (sentenceDisplay.firstChild) sentenceDisplay.removeChild(sentenceDisplay.firstChild);
 
     round.template.forEach(part => {
-      if (part === "{0}" || part === "{1}") {
-        const blankIdx = part === "{0}" ? 0 : 1;
+      if (part === "{0}") {
         const inp = document.createElement("input");
-        inp.type        = "text";
-        inp.className   = "blank-input";
-        inp.dataset.idx = blankIdx;
-        inp.autocomplete = "off";
-        inp.autocorrect  = "off";
+        inp.type           = "text";
+        inp.className      = "blank-input";
+        inp.dataset.idx    = 0;
+        inp.autocomplete   = "off";
+        inp.autocorrect    = "off";
         inp.autocapitalize = "off";
-        inp.spellcheck   = false;
+        inp.spellcheck     = false;
 
-        // size roughly to the answer length
-        const answer = round.blanks[blankIdx] || "";
+        const answer = round.blanks[0] || "";
         inp.style.width = Math.max(answer.length * 13 + 20, 80) + "px";
 
         inp.addEventListener("keydown", e => {
@@ -190,25 +213,25 @@
       }
     });
 
-    // focus first input
-    const first = sentenceDisplay.querySelector(".blank-input");
-    if (first) setTimeout(() => first.focus(), 80);
+    const inp = sentenceDisplay.querySelector(".blank-input");
+    if (inp) setTimeout(() => inp.focus(), 80);
   }
 
   // ── Check answer ──────────────────────────────────────────────────────────
   function handleCheck() {
     if (isLocked) return;
-    const round  = ORDERED_ROUNDS[idx];
-    const inputs = getInputs();
-    const allCorrect = inputs.every((inp, i) => {
-      return inp.value.trim().toLowerCase() === round.blanks[i].toLowerCase();
-    });
+    const round = ROUNDS[idx];
+    const inp   = sentenceDisplay.querySelector(".blank-input");
+    if (!inp) return;
 
-    if (allCorrect) {
+    const correct = inp.value.trim().toLowerCase() === round.blanks[0].toLowerCase();
+
+    if (correct) {
       isLocked = true;
       clearHintTimer();
       hintBox.classList.remove("visible");
-      inputs.forEach(inp => { inp.classList.add("correct"); inp.disabled = true; });
+      inp.classList.add("correct");
+      inp.disabled      = true;
       checkBtn.disabled = true;
       setStatus("ok", CONFIG.correct);
       setTimeout(() => {
@@ -222,9 +245,8 @@
       setTimeout(() => {
         setStatus("", "");
         showHint(round);
-        inputs.forEach(inp => { inp.value = ""; });
-        const first = sentenceDisplay.querySelector(".blank-input");
-        if (first) first.focus();
+        inp.value = "";
+        inp.focus();
       }, 600);
     }
   }
@@ -238,7 +260,7 @@
     hintBox.classList.remove("visible");
     isLocked = false;
 
-    const round = ORDERED_ROUNDS[idx];
+    const round = ROUNDS[idx];
     roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
     itemImg.src            = IMAGE_BASE + round.image;
     itemImg.alt            = "";
@@ -252,7 +274,7 @@
   // ── Play button ───────────────────────────────────────────────────────────
   playBtn.addEventListener("click", () => {
     stopAudio();
-    const round = ORDERED_ROUNDS[idx];
+    const round = ROUNDS[idx];
     audio = new Audio(AUDIO_BASE + round.audio);
 
     const showBuild = () => {
