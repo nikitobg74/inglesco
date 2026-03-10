@@ -106,70 +106,104 @@
 
   // ── Create audio section ──────────────────────────────────────────────────
   function createAudioSection() {
-    const wrap = document.createElement("div");
-    wrap.id = "audioSection";
-    wrap.style.cssText = [
-      "background:#eff6ff",
-      "border:2px solid #93c5fd",
-      "border-radius:16px",
-      "padding:16px 14px 14px",
-      "margin-bottom:20px",
-      "text-align:center"
-    ].join(";");
-
-    const note = document.createElement("p");
-    note.textContent = CONFIG.audio.listenNote;
-    note.style.cssText = "margin:0 0 12px 0;font-size:15px;font-weight:700;color:#1e3a5f;";
-
-    audio = new Audio(CONFIG.audioSrc);
+    // Single <audio> element — all events wired to it
+    audio = document.createElement("audio");
+    audio.src     = CONFIG.audioSrc;
     audio.preload = "auto";
 
-    // Native controls via <audio> element in DOM
-    const audioEl = document.createElement("audio");
-    audioEl.src      = CONFIG.audioSrc;
-    audioEl.preload  = "auto";
-    audioEl.controls = true;
-    audioEl.style.cssText = "width:100%;max-width:460px;display:block;margin:0 auto 12px;";
-
-    // Keep the JS Audio object in sync with DOM element events
-    audioEl.addEventListener("timeupdate", () => {
-      if (!audioEl.duration) return;
-      const segLen = audioEl.duration / storyParas.length;
-      const idx    = Math.min(Math.floor(audioEl.currentTime / segLen), storyParas.length - 1);
+    audio.addEventListener("timeupdate", () => {
+      if (!audio.duration) return;
+      const segLen = audio.duration / storyParas.length;
+      const idx    = Math.min(Math.floor(audio.currentTime / segLen), storyParas.length - 1);
       storyParas.forEach((p, i) => {
-        const on = i === idx && !audioEl.paused;
-        p.style.background   = on ? "rgba(37,99,235,.14)" : "";
-        p.style.borderRadius = on ? "6px" : "";
-        p.style.padding      = on ? "2px 6px" : "";
-        p.style.transition   = "background .25s";
+        const on = i === idx && !audio.paused;
+        p.style.background   = on ? "rgba(37,99,235,.18)" : "";
+        p.style.borderRadius = on ? "8px"                 : "";
+        p.style.padding      = on ? "2px 6px"             : "";
+        p.style.transition   = "background .2s";
       });
     });
-    audioEl.addEventListener("pause",  clearHighlights);
-    audioEl.addEventListener("ended",  () => { clearHighlights(); unlockQuestions(); });
-    audioEl.addEventListener("error",  () => { console.warn("Audio unavailable; unlocking."); unlockQuestions(); });
+    audio.addEventListener("pause", clearHighlights);
+    audio.addEventListener("ended", () => { clearHighlights(); unlockQuestions(); });
+    audio.addEventListener("error", () => { console.warn("Audio unavailable; unlocking."); unlockQuestions(); });
 
-    const skipBtn = document.createElement("button");
-    skipBtn.textContent = CONFIG.audio.skipBtn;
-    skipBtn.style.cssText = [
-      "margin-top:6px",
-      "padding:9px 22px",
-      "background:#6b7280",
+    // ── Outer wrapper ──
+    const wrap = document.createElement("div");
+    wrap.id = "audioSection";
+    wrap.style.cssText = "background:#eff6ff;border:2px solid #93c5fd;border-radius:16px;padding:18px 16px 16px;margin-bottom:20px;text-align:center;";
+
+    // ── Note ──
+    const note = document.createElement("p");
+    note.textContent = CONFIG.audio.listenNote;
+    note.style.cssText = "margin:0 0 16px 0;font-size:15px;font-weight:700;color:#1e3a5f;";
+
+    // ── Big play/pause button ──
+    const playBtn = document.createElement("button");
+    playBtn.type = "button";
+    playBtn.innerHTML = "▶ Escuchar la historia";
+    playBtn.style.cssText = [
+      "display:inline-flex",
+      "align-items:center",
+      "gap:8px",
+      "padding:14px 32px",
+      "background:#2563eb",
       "color:#fff",
       "border:none",
-      "border-radius:10px",
-      "font-weight:700",
-      "font-size:14px",
-      "cursor:pointer"
+      "border-radius:14px",
+      "font-size:18px",
+      "font-weight:900",
+      "cursor:pointer",
+      "box-shadow:0 6px 18px rgba(37,99,235,.3)",
+      "transition:background .2s, transform .1s",
+      "margin-bottom:12px"
     ].join(";");
-    skipBtn.addEventListener("mouseenter", () => { skipBtn.style.background = "#4b5563"; });
-    skipBtn.addEventListener("mouseleave", () => { skipBtn.style.background = "#6b7280"; });
+
+    playBtn.addEventListener("mouseenter", () => { playBtn.style.background = "#1e40af"; });
+    playBtn.addEventListener("mouseleave", () => { playBtn.style.background = audio.paused ? "#2563eb" : "#dc2626"; });
+
+    playBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        playBtn.innerHTML          = "⏸ Pausar";
+        playBtn.style.background   = "#dc2626";
+        playBtn.style.boxShadow    = "0 6px 18px rgba(220,38,38,.3)";
+      } else {
+        audio.pause();
+        playBtn.innerHTML          = "▶ Escuchar la historia";
+        playBtn.style.background   = "#2563eb";
+        playBtn.style.boxShadow    = "0 6px 18px rgba(37,99,235,.3)";
+      }
+    });
+
+    // Reset button label when audio ends
+    audio.addEventListener("ended", () => {
+      playBtn.innerHTML        = "▶ Escuchar otra vez";
+      playBtn.style.background = "#2563eb";
+      playBtn.style.boxShadow  = "0 6px 18px rgba(37,99,235,.3)";
+    });
+
+    // ── Progress bar for audio ──
+    const audioBar = document.createElement("div");
+    audioBar.style.cssText = "background:#bfdbfe;border-radius:99px;height:6px;margin:4px auto 14px;max-width:360px;overflow:hidden;";
+    const audioFill = document.createElement("div");
+    audioFill.style.cssText = "height:100%;background:#2563eb;border-radius:99px;width:0%;transition:width .3s linear;";
+    audioBar.appendChild(audioFill);
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) audioFill.style.width = (audio.currentTime / audio.duration * 100) + "%";
+    });
+
+    // ── Skip link ──
+    const skipBtn = document.createElement("button");
+    skipBtn.type = "button";
+    skipBtn.textContent = CONFIG.audio.skipBtn;
+    skipBtn.style.cssText = "background:none;border:none;color:#6b7280;font-size:13px;font-weight:700;cursor:pointer;text-decoration:underline;padding:0;margin-top:2px;";
     skipBtn.addEventListener("click", unlockQuestions);
 
     wrap.appendChild(note);
-    wrap.appendChild(audioEl);
+    wrap.appendChild(playBtn);
+    wrap.appendChild(audioBar);
     wrap.appendChild(skipBtn);
 
-    // Insert right after the story card (before questionsArea)
     const qArea = document.getElementById("questionsArea");
     exerciseBox.insertBefore(wrap, qArea);
   }
