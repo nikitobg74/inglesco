@@ -26,12 +26,12 @@
 
   // ── Config ────────────────────────────────────────────────────────────────
   const CONFIG = {
-    instr:    "Escucha y completa la oración.",
-    play:     "Escuchar",
-    checkBtn: "Verificar",
-    correct:  "✓",
-    wrong:    "✗",
-    hintLabel:"💡",
+    instr:     "Escucha y escribe el pronombre posesivo.",
+    play:      "Escuchar",
+    checkBtn:  "Verificar",
+    correct:   "✓",
+    wrong:     "✗",
+    hintLabel: "💡",
     end: {
       title: "¡Fantástico!",
       msg1:  "Felicitaciones.",
@@ -39,52 +39,44 @@
     }
   };
 
-  // ── Rounds ────────────────────────────────────────────────────────────────
-  // GROUP_A (6 items) — blank is the VERB
-  // GROUP_B (5 items) — blank is the POSSESSIVE PRONOUN
-  // Both groups are shuffled independently then interleaved A‑B‑A‑B…
-  // so the three "fixing" items can never appear consecutively.
-
-  const GROUP_A = [
+  // ── Rounds — blank is always the possessive pronoun ───────────────────────
+  const ROUNDS = [
     {
       image:    "u3.l6.p1.fix.car.jpg",
       audio:    "u3.l6.p3.fix.car.mp3",
-      template: ["I am ", "{0}", " my car."],
-      blanks:   ["fixing"]
+      template: ["I am fixing ", "{0}", " car."],
+      blanks:   ["my"]
     },
     {
       image:    "u3.l6.p1.woman.fix.car.jpg",
       audio:    "u3.l6.p3.woman.fix.car.mp3",
-      template: ["She is ", "{0}", " her car."],
-      blanks:   ["fixing"]
+      template: ["She is fixing ", "{0}", " car."],
+      blanks:   ["her"]
     },
     {
       image:    "u3.l6.p1.fix.sink.jpg",
       audio:    "u3.l6.p3.fix.sink.mp3",
-      template: ["He is ", "{0}", " his sink."],
-      blanks:   ["fixing"]
+      template: ["He is fixing ", "{0}", " sink."],
+      blanks:   ["his"]
     },
     {
       image:    "u3.l6.p1.woman.clean.apartment.jpg",
       audio:    "u3.l6.p3.woman.clean.apartment.mp3",
-      template: ["She is ", "{0}", " her apartment."],
-      blanks:   ["cleaning"]
-    },
-    {
-      image:    "u3.l6.p1.feed.cat.jpg",
-      audio:    "u3.l6.p3.feed.cat.mp3",
-      template: ["I am ", "{0}", " my cat."],
-      blanks:   ["feeding"]
+      template: ["She is cleaning ", "{0}", " apartment."],
+      blanks:   ["her"]
     },
     {
       image:    "u3.l6.p1.man.clean.window.jpg",
       audio:    "u3.l6.p3.man.clean.window.mp3",
-      template: ["He is ", "{0}", " his window."],
-      blanks:   ["cleaning"]
-    }
-  ];
-
-  const GROUP_B = [
+      template: ["He is cleaning ", "{0}", " window."],
+      blanks:   ["his"]
+    },
+    {
+      image:    "u3.l6.p1.feed.cat.jpg",
+      audio:    "u3.l6.p3.feed.cat.mp3",
+      template: ["I am feeding ", "{0}", " cat."],
+      blanks:   ["my"]
+    },
     {
       image:    "u3.l6.p1.doing.homework.jpg",
       audio:    "u3.l6.p3.doing.homework.mp3",
@@ -127,19 +119,8 @@
     return a;
   }
 
-  // ── Interleave A‑B‑A‑B… (A has 6, B has 5 → 11 items, no two same-group adjacent)
-  function interleave(a, b) {
-    const result = [];
-    const len = Math.max(a.length, b.length);
-    for (let i = 0; i < len; i++) {
-      if (i < a.length) result.push(a[i]);
-      if (i < b.length) result.push(b[i]);
-    }
-    return result;
-  }
-
-  const ROUNDS = interleave(shuffle(GROUP_A), shuffle(GROUP_B));
-  const TOTAL  = ROUNDS.length;
+  const SHUFFLED_ROUNDS = shuffle(ROUNDS);
+  const TOTAL           = SHUFFLED_ROUNDS.length;
 
   let idx       = 0;
   let audio     = null;
@@ -157,17 +138,6 @@
     statusLine.classList.remove("ok", "bad");
     if (type === "ok")  statusLine.classList.add("ok");
     if (type === "bad") statusLine.classList.add("bad");
-  }
-
-  function getInputs() {
-    return Array.from(sentenceDisplay.querySelectorAll(".blank-input"));
-  }
-
-  function flashInputs(type) {
-    getInputs().forEach(inp => {
-      inp.classList.add(type);
-      setTimeout(() => inp.classList.remove(type), 600);
-    });
   }
 
   function clearHintTimer() {
@@ -192,14 +162,14 @@
         const inp = document.createElement("input");
         inp.type           = "text";
         inp.className      = "blank-input";
-        inp.dataset.idx    = 0;
         inp.autocomplete   = "off";
         inp.autocorrect    = "off";
         inp.autocapitalize = "off";
         inp.spellcheck     = false;
 
+        // size to longest possible answer (their = 5 chars)
         const answer = round.blanks[0] || "";
-        inp.style.width = Math.max(answer.length * 13 + 20, 80) + "px";
+        inp.style.width = Math.max(answer.length * 14 + 20, 72) + "px";
 
         inp.addEventListener("keydown", e => {
           if (e.key === "Enter") handleCheck();
@@ -220,13 +190,13 @@
   // ── Check answer ──────────────────────────────────────────────────────────
   function handleCheck() {
     if (isLocked) return;
-    const round = ROUNDS[idx];
+    const round = SHUFFLED_ROUNDS[idx];
     const inp   = sentenceDisplay.querySelector(".blank-input");
     if (!inp) return;
 
-    const correct = inp.value.trim().toLowerCase() === round.blanks[0].toLowerCase();
+    const isCorrect = inp.value.trim().toLowerCase() === round.blanks[0].toLowerCase();
 
-    if (correct) {
+    if (isCorrect) {
       isLocked = true;
       clearHintTimer();
       hintBox.classList.remove("visible");
@@ -240,9 +210,10 @@
         advanceOrFinish();
       }, 900);
     } else {
-      flashInputs("wrong");
+      inp.classList.add("wrong");
       setStatus("bad", CONFIG.wrong);
       setTimeout(() => {
+        inp.classList.remove("wrong");
         setStatus("", "");
         showHint(round);
         inp.value = "";
@@ -260,7 +231,7 @@
     hintBox.classList.remove("visible");
     isLocked = false;
 
-    const round = ROUNDS[idx];
+    const round = SHUFFLED_ROUNDS[idx];
     roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
     itemImg.src            = IMAGE_BASE + round.image;
     itemImg.alt            = "";
@@ -274,7 +245,7 @@
   // ── Play button ───────────────────────────────────────────────────────────
   playBtn.addEventListener("click", () => {
     stopAudio();
-    const round = ROUNDS[idx];
+    const round = SHUFFLED_ROUNDS[idx];
     audio = new Audio(AUDIO_BASE + round.audio);
 
     const showBuild = () => {
