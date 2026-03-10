@@ -324,22 +324,27 @@
   // ── Play button ───────────────────────────────────────────────────────────
   playBtn.addEventListener("click", () => {
     stopAudio();
-    playBtn.disabled = true;
 
-    const round = ROUNDS[idx];
+    const round      = ROUNDS[idx];
+    const firstPlay  = dialogueBlock.classList.contains("hidden");
 
-    renderLine(lineA, "A: ", round.dialogueA);
-    renderLine(lineB, "B: ", round.dialogueB);
-    dialogueBlock.classList.remove("hidden");
+    // Always show dialogue on first play
+    if (firstPlay) {
+      renderLine(lineA, "A: ", round.dialogueA);
+      renderLine(lineB, "B: ", round.dialogueB);
+      dialogueBlock.classList.remove("hidden");
+    }
 
     audio = new Audio(AUDIO_BASE + round.audio);
 
     const showFill = () => {
-      fillTitle.textContent = CONFIG.fillTitle;
-      renderFillSentence(round.fill);
-      buildTiles(round);
-      fillBlock.classList.remove("hidden");
-      fillBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      if (fillBlock.classList.contains("hidden")) {
+        fillTitle.textContent = CONFIG.fillTitle;
+        renderFillSentence(round.fill);
+        buildTiles(round);
+        fillBlock.classList.remove("hidden");
+        fillBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     };
 
     audio.onended = showFill;
