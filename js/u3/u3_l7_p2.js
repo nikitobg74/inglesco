@@ -45,8 +45,9 @@
       { q: "Are you busy?",         a: "Yes, I am. (yo soy)" },
       { q: "Are you busy?",         a: "Yes, we are. (nosotros)" }
     ],
-    play: "Escuchar",
-    next: "Siguiente",
+    play:      "Escuchar",
+    next:      "Siguiente",
+    roundSep:  " / ",
     end: {
       title: "¡Muy bien!",
       msg1:  "Felicitaciones.",
@@ -136,7 +137,7 @@
     stopAudio();
 
     const round = ROUNDS[idx];
-    roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
+    roundLabel.textContent = `${idx + 1}${CONFIG.roundSep}${TOTAL}`;
 
     imgLeft.src  = IMAGE_BASE + round.imageLeft;
     imgLeft.alt  = "";
@@ -145,7 +146,7 @@
 
     qLine.textContent = round.question;
     aLine.textContent = round.answer;
-    aLine.classList.add("hidden");
+    aLine.classList.remove("hidden");
 
     playLabel.textContent = CONFIG.play;
     nextLabel.textContent = CONFIG.next;
@@ -161,14 +162,13 @@
     const round = ROUNDS[idx];
     audio = new Audio(AUDIO_BASE + round.audio);
 
-    const revealAnswer = () => {
-      aLine.classList.remove("hidden");
+    const showNext = () => {
       playBtn.classList.add("hidden");
       nextBtn.classList.remove("hidden");
     };
 
-    audio.onended = revealAnswer;
-    audio.play().catch(revealAnswer);
+    audio.onended = showNext;
+    audio.play().catch(showNext);
   });
 
   // ── Next button ───────────────────────────────────────────────────────────
