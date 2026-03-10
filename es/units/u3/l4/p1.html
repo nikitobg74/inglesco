@@ -161,7 +161,14 @@
       line-height: 1.25;
       font-weight: 800;
     }
-    .script .en{ display:block; margin: 4px 0; }
+    .script .en{
+      display:block;
+      margin: 4px 0;
+      line-height: 1.5;
+      border-radius: 6px;
+      padding: 2px 0;
+      transition: background .2s;
+    }
     .script.hidden{ display:none !important; }
 
     .qa{
@@ -282,7 +289,7 @@
 
           <div class="round" id="roundLabel">1 / 2</div>
 
-          <div class="script hidden" id="scriptBox" aria-live="polite">
+          <div class="script" id="scriptBox" aria-live="polite">
             <span class="en" id="line1"></span>
             <span class="en" id="line2"></span>
             <span class="en" id="line3"></span>

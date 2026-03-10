@@ -22,7 +22,7 @@
     trueLabel:      "Verdadero",
     falseLabel:     "Falso",
     scoreLabel:     "Respuestas correctas:",
-    audioSrc:       "../../../../audio/u3/u3.l5.p4.cooper.mp3",
+    audioSrc:       "../../../../assets/audio/u3/l5/u3.l5.p4.cooper.mp3",
     audio: {
       listenNote:   "🔊 Escucha la historia antes de responder.",
       skipBtn:      "Ir a las preguntas →",
@@ -125,7 +125,18 @@
     });
     audio.addEventListener("pause", clearHighlights);
     audio.addEventListener("ended", () => { clearHighlights(); unlockQuestions(); });
-    audio.addEventListener("error", () => { console.warn("Audio unavailable; unlocking."); unlockQuestions(); });
+    audio.addEventListener("error", () => {
+      console.warn("Audio file not found:", CONFIG.audioSrc);
+      const existingWarn = document.getElementById("audioWarn");
+      if (!existingWarn) {
+        const warn = document.createElement("p");
+        warn.id = "audioWarn";
+        warn.textContent = "⚠️ Audio no disponible. Verifica la ruta del archivo MP3.";
+        warn.style.cssText = "color:#dc2626;font-size:13px;font-weight:700;margin:8px 0 0 0;";
+        const sec = document.getElementById("audioSection");
+        if (sec) sec.appendChild(warn);
+      }
+    });
 
     // ── Outer wrapper ──
     const wrap = document.createElement("div");
@@ -163,15 +174,28 @@
 
     playBtn.addEventListener("click", () => {
       if (audio.paused) {
-        audio.play();
-        playBtn.innerHTML          = "⏸ Pausar";
-        playBtn.style.background   = "#dc2626";
-        playBtn.style.boxShadow    = "0 6px 18px rgba(220,38,38,.3)";
+        const p = audio.play();
+        if (p !== undefined) {
+          p.then(() => {
+            playBtn.innerHTML        = "⏸ Pausar";
+            playBtn.style.background = "#dc2626";
+            playBtn.style.boxShadow  = "0 6px 18px rgba(220,38,38,.3)";
+          }).catch(err => {
+            console.error("Playback failed:", err);
+            let w = document.getElementById("audioWarn");
+            if (!w) {
+              w = document.createElement("p"); w.id = "audioWarn";
+              w.style.cssText = "color:#dc2626;font-size:13px;font-weight:700;margin:10px 0 0 0;";
+              wrap.appendChild(w);
+            }
+            w.textContent = "⚠️ No se pudo reproducir: " + CONFIG.audioSrc;
+          });
+        }
       } else {
         audio.pause();
-        playBtn.innerHTML          = "▶ Escuchar la historia";
-        playBtn.style.background   = "#2563eb";
-        playBtn.style.boxShadow    = "0 6px 18px rgba(37,99,235,.3)";
+        playBtn.innerHTML        = "▶ Escuchar la historia";
+        playBtn.style.background = "#2563eb";
+        playBtn.style.boxShadow  = "0 6px 18px rgba(37,99,235,.3)";
       }
     });
 
