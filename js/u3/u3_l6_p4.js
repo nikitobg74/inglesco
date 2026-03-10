@@ -1,0 +1,294 @@
+(() => {
+  "use strict";
+
+  const IMAGE_BASE = "../../../../assets/images/u3/";
+  const AUDIO_BASE = "../../../../assets/audio/u3/l6/";
+
+  // ── DOM refs ──────────────────────────────────────────────────────────────
+  const roundLabel     = document.getElementById("roundLabel");
+  const exerciseBox    = document.getElementById("exerciseBox");
+  const endScreen      = document.getElementById("endScreen");
+  const instrLine      = document.getElementById("instrLine");
+
+  const itemImg        = document.getElementById("itemImg");
+  const playBtn        = document.getElementById("playBtn");
+  const playLabel      = document.getElementById("playLabel");
+
+  const buildBlock     = document.getElementById("buildBlock");
+  const sentenceDisplay = document.getElementById("sentenceDisplay");
+  const checkBtn       = document.getElementById("checkBtn");
+  const hintBox        = document.getElementById("hintBox");
+
+  const statusLine     = document.getElementById("statusLine");
+  const endTitle       = document.getElementById("endTitle");
+  const endMsg1        = document.getElementById("endMsg1");
+  const endMsg2        = document.getElementById("endMsg2");
+
+  // ── Config ────────────────────────────────────────────────────────────────
+  const CONFIG = {
+    instr:     "Escucha y completa la oración.",
+    play:      "Escuchar",
+    checkBtn:  "Verificar",
+    correct:   "✓",
+    wrong:     "✗",
+    hintLabel: "💡",
+    end: {
+      title: "¡Fantástico!",
+      msg1:  "Felicitaciones.",
+      msg2:  "Terminaste la parte 4."
+    }
+  };
+
+  // ── Rounds ────────────────────────────────────────────────────────────────
+  // template: sentence with {0} and optionally {1} as blank placeholders
+  // blanks: array of correct answers (lowercase, trimmed for comparison)
+  // First 6 rounds → one blank (verb). Last 5 rounds → two blanks (verb + possessive).
+  const ROUNDS = [
+    {
+      image:    "u3.l6.p1.fix.car.jpg",
+      audio:    "u3.l6.p3.fix.car.mp3",
+      template: ["I am ", "{0}", " my car."],
+      blanks:   ["fixing"]
+    },
+    {
+      image:    "u3.l6.p1.woman.fix.car.jpg",
+      audio:    "u3.l6.p3.woman.fix.car.mp3",
+      template: ["She is ", "{0}", " her car."],
+      blanks:   ["fixing"]
+    },
+    {
+      image:    "u3.l6.p1.fix.sink.jpg",
+      audio:    "u3.l6.p3.fix.sink.mp3",
+      template: ["He is ", "{0}", " his sink."],
+      blanks:   ["fixing"]
+    },
+    {
+      image:    "u3.l6.p1.woman.clean.apartment.jpg",
+      audio:    "u3.l6.p3.woman.clean.apartment.mp3",
+      template: ["She is ", "{0}", " her apartment."],
+      blanks:   ["cleaning"]
+    },
+    {
+      image:    "u3.l6.p1.man.clean.window.jpg",
+      audio:    "u3.l6.p3.man.clean.window.mp3",
+      template: ["He is ", "{0}", " his window."],
+      blanks:   ["cleaning"]
+    },
+    {
+      image:    "u3.l6.p1.feed.cat.jpg",
+      audio:    "u3.l6.p3.feed.cat.mp3",
+      template: ["I am ", "{0}", " my cat."],
+      blanks:   ["feeding"]
+    },
+    // ── Two blanks from here ──────────────────────────────────────────────
+    {
+      image:    "u3.l6.p1.doing.homework.jpg",
+      audio:    "u3.l6.p3.doing.homework.mp3",
+      template: ["They are ", "{0}", " ", "{1}", " homework."],
+      blanks:   ["doing", "their"]
+    },
+    {
+      image:    "u3.l6.p1.woman.washing.clothes.jpg",
+      audio:    "u3.l6.p3.woman.washing.clothes.mp3",
+      template: ["She is ", "{0}", " ", "{1}", " clothes."],
+      blanks:   ["washing", "her"]
+    },
+    {
+      image:    "u3.l6.p1.painting.jpg",
+      audio:    "u3.l6.p3.painting.mp3",
+      template: ["We are ", "{0}", " ", "{1}", " bedroom."],
+      blanks:   ["painting", "our"]
+    },
+    {
+      image:    "u3.l6.p1.girl.brushing.teeth.jpg",
+      audio:    "u3.l6.p3.girl.brushing.teeth.mp3",
+      template: ["I am ", "{0}", " ", "{1}", " teeth."],
+      blanks:   ["brushing", "my"]
+    },
+    {
+      image:    "u3.l6.p1.man.read.email.jpg",
+      audio:    "u3.l6.p3.man.read.email.mp3",
+      template: ["He is ", "{0}", " ", "{1}", " emails."],
+      blanks:   ["reading", "his"]
+    }
+  ];
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  const ORDERED_ROUNDS = ROUNDS; // no shuffle — difficulty ramps up intentionally
+  const TOTAL          = ORDERED_ROUNDS.length;
+  let idx              = 0;
+  let audio            = null;
+  let isLocked         = false;
+  let hintTimer        = null;
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function stopAudio() {
+    if (!audio) return;
+    try { audio.pause(); audio.currentTime = 0; } catch (e) {}
+  }
+
+  function setStatus(type, text) {
+    statusLine.textContent = text;
+    statusLine.classList.remove("ok", "bad");
+    if (type === "ok")  statusLine.classList.add("ok");
+    if (type === "bad") statusLine.classList.add("bad");
+  }
+
+  function getInputs() {
+    return Array.from(sentenceDisplay.querySelectorAll(".blank-input"));
+  }
+
+  function flashInputs(type) {
+    getInputs().forEach(inp => {
+      inp.classList.add(type);
+      setTimeout(() => inp.classList.remove(type), 600);
+    });
+  }
+
+  function clearHintTimer() {
+    if (hintTimer) { clearTimeout(hintTimer); hintTimer = null; }
+  }
+
+  function showHint(round) {
+    clearHintTimer();
+    hintBox.textContent = CONFIG.hintLabel + " " + round.blanks.join("  /  ");
+    hintBox.classList.add("visible");
+    hintTimer = setTimeout(() => {
+      hintBox.classList.remove("visible");
+    }, 1200);
+  }
+
+  // ── Build sentence with input fields ─────────────────────────────────────
+  function buildSentence(round) {
+    while (sentenceDisplay.firstChild) sentenceDisplay.removeChild(sentenceDisplay.firstChild);
+
+    round.template.forEach(part => {
+      if (part === "{0}" || part === "{1}") {
+        const blankIdx = part === "{0}" ? 0 : 1;
+        const inp = document.createElement("input");
+        inp.type        = "text";
+        inp.className   = "blank-input";
+        inp.dataset.idx = blankIdx;
+        inp.autocomplete = "off";
+        inp.autocorrect  = "off";
+        inp.autocapitalize = "off";
+        inp.spellcheck   = false;
+
+        // size roughly to the answer length
+        const answer = round.blanks[blankIdx] || "";
+        inp.style.width = Math.max(answer.length * 13 + 20, 80) + "px";
+
+        inp.addEventListener("keydown", e => {
+          if (e.key === "Enter") handleCheck();
+        });
+
+        sentenceDisplay.appendChild(inp);
+      } else {
+        const span = document.createElement("span");
+        span.textContent = part;
+        sentenceDisplay.appendChild(span);
+      }
+    });
+
+    // focus first input
+    const first = sentenceDisplay.querySelector(".blank-input");
+    if (first) setTimeout(() => first.focus(), 80);
+  }
+
+  // ── Check answer ──────────────────────────────────────────────────────────
+  function handleCheck() {
+    if (isLocked) return;
+    const round  = ORDERED_ROUNDS[idx];
+    const inputs = getInputs();
+    const allCorrect = inputs.every((inp, i) => {
+      return inp.value.trim().toLowerCase() === round.blanks[i].toLowerCase();
+    });
+
+    if (allCorrect) {
+      isLocked = true;
+      clearHintTimer();
+      hintBox.classList.remove("visible");
+      inputs.forEach(inp => { inp.classList.add("correct"); inp.disabled = true; });
+      checkBtn.disabled = true;
+      setStatus("ok", CONFIG.correct);
+      setTimeout(() => {
+        setStatus("", "");
+        isLocked = false;
+        advanceOrFinish();
+      }, 900);
+    } else {
+      flashInputs("wrong");
+      setStatus("bad", CONFIG.wrong);
+      setTimeout(() => {
+        setStatus("", "");
+        showHint(round);
+        inputs.forEach(inp => { inp.value = ""; });
+        const first = sentenceDisplay.querySelector(".blank-input");
+        if (first) first.focus();
+      }, 600);
+    }
+  }
+
+  // ── Load round ────────────────────────────────────────────────────────────
+  function loadRound(i) {
+    idx = i;
+    stopAudio();
+    setStatus("", "");
+    clearHintTimer();
+    hintBox.classList.remove("visible");
+    isLocked = false;
+
+    const round = ORDERED_ROUNDS[idx];
+    roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
+    itemImg.src            = IMAGE_BASE + round.image;
+    itemImg.alt            = "";
+    playLabel.textContent  = CONFIG.play;
+    checkBtn.textContent   = CONFIG.checkBtn;
+    checkBtn.disabled      = false;
+
+    buildBlock.classList.add("hidden");
+  }
+
+  // ── Play button ───────────────────────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    stopAudio();
+    const round = ORDERED_ROUNDS[idx];
+    audio = new Audio(AUDIO_BASE + round.audio);
+
+    const showBuild = () => {
+      if (buildBlock.classList.contains("hidden")) {
+        buildSentence(round);
+        buildBlock.classList.remove("hidden");
+        buildBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    };
+
+    audio.onended = showBuild;
+    audio.play().catch(showBuild);
+  });
+
+  checkBtn.addEventListener("click", handleCheck);
+
+  function advanceOrFinish() {
+    if (idx < TOTAL - 1) {
+      loadRound(idx + 1);
+    } else {
+      finish();
+    }
+  }
+
+  // ── Finish ────────────────────────────────────────────────────────────────
+  function finish() {
+    stopAudio();
+    exerciseBox.classList.add("hidden");
+    roundLabel.classList.add("hidden");
+    endTitle.textContent = CONFIG.end.title;
+    endMsg1.textContent  = CONFIG.end.msg1;
+    endMsg2.textContent  = CONFIG.end.msg2;
+    endScreen.classList.remove("hidden");
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  instrLine.textContent = CONFIG.instr;
+  loadRound(0);
+})();
