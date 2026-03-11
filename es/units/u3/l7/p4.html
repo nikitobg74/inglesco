@@ -86,7 +86,7 @@
     .ref-toggle .arrow      { font-size: 12px; transition: transform .25s; display: inline-block; }
     .ref-toggle.open .arrow { transform: rotate(180deg); }
     .ref-body               { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-    .ref-body.open          { max-height: 500px; }
+    .ref-body.open          { max-height: 300px; }
     .ref-body-inner         { padding: 0 14px 14px; }
 
     .pron-table { width: 100%; border-collapse: collapse; font-size: 15px; }
@@ -110,13 +110,49 @@
       border-radius: 14px;
       padding: 16px 18px;
       font-size: 16px;
-      line-height: 1.85;
+      line-height: 2;
       color: #1e3a5f;
       font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .paragraph-block p {
+      margin: 0 0 4px 0;
+      border-radius: 6px;
+      padding: 2px 6px;
+      transition: background .25s, color .25s;
+    }
+    .paragraph-block p:last-child { margin-bottom: 0; }
+    .paragraph-block p.active {
+      background: #fef08a;
+      color: #92400e;
+    }
+    .paragraph-block p.done {
+      color: #6b7280;
     }
 
-    /* ── Play button ── */
-    .play-area { text-align: center; margin-top: 14px; }
+    /* ── Audio progress bar ── */
+    .audio-progress-wrap {
+      margin-bottom: 10px;
+      display: none;
+    }
+    .audio-progress-wrap.visible { display: block; }
+    .audio-progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .audio-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 99px;
+      transition: width .25s linear;
+    }
+
+    /* ── Play/Pause button ── */
+    .play-area { text-align: center; margin-bottom: 16px; }
     .play-btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 12px 28px; background: #2563eb; color: #fff; border: none;
@@ -126,7 +162,7 @@
     }
     .play-btn:hover  { background: #1e40af; }
     .play-btn:active { transform: scale(.97); }
-    .play-btn svg    { width: 22px; height: 22px; fill: #fff; }
+    .play-btn svg    { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
 
     /* ── Exercise block ── */
     .exercise-block {
@@ -138,10 +174,9 @@
       gap: 14px;
     }
 
-    .ex-counter {
-      font-size: 12px; font-weight: 900; color: #6b7280;
-      text-transform: uppercase; letter-spacing: .06em;
-      text-align: center;
+    .round {
+      text-align: center; font-weight: 900;
+      margin: 0 0 10px 0; opacity: .85;
     }
 
     /* ── Sentence with blank ── */
@@ -197,8 +232,6 @@
     .status-line.ok  { color: #16a34a; }
     .status-line.bad { color: #dc2626; }
 
-    .round { text-align: center; font-weight: 900; margin: 4px 0 14px 0; opacity: .85; }
-
     .hidden { display: none !important; }
 
     /* ── End screen ── */
@@ -208,12 +241,12 @@
     .end p  { margin: 6px 0; font-weight: 800; }
 
     @media (max-width: 520px) {
-      .step            { width: 34px; height: 34px; font-size: 14px; }
-      .top-title       { font-size: 18px; }
-      .paragraph-block { font-size: 14px; }
-      .sentence-display{ font-size: 16px; }
-      .verb-blank      { font-size: 16px; min-width: 76px; }
-      .tile            { font-size: 14px; padding: 10px 16px; }
+      .step             { width: 34px; height: 34px; font-size: 14px; }
+      .top-title        { font-size: 18px; }
+      .paragraph-block  { font-size: 14px; line-height: 1.9; }
+      .sentence-display { font-size: 16px; }
+      .verb-blank       { font-size: 16px; min-width: 76px; }
+      .tile             { font-size: 14px; padding: 10px 16px; }
     }
   </style>
 </head>
@@ -252,26 +285,30 @@
       <!-- Paragraph -->
       <div class="paragraph-block" id="paragraphBlock"></div>
 
-      <!-- Play button -->
+      <!-- Audio progress bar -->
+      <div class="audio-progress-wrap" id="audioProgressWrap">
+        <div class="audio-progress-track">
+          <div class="audio-progress-fill" id="audioProgressFill"></div>
+        </div>
+      </div>
+
+      <!-- Play / Pause button -->
       <div class="play-area">
         <button class="play-btn" id="playBtn">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <!-- icon swaps between play and pause via JS -->
+          <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           <span id="playLabel"></span>
         </button>
       </div>
 
-      <!-- Exercises (shown after audio) -->
-      <div id="exercisesWrap">
+      <!-- Round counter + Exercise (shown after audio) -->
+      <div class="round hidden" id="roundLabel"></div>
 
-        <div class="round hidden" id="roundLabel"></div>
-
-        <div class="exercise-block hidden" id="exerciseBox">
-          <div class="ex-counter"      id="exCounter"></div>
-          <div class="sentence-display" id="sentenceDisplay"></div>
-          <div class="tiles"            id="tilesContainer"></div>
-          <div class="status-line"      id="statusLine" aria-live="polite"></div>
-        </div>
-
+      <div class="exercise-block hidden" id="exerciseBox">
+        <div class="sentence-display" id="sentenceDisplay"></div>
+        <div class="tiles"            id="tilesContainer"></div>
+        <div class="status-line"      id="statusLine" aria-live="polite"></div>
       </div>
 
       <!-- End screen -->

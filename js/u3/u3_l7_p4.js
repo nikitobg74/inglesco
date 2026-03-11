@@ -5,66 +5,63 @@
   const AUDIO_BASE = "../../../../assets/audio/u3/l7/";
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
-  const instrLine      = document.getElementById("instrLine");
+  const instrLine        = document.getElementById("instrLine");
 
-  const refToggle      = document.getElementById("refToggle");
-  const refToggleLabel = document.getElementById("refToggleLabel");
-  const refBody        = document.getElementById("refBody");
-  const refThEn        = document.getElementById("refThEn");
-  const refThEs        = document.getElementById("refThEs");
-  const refTableBody   = document.getElementById("refTableBody");
+  const refToggle        = document.getElementById("refToggle");
+  const refToggleLabel   = document.getElementById("refToggleLabel");
+  const refBody          = document.getElementById("refBody");
+  const refThEn          = document.getElementById("refThEn");
+  const refThEs          = document.getElementById("refThEs");
+  const refTableBody     = document.getElementById("refTableBody");
 
-  const paragraphBlock  = document.getElementById("paragraphBlock");
-  const playBtn         = document.getElementById("playBtn");
-  const playLabel       = document.getElementById("playLabel");
+  const paragraphBlock   = document.getElementById("paragraphBlock");
+  const audioProgressWrap= document.getElementById("audioProgressWrap");
+  const audioProgressFill= document.getElementById("audioProgressFill");
+  const playBtn          = document.getElementById("playBtn");
+  const playIcon         = document.getElementById("playIcon");
+  const pauseIcon        = document.getElementById("pauseIcon");
+  const playLabel        = document.getElementById("playLabel");
 
-  const roundLabel      = document.getElementById("roundLabel");
-  const exerciseBox     = document.getElementById("exerciseBox");
-  const exCounter       = document.getElementById("exCounter");
-  const sentenceDisplay = document.getElementById("sentenceDisplay");
-  const tilesContainer  = document.getElementById("tilesContainer");
-  const statusLine      = document.getElementById("statusLine");
+  const roundLabel       = document.getElementById("roundLabel");
+  const exerciseBox      = document.getElementById("exerciseBox");
+  const sentenceDisplay  = document.getElementById("sentenceDisplay");
+  const tilesContainer   = document.getElementById("tilesContainer");
+  const statusLine       = document.getElementById("statusLine");
 
-  const endScreen       = document.getElementById("endScreen");
-  const endTitle        = document.getElementById("endTitle");
-  const endMsg1         = document.getElementById("endMsg1");
-  const endMsg2         = document.getElementById("endMsg2");
+  const endScreen        = document.getElementById("endScreen");
+  const endTitle         = document.getElementById("endTitle");
+  const endMsg1          = document.getElementById("endMsg1");
+  const endMsg2          = document.getElementById("endMsg2");
 
   // ── Config ────────────────────────────────────────────────────────────────
   const CONFIG = {
     instr:    "Lee el texto, escucha y completa los ejercicios.",
-    audio:    "u3.l7.p4.maple.avenue.mp3",
+    audio:    "u3.l7.p4.story.mp3",
     refLabel: "📋 Palabras nuevas",
     colEn:    "English",
     colEs:    "Español",
     vocabRows: [
-      { en: "everybody",  es: "todos"               },
-      { en: "avenue",     es: "avenida"             },
-      { en: "garage",     es: "garaje"              },
-      { en: "bedroom",    es: "habitación"          },
-      { en: "kitchen",    es: "cocina"              },
-      { en: "yard",       es: "jardín / patio"      },
-      { en: "neighbors",  es: "vecinos"             },
-      { en: "fixing",     es: "arreglando"          },
-      { en: "painting",   es: "pintando"            },
-      { en: "feeding",    es: "alimentando"         },
-      { en: "washing",    es: "lavando"             },
-      { en: "cleaning",   es: "limpiando"           },
-      { en: "playing",    es: "jugando"             },
-      { en: "watching",   es: "mirando / observando"}
+      { en: "everybody",  es: "todos"   },
+      { en: "street",     es: "calle"   },
+      { en: "neighbors",  es: "vecinos" }
     ],
     paragraph: [
-      "Everybody at 42 Maple Avenue is very busy today.",
+      "Everybody on our street is very busy today.",
       "Mr. Davis is fixing his car in the garage.",
-      "Ana Lopez is painting her bedroom.",
-      "Carlos Rivera is feeding his cat. The cat is eating a fish.",
+      "Mrs. Lopez is painting her bedroom.",
+      "Carlos is feeding his cat.",
+      "The cat is eating a fish.",
       "Mr. and Mrs. Patel are washing their clothes.",
-      "Linda Brown is cleaning her kitchen.",
-      "And Tom and Sarah Wilson are playing with their dog. The dog is playing with a ball in the yard.",
-      "I am busy, too. I am washing my car and I am watching all my neighbors.",
-      "It is a very busy day at 42 Maple Avenue.\""
+      "Linda is cleaning her kitchen.",
+      "And Tom and Sarah are playing baseball.",
+      "Their dog is playing with a ball in the yard.",
+      "I am busy, too.",
+      "I am washing my car and I am watching all my neighbors.",
+      "It is a very busy day on our street."
     ],
     play:     "Escuchar",
+    pause:    "Pausar",
+    resume:   "Continuar",
     roundSep: " / ",
     correct:  "✓",
     wrong:    "✗",
@@ -76,9 +73,6 @@
   };
 
   // ── Exercises ─────────────────────────────────────────────────────────────
-  // template: sentence split around the blank {0}
-  // answer:   correct word
-  // wrong:    two distractor words (all pulled from the paragraph)
   const EXERCISES = [
     {
       template: ["Mr. Davis is ", "{0}", " his car in the garage."],
@@ -86,12 +80,12 @@
       wrong:    ["washing", "painting"]
     },
     {
-      template: ["Ana Lopez is painting ", "{0}", " bedroom."],
+      template: ["Mrs. Lopez is painting ", "{0}", " bedroom."],
       answer:   "her",
       wrong:    ["his", "their"]
     },
     {
-      template: ["Carlos Rivera is ", "{0}", " his cat."],
+      template: ["Carlos is ", "{0}", " his cat."],
       answer:   "feeding",
       wrong:    ["fixing", "painting"]
     },
@@ -101,14 +95,14 @@
       wrong:    ["is", "am"]
     },
     {
-      template: ["Linda Brown is ", "{0}", " her kitchen."],
+      template: ["Linda is ", "{0}", " her kitchen."],
       answer:   "cleaning",
       wrong:    ["washing", "playing"]
     },
     {
-      template: ["Tom and Sarah Wilson are ", "{0}", " with their dog."],
+      template: ["Tom and Sarah are ", "{0}", " baseball."],
       answer:   "playing",
-      wrong:    ["feeding", "washing"]
+      wrong:    ["washing", "fixing"]
     },
     {
       template: ["I am washing ", "{0}", " car."],
@@ -117,15 +111,21 @@
     }
   ];
 
-  const TOTAL = EXERCISES.length;
-  let idx     = 0;
-  let audio   = null;
-  let isLocked = false;
+  // ── State ─────────────────────────────────────────────────────────────────
+  const TOTAL    = EXERCISES.length;
+  let idx        = 0;
+  let audio      = null;
+  let isPlaying  = false;
+  let isLocked   = false;
+  let rafId      = null;
+  let sentenceEls = [];   // <p> elements in paragraph
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   function stopAudio() {
     if (!audio) return;
     try { audio.pause(); audio.currentTime = 0; } catch (e) {}
+    cancelAnimationFrame(rafId);
+    isPlaying = false;
   }
 
   function shuffle(arr) {
@@ -148,9 +148,95 @@
     while (el.firstChild) el.removeChild(el.firstChild);
   }
 
+  // ── Icon swap ─────────────────────────────────────────────────────────────
+  function showPlayIcon() {
+    playIcon.style.display  = "";
+    pauseIcon.style.display = "none";
+    playLabel.textContent   = CONFIG.play;
+  }
+
+  function showPauseIcon() {
+    playIcon.style.display  = "none";
+    pauseIcon.style.display = "";
+    playLabel.textContent   = CONFIG.pause;
+  }
+
+  function showResumeIcon() {
+    playIcon.style.display  = "";
+    pauseIcon.style.display = "none";
+    playLabel.textContent   = CONFIG.resume;
+  }
+
+  // ── Highlight sentences ───────────────────────────────────────────────────
+  // Divides audio duration evenly across sentences.
+  // Called on every animation frame while audio plays.
+  function updateHighlight() {
+    if (!audio || audio.paused) return;
+
+    const duration = audio.duration || 1;
+    const current  = audio.currentTime;
+    const count    = sentenceEls.length;
+    const segLen   = duration / count;
+    const activeIdx = Math.min(Math.floor(current / segLen), count - 1);
+
+    sentenceEls.forEach((el, i) => {
+      el.classList.remove("active", "done");
+      if (i < activeIdx)  el.classList.add("done");
+      if (i === activeIdx) el.classList.add("active");
+    });
+
+    // Update progress bar
+    const pct = (current / duration) * 100;
+    audioProgressFill.style.width = pct + "%";
+
+    rafId = requestAnimationFrame(updateHighlight);
+  }
+
+  // ── Play / Pause toggle ───────────────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (!audio) {
+      // First play
+      audio = new Audio(AUDIO_BASE + CONFIG.audio);
+      audioProgressWrap.classList.add("visible");
+
+      audio.addEventListener("ended", () => {
+        isPlaying = false;
+        cancelAnimationFrame(rafId);
+        audioProgressFill.style.width = "100%";
+        // Clear highlights
+        sentenceEls.forEach(el => {
+          el.classList.remove("active");
+          el.classList.add("done");
+        });
+        showPlayIcon();
+        // Show exercises
+        roundLabel.classList.remove("hidden");
+        exerciseBox.classList.remove("hidden");
+        loadExercise(0);
+      });
+
+      audio.play().catch(() => {});
+      isPlaying = true;
+      showPauseIcon();
+      rafId = requestAnimationFrame(updateHighlight);
+      return;
+    }
+
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      cancelAnimationFrame(rafId);
+      showResumeIcon();
+    } else {
+      audio.play().catch(() => {});
+      isPlaying = true;
+      showPauseIcon();
+      rafId = requestAnimationFrame(updateHighlight);
+    }
+  });
+
   // ── Build exercise ────────────────────────────────────────────────────────
   function buildExercise(ex) {
-    // Sentence with blank
     clearEl(sentenceDisplay);
     ex.template.forEach(part => {
       if (part === "{0}") {
@@ -166,7 +252,6 @@
       }
     });
 
-    // Tiles
     clearEl(tilesContainer);
     isLocked = false;
     setStatus("", "");
@@ -221,7 +306,6 @@
   function loadExercise(i) {
     idx = i;
     roundLabel.textContent = `${idx + 1}${CONFIG.roundSep}${TOTAL}`;
-    exCounter.textContent  = `${idx + 1}${CONFIG.roundSep}${TOTAL}`;
     buildExercise(EXERCISES[idx]);
     exerciseBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
@@ -233,21 +317,6 @@
       finish();
     }
   }
-
-  // ── Play button ───────────────────────────────────────────────────────────
-  playBtn.addEventListener("click", () => {
-    stopAudio();
-    audio = new Audio(AUDIO_BASE + CONFIG.audio);
-
-    const showExercises = () => {
-      roundLabel.classList.remove("hidden");
-      exerciseBox.classList.remove("hidden");
-      loadExercise(0);
-    };
-
-    audio.onended = showExercises;
-    audio.play().catch(showExercises);
-  });
 
   // ── Finish ────────────────────────────────────────────────────────────────
   function finish() {
@@ -288,10 +357,12 @@
 
   // ── Build paragraph ───────────────────────────────────────────────────────
   function buildParagraph() {
-    CONFIG.paragraph.forEach((sentence, i) => {
-      const span = document.createElement("span");
-      span.textContent = (i > 0 ? " " : "") + sentence;
-      paragraphBlock.appendChild(span);
+    sentenceEls = [];
+    CONFIG.paragraph.forEach(sentence => {
+      const p = document.createElement("p");
+      p.textContent = sentence;
+      paragraphBlock.appendChild(p);
+      sentenceEls.push(p);
     });
   }
 
@@ -299,5 +370,5 @@
   instrLine.textContent = CONFIG.instr;
   buildRefTable();
   buildParagraph();
-  playLabel.textContent = CONFIG.play;
+  showPlayIcon();
 })();
