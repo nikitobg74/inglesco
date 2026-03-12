@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unidad 4 • Lección 1 • Parte 1</title>
-  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 1 • Parte 2</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
@@ -37,6 +37,7 @@
       gap: 10px;
       margin: 15px 0 25px 0;
     }
+
     .step {
       width: 40px;
       height: 40px;
@@ -53,7 +54,7 @@
       user-select: none;
     }
     .step.active { background: #2563eb; color: #fff; }
-    .step:hover  { transform: scale(1.1); }
+    .step:hover { transform: scale(1.1); }
 
     .top-title {
       text-align: center;
@@ -61,12 +62,14 @@
       font-size: 20px;
       font-weight: 900;
     }
+
     .subline {
       text-align: center;
       margin: 0 0 18px 0;
       font-size: 16px;
       font-weight: 800;
     }
+
     .subline span {
       background: rgba(255,255,255,.7);
       padding: 6px 10px;
@@ -80,67 +83,6 @@
       padding: 14px;
       box-shadow: 0 10px 24px rgba(0,0,0,.08);
     }
-
-    .ref-panel {
-      background: #f0fdf4;
-      border: 2px solid #86efac;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      overflow: hidden;
-    }
-    .ref-toggle {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-weight: 900;
-      font-size: 14px;
-      color: #166534;
-      text-align: left;
-    }
-    .ref-toggle:hover { background: #dcfce7; }
-    .ref-toggle .arrow {
-      font-size: 12px;
-      transition: transform .25s;
-      display: inline-block;
-    }
-    .ref-toggle.open .arrow { transform: rotate(180deg); }
-
-    .ref-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .35s ease;
-    }
-    .ref-body.open { max-height: 500px; }
-
-    .ref-body-inner { padding: 0 14px 14px; }
-
-    .pron-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 15px;
-    }
-    .pron-table thead th {
-      background: #dcfce7;
-      color: #166534;
-      font-weight: 900;
-      padding: 7px 10px;
-      text-align: center;
-      font-size: 12px;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-    .pron-table thead th:first-child { border-radius: 10px 0 0 0; }
-    .pron-table thead th:last-child  { border-radius: 0 10px 0 0; }
-    .pron-table tbody tr:nth-child(odd)  { background: #fff; }
-    .pron-table tbody tr:nth-child(even) { background: #f0fdf4; }
-    .pron-table td { padding: 9px 14px; vertical-align: middle; }
-    .pron-table td.col-pron { font-weight: 900; color: #7c3aed; font-size: 16px; }
-    .pron-table td.col-es   { color: #374151; font-style: italic; font-size: 14px; }
 
     .ex-header {
       text-align: center;
@@ -180,17 +122,20 @@
       transition: all 0.2s ease;
       user-select: none;
     }
+
     .word-chip:hover {
       background: #2563eb;
       color: white;
       border-color: #2563eb;
       transform: translateY(-2px);
     }
+
     .word-chip.selected {
       background: #2563eb;
       color: white;
       border-color: #2563eb;
     }
+
     .word-chip.used {
       opacity: 0.25;
       pointer-events: none;
@@ -211,7 +156,7 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      max-width: 600px;
+      max-width: 620px;
       margin: 0 auto;
     }
 
@@ -229,6 +174,7 @@
       line-height: 1.6;
       transition: box-shadow 0.2s;
     }
+
     .sentence-row:hover { box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
 
     .num {
@@ -239,8 +185,8 @@
 
     .blank {
       display: inline-block;
-      min-width: 90px;
-      height: 34px;
+      min-width: 95px;
+      height: 36px;
       border-bottom: 3px solid #93c5fd;
       border-radius: 4px;
       cursor: pointer;
@@ -249,21 +195,24 @@
       font-size: 16px;
       color: #1e40af;
       text-align: center;
-      line-height: 34px;
+      line-height: 36px;
       padding: 0 8px;
     }
+
     .blank.correct {
       background: #dcfce7;
       border-bottom: 3px solid #16a34a;
       color: #15803d;
       cursor: default;
     }
+
     .blank.wrong {
       background: #fee2e2;
       border-bottom: 3px solid #dc2626;
       color: #dc2626;
       animation: shake 0.4s ease;
     }
+
     .blank.active {
       background: #eff6ff;
       border-bottom: 3px solid #2563eb;
@@ -283,14 +232,21 @@
       padding: 16px 10px 4px;
       display: none;
     }
+
     .end.show { display: block; }
-    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+
+    .end .trophy {
+      font-size: 52px;
+      margin-bottom: 8px;
+    }
+
     .end h2 {
       margin: 8px 0;
       font-size: 24px;
       font-weight: 900;
       color: #1e40af;
     }
+
     .end p {
       margin: 6px 0;
       font-weight: 600;
@@ -314,7 +270,8 @@
       margin-top: 14px;
       text-decoration: none;
     }
-    .next-btn:hover  { background: #15803d; }
+
+    .next-btn:hover { background: #15803d; }
     .next-btn:active { transform: scale(.97); }
 
     @media (max-width: 520px) {
@@ -322,6 +279,7 @@
       .top-title { font-size: 18px; }
       .sentence-row { font-size: 15px; }
       .word-chip { font-size: 14px; padding: 7px 14px; }
+      .blank { min-width: 82px; font-size: 15px; }
     }
   </style>
 </head>
@@ -331,129 +289,97 @@
 
   <a href="../../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 1 • Parte 1</div>
+  <div class="top-title">Unidad 4 • Lección 1 • Parte 2</div>
   <div class="subline">
-    <span>Haz clic en una palabra y luego en el espacio.</span>
+    <span>Haz clic en un verbo y luego en el espacio.</span>
   </div>
 
   <div class="progress-container">
-    <a class="step active" href="p1.html" aria-label="Parte 1">1</a>
-    <a class="step" href="p2.html" aria-label="Parte 2">2</a>
+    <a class="step" href="p1.html" aria-label="Parte 1">1</a>
+    <a class="step active" href="p2.html" aria-label="Parte 2">2</a>
     <a class="step" href="p3.html" aria-label="Parte 3">3</a>
     <a class="step" href="p4.html" aria-label="Parte 4">4</a>
     <a class="step" href="p5.html" aria-label="Parte 5">5</a>
   </div>
 
   <div class="card">
+    <div class="ex-header">Completa con el verbo correcto</div>
 
-    <div class="ref-panel" id="refPanel">
-      <button class="ref-toggle" id="refToggle" type="button">
-        <span>📋 Tabla de referencia — Pronombres Posesivos en inglés</span>
-        <span class="arrow">▼</span>
-      </button>
-      <div class="ref-body" id="refBody">
-        <div class="ref-body-inner">
-          <table class="pron-table">
-            <thead>
-              <tr>
-                <th>Pronombre en inglés</th>
-                <th>Significado en español</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="col-pron">my</td><td class="col-es">mi / mis</td></tr>
-              <tr><td class="col-pron">your</td><td class="col-es">tu / tus, su / sus (formal)</td></tr>
-              <tr><td class="col-pron">his</td><td class="col-es">su / sus (de él)</td></tr>
-              <tr><td class="col-pron">her</td><td class="col-es">su / sus (de ella)</td></tr>
-              <tr><td class="col-pron">its</td><td class="col-es">su / sus (de una cosa o animal)</td></tr>
-              <tr><td class="col-pron">our</td><td class="col-es">nuestro / nuestra / nuestros / nuestras</td></tr>
-              <tr><td class="col-pron">their</td><td class="col-es">su / sus (de ellos / de ellas)</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="ex-header">B — ¿Cuál es la palabra correcta?</div>
-
-    <div class="word-bank" id="wordBank">
-      <div class="word-chip" data-word="my">my</div>
-      <div class="word-chip" data-word="his">his</div>
-      <div class="word-chip" data-word="her">her</div>
-      <div class="word-chip" data-word="its">its</div>
-      <div class="word-chip" data-word="our">our</div>
-      <div class="word-chip" data-word="your">your</div>
-      <div class="word-chip" data-word="their">their</div>
-    </div>
+    <div class="word-bank" id="wordBank"></div>
 
     <div class="score-bar">
-      ✅ <span id="scoreCount">0</span> de 7 correctas
+      ✅ <span id="scoreCount">0</span> de 8 correctas
     </div>
 
     <div class="sentences" id="exerciseBox">
-
       <div class="sentence-row">
         <span class="num">1.</span>
-        I am feeding
-        <span class="blank" data-answer="my" data-audio-index="0"></span>
-        cat.
+        He is
+        <span class="blank" data-answer="washing"></span>
+        his hair.
       </div>
 
       <div class="sentence-row">
         <span class="num">2.</span>
-        We are washing
-        <span class="blank" data-answer="our" data-audio-index="1"></span>
-        clothes.
+        We are
+        <span class="blank" data-answer="doing"></span>
+        our exercises.
       </div>
 
       <div class="sentence-row">
         <span class="num">3.</span>
-        They are painting
-        <span class="blank" data-answer="their" data-audio-index="2"></span>
-        bedroom.
+        They are
+        <span class="blank" data-answer="cleaning"></span>
+        their yard.
       </div>
 
       <div class="sentence-row">
         <span class="num">4.</span>
-        She is fixing
-        <span class="blank" data-answer="her" data-audio-index="3"></span>
-        sink.
+        She is
+        <span class="blank" data-answer="painting"></span>
+        her living room.
       </div>
 
       <div class="sentence-row">
         <span class="num">5.</span>
-        The dog is eating
-        <span class="blank" data-answer="its" data-audio-index="4"></span>
-        dinner.
+        He is
+        <span class="blank" data-answer="fixing"></span>
+        the sink.
       </div>
 
       <div class="sentence-row">
         <span class="num">6.</span>
-        You are cleaning
-        <span class="blank" data-answer="your" data-audio-index="5"></span>
-        yard.
+        She is
+        <span class="blank" data-answer="cooking"></span>
+        dinner.
       </div>
 
       <div class="sentence-row">
         <span class="num">7.</span>
-        He is reading
-        <span class="blank" data-answer="his" data-audio-index="6"></span>
-        email.
+        I am
+        <span class="blank" data-answer="feeding"></span>
+        my cat.
       </div>
 
+      <div class="sentence-row">
+        <span class="num">8.</span>
+        He is
+        <span class="blank" data-answer="reading"></span>
+        his email.
+      </div>
     </div>
 
     <div class="end" id="endScreen">
       <div class="trophy">🎉</div>
-      <h2>¡Perfecto!</h2>
-      <p>Completaste el repaso de pronombres posesivos.</p>
-      <p>¡Estás listo para continuar!</p>
-      <a href="p2.html" class="next-btn">Siguiente lección →</a>
+      <h2>¡Muy bien!</h2>
+      <p>Completaste los verbos correctamente.</p>
+      <p>Ahora puedes continuar.</p>
+      <a href="p3.html" class="next-btn">Siguiente parte →</a>
     </div>
-
   </div>
 </div>
 
-<script src="../../../../js/u4/u4_l1_p1.js"></script>
+<script src="../../../../js/u4/u4_l1_p2.js"></script>
+
 </body>
 </html>
