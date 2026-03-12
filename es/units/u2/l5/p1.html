@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unidad 2 - Lección 5 - Parte 1</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -33,262 +33,204 @@
       margin:15px 0 25px 0;
     }
     .step{
-      width:40px;
-      height:40px;
+      width:40px; height:40px;
       border-radius:50%;
       background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:600; cursor:pointer; transition:all .3s;
+      color:#1f2933; user-select:none;
     }
     .step.active{ background:#2563eb; color:#fff; }
     .step:hover{ transform:scale(1.1); }
 
     /* ===== FOOTER BUTTONS ===== */
     .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:25px;
-      gap:10px;
-      flex-wrap:wrap;
+      display:flex; justify-content:center;
+      margin-top:25px; gap:10px; flex-wrap:wrap;
     }
     .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
+      display:inline-block; padding:10px 18px;
+      background:#2563eb; color:#fff;
+      text-decoration:none; border-radius:12px; font-weight:800;
     }
     .next-btn:hover{ background:#1e40af; }
     .hidden{ display:none !important; }
 
     /* ===== PAGE BOX ===== */
     .exercise-box{
-      max-width:950px;
-      margin:0 auto;
-      background:#fff;
-      padding:30px 40px;
+      max-width:950px; margin:0 auto;
+      background:#fff; padding:30px 40px;
       border-radius:18px;
       box-shadow:0 10px 25px rgba(0,0,0,0.08);
       color:#2c3e50;
     }
     .unit-title{
-      color:#2563eb;
-      font-size:28px;
-      font-weight:800;
-      text-align:center;
-      margin-bottom:10px;
+      color:#2563eb; font-size:28px; font-weight:800;
+      text-align:center; margin-bottom:10px;
     }
     .instruction-box{
-      background:#e0e7ff;
-      padding:15px 20px;
-      border-radius:12px;
-      text-align:center;
-      font-weight:700;
-      margin-bottom:16px;
-      color:#0f172a;
+      background:#e0e7ff; padding:15px 20px;
+      border-radius:12px; text-align:center;
+      font-weight:700; margin-bottom:16px; color:#0f172a;
     }
 
     .section{
-      background:#f8fafc;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:16px;
-      margin-top:14px;
+      background:#f8fafc; border:1px solid #e5e7eb;
+      border-radius:16px; padding:16px; margin-top:14px;
     }
     .section-title{
-      font-weight:900;
-      color:#0f172a;
-      text-align:center;
-      margin-bottom:10px;
+      font-weight:900; color:#0f172a;
+      text-align:center; margin-bottom:10px;
     }
 
     .counter-row{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      margin:10px 0 12px 0;
-      color:#1f2933;
-      font-weight:800;
-      flex-wrap:wrap;
+      display:flex; justify-content:center; align-items:center;
+      gap:10px; margin:10px 0 12px 0;
+      color:#1f2933; font-weight:800; flex-wrap:wrap;
     }
     .counter-pill{
-      background:#2563eb;
-      color:#fff;
-      padding:6px 12px;
-      border-radius:999px;
-      font-size:14px;
+      background:#2563eb; color:#fff;
+      padding:6px 12px; border-radius:999px; font-size:14px;
     }
 
     .main-row{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      gap:14px;
-      flex-wrap:wrap;
+      display:flex; justify-content:center;
+      align-items:flex-start; gap:14px; flex-wrap:wrap;
     }
 
     .play-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-width:90px;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:10px; min-width:90px;
     }
     .play-btn{
-      border:none;
-      cursor:pointer;
-      background:#2563eb;
-      color:#fff;
-      width:54px;
-      height:54px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      border:none; cursor:pointer;
+      background:#2563eb; color:#fff;
+      width:64px; height:64px;
+      border-radius:999px; font-weight:900; font-size:22px;
+      display:flex; align-items:center; justify-content:center;
       transition:all .2s;
+      box-shadow: 0 4px 12px rgba(37,99,235,.35);
     }
     .play-btn:hover{ background:#1e40af; }
-    .play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+    .play-btn:disabled{ opacity:.5; cursor:not-allowed; box-shadow:none; }
 
     .panel{
-      background:#fff;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:14px;
-      width:100%;
-      max-width:680px;
+      background:#fff; border:1px solid #e5e7eb;
+      border-radius:16px; padding:18px;
+      width:100%; max-width:680px;
     }
     .panel-title{
-      font-weight:900;
-      color:#1f2933;
-      margin-bottom:8px;
-      text-align:center;
+      font-weight:900; color:#1f2933;
+      margin-bottom:12px; text-align:center; font-size:15px;
     }
 
     .small-note{
-      font-weight:700;
-      color:#334155;
-      font-size:13px;
-      text-align:center;
+      font-weight:700; color:#334155; font-size:13px; text-align:center;
     }
 
-    .wordbank{
-      display:flex;
-      justify-content:center;
-      gap:8px;
-      flex-wrap:wrap;
-      margin:10px 0 12px 0;
+    /* ===== SENTENCE DISPLAY ===== */
+    .sentence-display{
+      text-align:center;
+      font-size:22px; font-weight:900; color:#0f172a;
+      margin:14px 0 6px 0;
+      min-height:36px;
     }
-    .pill{
-      padding:8px 10px;
-      background:#e0e7ff;
-      border:1px solid #c7d2fe;
-      border-radius:999px;
+    .answer-slot{
+      display:inline-block;
+      min-width:140px;
+      border-bottom: 3px solid #2563eb;
+      padding:2px 8px;
+      color:#2563eb;
       font-weight:900;
-      color:#1f2933;
-      font-size:14px;
-      user-select:none;
+    }
+    .answer-slot.correct{
+      border-bottom-color:#16a34a;
+      color:#16a34a;
+    }
+
+    /* ===== WORD TILES ===== */
+    .wordbank{
+      display:flex; justify-content:center;
+      gap:12px; flex-wrap:wrap;
+      margin:16px 0 8px 0;
     }
 
     /* Part B masking */
-    .masked{
-      filter: blur(7px);
-      opacity: .85;
-      pointer-events: none;
+    .masked .tile { filter: blur(6px); pointer-events:none; user-select:none; }
+
+    .tile{
+      padding:14px 22px;
+      background:#e0e7ff;
+      border:2px solid #c7d2fe;
+      border-radius:16px;
+      font-weight:900; color:#1e3a8a;
+      font-size:16px;
+      cursor:pointer;
+      transition: transform .15s, background .2s, border-color .2s, box-shadow .2s;
       user-select:none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    }
+    .tile:hover:not(:disabled){
+      background:#c7d2fe; border-color:#818cf8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99,102,241,.25);
+    }
+    .tile:active:not(:disabled){ transform:scale(.96); }
+
+    .tile.correct{
+      background:#dcfce7; border-color:#22c55e; color:#14532d;
+      pointer-events:none;
+    }
+    .tile.wrong{
+      animation: shake .4s ease;
+      background:#fee2e2; border-color:#ef4444; color:#7f1d1d;
+    }
+    .tile.locked{
+      pointer-events:none; opacity:.5; cursor:default;
     }
 
-    /* one-line sentence + input using GRID */
-    .sentence-row{
-      display:grid;
-      grid-template-columns: auto 1fr auto auto;
-      gap:10px;
-      align-items:center;
-      margin-top:10px;
+    @keyframes shake{
+      0%,100%{ transform:translateX(0); }
+      20%{ transform:translateX(-6px); }
+      40%{ transform:translateX(6px); }
+      60%{ transform:translateX(-4px); }
+      80%{ transform:translateX(4px); }
     }
-    .sentence-text{
-      font-weight:900;
-      font-size:18px;
-      color:#0f172a;
-      white-space:nowrap;
+
+    .status-msg{
+      text-align:center; font-weight:700; font-size:14px;
+      color:#475569; margin-top:8px; min-height:22px;
     }
-    input.location{
-      width:100%;
-      min-width:140px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid #cbd5e1;
-      font-size:14px;
-      font-weight:900;
-      outline:none;
-      background:#fff;
-      text-align:center;
-    }
-    input.location:disabled{
-      background:#f1f5f9;
-      opacity:.9;
-      cursor:not-allowed;
-    }
-    input.location:focus{
-      border-color:#2563eb;
-      box-shadow:0 0 0 3px rgba(37,99,235,.15);
+
+    .great{
+      background:#dcfce7; border:1px solid #22c55e; color:#14532d;
+      padding:12px 14px; border-radius:14px; font-weight:900;
+      text-align:center; margin-top:14px;
     }
 
     .btn{
-      border:none;
-      cursor:pointer;
-      background:#2563eb;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:900;
-      transition:all .2s;
-      white-space:nowrap;
+      border:none; cursor:pointer;
+      background:#2563eb; color:#fff;
+      padding:10px 18px; border-radius:12px;
+      font-weight:900; transition:all .2s; white-space:nowrap;
     }
     .btn:hover{ background:#1e40af; }
     .btn:disabled{ opacity:.6; cursor:not-allowed; }
 
-    .mark{
-      font-weight:900;
-      font-size:18px;
-      min-width:20px;
-      text-align:center;
-    }
-    .ok{ color:#0a7a2f; }
-    .bad{ color:#b00020; }
-
-    .great{
-      background:#dcfce7;
-      border:1px solid #22c55e;
-      color:#14532d;
-      padding:12px 14px;
-      border-radius:14px;
-      font-weight:900;
-      text-align:center;
-      margin-top:14px;
+    /* Part B reveal */
+    .reveal-wrap{
+      text-align:center; margin-bottom:8px;
     }
 
     /* ===== MOBILE ===== */
-    @media (max-width: 520px){
+    @media (max-width:520px){
       body{ padding:14px; }
       .exercise-box{ padding:18px 16px; }
       .unit-title{ font-size:22px; }
-      .play-wrap{ min-width:72px; }
-      .play-btn{ width:50px; height:50px; }
-      .sentence-text{ font-size:16px; }
-      input.location{ min-width:120px; }
+      .play-btn{ width:56px; height:56px; font-size:20px; }
+      .tile{ padding:12px 18px; font-size:15px; }
+      .sentence-display{ font-size:19px; }
     }
   </style>
 </head>
@@ -307,8 +249,8 @@
     <div class="unit-title">Unidad 2 – Lección 5 – Parte 1</div>
 
     <div class="instruction-box">
-      Dictado corto: escucha (▶) y escribe <b>solo</b> el lugar (location).
-      <br><span style="font-weight:600;">Primero escucha. Después escribe. Luego pulsa <b>Revisar</b>.</span>
+      Dictado corto: escucha (▶) y toca el lugar correcto.
+      <br><span style="font-weight:600;">Escucha primero, luego toca una de las 3 palabras.</span>
     </div>
 
     <!-- ===== PART A ===== -->
@@ -317,33 +259,28 @@
 
       <div class="counter-row">
         <span class="counter-pill" id="counterA">1 / 10</span>
-        <span id="statusA">Play ▶.</span>
+        <span id="statusA">Pulsa ▶ para escuchar</span>
       </div>
 
       <div class="main-row">
         <div class="play-wrap">
           <button class="play-btn" id="playA" aria-label="Play A">▶</button>
-          <div class="small-note">Play</div>
+          <div class="small-note">Escuchar</div>
         </div>
 
         <div class="panel">
-          <div class="panel-title">Word bank</div>
+          <div class="sentence-display">
+            <span id="promptA">…</span><span class="answer-slot" id="slotA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
+
+          <div class="panel-title" style="margin-top:4px;">Elige el lugar:</div>
           <div class="wordbank" id="bankA"></div>
 
-          <div class="sentence-row">
-            <span class="sentence-text" id="promptA">...</span>
-            <input class="location" id="inputA" type="text" placeholder="lugar" disabled />
-            <button class="btn" id="checkA" disabled>Revisar</button>
-            <span class="mark" id="markA"></span>
-          </div>
-
-          <div class="small-note" style="margin-top:10px;">
-            Consejo: escucha 2 veces si necesitas.
-          </div>
+          <div class="status-msg" id="msgA"></div>
         </div>
       </div>
 
-      <div class="great hidden" id="greatA">Great job! ✅</div>
+      <div class="great hidden" id="greatA">¡Muy bien! ✅ Parte A completada</div>
 
       <div class="footer-actions">
         <button class="btn hidden" id="toPartB" type="button">Continuar a Parte B ▶</button>
@@ -356,38 +293,36 @@
 
       <div class="counter-row">
         <span class="counter-pill" id="counterB">1 / 10</span>
-        <span id="statusB">Play ▶</span>
+        <span id="statusB">Pulsa ▶ para escuchar</span>
       </div>
 
       <div class="main-row">
         <div class="play-wrap">
           <button class="play-btn" id="playB" aria-label="Play B">▶</button>
-          <div class="small-note">Audio</div>
+          <div class="small-note">Escuchar</div>
         </div>
 
         <div class="panel">
-          <div class="panel-title">Word bank</div>
+          <div class="sentence-display">
+            <span id="promptB">…</span><span class="answer-slot" id="slotB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
 
-          <div class="footer-actions" style="margin-top:0;">
+          <div class="reveal-wrap">
             <button class="btn" id="revealBtn" type="button">Mostrar palabras (3s)</button>
           </div>
 
+          <div class="panel-title" style="margin-top:4px;">Elige el lugar:</div>
           <div class="wordbank masked" id="bankB"></div>
 
-          <div class="sentence-row">
-            <span class="sentence-text" id="promptB">...</span>
-            <input class="location" id="inputB" type="text" placeholder="lugar" disabled />
-            <button class="btn" id="checkB" disabled>Revisar</button>
-            <span class="mark" id="markB"></span>
-          </div>
+          <div class="status-msg" id="msgB"></div>
 
-          <div class="small-note" style="margin-top:10px;">
-            En Parte B las palabras están escondidas. Usa “Mostrar” si necesitas.
+          <div class="small-note" style="margin-top:8px;">
+            En Parte B las palabras están escondidas. Usa "Mostrar" si necesitas.
           </div>
         </div>
       </div>
 
-      <div class="great hidden" id="greatB">Great job!! ✅</div>
+      <div class="great hidden" id="greatB">¡Excelente! ✅ Lección completada</div>
     </div>
 
     <!-- FINAL NEXT BUTTON -->
