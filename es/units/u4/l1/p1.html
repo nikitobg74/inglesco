@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unidad 4 • Lección 1 • Parte 1</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 20px 16px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 820px; margin: 0 auto; }
+
+    /* ── BACK ── */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── PROGRESS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0 25px 0;
+    }
+    .step {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; cursor: pointer;
+      transition: all .3s;
+      color: #1f2933; text-decoration: none;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── TITLE ── */
+    .top-title {
+      text-align: center; margin: 0 0 8px 0;
+      font-size: 20px; font-weight: 900;
+    }
+    .subline {
+      text-align: center; margin: 0 0 18px 0;
+      font-size: 16px; font-weight: 800;
+    }
+    .subline span {
+      background: rgba(255,255,255,.7);
+      padding: 6px 10px; border-radius: 10px;
+      display: inline-block;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: rgba(255,255,255,.85);
+      border-radius: 18px; padding: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
+
+    /* ── REFERENCE PANEL ── */
+    .ref-panel {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .ref-toggle {
+      width: 100%; display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px; background: none; border: none;
+      cursor: pointer; font-weight: 900; font-size: 14px;
+      color: #166534; text-align: left;
+    }
+    .ref-toggle:hover       { background: #dcfce7; }
+    .ref-toggle .arrow      { font-size: 12px; transition: transform .25s; display: inline-block; }
+    .ref-toggle.open .arrow { transform: rotate(180deg); }
+    .ref-body               { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .ref-body.open          { max-height: 500px; }
+    .ref-body-inner         { padding: 0 14px 14px; }
+
+    .pron-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .pron-table thead th {
+      background: #dcfce7; color: #166534; font-weight: 900;
+      padding: 7px 10px; text-align: center; font-size: 12px;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .pron-table thead th:first-child { border-radius: 10px 0 0 0; }
+    .pron-table thead th:last-child  { border-radius: 0 10px 0 0; }
+    .pron-table tbody tr:nth-child(odd)  { background: #fff; }
+    .pron-table tbody tr:nth-child(even) { background: #f0fdf4; }
+    .pron-table td { padding: 9px 14px; vertical-align: middle; }
+    .pron-table td.col-pron { font-weight: 900; color: #7c3aed; font-size: 16px; }
+    .pron-table td.col-es   { color: #374151; font-style: italic; font-size: 14px; }
+    .pron-table td.col-ex   { color: #1e40af; font-size: 13px; }
+
+    /* ── EXERCISE HEADER ── */
+    .ex-header {
+      text-align: center;
+      background: #2563eb;
+      color: white;
+      border-radius: 16px;
+      padding: 10px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.25);
+    }
+
+    /* ── WORD BANK ── */
+    .word-bank {
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .word-chip {
+      background: white;
+      border: 2px solid #93c5fd;
+      color: #1e40af;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .word-chip:hover {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      transform: translateY(-2px);
+    }
+    .word-chip.selected {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+    .word-chip.used {
+      opacity: 0.25;
+      pointer-events: none;
+      transform: none;
+    }
+
+    /* ── SCORE BAR ── */
+    .score-bar {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      font-size: 14px;
+      color: #486581;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* ── SENTENCES ── */
+    .sentences {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .sentence-row {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      color: #1e2a38;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      flex-wrap: wrap;
+      line-height: 1.6;
+      transition: box-shadow 0.2s;
+    }
+    .sentence-row:hover { box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+
+    .num {
+      font-weight: 700;
+      color: #2563eb;
+      min-width: 24px;
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 90px;
+      height: 34px;
+      border-bottom: 3px solid #93c5fd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 16px;
+      color: #1e40af;
+      text-align: center;
+      line-height: 34px;
+      padding: 0 8px;
+    }
+    .blank.correct {
+      background: #dcfce7;
+      border-bottom: 3px solid #16a34a;
+      color: #15803d;
+      cursor: default;
+    }
+    .blank.wrong {
+      background: #fee2e2;
+      border-bottom: 3px solid #dc2626;
+      color: #dc2626;
+      animation: shake 0.4s ease;
+    }
+    .blank.active {
+      background: #eff6ff;
+      border-bottom: 3px solid #2563eb;
+    }
+
+    @keyframes shake {
+      0%  { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+      100%{ transform: translateX(0); }
+    }
+
+    /* ── END SCREEN ── */
+    .end { text-align: center; padding: 16px 10px 4px; display: none; }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+    .end h2 { margin: 8px 0; font-size: 24px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #486581; }
+
+    .next-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: #16a34a; color: #fff; border: none;
+      border-radius: 14px; font-weight: 900; font-size: 17px; cursor: pointer;
+      box-shadow: 0 6px 14px rgba(22,163,74,.30);
+      transition: background .2s, transform .1s;
+      margin-top: 14px;
+      text-decoration: none;
+    }
+    .next-btn:hover  { background: #15803d; }
+    .next-btn:active { transform: scale(.97); }
+
+    @media (max-width: 520px) {
+      .step      { width: 34px; height: 34px; font-size: 14px; }
+      .top-title { font-size: 18px; }
+      .sentence-row { font-size: 15px; }
+      .word-chip { font-size: 14px; padding: 7px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 1 • Parte 1</div>
+  <div class="subline">
+    <span>Haz clic en una palabra y luego en el espacio.</span>
+  </div>
+
+  <!-- PROGRESS BAR (5 steps) -->
+  <div class="progress-container">
+    <a class="step active" href="p1.html" aria-label="Parte 1">1</a>
+     <a class="step"        href="p2.html"            aria-label="Parte 2">2</a>
+     <a class="step"        href="p3.html"            aria-label="Parte 3">3</a>
+    <a class="step"        href="p4.html"            aria-label="Parte 4">4</a>
+    <a class="step"        href="p5.html"            aria-label="Parte 5">5</a>
+  </div>
+
+  <div class="card">
+
+    <!-- REFERENCE PANEL -->
+    <div class="ref-panel" id="refPanel">
+      <button class="ref-toggle" id="refToggle" onclick="toggleRef()">
+        <span>📋 Tabla de referencia — Pronombres Posesivos en inglés</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="ref-body" id="refBody">
+        <div class="ref-body-inner">
+          <table class="pron-table">
+            <thead>
+              <tr>
+                <th>Pronombre en inglés</th>
+                <th>Significado en español</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-pron">my</td>
+                <td class="col-es">mi / mis</td>
+              </tr>
+              <tr>
+                <td class="col-pron">your</td>
+                <td class="col-es">tu / tus, su / sus (formal)</td>
+              </tr>
+              <tr>
+                <td class="col-pron">his</td>
+                <td class="col-es">su / sus (de él)</td>
+              </tr>
+              <tr>
+                <td class="col-pron">her</td>
+                <td class="col-es">su / sus (de ella)</td>
+              </tr>
+              <tr>
+                <td class="col-pron">its</td>
+                <td class="col-es">su / sus (de una cosa o animal)</td>
+              </tr>
+              <tr>
+                <td class="col-pron">our</td>
+                <td class="col-es">nuestro / nuestra / nuestros / nuestras</td>
+              </tr>
+              <tr>
+                <td class="col-pron">their</td>
+                <td class="col-es">su / sus (de ellos / de ellas)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE HEADER -->
+    <div class="ex-header">B — ¿Cuál es la palabra correcta?</div>
+
+    <!-- WORD BANK -->
+    <div class="word-bank" id="wordBank">
+      <div class="word-chip" data-word="my"    onclick="selectWord(this)">my</div>
+      <div class="word-chip" data-word="his"   onclick="selectWord(this)">his</div>
+      <div class="word-chip" data-word="her"   onclick="selectWord(this)">her</div>
+      <div class="word-chip" data-word="its"   onclick="selectWord(this)">its</div>
+      <div class="word-chip" data-word="our"   onclick="selectWord(this)">our</div>
+      <div class="word-chip" data-word="your"  onclick="selectWord(this)">your</div>
+      <div class="word-chip" data-word="their" onclick="selectWord(this)">their</div>
+    </div>
+
+    <!-- SCORE -->
+    <div class="score-bar">
+      ✅ <span id="scoreCount">0</span> de 7 correctas
+    </div>
+
+    <!-- SENTENCES -->
+    <div class="sentences" id="exerciseBox">
+
+      <div class="sentence-row">
+        <span class="num">1.</span>
+        I am feeding
+        <span class="blank" id="b1" data-answer="my" onclick="fillBlank(this)"></span>
+        cat.
+      </div>
+
+      <div class="sentence-row">
+        <span class="num">2.</span>
+        We are washing
+        <span class="blank" id="b2" data-answer="our" onclick="fillBlank(this)"></span>
+        clothes.
+      </div>
+
+      <div class="sentence-row">
+        <span class="num">3.</span>
+        They are painting
+        <span class="blank" id="b3" data-answer="their" onclick="fillBlank(this)"></span>
+        bedroom.
+      </div>
+
+      <div class="sentence-row">
+        <span class="num">4.</span>
+        She is fixing
+        <span class="blank" id="b4" data-answer="her" onclick="fillBlank(this)"></span>
+        sink.
+      </div>
+
+      <div class="sentence-row">
+        <span class="num">5.</span>
+        It is eating
+        <span class="blank" id="b5" data-answer="its" onclick="fillBlank(this)"></span>
+        dinner.
+      </div>
+
+      <div class="sentence-row">
+        <span class="num">6.</span>
+        You are cleaning
+        <span class="blank" id="b6" data-answer="your" onclick="fillBlank(this)"></span>
+        yard.
+      </div>
+
+      <div class="sentence-row">
+        <span class="num">7.</span>
+        He is reading
+        <span class="blank" id="b7" data-answer="his" onclick="fillBlank(this)"></span>
+        e-mail.
+      </div>
+
+    </div>
+
+    <!-- END SCREEN -->
+    <div class="end" id="endScreen">
+      <div class="trophy">🎉</div>
+      <h2>¡Perfecto!</h2>
+      <p>Completaste el repaso de pronombres posesivos.</p>
+      <p>¡Estás listo para continuar con los adjetivos!</p>
+      <a href="p2.html" class="next-btn">Siguiente lección →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let selectedChip = null;
+  let score = 0;
+
+  // Reference panel toggle
+  function toggleRef() {
+    const toggle = document.getElementById('refToggle');
+    const body   = document.getElementById('refBody');
+    toggle.classList.toggle('open');
+    body.classList.toggle('open');
+  }
+
+  // Select a word from the bank
+  function selectWord(chip) {
+    if (selectedChip && selectedChip !== chip) {
+      selectedChip.classList.remove('selected');
+    }
+    if (selectedChip === chip) {
+      selectedChip.classList.remove('selected');
+      selectedChip = null;
+      return;
+    }
+    selectedChip = chip;
+    chip.classList.add('selected');
+  }
+
+  // Fill a blank
+  function fillBlank(blank) {
+    if (blank.classList.contains('correct')) return;
+
+    if (!selectedChip) {
+      blank.classList.add('active');
+      setTimeout(() => blank.classList.remove('active'), 600);
+      return;
+    }
+
+    const chosen = selectedChip.dataset.word;
+    const answer = blank.dataset.answer;
+
+    if (chosen === answer) {
+      blank.textContent = chosen;
+      blank.classList.remove('wrong');
+      blank.classList.add('correct');
+      selectedChip.classList.remove('selected');
+      selectedChip.classList.add('used');
+      selectedChip = null;
+      score++;
+      document.getElementById('scoreCount').textContent = score;
+
+      if (score === 7) {
+        setTimeout(() => {
+          document.getElementById('exerciseBox').style.display = 'none';
+          document.getElementById('endScreen').classList.add('show');
+        }, 600);
+      }
+    } else {
+      blank.textContent = chosen;
+      blank.classList.remove('correct');
+      blank.classList.add('wrong');
+      setTimeout(() => {
+        blank.classList.remove('wrong');
+        blank.textContent = '';
+      }, 800);
+      selectedChip.classList.remove('selected');
+      selectedChip = null;
+    }
+  }
+</script>
+
+</body>
+</html>
