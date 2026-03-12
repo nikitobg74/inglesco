@@ -1,9 +1,9 @@
 (() => {
   const CONFIG = {
-    IMG_BASE: "../../../../assets/images/u2/",
-    AUDIO_BASE: "../../../../assets/audio/u2/l6/",
-    totalRounds: 15,
-    autoNextDelay: 1000,
+    IMG_BASE:       "../../../../assets/images/u2/",
+    AUDIO_BASE:     "../../../../assets/audio/u2/l6/",
+    totalRounds:    15,
+    autoNextDelay:  1000,
     wrongFlashDelay: 500
   };
 
@@ -13,7 +13,7 @@
     { text: "desk",           img: "u2.l6.p1.desk.jpg",           audio: "u2.l6.p1.desk.mp3" },
     { text: "laptop",         img: "u2.l6.p1.laptop.jpg",         audio: "u2.l6.p1.laptop.mp3" },
     { text: "chair",          img: "u2.l6.p1.chair.jpg",          audio: "u2.l6.p1.chair.mp3" },
-    { text: "backpack",       img: "u2.l6.p1.bagpack.jpg",        audio: "u2.l6.p1.bagpack.mp3" },
+    { text: "bag",            img: "u2.l6.p1.bag.jpg",            audio: "u2.l6.p1.bag.mp3" },
     { text: "dictionary",     img: "u2.l6.p1.dictionary.jpg",     audio: "u2.l6.p1.dictionary.mp3" },
     { text: "globe",          img: "u2.l6.p1.globe.jpg",          audio: "u2.l6.p1.globe.mp3" },
     { text: "bookshelf",      img: "u2.l6.p4.bookshelf.jpg",      audio: "u2.l6.p4.bookshelf.mp3" },
@@ -32,16 +32,20 @@
   const feedbackEl = document.getElementById("feedback");
   const roundBox   = document.getElementById("roundBox");
   const doneBadge  = document.getElementById("doneBadge");
-  const checkBtn   = document.getElementById("checkBtn"); // optional in case still present in HTML
 
   const stepButtons = document.querySelectorAll(".step");
 
-  let rounds = [];
+  let rounds         = [];
   let currentRoundIndex = 0;
-  let currentAudio = null;
-  let roundLocked = false;
+  let roundLocked    = false;
   let audioHasPlayed = false;
-  let autoNextTimer = null;
+  let autoNextTimer  = null;
+
+  // ── FIX 2: Single reusable Audio element — avoids "play interrupted" blocking ──
+  const audioPlayer = new Audio();
+
+  // ── FIX 2: Track whether a play() promise is in-flight ──
+  let playPromise = null;
 
   function shuffle(array) {
     const arr = [...array];
@@ -53,17 +57,11 @@
   }
 
   function buildRounds() {
-    rounds = ITEMS.map(correctItem => {
+    rounds = shuffle(ITEMS).map(correctItem => {
       const distractors = shuffle(
         ITEMS.filter(item => item.text !== correctItem.text)
       ).slice(0, 2);
-
-      const options = shuffle([correctItem, ...distractors]);
-
-      return {
-        correct: correctItem,
-        options
-      };
+      return { correct: correctItem, options: shuffle([correctItem, ...distractors]) };
     });
   }
 
@@ -80,11 +78,17 @@
     roundBox.textContent = `${currentRoundIndex + 1} / ${CONFIG.totalRounds}`;
   }
 
-  function stopCurrentAudio() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      currentAudio = null;
+  // ── FIX 2: Safe stop — wait for any in-flight promise before pausing ──
+  function stopAudio() {
+    if (playPromise) {
+      playPromise.then(() => {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+      }).catch(() => {});
+      playPromise = null;
+    } else {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
     }
   }
 
@@ -95,28 +99,7 @@
     }
   }
 
-  function resetRoundUI() {
-    clearTimers();
-    stopCurrentAudio();
-
-    roundLocked = false;
-    audioHasPlayed = false;
-
-    choicesEl.innerHTML = "";
-    choicesEl.classList.add("hidden");
-
-    feedbackEl.textContent = "";
-    feedbackEl.className = "feedback";
-
-    audioBtn.disabled = false;
-    audioBtn.textContent = "🔊 Escuchar audio";
-
-    if (nextBtn) nextBtn.classList.add("hidden");
-    if (finishBtn) finishBtn.classList.add("hidden");
-    if (checkBtn) checkBtn.classList.add("hidden");
-    if (doneBadge) doneBadge.classList.add("hidden");
-  }
-
+  // ── FIX 1: Render choices (with images) immediately — before audio plays ──
   function renderChoices() {
     const round = rounds[currentRoundIndex];
     choicesEl.innerHTML = "";
@@ -127,67 +110,110 @@
       card.className = "choice";
       card.setAttribute("aria-label", option.text);
 
-      card.innerHTML = `
-        <img src="${CONFIG.IMG_BASE + option.img}" alt="${option.text}">
-      `;
+      // Images are shown right away; tapping is blocked until audio has played
+      card.innerHTML = `<img src="${CONFIG.IMG_BASE + option.img}" alt="${option.text}">`;
 
       card.addEventListener("click", () => handleChoiceClick(card, index));
-
       choicesEl.appendChild(card);
     });
 
     choicesEl.classList.remove("hidden");
   }
 
+  function resetRoundUI() {
+    clearTimers();
+    stopAudio();
+
+    roundLocked    = false;
+    audioHasPlayed = false;
+
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+
+    audioBtn.disabled  = false;
+    audioBtn.textContent = "🔊 Escuchar audio";
+
+    if (nextBtn)   nextBtn.classList.add("hidden");
+    if (finishBtn) finishBtn.classList.add("hidden");
+    if (doneBadge) doneBadge.classList.add("hidden");
+  }
+
+  // ── FIX 2: Robust playAudio — disables button until ended/error, no blocking ──
   function playAudio() {
     const round = rounds[currentRoundIndex];
 
-    clearTimers();
-    stopCurrentAudio();
+    // If already playing, stop cleanly first
+    stopAudio();
 
-    audioBtn.disabled = true;
+    audioBtn.disabled    = true;
     audioBtn.textContent = "🔊 Reproduciendo...";
 
-    currentAudio = new Audio(CONFIG.AUDIO_BASE + round.correct.audio);
+    // Remove any stale listeners by replacing with a fresh src
+    audioPlayer.src = CONFIG.AUDIO_BASE + round.correct.audio;
+    audioPlayer.load();
 
-    currentAudio.addEventListener("ended", () => {
-      audioHasPlayed = true;
-      audioBtn.disabled = false;
+    // One-shot "ended" handler
+    function onEnded() {
+      audioPlayer.removeEventListener("ended", onEnded);
+      audioPlayer.removeEventListener("error", onError);
+      audioHasPlayed       = true;
+      audioBtn.disabled    = false;
       audioBtn.textContent = "🔁 Escuchar otra vez";
-      renderChoices();
-    });
+      feedbackEl.textContent = "";
+    }
 
-    currentAudio.addEventListener("error", () => {
-      audioBtn.disabled = false;
+    function onError() {
+      audioPlayer.removeEventListener("ended", onEnded);
+      audioPlayer.removeEventListener("error", onError);
+      audioBtn.disabled    = false;
       audioBtn.textContent = "🔊 Escuchar audio";
       feedbackEl.textContent = "Error al cargar el audio.";
-      feedbackEl.className = "feedback bad";
-    });
+      feedbackEl.className   = "feedback bad";
+      playPromise = null;
+    }
 
-    currentAudio.play().catch(() => {
-      audioBtn.disabled = false;
-      audioBtn.textContent = "🔊 Escuchar audio";
-      feedbackEl.textContent = "No se pudo reproducir el audio.";
-      feedbackEl.className = "feedback bad";
-    });
+    audioPlayer.addEventListener("ended", onEnded);
+    audioPlayer.addEventListener("error", onError);
+
+    playPromise = audioPlayer.play();
+
+    if (playPromise) {
+      playPromise
+        .then(() => { playPromise = null; })
+        .catch(err => {
+          // AbortError is harmless (user tapped again quickly); any other error surfaces
+          if (err.name !== "AbortError") {
+            onError();
+          } else {
+            // Quietly re-enable so user can tap again
+            audioBtn.disabled    = false;
+            audioBtn.textContent = "🔊 Escuchar audio";
+          }
+          playPromise = null;
+        });
+    }
   }
 
   function handleChoiceClick(card, index) {
     if (roundLocked) return;
-    if (!audioHasPlayed) return;
+    // ── FIX 1: Choices are visible immediately but tapping is blocked until audio played ──
+    if (!audioHasPlayed) {
+      feedbackEl.textContent = "Primero escucha el audio 🔊";
+      feedbackEl.className   = "feedback bad";
+      return;
+    }
 
-    const round = rounds[currentRoundIndex];
+    const round          = rounds[currentRoundIndex];
     const selectedOption = round.options[index];
-    const isCorrect = selectedOption.text === round.correct.text;
+    const isCorrect      = selectedOption.text === round.correct.text;
 
     if (isCorrect) {
       roundLocked = true;
-
       removeChoiceStates();
       card.classList.add("correct");
 
       feedbackEl.textContent = "✅ Correcto";
-      feedbackEl.className = "feedback ok";
+      feedbackEl.className   = "feedback ok";
 
       autoNextTimer = setTimeout(() => {
         if (currentRoundIndex === rounds.length - 1) {
@@ -200,41 +226,46 @@
 
     } else {
       card.classList.add("wrong");
-
       feedbackEl.textContent = "❌ Intenta otra vez.";
-      feedbackEl.className = "feedback bad";
+      feedbackEl.className   = "feedback bad";
 
       setTimeout(() => {
-        if (!roundLocked) {
-          card.classList.remove("wrong");
-        }
+        if (!roundLocked) card.classList.remove("wrong");
       }, CONFIG.wrongFlashDelay);
     }
   }
 
   function removeChoiceStates() {
-    const cards = choicesEl.querySelectorAll(".choice");
-    cards.forEach(card => {
-      card.classList.remove("wrong", "correct", "selected");
-    });
+    choicesEl.querySelectorAll(".choice").forEach(c =>
+      c.classList.remove("wrong", "correct", "selected")
+    );
   }
 
+  // ── FIX 3: Finish goes to p4.html, not index.html ──
   function finishLesson() {
-    stopCurrentAudio();
+    stopAudio();
     clearTimers();
 
-    if (finishBtn) finishBtn.classList.remove("hidden");
     if (doneBadge) doneBadge.classList.remove("hidden");
 
-    feedbackEl.textContent = "🎉 Muy bien";
-    feedbackEl.className = "feedback ok";
+    feedbackEl.textContent = "🎉 ¡Muy bien!";
+    feedbackEl.className   = "feedback ok";
 
     audioBtn.disabled = true;
+
+    // Update the finish button to point to p4.html
+    if (finishBtn) {
+      finishBtn.setAttribute("href", "p4.html");
+      finishBtn.textContent = "Siguiente ▶ Parte 4";
+      finishBtn.classList.remove("hidden");
+    }
   }
 
   function loadRound() {
     resetRoundUI();
     updateRoundCounter();
+    // ── FIX 1: Show images immediately when round loads ──
+    renderChoices();
   }
 
   audioBtn.addEventListener("click", playAudio);

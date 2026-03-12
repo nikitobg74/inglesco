@@ -12,7 +12,7 @@
     { text: "desk",           audio: "u2.l6.p1.desk.mp3" },
     { text: "laptop",         audio: "u2.l6.p1.laptop.mp3" },
     { text: "chair",          audio: "u2.l6.p1.chair.mp3" },
-    { text: "backpack",       audio: "u2.l6.p1.bagpack.mp3" },
+    { text: "bag",       audio: "u2.l6.p1.bag.mp3" },
     { text: "dictionary",     audio: "u2.l6.p1.dictionary.mp3" },
     { text: "globe",          audio: "u2.l6.p1.globe.mp3" },
     { text: "bookshelf",      audio: "u2.l6.p4.bookshelf.mp3" },
