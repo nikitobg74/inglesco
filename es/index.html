@@ -6,25 +6,34 @@
   <title>Inglesco</title>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-   
+
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
 
     body {
-      min-height: 100vh;
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 60px;
+      color: #1e2a38;
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ── LOGO ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ── HEADER / LOGO ── */
+    header {
+      padding: 30px 0 10px;
+      text-align: center;
+    }
+
     .logo-link {
       text-decoration: none;
     }
@@ -32,10 +41,9 @@
     .logo {
       font-size: 82px;
       font-weight: 700;
-      margin-top: 50px;
-      text-align: center;
       letter-spacing: 4px;
       position: relative;
+      display: inline-block;
       transition: opacity 0.2s;
     }
 
@@ -62,23 +70,41 @@
     .logo span:nth-child(7) { color: #06b6d4; }
     .logo span:nth-child(8) { color: #f97316; }
 
-    /* ── SUBTITLE ── */
-    .subtitle {
-      font-size: 22px;
-      margin-top: 10px;
-      color: #333;
-      text-align: center;
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 40px 0 50px;
+    }
+
+    .hero-text {
+      flex: 1 1 500px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.2rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #1e40af;
+      font-weight: 700;
+    }
+
+    .hero-text .subheadline {
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      color: #334e68;
     }
 
     /* ── STORY BLOCK ── */
     .story {
-      margin-top: 32px;
-      max-width: 680px;
-      padding: 28px 36px 28px 42px;
       background: white;
-      border-radius: 24px;
-      box-shadow: 0 10px 40px rgba(37, 99, 235, 0.1);
-      text-align: center;
+      border-radius: 20px;
+      padding: 24px 28px 24px 36px;
+      box-shadow: 0 8px 28px rgba(37,99,235,0.1);
+      margin: 20px 0 25px;
       border-left: 6px solid #2563eb;
       position: relative;
     }
@@ -89,200 +115,316 @@
       color: #dbeafe;
       position: absolute;
       top: -10px;
-      left: 16px;
+      left: 14px;
       line-height: 1;
       font-family: Georgia, serif;
     }
 
-    .story-text {
-      font-size: 17px;
+    .story p {
+      font-size: 1rem;
       color: #444;
-      line-height: 1.8;
       position: relative;
       z-index: 1;
+      margin-bottom: 6px;
     }
 
-    .story-text em {
-      color: #2563eb;
-      font-style: normal;
-      font-weight: 600;
+    .story p:last-child {
+      margin-bottom: 0;
     }
 
-    .story-punch {
-      margin-top: 16px;
-      font-size: 20px;
+    .story .highlight {
       font-weight: 700;
       color: #1e40af;
-      position: relative;
-      z-index: 1;
+      margin-top: 12px;
     }
 
-    /* ── BUTTON ── */
-    .start-btn {
-      margin-top: 30px;
-      padding: 15px 40px;
-      font-size: 18px;
-      border-radius: 30px;
+    .story .punch {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #2563eb;
+      margin-top: 12px;
+    }
+
+    /* ── CTA ── */
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .cta-button {
+      display: inline-block;
       background: #2563eb;
       color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       text-decoration: none;
-      display: inline-block;
+      padding: 15px 36px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
     }
 
-    .start-btn:hover {
+    .cta-button:hover {
       background: #1e40af;
       transform: translateY(-3px);
     }
 
-    /* ── CONTENT ROW ── */
-    .content {
-      width: 90%;
-      max-width: 1200px;
-      margin-top: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 70px;
+    .small-note {
+      font-size: 0.95rem;
+      color: #486581;
     }
 
-    .left img {
-      width: 420px;
-      max-width: 100%;
+    /* ── HERO IMAGE ── */
+    .hero-image {
+      flex: 1 1 380px;
+      text-align: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 460px;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.12);
     }
 
-    .right {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
+    /* ── SECTION TITLES ── */
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 20px 0 30px;
+      color: #1e40af;
+      font-weight: 700;
     }
 
-    /* ── STUDENT CARDS ── */
-    .student-card {
-      display: flex;
-      align-items: center;
-      gap: 20px;
+    /* ── BENEFITS ── */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 50px;
+    }
+
+    .benefit-card {
       background: white;
-      padding: 15px 20px;
+      padding: 24px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      max-width: 480px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      transition: transform 0.2s ease;
     }
 
-    .student-card img {
-      width: 150px;
-      border-radius: 15px;
+    .benefit-card:hover {
+      transform: translateY(-4px);
     }
 
-    .student-text {
-      font-size: 15px;
-      color: #333;
-    }
-
-    .student-text strong {
-      font-weight: 600;
+    .benefit-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
       color: #2563eb;
     }
 
+    .benefit-card p {
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding-bottom: 50px;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .testimonial {
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .testimonial:hover {
+      transform: translateY(-4px);
+    }
+
+    .testimonial img {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 15px;
+    }
+
+    .testimonial p {
+      color: #334e68;
+      font-size: 0.95rem;
+    }
+
+    .testimonial strong {
+      color: #2563eb;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      text-align: center;
+      background: white;
+      border-radius: 24px;
+      padding: 40px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 28px rgba(37,99,235,0.1);
+    }
+
+    .final-cta h2 {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      color: #1e40af;
+      font-weight: 700;
+    }
+
+    .final-cta p {
+      max-width: 700px;
+      margin: 0 auto 24px;
+      color: #486581;
+      font-size: 1.05rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      color: #7b8794;
+      font-size: 0.9rem;
+      padding-bottom: 24px;
+    }
+
     /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      .logo { font-size: 52px; }
-
-      .story {
-        margin: 28px 20px 0 20px;
-        padding: 24px 24px 24px 28px;
-      }
-
-      .story-text { font-size: 15px; }
-      .story-punch { font-size: 17px; }
-
-      .content {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .right { align-items: center; }
+    @media (max-width: 768px) {
+      .logo { font-size: 52px; letter-spacing: 2px; }
+      .hero-text h1 { font-size: 1.7rem; }
+      .cta-button { width: 100%; text-align: center; }
+      .cta-group { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
-
 <body>
+  <div class="container">
 
-  <!-- Logo → back to front page -->
-  <a href="../frontpage.html" class="logo-link">
-    <div class="logo">
-      <span>I</span>
-      <span>N</span>
-      <span>G</span>
-      <span>L</span>
-      <span>E</span>
-      <span>S</span>
-      <span>C</span>
-      <span>O</span>
-    </div>
-  </a>
-
-  <div class="subtitle">
-    Aprende inglés fácil y gratis
-  </div>
-
-  <!-- THE STORY — the American dream -->
-  <div class="story">
-    <p class="story-text">
-      Hace 30 años, <em>una alumna mía recorrió casi todo Estados Unidos</em>
-      con solo estas lecciones.<br>
-      Las mismas lecciones. Los mismos principios.<br>
-      Y hoy siguen funcionando.
-    </p>
-    <p class="story-punch">
-      🗽 Hoy tú puedes hacer lo mismo.
-    </p>
-  </div>
-
-  <a href="dashboard.html" class="start-btn">
-    Empieza ahora →
-  </a>
-
-  <!-- CONTENT ROW -->
-  <div class="content">
-
-    <div class="left">
-      <img src="../assets/images/english10.jpg" alt="Estudiante aprendiendo inglés">
-    </div>
-
-    <div class="right">
-
-      <div class="student-card">
-        <img src="../assets/images/english1.jpg" alt="">
-        <div class="student-text">
-          <strong>Soy María,</strong><br>
-          estoy aprendiendo inglés para crecer profesionalmente.
+    <!-- HEADER -->
+    <header>
+      <a href="../frontpage.html" class="logo-link">
+        <div class="logo">
+          <span>I</span><span>N</span><span>G</span><span>L</span>
+          <span>E</span><span>S</span><span>C</span><span>O</span>
         </div>
+      </a>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+
+        <h1>Aprende el inglés que puede abrirte puertas</h1>
+
+        <p class="subheadline">
+          Lecciones simples, inglés real y un método pensado para personas normales, paso a paso.
+        </p>
+
+        <div class="story">
+          <p>Hace años, una alumna mía recibió una invitación para viajar a Estados Unidos.</p>
+          <p>Antes de ir, aprendió inglés con estas lecciones.</p>
+          <p>Luego comenzó la aventura:</p>
+          <p>ciudades nuevas, personas desconocidas, carreteras interminables…</p>
+          <p>y lugares que antes solo había visto en películas.</p>
+          <p>Cuando regresó, no encontraba palabras.</p>
+          <p>Solo repetía cuánto le había cambiado la vida.</p>
+          <p class="highlight">Las mismas lecciones. Los mismos principios. Y hoy siguen funcionando.</p>
+          <p class="punch">🗽 Eso es lo que el inglés puede hacer por ti.</p>
+          <p class="punch">Hoy comienza tu camino.</p>
+        </div>
+
+        <div class="cta-group">
+          <a href="dashboard.html" class="cta-button">Empieza ahora →</a>
+          <p class="small-note">Gratis. Fácil. Desde tu teléfono.</p>
+        </div>
+
       </div>
 
-      <div class="student-card">
-        <img src="../assets/images/english2.jpg" alt="">
-        <div class="student-text">
-          <strong>Me llamo Carlos, soy de Colombia.</strong><br>
-          Ahora entiendo inglés mucho mejor.
-        </div>
+      <div class="hero-image">
+        <img src="../assets/images/english10.jpg" alt="Estudiante aprendiendo inglés" />
       </div>
+    </section>
 
-      <div class="student-card">
-        <img src="../assets/images/english3.jpg" alt="">
-        <div class="student-text">
-          <strong>Soy Ana, de México.</strong><br>
-          Estoy construyendo un mejor futuro con inglés.
+    <!-- BENEFITS -->
+    <section>
+      <h2 class="section-title">¿Por qué Inglesco?</h2>
+      <div class="benefits">
+
+        <div class="benefit-card">
+          <h3>🌎 Inglés para la vida real</h3>
+          <p>Aprende frases y estructuras que realmente puedes usar al viajar, trabajar o hablar con otras personas.</p>
         </div>
-      </div>
 
-    </div>
+        <div class="benefit-card">
+          <h3>📚 Paso a paso</h3>
+          <p>No necesitas saber inglés antes. Empezamos desde lo básico y avanzamos con claridad.</p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>📱 Simple y práctico</h3>
+          <p>Lecciones cortas, fáciles de seguir y pensadas para estudiar desde el celular.</p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>✅ Un método probado</h3>
+          <p>No es teoría vacía. Es un camino real que ya ayudó a una persona a moverse con confianza en Estados Unidos.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <h2 class="section-title">Personas reales, metas reales</h2>
+      <div class="testimonial-grid">
+
+        <div class="testimonial">
+          <img src="../assets/images/english1.jpg" alt="María" />
+          <p><strong>Soy María,</strong><br>estoy aprendiendo inglés para crecer profesionalmente.</p>
+        </div>
+
+        <div class="testimonial">
+          <img src="../assets/images/english2.jpg" alt="Carlos" />
+          <p><strong>Me llamo Carlos, soy de Colombia.</strong><br>Ahora entiendo inglés mucho mejor.</p>
+        </div>
+
+        <div class="testimonial">
+          <img src="../assets/images/english3.jpg" alt="Ana" />
+          <p><strong>Soy Ana, de México.</strong><br>Estoy construyendo un mejor futuro con inglés.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+      <h2>🗽 Empieza hoy</h2>
+      <p>
+        Tal vez tu meta sea viajar, trabajar, entender mejor o sentirte más seguro.
+        Todo empieza con una primera lección.
+      </p>
+      <a href="dashboard.html" class="cta-button">Comenzar gratis →</a>
+    </section>
+
+    <footer>
+      © Inglesco
+    </footer>
 
   </div>
-
 </body>
 </html>
