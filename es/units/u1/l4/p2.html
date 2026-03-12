@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<title>Unidad 1 - Lección 4 - Parte 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script defer src="../../../../js/u1/u1_l4_p2.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; background:#eef2ff; }
+
+.back-btn {
+  display:inline-block; margin-bottom:20px; padding:8px 15px;
+  background:#2563eb; color:white; border-radius:10px;
+  text-decoration:none; font-weight:600;
+}
+.back-btn:hover { background:#1e40af; }
+
+.unit-title {
+  text-align:center; font-size:28px; font-weight:700;
+  margin-bottom:10px; color:#2563eb;
+}
+
+.progress-container {
+  display:flex; justify-content:center; margin:15px 0 25px 0; gap:10px;
+}
+.step {
+  width:40px; height:40px; border-radius:50%; background:#d1d5db;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:600; cursor:pointer; transition:all 0.3s;
+}
+.step.active { background:#2563eb; color:white; }
+.step:hover { transform:scale(1.1); }
+
+.exercise-box {
+  max-width:860px; margin:0 auto; background:white;
+  padding:35px; border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.instruction-box {
+  background:#e0e7ff; color:#111827; font-weight:600;
+  padding:14px 18px; border-radius:12px; text-align:center;
+  margin-bottom:24px; font-size:15px; line-height:1.5;
+}
+
+.section-title {
+  font-size:17px; font-weight:700; color:#1e40af;
+  margin:28px 0 12px 0; padding-bottom:6px;
+  border-bottom:2px solid #dbeafe;
+}
+
+/* ---- STUDENT BADGE ---- */
+.student-badge {
+  display:flex; align-items:center; gap:12px;
+  background:#eff6ff; border-radius:12px;
+  padding:12px 16px; margin-bottom:20px;
+  border:2px solid #bfdbfe;
+}
+.student-avatar {
+  font-size:36px; line-height:1;
+}
+.student-name {
+  font-size:18px; font-weight:700; color:#1e40af;
+}
+.student-sub {
+  font-size:13px; color:#6b7280; margin-top:2px;
+}
+
+/* ---- ID CARD ---- */
+.id-card {
+  background:#f0f9ff; border:2px solid #2563eb;
+  border-radius:14px; padding:20px 24px;
+  max-width:420px; margin:0 auto 24px auto;
+}
+.id-card-header {
+  text-align:center; font-size:13px; font-weight:700;
+  letter-spacing:2px; color:#1e40af; text-transform:uppercase;
+  margin-bottom:16px; padding-bottom:10px;
+  border-bottom:1px solid #bfdbfe;
+}
+.id-field {
+  display:flex; align-items:center; gap:10px; margin-bottom:12px;
+}
+.id-label {
+  font-size:13px; font-weight:700; color:#374151; min-width:90px;
+}
+.dropzone {
+  flex:1; min-height:38px; border:2px dashed #c7c7c7;
+  border-radius:8px; padding:6px 10px; background:#f9fafb;
+  font-size:14px; font-weight:600; color:#111827;
+  display:flex; align-items:center; cursor:pointer;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+  transition:border-color 0.15s, background 0.15s;
+}
+.dropzone.filled { border:2px solid #2563eb; background:#e0f2fe; }
+.dropzone.correct-field {
+  border:2px solid #16a34a; background:#dcfce7;
+  cursor:default; pointer-events:none;
+}
+
+/* ---- WORD BANK ---- */
+.word-bank {
+  display:flex; flex-wrap:wrap; gap:10px;
+  justify-content:center; margin-bottom:16px;
+}
+.chip {
+  padding:10px 16px; background:#e0f2fe; border:2px solid #bfdbfe;
+  border-radius:10px; cursor:pointer; font-size:14px; font-weight:600;
+  color:#111827; touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:background 0.15s, border-color 0.15s, transform 0.1s;
+  user-select:none;
+}
+.chip:active { transform:scale(0.96); }
+.chip.selected {
+  background:#fef08a; border-color:#ca8a04;
+  box-shadow:0 0 0 3px #fde047;
+}
+
+/* ---- BUTTONS ---- */
+button {
+  padding:10px 20px; border:none; border-radius:12px;
+  background:#2563eb; color:white; font-weight:600;
+  font-size:14px; cursor:pointer; transition:background 0.3s;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+button:hover { background:#1e40af; }
+button:disabled { background:#9ca3af; cursor:default; }
+
+/* ---- PHONE SECTION ---- */
+.phone-section {
+  background:#f9fafb; border-radius:14px; padding:20px; margin-top:10px;
+}
+
+/* progress track */
+.digit-strip {
+  display:flex; gap:8px; flex-wrap:wrap;
+  margin-bottom:20px; justify-content:center;
+}
+.digit-bubble {
+  width:42px; height:42px; border-radius:50%;
+  background:#e5e7eb; border:2px solid #d1d5db;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:18px; color:#9ca3af;
+  transition:all 0.25s;
+}
+.digit-bubble.active {
+  background:#dbeafe; border-color:#2563eb; color:#1e40af;
+  transform:scale(1.15); box-shadow:0 0 0 4px #bfdbfe;
+}
+.digit-bubble.correct {
+  background:#dcfce7; border-color:#16a34a; color:#15803d;
+}
+.digit-bubble.revealed {
+  background:#fef9c3; border-color:#ca8a04; color:#92400e;
+}
+
+/* single-digit input */
+.digit-input-wrap {
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.digit-input {
+  width:72px; height:72px; text-align:center;
+  font-size:36px; font-weight:700; color:#111827;
+  border:3px solid #2563eb; border-radius:14px;
+  background:white; outline:none;
+  transition:border-color 0.2s, background 0.2s;
+  /* iOS: no zoom */
+  font-family:'Poppins', sans-serif;
+}
+.digit-input:focus { border-color:#1d4ed8; box-shadow:0 0 0 4px #bfdbfe; }
+.digit-input.shake {
+  animation:shake 0.35s;
+  border-color:#dc2626; background:#fee2e2;
+}
+.digit-input.correct-flash {
+  border-color:#16a34a; background:#dcfce7;
+}
+
+@keyframes shake {
+  0%,100% { transform:translateX(0); }
+  20%      { transform:translateX(-6px); }
+  40%      { transform:translateX(6px); }
+  60%      { transform:translateX(-4px); }
+  80%      { transform:translateX(4px); }
+}
+
+.digit-hint {
+  font-size:14px; font-weight:600; min-height:20px; text-align:center;
+}
+.digit-hint.wrong  { color:#dc2626; }
+.digit-hint.reveal { color:#b45309; }
+.digit-hint.correct{ color:#16a34a; }
+
+/* replay button (purple) */
+.replay-btn {
+  background:#7c3aed; font-size:13px; padding:8px 14px; border-radius:10px;
+}
+.replay-btn:hover { background:#6d28d9; }
+
+/* ---- FEEDBACK ---- */
+.feedback {
+  margin-top:12px; font-weight:600; font-size:15px; min-height:22px;
+}
+.feedback.correct { color:#16a34a; }
+.feedback.wrong   { color:#dc2626; }
+
+/* ---- NEXT BTN ---- */
+.next-btn {
+  display:inline-block; padding:12px 28px; border-radius:12px;
+  background:#2563eb; color:white; font-weight:700;
+  font-size:15px; text-decoration:none; margin-top:24px;
+}
+.next-btn:hover { background:#1e40af; }
+
+.hidden { display:none; }
+.i18n   { display:none; }
+
+/* ---- DIVIDER between students ---- */
+.student-divider {
+  border:none; border-top:3px dashed #dbeafe;
+  margin:36px 0;
+}
+
+/* ---- MOBILE ---- */
+@media (max-width:600px) {
+  .exercise-box { padding:18px; }
+  .unit-title   { font-size:22px; }
+  .id-field     { flex-direction:column; align-items:flex-start; gap:4px; }
+  .id-label     { min-width:unset; }
+  .dropzone     { width:100%; }
+  .digit-input  { width:64px; height:64px; font-size:30px; }
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+<h1 class="unit-title">Lección 4 - Parte 2</h1>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step active" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+  <!-- i18n strings -->
+  <div class="i18n">
+    <span data-msg="fill_all">Por favor, completa todos los campos.</span>
+    <span data-msg="try_again">❌ Intenta otra vez.</span>
+    <span data-msg="form_correct">✅ ¡Formulario correcto! Ahora escucha el número de teléfono.</span>
+    <span data-msg="phone_done">✅ ¡Número correcto!</span>
+    <span data-msg="digit_wrong1">❌ Incorrecto. Escucha de nuevo.</span>
+    <span data-msg="digit_wrong2">💡 Aquí está el número. Escríbelo para continuar.</span>
+    <span data-msg="digit_correct">✅</span>
+    <span data-msg="all_done">🎉 ¡Excelente! Has completado esta parte.</span>
+  </div>
+
+  <div class="instruction-box">
+    📋 Toca una ficha y luego toca el campo correcto en la tarjeta.<br>
+    Después, escucha el número de teléfono dígito por dígito y escribe cada número.
+  </div>
+
+  <!-- ==================== STUDENT 1: MARIA ==================== -->
+  <div id="student1Section">
+    <div class="student-badge">
+      <div class="student-avatar">👩</div>
+      <div>
+        <div class="student-name">Student 1 of 2</div>
+        <div class="student-sub">Fill in the ID card, then listen to the phone number.</div>
+      </div>
+    </div>
+
+    <p class="section-title">Word Bank</p>
+    <div class="word-bank" id="wordBank1"></div>
+
+    <p class="section-title">🪪 Student Identification Card</p>
+    <div class="id-card">
+      <div class="id-card-header">Student Identification Card</div>
+      <div class="id-field">
+        <span class="id-label">First Name:</span>
+        <div class="dropzone" data-field="firstName" data-student="1"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">Last Name:</span>
+        <div class="dropzone" data-field="lastName" data-student="1"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">Address:</span>
+        <div class="dropzone" data-field="address" data-student="1"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">City:</span>
+        <div class="dropzone" data-field="city" data-student="1"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">State:</span>
+        <div class="dropzone" data-field="state" data-student="1"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:8px;">
+      <button id="checkForm1Btn">✔ Check Card</button>
+    </div>
+    <div class="feedback" id="formFeedback1"></div>
+
+    <!-- Phone section student 1 -->
+    <div id="phoneSection1" class="hidden">
+      <p class="section-title">📞 Phone Number</p>
+      <div class="phone-section">
+        <div class="digit-strip" id="digitStrip1"></div>
+        <div class="digit-input-wrap">
+          <input id="digitInput1" class="digit-input" type="tel"
+                 inputmode="numeric" maxlength="1"
+                 autocomplete="off" autocorrect="off"
+                 spellcheck="false" placeholder="?">
+          <div class="digit-hint" id="digitHint1"></div>
+          <button class="replay-btn hidden" id="replayBtn1">▶ Replay</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedback" id="phoneFeedback1"></div>
+  </div>
+
+  <hr class="student-divider">
+
+  <!-- ==================== STUDENT 2: CARLOS ==================== -->
+  <div id="student2Section" class="hidden">
+    <div class="student-badge" style="background:#f0fdf4; border-color:#bbf7d0;">
+      <div class="student-avatar">👨</div>
+      <div>
+        <div class="student-name" style="color:#15803d;">Student 2 of 2</div>
+        <div class="student-sub">Fill in the ID card, then listen to the phone number.</div>
+      </div>
+    </div>
+
+    <p class="section-title">Word Bank</p>
+    <div class="word-bank" id="wordBank2"></div>
+
+    <p class="section-title">🪪 Student Identification Card</p>
+    <div class="id-card" style="border-color:#16a34a; background:#f0fdf4;">
+      <div class="id-card-header" style="color:#15803d; border-color:#bbf7d0;">Student Identification Card</div>
+      <div class="id-field">
+        <span class="id-label">First Name:</span>
+        <div class="dropzone" data-field="firstName" data-student="2"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">Last Name:</span>
+        <div class="dropzone" data-field="lastName" data-student="2"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">Address:</span>
+        <div class="dropzone" data-field="address" data-student="2"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">City:</span>
+        <div class="dropzone" data-field="city" data-student="2"></div>
+      </div>
+      <div class="id-field">
+        <span class="id-label">State:</span>
+        <div class="dropzone" data-field="state" data-student="2"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:8px;">
+      <button id="checkForm2Btn">✔ Check Card</button>
+    </div>
+    <div class="feedback" id="formFeedback2"></div>
+
+    <!-- Phone section student 2 -->
+    <div id="phoneSection2" class="hidden">
+      <p class="section-title">📞 Phone Number</p>
+      <div class="phone-section">
+        <div class="digit-strip" id="digitStrip2"></div>
+        <div class="digit-input-wrap">
+          <input id="digitInput2" class="digit-input" type="tel"
+                 inputmode="numeric" maxlength="1"
+                 autocomplete="off" autocorrect="off"
+                 spellcheck="false" placeholder="?">
+          <div class="digit-hint" id="digitHint2"></div>
+          <button class="replay-btn hidden" id="replayBtn2">▶ Replay</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedback" id="phoneFeedback2"></div>
+  </div>
+
+  <!-- FINISH -->
+  <div id="finishSection" class="hidden" style="text-align:center; margin-top:20px;">
+    <div class="feedback correct" style="font-size:18px; margin-bottom:12px;">
+      🎉 ¡Has completado esta parte!
+    </div>
+    <a href="p3.html" class="next-btn">Siguiente →</a>
+  </div>
+
+</div><!-- /exercise-box -->
+</body>
+</html>

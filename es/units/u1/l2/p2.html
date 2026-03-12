@@ -1,159 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unidad 1 - Lección 2 - Parte 2</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 2 - Parte 2</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- ✅ Correct JS path -->
   <script defer src="../../../../js/u1/u1_l2_p2.js"></script>
-
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
     body { padding:20px; background:#dbeafe; }
 
-    .back-btn {
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:white;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:600;
-    }
+    .back-btn { display:inline-block; margin-bottom:20px; padding:8px 15px; background:#2563eb; color:white; border-radius:10px; text-decoration:none; font-weight:600; }
     .back-btn:hover { background:#1e40af; }
 
-    .unit-title {
-      text-align:center;
-      font-size:28px;
-      font-weight:700;
-      margin-bottom:15px;
-      color:#2563eb;
-    }
+    .unit-title { text-align:center; font-size:26px; font-weight:700; margin-bottom:10px; color:#2563eb; }
 
-    /* Progress bar */
-    .progress-container {
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:25px;
-    }
-    .step {
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition: transform 0.3s;
-    }
+    .progress-container { display:flex; justify-content:center; margin:15px 0 25px; gap:10px; flex-wrap:wrap; }
+    .step { width:40px; height:40px; border-radius:50%; background:#d1d5db; display:flex; align-items:center; justify-content:center; font-weight:600; color:black; cursor:pointer; transition:all 0.3s; }
     .step.active { background:#2563eb; color:white; }
-    .step:hover { transform: scale(1.1); }
+    .step:hover { transform:scale(1.1); }
 
-    .exercise-box {
-      max-width:800px;
-      margin:0 auto;
-      background:white;
-      padding:30px;
-      border-radius:15px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.1);
-      text-align:center;
+    .exercise-box { max-width:700px; margin:0 auto; background:white; padding:25px 20px; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.1); text-align:center; }
+
+    h2 { font-size:18px; color:#1e293b; margin-bottom:6px; }
+    .subtitle { font-size:14px; color:#64748b; margin-bottom:20px; }
+
+    /* Audio prompt button */
+    .play-prompt {
+      display:inline-flex; align-items:center; gap:10px;
+      background:#2563eb; color:white; border:none;
+      padding:14px 28px; border-radius:12px; font-size:18px;
+      font-weight:700; cursor:pointer; margin-bottom:28px;
+      transition:background 0.2s, transform 0.15s;
+      font-family:'Poppins',sans-serif;
     }
+    .play-prompt:hover { background:#1e40af; transform:scale(1.03); }
+    .play-prompt.playing { background:#7c3aed; }
 
-    .exercise-text { text-align:center; margin-top:10px; }
-    .exercise-text .en { font-size:18px; color:#1e40af; font-weight:600; }
-    .exercise-text .es { font-size:14px; color:#2563eb; font-weight:400; display:block; margin-top:4px; }
+    /* Character grid */
+    .char-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:14px; margin-bottom:20px; }
 
-    /* Number boxes */
-    .number-container {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:15px;
-      margin-top:20px;
+    .char-card {
+      border:3px solid #e2e8f0; border-radius:14px; padding:10px 6px;
+      cursor:pointer; transition:all 0.2s; background:#f8faff;
+      display:flex; flex-direction:column; align-items:center; gap:6px;
     }
+    .char-card:hover { border-color:#2563eb; transform:scale(1.04); }
+    .char-card img { width:80px; height:80px; object-fit:cover; border-radius:10px; }
+    .char-card .char-name { font-size:14px; font-weight:700; color:#1e293b; }
 
-    .number-card {
-      width:110px;
-      height:110px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      border-radius:12px;
-      cursor:pointer;
-      transition: transform 0.2s;
-      color:white;
+    .char-card.correct  { border-color:#22c55e; background:#f0fdf4; }
+    .char-card.wrong    { border-color:#ef4444; background:#fef2f2; animation:shake 0.35s ease; }
+    .char-card.disabled { opacity:0.45; pointer-events:none; }
+
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+
+    .feedback { font-size:16px; font-weight:600; min-height:24px; margin-bottom:12px; }
+
+    .round-counter { font-size:13px; font-weight:600; color:#2563eb; margin-bottom:16px; }
+
+    .continue-btn { padding:12px 30px; font-size:16px; font-weight:700; background:#22c55e; color:white; border:none; border-radius:10px; cursor:not-allowed; opacity:0.45; transition:all 0.3s; width:100%; max-width:300px; }
+    .continue-btn.enabled { opacity:1; cursor:pointer; }
+    .continue-btn.enabled:hover { background:#16a34a; }
+
+    /* i18n */
+    .i18n { display:none; }
+
+    @media(max-width:480px) {
+      .exercise-box { padding:18px 14px; }
+      .char-card img { width:64px; height:64px; }
     }
-
-    .number-card:hover { transform: scale(1.1); }
-
-    .number-digit {
-      font-size:36px;
-      font-weight:700;
-      line-height:1;
-    }
-
-    .number-word {
-      font-size:14px;
-      font-weight:700;
-      color:black; /* BLACK and BOLD as requested */
-      margin-top:5px;
-      letter-spacing:1px;
-    }
-
-    .number-card.played { opacity:0.5; }
-
-    .next-btn {
-      margin:30px auto 0 auto;
-      padding:12px 25px;
-      font-size:16px;
-      border:none;
-      border-radius:10px;
-      background:#2563eb;
-      color:white;
-      font-weight:600;
-      cursor:pointer;
-      display:none;
-    }
-    .next-btn:hover { background:#1e40af; }
   </style>
 </head>
-
 <body>
 
 <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+<div class="unit-title">Lección 2</div>
 
-<div class="unit-title">Lección 2 - Parte 2</div>
-
-<div class="progress-container" id="progressContainer">
+<div class="progress-container">
   <div class="step" data-page="p1.html">1</div>
   <div class="step active" data-page="p2.html">2</div>
   <div class="step" data-page="p3.html">3</div>
   <div class="step" data-page="p4.html">4</div>
 </div>
 
-<div class="exercise-box">
-  <h2>Numbers - Números</h2>
-  <p class="exercise-text">
-    <span class="en">Click on a number to hear its pronunciation.</span><br>
-    <span class="es">Haz click en un número para escuchar su pronunciación</span>
-  </p>
-
-  <!-- ✅ JS reads config from here (language stays in HTML) -->
-  <div class="number-container" id="numberContainer"
-       data-audio-base="../../../../assets/audio/u1/"
-       data-next="p3.html"></div>
-
-  <button class="next-btn" id="nextBtn">Siguiente →</button>
+<!-- i18n strings -->
+<div class="i18n">
+  <span id="msg-correct">✅ ¡Correcto!</span>
+  <span id="msg-wrong">❌ Intenta de nuevo</span>
+  <span id="msg-well-done">🎉 ¡Muy bien! Escuchaste a todos.</span>
+  <span id="counter-tpl">Ronda {n} de {total}</span>
 </div>
+
+<div class="exercise-box">
+  <h2>Escucha y elige</h2>
+  <p class="subtitle">Escucha la oración y toca al personaje correcto</p>
+
+  <button class="play-prompt" id="playBtn">🔊 Escuchar</button>
+
+  <div class="round-counter" id="roundCounter"></div>
+
+  <div class="char-grid" id="charGrid"></div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <button class="continue-btn" id="continueBtn" disabled>Continuar →</button>
+</div>
+
+<!--
+  EXERCISE DATA — edit only this block to change content.
+  Each round: play the audio, student taps the matching character.
+  "answer" must match a data-key below.
+-->
+<script id="exercise-data" type="application/json">
+{
+  "imgBase":   "../../../../assets/images/u1/",
+  "audioBase": "../../../../assets/audio/u1/",
+  "characters": [
+    { "key":"maria",  "name":"Maria",  "img":"maria.png"  },
+    { "key":"carlos", "name":"Carlos", "img":"carlos.png" },
+    { "key":"pedro",  "name":"Pedro",  "img":"pedro.png"  },
+    { "key":"george", "name":"George", "img":"george.png" },
+    { "key":"julie",  "name":"Julie",  "img":"julie.png"  }
+  ],
+  "rounds": [
+    { "audio":"maria_1_2_1.mp3",  "answer":"maria"  },
+    { "audio":"carlos_1_2_1.mp3", "answer":"carlos" },
+    { "audio":"pedro_1_2_1.mp3",  "answer":"pedro"  },
+    { "audio":"george_1_2_1.mp3", "answer":"george" },
+    { "audio":"julie_1_2_1.mp3",  "answer":"julie"  }
+  ],
+  "nextPage": "p3.html"
+}
+</script>
 
 </body>
 </html>

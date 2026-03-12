@@ -1,151 +1,245 @@
-// Unit 1 - Lesson 2 - Part 4
-// Language-neutral script (no Spanish text here)
-
+// ===============================
+// Unit 1 - Lesson 2 - P4
+// Fill in the Blank (click portrait to play, no auto-play)
+// ===============================
 (() => {
-  const audioColumn = document.getElementById("audioColumn");
-  const numberContainer = document.getElementById("numberContainer");
-  const feedback = document.getElementById("feedback");
-  const nextBtn = document.getElementById("nextBtn");
-  const steps = document.querySelectorAll(".step");
+  function textFrom(id, fb) { const e = document.getElementById(id); return e ? e.textContent.trim() : fb; }
 
-  if (!audioColumn || !numberContainer || !feedback || !nextBtn) return;
+  const MSG_CORRECT  = textFrom("msg-correct",  "✅ ¡Correcto!");
+  const MSG_WRONG    = textFrom("msg-wrong",    "❌ Intenta de nuevo");
+  const MSG_HINT_PRE = textFrom("msg-hint-pre", "💡 Pista:");
+  const MSG_ALL_DONE = textFrom("msg-all-done", "🎉 ¡Lección completada!");
+  const MAX_WRONG    = 2;
 
-  // Config from HTML
-  const audioBase = audioColumn.dataset.audioBase || "";
-  const nextPage = audioColumn.dataset.next || "final.html";
+  const data      = JSON.parse(document.getElementById("exercise-data").textContent);
+  const imgBase   = data.imgBase   || "";
+  const audioBase = data.audioBase || "";
+  const nextPage  = data.nextPage  || "../index.html";
+  const cards     = data.cards     || [];
 
-  // UI strings from HTML
-  const txtListen = (document.getElementById("txt-listen")?.textContent || "🔊");
-  const msgWrong = (document.getElementById("msg-wrong")?.textContent || "✖");
-  const msgGood1 = (document.getElementById("msg-good-1")?.textContent || "✓");
-  const msgGood2 = (document.getElementById("msg-good-2")?.textContent || "✓");
+  const cardArea    = document.getElementById("cardArea");
+  const prevBtn     = document.getElementById("prevBtn");
+  const nextBtn     = document.getElementById("nextBtn");
+  const cardCounter = document.getElementById("cardCounter");
 
-  // Data (neutral), audio files resolved via base path
-  const lessonData = [
-    { num: "1", word: "ONE",   audio: "one.mp3",   color: "#f87171" },
-    { num: "2", word: "TWO",   audio: "two.mp3",   color: "#fbbf24" },
-    { num: "3", word: "THREE", audio: "three.mp3", color: "#34d399" },
-    { num: "4", word: "FOUR",  audio: "four.mp3",  color: "#60a5fa" },
-    { num: "5", word: "FIVE",  audio: "five.mp3",  color: "#a78bfa" },
-    { num: "6", word: "SIX",   audio: "six.mp3",   color: "#f472b6" },
-    { num: "7", word: "SEVEN", audio: "seven.mp3", color: "#fb923c" },
-    { num: "8", word: "EIGHT", audio: "eight.mp3", color: "#22d3ee" },
-    { num: "9", word: "NINE",  audio: "nine.mp3",  color: "#facc15" },
-    { num: "0", word: "ZERO",  audio: "zero.mp3",  color: "#94a3b8" }
-  ];
+  let currentIndex = 0;
+  let currentAudio = null;
 
-  // Shuffle audio order AND word order
-  const shuffledAudio = [...lessonData].sort(() => Math.random() - 0.5);
-  const shuffledWords = [...lessonData].sort(() => Math.random() - 0.5);
+  const cardStates = cards.map(() => ({ wrongCount: 0, solved: false }));
 
-  // State
-  let currentTarget = null;
-  let answeredCount = 0;
-
-  // ✅ audio overlap fix
-  let currentAudioEl = null;
+  // ── Audio ────────────────────────────────────────────────────
   function stopAudio() {
-    if (currentAudioEl) {
-      currentAudioEl.pause();
-      currentAudioEl.currentTime = 0;
-      currentAudioEl = null;
-    }
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  }
+  function playAudio(src) {
+    stopAudio();
+    const a = new Audio(src);
+    currentAudio = a;
+    a.play();
+    a.onended = () => { if (currentAudio === a) currentAudio = null; };
   }
   window.addEventListener("beforeunload", stopAudio);
 
-  // Progress navigation
-  steps.forEach(step => {
-    step.addEventListener("click", () => {
-      const page = step.dataset.page;
-      if (!page) return;
-      stopAudio();
-      window.location.href = page;
-    });
-  });
+  // ── iOS-safe tap ─────────────────────────────────────────────
+  function onTap(el, handler) {
+    let moved = false;
+    el.addEventListener("touchstart", () => { moved = false; }, { passive: true });
+    el.addEventListener("touchmove",  () => { moved = true;  }, { passive: true });
+    el.addEventListener("touchend",   e  => { if (!moved) { e.preventDefault(); handler(e); } });
+    el.addEventListener("click", handler);
+  }
 
-  // Generate audio boxes
-  shuffledAudio.forEach(item => {
-    const box = document.createElement("div");
-    box.className = "audio-box";
-    box.textContent = txtListen;
+  // ── Build all card DOMs once ─────────────────────────────────
+  const cardEls = cards.map((card, cardIdx) => buildCardEl(card, cardIdx));
 
-    box.dataset.num = item.num;
-    box.dataset.audio = item.audio;
+  function buildCardEl(card, cardIdx) {
+    const wrap = document.createElement("div");
+    wrap.id = "card-" + cardIdx;
+    wrap.style.display = cardIdx === 0 ? "block" : "none";
 
-    box.addEventListener("click", () => {
-      if (box.classList.contains("answered")) return;
+    // Portrait — click to play audio, no auto-play
+    const portraitWrap = document.createElement("div");
+    portraitWrap.className = "portrait-wrap";
+    const img = document.createElement("img");
+    img.src = imgBase + card.img;
+    img.alt = card.key;
+    const badge = document.createElement("div");
+    badge.className = "audio-badge";
+    badge.textContent = "🔊";
+    portraitWrap.appendChild(img);
+    portraitWrap.appendChild(badge);
+    onTap(portraitWrap, () => playAudio(audioBase + card.audio));
+    wrap.appendChild(portraitWrap);
 
-      // UI active state
-      document.querySelectorAll(".audio-box").forEach(b => b.classList.remove("active"));
-      box.classList.add("active");
+    // Sentence with inline inputs
+    const sentence = document.createElement("div");
+    sentence.className = "sentence";
+    const blanks = [];
 
-      // Set current target
-      currentTarget = item;
-
-      // Play audio (restart clean)
-      stopAudio();
-      const a = new Audio(audioBase + item.audio);
-      currentAudioEl = a;
-      a.play();
-      a.onended = () => {
-        if (currentAudioEl === a) currentAudioEl = null;
-      };
-    });
-
-    audioColumn.appendChild(box);
-  });
-
-  // Generate word cards (randomized)
-  shuffledWords.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "number-card";
-    card.style.backgroundColor = item.color;
-    card.dataset.num = item.num;
-
-    card.innerHTML = `<div class="number-word">${item.word}</div>`;
-
-    card.addEventListener("click", () => {
-      if (!currentTarget) return;
-      if (card.classList.contains("disabled")) return;
-
-      if (card.dataset.num === currentTarget.num) {
-        // Correct
-        card.classList.add("correct", "disabled");
-
-        const activeBox = document.querySelector(".audio-box.active");
-        if (activeBox) {
-          activeBox.classList.remove("active");
-          activeBox.classList.add("answered");
-        }
-
-        feedback.style.color = "#16a34a";
-        feedback.textContent = Math.random() > 0.5 ? msgGood1 : msgGood2;
-
-        currentTarget = null;
-        answeredCount++;
-
-        if (answeredCount === lessonData.length) {
-          nextBtn.style.display = "block";
-        }
+    card.parts.forEach(part => {
+      if (part.type === "text") {
+        sentence.appendChild(document.createTextNode(" " + part.text + " "));
       } else {
-        // Wrong
-        card.classList.add("wrong");
-        feedback.style.color = "#dc2626";
-        feedback.textContent = msgWrong;
-
-        setTimeout(() => {
-          card.classList.remove("wrong");
-          feedback.textContent = "";
-        }, 800);
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.className = "blank-input";
+        inp.placeholder = "...";
+        inp.setAttribute("autocomplete","off");
+        inp.setAttribute("autocorrect","off");
+        inp.setAttribute("autocapitalize","off");
+        inp.setAttribute("spellcheck","false");
+        sentence.appendChild(inp);
+        blanks.push({ inp, answer: part.answer });
       }
     });
+    wrap.appendChild(sentence);
 
-    numberContainer.appendChild(card);
-  });
+    // Dots
+    const dotsEl = document.createElement("div");
+    dotsEl.className = "attempts-dots";
+    for (let i = 0; i < MAX_WRONG; i++) {
+      const d = document.createElement("div");
+      d.className = "dot";
+      dotsEl.appendChild(d);
+    }
+    wrap.appendChild(dotsEl);
 
-  // Next button
+    // Hint
+    const hintEl = document.createElement("div");
+    hintEl.className = "hint";
+    wrap.appendChild(hintEl);
+
+    // Feedback
+    const feedbackEl = document.createElement("div");
+    feedbackEl.className = "feedback";
+    wrap.appendChild(feedbackEl);
+
+    // Buttons
+    const btnRow = document.createElement("div");
+    btnRow.className = "btn-row";
+    const checkBtn = document.createElement("button");
+    checkBtn.className = "check-btn";
+    checkBtn.textContent = "Verificar ✓";
+    const clearEl = document.createElement("button");
+    clearEl.className = "clear-btn";
+    clearEl.textContent = "Limpiar ✕";
+    btnRow.appendChild(checkBtn);
+    btnRow.appendChild(clearEl);
+    wrap.appendChild(btnRow);
+
+    // ── Check logic ──────────────────────────────────────────
+    function doCheck() {
+      if (cardStates[cardIdx].solved) return;
+
+      const allCorrect = blanks.every(b =>
+        b.inp.value.trim().toLowerCase() === b.answer.toLowerCase()
+      );
+
+      if (allCorrect) {
+        blanks.forEach(b => {
+          b.inp.classList.add("correct");
+          b.inp.value    = b.answer;
+          b.inp.disabled = true;
+        });
+        checkBtn.disabled      = true;
+        clearEl.style.display  = "none";
+        feedbackEl.textContent = MSG_CORRECT;
+        feedbackEl.style.color = "#22c55e";
+        hintEl.textContent     = "";
+        cardStates[cardIdx].solved = true;
+        updateNav();
+
+      } else {
+        blanks.forEach(b => {
+          if (b.inp.value.trim().toLowerCase() !== b.answer.toLowerCase()) {
+            b.inp.classList.add("wrong");
+            setTimeout(() => b.inp.classList.remove("wrong"), 600);
+          }
+        });
+
+        cardStates[cardIdx].wrongCount++;
+        const wc = cardStates[cardIdx].wrongCount;
+
+        feedbackEl.textContent = MSG_WRONG;
+        feedbackEl.style.color = "#ef4444";
+        clearEl.style.display  = "inline-block";
+
+        // Dots
+        const dotEls = dotsEl.querySelectorAll(".dot");
+        dotEls.forEach((d, i) => d.classList.toggle("used", i < Math.min(wc, MAX_WRONG)));
+
+        // Hint after MAX_WRONG
+        if (wc >= MAX_WRONG) {
+          const answers = blanks.map(b => `"${b.answer}"`).join(", ");
+          hintEl.textContent = `${MSG_HINT_PRE} ${answers}`;
+          clearTimeout(hintEl._timer);
+          hintEl._timer = setTimeout(() => { hintEl.textContent = ""; }, 4000);
+        }
+      }
+    }
+
+    checkBtn.addEventListener("click", doCheck);
+    blanks.forEach(b => {
+      b.inp.addEventListener("keydown", e => { if (e.key === "Enter") doCheck(); });
+      b.inp.addEventListener("input",   () => {
+        feedbackEl.textContent = "";
+        clearEl.style.display  = "none";
+      });
+    });
+
+    clearEl.addEventListener("click", () => {
+      blanks.forEach(b => { b.inp.value = ""; b.inp.classList.remove("wrong","correct"); });
+      feedbackEl.textContent = "";
+      clearEl.style.display  = "none";
+    });
+
+    cardArea.appendChild(wrap);
+    return wrap;
+  }
+
+  // ── Navigation ───────────────────────────────────────────────
+  function showCard(idx) {
+    cardEls.forEach((el, i) => el.style.display = i === idx ? "block" : "none");
+    currentIndex = idx;
+    stopAudio(); // stop previous card audio when navigating
+    updateNav();
+  }
+
+  function updateNav() {
+    cardCounter.textContent = `${currentIndex + 1} / ${cards.length}`;
+    prevBtn.disabled = currentIndex === 0;
+
+    const isLast    = currentIndex === cards.length - 1;
+    const allSolved = cardStates.every(s => s.solved);
+
+    if (isLast) {
+      nextBtn.textContent = "¡Finalizar! →";
+      nextBtn.style.background = allSolved ? "#22c55e" : "";
+      nextBtn.disabled = !allSolved;
+    } else {
+      nextBtn.textContent = "Siguiente →";
+      nextBtn.disabled    = false;
+    }
+  }
+
+  prevBtn.addEventListener("click", () => { if (currentIndex > 0) showCard(currentIndex - 1); });
   nextBtn.addEventListener("click", () => {
-    stopAudio();
-    window.location.href = nextPage;
+    if (currentIndex < cards.length - 1) {
+      showCard(currentIndex + 1);
+    } else {
+      stopAudio();
+      window.location.href = nextPage;
+    }
   });
+
+  // ── Progress bar ─────────────────────────────────────────────
+  document.querySelectorAll(".progress-container .step").forEach(step => {
+    const target = step.dataset.page;
+    if (!target) return;
+    step.addEventListener("click", () => { stopAudio(); window.location.href = target; });
+  });
+
+  // ── Init ─────────────────────────────────────────────────────
+  updateNav();
+  // No auto-play — student taps the portrait when ready
 })();

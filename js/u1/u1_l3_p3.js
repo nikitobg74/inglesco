@@ -1,34 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // ==========================
-  // ELEMENTS
-  // ==========================
-  const audio = document.getElementById("mainAudio");
-  const playSceneBtn = document.getElementById("playScene");
-  const continueBtn = document.getElementById("continueBtn");
-
-  const sceneSection = document.getElementById("sceneSection");
-  const clientSection = document.getElementById("clientSection");
-  const clientTitle = document.getElementById("clientTitle");
-  const instructionBox = document.getElementById("instructionBox");
-  const optionsContainer = document.getElementById("optionsContainer");
-  const numbersSection = document.getElementById("numbersSection");
-  const finishSection = document.getElementById("finishSection");
-  const formFeedback = document.getElementById("formFeedback");
-
-  const playNameBtn = document.getElementById("playName");
-  const playNationalityBtn = document.getElementById("playNationality");
-  const playAddressBtn = document.getElementById("playAddress");
-  const playCityStateBtn = document.getElementById("playCityState");
-  const playZipBtn = document.getElementById("playZip");
-  const playIdBtn = document.getElementById("playId");
-
-  const checkFormBtn = document.getElementById("checkFormBtn");
-  const checkNumbersBtn = document.getElementById("checkNumbers");
-
-  // ==========================
-  // TAP STATE
-  // ==========================
-  let selectedOption = null; // the currently highlighted option div
 
   // ==========================
   // iOS-SAFE TAP HELPER
@@ -60,305 +30,341 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==========================
-  // I18N (STRINGS LIVE IN HTML)
+  // DATA — chunks instead of single words
   // ==========================
-  const msgNodes = document.querySelectorAll("#i18n [data-msg]");
-  const M = {};
-  msgNodes.forEach((n) => (M[n.dataset.msg] = n.textContent));
+  const dialogues = [
+    {
+      text: "I am Ana. Where are you from?",
+      chunks: ["I am Ana.", "Where are you", "from?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_ana1.mp3",
+      speaker: "ana"
+    },
+    {
+      text: "Hello Ana. I am from Caracas.",
+      chunks: ["Hello Ana.", "I am", "from", "Caracas."],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_george1.mp3",
+      speaker: "george"
+    },
+    {
+      text: "What is your address?",
+      chunks: ["What is", "your address?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_george2.mp3",
+      speaker: "george"
+    },
+    {
+      text: "My address is 213 Main Street. And you?",
+      chunks: ["My address is", "213 Main Street.", "And you?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_ana3.mp3",
+      speaker: "ana"
+    },
+    {
+      text: "My address is 94 River Street.",
+      chunks: ["My address is", "94 River Street."],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_george3.mp3",
+      speaker: "george"
+    },
+    {
+      text: "What is your phone number?",
+      chunks: ["What is", "your phone number?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_george4.mp3",
+      speaker: "george"
+    },
+    {
+      text: "My telephone number is 758 9251.",
+      chunks: ["My telephone number is", "758 9251."],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_ana4.mp3",
+      speaker: "ana"
+    },
+    {
+      text: "My phone number is 549 2137.",
+      chunks: ["My phone number is", "549 2137."],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_george5.mp3",
+      speaker: "george"
+    }
+  ];
 
-  function setFeedback(code, isCorrect) {
-    if (!formFeedback) return;
-    formFeedback.textContent = M[code] || "";
-    formFeedback.className = "feedback " + (isCorrect ? "correct" : "wrong");
-  }
-
-  function clearFeedback() {
-    if (!formFeedback) return;
-    formFeedback.textContent = "";
-    formFeedback.className = "feedback";
-  }
+  const container = document.getElementById("dialogueContainer");
 
   // ==========================
   // AUDIO (NO OVERLAP)
   // ==========================
-  function stopAudio() {
-    if (!audio) return;
+  let currentAudio = null;
+
+  function stopCurrentAudio() {
+    if (!currentAudio) return;
     try {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.removeAttribute("src");
-      audio.load();
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
     } catch (_) {}
+    currentAudio = null;
   }
 
   function playAudio(src) {
-    if (!audio) return;
-    stopAudio();
-    audio.src = src;
-    audio.currentTime = 0;
-    audio.play();
-  }
-
-  window.addEventListener("beforeunload", () => stopAudio());
-
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", () => stopAudio());
-  });
-
-  document.querySelectorAll(".step").forEach((step) => {
-    step.addEventListener("click", () => {
-      const page = step.dataset.page;
-      if (page) { stopAudio(); window.location.href = page; }
-    });
-  });
-
-  // ==========================
-  // CLIENTS DATA
-  // ==========================
-  const clients = {
-    gabriela: {
-      title: "Cliente: Gabriela Sanchez",
-      instruction: "Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.",
-      answers: {
-        name: "Gabriela Sanchez",
-        nationality: "Cuban",
-        address: "254 Main Street",
-        city: "Miami",
-        state: "Florida",
-        zip: "32104",
-        id: "402971",
-      },
-      audio: {
-        name: "../../../../assets/audio/u1/u1_l3_p3_gabriela1.mp3",
-        nationality: "../../../../assets/audio/u1/u1_l3_p3_gabriela2.mp3",
-        address: "../../../../assets/audio/u1/u1_l3_p3_gabriela3.mp3",
-        citystate: "../../../../assets/audio/u1/u1_l3_p3_gabriela4.mp3",
-        zip: "../../../../assets/audio/u1/u1_l3_p3_gabriela5.mp3",
-        id: "../../../../assets/audio/u1/u1_l3_p3_gabriela6.mp3",
-      },
-    },
-    pedro: {
-      title: "Cliente: Pedro Martinez",
-      instruction: "Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.",
-      answers: {
-        name: "Pedro Martinez",
-        nationality: "Chilean",
-        address: "719 Grand Avenue",
-        city: "Los Angeles",
-        state: "California",
-        zip: "90215",
-        id: "518043",
-      },
-      audio: {
-        name: "../../../../assets/audio/u1/u1_l3_p3_pedro1.mp3",
-        nationality: "../../../../assets/audio/u1/u1_l3_p3_pedro2.mp3",
-        address: "../../../../assets/audio/u1/u1_l3_p3_pedro3.mp3",
-        citystate: "../../../../assets/audio/u1/u1_l3_p3_pedro4.mp3",
-        zip: "../../../../assets/audio/u1/u1_l3_p3_pedro5.mp3",
-        id: "../../../../assets/audio/u1/u1_l3_p3_pedro6.mp3",
-      },
-    },
-  };
-
-  let currentClientKey = "gabriela";
-  let currentClient = null;
-
-  // ==========================
-  // SCENE AUDIO
-  // ==========================
-  if (playSceneBtn) {
-    playSceneBtn.addEventListener("click", () => {
-      playAudio("../../../../assets/audio/u1/u1_l3_p3_reception.mp3");
-    });
-  }
-
-  if (audio && continueBtn) {
-    audio.addEventListener("ended", () => {
-      continueBtn.classList.remove("hidden");
-    });
-  }
-
-  if (continueBtn) {
-    continueBtn.addEventListener("click", () => startClient(currentClientKey));
+    stopCurrentAudio();
+    currentAudio = new Audio(src);
+    currentAudio.currentTime = 0;
+    currentAudio.addEventListener("ended", () => { currentAudio = null; });
+    currentAudio.play();
   }
 
   // ==========================
-  // START CLIENT
+  // HELPERS
   // ==========================
-  function startClient(key) {
-    currentClientKey = key;
-    currentClient = clients[key];
 
-    if (sceneSection) sceneSection.classList.add("hidden");
-    if (clientSection) clientSection.classList.remove("hidden");
-    if (clientTitle) clientTitle.textContent = currentClient.title;
-    if (instructionBox) instructionBox.textContent = currentClient.instruction;
-
-    selectedOption = null;
-    clearFeedback();
-
-    if (finishSection) finishSection.classList.add("hidden");
-    if (numbersSection) numbersSection.classList.add("hidden");
-
-    resetForm();
-    loadOptions();
-  }
-
-  // ==========================
-  // AUDIO CONTROLS
-  // ==========================
-  function playClientAudio(field) {
-    if (!currentClient) return;
-    playAudio(currentClient.audio[field]);
-  }
-
-  if (playNameBtn) playNameBtn.addEventListener("click", () => playClientAudio("name"));
-  if (playNationalityBtn) playNationalityBtn.addEventListener("click", () => playClientAudio("nationality"));
-  if (playAddressBtn) playAddressBtn.addEventListener("click", () => playClientAudio("address"));
-  if (playCityStateBtn) playCityStateBtn.addEventListener("click", () => playClientAudio("citystate"));
-  if (playZipBtn) playZipBtn.addEventListener("click", () => playClientAudio("zip"));
-  if (playIdBtn) playIdBtn.addEventListener("click", () => playClientAudio("id"));
-
-  // ==========================
-  // TAP-TO-SELECT / TAP-TO-PLACE
-  // ==========================
-  function deselectOption() {
-    if (selectedOption) {
-      selectedOption.classList.remove("selected");
-      selectedOption = null;
-    }
-  }
-
-  function makeOptionElement(text) {
-    const div = document.createElement("div");
-    div.className = "draggable";
-    div.textContent = text;
-
-    onTap(div, () => {
-      if (selectedOption === div) {
-        deselectOption(); // tap again to deselect
-        return;
+  // FIX: Iterative shuffle — no recursion, guaranteed different order when possible
+  function shuffle(arr) {
+    if (arr.length <= 1) return [...arr];
+    let result;
+    let attempts = 0;
+    do {
+      result = [...arr];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
       }
-      deselectOption();
-      selectedOption = div;
-      div.classList.add("selected");
-    });
-
-    return div;
+      attempts++;
+    } while (result.join("|") === arr.join("|") && attempts < 10);
+    return result;
   }
 
-  function loadOptions() {
-    if (!optionsContainer || !currentClient) return;
-    optionsContainer.innerHTML = "";
+  // ==========================
+  // RENDER
+  // ==========================
+  dialogues.forEach((item, index) => {
+    const isAna = item.speaker === "ana";
+    const boxClass = isAna ? "ana-box" : "george-box";
 
-    [
-      currentClient.answers.name,
-      currentClient.answers.nationality,
-      currentClient.answers.address,
-      currentClient.answers.city,
-      currentClient.answers.state,
-    ].forEach((text) => {
-      optionsContainer.appendChild(makeOptionElement(text));
-    });
-  }
+    const row = document.createElement("div");
+    row.classList.add("dialogue-row");
+    if (index !== 0) row.classList.add("locked");
 
-  // Attach tap listeners to all dropzones
-  document.querySelectorAll(".dropzone").forEach((zone) => {
-    onTap(zone, () => {
-      if (selectedOption) {
-        // Return existing content to options bank first
-        if (zone.dataset.placedText) {
-          optionsContainer.appendChild(makeOptionElement(zone.dataset.placedText));
-        }
-        // Place selected option here
-        zone.textContent = selectedOption.textContent;
-        zone.dataset.placedText = selectedOption.textContent;
-        zone.classList.add("filled");
-        selectedOption.remove();
-        deselectOption();
-        clearFeedback();
-      } else if (zone.dataset.placedText) {
-        // Tap filled zone with nothing selected → return to bank
-        optionsContainer.appendChild(makeOptionElement(zone.dataset.placedText));
-        zone.textContent = "";
-        zone.dataset.placedText = "";
-        zone.classList.remove("filled");
-        clearFeedback();
+    // --- Speaker avatar ---
+    const avatar = document.createElement("img");
+    avatar.src = isAna
+      ? "../../../../assets/images/u1/ana.png"
+      : "../../../../assets/images/u1/george.png";
+    avatar.alt = isAna ? "Ana" : "George";
+    avatar.classList.add("row-avatar");
+
+    // --- Main content wrapper ---
+    const contentWrap = document.createElement("div");
+    contentWrap.classList.add("content-wrap");
+
+    // Play button
+    const playBtn = document.createElement("button");
+    playBtn.textContent = "▶";
+    playBtn.classList.add("play-btn");
+    playBtn.addEventListener("click", () => playAudio(item.audio));
+
+    // Chunk bank
+    const wordContainer = document.createElement("div");
+    wordContainer.classList.add("dialogue-box", boxClass, "bank-box");
+
+    // Answer area
+    const answerContainer = document.createElement("div");
+    answerContainer.classList.add("dialogue-box", boxClass, "answer-box");
+
+    // Buttons row
+    const btnRow = document.createElement("div");
+    btnRow.classList.add("btn-row");
+
+    // Check button
+    const checkBtn = document.createElement("button");
+    checkBtn.textContent = "✔ Verificar";
+    checkBtn.classList.add("check-btn");
+
+    // Hint button
+    const hintBtn = document.createElement("button");
+    hintBtn.textContent = "💡 Ayuda";
+    hintBtn.classList.add("hint-btn");
+
+    const feedback = document.createElement("span");
+    feedback.classList.add("feedback");
+
+    btnRow.appendChild(playBtn);
+    btnRow.appendChild(checkBtn);
+    btnRow.appendChild(hintBtn);
+    btnRow.appendChild(feedback);
+
+    // --- State ---
+    let bankChunks = shuffle(item.chunks);
+    let userOrder = [];
+
+    function renderAnswer() {
+      answerContainer.innerHTML = "";
+
+      // FIX: Only auto-check when user has actually placed ALL chunks (not on empty init)
+      const allPlaced = userOrder.length > 0 && userOrder.length === item.chunks.length;
+
+      if (userOrder.length === 0) {
+        const placeholder = document.createElement("span");
+        placeholder.classList.add("answer-placeholder");
+        placeholder.textContent = "Toca las fichas para armar la oración...";
+        answerContainer.appendChild(placeholder);
       }
-    });
-  });
 
-  // ==========================
-  // CHECK FORM
-  // ==========================
-  if (checkFormBtn) {
-    checkFormBtn.addEventListener("click", () => {
-      if (!currentClient) return;
+      userOrder.forEach((chunk, i) => {
+        const span = document.createElement("span");
+        span.textContent = chunk;
+        span.classList.add("word");
+        span.title = "Toca para quitar";
 
-      let allFilled = true;
-      let correct = true;
+        // FIX: Capture index at creation time via IIFE to avoid stale closure
+        (function(capturedIndex) {
+          onTap(span, () => {
+            bankChunks.push(userOrder[capturedIndex]);
+            userOrder.splice(capturedIndex, 1);
+            renderBank();
+            renderAnswer();
+          });
+        })(i);
 
-      document.querySelectorAll(".dropzone").forEach((zone) => {
-        const value = zone.dataset.placedText || "";
-        if (!value) {
-          allFilled = false;
-        } else if (value !== currentClient.answers[zone.dataset.field]) {
-          correct = false;
-        }
+        answerContainer.appendChild(span);
       });
 
-      if (!allFilled) { setFeedback("fill_all", false); return; }
-
-      if (correct) {
-        setFeedback("all_correct", true);
-        if (numbersSection) numbersSection.classList.remove("hidden");
-      } else {
-        setFeedback("try_again", false);
+      // Auto-check when all chunks are placed
+      if (allPlaced) {
+        setTimeout(checkAnswer, 150);
       }
-    });
-  }
+    }
 
-  // ==========================
-  // NUMBERS CHECK
-  // ==========================
-  if (checkNumbersBtn) {
-    checkNumbersBtn.addEventListener("click", () => {
-      if (!currentClient) return;
+    function renderBank() {
+      wordContainer.innerHTML = "";
 
-      const zipInput = document.getElementById("zipInput");
-      const idInput = document.getElementById("idInput");
-      const zip = zipInput ? zipInput.value.trim() : "";
-      const id = idInput ? idInput.value.trim() : "";
+      bankChunks.forEach((chunk, i) => {
+        const span = document.createElement("span");
+        span.textContent = chunk;
+        span.classList.add("word");
 
-      if (zip === currentClient.answers.zip && id === currentClient.answers.id) {
-        setFeedback("all_correct", true);
-        if (currentClientKey === "gabriela") {
-          setTimeout(() => startClient("pedro"), 700);
-        } else {
-          if (finishSection) finishSection.classList.remove("hidden");
+        // FIX: Same stale-index fix for bank tiles
+        (function(capturedIndex) {
+          onTap(span, () => {
+            userOrder.push(bankChunks[capturedIndex]);
+            bankChunks.splice(capturedIndex, 1);
+            renderBank();
+            renderAnswer();
+          });
+        })(i);
+
+        wordContainer.appendChild(span);
+      });
+    }
+
+    renderBank();
+    renderAnswer();
+
+    function checkAnswer() {
+      if (userOrder.length !== item.chunks.length) return;
+      const isCorrect = userOrder.join(" ") === item.chunks.join(" ");
+
+      if (isCorrect) {
+        feedback.textContent = "✅";
+        feedback.style.color = "green";
+        checkBtn.disabled = true;
+        hintBtn.disabled = true;
+        wordContainer.style.display = "none";
+        // Turn answer tiles green
+        answerContainer.querySelectorAll(".word").forEach(w => {
+          w.style.background = "#bbf7d0";
+          w.style.borderColor = "#22c55e";
+          w.style.cursor = "default";
+          w.style.pointerEvents = "none";
+        });
+
+        // Unlock next row (no auto-play)
+        const nextRow = container.children[index + 1];
+        if (nextRow) {
+          nextRow.classList.remove("locked");
         }
+      }
+    }
+
+    // --- Check button (manual fallback) ---
+    checkBtn.addEventListener("click", () => {
+      if (userOrder.length !== item.chunks.length) return;
+      const isCorrect = userOrder.join(" ") === item.chunks.join(" ");
+
+      if (!isCorrect) {
+        feedback.textContent = "❌";
+        feedback.style.color = "red";
+        setTimeout(() => (feedback.textContent = ""), 1200);
       } else {
-        setFeedback("try_again", false);
+        checkAnswer();
       }
     });
-  }
 
-  // ==========================
-  // RESET
-  // ==========================
-  function resetForm() {
-    document.querySelectorAll(".dropzone").forEach((z) => {
-      z.textContent = "";
-      z.dataset.placedText = "";
-      z.classList.remove("filled");
+    // --- Hint: places the next correct chunk ---
+    hintBtn.addEventListener("click", () => {
+      for (let i = 0; i < item.chunks.length; i++) {
+        if (userOrder[i] !== item.chunks[i]) {
+          const correctChunk = item.chunks[i];
+          const bankIdx = bankChunks.indexOf(correctChunk);
+
+          if (bankIdx !== -1) {
+            bankChunks.splice(bankIdx, 1);
+            userOrder.splice(i, 0, correctChunk);
+          } else {
+            const wrongIdx = userOrder.indexOf(correctChunk, i + 1);
+            if (wrongIdx !== -1) {
+              userOrder.splice(wrongIdx, 1);
+              userOrder.splice(i, 0, correctChunk);
+            }
+          }
+
+          renderBank();
+          renderAnswer();
+
+          // Flash the placed chunk
+          const spans = answerContainer.querySelectorAll(".word");
+          if (spans[i]) {
+            spans[i].classList.add("hint-highlight");
+            setTimeout(() => spans[i].classList.remove("hint-highlight"), 1000);
+          }
+          return;
+        }
+      }
     });
 
-    const zipInput = document.getElementById("zipInput");
-    const idInput = document.getElementById("idInput");
-    if (zipInput) zipInput.value = "";
-    if (idInput) idInput.value = "";
+    // --- Assemble row: avatar on outside, content inside ---
+    if (isAna) {
+      row.appendChild(avatar);
+      row.appendChild(contentWrap);
+    } else {
+      row.appendChild(contentWrap);
+      row.appendChild(avatar);
+    }
 
-    if (numbersSection) numbersSection.classList.add("hidden");
-    if (finishSection) finishSection.classList.add("hidden");
+    contentWrap.appendChild(btnRow);
+    contentWrap.appendChild(wordContainer);
+    contentWrap.appendChild(answerContainer);
+
+    container.appendChild(row);
+  });
+
+  // ==========================
+  // PROGRESS NAVIGATION
+  // ==========================
+  const steps = document.querySelectorAll(".step");
+  steps.forEach(function(step) {
+    step.addEventListener("click", function () {
+      stopCurrentAudio();
+      const page = this.getAttribute("data-page");
+      if (page) window.location.href = page;
+    });
+  });
+
+  // ==========================
+  // NEXT BUTTON
+  // ==========================
+  const nextBtn = document.getElementById("nextBtn");
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      stopCurrentAudio();
+      window.location.href = "p4.html";
+    });
   }
+
+  window.addEventListener("beforeunload", () => {
+    stopCurrentAudio();
+  });
 });

@@ -1,169 +1,130 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<title>Unidad 1 - Lección 3 - Parte 2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unidad 1 - Lección 3 - Parte 2</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- Use the external JS only -->
-<script defer src="../../../../js/u1/u1_l3_p2.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; }
+  <!-- ✅ Correct JS path -->
+  <script defer src="../../../../js/u1/u1_l3_p2.js"></script>
 
-.back-btn {
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
-}
-.back-btn:hover { background:#1e40af; }
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#dbeafe; }
 
-.unit-title {
-  text-align:center;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:#2563eb;
-}
+    .back-btn {
+      display:inline-block;
+      margin-bottom:20px;
+      padding:8px 15px;
+      background:#2563eb;
+      color:white;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+    }
+    .back-btn:hover { background:#1e40af; }
 
-.progress-container {
-  display:flex;
-  justify-content:center;
-  margin:15px 0 25px 0;
-  gap:10px;
-}
-.step {
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-}
-.step.active { background:#2563eb; color:white; }
-.step:hover { transform: scale(1.1); }
+    .unit-title {
+      text-align:center;
+      font-size:28px;
+      font-weight:700;
+      margin-bottom:15px;
+      color:#2563eb;
+    }
 
-.exercise-box {
-  max-width:950px;
-  margin:0 auto;
-  background:white;
-  padding:40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
+    /* Progress bar */
+    .progress-container {
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:25px;
+    }
+    .step {
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      transition: transform 0.3s;
+    }
+    .step.active { background:#2563eb; color:white; }
+    .step:hover { transform: scale(1.1); }
 
-.top-characters {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-.character { width:220px; text-align:center; }
-.character img { width:100%; border-radius:16px; border:4px solid #2563eb; }
+    .exercise-box {
+      max-width:800px;
+      margin:0 auto;
+      background:white;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      text-align:center;
+    }
 
-.play-btn {
-  padding:8px 18px;
-  border:none;
-  border-radius:12px;
-  background:#7c3aed;
-  color:white;
-  font-weight:600;
-  font-size:14px;
-  cursor:pointer;
-  margin-right:10px;
-}
-.play-btn:hover { background:#6d28d9; }
+    .exercise-text { text-align:center; margin-top:10px; }
+    .exercise-text .en { font-size:18px; color:#1e40af; font-weight:600; }
+    .exercise-text .es { font-size:14px; color:#2563eb; font-weight:400; display:block; margin-top:4px; }
 
-.check-btn {
-  padding:8px 18px;
-  border:none;
-  border-radius:12px;
-  background:#16a34a;
-  color:white;
-  font-weight:600;
-  font-size:14px;
-  cursor:pointer;
-  margin-left:10px;
-}
-.feedback { font-weight:600; margin-left:10px; }
+    /* Number boxes */
+    .number-container {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:15px;
+      margin-top:20px;
+    }
 
-.dialogue-container { display:flex; flex-direction:column; gap:18px; }
-.dialogue-row { display:flex; align-items:center; flex-wrap:wrap; width:100%; }
-.dialogue-box { padding:12px 16px; border-radius:16px; font-size:16px; line-height:1.5; min-width:50px; margin-top:6px; }
-.ana-box { background:#fce7f3; color:#111; text-align:left; }
-.george-box { background:#e0f2fe; color:#111; text-align:right; }
-.locked { opacity:0.5; pointer-events:none; }
+    .number-card {
+      width:110px;
+      height:110px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      cursor:pointer;
+      transition: transform 0.2s;
+      color:white;
+    }
 
-.word {
-  display: inline-block;
-  margin: 6px 8px;
-  padding: 10px 16px;
-  background: #f3f4f6;
-  border-radius: 10px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 17px;
-  font-weight: 600;
-  border: 2px solid #d1d5db;
-  transition: background 0.15s, transform 0.1s;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.word:active { transform: scale(0.95); }
-.ana-box .word { background: #fde2f0; border-color: #f9a8d4; }
-.george-box .word { background: #d0f0ff; border-color: #7dd3fc; }
+    .number-card:hover { transform: scale(1.1); }
 
-.instruction-banner {
-  background: #eff6ff;
-  border-left: 5px solid #2563eb;
-  border-radius: 10px;
-  padding: 14px 18px;
-  margin-bottom: 24px;
-  font-size: 16px;
-  color: #1e3a8a;
-  font-weight: 500;
-}
+    .number-digit {
+      font-size:36px;
+      font-weight:700;
+      line-height:1;
+    }
 
-/* Prevent iOS auto-links */
-a[href^="tel"], a[x-apple-data-detectors] {
-  color: inherit !important;
-  text-decoration: none !important;
-  pointer-events: none !important;
-}
+    .number-word {
+      font-size:14px;
+      font-weight:700;
+      color:black; /* BLACK and BOLD as requested */
+      margin-top:5px;
+      letter-spacing:1px;
+    }
 
-.controls {
-  text-align:center;
-  margin-top:35px;
-}
-.next-btn {
-  padding:12px 25px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:600;
-  font-size:15px;
-  cursor:pointer;
-}
-.next-btn:hover { background:#1e40af; }
+    .number-card.played { opacity:0.5; }
 
-@media(max-width:768px){
-  .top-characters{ flex-direction:column; gap:20px; }
-  .dialogue-row{ flex-direction:column; align-items:flex-start; }
-}
-</style>
+    .next-btn {
+      margin:30px auto 0 auto;
+      padding:12px 25px;
+      font-size:16px;
+      border:none;
+      border-radius:10px;
+      background:#2563eb;
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      display:none;
+    }
+    .next-btn:hover { background:#1e40af; }
+  </style>
 </head>
 
 <body>
@@ -172,34 +133,27 @@ a[href^="tel"], a[x-apple-data-detectors] {
 
 <div class="unit-title">Lección 3 - Parte 2</div>
 
-<div class="progress-container">
+<div class="progress-container" id="progressContainer">
   <div class="step" data-page="p1.html">1</div>
   <div class="step active" data-page="p2.html">2</div>
   <div class="step" data-page="p3.html">3</div>
   <div class="step" data-page="p4.html">4</div>
+<div class="step" data-page="p5.html">5</div>
 </div>
 
 <div class="exercise-box">
+  <h2>Numbers - Números</h2>
+  <p class="exercise-text">
+    <span class="en">Click on a number to hear its pronunciation.</span><br>
+    <span class="es">Haz click en un número para escuchar su pronunciación</span>
+  </p>
 
-  <div class="instruction-banner">
-    🎧 Escucha cada línea del diálogo y ordena las palabras en el orden correcto. Toca ▶ para escuchar, luego toca las palabras para armarlas.
-  </div>
+  <!-- ✅ JS reads config from here (language stays in HTML) -->
+  <div class="number-container" id="numberContainer"
+       data-audio-base="../../../../assets/audio/u1/"
+       data-next="p3.html"></div>
 
-  <div class="top-characters">
-    <div class="character">
-      <img src="../../../../assets/images/u1/ana.png" alt="Ana"><p><strong>Ana</strong></p>
-    </div>
-    <div class="character">
-      <img src="../../../../assets/images/u1/george.png" alt="George"><p><strong>George</strong></p>
-    </div>
-  </div>
-
-  <!-- This is where JS will render dialogue rows -->
-  <div class="dialogue-container" id="dialogueContainer"></div>
-
-  <div class="controls">
-    <button class="next-btn" id="nextBtn">Siguiente →</button>
-  </div>
+  <button class="next-btn" id="nextBtn">Siguiente →</button>
 </div>
 
 </body>

@@ -28,6 +28,7 @@ const wordBank     = document.getElementById("wordBank");
 const dropZone     = document.getElementById("dropZone");
 const feedback     = document.getElementById("feedback");
 const checkBtn     = document.getElementById("checkBtn");
+const clearBtn     = document.getElementById("clearBtn");
 const exercise1    = document.getElementById("exercise1");
 const exercise2    = document.getElementById("exercise2");
 const writeInput   = document.getElementById("writeInput");
@@ -60,12 +61,12 @@ function onTap(el, handler) {
   el.addEventListener("touchmove",  () => { touchMoved = true;  }, { passive: true });
 
   el.addEventListener("touchend", (e) => {
-    if (touchMoved) return;        // was a scroll, not a tap
-    e.preventDefault();            // stops the 300 ms ghost click
+    if (touchMoved) return;
+    e.preventDefault();
     handler(e);
   });
 
-  el.addEventListener("click", handler); // desktop fallback
+  el.addEventListener("click", handler);
 }
 
 // Create a clickable word tile
@@ -74,7 +75,6 @@ function createWord(word) {
   div.textContent = word;
   div.className = "word";
 
-  // FIX: read current location from the DOM instead of a stale closure var
   onTap(div, () => {
     const inZone = div.classList.contains("in-zone");
     if (!inZone) {
@@ -85,9 +85,19 @@ function createWord(word) {
       div.classList.remove("in-zone");
     }
     feedback.textContent = "";
+    clearBtn.style.display = "none";
   });
 
   return div;
+}
+
+function clearDropZone() {
+  [...dropZone.children].forEach(tile => {
+    tile.classList.remove("in-zone");
+    wordBank.appendChild(tile);
+  });
+  feedback.textContent = "";
+  clearBtn.style.display = "none";
 }
 
 function loadRound() {
@@ -95,6 +105,7 @@ function loadRound() {
   wordBank.innerHTML = "";
   dropZone.innerHTML = "";
   feedback.textContent = "";
+  clearBtn.style.display = "none";
 
   const words = shuffle(current.answer.split(" "));
   words.forEach(word => {
@@ -111,6 +122,7 @@ checkBtn.addEventListener("click", () => {
   if (formed === current.answer) {
     feedback.textContent = MSG_CORRECT;
     feedback.style.color = "#22c55e";
+    clearBtn.style.display = "none";
     round++;
 
     setTimeout(() => {
@@ -125,7 +137,13 @@ checkBtn.addEventListener("click", () => {
   } else {
     feedback.textContent = MSG_TRY_AGAIN;
     feedback.style.color = "#ef4444";
+    clearBtn.style.display = "inline-block";
   }
+});
+
+// Clear button
+clearBtn.addEventListener("click", () => {
+  clearDropZone();
 });
 
 // Check written answer

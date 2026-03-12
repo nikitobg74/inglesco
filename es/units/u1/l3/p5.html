@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unidad 1 - Lección 3 - Parte 4</title>
+<title>Unidad 1 - Lección 3 - Parte 5</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <!-- ✅ Correct JS path -->
-<script defer src="../../../../js/u1/u1_l3_p4.js"></script>
+<script defer src="../../../../js/u1/u1_l3_p5.js"></script>
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
@@ -127,7 +127,7 @@ body { padding:20px; background:#dbeafe; }
   max-width:500px;
 }
 
-/* NUMBER CARD WITH WORD INSIDE */
+/* NUMBER CARD WITH WORD ONLY */
 .number-card {
   width:100px;
   height:100px;
@@ -138,24 +138,18 @@ body { padding:20px; background:#dbeafe; }
   border-radius:12px;
   cursor:pointer;
   transition:0.2s;
-  color:white; /* for the digit */
+  background:#2563eb;
+  color:white;
 }
 
 .number-card:hover { transform:scale(1.1); }
 
-.number-digit {
-  font-size:36px;
-  font-weight:700;
-  line-height:1;
-}
-
 .number-word {
-  font-size:16px;       /* smaller so it fits */
-  font-weight:800;      /* bold */
-  color:black;          /* black letters */
-  margin-top:5px;
+  font-size:18px;
+  font-weight:800;
+  color:black;
   letter-spacing:1px;
-  line-height:1.1;
+  line-height:1.2;
   text-align:center;
 }
 
@@ -216,6 +210,41 @@ body { padding:20px; background:#dbeafe; }
 
 /* Hidden language strings */
 .i18n { display:none; }
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .matching-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+  .audio-column {
+    width: 100%;
+    max-width: 340px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .audio-box {
+    width: 80px;
+    height: 50px;
+    font-size: 13px;
+  }
+  .number-container {
+    max-width: 340px;
+    gap: 10px;
+  }
+  .number-card {
+    width: 80px;
+    height: 80px;
+  }
+  .number-word {
+    font-size: 15px;
+  }
+  .unit-title {
+    font-size: 22px;
+  }
+}
 </style>
 </head>
 
@@ -223,25 +252,24 @@ body { padding:20px; background:#dbeafe; }
 
 <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
 
-<div class="unit-title">Lección 3 - Parte 4</div>
+<div class="unit-title">Lección 3 - Parte 5</div>
 
 <div class="progress-container">
   <div class="step" data-page="p1.html">1</div>
   <div class="step" data-page="p2.html">2</div>
-<div class="step" data-page="p3.html">3</div>
-  <div class="step active" data-page="p4.html">4</div>
-<div class="step" data-page="p5.html">5</div>
-  
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+  <div class="step active" data-page="p5.html">5</div>
 </div>
 
 <div class="exercise-box">
 
   <p class="exercise-text">
-    <span class="en">Listen to the audio and click the correct number.</span><br>
-    <span class="es">Escucha el audio y selecciona el número correcto.</span>
+    <span class="en">Listen to the audio and click the correct word.</span><br>
+    <span class="es">Escucha el audio y selecciona la palabra correcta.</span>
   </p>
 
-  <!-- ✅ Language text stored in HTML -->
+  <!-- ✅ Language strings in HTML (JS reads them) -->
   <div class="i18n">
     <span id="txt-listen">🔊 Listen</span>
     <span id="msg-wrong">❌ Intentar otra vez</span>
@@ -250,10 +278,10 @@ body { padding:20px; background:#dbeafe; }
   </div>
 
   <div class="matching-container">
-    <!-- ✅ base path + next target stored in HTML -->
+    <!-- ✅ Base path + next target stored here -->
     <div class="audio-column" id="audioColumn"
          data-audio-base="../../../../assets/audio/u1/"
-         data-next="p4.html"></div>
+         data-next="../index.html"></div>
 
     <div class="right-column">
       <div class="number-container" id="numberContainer"></div>

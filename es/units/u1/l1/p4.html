@@ -119,8 +119,15 @@
       min-height: 24px;
     }
 
-    .check-btn {
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
       margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .check-btn {
       padding: 12px 30px;
       font-size: 16px;
       border: none;
@@ -129,10 +136,23 @@
       background: #22c55e;
       color: white;
       font-weight: 700;
-      width: 100%;
+      flex: 1;
       max-width: 300px;
     }
     .check-btn:hover { background: #16a34a; }
+
+    .clear-btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #f97316;
+      color: white;
+      font-weight: 700;
+      display: none;
+    }
+    .clear-btn:hover { background: #ea580c; }
 
     input {
       margin-top: 15px;
@@ -171,6 +191,7 @@
     <div class="step" data-page="p2.html">2</div>
     <div class="step" data-page="p3.html">3</div>
     <div class="step active" data-page="p4.html">4</div>
+<div class="step" onclick="window.location.href='p5.html'">5</div>
   </div>
 
   <div class="i18n">
@@ -193,7 +214,10 @@
       <p class="zone-label">Palabras:</p>
       <div class="word-bank" id="wordBank"></div>
 
-      <button class="check-btn" id="checkBtn">Verificar ✓</button>
+      <div class="btn-row">
+        <button class="check-btn" id="checkBtn">Verificar ✓</button>
+        <button class="clear-btn" id="clearBtn">Limpiar ✕</button>
+      </div>
       <div class="feedback" id="feedback"></div>
     </div>
 

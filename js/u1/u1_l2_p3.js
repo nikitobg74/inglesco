@@ -1,151 +1,171 @@
-// Unit 1 - Lesson 2 - Part 3
-// Language-neutral script (no Spanish here)
-
+// ===============================
+// Unit 1 - Lesson 2 - P3
+// Word Order (tap tiles, click image to play audio)
+// ===============================
 (() => {
-  const audioColumn = document.getElementById("audioColumn");
-  const numberContainer = document.getElementById("numberContainer");
-  const feedback = document.getElementById("feedback");
-  const nextBtn = document.getElementById("nextBtn");
-  const steps = document.querySelectorAll(".step");
+  function textFrom(id, fb) { const e = document.getElementById(id); return e ? e.textContent.trim() : fb; }
 
-  if (!audioColumn || !numberContainer || !feedback || !nextBtn) return;
+  const MSG_CORRECT   = textFrom("msg-correct",   "✅ ¡Correcto!");
+  const MSG_TRY_AGAIN = textFrom("msg-try-again", "❌ Intenta otra vez");
+  const MSG_EXCELLENT = textFrom("msg-excellent", "🎉 ¡Excelente! Lo lograste.");
+  const COUNTER_TPL   = textFrom("counter-tpl",   "Ejercicio {n} / {total}");
 
-  // Read config from HTML
-  const audioBase = audioColumn.dataset.audioBase || "";
-  const nextPage = audioColumn.dataset.next || "p4.html";
+  const data      = JSON.parse(document.getElementById("exercise-data").textContent);
+  const imgBase   = data.imgBase   || "";
+  const audioBase = data.audioBase || "";
+  const nextPage  = data.nextPage  || "p4.html";
+  const rounds    = data.rounds    || [];
 
-  // Read UI strings from HTML
-  const txtListen = (document.getElementById("txt-listen")?.textContent || "🔊");
-  const msgWrong = (document.getElementById("msg-wrong")?.textContent || "✖");
-  const msgGood1 = (document.getElementById("msg-good-1")?.textContent || "✓");
-  const msgGood2 = (document.getElementById("msg-good-2")?.textContent || "✓");
+  const portraitArea = document.getElementById("portraitArea");
+  const dropZone     = document.getElementById("dropZone");
+  const wordBank     = document.getElementById("wordBank");
+  const checkBtn     = document.getElementById("checkBtn");
+  const clearBtn     = document.getElementById("clearBtn");
+  const feedback     = document.getElementById("feedback");
+  const roundCounter = document.getElementById("roundCounter");
+  const continueBtn  = document.getElementById("continueBtn");
 
-  // Data (neutral). Audio files resolved via base path.
-  const lessonData = [
-    { num: "1", word: "ONE",   audio: "one.mp3",   color: "#f87171" },
-    { num: "2", word: "TWO",   audio: "two.mp3",   color: "#fbbf24" },
-    { num: "3", word: "THREE", audio: "three.mp3", color: "#34d399" },
-    { num: "4", word: "FOUR",  audio: "four.mp3",  color: "#60a5fa" },
-    { num: "5", word: "FIVE",  audio: "five.mp3",  color: "#a78bfa" },
-    { num: "6", word: "SIX",   audio: "six.mp3",   color: "#f472b6" },
-    { num: "7", word: "SEVEN", audio: "seven.mp3", color: "#fb923c" },
-    { num: "8", word: "EIGHT", audio: "eight.mp3", color: "#22d3ee" },
-    { num: "9", word: "NINE",  audio: "nine.mp3",  color: "#facc15" },
-    { num: "0", word: "ZERO",  audio: "zero.mp3",  color: "#94a3b8" }
-  ];
+  let currentRound = 0;
+  let currentAudio = null;
+  let portrait     = null;
 
-  // State
-  const shuffled = [...lessonData].sort(() => Math.random() - 0.5);
-  let currentTarget = null;      // {num, ...} for currently selected audio box
-  let answeredCount = 0;
-
-  // ✅ audio overlap fix
-  let currentAudioEl = null;
+  // ── Audio ────────────────────────────────────────────────────
   function stopAudio() {
-    if (currentAudioEl) {
-      currentAudioEl.pause();
-      currentAudioEl.currentTime = 0;
-      currentAudioEl = null;
-    }
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  }
+  function playAudio(src) {
+    stopAudio();
+    const a = new Audio(src);
+    currentAudio = a;
+    a.play();
+    a.onended = () => { if (currentAudio === a) currentAudio = null; };
   }
   window.addEventListener("beforeunload", stopAudio);
 
-  // Progress navigation
-  steps.forEach(step => {
-    step.addEventListener("click", () => {
-      const page = step.dataset.page;
-      if (!page) return;
-      stopAudio();
-      window.location.href = page;
-    });
-  });
+  // ── Shuffle ──────────────────────────────────────────────────
+  function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 
-  // Generate audio boxes
-  shuffled.forEach(item => {
-    const box = document.createElement("div");
-    box.className = "audio-box";
-    box.textContent = txtListen;
+  // ── iOS-safe tap ─────────────────────────────────────────────
+  function onTap(el, handler) {
+    let moved = false;
+    el.addEventListener("touchstart", () => { moved = false; }, { passive: true });
+    el.addEventListener("touchmove",  () => { moved = true;  }, { passive: true });
+    el.addEventListener("touchend",   e  => { if (!moved) { e.preventDefault(); handler(e); } });
+    el.addEventListener("click", handler);
+  }
 
-    box.dataset.num = item.num;
-    box.dataset.audio = item.audio;
-
-    box.addEventListener("click", () => {
-      if (box.classList.contains("answered")) return;
-
-      // Active UI
-      document.querySelectorAll(".audio-box").forEach(b => b.classList.remove("active"));
-      box.classList.add("active");
-
-      // Set current target
-      currentTarget = item;
-
-      // Play (restart clean)
-      stopAudio();
-      const a = new Audio(audioBase + item.audio);
-      currentAudioEl = a;
-      a.play();
-      a.onended = () => {
-        if (currentAudioEl === a) currentAudioEl = null;
-      };
-    });
-
-    audioColumn.appendChild(box);
-  });
-
-  // Generate number cards
-  lessonData.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "number-card";
-    card.style.backgroundColor = item.color;
-    card.dataset.num = item.num;
-
-    card.innerHTML = `
-      <div class="number-digit">${item.num}</div>
-      <div class="number-word">${item.word}</div>
-    `;
-
-    card.addEventListener("click", () => {
-      if (!currentTarget) return;
-      if (card.classList.contains("disabled")) return;
-
-      if (card.dataset.num === currentTarget.num) {
-        // Correct
-        card.classList.add("correct", "disabled");
-
-        const activeBox = document.querySelector(".audio-box.active");
-        if (activeBox) {
-          activeBox.classList.remove("active");
-          activeBox.classList.add("answered");
-        }
-
-        feedback.style.color = "#16a34a";
-        feedback.textContent = Math.random() > 0.5 ? msgGood1 : msgGood2;
-
-        currentTarget = null;
-        answeredCount++;
-
-        if (answeredCount === lessonData.length) {
-          nextBtn.style.display = "block";
-        }
+  // ── Word tile ────────────────────────────────────────────────
+  function createTile(word) {
+    const div = document.createElement("div");
+    div.className = "word";
+    div.textContent = word;
+    onTap(div, () => {
+      if (div.classList.contains("in-zone")) {
+        wordBank.appendChild(div);
+        div.classList.remove("in-zone");
       } else {
-        // Wrong
-        card.classList.add("wrong");
-        feedback.style.color = "#dc2626";
-        feedback.textContent = msgWrong;
-
-        setTimeout(() => {
-          card.classList.remove("wrong");
-          feedback.textContent = "";
-        }, 800);
+        dropZone.appendChild(div);
+        div.classList.add("in-zone");
       }
+      feedback.textContent = "";
+      clearBtn.style.display = "none";
     });
+    return div;
+  }
 
-    numberContainer.appendChild(card);
+  // ── Portrait ─────────────────────────────────────────────────
+  function buildPortrait() {
+    const wrap = document.createElement("div");
+    wrap.className = "portrait-wrap";
+    const img = document.createElement("img");
+    img.alt = "";
+    const badge = document.createElement("div");
+    badge.className = "audio-badge";
+    badge.textContent = "🔊";
+    wrap.appendChild(img);
+    wrap.appendChild(badge);
+    // Click to play — user-initiated only, no auto-play
+    onTap(wrap, () => {
+      if (currentRound < rounds.length) playAudio(audioBase + rounds[currentRound].audio);
+    });
+    portraitArea.appendChild(wrap);
+    return { wrap, img };
+  }
+
+  // ── Load round ───────────────────────────────────────────────
+  function loadRound() {
+    if (currentRound >= rounds.length) { showComplete(); return; }
+
+    const round = rounds[currentRound];
+
+    if (!portrait) portrait = buildPortrait();
+    portrait.img.src = imgBase + round.img;
+    portrait.img.alt = round.key;
+
+    dropZone.innerHTML = "";
+    wordBank.innerHTML = "";
+    feedback.textContent = "";
+    clearBtn.style.display = "none";
+
+    roundCounter.textContent = COUNTER_TPL
+      .replace("{n}",     String(currentRound + 1))
+      .replace("{total}", String(rounds.length));
+
+    const words = shuffle(round.answer.split(" "));
+    words.forEach(w => wordBank.appendChild(createTile(w)));
+    // No auto-play — student taps the portrait to hear
+  }
+
+  // ── Check ────────────────────────────────────────────────────
+  checkBtn.addEventListener("click", () => {
+    const formed  = [...dropZone.children].map(el => el.textContent).join(" ");
+    const correct = rounds[currentRound].answer;
+
+    if (formed === correct) {
+      feedback.textContent = MSG_CORRECT;
+      feedback.style.color = "#22c55e";
+      clearBtn.style.display = "none";
+      currentRound++;
+      setTimeout(() => loadRound(), 850);
+    } else {
+      feedback.textContent = MSG_TRY_AGAIN;
+      feedback.style.color = "#ef4444";
+      clearBtn.style.display = "inline-block";
+    }
   });
 
-  // Next button
-  nextBtn.addEventListener("click", () => {
+  // ── Clear ────────────────────────────────────────────────────
+  clearBtn.addEventListener("click", () => {
+    [...dropZone.children].forEach(tile => {
+      tile.classList.remove("in-zone");
+      wordBank.appendChild(tile);
+    });
+    feedback.textContent = "";
+    clearBtn.style.display = "none";
+  });
+
+  // ── Complete ─────────────────────────────────────────────────
+  function showComplete() {
+    roundCounter.textContent = "";
+    feedback.textContent = MSG_EXCELLENT;
+    feedback.style.color = "#22c55e";
+    continueBtn.disabled = false;
+    continueBtn.classList.add("enabled");
+  }
+
+  continueBtn.addEventListener("click", () => {
+    if (continueBtn.disabled) return;
     stopAudio();
     window.location.href = nextPage;
   });
+
+  // ── Progress bar ─────────────────────────────────────────────
+  document.querySelectorAll(".progress-container .step").forEach(step => {
+    const target = step.dataset.page;
+    if (!target) return;
+    step.addEventListener("click", () => { stopAudio(); window.location.href = target; });
+  });
+
+  // ── Init ─────────────────────────────────────────────────────
+  loadRound();
 })();

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<title>Unidad 1 - Lección 4 - Parte 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script defer src="../../../../js/u1/u1_l4_p1.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+/* PAGE BACKGROUND */
+body { padding:20px; background:#eef2ff; }
+
+/* BACK BUTTON */
+.back-btn {
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 15px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+.back-btn:hover { background:#1e40af; }
+
+/* UNIT TITLE */
+.unit-title {
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#2563eb;
+}
+
+/* PROGRESS BAR */
+.progress-container {
+  display:flex;
+  justify-content:center;
+  margin:15px 0 25px 0;
+  gap:10px;
+}
+.step {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.step.active { background:#2563eb; color:white; }
+.step:hover { transform: scale(1.1); }
+
+/* MAIN CONTAINER */
+.exercise-box {
+  max-width:950px;
+  margin:0 auto;
+  background:white;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* GENERIC HELPERS */
+.center { text-align:center; }
+.small-img {
+  width:350px;
+  max-width:100%;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+/* DIALOGUE SECTION */
+#sceneSection { margin-bottom:25px; }
+
+.dialogue-box {
+  max-width:650px;
+  margin:20px auto 0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.dialogue-box p {
+  padding:16px 20px;
+  border-radius:18px;
+  font-size:18px;
+  line-height:1.6;
+  font-weight:700;
+}
+
+.dialogue-box p:nth-child(odd) {
+  background:#e0f2fe;
+  color:#111;
+  text-align:left;
+}
+.dialogue-box p:nth-child(even) {
+  background:#f3e8ff;
+  color:#111;
+  text-align:right;
+}
+
+/* BUTTON STYLE */
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+button:hover { background:#1e40af; }
+
+.hidden { display:none; }
+
+/* CLIENT SECTION LAYOUT */
+.flex {
+  display:flex;
+  gap:40px;
+  margin-top:30px;
+  align-items:flex-start;
+}
+.left, .right { flex:1; }
+
+.form-box, .options {
+  background:#f9fafb;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.06);
+}
+
+/* INSTRUCTION BOX */
+.instruction-box {
+  background:#e0e7ff;
+  color:#111827;
+  font-weight:600;
+  padding:15px 20px;
+  border-radius:12px;
+  text-align:center;
+  margin-bottom:20px;
+  font-size:16px;
+}
+
+/* DRAGGABLE OPTIONS replaced below */
+
+/* DRAGGABLE OPTIONS */
+.draggable {
+  padding: 12px 16px;
+  margin: 6px 0;
+  background: #e0f2fe;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  border: 2px solid #bfdbfe;
+  font-weight: 600;
+  color: #111827;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.draggable:active { transform: scale(0.97); }
+.draggable.selected {
+  background: #fef08a;
+  border-color: #ca8a04;
+  box-shadow: 0 0 0 3px #fde047;
+}
+
+/* Dropzone hint when option selected */
+.dropzone {
+  min-height: 42px;
+  border: 2px dashed #c7c7c7;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #f3f4f6;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dropzone.filled {
+  border: 2px solid #2563eb;
+  background: #e0f2fe;
+}
+
+/* NUMBER INPUTS */
+.number-input {
+  padding:10px;
+  width:100%;
+  max-width:200px;
+  border-radius:6px;
+  border:1px solid #cbd5e1;
+  font-size:16px; /* prevents iOS auto-zoom */
+  font-family:'Poppins', sans-serif;
+}
+
+/* FEEDBACK */
+.feedback {
+  margin-top:10px;
+  font-weight:600;
+  font-size:15px;
+}
+.feedback.correct { color:#16a34a; }
+.feedback.wrong { color:#dc2626; }
+
+/* NEXT BUTTON LINK STYLE */
+.next-btn {
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  font-size:15px;
+  text-decoration:none;
+}
+.next-btn:hover { background:#1e40af; }
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .exercise-box { padding:20px; }
+  .flex {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .left, .right { width: 100%; }
+  .unit-title { font-size: 22px; }
+  .number-input { max-width: 100%; }
+  .dialogue-box p { font-size: 15px; }
+  #audioControls button, #numbersSection button { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+<!-- BACK BUTTON -->
+<a href="../index.html" class="back-btn nav-link">← Volver a Unidad 1</a>
+
+<!-- UNIT TITLE -->
+<h1 class="unit-title">Lección 4 - Parte 1</h1>
+
+<!-- PROGRESS BAR -->
+<div class="progress-container">
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+</div>
+
+<div class="exercise-box">
+
+<audio id="mainAudio"></audio>
+
+<!-- PHASE 1: Reception Scene -->
+<div id="sceneSection" class="center">
+  <img src="../../../../assets/images/u1/u1.l3.p3.reception.webp" class="small-img" alt="Reception desk"><br>
+  <button id="playScene">▶ Reproducir diálogo</button>
+
+  <div class="dialogue-box">
+    <p><strong>Recepcionista:</strong> Good morning. What is your name?</p>
+    <p><strong>Gabriela:</strong> Good morning. My name is Gabriela Sanchez.</p>
+    <p><strong>Recepcionista:</strong> Please fill out this form.<br>
+    <em>(Por favor, complete este formulario.)</em></p>
+  </div>
+
+  <button id="continueBtn" class="hidden">Continuar</button>
+</div>
+
+<!-- CLIENT SECTION -->
+<div id="clientSection" class="hidden">
+
+  <div class="instruction-box" id="instructionBox">
+    Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.
+  </div>
+
+  <!-- FORM IMAGE -->
+  <div class="center" style="margin-bottom:20px;">
+    <img src="../../../../assets/images/u1/u1.l3.p3.form.jpg" alt="Hotel registration form" class="small-img">
+  </div>
+
+  <h2 id="clientTitle"></h2>
+
+  <div class="flex">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+
+      <div class="form-box">
+        <p><strong>Name:</strong></p>
+        <div class="dropzone" data-field="name"></div>
+
+        <p><strong>Nationality:</strong></p>
+        <div class="dropzone" data-field="nationality"></div>
+
+        <p><strong>Address:</strong></p>
+        <div class="dropzone" data-field="address"></div>
+
+        <p><strong>City:</strong></p>
+        <div class="dropzone" data-field="city"></div>
+
+        <p><strong>State:</strong></p>
+        <div class="dropzone" data-field="state"></div>
+      </div>
+
+      <button id="checkFormBtn">Comprobar formulario</button>
+
+      <div id="numbersSection" class="hidden">
+        <h3 style="margin-bottom:12px;">Números</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button id="playZip">▶ Reproducir código postal</button>
+          <input type="text" inputmode="numeric" pattern="[0-9]*" id="zipInput" class="number-input" placeholder="Código postal">
+          <button id="playId">▶ Reproducir número ID</button>
+          <input type="text" inputmode="numeric" pattern="[0-9]*" id="idInput" class="number-input" placeholder="Número ID">
+          <button id="checkNumbers">Comprobar</button>
+        </div>
+      </div>
+
+      <div id="finishSection" class="hidden">
+        <div class="feedback correct" id="finalFeedback">¡Excelente! Has completado la lección.</div>
+        <a href="p2.html" class="next-btn nav-link">Siguiente →</a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <div id="audioControls" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+        <button id="playName">▶ Nombre</button>
+        <button id="playNationality">▶ Nacionalidad</button>
+        <button id="playAddress">▶ Dirección</button>
+        <button id="playCityState">▶ Ciudad &amp; Estado</button>
+      </div>
+      <div class="options" id="optionsContainer"></div>
+    </div>
+
+  </div>
+
+  <!-- SINGLE feedback element (visible all the time in client section) -->
+  <div class="feedback" id="formFeedback"></div>
+
+  <!-- Language strings live in HTML (JS stays language-neutral) -->
+  <div id="i18n" class="hidden">
+    <span data-msg="fill_all">Por favor, completa todo el formulario antes de comprobar.</span>
+    <span data-msg="try_again">Intenta otra vez.</span>
+    <span data-msg="all_correct">¡Excelente! Todo correcto.</span>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,97 +1,151 @@
-// Unit 1 - Lesson 2 - Part 2
-// Language-neutral script 
-
+// ===============================
+// Unit 1 - Lesson 2 - P2
+// Listen & Match
+// ===============================
 (() => {
-  const container = document.getElementById("numberContainer");
-  const nextBtn = document.getElementById("nextBtn");
-  const steps = document.querySelectorAll(".step");
+  function textFrom(id, fb) { const e = document.getElementById(id); return e ? e.textContent.trim() : fb; }
 
-  if (!container || !nextBtn) return;
+  const MSG_CORRECT  = textFrom("msg-correct",  "✅ ¡Correcto!");
+  const MSG_WRONG    = textFrom("msg-wrong",    "❌ Intenta de nuevo");
+  const MSG_DONE     = textFrom("msg-well-done","🎉 ¡Muy bien!");
+  const COUNTER_TPL  = textFrom("counter-tpl",  "Ronda {n} de {total}");
 
-  const audioBase = container.dataset.audioBase || "";
-  const nextPage = container.dataset.next || "p3.html";
+  const data       = JSON.parse(document.getElementById("exercise-data").textContent);
+  const imgBase    = data.imgBase    || "";
+  const audioBase  = data.audioBase  || "";
+  const characters = data.characters || [];
+  const rounds     = data.rounds     || [];
+  const nextPage   = data.nextPage   || "p3.html";
 
-  // Data (language neutral). Audio paths use base from HTML.
-  const lessonData = [
-    { num: "1", word: "ONE",   audio: "one.mp3",   color: "#f87171" },
-    { num: "2", word: "TWO",   audio: "two.mp3",   color: "#fbbf24" },
-    { num: "3", word: "THREE", audio: "three.mp3", color: "#34d399" },
-    { num: "4", word: "FOUR",  audio: "four.mp3",  color: "#60a5fa" },
-    { num: "5", word: "FIVE",  audio: "five.mp3",  color: "#a78bfa" },
-    { num: "6", word: "SIX",   audio: "six.mp3",   color: "#f472b6" },
-    { num: "7", word: "SEVEN", audio: "seven.mp3", color: "#fb923c" },
-    { num: "8", word: "EIGHT", audio: "eight.mp3", color: "#22d3ee" },
-    { num: "9", word: "NINE",  audio: "nine.mp3",  color: "#facc15" },
-    { num: "0", word: "ZERO",  audio: "zero.mp3",  color: "#94a3b8" }
-  ];
+  const playBtn      = document.getElementById("playBtn");
+  const charGrid     = document.getElementById("charGrid");
+  const feedbackEl   = document.getElementById("feedback");
+  const roundCounter = document.getElementById("roundCounter");
+  const continueBtn  = document.getElementById("continueBtn");
 
-  const played = Object.create(null);
-
-  // ✅ prevent overlapping audio
+  let currentRound = 0;
   let currentAudio = null;
+  let answered     = false;
 
-  function stopCurrentAudio() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      currentAudio = null;
+  // ── Build character cards ────────────────────────────────────
+  const cardMap = {};
+  characters.forEach(ch => {
+    const card = document.createElement("div");
+    card.className = "char-card";
+    card.dataset.key = ch.key;
+
+    const img = document.createElement("img");
+    img.src = imgBase + ch.img;
+    img.alt = ch.name;
+
+    const name = document.createElement("div");
+    name.className = "char-name";
+    name.textContent = ch.name;
+
+    card.appendChild(img);
+    card.appendChild(name);
+    charGrid.appendChild(card);
+    cardMap[ch.key] = card;
+
+    card.addEventListener("click", () => handlePick(ch.key));
+  });
+
+  // ── Audio helpers ────────────────────────────────────────────
+  function stopAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  }
+
+  function playAudio(src, onEnd) {
+    stopAudio();
+    const a = new Audio(src);
+    currentAudio = a;
+    playBtn.classList.add("playing");
+    a.play();
+    a.onended = () => {
+      playBtn.classList.remove("playing");
+      if (currentAudio === a) currentAudio = null;
+      if (onEnd) onEnd();
+    };
+  }
+
+  window.addEventListener("beforeunload", stopAudio);
+
+  // ── Round logic ──────────────────────────────────────────────
+  function loadRound() {
+    answered = false;
+    feedbackEl.textContent = "";
+    feedbackEl.style.color = "";
+
+    Object.values(cardMap).forEach(c => {
+      c.classList.remove("correct","wrong","disabled");
+    });
+
+    if (currentRound >= rounds.length) {
+      showComplete(); return;
+    }
+
+    roundCounter.textContent = COUNTER_TPL
+      .replace("{n}",     String(currentRound + 1))
+      .replace("{total}", String(rounds.length));
+
+    // No auto-play — student taps the 🔊 button to hear
+  }
+
+  function handlePick(key) {
+    if (answered) return;
+    const correct = rounds[currentRound].answer;
+
+    if (key === correct) {
+      answered = true;
+      cardMap[key].classList.add("correct");
+      // disable all others
+      Object.entries(cardMap).forEach(([k, c]) => { if (k !== key) c.classList.add("disabled"); });
+      feedbackEl.textContent = MSG_CORRECT;
+      feedbackEl.style.color = "#22c55e";
+
+      currentRound++;
+      setTimeout(() => loadRound(), 900);
+    } else {
+      cardMap[key].classList.add("wrong");
+      feedbackEl.textContent = MSG_WRONG;
+      feedbackEl.style.color = "#ef4444";
+      setTimeout(() => {
+        cardMap[key].classList.remove("wrong");
+        feedbackEl.textContent = "";
+      }, 700);
     }
   }
 
-  window.addEventListener("beforeunload", stopCurrentAudio);
-
-  // Progress bar navigation
-  steps.forEach(step => {
-    step.addEventListener("click", () => {
-      const page = step.dataset.page;
-      if (!page) return;
-      stopCurrentAudio();
-      window.location.href = page;
-    });
-  });
-
-  // Generate number boxes
-  lessonData.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "number-card";
-    card.style.backgroundColor = item.color;
-
-    card.innerHTML = `
-      <div class="number-digit">${item.num}</div>
-      <div class="number-word">${item.word}</div>
-    `;
-
-    card.addEventListener("click", () => {
-      // stop existing audio (repeat click restarts cleanly)
-      stopCurrentAudio();
-
-      const audio = new Audio(audioBase + item.audio);
-      currentAudio = audio;
-
-      audio.play();
-
-      // mark as played visually
-      card.classList.add("played");
-      played[item.num] = true;
-
-      checkAllPlayed();
-
-      audio.onended = () => {
-        if (currentAudio === audio) currentAudio = null;
-      };
-    });
-
-    container.appendChild(card);
-  });
-
-  function checkAllPlayed() {
-    const allPlayed = lessonData.every(item => played[item.num]);
-    if (allPlayed) nextBtn.style.display = "inline-block";
+  function showComplete() {
+    roundCounter.textContent = "";
+    feedbackEl.textContent = MSG_DONE;
+    feedbackEl.style.color = "#22c55e";
+    playBtn.disabled = true;
+    continueBtn.disabled = false;
+    continueBtn.classList.add("enabled");
   }
 
-  // Next button
-  nextBtn.addEventListener("click", () => {
-    stopCurrentAudio();
+  // ── Play button (replay) ─────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (currentRound < rounds.length) {
+      playAudio(audioBase + rounds[currentRound].audio);
+    }
+  });
+
+  // ── Continue ─────────────────────────────────────────────────
+  continueBtn.addEventListener("click", () => {
+    if (continueBtn.disabled) return;
+    stopAudio();
     window.location.href = nextPage;
   });
+
+  // ── Progress bar ─────────────────────────────────────────────
+  document.querySelectorAll(".progress-container .step").forEach(step => {
+    const target = step.dataset.page;
+    if (!target) return;
+    step.addEventListener("click", () => { stopAudio(); window.location.href = target; });
+  });
+
+  // ── Init ─────────────────────────────────────────────────────
+  loadRound();
 })();

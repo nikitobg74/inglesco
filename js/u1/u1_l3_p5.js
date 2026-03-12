@@ -1,5 +1,5 @@
-// Unit 1 - Lesson 3 - Part 4
-// Language-neutral script (no Spanish here)
+// Unit 1 - Lesson 3 - Part 5
+// Language-neutral script (no Spanish text here)
 
 (() => {
   const audioColumn = document.getElementById("audioColumn");
@@ -10,17 +10,17 @@
 
   if (!audioColumn || !numberContainer || !feedback || !nextBtn) return;
 
-  // Read config from HTML
+  // Config from HTML
   const audioBase = audioColumn.dataset.audioBase || "";
-  const nextPage = audioColumn.dataset.next || "p4.html";
+  const nextPage = audioColumn.dataset.next || "final.html";
 
-  // Read UI strings from HTML
+  // UI strings from HTML
   const txtListen = (document.getElementById("txt-listen")?.textContent || "🔊");
   const msgWrong = (document.getElementById("msg-wrong")?.textContent || "✖");
   const msgGood1 = (document.getElementById("msg-good-1")?.textContent || "✓");
   const msgGood2 = (document.getElementById("msg-good-2")?.textContent || "✓");
 
-  // Data (neutral). Audio files resolved via base path.
+  // Data (neutral), audio files resolved via base path
   const lessonData = [
     { num: "1", word: "ONE",   audio: "one.mp3",   color: "#f87171" },
     { num: "2", word: "TWO",   audio: "two.mp3",   color: "#fbbf24" },
@@ -32,12 +32,15 @@
     { num: "8", word: "EIGHT", audio: "eight.mp3", color: "#22d3ee" },
     { num: "9", word: "NINE",  audio: "nine.mp3",  color: "#facc15" },
     { num: "0", word: "ZERO",  audio: "zero.mp3",  color: "#94a3b8" },
-    { num: "10", word: "TEN",   audio: "ten.mp3",   color: "#6ee7b7" }
+    { num: "10", word: "TEN",  audio: "ten.mp3",   color: "#6ee7b7" }
   ];
 
+  // Shuffle audio order AND word order
+  const shuffledAudio = [...lessonData].sort(() => Math.random() - 0.5);
+  const shuffledWords = [...lessonData].sort(() => Math.random() - 0.5);
+
   // State
-  const shuffled = [...lessonData].sort(() => Math.random() - 0.5);
-  let currentTarget = null;      // {num, ...} for currently selected audio box
+  let currentTarget = null;
   let answeredCount = 0;
 
   // ✅ audio overlap fix
@@ -62,7 +65,7 @@
   });
 
   // Generate audio boxes
-  shuffled.forEach(item => {
+  shuffledAudio.forEach(item => {
     const box = document.createElement("div");
     box.className = "audio-box";
     box.textContent = txtListen;
@@ -73,14 +76,14 @@
     box.addEventListener("click", () => {
       if (box.classList.contains("answered")) return;
 
-      // Active UI
+      // UI active state
       document.querySelectorAll(".audio-box").forEach(b => b.classList.remove("active"));
       box.classList.add("active");
 
       // Set current target
       currentTarget = item;
 
-      // Play (restart clean)
+      // Play audio (restart clean)
       stopAudio();
       const a = new Audio(audioBase + item.audio);
       currentAudioEl = a;
@@ -93,17 +96,14 @@
     audioColumn.appendChild(box);
   });
 
-  // Generate number cards
-  lessonData.forEach(item => {
+  // Generate word cards (randomized)
+  shuffledWords.forEach(item => {
     const card = document.createElement("div");
     card.className = "number-card";
     card.style.backgroundColor = item.color;
     card.dataset.num = item.num;
 
-    card.innerHTML = `
-      <div class="number-digit">${item.num}</div>
-      <div class="number-word">${item.word}</div>
-    `;
+    card.innerHTML = `<div class="number-word">${item.word}</div>`;
 
     card.addEventListener("click", () => {
       if (!currentTarget) return;

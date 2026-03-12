@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglesco</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%; height: 100%;
+  }
+
+  body {
+    background: #f5f2ee;
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── BACKGROUND ── */
+  .room {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .room-wall {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, #ede8e0 0%, #f5f2ee 100%);
+  }
+
+  .room::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(to top, rgba(180,160,130,0.1) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .amb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0;
+    animation: ambIn 2.5s ease forwards;
+  }
+
+  .amb-1 {
+    width: 550px; height: 380px;
+    background: radial-gradient(circle, rgba(232,80,42,0.1), transparent);
+    top: -60px; left: -80px;
+    animation-delay: 0.2s;
+  }
+  .amb-2 {
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(90,58,232,0.08), transparent);
+    bottom: -80px; right: -60px;
+    animation-delay: 0.5s;
+  }
+  .amb-3 {
+    width: 400px; height: 300px;
+    background: radial-gradient(circle, rgba(42,144,232,0.07), transparent);
+    top: 25%; right: 5%;
+    animation-delay: 0.8s;
+  }
+
+  @keyframes ambIn { to { opacity: 1; } }
+
+  /* ── NEW WORLD (behind door) — warm golden glow ── */
+  .new-world {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* matches door size, scales with CSS var */
+    width: var(--door-w, 280px);
+    height: var(--door-h, 400px);
+    border-radius: 6px 6px 0 0;
+    background:
+      radial-gradient(ellipse 90% 50% at 50% 100%, rgba(232,100,42,0.7)  0%, transparent 60%),
+      radial-gradient(ellipse 70% 40% at 50% 80%,  rgba(240,180,30,0.55) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 60% at 50% 50%,  rgba(42,120,232,0.2)  0%, transparent 60%),
+      radial-gradient(ellipse 80% 80% at 50% 20%,  rgba(255,220,160,0.25) 0%, transparent 60%),
+      linear-gradient(to bottom, #e8e0f8 0%, #c8d4f8 25%, #f8e8c8 65%, #f8c890 85%, #f0a060 100%);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .new-world::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(to top,
+      rgba(240,120,30,0.6) 0%,
+      rgba(240,180,30,0.35) 30%,
+      transparent 100%
+    );
+  }
+
+  /* Central light beam */
+  .new-world::after {
+    content: '';
+    position: absolute;
+    bottom: 15%; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 70%;
+    background: radial-gradient(ellipse at 50% 100%, rgba(255,220,120,0.45), transparent 70%);
+    filter: blur(8px);
+  }
+
+  .new-world.visible {
+    opacity: 1;
+  }
+
+  /* ── DOOR SCENE ── */
+  .scene {
+    position: relative;
+    width: var(--door-w, 280px);
+    height: var(--door-h, 400px);
+    z-index: 10;
+    opacity: 0;
+    animation: sceneIn 1s 0.9s ease forwards;
+    cursor: pointer;
+  }
+
+  @keyframes sceneIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── DOOR FRAME SVG ── */
+  .door-frame-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  /* ── DOOR PANEL ── */
+  .door-panel {
+    position: absolute;
+    top: 4px; left: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 5px);
+    border-radius: 4px 4px 0 0;
+    /* Bold, warm wood-like tone */
+    background: linear-gradient(150deg,
+      #d9cfc3 0%,
+      #c8bdb0 30%,
+      #b8aa9a 70%,
+      #a89888 100%
+    );
+    transform-origin: left center;
+    transform: perspective(900px) rotateY(0deg);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 5;
+    will-change: transform;
+    box-shadow:
+      inset -4px 0 14px rgba(0,0,0,0.12),
+      inset  0  3px 8px  rgba(255,255,255,0.45),
+      3px 6px 24px rgba(0,0,0,0.15);
+  }
+
+  /* Top raised panel */
+  .door-panel::before {
+    content: '';
+    position: absolute;
+    top: 8%; left: 8%; right: 8%; bottom: 52%;
+    border: 2.5px solid rgba(255,255,255,0.55);
+    border-bottom-color: rgba(0,0,0,0.08);
+    border-right-color:  rgba(0,0,0,0.06);
+    border-radius: 3px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.12), rgba(0,0,0,0.04));
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  /* Bottom raised panel */
+  .door-panel::after {
+    content: '';
+    position: absolute;
+    top: 52%; left: 8%; right: 8%; bottom: 8%;
+    border: 2.5px solid rgba(255,255,255,0.55);
+    border-bottom-color: rgba(0,0,0,0.08);
+    border-right-color:  rgba(0,0,0,0.06);
+    border-radius: 3px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.12), rgba(0,0,0,0.04));
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  /* ── DOOR HANDLE — horizontal lever ── */
+  .knob-wrap {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+    width: 52px;
+    height: 52px;
+  }
+
+  .knob-wrap svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(1px 3px 4px rgba(0,0,0,0.3));
+    transition: filter 0.3s;
+  }
+
+  .scene.open .knob-wrap svg {
+    filter: drop-shadow(1px 3px 10px rgba(210,160,30,0.6));
+  }
+
+  /* ── FLOOR LINE ── */
+  .floor-line {
+    position: absolute;
+    bottom: 0; left: -40px; right: -40px;
+    height: 3px;
+    z-index: 6;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      #e8402a 12%,
+      #e87a2a 25%,
+      #e8c12a 40%,
+      #3abf6a 55%,
+      #2a90e8 70%,
+      #5a3ae8 85%,
+      transparent 100%
+    );
+    opacity: 0.7;
+  }
+
+  /* ── LIGHT LEAK ── */
+  .door-leak {
+    position: absolute;
+    bottom: 3px; left: 4px; right: 4px;
+    height: 4px;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(240,160,50,0.7),
+      rgba(255,220,80,1),
+      rgba(240,160,50,0.7),
+      transparent
+    );
+    filter: blur(3px);
+    z-index: 6;
+    animation: leakPulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes leakPulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── FRAME GLOW ── */
+  .frame-glow {
+    position: absolute;
+    inset: -5px;
+    border-radius: 14px 14px 0 0;
+    pointer-events: none;
+    z-index: 3;
+    animation: frameBreath 3.5s ease-in-out infinite;
+  }
+
+  @keyframes frameBreath {
+    0%, 100% {
+      box-shadow: 0 0 18px rgba(232,80,42,0.15),  0 0 50px rgba(90,58,232,0.08);
+    }
+    50% {
+      box-shadow: 0 0 34px rgba(232,80,42,0.32),  0 0 90px rgba(90,58,232,0.18);
+    }
+  }
+
+  /* ── OPEN STATE ── */
+  .scene.open .door-panel {
+    transform: perspective(900px) rotateY(-68deg);
+    box-shadow:
+      inset -4px 0 14px rgba(0,0,0,0.08),
+      inset  0  3px 8px  rgba(255,255,255,0.4),
+      6px 8px 32px rgba(0,0,0,0.2);
+  }
+
+  /* ── LOGO ── */
+  .logo {
+    position: absolute;
+    top: clamp(20px, 5vw, 40px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeDown 0.9s 0.3s ease forwards;
+    z-index: 20;
+    white-space: nowrap;
+  }
+
+  .logo-word {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(44px, 10vw, 72px);
+    letter-spacing: -2px;
+    /* Warmer spectrum — heavy on red/orange/yellow, blue/purple — lighter green */
+    background: linear-gradient(100deg,
+      #e82010 0%,
+      #e85020 18%,
+      #e8a020 34%,
+      #e8d030 48%,
+      #2a90e8 64%,
+      #4a30d8 80%,
+      #8030d0 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: flow 6s linear infinite;
+  }
+
+  @keyframes flow {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ── HINT ── */
+  .hint {
+    position: absolute;
+    bottom: clamp(24px, 5vh, 50px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(11px, 2.5vw, 13px);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(80,55,35,0.38);
+    white-space: nowrap;
+    z-index: 20;
+    opacity: 0;
+    animation: hintIn 1s 2.4s ease forwards;
+    transition: opacity 0.4s;
+  }
+
+  @keyframes hintIn { to { opacity: 1; } }
+  .hint.hidden { opacity: 0 !important; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-14px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 480px) {
+    :root {
+      --door-w: 220px;
+      --door-h: 310px;
+    }
+  }
+
+  @media (min-width: 481px) {
+    :root {
+      --door-w: 280px;
+      --door-h: 400px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="room">
+  <div class="room-wall"></div>
+  <div class="amb amb-1"></div>
+  <div class="amb amb-2"></div>
+  <div class="amb amb-3"></div>
+</div>
+
+<!-- Warm world behind the door -->
+<div class="new-world" id="newWorld"></div>
+
+<!-- Logo -->
+<div class="logo">
+  <div class="logo-word">inglesco</div>
+  <svg width="28" height="34" viewBox="0 0 52 64" fill="none" style="opacity:0.82;flex-shrink:0;">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="52" y2="64" gradientUnits="userSpaceOnUse">
+        <stop offset="0%"   stop-color="#e82010"/>
+        <stop offset="40%"  stop-color="#e8a020"/>
+        <stop offset="70%"  stop-color="#2a90e8"/>
+        <stop offset="100%" stop-color="#7030c8"/>
+      </linearGradient>
+    </defs>
+    <rect x="1.5" y="1.5" width="49" height="61" rx="3" fill="none" stroke="url(#lg)" stroke-width="3.5"/>
+    <rect x="4"   y="4"   width="44" height="56" rx="2" fill="rgba(245,242,238,0.92)" stroke="url(#lg)" stroke-width="2"/>
+    <circle cx="38" cy="33" r="4.5" fill="url(#lg)"/>
+    <line x1="0" y1="63" x2="52" y2="63" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<!-- Door -->
+<div class="scene" id="scene">
+  <div class="frame-glow"></div>
+
+  <svg class="door-frame-svg" viewBox="0 0 280 400" preserveAspectRatio="none" fill="none">
+    <defs>
+      <linearGradient id="frameGrad" x1="0" y1="0" x2="280" y2="400" gradientUnits="userSpaceOnUse">
+        <stop offset="0%"   stop-color="#e82010"/>
+        <stop offset="18%"  stop-color="#e85020"/>
+        <stop offset="35%"  stop-color="#e8a020"/>
+        <stop offset="50%"  stop-color="#e8d030"/>
+        <stop offset="68%"  stop-color="#2a90e8"/>
+        <stop offset="85%"  stop-color="#4a30d8"/>
+        <stop offset="100%" stop-color="#8030d0"/>
+      </linearGradient>
+    </defs>
+    <!-- Thick bold frame — 6px stroke -->
+    <rect x="3" y="3" width="274" height="394" rx="7"
+          fill="none" stroke="url(#frameGrad)" stroke-width="6"/>
+  </svg>
+
+  <div class="door-panel" id="doorPanel">
+    <div class="knob-wrap">
+      <!-- Classic horizontal lever door handle -->
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#f0d060"/>
+            <stop offset="35%"  stop-color="#c89030"/>
+            <stop offset="65%"  stop-color="#e0b040"/>
+            <stop offset="100%" stop-color="#a07020"/>
+          </linearGradient>
+          <linearGradient id="brassH" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#c89030"/>
+            <stop offset="40%"  stop-color="#f0d060"/>
+            <stop offset="100%" stop-color="#a07020"/>
+          </linearGradient>
+        </defs>
+        <!-- Escutcheon plate (tall, narrow, on the right) -->
+        <rect x="36" y="8" width="10" height="36" rx="5" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
+        <!-- Rose/collar where lever meets plate -->
+        <circle cx="41" cy="26" r="6" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
+        <!-- Lever arm — horizontal, pointing left -->
+        <rect x="8" y="23" width="33" height="6" rx="3" fill="url(#brassH)" stroke="#9a7010" stroke-width="0.8"/>
+        <!-- Lever tip — slight rounded end -->
+        <ellipse cx="10" cy="26" rx="5" ry="4" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
+        <!-- Highlight on lever -->
+        <rect x="10" y="24" width="28" height="2" rx="1" fill="rgba(255,248,200,0.4)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="door-leak"></div>
+  <div class="floor-line"></div>
+</div>
+
+<div class="hint" id="hint">— click to enter —</div>
+
+<script>
+  const scene    = document.getElementById('scene');
+  const newWorld = document.getElementById('newWorld');
+  const hint     = document.getElementById('hint');
+  let isOpen     = false;
+  let navigating = false;
+
+  // Hover — preview open
+  scene.addEventListener('mouseenter', () => { if (!navigating) openDoor(); });
+  scene.addEventListener('mouseleave', () => { if (!navigating) closeDoor(); });
+
+  // Click — open then navigate
+  scene.addEventListener('click', () => {
+    if (navigating) return;
+    navigating = true;
+    openDoor();
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 750);
+  });
+
+  // Touch support (mobile tap)
+  scene.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (navigating) return;
+    navigating = true;
+    openDoor();
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 750);
+  }, { passive: false });
+
+  function openDoor() {
+    if (isOpen) return;
+    isOpen = true;
+    scene.classList.add('open');
+    newWorld.classList.add('visible');
+    hint.classList.add('hidden');
+  }
+
+  function closeDoor() {
+    if (navigating) return;
+    isOpen = false;
+    scene.classList.remove('open');
+    newWorld.classList.remove('visible');
+    hint.classList.remove('hidden');
+  }
+</script>
+</body>
+</html>

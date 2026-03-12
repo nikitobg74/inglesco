@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 1 - 5</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#eef2ff; }
+
+    .back-btn {
+      display:inline-block; margin-bottom:20px; padding:8px 15px;
+      background:#2563eb; color:white; border-radius:10px;
+      text-decoration:none; font-weight:600;
+    }
+    .back-btn:hover { background:#1e40af; }
+
+    h1 { text-align:center; margin-bottom:15px; color:#2563eb; }
+
+    .progress-container { display:flex; justify-content:center; margin-bottom:30px; }
+    .step {
+      width:40px; height:40px; border-radius:50%;
+      background:#d1d5db; display:flex; align-items:center; justify-content:center;
+      font-weight:600; margin:0 8px; color:black; cursor:pointer;
+      transition: all 0.3s ease;
+    }
+    .step.active { background:#2563eb; color:white; }
+    .step:hover { transform: scale(1.1); }
+
+    .instructions {
+      text-align:center; margin-bottom:25px;
+      font-size:15px; color:#374151;
+    }
+
+    /* Card */
+    .card {
+      max-width:520px; margin:0 auto 30px;
+      background:white; border-radius:16px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      overflow:hidden;
+      display:none;
+    }
+    .card.active { display:block; }
+
+    .card-img-wrap {
+      position:relative; cursor:pointer;
+      background:#1e40af;
+    }
+    .card-img-wrap img {
+      width:100%; max-height:260px;
+      object-fit:cover; display:block;
+      transition: opacity 0.2s;
+    }
+    .card-img-wrap:hover img { opacity:0.88; }
+
+    .audio-overlay {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      background:rgba(37,99,235,0.82);
+      color:white; border-radius:50%;
+      width:60px; height:60px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:26px;
+      pointer-events:none;
+      transition: background 0.2s;
+    }
+    .card-img-wrap:hover .audio-overlay { background:rgba(30,64,175,0.95); }
+
+    .card-body { padding:20px 22px 24px; }
+
+    .phrase {
+      font-size:20px; font-weight:600;
+      color:#1e293b; text-align:center;
+      margin-bottom:16px; line-height:1.5;
+    }
+
+    .input-row {
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .blank-input {
+      padding:10px 14px;
+      font-size:16px; font-family:'Poppins', sans-serif;
+      border:2px solid #cbd5e1; border-radius:10px;
+      width:160px; text-align:center;
+      outline:none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .blank-input:focus { border-color:#2563eb; }
+    .blank-input.correct  { border-color:#22c55e; background:#f0fdf4; color:#15803d; }
+    .blank-input.wrong    { border-color:#ef4444; background:#fef2f2; color:#b91c1c;
+                            animation: shake 0.35s ease; }
+
+    @keyframes shake {
+      0%,100% { transform:translateX(0); }
+      20%      { transform:translateX(-6px); }
+      40%      { transform:translateX(6px); }
+      60%      { transform:translateX(-4px); }
+      80%      { transform:translateX(4px); }
+    }
+
+    .check-btn {
+      padding:10px 26px; font-size:15px; font-weight:700;
+      background:#2563eb; color:white; border:none; border-radius:10px;
+      cursor:pointer; transition: background 0.2s;
+    }
+    .check-btn:hover { background:#1e40af; }
+    .check-btn:disabled { background:#93c5fd; cursor:default; }
+
+    .feedback {
+      text-align:center; font-weight:600; font-size:15px;
+      min-height:22px; margin-bottom:8px;
+    }
+
+    .hint {
+      text-align:center; font-size:13px; color:#7c3aed;
+      font-weight:600; min-height:20px; margin-bottom:4px;
+    }
+
+    .attempts-dots {
+      display:flex; justify-content:center; gap:6px; margin-bottom:12px;
+    }
+    .dot {
+      width:10px; height:10px; border-radius:50%;
+      background:#d1d5db; transition: background 0.3s;
+    }
+    .dot.used { background:#ef4444; }
+
+    /* Nav */
+    .nav-row {
+      max-width:520px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px;
+    }
+
+    .nav-btn {
+      padding:11px 24px; font-size:15px; font-weight:700;
+      border:none; border-radius:10px; cursor:pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn.prev { background:#e2e8f0; color:#374151; }
+    .nav-btn.prev:hover { background:#cbd5e1; }
+    .nav-btn.next { background:#22c55e; color:white; }
+    .nav-btn.next:hover { background:#16a34a; }
+    .nav-btn:disabled { opacity:0.4; cursor:default; }
+
+    .counter {
+      font-size:14px; font-weight:600; color:#2563eb;
+    }
+
+    /* i18n hidden */
+    .i18n { display:none; }
+
+    @media (max-width:480px) {
+      .phrase { font-size:17px; }
+      .blank-input { width:130px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+  <h1>Lección 1</h1>
+
+  <div class="progress-container">
+    <div class="step" data-page="p1.html">1</div>
+    <div class="step" data-page="p2.html">2</div>
+    <div class="step" data-page="p3.html">3</div>
+    <div class="step" data-page="p4.html">4</div>
+    <div class="step active" data-page="p5.html">5</div>
+  </div>
+
+  <p class="instructions">
+    Haz clic en la imagen para escuchar. Escribe la palabra que falta.
+  </p>
+
+  <!-- Cards injected by JS -->
+  <div id="cards-container"></div>
+
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prevBtn" disabled>← Anterior</button>
+    <span class="counter" id="counter"></span>
+    <button class="nav-btn next" id="nextBtn">Siguiente →</button>
+  </div>
+
+  <!-- i18n strings live in HTML -->
+  <div class="i18n">
+    <span id="msg-correct">✅ ¡Correcto!</span>
+    <span id="msg-wrong">❌ Intenta de nuevo</span>
+    <span id="msg-hint-prefix">💡 Pista:</span>
+    <span id="msg-next-page">p4.html</span>
+  </div>
+
+  <!--
+    Exercise data — edit only this section to change exercises.
+    Each item:
+      image : path to character image
+      audio : path to character audio
+      before: text before the blank  (use "" if blank is first)
+      answer: the missing word (lowercase, used for comparison)
+      after : text after the blank   (use "" if blank is last)
+  -->
+  <script id="exercise-data" type="application/json">
+  [
+    {
+      "image": "../../../../assets/images/u1/ana.png",
+      "audio": "../../../../assets/audio/u1/ana.mp3",
+      "before": "",
+      "answer": "Hello",
+      "after": ", my name is Ana."
+    },
+    {
+      "image": "../../../../assets/images/u1/pedro.png",
+      "audio": "../../../../assets/audio/u1/pedro.mp3",
+      "before": "Hello, my",
+      "answer": "name",
+      "after": "is Pedro."
+    },
+    {
+      "image": "../../../../assets/images/u1/george.png",
+      "audio": "../../../../assets/audio/u1/george.mp3",
+      "before": "Hello, my name",
+      "answer": "is",
+      "after": "George."
+    },
+    {
+      "image": "../../../../assets/images/u1/julie.png",
+      "audio": "../../../../assets/audio/u1/julie.mp3",
+      "before": "Hello,",
+      "answer": "my name",
+      "after": "is Julie."
+    }
+  ]
+  </script>
+
+  <script src="../../../../js/u1/p5.js"></script>
+</body>
+</html>

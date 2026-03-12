@@ -7,15 +7,13 @@
 <title>Unidad 1 - Lección 3 - Parte 3</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Use the external JS only -->
 <script defer src="../../../../js/u1/u1_l3_p3.js"></script>
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-
-/* PAGE BACKGROUND */
 body { padding:20px; background:#eef2ff; }
 
-/* BACK BUTTON */
 .back-btn {
   display:inline-block;
   margin-bottom:20px;
@@ -28,7 +26,6 @@ body { padding:20px; background:#eef2ff; }
 }
 .back-btn:hover { background:#1e40af; }
 
-/* UNIT TITLE */
 .unit-title {
   text-align:center;
   font-size:28px;
@@ -37,7 +34,6 @@ body { padding:20px; background:#eef2ff; }
   color:#2563eb;
 }
 
-/* PROGRESS BAR */
 .progress-container {
   display:flex;
   justify-content:center;
@@ -59,7 +55,6 @@ body { padding:20px; background:#eef2ff; }
 .step.active { background:#2563eb; color:white; }
 .step:hover { transform: scale(1.1); }
 
-/* MAIN CONTAINER */
 .exercise-box {
   max-width:950px;
   margin:0 auto;
@@ -69,286 +64,204 @@ body { padding:20px; background:#eef2ff; }
   box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* GENERIC HELPERS */
-.center { text-align:center; }
-.small-img {
-  width:350px;
-  max-width:100%;
-  border-radius:10px;
-  margin-bottom:15px;
-}
-
-/* DIALOGUE SECTION */
-#sceneSection { margin-bottom:25px; }
-
-.dialogue-box {
-  max-width:650px;
-  margin:20px auto 0 auto;
+.top-characters {
   display:flex;
-  flex-direction:column;
-  gap:10px;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+.character { width:220px; text-align:center; }
+.character img { width:100%; border-radius:16px; border:4px solid #2563eb; }
+
+.play-btn {
+  padding:8px 18px;
+  border:none;
+  border-radius:12px;
+  background:#7c3aed;
+  color:white;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  margin-right:10px;
+}
+.play-btn:hover { background:#6d28d9; }
+
+.check-btn {
+  padding:8px 18px;
+  border:none;
+  border-radius:12px;
+  background:#16a34a;
+  color:white;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  margin-left:10px;
+}
+.feedback { font-weight:600; margin-left:10px; }
+
+.dialogue-container { display:flex; flex-direction:column; gap:24px; }
+.dialogue-box { padding:12px 16px; border-radius:16px; font-size:16px; line-height:1.5; min-width:50px; margin-top:6px; }
+.ana-box { background:#fce7f3; color:#111; text-align:left; }
+.george-box { background:#e0f2fe; color:#111; text-align:right; }
+.locked { opacity:0.5; pointer-events:none; }
+
+.word {
+  display: inline-block;
+  margin: 6px 8px;
+  padding: 14px 20px;
+  background: #f3f4f6;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 17px;
+  font-weight: 600;
+  border: 2px solid #d1d5db;
+  transition: background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.word:active { transform: scale(0.95); }
+.ana-box .word { background: #fde2f0; border-color: #f9a8d4; }
+.george-box .word { background: #d0f0ff; border-color: #7dd3fc; }
+
+.hint-highlight {
+  background: #fef08a !important;
+  border-color: #eab308 !important;
+  transform: scale(1.08);
+  transition: all 0.2s;
 }
 
-.dialogue-box p {
-  padding:16px 20px;
-  border-radius:18px;
-  font-size:18px;
-  line-height:1.6;
-  font-weight:700;
+.answer-placeholder {
+  color: #9ca3af;
+  font-size: 14px;
+  font-style: italic;
+  padding: 8px 12px;
+  display: inline-block;
 }
 
-.dialogue-box p:nth-child(odd) {
-  background:#e0f2fe;
-  color:#111;
-  text-align:left;
-}
-.dialogue-box p:nth-child(even) {
-  background:#f3e8ff;
-  color:#111;
-  text-align:right;
+/* Row layout with avatar */
+.dialogue-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
 }
 
-/* BUTTON STYLE */
-button {
-  padding:10px 20px;
+.row-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2563eb;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.content-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bank-box {
+  min-height: 52px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.answer-box {
+  min-height: 52px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 2px dashed #cbd5e1;
+}
+
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.instruction-banner {
+  background: #eff6ff;
+  border-left: 5px solid #2563eb;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+/* Prevent iOS auto-links */
+a[href^="tel"], a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
+  pointer-events: none !important;
+}
+
+.controls {
+  text-align:center;
+  margin-top:35px;
+}
+.next-btn {
+  padding:12px 25px;
   border:none;
   border-radius:12px;
   background:#2563eb;
   color:white;
   font-weight:600;
-  font-size:14px;
+  font-size:15px;
   cursor:pointer;
-  transition:background 0.3s;
-}
-button:hover { background:#1e40af; }
-
-.hidden { display:none; }
-
-/* CLIENT SECTION LAYOUT */
-.flex {
-  display:flex;
-  gap:40px;
-  margin-top:30px;
-  align-items:flex-start;
-}
-.left, .right { flex:1; }
-
-.form-box, .options {
-  background:#f9fafb;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 6px 16px rgba(0,0,0,0.06);
-}
-
-/* INSTRUCTION BOX */
-.instruction-box {
-  background:#e0e7ff;
-  color:#111827;
-  font-weight:600;
-  padding:15px 20px;
-  border-radius:12px;
-  text-align:center;
-  margin-bottom:20px;
-  font-size:16px;
-}
-
-/* DRAGGABLE OPTIONS replaced below */
-
-/* DRAGGABLE OPTIONS */
-.draggable {
-  padding: 12px 16px;
-  margin: 6px 0;
-  background: #e0f2fe;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  border: 2px solid #bfdbfe;
-  font-weight: 600;
-  color: #111827;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
-}
-.draggable:active { transform: scale(0.97); }
-.draggable.selected {
-  background: #fef08a;
-  border-color: #ca8a04;
-  box-shadow: 0 0 0 3px #fde047;
-}
-
-/* Dropzone hint when option selected */
-.dropzone {
-  min-height: 42px;
-  border: 2px dashed #c7c7c7;
-  border-radius: 8px;
-  padding: 8px 10px;
-  background: #f3f4f6;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 8px;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: border-color 0.15s, background 0.15s;
-}
-.dropzone.filled {
-  border: 2px solid #2563eb;
-  background: #e0f2fe;
-}
-
-/* NUMBER INPUTS */
-.number-input {
-  padding:8px;
-  width:160px;
-  margin-bottom:10px;
-  border-radius:6px;
-  border:1px solid #cbd5e1;
-  font-size:14px;
-}
-
-/* FEEDBACK */
-.feedback {
-  margin-top:10px;
-  font-weight:600;
-  font-size:15px;
-}
-.feedback.correct { color:#16a34a; }
-.feedback.wrong { color:#dc2626; }
-
-/* NEXT BUTTON LINK STYLE */
-.next-btn {
-  display:inline-block;
-  padding:10px 20px;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:600;
-  font-size:15px;
-  text-decoration:none;
 }
 .next-btn:hover { background:#1e40af; }
+
+@media(max-width:768px){
+  .top-characters{ flex-direction:column; gap:20px; }
+  .row-avatar { width:40px; height:40px; }
+}
 </style>
 </head>
 
 <body>
-<!-- BACK BUTTON -->
-<a href="../index.html" class="back-btn nav-link">← Volver a Unidad 1</a>
 
-<!-- UNIT TITLE -->
-<h1 class="unit-title">Lección 3 - Parte 3</h1>
+<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
 
-<!-- PROGRESS BAR -->
+<div class="unit-title">Lección 3 - Parte 3</div>
+
 <div class="progress-container">
   <div class="step" data-page="p1.html">1</div>
   <div class="step" data-page="p2.html">2</div>
   <div class="step active" data-page="p3.html">3</div>
   <div class="step" data-page="p4.html">4</div>
+<div class="step" data-page="p5.html">5</div>
 </div>
 
 <div class="exercise-box">
 
-<audio id="mainAudio"></audio>
-
-<!-- PHASE 1: Reception Scene -->
-<div id="sceneSection" class="center">
-  <img src="../../../../assets/images/u1/u1.l3.p3.reception.webp" class="small-img" alt="Reception desk"><br>
-  <button id="playScene">▶ Reproducir diálogo</button>
-
-  <div class="dialogue-box">
-    <p><strong>Recepcionista:</strong> Good morning. What is your name?</p>
-    <p><strong>Gabriela:</strong> Good morning. My name is Gabriela Sanchez.</p>
-    <p><strong>Recepcionista:</strong> Please fill out this form.<br>
-    <em>(Por favor, complete este formulario.)</em></p>
+  <div class="instruction-banner">
+    🎧 Escucha cada línea del diálogo y ordena las palabras en el orden correcto. Toca ▶ para escuchar, luego toca las palabras para armarlas.
   </div>
 
-  <button id="continueBtn" class="hidden">Continuar</button>
-</div>
-
-<!-- CLIENT SECTION -->
-<div id="clientSection" class="hidden">
-
-  <div class="instruction-box" id="instructionBox">
-    Toca una opción a la derecha para seleccionarla, luego toca el campo del formulario donde corresponde.
-  </div>
-
-  <!-- FORM IMAGE -->
-  <div class="center" style="margin-bottom:20px;">
-    <img src="../../../../assets/images/u1/u1.l3.p3.form.jpg" alt="Hotel registration form" class="small-img">
-  </div>
-
-  <h2 id="clientTitle"></h2>
-
-  <div class="flex">
-
-    <!-- LEFT SIDE -->
-    <div class="left">
-
-      <div class="form-box">
-        <p><strong>Name:</strong></p>
-        <div class="dropzone" data-field="name"></div>
-
-        <p><strong>Nationality:</strong></p>
-        <div class="dropzone" data-field="nationality"></div>
-
-        <p><strong>Address:</strong></p>
-        <div class="dropzone" data-field="address"></div>
-
-        <p><strong>City:</strong></p>
-        <div class="dropzone" data-field="city"></div>
-
-        <p><strong>State:</strong></p>
-        <div class="dropzone" data-field="state"></div>
-      </div>
-
-      <button id="checkFormBtn">Comprobar formulario</button>
-
-      <div id="numbersSection" class="hidden">
-        <h3>Números</h3>
-        <button id="playZip">▶ Reproducir código postal</button><br>
-        <input type="text" id="zipInput" class="number-input" placeholder="Código postal"><br>
-
-        <button id="playId">▶ Reproducir número ID</button><br>
-        <input type="text" id="idInput" class="number-input" placeholder="Número ID"><br>
-
-        <button id="checkNumbers">Comprobar</button>
-      </div>
-
-      <div id="finishSection" class="hidden">
-        <div class="feedback correct" id="finalFeedback">¡Excelente! Has completado la lección.</div>
-        <a href="p4.html" class="next-btn nav-link">Siguiente →</a>
-      </div>
-
+  <div class="top-characters">
+    <div class="character">
+      <img src="../../../../assets/images/u1/ana.png" alt="Ana"><p><strong>Ana</strong></p>
     </div>
-
-    <!-- RIGHT SIDE -->
-    <div class="right">
-      <div id="audioControls">
-        <button id="playName">▶ Nombre</button><br>
-        <button id="playNationality">▶ Nacionalidad</button><br>
-        <button id="playAddress">▶ Dirección</button><br>
-        <button id="playCityState">▶ Ciudad &amp; Estado</button><br>
-      </div>
-      <br>
-      <div class="options" id="optionsContainer"></div>
+    <div class="character">
+      <img src="../../../../assets/images/u1/george.png" alt="George"><p><strong>George</strong></p>
     </div>
-
   </div>
 
-  <!-- SINGLE feedback element (visible all the time in client section) -->
-  <div class="feedback" id="formFeedback"></div>
+  <!-- This is where JS will render dialogue rows -->
+  <div class="dialogue-container" id="dialogueContainer"></div>
 
-  <!-- Language strings live in HTML (JS stays language-neutral) -->
-  <div id="i18n" class="hidden">
-    <span data-msg="fill_all">Por favor, completa todo el formulario antes de comprobar.</span>
-    <span data-msg="try_again">Intenta otra vez.</span>
-    <span data-msg="all_correct">¡Excelente! Todo correcto.</span>
+  <div class="controls">
+    <button class="next-btn" id="nextBtn">Siguiente →</button>
   </div>
-
-</div>
-
 </div>
 
 </body>
