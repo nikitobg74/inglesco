@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 2 • Parte 1</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 700px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-block; margin-bottom: 16px;
+      padding: 7px 14px; background: #2563eb; color: white;
+      border-radius: 10px; text-decoration: none; font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Page title ── */
+    .top-title {
+      text-align: center; font-size: 18px; font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .subline {
+      text-align: center; font-size: 14px; font-weight: 700;
+      margin-bottom: 16px; color: #374151;
+    }
+
+    /* ── Progress steps ── */
+    .progress-container {
+      display: flex; justify-content: center;
+      gap: 10px; margin: 12px 0 20px 0;
+    }
+    .step {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; cursor: pointer; transition: all .3s;
+      color: #1f2933; text-decoration: none; user-select: none;
+      font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── NEW WORDS accordion ── */
+    .words-accordion {
+      background: rgba(255,255,255,.88);
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .words-toggle {
+      width: 100%; background: #2563eb; color: white;
+      border: none; cursor: pointer;
+      padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      border-radius: 0;
+    }
+    .words-toggle:hover { background: #1d4ed8; }
+    .words-chevron { font-size: 12px; transition: transform 0.3s; }
+
+    .words-body {
+      display: none; padding: 12px 16px; gap: 6px;
+      flex-direction: column;
+    }
+    .words-body.open { display: flex; }
+
+    .word-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 7px 12px;
+      background: #eff6ff; border-radius: 10px;
+      border: 1px solid #bfdbfe;
+    }
+    .word-en {
+      font-weight: 700; font-size: 15px; color: #1e40af;
+    }
+    .word-es {
+      font-size: 13px; font-weight: 600; color: #374151;
+    }
+
+    /* ── Main card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    /* ── Counter & progress bar ── */
+    .counter-row {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 8px;
+    }
+    .counter {
+      font-size: 13px; font-weight: 700; color: #486581;
+    }
+    .bar-wrap {
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 16px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; width: 0%; background: #2563eb;
+      border-radius: 999px; transition: width 0.5s ease;
+    }
+
+    /* ── Slide image ── */
+    .img-wrap {
+      width: 100%; aspect-ratio: 4/3;
+      border-radius: 14px; overflow: hidden;
+      background: #e2e8f0; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: opacity 0.4s ease;
+    }
+
+    /* ── Text labels ── */
+    .label-en {
+      text-align: center; font-size: 20px; font-weight: 900;
+      color: #1e293b; margin-bottom: 4px;
+    }
+    .label-es {
+      text-align: center; font-size: 15px; font-weight: 600;
+      color: #64748b; margin-bottom: 18px;
+    }
+
+    /* ── Audio area ── */
+    .audio-area {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px; margin-bottom: 18px;
+    }
+    .play-btn {
+      width: 66px; height: 66px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      transition: background 0.2s, transform 0.1s;
+      color: white; font-size: 26px;
+    }
+    .play-btn:hover   { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn:active  { transform: scale(0.96); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn.done    { background: #16a34a; }
+    .play-label {
+      font-size: 12px; font-weight: 600; color: #486581;
+    }
+
+    /* ── Next button ── */
+    .next-btn {
+      display: block; width: 100%;
+      padding: 13px 0; background: #d1d5db; color: #9ca3af;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: not-allowed;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .next-btn.ready {
+      background: #2563eb; color: white; cursor: pointer;
+      box-shadow: 0 5px 14px rgba(37,99,235,0.30);
+    }
+    .next-btn.ready:hover { background: #1d4ed8; }
+
+    /* ── End screen ── */
+    .end { text-align: center; padding: 24px 10px 10px; display: none; }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .finish-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: #16a34a; color: #fff;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s; margin-top: 16px;
+      text-decoration: none; font-family: 'Poppins', sans-serif;
+    }
+    .finish-btn:hover { background: #15803d; }
+
+    @media (max-width: 400px) {
+      .label-en { font-size: 17px; }
+      .label-es { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 2 • Parte 1</div>
+  <div class="subline">Palabras nuevas — escucha y aprende</div>
+
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- ══ NEW WORDS accordion ══ -->
+  <div class="words-accordion">
+    <button class="words-toggle" id="wordsToggle" aria-expanded="false">
+      <span>📖 New Words — Palabras Nuevas</span>
+      <span class="words-chevron" id="wordsChevron">▼</span>
+    </button>
+    <div class="words-body" id="wordsBody"></div>
+  </div>
+
+  <!-- ══ Main card ══ -->
+  <div class="card">
+
+    <!-- Slide area -->
+    <div id="slideArea">
+
+      <div class="counter-row">
+        <span class="counter" id="counter">1 / 10</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="progressBar"></div>
+      </div>
+
+      <div class="img-wrap">
+        <img id="slideImg" src="" alt="lesson image" />
+      </div>
+
+      <div class="label-en" id="enText"></div>
+      <div class="label-es" id="esText"></div>
+
+      <div class="audio-area">
+        <button class="play-btn" id="playBtn" aria-label="Reproducir audio">▶</button>
+        <span class="play-label" id="playLabel">Toca para escuchar</span>
+      </div>
+
+      <button class="next-btn" id="nextBtn" disabled>
+        Siguiente →
+      </button>
+
+    </div>
+
+    <!-- End screen -->
+    <div class="end" id="endScreen">
+      <div class="trophy">🏆</div>
+      <h2>¡Muy bien!</h2>
+      <p>Aprendiste las palabras nuevas de la Lección 2.</p>
+      <p>Continue to the next part.</p>
+      <a href="p2.html" class="finish-btn">Continuar → Parte 2</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="../../../../js/u4/u4_l2_p1.js"></script>
+</body>
+</html>
