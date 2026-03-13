@@ -4,10 +4,6 @@
   const IMG  = BASE + "images/u4/";
   const AUD  = BASE + "audio/u4/";
 
-  // ── Slides ────────────────────────────────────────────────────────────────
-  // tiles: the two word choices shown
-  // blank: the sentence with ___ placeholder
-  // answer: correct tile word
   const SLIDES = [
     {
       image:  IMG + "u4.l2.p1.new.car.jpg",
@@ -97,7 +93,17 @@
 
   const TOTAL = SLIDES.length;
 
-  // ── State ─────────────────────────────────────────────────────────────────
+  function shuffleArray(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  const SHUFFLED_SLIDES = shuffleArray(SLIDES);
+
   let current     = 0;
   let audioPlayed = false;
   let answered    = false;
@@ -105,7 +111,6 @@
   let playPromise = null;
   let audio       = new Audio();
 
-  // ── DOM refs ──────────────────────────────────────────────────────────────
   const slideImg    = document.getElementById("slideImg");
   const sentenceEl  = document.getElementById("sentence");
   const tilesEl     = document.getElementById("tiles");
@@ -117,61 +122,59 @@
   const endScreen   = document.getElementById("endScreen");
   const slideArea   = document.getElementById("slideArea");
 
-  // ── Load slide ────────────────────────────────────────────────────────────
   function loadSlide(idx) {
-    const s     = SLIDES[idx];
-    audioPlayed = false;
-    answered    = false;
-    isPlaying   = false;
+    const s = SHUFFLED_SLIDES[idx];
 
-    // image
+    audioPlayed = false;
+    answered = false;
+    isPlaying = false;
+    playPromise = null;
+
     slideImg.style.opacity = "0";
     slideImg.src = s.image;
-    slideImg.onload = () => { slideImg.style.opacity = "1"; };
+    slideImg.onload = () => {
+      slideImg.style.opacity = "1";
+    };
 
-    // counter & bar
-    counterEl.textContent   = `${idx + 1} / ${TOTAL}`;
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
     progressBar.style.width = ((idx + 1) / TOTAL * 100) + "%";
 
-    // sentence — show blank
     renderSentence(s.blank, null);
-
-    // tiles
     buildTiles(s.tiles);
 
-    // hint
-    hintEl.textContent = "👂 Escucha primero y luego toca la palabra correcta.";
-    hintEl.className   = "hint";
+    hintEl.textContent = "";
+    hintEl.className = "hint";
 
-    // reset play button
-    playBtn.innerHTML     = "▶";
-    playBtn.className     = "play-btn";
+    playBtn.innerHTML = "▶";
+    playBtn.className = "play-btn";
     playLabel.textContent = "Toca para escuchar";
 
-    // audio
     audio.pause();
     audio = new Audio(s.audio);
     audio.preload = "auto";
 
     audio.addEventListener("ended", () => {
-      isPlaying   = false;
+      isPlaying = false;
       audioPlayed = true;
-      playBtn.innerHTML     = "🔁";
+      playBtn.innerHTML = "🔁";
       playBtn.classList.remove("playing");
       playBtn.classList.add("replay");
       playLabel.textContent = "Toca para repetir";
-      hintEl.textContent    = "☝️ Toca la palabra correcta!";
+      hintEl.textContent = "☝️ Toca la palabra correcta!";
+      hintEl.className = "hint";
     });
 
     audio.addEventListener("error", () => {
-      isPlaying   = false;
+      isPlaying = false;
       audioPlayed = true;
+      playBtn.classList.remove("playing");
+      playBtn.innerHTML = "▶";
       playLabel.textContent = "Audio no disponible";
-      hintEl.textContent    = "☝️ Toca la palabra correcta!";
+      hintEl.textContent = "☝️ Toca la palabra correcta!";
+      hintEl.className = "hint";
     });
   }
 
-  // ── Render sentence with blank or filled word ─────────────────────────────
   function renderSentence(template, filledWord) {
     if (!filledWord) {
       sentenceEl.innerHTML = template.replace(
@@ -186,40 +189,38 @@
     }
   }
 
-  // ── Build word tiles ──────────────────────────────────────────────────────
   function buildTiles(words) {
     tilesEl.innerHTML = "";
-    // shuffle so correct is not always first
-    const shuffled = [...words].sort(() => Math.random() - 0.5);
-    shuffled.forEach(word => {
+    const shuffledWords = shuffleArray(words);
+
+    shuffledWords.forEach(word => {
       const tile = document.createElement("button");
-      tile.className   = "tile";
+      tile.className = "tile";
       tile.textContent = word;
       tile.addEventListener("click", () => handleTile(tile, word));
       tilesEl.appendChild(tile);
     });
   }
 
-  // ── Tile click ────────────────────────────────────────────────────────────
   function handleTile(tile, word) {
     if (answered) return;
 
     if (!audioPlayed) {
       hintEl.textContent = "👂 Escucha el audio primero!";
-      hintEl.className   = "hint warn";
+      hintEl.className = "hint warn";
       playBtn.classList.add("pulse");
       setTimeout(() => playBtn.classList.remove("pulse"), 600);
       return;
     }
 
-    const correct = SLIDES[current].answer;
+    const correct = SHUFFLED_SLIDES[current].answer;
 
     if (word === correct) {
       answered = true;
       tile.classList.add("correct");
-      hintEl.textContent = "✅ Correct!";
-      hintEl.className   = "hint correct";
-      renderSentence(SLIDES[current].blank, word);
+      hintEl.textContent = "✅ ¡Correcto!";
+      hintEl.className = "hint correct";
+      renderSentence(SHUFFLED_SLIDES[current].blank, word);
       audio.pause();
 
       setTimeout(() => {
@@ -229,21 +230,20 @@
         } else {
           loadSlide(current);
         }
-      }, 1500);
-
+      }, 1200);
     } else {
       tile.classList.add("wrong");
-      hintEl.textContent = "❌ Intentar otra vez!";
-      hintEl.className   = "hint wrong";
+      hintEl.textContent = "❌ ¡Intenta otra vez!";
+      hintEl.className = "hint wrong";
+
       setTimeout(() => {
         tile.classList.remove("wrong");
         hintEl.textContent = "☝️ Toca la palabra correcta!";
-        hintEl.className   = "hint";
+        hintEl.className = "hint";
       }, 700);
     }
   }
 
-  // ── Play button ───────────────────────────────────────────────────────────
   playBtn.addEventListener("click", () => {
     if (answered) return;
 
@@ -254,14 +254,17 @@
       } else {
         audio.pause();
       }
+
       isPlaying = false;
       playBtn.innerHTML = audioPlayed ? "🔁" : "▶";
       playBtn.classList.remove("playing");
-      playLabel.textContent = "Toca para continuar";
+      playLabel.textContent = audioPlayed ? "Toca para repetir" : "Toca para escuchar";
       return;
     }
 
-    if (audioPlayed) audio.currentTime = 0;
+    if (audioPlayed) {
+      audio.currentTime = 0;
+    }
 
     isPlaying = true;
     playBtn.innerHTML = "⏸";
@@ -270,26 +273,28 @@
     playLabel.textContent = "Escuchando...";
 
     playPromise = audio.play();
+
     if (playPromise) {
-      playPromise.then(() => { playPromise = null; }).catch(err => {
-        if (err.name !== "AbortError") {
-          isPlaying = false;
-          playBtn.classList.remove("playing");
-          playBtn.innerHTML     = "▶";
-          playLabel.textContent = "No se pudo reproducir.";
-        }
-        playPromise = null;
-      });
+      playPromise
+        .then(() => {
+          playPromise = null;
+        })
+        .catch(err => {
+          if (err.name !== "AbortError") {
+            isPlaying = false;
+            playBtn.classList.remove("playing");
+            playBtn.innerHTML = "▶";
+            playLabel.textContent = "No se pudo reproducir.";
+          }
+          playPromise = null;
+        });
     }
   });
 
-  // ── End ───────────────────────────────────────────────────────────────────
   function showEnd() {
     slideArea.style.display = "none";
     endScreen.classList.add("show");
   }
 
-  // ── Init ──────────────────────────────────────────────────────────────────
   loadSlide(0);
-
 })();

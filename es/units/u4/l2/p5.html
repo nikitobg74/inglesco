@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 4 • Lección 2 • Parte 5</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+
+body{
+background:linear-gradient(135deg,#dbeafe,#fef9c3);
+min-height:100vh;
+padding:16px 12px 60px;
+color:#111827;
+}
+
+.wrap{max-width:700px;margin:0 auto;}
+
+.back-btn{
+display:inline-block;
+margin-bottom:16px;
+padding:7px 14px;
+background:#2563eb;
+color:white;
+border-radius:10px;
+text-decoration:none;
+font-weight:700;
+font-size:14px;
+}
+
+.back-btn:hover{background:#1e40af;}
+
+.top-title{
+text-align:center;
+font-size:18px;
+font-weight:900;
+margin-bottom:4px;
+}
+
+.subline{
+text-align:center;
+font-size:14px;
+font-weight:700;
+margin-bottom:16px;
+color:#374151;
+}
+
+.progress-container{
+display:flex;
+justify-content:center;
+gap:10px;
+margin:12px 0 20px 0;
+}
+
+.step{
+width:38px;height:38px;border-radius:50%;
+background:#d1d5db;
+display:flex;align-items:center;justify-content:center;
+font-weight:600;cursor:pointer;transition:all .3s;
+color:#1f2933;text-decoration:none;user-select:none;
+font-size:15px;
+}
+
+.step.active{background:#2563eb;color:#fff;}
+.step:hover{transform:scale(1.1);}
+
+.card{
+background:rgba(255,255,255,.88);
+border-radius:18px;
+padding:16px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.ex-header{
+text-align:center;
+background:#2563eb;
+color:white;
+border-radius:14px;
+padding:9px 20px;
+font-size:14px;
+font-weight:700;
+letter-spacing:0.04em;
+text-transform:uppercase;
+margin-bottom:16px;
+}
+
+.counter-row{
+display:flex;
+justify-content:center;
+margin-bottom:8px;
+}
+
+.counter{
+font-size:13px;
+font-weight:700;
+color:#486581;
+}
+
+.bar-wrap{
+background:#e2e8f0;
+border-radius:999px;
+height:7px;
+margin-bottom:16px;
+overflow:hidden;
+}
+
+.bar-fill{
+height:100%;
+width:0%;
+background:#2563eb;
+border-radius:999px;
+transition:width 0.5s ease;
+}
+
+.img-wrap{
+width:100%;
+border-radius:14px;
+overflow:hidden;
+background:#e2e8f0;
+margin-bottom:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:8px;
+}
+
+.img-wrap img{
+max-width:100%;
+max-height:160px;
+width:auto;
+height:auto;
+object-fit:contain;
+display:block;
+border-radius:10px;
+transition:opacity 0.4s ease;
+}
+
+.audio-area{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+margin-bottom:16px;
+}
+
+.play-btn{
+width:62px;height:62px;border-radius:50%;
+background:#2563eb;border:none;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+box-shadow:0 5px 16px rgba(37,99,235,0.35);
+color:white;font-size:24px;
+}
+
+.play-label{
+font-size:12px;
+font-weight:600;
+color:#486581;
+text-align:center;
+}
+
+.built-wrap{
+min-height:48px;
+background:#f8fafc;
+border:2px dashed #93c5fd;
+border-radius:14px;
+padding:10px 14px;
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+align-items:center;
+justify-content:center;
+margin-bottom:12px;
+}
+
+.placeholder{
+font-size:18px;
+font-weight:700;
+color:#cbd5e1;
+letter-spacing:4px;
+}
+
+.chip{
+background:#2563eb;
+color:white;
+padding:5px 14px;
+border-radius:20px;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+}
+
+.chip:hover{background:#dc2626;}
+.chip.done{background:#16a34a;cursor:default;pointer-events:none;}
+
+.hint{
+text-align:center;
+font-size:13px;
+font-weight:700;
+color:#64748b;
+margin-bottom:14px;
+min-height:22px;
+}
+
+.tiles{
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:10px;
+}
+
+.tile{
+background:white;
+border:2px solid #93c5fd;
+color:#1e40af;
+padding:9px 18px;
+border-radius:30px;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+}
+
+.tile.used{opacity:.25;pointer-events:none;}
+
+.tile.wrong{
+background:#fee2e2;
+border-color:#dc2626;
+color:#dc2626;
+}
+
+.undo-hint{
+text-align:center;
+font-size:11px;
+color:#94a3b8;
+font-weight:600;
+margin-bottom:6px;
+}
+
+.end{
+text-align:center;
+padding:24px 10px 10px;
+display:none;
+}
+
+.end.show{display:block;}
+
+.trophy{font-size:52px;margin-bottom:10px;}
+
+.finish-btn{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:12px 28px;
+background:#16a34a;
+color:#fff;
+border-radius:14px;
+font-weight:900;
+font-size:16px;
+text-decoration:none;
+margin-top:16px;
+}
+
+.finish-btn:hover{background:#15803d;}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<a href="../index.html" class="back-btn">← Unidad 4</a>
+
+<div class="top-title">Unidad 4 • Lección 2 • Parte 5</div>
+<div class="subline"></div>
+
+<div class="progress-container">
+<a class="step" href="p1.html">1</a>
+<a class="step" href="p2.html">2</a>
+<a class="step" href="p3.html">3</a>
+<a class="step" href="p4.html">4</a>
+<a class="step active" href="p5.html">5</a>
+</div>
+
+<div class="card">
+
+<div id="slideArea">
+
+<div class="ex-header">Escucha y forma la oración correcta</div>
+
+<div class="counter-row">
+<span class="counter" id="counter">1 / 9</span>
+</div>
+
+<div class="bar-wrap">
+<div class="bar-fill" id="progressBar"></div>
+</div>
+
+<div class="img-wrap">
+<img id="slideImg" src="" alt="lesson image"/>
+</div>
+
+<div class="audio-area">
+<button class="play-btn" id="playBtn">▶</button>
+<span class="play-label" id="playLabel">Toca para escuchar</span>
+</div>
+
+<div class="built-wrap" id="builtSentence"></div>
+<p class="undo-hint">Toca una palabra para corregir</p>
+
+<p class="hint" id="hint"></p>
+
+<div class="tiles" id="tiles"></div>
+
+</div>
+
+<div class="end" id="endScreen">
+<div class="trophy">🏆</div>
+<h2>¡Excelente trabajo!</h2>
+<p>Completaste todas las oraciones correctamente.</p>
+<a href="../index.html" class="finish-btn">Finalizar lección →</a>
+</div>
+
+</div>
+</div>
+
+<script src="../../../../js/u4/u4_l2_p5.js"></script>
+
+</body>
+</html>
