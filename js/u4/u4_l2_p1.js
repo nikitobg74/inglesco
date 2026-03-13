@@ -46,14 +46,14 @@
     {
       image: IMG + "u4.l2.p1.new.phone.jpg",
       audio: AUD + "u4.l2.p1.new.phone.mp3",
-      en: "phone — new phone",
-      es: "teléfono — teléfono nuevo",
+      en: "new phone",
+      es: "teléfono nuevo",
     },
     {
       image: IMG + "u4.l2.p1.old.phone.jpg",
       audio: AUD + "u4.l2.p1.old.phone.mp3",
-      en: "phone — old phone",
-      es: "teléfono — teléfono viejo",
+      en: "old phone",
+      es: "teléfono viejo",
     },
     {
       image: IMG + "u4.l2.p1.expensive.watch.jpg",
@@ -76,8 +76,8 @@
     {
       image: IMG + "u4.l2.p1.expensive.car.jpg",
       audio: AUD + "u4.l2.p1.expensive.car.mp3",
-      en: "car — expensive car",
-      es: "carro — carro caro",
+      en: "expensive car",
+      es: "carro caro",
     },
   ];
 
