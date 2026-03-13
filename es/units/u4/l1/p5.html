@@ -12,286 +12,206 @@
     body {
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
       min-height: 100vh;
-      padding: 20px 16px 60px;
+      padding: 16px 12px 60px;
       color: #111827;
     }
 
-    .wrap { max-width: 820px; margin: 0 auto; }
+    .wrap { max-width: 700px; margin: 0 auto; }
 
     .back-btn {
-      display: inline-block;
-      margin-bottom: 20px;
-      padding: 8px 15px;
-      background: #2563eb;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
+      display: inline-block; margin-bottom: 16px;
+      padding: 7px 14px; background: #2563eb; color: white;
+      border-radius: 10px; text-decoration: none; font-weight: 700;
+      font-size: 14px;
     }
     .back-btn:hover { background: #1e40af; }
 
     .progress-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 15px 0 25px 0;
+      display: flex; justify-content: center;
+      gap: 10px; margin: 12px 0 20px 0;
     }
     .step {
-      width: 40px; height: 40px;
-      border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       background: #d1d5db;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 600; cursor: pointer;
-      transition: all .3s; color: #1f2933;
-      text-decoration: none; user-select: none;
+      font-weight: 600; cursor: pointer; transition: all .3s;
+      color: #1f2933; text-decoration: none; user-select: none;
+      font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
     .top-title {
-      text-align: center; margin: 0 0 8px 0;
-      font-size: 20px; font-weight: 900;
+      text-align: center; font-size: 18px; font-weight: 900;
+      margin-bottom: 4px;
     }
     .subline {
-      text-align: center; margin: 0 0 18px 0;
-      font-size: 16px; font-weight: 800;
-    }
-    .subline span {
-      background: rgba(255,255,255,.7);
-      padding: 6px 10px; border-radius: 10px;
-      display: inline-block;
+      text-align: center; font-size: 14px; font-weight: 700;
+      margin-bottom: 16px; color: #374151;
     }
 
     .card {
-      background: rgba(255,255,255,.85);
-      border-radius: 18px; padding: 20px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
     .ex-header {
       text-align: center; background: #2563eb; color: white;
-      border-radius: 16px; padding: 10px 28px;
-      font-size: 16px; font-weight: 700;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      margin-bottom: 20px;
-      box-shadow: 0 6px 20px rgba(37,99,235,0.25);
+      border-radius: 14px; padding: 9px 20px;
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 16px;
     }
 
-    /* ── PHASE 1: LISTEN ── */
-    #phase1 {}
-
+    /* ── PLAY / PAUSE ── */
     .audio-area {
       display: flex; flex-direction: column;
-      align-items: center; gap: 10px; margin-bottom: 20px;
+      align-items: center; gap: 8px; margin-bottom: 14px;
     }
     .play-btn {
-      width: 68px; height: 68px; border-radius: 50%;
+      width: 62px; height: 62px; border-radius: 50%;
       background: #2563eb; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
       transition: background 0.2s, transform 0.1s;
-      color: white; font-size: 28px;
+      color: white; font-size: 26px;
     }
-    .play-btn:hover  { background: #1d4ed8; transform: scale(1.06); }
-    .play-btn:active { transform: scale(0.96); }
+    .play-btn:hover   { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn:active  { transform: scale(0.96); }
     .play-btn.playing { background: #7c3aed; }
     .play-label {
-      font-size: 13px; font-weight: 600; color: #486581;
+      font-size: 12px; font-weight: 600; color: #486581;
     }
 
-    /* progress bar under text */
+    /* ── PROGRESS BAR ── */
     .read-progress-wrap {
-      background: #e2e8f0;
-      border-radius: 999px;
-      height: 8px;
-      margin-bottom: 16px;
-      overflow: hidden;
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 14px; overflow: hidden;
     }
     .read-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #2563eb;
-      border-radius: 999px;
+      height: 100%; width: 0%;
+      background: #2563eb; border-radius: 999px;
       transition: width 0.5s ease;
     }
 
-    /* paragraph display */
+    /* ── READ-ALONG PARAGRAPH ── */
+    /* Grouped into visual blocks — easier to scan on mobile */
     .paragraph {
-      line-height: 2.1;
-      font-size: 16px;
-      font-weight: 600;
-      color: #1e293b;
-      padding: 4px 0;
+      font-size: 15px; font-weight: 600;
+      color: #1e293b; line-height: 1.9;
+    }
+    .para-group {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border: 1px solid #e2e8f0;
     }
     .sentence {
       display: inline;
-      padding: 2px 4px;
-      border-radius: 6px;
+      padding: 1px 3px;
+      border-radius: 5px;
       transition: background 0.3s, color 0.3s;
     }
     .sentence.active {
-      background: #fef08a;
-      color: #713f12;
+      background: #fef08a; color: #713f12;
     }
-    .sentence.done {
-      color: #64748b;
-    }
+    .sentence.done { color: #94a3b8; }
 
     .phase1-hint {
-      text-align: center;
-      font-size: 13px; font-weight: 600; color: #64748b;
-      margin-top: 14px;
+      text-align: center; font-size: 12px;
+      font-weight: 600; color: #64748b; margin-top: 10px;
     }
 
-    /* ── PHASE 2: FILL GAPS ── */
+    /* ── PHASE 2 ── */
     #phase2 { display: none; }
 
     .phase2-instruction {
-      text-align: center;
-      background: #eff6ff;
-      border: 2px solid #bfdbfe;
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-weight: 700;
-      font-size: 15px;
-      color: #1e40af;
-      margin-bottom: 20px;
+      text-align: center; background: #eff6ff;
+      border: 2px solid #bfdbfe; border-radius: 12px;
+      padding: 10px 14px; font-weight: 700;
+      font-size: 14px; color: #1e40af; margin-bottom: 16px;
     }
 
-    /* cloze paragraph */
+    .score-line {
+      text-align: center; font-size: 13px;
+      font-weight: 700; color: #486581; margin-bottom: 12px;
+    }
+
+    /* cloze paragraph — same grouped layout */
     .cloze-para {
-      line-height: 2.4;
-      font-size: 16px;
-      font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 20px;
+      font-size: 15px; font-weight: 600;
+      color: #1e293b; margin-bottom: 16px;
+    }
+    .cloze-group {
+      background: #f8fafc; border-radius: 12px;
+      padding: 10px 14px; margin-bottom: 8px;
+      border: 1px solid #e2e8f0;
+      line-height: 2.2;
     }
 
     .gap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 90px;
-      height: 34px;
-      border-radius: 8px;
-      border: 2px dashed #93c5fd;
-      background: #eff6ff;
-      color: transparent;
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      transition: all 0.2s;
-      vertical-align: middle;
-      padding: 0 10px;
-      user-select: none;
-      position: relative;
-      top: -1px;
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 82px; height: 32px;
+      border-radius: 8px; border: 2px dashed #93c5fd;
+      background: #eff6ff; color: transparent;
+      font-weight: 700; font-size: 14px;
+      cursor: pointer; transition: all 0.2s;
+      vertical-align: middle; padding: 0 8px;
+      user-select: none; position: relative; top: -1px;
     }
-    .gap.filled {
-      border-style: solid;
-      border-color: #2563eb;
-      background: #dbeafe;
-      color: #1e40af;
-      cursor: pointer;
-    }
-    .gap.correct {
-      border-color: #16a34a;
-      background: #dcfce7;
-      color: #15803d;
-      cursor: default;
-      pointer-events: none;
-    }
-    .gap.wrong {
-      border-color: #dc2626;
-      background: #fee2e2;
-      color: #dc2626;
-      animation: shake 0.45s ease;
-    }
+    .gap.filled  { border-style: solid; border-color: #2563eb; background: #dbeafe; color: #1e40af; }
+    .gap.correct { border-color: #16a34a; background: #dcfce7; color: #15803d; cursor: default; pointer-events: none; }
+    .gap.wrong   { border-color: #dc2626; background: #fee2e2; color: #dc2626; animation: shake 0.45s ease; }
 
     @keyframes shake {
-      0%   { transform: translateX(0); }
-      20%  { transform: translateX(-6px); }
-      40%  { transform: translateX(6px); }
-      60%  { transform: translateX(-4px); }
-      80%  { transform: translateX(4px); }
-      100% { transform: translateX(0); }
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-5px); }
+      40%     { transform: translateX(5px); }
+      60%     { transform: translateX(-3px); }
+      80%     { transform: translateX(3px); }
     }
 
-    /* tile bank */
+    /* tile bank — compact on mobile */
     .tile-bank {
-      display: flex; flex-wrap: wrap;
-      gap: 10px; justify-content: center;
-      padding: 16px;
-      background: #f8fafc;
-      border-radius: 14px;
-      border: 2px solid #e2e8f0;
-      min-height: 60px;
-      margin-bottom: 16px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; padding: 12px;
+      background: #f8fafc; border-radius: 14px;
+      border: 2px solid #e2e8f0; margin-bottom: 14px;
     }
     .tile {
-      background: white;
-      border: 2px solid #93c5fd;
-      color: #1e40af;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 16px; font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      background: white; border: 2px solid #93c5fd;
+      color: #1e40af; padding: 7px 14px;
+      border-radius: 30px; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
       user-select: none; white-space: nowrap;
     }
-    .tile:hover {
-      background: #2563eb; color: white;
-      border-color: #2563eb;
-      transform: translateY(-2px);
-    }
-    .tile.selected {
-      background: #2563eb; color: white;
-      border-color: #2563eb;
-    }
-    .tile.used {
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    /* score line */
-    .score-line {
-      text-align: center;
-      font-size: 14px; font-weight: 700;
-      color: #486581; margin-bottom: 10px;
-    }
+    .tile:hover { background: #2563eb; color: white; border-color: #2563eb; transform: translateY(-2px); }
+    .tile.selected { background: #2563eb; color: white; border-color: #2563eb; }
+    .tile.used { visibility: hidden; pointer-events: none; }
 
     /* end screen */
-    .end {
-      text-align: center;
-      padding: 20px 10px 8px;
-      display: none;
-    }
+    .end { text-align: center; padding: 16px 10px 8px; display: none; }
     .end.show { display: block; }
-    .end .trophy { font-size: 52px; margin-bottom: 8px; }
-    .end h2 { margin: 8px 0; font-size: 24px; font-weight: 900; color: #1e40af; }
-    .end p  { margin: 6px 0; font-weight: 600; color: #486581; }
+    .end .trophy { font-size: 48px; margin-bottom: 8px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
 
     .next-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 28px;
-      background: #16a34a; color: #fff;
-      border: none; border-radius: 14px;
-      font-weight: 900; font-size: 17px;
-      cursor: pointer;
-      box-shadow: 0 6px 14px rgba(22,163,74,.30);
-      transition: background .2s, transform .1s;
-      margin-top: 14px; text-decoration: none;
+      padding: 12px 26px; background: #16a34a; color: #fff;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s; margin-top: 14px; text-decoration: none;
     }
-    .next-btn:hover  { background: #15803d; }
-    .next-btn:active { transform: scale(.97); }
+    .next-btn:hover { background: #15803d; }
 
-    @media (max-width: 520px) {
-      .step     { width: 34px; height: 34px; font-size: 14px; }
-      .top-title{ font-size: 18px; }
-      .tile     { font-size: 14px; padding: 7px 14px; }
-      .gap      { min-width: 74px; font-size: 14px; }
-      .play-btn { width: 58px; height: 58px; font-size: 24px; }
-      .paragraph, .cloze-para { font-size: 15px; }
+    @media (max-width: 400px) {
+      .paragraph, .cloze-para { font-size: 14px; }
+      .gap  { min-width: 70px; font-size: 13px; }
+      .tile { font-size: 13px; padding: 6px 12px; }
     }
   </style>
 </head>
@@ -302,7 +222,7 @@
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
   <div class="top-title">Unidad 4 • Lección 1 • Parte 5</div>
-  <div class="subline"><span>Escucha, lee y completa.</span></div>
+  <div class="subline">Escucha, lee y completa.</div>
 
   <div class="progress-container">
     <a class="step" href="p1.html">1</a>
@@ -314,12 +234,12 @@
 
   <div class="card">
 
-    <!-- ══ PHASE 1 ══ -->
+    <!-- ══ PHASE 1: Listen & Follow ══ -->
     <div id="phase1">
       <div class="ex-header">Parte 1 — Escucha y sigue el texto</div>
 
       <div class="audio-area">
-        <button class="play-btn" id="playBtn">▶</button>
+        <button class="play-btn" id="playBtn" aria-label="Reproducir / Pausar">▶</button>
         <span class="play-label" id="playLabel">Toca para escuchar</span>
       </div>
 
@@ -327,24 +247,38 @@
         <div class="read-progress-bar" id="readBar"></div>
       </div>
 
-      <div class="paragraph" id="readPara"></div>
+      <!-- Paragraph split into 4 visual groups for mobile readability -->
+      <div class="paragraph" id="readPara">
+        <div class="para-group" id="pg0"></div>
+        <div class="para-group" id="pg1"></div>
+        <div class="para-group" id="pg2"></div>
+        <div class="para-group" id="pg3"></div>
+        <div class="para-group" id="pg4"></div>
+      </div>
 
-      <p class="phase1-hint" id="phase1Hint">Escucha el audio. El texto se va iluminando.</p>
+      <p class="phase1-hint" id="phase1Hint">Toca ▶ para escuchar. El texto se ilumina.</p>
     </div>
 
-    <!-- ══ PHASE 2 ══ -->
+    <!-- ══ PHASE 2: Fill the Gaps ══ -->
     <div id="phase2">
       <div class="ex-header">Parte 2 — Completa los espacios</div>
 
       <div class="phase2-instruction">
-        Toca una palabra del banco y luego toca el espacio correcto.
+        Toca una palabra, luego toca el espacio correcto.
       </div>
 
       <div class="score-line">
-        Respuestas correctas: <span id="scoreNum">0</span> / 9
+        Correctas: <span id="scoreNum">0</span> / 9
       </div>
 
-      <div class="cloze-para" id="clozePara"></div>
+      <!-- Same groups, now with gaps -->
+      <div class="cloze-para" id="clozePara">
+        <div class="cloze-group" id="cg0"></div>
+        <div class="cloze-group" id="cg1"></div>
+        <div class="cloze-group" id="cg2"></div>
+        <div class="cloze-group" id="cg3"></div>
+        <div class="cloze-group" id="cg4"></div>
+      </div>
 
       <div class="tile-bank" id="tileBank"></div>
 
