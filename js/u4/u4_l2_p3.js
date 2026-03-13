@@ -31,16 +31,16 @@
       es:    "reloj barato",
     },
     {
-      image: IMG + "u4.l2.p1.expensive.car.jpg",
-      audio: AUD + "u4.l2.p3.expensive.car.mp3",
-      en:    "expensive car",
-      es:    "carro caro",
+      image: IMG + "u4.l2.p1.fast.car.jpg",
+      audio: AUD + "u4.l2.p3.fast.car.mp3",
+      en:    "fast car",
+      es:    "carro rápido",
     },
     {
       image: IMG + "u4.l2.p1.cheap.car.jpg",
-      audio: AUD + "u4.l2.p3.cheap.car.mp3",
-      en:    "cheap car",
-      es:    "carro barato",
+      audio: AUD + "u4.l2.p3.slow.car.mp3",
+      en:    "slow car",
+      es:    "carro lento",
     },
     {
       image: IMG + "u4.l2.p3.modern.phone.jpg",
