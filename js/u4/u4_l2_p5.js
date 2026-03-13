@@ -161,7 +161,7 @@
       playBtn.classList.remove("playing");
       playBtn.classList.add("replay");
       playLabel.textContent = "Toca para repetir";
-      hintEl.textContent = "☝️ ¡Forma la oración!";
+      hintEl.textContent = "☝️ ¡Forma la frase!";
       hintEl.className = "hint";
     });
 
@@ -171,7 +171,7 @@
       playBtn.innerHTML = "▶";
       playBtn.classList.remove("playing");
       playLabel.textContent = "Audio no disponible";
-      hintEl.textContent = "☝️ ¡Forma la oración!";
+      hintEl.textContent = "☝️ ¡Forma la frase!";
       hintEl.className = "hint";
     });
   }
@@ -211,7 +211,7 @@
       }
     });
 
-    hintEl.textContent = "☝️ ¡Forma la oración!";
+    hintEl.textContent = "☝️ ¡Forma la frase!";
     hintEl.className = "hint";
   }
 
@@ -251,7 +251,7 @@
       hintEl.className = "hint correct";
 
       if (built.length === target.length) {
-        hintEl.textContent = "🎉 ¡Oración completa!";
+        hintEl.textContent = "🎉 ¡Frase completa!";
         builtEl.querySelectorAll(".chip").forEach(c => c.classList.add("done"));
 
         setTimeout(() => {
@@ -270,7 +270,7 @@
 
       setTimeout(() => {
         tile.classList.remove("wrong");
-        hintEl.textContent = "☝️ ¡Forma la oración!";
+        hintEl.textContent = "☝️ ¡Forma la frase!";
         hintEl.className = "hint";
       }, 700);
     }
