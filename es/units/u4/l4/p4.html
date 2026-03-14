@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 4 • Parte 4</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 700px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-block; margin-bottom: 16px;
+      padding: 7px 14px; background: #2563eb; color: white;
+      border-radius: 10px; text-decoration: none; font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Page title ── */
+    .top-title {
+      text-align: center; font-size: 18px; font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .subline {
+      text-align: center; font-size: 14px; font-weight: 700;
+      margin-bottom: 16px; color: #374151;
+    }
+
+    /* ── Progress steps ── */
+    .progress-container {
+      display: flex; justify-content: center;
+      gap: 10px; margin: 12px 0 20px 0;
+    }
+    .step {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; cursor: pointer; transition: all .3s;
+      color: #1f2933; text-decoration: none; user-select: none;
+      font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── Word bank panel ── */
+    .vocab-panel {
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .vocab-toggle {
+      width: 100%; background: #1e40af; color: white;
+      border: none; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 15px; border-radius: 14px;
+      transition: background 0.2s;
+    }
+    .vocab-toggle:hover { background: #1d4ed8; }
+    .vocab-toggle .chevron { font-size: 12px; }
+
+    .vocab-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s ease, padding 0.3s ease;
+      padding: 0 14px;
+    }
+    .vocab-body.open { max-height: 600px; padding: 10px 14px; }
+
+    .vocab-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .vocab-table th {
+      background: #dbeafe; color: #1e3a5f;
+      padding: 5px 8px; text-align: left; font-weight: 700;
+      border-bottom: 2px solid #bfdbfe;
+    }
+    .vocab-table td { padding: 4px 8px; border-bottom: 1px solid #e2e8f0; }
+    .vocab-table tr:last-child td { border-bottom: none; }
+    .vocab-table tr:nth-child(even) td { background: #f8fafc; }
+    .vocab-en { font-weight: 700; color: #1e293b; }
+    .vocab-es { color: #486581; }
+
+    /* ── Main card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    /* ── Image ── */
+    .img-wrap {
+      width: 100%; border-radius: 14px; overflow: hidden;
+      background: #eff6ff; border: 2px solid #bfdbfe;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px; margin-bottom: 14px;
+    }
+    .img-wrap img {
+      max-width: 100%; max-height: 220px;
+      width: auto; height: auto;
+      object-fit: contain; display: block; border-radius: 10px;
+    }
+
+    /* ── Story text ── */
+    .story-box {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      line-height: 1.75;
+      font-size: 15px;
+      color: #1e293b;
+    }
+    .story-box p { margin-bottom: 4px; }
+    .story-box p:last-child { margin-bottom: 0; }
+    .story-line {
+      border-radius: 6px;
+      padding: 2px 6px;
+      margin-left: -6px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .story-line.active {
+      background: #fde68a;
+      color: #78350f;
+      font-weight: 700;
+    }
+
+    /* ── Audio area ── */
+    .audio-area {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px; margin-bottom: 16px;
+    }
+    .play-btn {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      transition: background 0.2s, transform 0.1s;
+      color: white; font-size: 26px;
+    }
+    .play-btn:hover   { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn:active  { transform: scale(0.96); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn.done    { background: #16a34a; }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; text-align: center; }
+
+    /* ── Exercise button ── */
+    .exercise-btn {
+      display: block; width: 100%;
+      padding: 13px 0; background: #d1d5db; color: #9ca3af;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: not-allowed;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .exercise-btn.ready {
+      background: #7c3aed; color: white; cursor: pointer;
+      box-shadow: 0 5px 14px rgba(124,58,237,.30);
+    }
+    .exercise-btn.ready:hover { background: #6d28d9; }
+
+    /* ── Exercise phase ── */
+    #exercisePhase { display: none; }
+
+    .quiz-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 16px;
+    }
+    .quiz-title {
+      font-size: 14px; font-weight: 700; color: #1e40af;
+    }
+    .quiz-progress {
+      font-size: 13px; font-weight: 700; color: #486581;
+    }
+
+    /* ── Story reference (stays visible in exercise) ── */
+    .story-ref {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.7;
+    }
+    .story-ref-label {
+      font-size: 11px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #2563eb; margin-bottom: 4px;
+    }
+
+    /* ── Quiz prompt ── */
+    .quiz-prompt {
+      margin-bottom: 18px;
+    }
+    .prompt-line {
+      font-size: 17px; font-weight: 600;
+      color: #374151; text-align: center;
+      line-height: 1.6; margin-bottom: 4px;
+    }
+    .prompt-line.highlight {
+      font-size: 19px; font-weight: 900;
+      color: #1e293b;
+    }
+    .prompt-line .blank { color: #9ca3af; letter-spacing: 2px; }
+    .prompt-line .filled {
+      color: #16a34a; font-weight: 900;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+    .fade-in-anim { animation: fadeUp 0.3s ease; }
+    .fade-out     { animation: fadeOut 0.25s ease forwards; }
+
+    /* ── Tiles ── */
+    .tiles-wrap {
+      display: flex; justify-content: center;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .tile-btn {
+      padding: 12px 26px;
+      background: #2563eb; color: white;
+      border: none; border-radius: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37,99,235,.25);
+      transition: background 0.2s, transform 0.1s;
+      user-select: none;
+    }
+    .tile-btn:hover  { background: #1d4ed8; transform: scale(1.04); }
+    .tile-btn:active { transform: scale(0.97); }
+    .tile-btn.correct {
+      background: #16a34a;
+      box-shadow: 0 4px 12px rgba(22,163,74,.30);
+      cursor: default;
+    }
+    .tile-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-6px); }
+      80%      { transform: translateX(6px); }
+    }
+    .tile-btn.shake { animation: shake 0.4s ease; background: #dc2626; }
+
+    /* ── End screen ── */
+    .end {
+      display: none; text-align: center;
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 32px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      margin-top: 16px;
+    }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .finish-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: #16a34a; color: #fff;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s; margin-top: 16px;
+      text-decoration: none; font-family: 'Poppins', sans-serif;
+    }
+    .finish-btn:hover { background: #15803d; }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .img-wrap img { max-height: 180px; }
+      .story-box { font-size: 14px; }
+      .prompt-line { font-size: 15px; }
+      .prompt-line.highlight { font-size: 17px; }
+      .tile-btn { padding: 11px 18px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 4 • Parte 4</div>
+  <div class="subline">Lectura y comprensión</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- ══ Word bank ══ -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span>📚 Banco de palabras</span>
+      <span class="chevron" id="vocabChevron">▲</span>
+    </button>
+    <div class="vocab-body open" id="vocabBody">
+      <table class="vocab-table">
+        <thead>
+          <tr><th>English</th><th>Español</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="vocab-en">brother</td><td class="vocab-es">hermano</td></tr>
+          <tr><td class="vocab-en">beer</td><td class="vocab-es">cerveza</td></tr>
+          <tr><td class="vocab-en">tall</td><td class="vocab-es">alto / alta</td></tr>
+          <tr><td class="vocab-en">big</td><td class="vocab-es">grande / grande</td></tr>
+          <tr><td class="vocab-en">small</td><td class="vocab-es">pequeño / pequeña</td></tr>
+          <tr><td class="vocab-en">fast</td><td class="vocab-es">rápido / rápida</td></tr>
+          <tr><td class="vocab-en">expensive</td><td class="vocab-es">caro / cara</td></tr>
+          <tr><td class="vocab-en">cheap</td><td class="vocab-es">barato / barata</td></tr>
+          <tr><td class="vocab-en">married</td><td class="vocab-es">casado / casada</td></tr>
+          <tr><td class="vocab-en">single</td><td class="vocab-es">soltero / soltera</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ Main card ══ -->
+  <div class="card" id="mainCard">
+
+    <!-- ── Listen phase ── -->
+    <div id="listenPhase">
+
+      <div class="img-wrap">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u4/u4.l4.p4.rich.man.beer.jpg"
+             alt="Craig en el bar" />
+      </div>
+
+      <div class="story-box" id="storyBox">
+        <p class="story-line" data-t="0">This is my brother Craig.</p>
+        <p class="story-line" data-t="3">He is tall. He is not short.</p>
+        <p class="story-line" data-t="6.5">His house is big and new. It is not small.</p>
+        <p class="story-line" data-t="11">His car is fast and expensive. It is not cheap.</p>
+        <p class="story-line" data-t="15.5">Craig is not married. He is single.</p>
+        <p class="story-line" data-t="19">Today he is at the bar.</p>
+        <p class="story-line" data-t="22">And he is drinking a beer.</p>
+      </div>
+
+      <div class="audio-area">
+        <button class="play-btn" id="playBtn" aria-label="Reproducir audio">▶</button>
+        <span class="play-label" id="playLabel">Toca para escuchar el texto</span>
+      </div>
+
+      <button class="exercise-btn" id="exerciseBtn" disabled>
+        ✏️ Ir al ejercicio
+      </button>
+
+    </div>
+
+    <!-- ── Exercise phase ── -->
+    <div id="exercisePhase">
+
+      <div class="quiz-header">
+        <span class="quiz-title">✏️ Completa las oraciones</span>
+        <span class="quiz-progress" id="quizProgress">1 / 5</span>
+      </div>
+
+      <!-- Story stays visible as reference -->
+      <div class="story-ref">
+        <div class="story-ref-label">📖 Referencia</div>
+        This is my brother Craig. He is tall. He is not short.
+        His house is big and new. It is not small.
+        His car is fast and expensive. It is not cheap.
+        Craig is not married. He is single.
+        Today he is at the bar. And he is drinking a beer.
+      </div>
+
+      <!-- Audio still accessible -->
+      <div class="audio-area" style="margin-bottom:14px;">
+        <button class="play-btn" id="playBtn2" aria-label="Reproducir audio">▶</button>
+        <span class="play-label" id="playLabel2">Toca para escuchar de nuevo</span>
+      </div>
+
+      <div class="quiz-prompt" id="quizPrompt"></div>
+      <div class="tiles-wrap" id="tilesWrap"></div>
+
+    </div>
+
+  </div><!-- /.card -->
+
+  <!-- End screen — outside card so hiding the card does not hide this -->
+  <div class="end" id="endScreen">
+    <div class="trophy">🏆</div>
+    <h2>¡Muy bien!</h2>
+    <p>¡Buen trabajo! Completaste la lectura y todos los ejercicios.</p>
+    <p>¡Sigue así, lo estás haciendo excelente! 💪</p>
+    <a href="p5.html" class="finish-btn">Continuar → Parte 5</a>
+  </div>
+
+</div><!-- /.wrap -->
+
+<script src="../../../../js/u4/u4_l4_p4.js"></script>
+<script>
+  // Wire up the second play button (exercise phase) to the same audio object
+  // We do this after the JS file has created the audio object via a small bridge.
+  // The JS file exposes nothing globally, so we duplicate the logic inline here.
+  (() => {
+    const pb2    = document.getElementById("playBtn2");
+    const pl2    = document.getElementById("playLabel2");
+    // The main audio is managed in the module; this button re-creates its own
+    // reference to the same URL so the student can replay during the exercise.
+    const AUD2 = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u4/u4.l4.p4.craig.mp3";
+    let audio2 = new Audio(AUD2);
+    let playing2 = false;
+    let pp2 = null;
+
+    pb2.addEventListener("click", () => {
+      if (playing2) {
+        if (pp2) { pp2.then(() => audio2.pause()).catch(() => {}); pp2 = null; }
+        else { audio2.pause(); }
+        playing2 = false;
+        pb2.innerHTML = "▶"; pb2.classList.remove("playing");
+        pl2.textContent = "Toca ▶ para continuar";
+        return;
+      }
+      playing2 = true;
+      pb2.innerHTML = "⏸"; pb2.classList.add("playing"); pb2.classList.remove("done");
+      pl2.textContent = "Escuchando...";
+      pp2 = audio2.play();
+      if (pp2) pp2.then(() => { pp2 = null; }).catch(err => {
+        if (err.name !== "AbortError") {
+          playing2 = false; pb2.classList.remove("playing");
+          pb2.innerHTML = "▶"; pl2.textContent = "No se pudo reproducir.";
+        }
+        pp2 = null;
+      });
+    });
+
+    audio2.addEventListener("ended", () => {
+      playing2 = false;
+      pb2.innerHTML = "▶"; pb2.classList.remove("playing"); pb2.classList.add("done");
+      pl2.textContent = "¡Escuchado! Toca para repetir";
+    });
+  })();
+</script>
+</body>
+</html>
