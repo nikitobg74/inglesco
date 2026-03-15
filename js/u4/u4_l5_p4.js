@@ -13,7 +13,8 @@
       ],
       showLines: true,
       question: null,
-      answer: ["Yes,", "it is.", "It is", "fast."]
+      answer1: ["Yes,", "it", "is."],
+      answer2: ["It", "is", "fast."]
     },
     {
       image: "u4.l5.p4.house.jpg",
@@ -23,7 +24,8 @@
       ],
       showLines: true,
       question: null,
-      answer: ["No,", "it is", "not.", "It is", "old."]
+      answer1: ["No,", "it", "is", "not."],
+      answer2: ["It", "is", "old."]
     },
     {
       image: "u4.l5.p4.apartment.jpg",
@@ -34,7 +36,8 @@
       ],
       showLines: false,
       question: ["Tell me", "about", "your apartment.", "Is it", "big?"],
-      answer: ["No,", "it is", "not.", "It is", "small."]
+      answer1: ["No,", "it", "is", "not."],
+      answer2: ["It", "is", "small."]
     }
   ];
 
@@ -43,13 +46,14 @@
   let lineTimers = [];
   let qSelected = [];
   let aSelected = [];
+  let fSelected = [];
   let qSolved = false;
   let aSolved = false;
+  let fSolved = false;
 
   const exerciseImage = document.getElementById("exerciseImage");
   const audioPlayBtn = document.getElementById("audioPlayBtn");
   const audioSub = document.getElementById("audioSub");
-  const scriptBox = document.getElementById("scriptBox");
   const scriptNote = document.getElementById("scriptNote");
   const scriptLinesEl = document.getElementById("scriptLines");
   const questionPhase = document.getElementById("questionPhase");
@@ -58,12 +62,18 @@
   const answerPhase = document.getElementById("answerPhase");
   const answerLabel = document.getElementById("answerLabel");
   const answerInstruction = document.getElementById("answerInstruction");
+  const factPhase = document.getElementById("factPhase");
+  const factLabel = document.getElementById("factLabel");
+  const factInstruction = document.getElementById("factInstruction");
   const qSlotsEl = document.getElementById("qSlots");
   const aSlotsEl = document.getElementById("aSlots");
+  const fSlotsEl = document.getElementById("fSlots");
   const qTilesEl = document.getElementById("qTiles");
   const aTilesEl = document.getElementById("aTiles");
+  const fTilesEl = document.getElementById("fTiles");
   const qFeedbackEl = document.getElementById("qFeedback");
   const aFeedbackEl = document.getElementById("aFeedback");
+  const fFeedbackEl = document.getElementById("fFeedback");
   const nextBtn = document.getElementById("nextBtn");
   const counterEl = document.getElementById("counter");
   const progressBar = document.getElementById("progressBar");
@@ -145,7 +155,7 @@
       return;
     }
 
-    scriptNote.textContent = "Escucha y mira la pregunta.";
+    scriptNote.textContent = "Escucha y mira la frase.";
 
     exercise.lines.forEach(line => {
       const row = document.createElement("div");
@@ -186,24 +196,34 @@
     });
   }
 
+  function showPhase(phaseEl) {
+    phaseEl.classList.remove("hidden");
+    phaseEl.classList.remove("entering");
+    void phaseEl.offsetWidth;
+    phaseEl.classList.add("entering");
+    setTimeout(() => phaseEl.classList.remove("entering"), 320);
+    phaseEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
   function solvePhase(phase, exercise) {
     if (phase === "q") {
       qSolved = true;
+
       if (exercise.question) {
-        setTimeout(() => {
-          answerPhase.classList.remove("hidden");
-          answerPhase.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }, 500);
+        setTimeout(() => showPhase(answerPhase), 500);
       } else {
-        setTimeout(() => {
-          nextBtn.disabled = false;
-          nextBtn.classList.add("ready");
-        }, 300);
+        setTimeout(() => showPhase(factPhase), 500);
       }
       return;
     }
 
-    aSolved = true;
+    if (phase === "a") {
+      aSolved = true;
+      setTimeout(() => showPhase(factPhase), 500);
+      return;
+    }
+
+    fSolved = true;
     setTimeout(() => {
       nextBtn.disabled = false;
       nextBtn.classList.add("ready");
@@ -214,6 +234,7 @@
     if (btn.disabled) return;
     if (phase === "q" && qSolved) return;
     if (phase === "a" && aSolved) return;
+    if (phase === "f" && fSolved) return;
 
     const pos = selected.length;
     if (pos >= correctOrder.length) return;
@@ -248,8 +269,10 @@
     current = index;
     qSelected = [];
     aSelected = [];
+    fSelected = [];
     qSolved = false;
     aSolved = false;
+    fSolved = false;
 
     if (currentAudio) {
       currentAudio.pause();
@@ -281,10 +304,14 @@
 
     questionPhase.classList.remove("hidden");
     answerPhase.classList.add("hidden");
+    factPhase.classList.add("hidden");
+
     qFeedbackEl.textContent = "";
     qFeedbackEl.className = "feedback";
     aFeedbackEl.textContent = "";
     aFeedbackEl.className = "feedback";
+    fFeedbackEl.textContent = "";
+    fFeedbackEl.className = "feedback";
 
     nextBtn.disabled = true;
     nextBtn.classList.remove("ready");
@@ -297,17 +324,22 @@
 
       answerLabel.textContent = "Construye la respuesta";
       answerInstruction.textContent = "Toca las palabras en orden.";
-      buildSlots(aSlotsEl, exercise.answer.length);
-      buildTiles(aTilesEl, exercise.answer, (btn) => handleTap(btn, exercise.answer, aSelected, aSlotsEl, aTilesEl, aFeedbackEl, "a"), "answer-tile");
+      buildSlots(aSlotsEl, exercise.answer1.length);
+      buildTiles(aTilesEl, exercise.answer1, (btn) => handleTap(btn, exercise.answer1, aSelected, aSlotsEl, aTilesEl, aFeedbackEl, "a"), "answer-tile");
     } else {
       questionLabel.textContent = "Construye la respuesta";
       questionInstruction.textContent = "Toca las palabras en orden.";
-      buildSlots(qSlotsEl, exercise.answer.length);
-      buildTiles(qTilesEl, exercise.answer, (btn) => handleTap(btn, exercise.answer, qSelected, qSlotsEl, qTilesEl, qFeedbackEl, "q"), "answer-tile");
+      buildSlots(qSlotsEl, exercise.answer1.length);
+      buildTiles(qTilesEl, exercise.answer1, (btn) => handleTap(btn, exercise.answer1, qSelected, qSlotsEl, qTilesEl, qFeedbackEl, "q"), "answer-tile");
 
       aSlotsEl.innerHTML = "";
       aTilesEl.innerHTML = "";
     }
+
+    factLabel.textContent = "Completa la idea";
+    factInstruction.textContent = "Toca las palabras en orden.";
+    buildSlots(fSlotsEl, exercise.answer2.length);
+    buildTiles(fTilesEl, exercise.answer2, (btn) => handleTap(btn, exercise.answer2, fSelected, fSlotsEl, fTilesEl, fFeedbackEl, "f"), "fact-tile");
 
     stopAudioUI();
   }

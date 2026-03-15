@@ -351,26 +351,21 @@
       margin: 16px 0;
     }
 
-    .fact-box {
-      display: none;
-      background: #fff7ed;
-      border: 2px solid #fdba74;
-      color: #9a3412;
-      border-radius: 12px;
-      padding: 12px 14px;
-      text-align: center;
-      font-weight: 700;
-      margin-bottom: 18px;
+    .phase-stack {
+      min-height: 340px;
     }
-    .fact-box.show { display: block; }
-    .fact-label {
+
+    .phase-block {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .28s ease, transform .28s ease;
+    }
+
+    .phase-block.show {
       display: block;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      font-weight: 900;
-      margin-bottom: 4px;
-      color: #c2410c;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .next-btn {
@@ -419,6 +414,7 @@
       .dialog-image {
         max-height: 210px;
       }
+      .phase-stack { min-height: 380px; }
       .slot { min-width: 62px; font-size: 12px; }
       .tile-btn { padding: 9px 13px; font-size: 13px; }
       .grammar-box { min-width: 140px; font-size: 12.5px; }
@@ -610,27 +606,34 @@
         <div class="prompt-text" id="promptText"></div>
       </div>
 
-      <div id="phase1Area">
-        <div class="phase-label" id="phase1Label">Fase 1 — Forma la pregunta</div>
-        <div class="instruction">👇 Toca las palabras en el orden correcto</div>
+      <div class="phase-stack">
+        <div id="phase1Area" class="phase-block show">
+          <div class="phase-label" id="phase1Label">Fase 1 — Forma la pregunta</div>
+          <div class="instruction">👇 Toca las palabras en el orden correcto</div>
 
-        <div class="slots-row" id="qSlots"></div>
-        <div class="feedback" id="qFeedback"></div>
-        <div class="tiles-wrap" id="qTiles"></div>
-      </div>
+          <div class="slots-row" id="qSlots"></div>
+          <div class="feedback" id="qFeedback"></div>
+          <div class="tiles-wrap" id="qTiles"></div>
+        </div>
 
-      <div id="phase2Area" style="display:none;">
-        <hr class="phase-divider" />
-        <div class="phase-label phase2" id="phase2Label">Fase 2 — Forma la respuesta</div>
-        <div class="instruction">👇 Toca las palabras en el orden correcto</div>
+        <div id="phase2Area" class="phase-block">
+          <hr class="phase-divider" />
+          <div class="phase-label phase2" id="phase2Label">Fase 2 — Forma la respuesta</div>
+          <div class="instruction">👇 Toca las palabras en el orden correcto</div>
 
-        <div class="slots-row" id="aSlots"></div>
-        <div class="feedback" id="aFeedback"></div>
-        <div class="tiles-wrap" id="aTiles"></div>
+          <div class="slots-row" id="aSlots"></div>
+          <div class="feedback" id="aFeedback"></div>
+          <div class="tiles-wrap" id="aTiles"></div>
+        </div>
 
-        <div class="fact-box" id="factBox">
-          <span class="fact-label">Respuesta completa</span>
-          <span id="factText"></span>
+        <div id="phase3Area" class="phase-block">
+          <hr class="phase-divider" />
+          <div class="phase-label phase2">Fase 3 — Completa la respuesta</div>
+          <div class="instruction">👇 Toca las palabras en el orden correcto</div>
+
+          <div class="slots-row" id="fSlots"></div>
+          <div class="feedback" id="fFeedback"></div>
+          <div class="tiles-wrap" id="fTiles"></div>
         </div>
       </div>
 

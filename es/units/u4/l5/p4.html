@@ -238,12 +238,29 @@
       padding: 4px 6px;
     }
 
+    .exercise-phases {
+      position: relative;
+      min-height: 380px;
+    }
+
     .phase {
       border-top: 1px solid #e5e7eb;
       padding-top: 16px;
       margin-top: 14px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .28s ease, transform .28s ease;
     }
-    .phase.hidden { display: none; }
+    .phase.hidden {
+      display: none;
+    }
+    .phase.entering {
+      animation: phaseIn .28s ease;
+    }
+    @keyframes phaseIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
     .phase-label {
       text-align: center;
       font-size: 13px;
@@ -255,6 +272,7 @@
       border-radius: 8px;
     }
     .phase-label.green { background: #f0fdf4; color: #15803d; }
+    .phase-label.orange { background: #fff7ed; color: #c2410c; }
     .instruction {
       text-align: center;
       font-size: 13px;
@@ -344,8 +362,13 @@
       background: #16a34a;
       box-shadow: 0 4px 12px rgba(22,163,74,.25);
     }
+    .tile-btn.fact-tile {
+      background: #ea580c;
+      box-shadow: 0 4px 12px rgba(234,88,12,.25);
+    }
     .tile-btn:hover { background: #1d4ed8; transform: scale(1.04); }
     .tile-btn.answer-tile:hover { background: #15803d; }
+    .tile-btn.fact-tile:hover { background: #c2410c; }
     .tile-btn:active { transform: scale(0.97); }
     .tile-btn.used,
     .tile-btn:disabled {
@@ -408,6 +431,7 @@
       .slot { min-width: 64px; font-size: 13px; }
       .tile-btn { padding: 10px 14px; font-size: 13px; }
       .script-box { padding: 12px 12px; }
+      .exercise-phases { min-height: 420px; }
     }
   </style>
 </head>
@@ -423,6 +447,7 @@
       <a class="step" href="p2.html">2</a>
       <a class="step" href="p3.html">3</a>
       <a class="step active" href="p4.html">4</a>
+      <a class="step" href="p5.html">5</a>
     </div>
 
     <div class="vocab-panel">
@@ -438,13 +463,13 @@
             <div class="main">Is it fast?</div>
           </div>
           <div class="grammar-box">
-            <div class="box-title">Respuesta — Sí</div>
+            <div class="box-title">Respuesta corta</div>
             <div><span class="good">Yes,</span> it is.</div>
-            <div>It is fast.</div>
+            <div><span class="neg">No,</span> it is not.</div>
           </div>
           <div class="grammar-box">
-            <div class="box-title">Respuesta — No</div>
-            <div><span class="neg">No,</span> it is not.</div>
+            <div class="box-title">Respuesta completa</div>
+            <div>It is fast.</div>
             <div>It is old.</div>
           </div>
         </div>
@@ -474,20 +499,30 @@
         <div id="scriptLines"></div>
       </div>
 
-      <div class="phase" id="questionPhase">
-        <div class="phase-label" id="questionLabel">Construye la pregunta</div>
-        <div class="instruction" id="questionInstruction">Toca las palabras en orden.</div>
-        <div class="slots-row" id="qSlots"></div>
-        <div class="feedback" id="qFeedback"></div>
-        <div class="tiles-wrap" id="qTiles"></div>
-      </div>
+      <div class="exercise-phases">
+        <div class="phase" id="questionPhase">
+          <div class="phase-label" id="questionLabel">Construye la pregunta</div>
+          <div class="instruction" id="questionInstruction">Toca las palabras en orden.</div>
+          <div class="slots-row" id="qSlots"></div>
+          <div class="feedback" id="qFeedback"></div>
+          <div class="tiles-wrap" id="qTiles"></div>
+        </div>
 
-      <div class="phase hidden" id="answerPhase">
-        <div class="phase-label green" id="answerLabel">Construye la respuesta</div>
-        <div class="instruction" id="answerInstruction">Toca las palabras en orden.</div>
-        <div class="slots-row" id="aSlots"></div>
-        <div class="feedback" id="aFeedback"></div>
-        <div class="tiles-wrap" id="aTiles"></div>
+        <div class="phase hidden" id="answerPhase">
+          <div class="phase-label green" id="answerLabel">Construye la respuesta</div>
+          <div class="instruction" id="answerInstruction">Toca las palabras en orden.</div>
+          <div class="slots-row" id="aSlots"></div>
+          <div class="feedback" id="aFeedback"></div>
+          <div class="tiles-wrap" id="aTiles"></div>
+        </div>
+
+        <div class="phase hidden" id="factPhase">
+          <div class="phase-label orange" id="factLabel">Completa la idea</div>
+          <div class="instruction" id="factInstruction">Toca las palabras en orden.</div>
+          <div class="slots-row" id="fSlots"></div>
+          <div class="feedback" id="fFeedback"></div>
+          <div class="tiles-wrap" id="fTiles"></div>
+        </div>
       </div>
 
       <button class="next-btn" id="nextBtn" disabled>Siguiente</button>

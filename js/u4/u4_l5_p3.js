@@ -7,38 +7,43 @@
     {
       prompt:   "Tell me about your brother.",
       question: ["Is", "he", "single?"],
-      answer:   ["No,", "he", "is not."],
-      fact:     "He is married."
+      answer1:  ["No,", "he", "is", "not."],
+      answer2:  ["He", "is", "married."]
     },
     {
       prompt:   "Tell me about your sister.",
       question: ["Is", "she", "married?"],
-      answer:   ["No,", "she", "is not."],
-      fact:     "She is single."
+      answer1:  ["No,", "she", "is", "not."],
+      answer2:  ["She", "is", "single."]
     },
   ];
 
   let current   = 0;
   let qSelected = [];
   let aSelected = [];
+  let fSelected = [];
   let qSolved   = false;
   let aSolved   = false;
+  let fSolved   = false;
 
   const promptEl    = document.getElementById("promptText");
+  const phase1Area  = document.getElementById("phase1Area");
   const phase2Area  = document.getElementById("phase2Area");
+  const phase3Area  = document.getElementById("phase3Area");
   const qSlotsEl    = document.getElementById("qSlots");
   const aSlotsEl    = document.getElementById("aSlots");
+  const fSlotsEl    = document.getElementById("fSlots");
   const qFeedbackEl = document.getElementById("qFeedback");
   const aFeedbackEl = document.getElementById("aFeedback");
+  const fFeedbackEl = document.getElementById("fFeedback");
   const qTilesEl    = document.getElementById("qTiles");
   const aTilesEl    = document.getElementById("aTiles");
+  const fTilesEl    = document.getElementById("fTiles");
   const nextBtn     = document.getElementById("nextBtn");
   const counterEl   = document.getElementById("counter");
   const progressBar = document.getElementById("progressBar");
   const slideArea   = document.getElementById("slideArea");
   const endScreen   = document.getElementById("endScreen");
-  const factBox     = document.getElementById("factBox");
-  const factText    = document.getElementById("factText");
 
   const dialogAudio    = new Audio(AUD + "u4.l5.p3.tell.me.about.dialog.mp3");
   dialogAudio.preload  = "auto";
@@ -134,6 +139,16 @@
     chevron.textContent = open ? "▲" : "▼";
   });
 
+  function showPhase(el) {
+    el.style.display = "block";
+    requestAnimationFrame(() => el.classList.add("show"));
+  }
+
+  function hidePhase(el) {
+    el.classList.remove("show");
+    el.style.display = "none";
+  }
+
   function buildSlots(container, count) {
     container.innerHTML = "";
     for (let i = 0; i < count; i++) {
@@ -148,9 +163,18 @@
     return Array.from(container.querySelectorAll(".slot"));
   }
 
+  function shuffleArray(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
   function buildTiles(container, words, onTap, extraClass) {
     container.innerHTML = "";
-    const shuffled = [...words].sort(() => Math.random() - 0.5);
+    const shuffled = shuffleArray(words);
     shuffled.forEach(word => {
       const btn = document.createElement("button");
       btn.className = "tile-btn" + (extraClass ? " " + extraClass : "");
@@ -186,26 +210,34 @@
     const ex = EXERCISES[idx];
     qSelected = [];
     aSelected = [];
+    fSelected = [];
     qSolved   = false;
     aSolved   = false;
+    fSolved   = false;
 
     counterEl.textContent   = `${idx + 1} / ${EXERCISES.length}`;
     progressBar.style.width = ((idx + 1) / EXERCISES.length * 100) + "%";
 
     promptEl.textContent = ex.prompt;
-    factText.textContent = "";
-    factBox.classList.remove("show");
 
     buildSlots(qSlotsEl, ex.question.length);
     buildTiles(qTilesEl, ex.question, (btn) => handleTap(btn, ex.question, qSelected, qSlotsEl, qTilesEl, qFeedbackEl, "q"), "");
     qFeedbackEl.textContent = "";
     qFeedbackEl.className = "feedback";
 
-    phase2Area.style.display = "none";
-    buildSlots(aSlotsEl, ex.answer.length);
-    buildTiles(aTilesEl, ex.answer, (btn) => handleTap(btn, ex.answer, aSelected, aSlotsEl, aTilesEl, aFeedbackEl, "a"), "phase2-tile");
+    buildSlots(aSlotsEl, ex.answer1.length);
+    buildTiles(aTilesEl, ex.answer1, (btn) => handleTap(btn, ex.answer1, aSelected, aSlotsEl, aTilesEl, aFeedbackEl, "a"), "phase2-tile");
     aFeedbackEl.textContent = "";
     aFeedbackEl.className = "feedback";
+
+    buildSlots(fSlotsEl, ex.answer2.length);
+    buildTiles(fTilesEl, ex.answer2, (btn) => handleTap(btn, ex.answer2, fSelected, fSlotsEl, fTilesEl, fFeedbackEl, "f"), "phase2-tile");
+    fFeedbackEl.textContent = "";
+    fFeedbackEl.className = "feedback";
+
+    showPhase(phase1Area);
+    hidePhase(phase2Area);
+    hidePhase(phase3Area);
 
     nextBtn.disabled = true;
     nextBtn.classList.remove("ready");
@@ -215,8 +247,8 @@
     if (btn.disabled) return;
     if (phase === "q" && qSolved) return;
     if (phase === "a" && aSolved) return;
+    if (phase === "f" && fSolved) return;
 
-    const ex   = EXERCISES[current];
     const word = btn.dataset.word;
     const pos  = selected.length;
     if (pos >= correctOrder.length) return;
@@ -240,17 +272,21 @@
         if (phase === "q") {
           qSolved = true;
           setTimeout(() => {
-            phase2Area.style.display = "block";
+            showPhase(phase2Area);
             phase2Area.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          }, 600);
-        } else {
+          }, 450);
+        } else if (phase === "a") {
           aSolved = true;
-          factText.textContent = ex.fact;
-          factBox.classList.add("show");
+          setTimeout(() => {
+            showPhase(phase3Area);
+            phase3Area.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }, 450);
+        } else if (phase === "f") {
+          fSolved = true;
           setTimeout(() => {
             nextBtn.disabled = false;
             nextBtn.classList.add("ready");
-          }, 400);
+          }, 350);
         }
       } else {
         shakeSlots(slotsEl);
