@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 6 • Parte 4</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      color: #111827;
+    }
+    .wrap { max-width: 480px; margin: 0 auto; }
+
+    .back-btn {
+      display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+      background: #2563eb; color: #fff; border-radius: 10px;
+      text-decoration: none; font-weight: 700; font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    .top-title { text-align:center; font-size:18px; font-weight:900; margin-bottom:4px; }
+    .subline    { text-align:center; font-size:14px; font-weight:700; margin-bottom:16px; color:#374151; }
+
+    .progress-container { display:flex; justify-content:center; gap:10px; margin:12px 0 20px; }
+    .step {
+      width:38px; height:38px; border-radius:50%; background:#d1d5db;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:15px; text-decoration:none; color:#1f2933; transition:all .25s;
+    }
+    .step.active { background:#2563eb; color:#fff; }
+    .step:hover  { transform:scale(1.08); }
+
+    /* vocab panel */
+    .vocab-panel {
+      background: rgba(255,255,255,.92); border-radius:14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08); margin-bottom:16px; overflow:hidden;
+    }
+    .vocab-toggle {
+      width:100%; background:#1e40af; color:#fff; border:none; cursor:pointer;
+      padding:12px 16px; display:flex; align-items:center; justify-content:space-between;
+      font-weight:700; font-size:15px;
+    }
+    .vocab-toggle:hover { background:#1d4ed8; }
+    .vocab-body {
+      max-height:0; overflow:hidden; transition:max-height .45s ease, padding .3s ease; padding:0 14px;
+    }
+    .vocab-body.open { max-height:600px; padding:14px; }
+    .vocab-grid {
+      display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    }
+    .vocab-box {
+      background:#dbeafe; border-radius:12px; padding:12px 14px; color:#1e3a5f;
+      font-size:13px; line-height:1.8;
+    }
+    .box-title {
+      font-size:10.5px; font-weight:900; text-transform:uppercase; letter-spacing:.6px;
+      color:#2563eb; margin-bottom:8px;
+    }
+    .vocab-row { display:flex; justify-content:space-between; gap:10px; }
+    .vocab-row strong { color:#1e40af; }
+
+    /* card */
+    .card, .end {
+      background: rgba(255,255,255,.88); border-radius:18px; padding:24px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    /* progress bar */
+    .ex-progress-row {
+      display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;
+    }
+    .ex-counter { font-size:13px; font-weight:700; color:#486581; }
+    .bar-wrap {
+      background:#e2e8f0; border-radius:999px; height:7px; margin-bottom:20px; overflow:hidden;
+    }
+    .bar-fill {
+      height:100%; width:0%; background:#a855f7; border-radius:999px; transition:width .45s ease;
+    }
+
+    /* image */
+    .image-box {
+      background:#f8fafc; border-radius:16px; padding:12px; margin-bottom:16px; text-align:center;
+    }
+    .exercise-image {
+      width:100%; max-width:440px; max-height:240px; height:auto; object-fit:cover;
+      border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,.08); display:block; margin:0 auto;
+    }
+
+    /* context */
+    .context-box {
+      background:#eff6ff; border:2px solid #93c5fd; border-radius:12px;
+      padding:10px 14px; text-align:center; margin-bottom:18px;
+    }
+    .context-tag  { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:#2563eb; margin-bottom:3px; }
+    .context-text { font-size:15px; font-weight:700; color:#1e293b; }
+
+    /* question sentence */
+    .question-label {
+      text-align:center; font-size:10.5px; font-weight:900; text-transform:uppercase;
+      letter-spacing:.7px; color:#7c3aed; margin-bottom:8px;
+    }
+    .question-sentence {
+      text-align:center; font-size:20px; font-weight:700; color:#1e293b;
+      background:#f5f3ff; border:2px solid #c4b5fd; border-radius:14px;
+      padding:16px 14px; margin-bottom:22px; line-height:1.5;
+    }
+    .blank {
+      display:inline-block;
+      min-width:90px; border-bottom:3px solid #7c3aed;
+      color:#7c3aed; font-weight:900; text-align:center;
+      transition:color .2s;
+    }
+    .blank.filled-correct { color:#16a34a; border-bottom-color:#16a34a; }
+    .blank.filled-wrong   { color:#dc2626; border-bottom-color:#dc2626; }
+
+    /* choice tiles */
+    .choices-label {
+      text-align:center; font-size:10.5px; font-weight:900; text-transform:uppercase;
+      letter-spacing:.7px; color:#0f766e; margin-bottom:10px;
+    }
+    .choices-wrap {
+      display:flex; flex-direction:column; gap:10px; margin-bottom:20px;
+    }
+    .choice-btn {
+      width:100%; padding:13px 16px; border:none; border-radius:14px; cursor:pointer;
+      background:#0d9488; color:#fff; font-size:16px; font-weight:700;
+      box-shadow:0 4px 12px rgba(13,148,136,.25); transition:all .15s; text-align:center;
+    }
+    .choice-btn:hover:not(:disabled) { background:#0f766e; transform:scale(1.02); }
+    .choice-btn:disabled { opacity:.45; cursor:default; transform:none; }
+    .choice-btn.correct-flash { background:#16a34a !important; opacity:1; }
+    .choice-btn.wrong-flash   { background:#dc2626 !important; opacity:1; }
+
+    @keyframes shake {
+      0%,100% { transform:translateX(0); }
+      20%      { transform:translateX(-9px); }
+      40%      { transform:translateX(9px); }
+      60%      { transform:translateX(-6px); }
+      80%      { transform:translateX(6px); }
+    }
+    .choice-btn.shake { animation:shake .4s ease; }
+
+    /* feedback */
+    .feedback {
+      min-height:22px; text-align:center; font-size:14px; font-weight:700; margin-bottom:6px;
+    }
+    .feedback.correct { color:#16a34a; }
+    .feedback.wrong   { color:#dc2626; }
+
+    /* end screen */
+    .end { display:none; text-align:center; margin-top:16px; padding:32px 20px; }
+    .end.show { display:block; }
+    .trophy { font-size:52px; margin-bottom:10px; }
+    .end h2  { margin:8px 0; font-size:22px; font-weight:900; color:#1e40af; }
+    .end p   { margin:6px 0; font-weight:600; color:#374151; font-size:14px; }
+    .highlight-msg {
+      background:#fef9c3; border:2px solid #fde68a; border-radius:12px;
+      padding:12px 16px; margin:14px 0; font-size:14px; color:#78350f;
+    }
+    .finish-btn {
+      display:inline-flex; align-items:center; gap:8px; padding:12px 28px;
+      background:#16a34a; color:#fff; text-decoration:none; border-radius:14px;
+      font-weight:900; font-size:16px; box-shadow:0 5px 12px rgba(22,163,74,.3);
+    }
+    .finish-btn:hover { background:#15803d; }
+
+    @media (max-width:480px) {
+      .question-sentence { font-size:17px; padding:14px 10px; }
+      .choice-btn  { font-size:15px; }
+      .exercise-image { max-height:190px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 6 • Parte 4</div>
+  <div class="subline">Descripción con adjetivos — Describing with adjectives</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span>📚 Banco de palabras</span>
+      <span id="vocabChevron">▼</span>
+    </button>
+    <div class="vocab-body" id="vocabBody">
+      <div class="vocab-grid">
+        <div class="vocab-box">
+          <div class="box-title">Adjetivos</div>
+          <div class="vocab-row"><span>short</span><strong>bajo</strong></div>
+          <div class="vocab-row"><span>tall</span><strong>alto</strong></div>
+          <div class="vocab-row"><span>handsome</span><strong>guapo</strong></div>
+          <div class="vocab-row"><span>ugly</span><strong>feo</strong></div>
+          <div class="vocab-row"><span>old</span><strong>viejo</strong></div>
+          <div class="vocab-row"><span>young</span><strong>joven</strong></div>
+          <div class="vocab-row"><span>single</span><strong>soltero</strong></div>
+          <div class="vocab-row"><span>married</span><strong>casado</strong></div>
+        </div>
+        <div class="vocab-box">
+          <div class="box-title">Más adjetivos</div>
+          <div class="vocab-row"><span>large</span><strong>grande</strong></div>
+          <div class="vocab-row"><span>small</span><strong>pequeño</strong></div>
+          <div class="vocab-row"><span>quiet</span><strong>tranquilo</strong></div>
+          <div class="vocab-row"><span>noisy</span><strong>ruidoso</strong></div>
+          <div class="vocab-row"><span>cheap</span><strong>barato</strong></div>
+          <div class="vocab-row"><span>expensive</span><strong>caro</strong></div>
+          <div class="vocab-row"><span>pretty</span><strong>bonito</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="slideArea">
+    <div class="ex-progress-row">
+      <span class="ex-counter" id="exCounter">1 / 8</span>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-fill" id="barFill"></div>
+    </div>
+
+    <div class="image-box">
+      <img id="exerciseImage" class="exercise-image" alt="Imagen del ejercicio" />
+    </div>
+
+    <div class="context-box">
+      <div class="context-tag">Contexto</div>
+      <div class="context-text" id="contextText"></div>
+    </div>
+
+    <div class="question-label">Completa la oración</div>
+    <div class="question-sentence" id="questionSentence"></div>
+
+    <div class="choices-label">Elige el adjetivo correcto</div>
+    <div class="choices-wrap" id="choicesWrap"></div>
+
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <div class="end" id="endScreen">
+    <div class="trophy">🏆</div>
+    <h2>¡Muy buen trabajo!</h2>
+    <p>Completaste la Parte 4.</p>
+    <div class="highlight-msg">🎉 ¡Excelente! Sabes usar los adjetivos para describir personas y lugares.</div>
+    <a href="p5.html" class="finish-btn">Continuar → Parte 5</a>
+  </div>
+</div>
+<script src="../../../../js/u4/u4_l6_p4.js"></script>
+</body>
+</html>
