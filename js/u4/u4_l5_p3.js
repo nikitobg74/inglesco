@@ -194,7 +194,7 @@
     btn.classList.add("used");
 
     if (selected.length === correctOrder.length) {
-      const correct = correctOrder.every((w, i) => w === selected[i]);
+      const correct = correctOrder.every((w, i) => w.toLowerCase() === selected[i].toLowerCase());
 
       if (correct) {
         slots.forEach(s => s.classList.add("correct"));
