@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 6 • Parte 1</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 700px; margin: 0 auto; }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 7px 14px;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    .top-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .subline {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #374151;
+    }
+
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0 20px 0;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      text-decoration: none;
+      user-select: none;
+      color: #1f2933;
+      transition: all .3s;
+      font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    .vocab-panel {
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .vocab-toggle {
+      width: 100%;
+      background: #1e40af;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 14px;
+      transition: background 0.2s;
+    }
+    .vocab-toggle:hover { background: #1d4ed8; }
+    .vocab-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s ease, padding 0.3s ease;
+      padding: 0 14px;
+    }
+    .vocab-body.open { max-height: 900px; padding: 14px; }
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+    .vocab-box {
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #1e3a5f;
+      line-height: 1.55;
+      font-size: 13px;
+    }
+    .box-title {
+      font-size: 10.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: #3b82f6;
+      margin-bottom: 8px;
+    }
+    .vocab-line { display: flex; justify-content: space-between; gap: 10px; }
+    .vocab-line strong { color: #1e40af; }
+    .vocab-line span { color: #475569; font-weight: 600; }
+
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 7px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .exercise-image {
+      width: 100%;
+      max-width: 560px;
+      max-height: 280px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      margin: 0 auto 14px;
+      display: block;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+      background: #fff;
+    }
+
+    .audio-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .play-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #2563eb;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      transition: background 0.2s, transform 0.1s;
+      color: white;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .play-btn:hover { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn.done { background: #16a34a; }
+    .audio-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .audio-label { font-size: 13px; font-weight: 700; color: #1e40af; }
+    .audio-sub { font-size: 11px; color: #6b7280; font-weight: 600; }
+
+    .script-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      min-height: 122px;
+    }
+    .script-note {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+    .script-line {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 2px;
+      padding: 4px 8px;
+      border-radius: 10px;
+      transition: background-color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+      opacity: 0;
+    }
+    .script-line.show { opacity: 1; }
+    .script-line.active-line {
+      background: #fef3c7;
+      transform: scale(1.01);
+    }
+    .script-line.active-line .line-text { color: #92400e; }
+    .speaker {
+      font-weight: 900;
+      font-size: 13px;
+      min-width: 20px;
+      padding-top: 1px;
+    }
+    .speaker.a { color: #2563eb; }
+    .speaker.b { color: #16a34a; }
+    .line-text {
+      font-weight: 600;
+      color: #1e293b;
+      transition: color 0.25s ease;
+    }
+
+    .word-stage {
+      display: none;
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 2px dashed #d1d5db;
+      animation: riseIn .35s ease;
+    }
+    .word-stage.show { display: block; }
+    .word-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: #3b82f6;
+      margin-bottom: 8px;
+    }
+    .word-card {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 2px solid #93c5fd;
+      border-radius: 18px;
+      padding: 18px 14px;
+      text-align: center;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 16px rgba(37,99,235,.12);
+    }
+    .big-word {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1d4ed8;
+      line-height: 1.15;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+    .big-word-sub {
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .vocab-play-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .vocab-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 999px;
+      background: #16a34a;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: 0 5px 14px rgba(22,163,74,.28);
+      transition: background .2s, transform .1s;
+    }
+    .vocab-play-btn:hover { background: #15803d; transform: scale(1.03); }
+    .vocab-play-btn.playing { background: #7c3aed; }
+    .vocab-play-btn.done { background: #0f766e; }
+    .mini-note {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      min-height: 18px;
+    }
+
+    .next-btn {
+      display: block;
+      width: 100%;
+      padding: 13px 0;
+      background: #d1d5db;
+      color: #9ca3af;
+      border: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: not-allowed;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      margin-top: 18px;
+    }
+    .next-btn.ready {
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(37,99,235,.30);
+    }
+    .next-btn.ready:hover { background: #1d4ed8; }
+
+    .end {
+      display: none;
+      text-align: center;
+      background: rgba(255,255,255,.88);
+      border-radius: 18px;
+      padding: 32px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      margin-top: 16px;
+    }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
+    .highlight-msg {
+      background: #fef9c3;
+      border: 2px solid #fde68a;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 14px;
+      color: #78350f;
+    }
+    .finish-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s;
+      margin-top: 16px;
+      text-decoration: none;
+    }
+    .finish-btn:hover { background: #15803d; }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .exercise-image { max-height: 210px; }
+      .big-word { font-size: 24px; }
+      .vocab-grid { grid-template-columns: 1fr 1fr; }
+      .script-box { min-height: 136px; padding: 12px; }
+      .vocab-box { padding: 10px 12px; font-size: 12.5px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 6 • Parte 1</div>
+  <div class="subline">My neighbours are very noisy — Mis vecinos son muy ruidosos</div>
+
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span>📚 Banco de palabras</span>
+      <span id="vocabChevron">▲</span>
+    </button>
+    <div class="vocab-body open" id="vocabBody">
+      <div class="vocab-grid">
+        <div class="vocab-box">
+          <div class="box-title">Personas</div>
+          <div class="vocab-line"><strong>neighbours</strong><span>vecinos</span></div>
+          <div class="vocab-line"><strong>pretty</strong><span>bonita / bonito</span></div>
+          <div class="vocab-line"><strong>handsome</strong><span>guapo</span></div>
+          <div class="vocab-line"><strong>ugly</strong><span>feo / fea</span></div>
+        </div>
+        <div class="vocab-box">
+          <div class="box-title">Adjetivos</div>
+          <div class="vocab-line"><strong>noisy</strong><span>ruidoso</span></div>
+          <div class="vocab-line"><strong>quiet</strong><span>tranquilo</span></div>
+          <div class="vocab-line"><strong>very</strong><span>muy</span></div>
+        </div>
+        <div class="vocab-box">
+          <div class="box-title">Escuela</div>
+          <div class="vocab-line"><strong>test</strong><span>examen</span></div>
+          <div class="vocab-line"><strong>easy</strong><span>fácil</span></div>
+          <div class="vocab-line"><strong>difficult</strong><span>difícil</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="slideArea">
+      <div class="counter-row">
+        <span class="counter" id="counter">1 / 6</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="progressBar"></div>
+      </div>
+
+      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" onerror="this.style.display='none'" />
+
+      <div class="audio-row">
+        <button class="play-btn" id="dialogPlayBtn" aria-label="Reproducir diálogo">▶</button>
+        <div class="audio-label-wrap">
+          <span class="audio-label">Toca para escuchar el diálogo</span>
+          <span class="audio-sub" id="dialogAudioSub">Escucha y lee</span>
+        </div>
+      </div>
+
+      <div class="script-box">
+        <div class="script-note" id="scriptNote">Escucha primero. Después aparece la palabra grande.</div>
+        <div id="scriptLines"></div>
+      </div>
+
+      <div class="word-stage" id="wordStage">
+        <div class="word-label">Palabra clave</div>
+        <div class="word-card">
+          <div class="big-word" id="bigWord"></div>
+          <div class="big-word-sub" id="bigWordSub">Toca para escuchar la palabra o frase</div>
+        </div>
+        <div class="vocab-play-wrap">
+          <button class="vocab-play-btn" id="wordPlayBtn">🔊 Escuchar palabra</button>
+        </div>
+        <div class="mini-note" id="wordNote">Primero escucha el diálogo.</div>
+      </div>
+
+      <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+    </div>
+  </div>
+
+  <div class="end" id="endScreen">
+    <div class="trophy">🌟</div>
+    <h2>¡Buen trabajo!</h2>
+    <p>Completaste la Parte 1 de la Lección 6.</p>
+    <div class="highlight-msg">
+      Escuchaste diálogos y aprendiste palabras nuevas como <strong>noisy</strong>, <strong>pretty</strong>, <strong>handsome</strong> y <strong>difficult</strong>.
+    </div>
+    <a href="p2.html" class="finish-btn">Continuar → Parte 2</a>
+  </div>
+</div>
+
+<script src="../../../../js/u4/u4_l6_p1.js"></script>
+</body>
+</html>
