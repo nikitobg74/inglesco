@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 5 • Parte 2</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 700px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-block; margin-bottom: 16px;
+      padding: 7px 14px; background: #2563eb; color: white;
+      border-radius: 10px; text-decoration: none; font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Page title ── */
+    .top-title {
+      text-align: center; font-size: 18px; font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .subline {
+      text-align: center; font-size: 14px; font-weight: 700;
+      margin-bottom: 16px; color: #374151;
+    }
+
+    /* ── Progress steps ── */
+    .progress-container {
+      display: flex; justify-content: center;
+      gap: 10px; margin: 12px 0 20px 0;
+    }
+    .step {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; cursor: pointer; transition: all .3s;
+      color: #1f2933; text-decoration: none; user-select: none;
+      font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── Grammar panel ── */
+    .vocab-panel {
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .vocab-toggle {
+      width: 100%; background: #1e40af; color: white;
+      border: none; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 15px; border-radius: 14px;
+      transition: background 0.2s;
+    }
+    .vocab-toggle:hover { background: #1d4ed8; }
+    .vocab-toggle .chevron { font-size: 12px; }
+    .vocab-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s ease, padding 0.3s ease;
+      padding: 0 14px;
+    }
+    .vocab-body.open { max-height: 700px; padding: 10px 14px; }
+
+    .grammar-note {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #1e3a5f;
+    }
+    .grammar-note strong { color: #1e40af; display: block; margin-bottom: 4px; font-size: 13px; }
+
+    .grammar-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .grammar-table th {
+      padding: 6px 10px; text-align: left; font-weight: 700;
+      border-bottom: 2px solid #bfdbfe; font-size: 12px;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .grammar-table th:first-child { background: #dbeafe; color: #1e3a5f; border-radius: 6px 0 0 0; }
+    .grammar-table th:last-child  { background: #d1fae5; color: #065f46; border-radius: 0 6px 0 0; }
+    .grammar-table td { padding: 5px 10px; border-bottom: 1px solid #e2e8f0; }
+    .grammar-table tr:last-child td { border-bottom: none; }
+    .grammar-table tr:nth-child(even) td { background: #f8fafc; }
+    .col-stmt { color: #374151; font-weight: 600; }
+    .col-qn   { color: #065f46; font-weight: 900; }
+
+    /* ── Main card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    /* ── Counter & bar ── */
+    .counter-row {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 8px;
+    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .bar-wrap {
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 20px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; width: 0%; background: #2563eb;
+      border-radius: 999px; transition: width 0.5s ease;
+    }
+
+    /* ── Statement display ── */
+    .statement-box {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .stmt-tag {
+      font-size: 10px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #16a34a; margin-bottom: 4px;
+    }
+    .statement-text {
+      font-size: 18px; font-weight: 700; color: #1e293b;
+    }
+
+    /* ── Instruction label ── */
+    .instruction {
+      text-align: center; font-size: 13px; font-weight: 600;
+      color: #486581; margin-bottom: 14px;
+    }
+
+    /* ── Answer slots ── */
+    .slots-row {
+      display: flex; justify-content: center;
+      gap: 10px; margin-bottom: 18px; flex-wrap: wrap;
+    }
+    .slot {
+      min-width: 90px; height: 48px;
+      border: 2px dashed #93c5fd;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: #1e40af;
+      background: #eff6ff;
+      transition: all 0.2s;
+      padding: 0 10px;
+    }
+    .slot.filled {
+      border-style: solid;
+      border-color: #3b82f6;
+      background: #dbeafe;
+    }
+    .slot.correct {
+      border-color: #16a34a;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-6px); }
+      80%      { transform: translateX(6px); }
+    }
+    .slot.shake { animation: shake 0.4s ease; border-color: #dc2626; background: #fee2e2; color: #dc2626; }
+
+    /* ── Feedback ── */
+    .feedback {
+      text-align: center; font-size: 14px; font-weight: 700;
+      min-height: 22px; margin-bottom: 14px;
+    }
+    .feedback.correct { color: #16a34a; }
+    .feedback.wrong   { color: #dc2626; }
+
+    /* ── Word tiles ── */
+    .tiles-wrap {
+      display: flex; justify-content: center;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .tile-btn {
+      padding: 11px 22px;
+      background: #2563eb; color: white;
+      border: none; border-radius: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37,99,235,.25);
+      transition: background 0.2s, transform 0.1s, opacity 0.2s;
+      user-select: none;
+    }
+    .tile-btn:hover  { background: #1d4ed8; transform: scale(1.04); }
+    .tile-btn:active { transform: scale(0.97); }
+    .tile-btn.used   { opacity: 0.35; cursor: default; transform: none; }
+    .tile-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+    /* ── Audio area (shown after correct) ── */
+    .audio-area {
+      display: none;
+      flex-direction: column;
+      align-items: center; gap: 8px; margin-bottom: 16px;
+      animation: fadeUp 0.4s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .play-btn {
+      width: 62px; height: 62px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      transition: background 0.2s, transform 0.1s;
+      color: white; font-size: 24px;
+    }
+    .play-btn:hover   { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn:active  { transform: scale(0.96); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn.done    { background: #16a34a; }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; text-align: center; }
+
+    /* ── Next button ── */
+    .next-btn {
+      display: block; width: 100%;
+      padding: 13px 0; background: #d1d5db; color: #9ca3af;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: not-allowed;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .next-btn.ready {
+      background: #2563eb; color: white; cursor: pointer;
+      box-shadow: 0 5px 14px rgba(37,99,235,.30);
+    }
+    .next-btn.ready:hover { background: #1d4ed8; }
+
+    /* ── End screen ── */
+    .end {
+      display: none; text-align: center;
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 32px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      margin-top: 16px;
+    }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
+    .end .highlight-msg {
+      background: #fef9c3; border: 2px solid #fde68a;
+      border-radius: 12px; padding: 12px 16px;
+      margin: 14px 0; font-size: 14px; color: #78350f;
+    }
+    .finish-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: #16a34a; color: #fff;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s; margin-top: 16px;
+      text-decoration: none; font-family: 'Poppins', sans-serif;
+    }
+    .finish-btn:hover { background: #15803d; }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .slot { min-width: 76px; font-size: 13px; }
+      .tile-btn { padding: 10px 16px; font-size: 14px; }
+      .statement-text { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 5 • Parte 2</div>
+  <div class="subline">Forma la pregunta en el orden correcto</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step active" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- ══ Grammar panel ══ -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span>📚 Gramática</span>
+      <span class="chevron" id="vocabChevron">▲</span>
+    </button>
+    <div class="vocab-body open" id="vocabBody">
+
+      <div class="grammar-note">
+        <strong>¿Cómo hacemos una pregunta simple en inglés?</strong>
+        Movemos el verbo <em>to be</em> (am / is / are) al principio de la oración.
+      </div>
+
+      <table class="grammar-table">
+        <thead>
+          <tr>
+            <th>Afirmación</th>
+            <th>Pregunta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="col-stmt">I am tall.</td>      <td class="col-qn">Am I tall?</td></tr>
+          <tr><td class="col-stmt">He is tall.</td>     <td class="col-qn">Is he tall?</td></tr>
+          <tr><td class="col-stmt">She is tall.</td>    <td class="col-qn">Is she tall?</td></tr>
+          <tr><td class="col-stmt">It is tall.</td>     <td class="col-qn">Is it tall?</td></tr>
+          <tr><td class="col-stmt">We are tall.</td>    <td class="col-qn">Are we tall?</td></tr>
+          <tr><td class="col-stmt">You are tall.</td>   <td class="col-qn">Are you tall?</td></tr>
+          <tr><td class="col-stmt">They are tall.</td>  <td class="col-qn">Are they tall?</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <!-- ══ Main card ══ -->
+  <div class="card">
+
+    <div id="slideArea">
+
+      <div class="counter-row">
+        <span class="counter" id="counter">1 / 12</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="progressBar"></div>
+      </div>
+
+      <!-- Statement -->
+      <div class="statement-box">
+        <div class="stmt-tag">Afirmación</div>
+        <div class="statement-text" id="statementText"></div>
+      </div>
+
+      <!-- Instruction -->
+      <div class="instruction">👇 Toca las palabras en el orden correcto para formar la pregunta</div>
+
+      <!-- Answer slots -->
+      <div class="slots-row">
+        <div class="slot" id="slot0"></div>
+        <div class="slot" id="slot1"></div>
+        <div class="slot" id="slot2"></div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="feedback" id="feedback"></div>
+
+      <!-- Word tiles -->
+      <div class="tiles-wrap" id="tilesWrap"></div>
+
+      <!-- Audio (shown after correct) -->
+      <div class="audio-area" id="audioArea">
+        <button class="play-btn" id="playBtn" aria-label="Reproducir pregunta">▶</button>
+        <span class="play-label" id="playLabel">Toca para escuchar la pregunta</span>
+      </div>
+
+      <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+
+    </div>
+
+  </div><!-- /.card -->
+
+  <!-- ══ End screen ══ -->
+  <div class="end" id="endScreen">
+    <div class="trophy">🏆</div>
+    <h2>¡Excelente!</h2>
+    <p>¡Muy bien! Formaste todas las preguntas correctamente.</p>
+    <div class="highlight-msg">
+      🎉 ¡Buen trabajo! Ya sabes cómo hacer preguntas simples en inglés.<br>
+      ¡Sigue así, lo estás haciendo increíble! 💪
+    </div>
+    <a href="p3.html" class="finish-btn">Continuar → Parte 3</a>
+  </div>
+
+</div><!-- /.wrap -->
+
+<script src="../../../../js/u4/u4_l5_p2.js"></script>
+</body>
+</html>
