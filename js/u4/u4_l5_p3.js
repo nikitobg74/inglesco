@@ -3,34 +3,28 @@
   const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
   const AUD  = BASE + "audio/u4/";
 
-  // ── Exercises ─────────────────────────────────────────────────────────────
-  // Each exercise has:
-  //   prompt      : context sentence shown to student
-  //   question    : correct order of question tiles
-  //   answer      : correct order of answer tiles
   const EXERCISES = [
     {
       prompt:   "Tell me about your brother.",
       question: ["Is", "he", "single?"],
-      answer:   ["No,", "he", "is not.", "He", "is", "married."]
+      answer:   ["No,", "he", "is not."],
+      fact:     "He is married."
     },
     {
       prompt:   "Tell me about your sister.",
       question: ["Is", "she", "married?"],
-      answer:   ["No,", "she", "is not.", "She", "is", "single."]
+      answer:   ["No,", "she", "is not."],
+      fact:     "She is single."
     },
   ];
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  let current       = 0;
-  let qSelected     = [];
-  let aSelected     = [];
-  let qSolved       = false;
-  let aSolved       = false;
+  let current   = 0;
+  let qSelected = [];
+  let aSelected = [];
+  let qSolved   = false;
+  let aSolved   = false;
 
-  // ── DOM refs ──────────────────────────────────────────────────────────────
   const promptEl    = document.getElementById("promptText");
-  const phase1Area  = document.getElementById("phase1Area");
   const phase2Area  = document.getElementById("phase2Area");
   const qSlotsEl    = document.getElementById("qSlots");
   const aSlotsEl    = document.getElementById("aSlots");
@@ -43,14 +37,33 @@
   const progressBar = document.getElementById("progressBar");
   const slideArea   = document.getElementById("slideArea");
   const endScreen   = document.getElementById("endScreen");
+  const factBox     = document.getElementById("factBox");
+  const factText    = document.getElementById("factText");
 
-  // ── Dialog audio ──────────────────────────────────────────────────────────
-  const dialogAudio   = new Audio(AUD + "u4.l5.p3.tell.me.about.dialog.mp3");
-  dialogAudio.preload = "auto";
-  const dialogPlayBtn = document.getElementById("dialogPlayBtn");
+  const dialogAudio    = new Audio(AUD + "u4.l5.p3.tell.me.about.dialog.mp3");
+  dialogAudio.preload  = "auto";
+  const dialogPlayBtn  = document.getElementById("dialogPlayBtn");
   const dialogAudioSub = document.getElementById("dialogAudioSub");
-  const dialogTextEl  = document.getElementById("dialogText");
-  let dialogPlaying   = false;
+  const dialogTextEl   = document.getElementById("dialogText");
+  const dialogLines    = Array.from(document.querySelectorAll(".dialog-line"));
+  let dialogPlaying    = false;
+  let highlightTimers  = [];
+
+  function clearDialogHighlight() {
+    dialogLines.forEach(line => line.classList.remove("active-line"));
+  }
+
+  function highlightDialogLine(index) {
+    clearDialogHighlight();
+    if (dialogLines[index]) {
+      dialogLines[index].classList.add("active-line");
+    }
+  }
+
+  function clearHighlightTimers() {
+    highlightTimers.forEach(t => clearTimeout(t));
+    highlightTimers = [];
+  }
 
   dialogAudio.addEventListener("ended", () => {
     dialogPlaying = false;
@@ -58,12 +71,22 @@
     dialogPlayBtn.classList.remove("playing");
     dialogPlayBtn.classList.add("done");
     dialogAudioSub.textContent = "¡Escuchado! Toca para repetir";
+    clearHighlightTimers();
+    clearDialogHighlight();
+  });
+
+  dialogAudio.addEventListener("pause", () => {
+    if (!dialogPlaying) return;
+    clearHighlightTimers();
+    clearDialogHighlight();
   });
 
   dialogAudio.addEventListener("error", () => {
     dialogPlaying = false;
     dialogPlayBtn.innerHTML = "▶";
     dialogAudioSub.textContent = "Audio no disponible";
+    clearHighlightTimers();
+    clearDialogHighlight();
   });
 
   dialogPlayBtn.addEventListener("click", () => {
@@ -73,8 +96,11 @@
       dialogPlayBtn.innerHTML = "▶";
       dialogPlayBtn.classList.remove("playing");
       dialogAudioSub.textContent = "Toca ▶ para continuar";
+      clearHighlightTimers();
+      clearDialogHighlight();
       return;
     }
+
     dialogAudio.currentTime = 0;
     dialogAudio.play().catch(() => {});
     dialogPlaying = true;
@@ -82,11 +108,25 @@
     dialogPlayBtn.classList.add("playing");
     dialogPlayBtn.classList.remove("done");
     dialogAudioSub.textContent = "Escuchando...";
-    // Show text as soon as audio starts
     dialogTextEl.classList.add("visible");
+
+    clearHighlightTimers();
+    clearDialogHighlight();
+
+    const lineCount = dialogLines.length;
+    const duration = dialogAudio.duration && Number.isFinite(dialogAudio.duration)
+      ? dialogAudio.duration
+      : 18;
+    const step = duration / lineCount;
+
+    dialogLines.forEach((_, i) => {
+      const timer = setTimeout(() => {
+        highlightDialogLine(i);
+      }, i * step * 1000);
+      highlightTimers.push(timer);
+    });
   });
 
-  // ── Vocab panel toggle ────────────────────────────────────────────────────
   document.getElementById("vocabToggle").addEventListener("click", () => {
     const body    = document.getElementById("vocabBody");
     const chevron = document.getElementById("vocabChevron");
@@ -94,7 +134,6 @@
     chevron.textContent = open ? "▲" : "▼";
   });
 
-  // ── Helper: build slots ───────────────────────────────────────────────────
   function buildSlots(container, count) {
     container.innerHTML = "";
     for (let i = 0; i < count; i++) {
@@ -109,7 +148,6 @@
     return Array.from(container.querySelectorAll(".slot"));
   }
 
-  // ── Helper: build tiles ───────────────────────────────────────────────────
   function buildTiles(container, words, onTap, extraClass) {
     container.innerHTML = "";
     const shuffled = [...words].sort(() => Math.random() - 0.5);
@@ -123,7 +161,6 @@
     });
   }
 
-  // ── Helper: shake slots ───────────────────────────────────────────────────
   function shakeSlots(slotsEl) {
     getSlots(slotsEl).forEach(s => {
       s.classList.add("shake");
@@ -131,7 +168,6 @@
     });
   }
 
-  // ── Helper: reset slots + re-enable tiles ────────────────────────────────
   function resetPhase(slotsEl, tilesEl, selectedArr, feedbackEl) {
     selectedArr.length = 0;
     getSlots(slotsEl).forEach(s => {
@@ -146,7 +182,6 @@
     });
   }
 
-  // ── Load exercise ─────────────────────────────────────────────────────────
   function loadExercise(idx) {
     const ex = EXERCISES[idx];
     qSelected = [];
@@ -158,14 +193,14 @@
     progressBar.style.width = ((idx + 1) / EXERCISES.length * 100) + "%";
 
     promptEl.textContent = ex.prompt;
+    factText.textContent = "";
+    factBox.classList.remove("show");
 
-    // Phase 1 slots + tiles
     buildSlots(qSlotsEl, ex.question.length);
     buildTiles(qTilesEl, ex.question, (btn) => handleTap(btn, ex.question, qSelected, qSlotsEl, qTilesEl, qFeedbackEl, "q"), "");
     qFeedbackEl.textContent = "";
     qFeedbackEl.className = "feedback";
 
-    // Phase 2 hidden until phase 1 solved
     phase2Area.style.display = "none";
     buildSlots(aSlotsEl, ex.answer.length);
     buildTiles(aTilesEl, ex.answer, (btn) => handleTap(btn, ex.answer, aSelected, aSlotsEl, aTilesEl, aFeedbackEl, "a"), "phase2-tile");
@@ -176,12 +211,12 @@
     nextBtn.classList.remove("ready");
   }
 
-  // ── Tile tap handler ──────────────────────────────────────────────────────
   function handleTap(btn, correctOrder, selected, slotsEl, tilesEl, feedbackEl, phase) {
     if (btn.disabled) return;
     if (phase === "q" && qSolved) return;
     if (phase === "a" && aSolved) return;
 
+    const ex   = EXERCISES[current];
     const word = btn.dataset.word;
     const pos  = selected.length;
     if (pos >= correctOrder.length) return;
@@ -210,12 +245,13 @@
           }, 600);
         } else {
           aSolved = true;
+          factText.textContent = ex.fact;
+          factBox.classList.add("show");
           setTimeout(() => {
             nextBtn.disabled = false;
             nextBtn.classList.add("ready");
           }, 400);
         }
-
       } else {
         shakeSlots(slotsEl);
         feedbackEl.textContent = "¡Inténtalo de nuevo!";
@@ -225,7 +261,6 @@
     }
   }
 
-  // ── Next ──────────────────────────────────────────────────────────────────
   nextBtn.addEventListener("click", () => {
     if (nextBtn.disabled) return;
     current++;
@@ -241,7 +276,5 @@
     endScreen.classList.add("show");
   }
 
-  // ── Init ──────────────────────────────────────────────────────────────────
   loadExercise(0);
-
 })();
