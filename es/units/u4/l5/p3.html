@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 5 • Parte 3</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 700px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-block; margin-bottom: 16px;
+      padding: 7px 14px; background: #2563eb; color: white;
+      border-radius: 10px; text-decoration: none; font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Page title ── */
+    .top-title {
+      text-align: center; font-size: 18px; font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .subline {
+      text-align: center; font-size: 14px; font-weight: 700;
+      margin-bottom: 16px; color: #374151;
+    }
+
+    /* ── Progress steps ── */
+    .progress-container {
+      display: flex; justify-content: center;
+      gap: 10px; margin: 12px 0 20px 0;
+    }
+    .step {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; cursor: pointer; transition: all .3s;
+      color: #1f2933; text-decoration: none; user-select: none;
+      font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── Grammar panel ── */
+    .vocab-panel {
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .vocab-toggle {
+      width: 100%; background: #1e40af; color: white;
+      border: none; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 15px; border-radius: 14px;
+      transition: background 0.2s;
+    }
+    .vocab-toggle:hover { background: #1d4ed8; }
+    .vocab-toggle .chevron { font-size: 12px; }
+    .vocab-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s ease, padding 0.3s ease;
+      padding: 0 14px;
+    }
+    .vocab-body.open { max-height: 900px; padding: 14px 14px; }
+
+    /* ── Grammar reference boxes (screenshot layout) ── */
+    .grammar-boxes {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .grammar-box {
+      background: #dbeafe;
+      border-radius: 12px;
+      padding: 14px 18px;
+      flex: 1;
+      min-width: 180px;
+      max-width: 220px;
+      font-size: 13.5px;
+      line-height: 2;
+      color: #1e3a5f;
+    }
+
+    .grammar-box .brace-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 2px 0;
+    }
+
+    .grammar-box .verb {
+      font-weight: 900;
+      color: #1e40af;
+      min-width: 36px;
+    }
+
+    .grammar-box .brace {
+      font-size: 28px;
+      line-height: 1;
+      color: #3b82f6;
+      font-weight: 300;
+    }
+
+    .grammar-box .subjects {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    .grammar-box .tail {
+      font-weight: 700;
+      color: #1e40af;
+      margin-left: 6px;
+    }
+
+    .grammar-box .yes-no {
+      font-weight: 900;
+      color: #0f4c75;
+      min-width: 34px;
+    }
+
+    .grammar-box .answer-verb {
+      font-weight: 900;
+      color: #16a34a;
+    }
+
+    .grammar-box .answer-verb-neg {
+      font-weight: 900;
+      color: #dc2626;
+    }
+
+    .box-title {
+      font-size: 10.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #3b82f6;
+      margin-bottom: 8px;
+    }
+
+    /* ── Dialog section ── */
+    .dialog-section {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+    }
+
+    .dialog-title {
+      text-align: center; font-size: 16px; font-weight: 900;
+      color: #1e40af; margin-bottom: 14px;
+    }
+
+    .dialog-image {
+      width: 100%; max-height: 220px;
+      object-fit: cover; border-radius: 12px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    /* ── Audio player ── */
+    .audio-row {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .play-btn-dialog {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      transition: background 0.2s, transform 0.1s;
+      color: white; font-size: 22px; flex-shrink: 0;
+    }
+    .play-btn-dialog:hover   { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn-dialog.playing { background: #7c3aed; }
+    .play-btn-dialog.done    { background: #16a34a; }
+    .audio-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .audio-label { font-size: 13px; font-weight: 700; color: #1e40af; }
+    .audio-sub   { font-size: 11px; color: #6b7280; font-weight: 600; }
+
+    /* ── Dialog text ── */
+    .dialog-text {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 14px;
+      line-height: 2;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .dialog-text.visible { opacity: 1; }
+
+    .dialog-line { display: flex; gap: 8px; margin-bottom: 2px; }
+    .speaker {
+      font-weight: 900; font-size: 13px;
+      min-width: 20px; padding-top: 1px;
+    }
+    .speaker.a { color: #2563eb; }
+    .speaker.b { color: #16a34a; }
+    .dialog-line-text { font-weight: 600; color: #1e293b; }
+
+    /* ── Main exercise card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    /* ── Counter & bar ── */
+    .counter-row {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 8px;
+    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .bar-wrap {
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 20px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; width: 0%; background: #2563eb;
+      border-radius: 999px; transition: width 0.5s ease;
+    }
+
+    /* ── Prompt box ── */
+    .prompt-box {
+      background: #eff6ff;
+      border: 2px solid #93c5fd;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .prompt-tag {
+      font-size: 10px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #2563eb; margin-bottom: 4px;
+    }
+    .prompt-text {
+      font-size: 16px; font-weight: 700; color: #1e293b;
+    }
+
+    /* ── Phase label ── */
+    .phase-label {
+      text-align: center; font-size: 13px; font-weight: 700;
+      color: #486581; margin-bottom: 10px;
+      padding: 6px 12px; background: #f1f5f9; border-radius: 8px;
+    }
+    .phase-label.phase2 { background: #f0fdf4; color: #16a34a; }
+
+    /* ── Instruction label ── */
+    .instruction {
+      text-align: center; font-size: 13px; font-weight: 600;
+      color: #486581; margin-bottom: 14px;
+    }
+
+    /* ── Answer slots ── */
+    .slots-row {
+      display: flex; justify-content: center;
+      gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .slot {
+      min-width: 72px; height: 46px;
+      border: 2px dashed #93c5fd;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #1e40af;
+      background: #eff6ff;
+      transition: all 0.2s;
+      padding: 0 8px;
+      white-space: nowrap;
+    }
+    .slot.filled {
+      border-style: solid;
+      border-color: #3b82f6;
+      background: #dbeafe;
+    }
+    .slot.correct {
+      border-color: #16a34a;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .slot.correct-ans {
+      border-color: #16a34a;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-6px); }
+      80%      { transform: translateX(6px); }
+    }
+    .slot.shake { animation: shake 0.4s ease; border-color: #dc2626; background: #fee2e2; color: #dc2626; }
+
+    /* ── Feedback ── */
+    .feedback {
+      text-align: center; font-size: 14px; font-weight: 700;
+      min-height: 22px; margin-bottom: 14px;
+    }
+    .feedback.correct { color: #16a34a; }
+    .feedback.wrong   { color: #dc2626; }
+
+    /* ── Word tiles ── */
+    .tiles-wrap {
+      display: flex; justify-content: center;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .tile-btn {
+      padding: 10px 18px;
+      background: #2563eb; color: white;
+      border: none; border-radius: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37,99,235,.25);
+      transition: background 0.2s, transform 0.1s, opacity 0.2s;
+      user-select: none;
+    }
+    .tile-btn.phase2-tile {
+      background: #16a34a;
+      box-shadow: 0 4px 12px rgba(22,163,74,.25);
+    }
+    .tile-btn.phase2-tile:hover { background: #15803d; }
+    .tile-btn:hover  { background: #1d4ed8; transform: scale(1.04); }
+    .tile-btn:active { transform: scale(0.97); }
+    .tile-btn.used   { opacity: 0.35; cursor: default; transform: none; }
+    .tile-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+    /* ── Divider between phases ── */
+    .phase-divider {
+      border: none; border-top: 2px dashed #d1d5db;
+      margin: 16px 0;
+    }
+
+    /* ── Next button ── */
+    .next-btn {
+      display: block; width: 100%;
+      padding: 13px 0; background: #d1d5db; color: #9ca3af;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: not-allowed;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .next-btn.ready {
+      background: #2563eb; color: white; cursor: pointer;
+      box-shadow: 0 5px 14px rgba(37,99,235,.30);
+    }
+    .next-btn.ready:hover { background: #1d4ed8; }
+
+    /* ── End screen ── */
+    .end {
+      display: none; text-align: center;
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 32px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      margin-top: 16px;
+    }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
+    .end .highlight-msg {
+      background: #fef9c3; border: 2px solid #fde68a;
+      border-radius: 12px; padding: 12px 16px;
+      margin: 14px 0; font-size: 14px; color: #78350f;
+    }
+    .finish-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: #16a34a; color: #fff;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s; margin-top: 16px;
+      text-decoration: none; font-family: 'Poppins', sans-serif;
+    }
+    .finish-btn:hover { background: #15803d; }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .slot { min-width: 62px; font-size: 12px; }
+      .tile-btn { padding: 9px 13px; font-size: 13px; }
+      .grammar-box { min-width: 140px; font-size: 12.5px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+
+  <div class="top-title">Unidad 4 • Lección 5 • Parte 3</div>
+  <div class="subline">Tell me about — Cuéntame sobre</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- ══ Grammar panel ══ -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span>📚 Gramática</span>
+      <span class="chevron" id="vocabChevron">▲</span>
+    </button>
+    <div class="vocab-body open" id="vocabBody">
+
+      <div class="grammar-boxes">
+
+        <!-- Box 1: Questions -->
+        <div class="grammar-box">
+          <div class="box-title">Pregunta</div>
+
+          <div class="brace-group">
+            <span class="verb">Am</span>
+            <span style="min-width:6px"></span>
+            <span style="font-weight:700">I</span>
+          </div>
+
+          <div class="brace-group" style="align-items:center; margin: 2px 0;">
+            <span class="verb">Is</span>
+            <span class="brace">{</span>
+            <span class="subjects">
+              <span>he</span>
+              <span>she</span>
+              <span>it</span>
+            </span>
+            <span class="tail">tall?</span>
+          </div>
+
+          <div class="brace-group" style="align-items:center; margin-top: 4px;">
+            <span class="verb">Are</span>
+            <span class="brace">{</span>
+            <span class="subjects">
+              <span>we</span>
+              <span>you</span>
+              <span>they</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Box 2: Yes answers -->
+        <div class="grammar-box">
+          <div class="box-title">Respuesta — Sí</div>
+
+          <div style="margin-bottom:4px">
+            <span style="font-weight:700">Yes,</span>
+            <span style="font-weight:600"> I </span>
+            <span class="answer-verb">am.</span>
+          </div>
+
+          <div class="brace-group" style="align-items:center; margin: 2px 0;">
+            <span class="yes-no">Yes,</span>
+            <span class="brace">{</span>
+            <span class="subjects">
+              <span>he</span>
+              <span>she</span>
+              <span>it</span>
+            </span>
+            <span class="answer-verb" style="margin-left:6px">is.</span>
+          </div>
+
+          <div class="brace-group" style="align-items:center; margin-top: 4px;">
+            <span class="yes-no">Yes,</span>
+            <span class="brace">{</span>
+            <span class="subjects">
+              <span>we</span>
+              <span>you</span>
+              <span>they</span>
+            </span>
+            <span class="answer-verb" style="margin-left:6px">are.</span>
+          </div>
+        </div>
+
+        <!-- Box 3: No answers -->
+        <div class="grammar-box">
+          <div class="box-title">Respuesta — No</div>
+
+          <div style="margin-bottom:4px">
+            <span style="font-weight:700">No,</span>
+            <span style="font-weight:600"> I am </span>
+            <span class="answer-verb-neg">not.</span>
+          </div>
+
+          <div class="brace-group" style="align-items:center; margin: 2px 0;">
+            <span class="yes-no" style="color:#dc2626">No,</span>
+            <span class="brace" style="color:#f87171">{</span>
+            <span class="subjects">
+              <span>he</span>
+              <span>she</span>
+              <span>it</span>
+            </span>
+            <span class="answer-verb-neg" style="margin-left:6px">is not.</span>
+          </div>
+
+          <div class="brace-group" style="align-items:center; margin-top: 4px;">
+            <span class="yes-no" style="color:#dc2626">No,</span>
+            <span class="brace" style="color:#f87171">{</span>
+            <span class="subjects">
+              <span>we</span>
+              <span>you</span>
+              <span>they</span>
+            </span>
+            <span class="answer-verb-neg" style="margin-left:6px">are not.</span>
+          </div>
+        </div>
+
+      </div><!-- /.grammar-boxes -->
+
+    </div>
+  </div>
+
+  <!-- ══ Dialog section ══ -->
+  <div class="dialog-section">
+    <div class="dialog-title">🎧 Escucha el diálogo</div>
+
+    <img
+      src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u4/u4.l5.p3.women.jpg"
+      alt="Two women talking"
+      class="dialog-image"
+      onerror="this.style.display='none'"
+    />
+
+    <div class="audio-row">
+      <button class="play-btn-dialog" id="dialogPlayBtn" aria-label="Reproducir diálogo">▶</button>
+      <div class="audio-label-wrap">
+        <span class="audio-label">Toca para escuchar el diálogo</span>
+        <span class="audio-sub" id="dialogAudioSub">Escucha y lee el texto</span>
+      </div>
+    </div>
+
+    <div class="dialog-text" id="dialogText">
+      <div class="dialog-line">
+        <span class="speaker a">A:</span>
+        <span class="dialog-line-text">Are you married?</span>
+      </div>
+      <div class="dialog-line">
+        <span class="speaker b">B:</span>
+        <span class="dialog-line-text">No, I am not. I am single.</span>
+      </div>
+      <div class="dialog-line">
+        <span class="speaker a">A:</span>
+        <span class="dialog-line-text">Tell me about your brother. Is he single?</span>
+      </div>
+      <div class="dialog-line">
+        <span class="speaker b">B:</span>
+        <span class="dialog-line-text">No, he is not. He is married.</span>
+      </div>
+      <div class="dialog-line">
+        <span class="speaker a">A:</span>
+        <span class="dialog-line-text">Tell me about your sister. Is she married?</span>
+      </div>
+      <div class="dialog-line">
+        <span class="speaker b">B:</span>
+        <span class="dialog-line-text">No, she is not. She is single.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Main exercise card ══ -->
+  <div class="card">
+
+    <div id="slideArea">
+
+      <div class="counter-row">
+        <span class="counter" id="counter">1 / 2</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="progressBar"></div>
+      </div>
+
+      <!-- Prompt -->
+      <div class="prompt-box">
+        <div class="prompt-tag">Contexto</div>
+        <div class="prompt-text" id="promptText"></div>
+      </div>
+
+      <!-- ── Phase 1: Question ── -->
+      <div id="phase1Area">
+        <div class="phase-label" id="phase1Label">Fase 1 — Forma la pregunta</div>
+        <div class="instruction">👇 Toca las palabras en el orden correcto</div>
+
+        <div class="slots-row" id="qSlots"></div>
+        <div class="feedback" id="qFeedback"></div>
+        <div class="tiles-wrap" id="qTiles"></div>
+      </div>
+
+      <!-- ── Phase 2: Answer ── -->
+      <div id="phase2Area" style="display:none;">
+        <hr class="phase-divider" />
+        <div class="phase-label phase2" id="phase2Label">Fase 2 — Forma la respuesta</div>
+        <div class="instruction">👇 Toca las palabras en el orden correcto</div>
+
+        <div class="slots-row" id="aSlots"></div>
+        <div class="feedback" id="aFeedback"></div>
+        <div class="tiles-wrap" id="aTiles"></div>
+      </div>
+
+      <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+
+    </div>
+
+  </div><!-- /.card -->
+
+  <!-- ══ End screen ══ -->
+  <div class="end" id="endScreen">
+    <div class="trophy">🏆</div>
+    <h2>¡Excelente!</h2>
+    <p>¡Muy bien! Completaste todos los ejercicios.</p>
+    <div class="highlight-msg">
+      🎉 ¡Buen trabajo! Ya sabes cómo hacer preguntas y dar respuestas en inglés.<br>
+      ¡Sigue así, lo estás haciendo increíble! 💪
+    </div>
+    <a href="p4.html" class="finish-btn">Continuar → Parte 4</a>
+  </div>
+
+</div><!-- /.wrap -->
+
+<script src="../../../../js/u4/u4_l5_p3.js"></script>
+</body>
+</html>
