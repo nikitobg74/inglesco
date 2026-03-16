@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 4 • Lección 7 • Parte 3</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 60px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+.back-btn{
+  display:inline-block;
+  margin-bottom:16px;
+  padding:7px 14px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;
+  background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;
+  color:#1f2933;transition:.3s;font-size:15px
+}
+.step.active{background:#2563eb;color:#fff}
+.card{
+  background:rgba(255,255,255,.88);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08)
+}
+.counter-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+  font-size:13px;
+  font-weight:700;
+  color:#486581
+}
+.bar-wrap{
+  background:#e2e8f0;
+  border-radius:999px;
+  height:7px;
+  margin-bottom:20px;
+  overflow:hidden
+}
+.bar-fill{
+  height:100%;
+  width:0%;
+  background:#2563eb;
+  border-radius:999px;
+  transition:width .4s
+}
+.text-box{
+  background:#f8fafc;
+  border-radius:14px;
+  padding:16px;
+  border:2px solid #e2e8f0;
+  font-size:16px;
+  line-height:1.7;
+}
+.blank{
+  padding:2px 6px;
+  border-bottom:3px solid #93c5fd;
+  color:#2563eb;
+  font-weight:800
+}
+.blank.correct{
+  background:#dcfce7;
+  color:#15803d;
+  border-bottom-color:#22c55e
+}
+.tiles{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-top:16px
+}
+.tile{
+  padding:12px 16px;
+  border-radius:12px;
+  border:2px solid #bfdbfe;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-weight:800;
+  cursor:pointer;
+}
+.tile:hover{background:#dbeafe}
+.tile.used{opacity:.35;pointer-events:none}
+.tile.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+  color:#15803d
+}
+.shake{animation:shake .4s}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-6px)}
+  100%{transform:translateX(0)}
+}
+.end{
+  display:none;
+  text-align:center;
+  background:rgba(255,255,255,.88);
+  border-radius:18px;
+  padding:30px;
+  margin-top:16px
+}
+.end.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+  <div class="top-title">Unidad 4 • Lección 7 • Parte 3</div>
+  <div class="subline">Completa el texto</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+  <div class="card">
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-fill" id="progressBar"></div>
+    </div>
+    <div class="text-box" id="textBox"></div>
+    <div class="tiles" id="tiles"></div>
+  </div>
+  <div class="end" id="endScreen">
+    <h2>¡Buen trabajo!</h2>
+    <p>Terminaste la lectura.</p>
+    <a href="p4.html" class="back-btn">Continuar → Parte 4</a>
+  </div>
+</div>
+<script src="../../../../js/u4/u4_l7_p3.js"></script>
+</body>
+</html>
