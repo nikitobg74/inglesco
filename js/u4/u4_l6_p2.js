@@ -58,6 +58,9 @@
   let current = 0;
   let currentAudio = null;
   let audioPlaying = false;
+  let audioUnlocked = false;
+  let autoAdvanceTimer = null;
+
   let qSelected = [];
   let a1Selected = [];
   let a2Selected = [];
@@ -81,11 +84,11 @@
   const qFeedbackEl = document.getElementById("qFeedback");
   const a1FeedbackEl = document.getElementById("a1Feedback");
   const a2FeedbackEl = document.getElementById("a2Feedback");
-  const nextBtn = document.getElementById("nextBtn");
   const counterEl = document.getElementById("counter");
   const progressBar = document.getElementById("progressBar");
   const slideArea = document.getElementById("slideArea");
   const endScreen = document.getElementById("endScreen");
+  const listenNotice = document.getElementById("listenNotice");
 
   document.getElementById("vocabToggle").addEventListener("click", () => {
     const body = document.getElementById("vocabBody");
@@ -135,6 +138,36 @@
     audioSub.textContent = message;
   }
 
+  function setTilesEnabled(container, enabled) {
+    container.querySelectorAll(".tile-btn").forEach(btn => {
+      if (btn.classList.contains("used")) {
+        btn.disabled = true;
+      } else {
+        btn.disabled = !enabled;
+      }
+    });
+  }
+
+  function lockAllTiles() {
+    setTilesEnabled(qTilesEl, false);
+    setTilesEnabled(a1TilesEl, false);
+    setTilesEnabled(a2TilesEl, false);
+    if (listenNotice) listenNotice.style.display = "block";
+  }
+
+  function unlockQuestionTiles() {
+    setTilesEnabled(qTilesEl, true);
+    if (listenNotice) listenNotice.style.display = "none";
+  }
+
+  function unlockAnswer1Tiles() {
+    setTilesEnabled(a1TilesEl, true);
+  }
+
+  function unlockAnswer2Tiles() {
+    setTilesEnabled(a2TilesEl, true);
+  }
+
   function playCurrentAudio() {
     if (audioPlaying && currentAudio) {
       currentAudio.pause();
@@ -144,6 +177,7 @@
     }
 
     const ex = EXERCISES[current];
+
     if (currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
@@ -151,6 +185,7 @@
 
     currentAudio = new Audio(AUD + ex.audio);
     currentAudio.preload = "auto";
+
     currentAudio.play().then(() => {
       audioPlaying = true;
       audioPlayBtn.innerHTML = "⏸";
@@ -163,10 +198,12 @@
 
     currentAudio.addEventListener("ended", () => {
       audioPlaying = false;
+      audioUnlocked = true;
       audioPlayBtn.innerHTML = "▶";
       audioPlayBtn.classList.remove("playing");
       audioPlayBtn.classList.add("done");
-      audioSub.textContent = "¡Escuchado! Toca para repetir";
+      audioSub.textContent = "¡Escuchado! Ahora puedes responder";
+      unlockQuestionTiles();
     });
 
     currentAudio.addEventListener("error", () => {
@@ -174,17 +211,20 @@
     });
   }
 
-  function resetPhase(slotsEl, tilesEl, selectedArr, feedbackEl) {
+  function resetPhase(slotsEl, tilesEl, selectedArr, feedbackEl, shouldEnable = false) {
     selectedArr.length = 0;
+
     getSlots(slotsEl).forEach(slot => {
       slot.textContent = "";
       slot.className = "slot";
     });
+
     feedbackEl.textContent = "";
     feedbackEl.className = "feedback";
+
     tilesEl.querySelectorAll(".tile-btn").forEach(btn => {
-      btn.disabled = false;
       btn.classList.remove("used");
+      btn.disabled = !shouldEnable;
     });
   }
 
@@ -208,20 +248,47 @@
     phaseEl.style.display = "none";
   }
 
+  function goNextExercise() {
+    current += 1;
+
+    if (current >= EXERCISES.length) {
+      slideArea.style.display = "none";
+      endScreen.classList.add("show");
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      stopAudioUI();
+      return;
+    }
+
+    loadExercise(current);
+  }
+
   function loadExercise(index) {
     const ex = EXERCISES[index];
+
     qSelected = [];
     a1Selected = [];
     a2Selected = [];
     qSolved = false;
     a1Solved = false;
     a2Solved = false;
+    audioUnlocked = false;
+
+    if (autoAdvanceTimer) {
+      clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
 
     if (currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
     }
-    stopAudioUI();
+
+    stopAudioUI("Toca ▶ para escuchar");
 
     counterEl.textContent = `${index + 1} / ${EXERCISES.length}`;
     progressBar.style.width = `${((index + 1) / EXERCISES.length) * 100}%`;
@@ -231,17 +298,32 @@
     promptEl.textContent = ex.prompt;
 
     buildSlots(qSlotsEl, ex.question.length);
-    buildTiles(qTilesEl, ex.question, btn => handleTap(btn, ex.question, qSelected, qSlotsEl, qTilesEl, qFeedbackEl, "q"));
-    qFeedbackEl.textContent = "";
-    qFeedbackEl.className = "feedback";
+    buildTiles(
+      qTilesEl,
+      ex.question,
+      btn => handleTap(btn, ex.question, qSelected, qSlotsEl, qTilesEl, qFeedbackEl, "q")
+    );
 
     buildSlots(a1SlotsEl, ex.answer1.length);
-    buildTiles(a1TilesEl, ex.answer1, btn => handleTap(btn, ex.answer1, a1Selected, a1SlotsEl, a1TilesEl, a1FeedbackEl, "a1"), "answer-tile");
-    a1FeedbackEl.textContent = "";
-    a1FeedbackEl.className = "feedback";
+    buildTiles(
+      a1TilesEl,
+      ex.answer1,
+      btn => handleTap(btn, ex.answer1, a1Selected, a1SlotsEl, a1TilesEl, a1FeedbackEl, "a1"),
+      "answer-tile"
+    );
 
     buildSlots(a2SlotsEl, ex.answer2.length);
-    buildTiles(a2TilesEl, ex.answer2, btn => handleTap(btn, ex.answer2, a2Selected, a2SlotsEl, a2TilesEl, a2FeedbackEl, "a2"), "answer-tile");
+    buildTiles(
+      a2TilesEl,
+      ex.answer2,
+      btn => handleTap(btn, ex.answer2, a2Selected, a2SlotsEl, a2TilesEl, a2FeedbackEl, "a2"),
+      "answer-tile"
+    );
+
+    qFeedbackEl.textContent = "";
+    qFeedbackEl.className = "feedback";
+    a1FeedbackEl.textContent = "";
+    a1FeedbackEl.className = "feedback";
     a2FeedbackEl.textContent = "";
     a2FeedbackEl.className = "feedback";
 
@@ -249,11 +331,11 @@
     hidePhase(answer1Phase);
     hidePhase(answer2Phase);
 
-    nextBtn.disabled = true;
-    nextBtn.classList.remove("ready");
+    lockAllTiles();
   }
 
   function handleTap(btn, correctOrder, selected, slotsEl, tilesEl, feedbackEl, phase) {
+    if (!audioUnlocked) return;
     if (btn.disabled) return;
     if ((phase === "q" && qSolved) || (phase === "a1" && a1Solved) || (phase === "a2" && a2Solved)) return;
 
@@ -262,9 +344,11 @@
     if (position >= correctOrder.length) return;
 
     selected.push(word);
+
     const slots = getSlots(slotsEl);
     slots[position].textContent = word;
     slots[position].classList.add("filled");
+
     btn.disabled = true;
     btn.classList.add("used");
 
@@ -275,47 +359,47 @@
         slots.forEach(slot => slot.classList.add("correct"));
         feedbackEl.textContent = "¡Correcto! 🎉";
         feedbackEl.className = "feedback correct";
-        tilesEl.querySelectorAll(".tile-btn").forEach(tile => tile.disabled = true);
+        tilesEl.querySelectorAll(".tile-btn").forEach(tile => {
+          tile.disabled = true;
+        });
 
         if (phase === "q") {
           qSolved = true;
-          setTimeout(() => showPhase(answer1Phase), 500);
+          setTimeout(() => {
+            showPhase(answer1Phase);
+            unlockAnswer1Tiles();
+          }, 500);
         } else if (phase === "a1") {
           a1Solved = true;
-          setTimeout(() => showPhase(answer2Phase), 500);
+          setTimeout(() => {
+            showPhase(answer2Phase);
+            unlockAnswer2Tiles();
+          }, 500);
         } else {
           a2Solved = true;
-          setTimeout(() => {
-            nextBtn.disabled = false;
-            nextBtn.classList.add("ready");
-          }, 350);
+          autoAdvanceTimer = setTimeout(() => {
+            goNextExercise();
+          }, 2000);
         }
       } else {
         shakeSlots(slotsEl);
         feedbackEl.textContent = "¡Inténtalo de nuevo!";
         feedbackEl.className = "feedback wrong";
-        setTimeout(() => resetPhase(slotsEl, tilesEl, selected, feedbackEl), 800);
+
+        setTimeout(() => {
+          const enabled = audioUnlocked && (
+            phase === "q" ||
+            (phase === "a1" && qSolved) ||
+            (phase === "a2" && qSolved && a1Solved)
+          );
+
+          resetPhase(slotsEl, tilesEl, selected, feedbackEl, enabled);
+        }, 800);
       }
     }
   }
 
   audioPlayBtn.addEventListener("click", playCurrentAudio);
-
-  nextBtn.addEventListener("click", () => {
-    if (nextBtn.disabled) return;
-    current += 1;
-    if (current >= EXERCISES.length) {
-      slideArea.style.display = "none";
-      endScreen.classList.add("show");
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-      stopAudioUI();
-    } else {
-      loadExercise(current);
-    }
-  });
 
   loadExercise(0);
 })();
