@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 1 • Parte 1</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 60px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+.back-btn{
+  display:inline-block;
+  margin-bottom:16px;
+  padding:7px 14px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;
+  background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;
+  color:#1f2933;transition:.3s;font-size:15px
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* Vocabulary panel */
+.vocab-panel{
+  background:rgba(255,255,255,.88);
+  border-radius:18px;
+  margin-bottom:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.vocab-toggle{
+  width:100%;
+  background:none;
+  border:none;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  color:#1e40af;
+}
+.vocab-toggle .arrow{transition:transform .3s;font-size:12px}
+.vocab-toggle.open .arrow{transform:rotate(180deg)}
+.vocab-body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px 12px;
+  padding:0 18px 14px;
+}
+.vocab-body.hidden{display:none}
+.vocab-row{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 10px;
+  border-radius:8px;
+  background:#eff6ff;
+  font-size:14px;
+}
+.vocab-en{font-weight:700;color:#1d4ed8}
+.vocab-es{color:#374151}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.88);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+  font-size:13px;
+  font-weight:700;
+  color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;
+  border-radius:999px;
+  height:7px;
+  margin-bottom:20px;
+  overflow:hidden;
+}
+.bar-fill{
+  height:100%;
+  width:0%;
+  background:#2563eb;
+  border-radius:999px;
+  transition:width .4s;
+}
+
+/* Image */
+.lesson-img{
+  width:100%;
+  height:auto;
+  max-height:360px;
+  object-fit:contain;
+  border-radius:14px;
+  margin-bottom:14px;
+  display:block;
+  background:#f1f5f9;
+}
+
+/* Audio button */
+.audio-btn{
+  width:52px;height:52px;
+  border-radius:50%;
+  border:none;
+  background:#2563eb;
+  color:white;
+  font-size:22px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 14px;
+  transition:background .2s;
+  flex-shrink:0;
+}
+.audio-btn:hover{background:#1d4ed8}
+.audio-btn.playing{background:#f59e0b}
+.audio-btn.done{background:#22c55e}
+
+/* Karaoke text */
+.karaoke-box{
+  background:#f8fafc;
+  border-radius:14px;
+  padding:14px 16px;
+  border:2px solid #e2e8f0;
+  font-size:15px;
+  line-height:1.9;
+  margin-bottom:14px;
+}
+.karaoke-box span{
+  border-radius:4px;
+  transition:background .15s;
+  padding:1px 2px;
+}
+.karaoke-box span.highlight{
+  background:#fde68a;
+  color:#92400e;
+  font-weight:700;
+}
+
+/* Question area */
+.question-area{
+  display:none;
+  margin-top:10px;
+}
+.question-area.show{display:block}
+.question-label{
+  text-align:center;
+  font-weight:700;
+  font-size:15px;
+  margin-bottom:10px;
+  color:#1e40af;
+}
+.answer-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:16px;
+  font-weight:700;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+.blank-word{
+  padding:4px 10px;
+  border-bottom:3px solid #93c5fd;
+  color:#2563eb;
+  font-weight:800;
+  min-width:80px;
+  text-align:center;
+  display:inline-block;
+}
+.blank-word.correct{
+  background:#dcfce7;
+  color:#15803d;
+  border-bottom-color:#22c55e;
+  border-radius:6px;
+}
+.tiles{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+}
+.tile{
+  padding:11px 18px;
+  border-radius:12px;
+  border:2px solid #bfdbfe;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-weight:800;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-size:15px;
+}
+.tile:hover{background:#dbeafe}
+.tile.used{opacity:.35;pointer-events:none}
+.tile.correct{background:#dcfce7;border-color:#22c55e;color:#15803d}
+.tile.error{
+  background:#fee2e2;
+  border-color:#ef4444;
+  color:#b91c1c;
+  animation:shake .4s;
+}
+
+.shake{animation:shake .4s}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-6px)}
+  100%{transform:translateX(0)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 1 • Parte 1</div>
+  <div class="subline">Escucha y responde</div>
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Vocabulary panel -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle open" id="vocabToggle" onclick="toggleVocab()">
+      <span>📖 Vocabulario nuevo</span>
+      <span class="arrow">▲</span>
+    </button>
+    <div class="vocab-body" id="vocabBody">
+      <div class="vocab-row"><span class="vocab-en">wife</span><span class="vocab-es">esposa</span></div>
+      <div class="vocab-row"><span class="vocab-en">husband</span><span class="vocab-es">esposo</span></div>
+      <div class="vocab-row"><span class="vocab-en">son</span><span class="vocab-es">hijo</span></div>
+      <div class="vocab-row"><span class="vocab-en">daughter</span><span class="vocab-es">hija</span></div>
+      <div class="vocab-row"><span class="vocab-en">standing</span><span class="vocab-es">parado/a</span></div>
+      <div class="vocab-row"><span class="vocab-en">riding</span><span class="vocab-es">montando</span></div>
+      <div class="vocab-row"><span class="vocab-en">swimming</span><span class="vocab-es">nadando</span></div>
+      <div class="vocab-row"><span class="vocab-en">beach</span><span class="vocab-es">playa</span></div>
+      <div class="vocab-row"><span class="vocab-en">bicycle</span><span class="vocab-es">bicicleta</span></div>
+    </div>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-fill" id="progressBar"></div>
+    </div>
+
+    <img id="lessonImg" class="lesson-img" src="" alt="" />
+
+    <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
+
+    <div class="karaoke-box" id="karaokeBox"></div>
+
+    <div class="question-area" id="questionArea">
+      <div class="question-label" id="questionLabel"></div>
+      <div class="answer-row" id="answerRow"></div>
+      <div class="tiles" id="tiles"></div>
+    </div>
+  </div>
+</div>
+
+<!-- End screen outside card -->
+<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
+  <h2>¡Excelente trabajo!</h2>
+  <p style="margin:10px 0 20px">Completaste la Parte 1.</p>
+  <a href="p2.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 2</a>
+</div>
+
+<script src="../../../../js/u5/u5_l1_p1.js"></script>
+</body>
+</html>
