@@ -43,48 +43,6 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* Vocabulary panel */
-.vocab-panel{
-  background:rgba(255,255,255,.88);
-  border-radius:18px;
-  margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.06);
-  overflow:hidden;
-}
-.vocab-toggle{
-  width:100%;
-  background:none;
-  border:none;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-weight:700;
-  font-size:15px;
-  color:#1e40af;
-}
-.vocab-toggle .arrow{transition:transform .3s;font-size:12px}
-.vocab-toggle.open .arrow{transform:rotate(180deg)}
-.vocab-body{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px 12px;
-  padding:0 18px 14px;
-}
-.vocab-body.hidden{display:none}
-.vocab-row{
-  display:flex;
-  justify-content:space-between;
-  padding:5px 10px;
-  border-radius:8px;
-  background:#eff6ff;
-  font-size:14px;
-}
-.vocab-en{font-weight:700;color:#1d4ed8}
-.vocab-es{color:#374151}
-
 /* Card */
 .card{
   background:rgba(255,255,255,.88);
@@ -155,10 +113,20 @@ body{
 
 .builder-label{
   text-align:center;
-  font-size:15px;
+  margin-bottom:12px;
+}
+.question-text{
+  display:block;
+  font-size:20px;
+  font-weight:900;
+  color:#1e3a8a;
+  margin-bottom:4px;
+}
+.helper-text{
+  display:block;
+  font-size:14px;
   font-weight:700;
   color:#1e40af;
-  margin-bottom:12px;
 }
 
 /* Drop zone */
@@ -243,21 +211,6 @@ body{
     <a class="step active" href="p5.html">5</a>
   </div>
 
-  <!-- Vocabulary panel -->
-  <div class="vocab-panel">
-    <button class="vocab-toggle open" id="vocabToggle" onclick="toggleVocab()">
-      <span>📖 Vocabulario nuevo</span>
-      <span class="arrow">▲</span>
-    </button>
-    <div class="vocab-body" id="vocabBody">
-      <div class="vocab-row"><span class="vocab-en">wife</span><span class="vocab-es">esposa</span></div>
-      <div class="vocab-row"><span class="vocab-en">husband</span><span class="vocab-es">esposo</span></div>
-      <div class="vocab-row"><span class="vocab-en">son</span><span class="vocab-es">hijo</span></div>
-      <div class="vocab-row"><span class="vocab-en">daughter</span><span class="vocab-es">hija</span></div>
-    </div>
-  </div>
-
-  <!-- Main card -->
   <div class="card">
     <div class="counter-row">
       <span id="counter">1 / 4</span>
@@ -270,14 +223,12 @@ body{
 
     <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
 
-    <!-- First sentence builder -->
     <div class="builder-area" id="builder1Area">
       <div class="builder-label" id="builder1Label"></div>
       <div class="drop-zone" id="dropZone1"></div>
       <div class="tiles" id="tiles1"></div>
     </div>
 
-    <!-- Second sentence builder (shown after first correct) -->
     <div class="builder-area" id="builder2Area">
       <div class="builder-label" id="builder2Label"></div>
       <div class="drop-zone" id="dropZone2"></div>
@@ -286,7 +237,6 @@ body{
   </div>
 </div>
 
-<!-- End screen outside card -->
 <div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
   <div style="font-size:48px;margin-bottom:12px">🎉</div>
   <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px">¡Felicitaciones!</h2>
