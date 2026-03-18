@@ -67,6 +67,7 @@
 
     .lesson-link {
       text-decoration: none;
+      position: relative;
     }
 
     .lesson {
@@ -76,6 +77,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     .lesson:hover {
@@ -103,36 +105,34 @@
       line-height: 1.4;
     }
 
+    /* ── Completion badge ── */
+    .lesson-link.lesson-done .lesson {
+      background: #1e40af;
+      border: 2px solid #22c55e;
+    }
+
+    .lesson-link.lesson-done .lesson::after {
+      content: "✅ Completado";
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
     @media (max-width: 480px) {
-      body {
-        padding: 16px;
-      }
-
-      h1 {
-        font-size: 24px;
-        margin-bottom: 22px;
-      }
-
-      .lesson {
-        padding: 14px 16px;
-      }
-
-      .lesson strong {
-        font-size: 18px;
-      }
-
-      .lesson-title {
-        font-size: 16px;
-      }
-
-      .lesson span {
-        font-size: 13px;
-      }
-
-      .back-btn {
-        font-size: 13px;
-        padding: 8px 14px;
-      }
+      body { padding: 16px; }
+      h1 { font-size: 24px; margin-bottom: 22px; }
+      .lesson { padding: 14px 16px; }
+      .lesson strong { font-size: 18px; }
+      .lesson-title { font-size: 16px; }
+      .lesson span { font-size: 13px; }
+      .back-btn { font-size: 13px; padding: 8px 14px; }
+      .lesson-link.lesson-done .lesson::after { font-size: 11px; top: 10px; right: 10px; }
     }
   </style>
 </head>
@@ -142,59 +142,58 @@
     <a href="../../dashboard.html" class="back-btn">← Volver a Unidades</a>
 
     <div class="brand">INGLESCO</div>
-    <h1>Unidad 5 My big family</h1>
+    <h1>Unidad 5 — My Big Family</h1>
 
     <div class="lesson-list">
 
-      <a href="l1/p1.html" class="lesson-link">
+      <a href="l1/p1.html" class="lesson-link" data-lesson="u5-l1">
         <div class="lesson">
           <div class="lesson-title"><strong>1.</strong> My wife, my husband</div>
           <span>Mi esposa, mi esposo</span>
         </div>
       </a>
 
-      <a href="l2/p1.html" class="lesson-link">
+      <a href="l2/p1.html" class="lesson-link" data-lesson="u5-l2">
         <div class="lesson">
-          <div class="lesson-title"><strong>2.</strong>My mother, my father</div>
-          <span>Mi madre, Mi padre</span>
+          <div class="lesson-title"><strong>2.</strong> My mother, my father</div>
+          <span>Mi madre, mi padre</span>
         </div>
       </a>
 
-      <a href="l3/p1.html" class="lesson-link">
+      <a href="l3/p1.html" class="lesson-link" data-lesson="u5-l3">
         <div class="lesson">
           <div class="lesson-title"><strong>3.</strong> My big family</div>
-          <span>My big family</span>
+          <span>Mi gran familia</span>
         </div>
       </a>
 
-<a href="l4/p1.html" class="lesson-link">
+      <a href="l4/p1.html" class="lesson-link" data-lesson="u5-l4">
         <div class="lesson">
-          <div class="lesson-title"><strong>4.</strong>My big family</div>
-          <span>My big family</span>
+          <div class="lesson-title"><strong>4.</strong> My big family</div>
+          <span>Mi gran familia</span>
         </div>
       </a>
 
-      <a href="l5/p1.html" class="lesson-link">
+      <a href="l5/p1.html" class="lesson-link" data-lesson="u5-l5">
         <div class="lesson">
           <div class="lesson-title"><strong>5.</strong> My big family</div>
-          <span>My big family</span>
+          <span>Mi gran familia</span>
         </div>
       </a>
 
-      <a href="l6/p1.html" class="lesson-link">
+      <a href="l6/p1.html" class="lesson-link" data-lesson="u5-l6">
         <div class="lesson">
-          <div class="lesson-title"><strong>6.</strong>My big family</div>
-          <span>My big family</span>
+          <div class="lesson-title"><strong>6.</strong> Sunny day at the beach</div>
+          <span>Día soleado en la playa</span>
         </div>
       </a>
 
-      <a href="l7/p1.html" class="lesson-link">
+      <a href="l7/p1.html" class="lesson-link" data-lesson="u5-l7">
         <div class="lesson">
           <div class="lesson-title"><strong>7.</strong> Review</div>
           <span>Repaso</span>
         </div>
       </a>
-
 
 <a href="l/p1.html" class="lesson-link">
         <div class="lesson">
@@ -212,5 +211,9 @@
 
     </div>
   </div>
+
+  <script src="../../../js/inglesco-progress.js"></script>
+  <script>markCompletedLessons();</script>
 </body>
 </html>
+
