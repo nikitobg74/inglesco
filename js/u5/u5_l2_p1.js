@@ -73,7 +73,7 @@
         { text: "Where is he?",                t: 3.0 },
         { text: "He is in the bathroom.",      t: 4.2 },
         { text: "What is he doing?",           t: 6.0 },
-        { text: "He is fixing the shower.",    t: 7.3 }
+        { text: "He is fixing the shower.",    t: 8 }
       ],
       audio2:   BASE + "audio/u5/u5.my.grandfather.mp3",
       question: "Who is he?",
@@ -88,9 +88,9 @@
         { text: "Who are they?",                                      t: 0.0 },
         { text: "They are my grandparents.",                          t: 1.3 },
         { text: "Where are they?",                                    t: 3.2 },
-        { text: "They are in Paris.",                                 t: 4.4 },
-        { text: "What are they doing?",                               t: 6.2 },
-        { text: "They are standing in front of the Eiffel Tower.",   t: 7.5 }
+        { text: "They are in Paris.",                                 t: 5.4 },
+        { text: "What are they doing?",                               t: 7.1 },
+        { text: "They are standing in front of the Eiffel Tower.",   t: 9.1 }
       ],
       audio2:   BASE + "audio/u5/u5.grandparents1.mp3",
       question: "Who are they?",
@@ -103,11 +103,11 @@
       audio1:  BASE + "audio/u5/u5.parents.surfing.mp3",
       lines: [
         { text: "Who are they?",          t: 0.0 },
-        { text: "They are my parents.",   t: 1.3 },
+        { text: "They are my parents.",   t: 1.5 },
         { text: "Where are they?",        t: 3.2 },
-        { text: "They are at the beach.", t: 4.4 },
-        { text: "What are they doing?",   t: 6.2 },
-        { text: "They are surfing.",      t: 7.5 }
+        { text: "They are at the beach.", t: 5.5 },
+        { text: "What are they doing?",   t: 7.5 },
+        { text: "They are surfing.",      t: 9.3 }
       ],
       audio2:   BASE + "audio/u5/u5.my.parents.mp3",
       question: "Who are they?",
