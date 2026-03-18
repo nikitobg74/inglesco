@@ -67,23 +67,34 @@ body{
 }
 .vocab-toggle .arrow{transition:transform .3s;font-size:12px}
 .vocab-toggle.open .arrow{transform:rotate(180deg)}
-.vocab-body{
+.vocab-body{padding:0 18px 16px}
+.vocab-body.hidden{display:none}
+.vocab-hint{font-size:12px;color:#64748b;font-weight:600;margin-bottom:10px}
+.vocab-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:6px 12px;
-  padding:0 18px 14px;
+  gap:8px;
 }
-.vocab-body.hidden{display:none}
-.vocab-row{
+.vocab-tile{
   display:flex;
   justify-content:space-between;
-  padding:5px 10px;
-  border-radius:8px;
+  align-items:center;
+  padding:12px 14px;
+  border-radius:12px;
   background:#eff6ff;
-  font-size:14px;
+  border:2px solid #bfdbfe;
+  cursor:pointer;
+  transition:background .15s, border-color .15s;
+  user-select:none;
+  min-height:56px;
 }
-.vocab-en{font-weight:700;color:#1d4ed8}
-.vocab-es{color:#374151}
+.vocab-tile:hover{background:#dbeafe;border-color:#93c5fd}
+.vocab-tile:active{background:#bfdbfe}
+.vocab-tile.playing{background:#fef9c3;border-color:#f59e0b}
+.vocab-left{display:flex;flex-direction:column;gap:2px}
+.vocab-en{font-weight:700;color:#1d4ed8;font-size:14px}
+.vocab-es{color:#64748b;font-size:12px}
+.vocab-speaker{font-size:20px;flex-shrink:0;margin-left:6px}
 
 /* Card */
 .card{
@@ -114,8 +125,6 @@ body{
   border-radius:999px;
   transition:width .4s;
 }
-
-/* Image */
 .lesson-img{
   width:100%;
   height:auto;
@@ -126,8 +135,6 @@ body{
   display:block;
   background:#f1f5f9;
 }
-
-/* Audio button */
 .audio-btn{
   width:52px;height:52px;
   border-radius:50%;
@@ -144,8 +151,6 @@ body{
 .audio-btn:hover{background:#1d4ed8}
 .audio-btn.playing{background:#f59e0b}
 .audio-btn.done{background:#22c55e}
-
-/* Karaoke text */
 .karaoke-box{
   background:#f8fafc;
   border-radius:14px;
@@ -155,89 +160,34 @@ body{
   line-height:1.9;
   margin-bottom:14px;
 }
-.karaoke-box span{
-  border-radius:4px;
-  transition:background .15s;
-  padding:1px 2px;
-}
-.karaoke-box span.highlight{
-  background:#fde68a;
-  color:#92400e;
-  font-weight:700;
-}
-
-/* Question area */
-.question-area{
-  display:none;
-  margin-top:10px;
-}
+.karaoke-box span{border-radius:4px;transition:background .15s;padding:1px 2px}
+.karaoke-box span.highlight{background:#fde68a;color:#92400e;font-weight:700}
+.question-area{display:none;margin-top:10px}
 .question-area.show{display:block}
-.question-label{
-  text-align:center;
-  font-weight:700;
-  font-size:15px;
-  margin-bottom:10px;
-  color:#1e40af;
-}
+.question-label{text-align:center;font-weight:700;font-size:15px;margin-bottom:10px;color:#1e40af}
 .answer-row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  font-size:16px;
-  font-weight:700;
-  margin-bottom:12px;
-  flex-wrap:wrap;
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;font-size:16px;font-weight:700;margin-bottom:12px;flex-wrap:wrap;
 }
 .blank-word{
-  padding:4px 10px;
-  border-bottom:3px solid #93c5fd;
-  color:#2563eb;
-  font-weight:800;
-  min-width:80px;
-  text-align:center;
-  display:inline-block;
+  padding:4px 10px;border-bottom:3px solid #93c5fd;
+  color:#2563eb;font-weight:800;min-width:80px;text-align:center;display:inline-block;
 }
-.blank-word.correct{
-  background:#dcfce7;
-  color:#15803d;
-  border-bottom-color:#22c55e;
-  border-radius:6px;
-}
-.tiles{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-}
+.blank-word.correct{background:#dcfce7;color:#15803d;border-bottom-color:#22c55e;border-radius:6px}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .tile{
-  padding:11px 18px;
-  border-radius:12px;
-  border:2px solid #bfdbfe;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-weight:800;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-size:15px;
+  padding:11px 18px;border-radius:12px;border:2px solid #bfdbfe;
+  background:#eff6ff;color:#1d4ed8;font-weight:800;cursor:pointer;
+  font-family:'Poppins',sans-serif;font-size:15px;
 }
 .tile:hover{background:#dbeafe}
 .tile.used{opacity:.35;pointer-events:none}
 .tile.correct{background:#dcfce7;border-color:#22c55e;color:#15803d}
-.tile.error{
-  background:#fee2e2;
-  border-color:#ef4444;
-  color:#b91c1c;
-  animation:shake .4s;
-}
-
+.tile.error{background:#fee2e2;border-color:#ef4444;color:#b91c1c;animation:shake .4s}
 .shake{animation:shake .4s}
 @keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
+  0%{transform:translateX(0)}25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}
 }
 </style>
 </head>
@@ -261,33 +211,55 @@ body{
       <span class="arrow">▲</span>
     </button>
     <div class="vocab-body" id="vocabBody">
-      <div class="vocab-row"><span class="vocab-en">wife</span><span class="vocab-es">esposa</span></div>
-      <div class="vocab-row"><span class="vocab-en">husband</span><span class="vocab-es">esposo</span></div>
-      <div class="vocab-row"><span class="vocab-en">son</span><span class="vocab-es">hijo</span></div>
-      <div class="vocab-row"><span class="vocab-en">daughter</span><span class="vocab-es">hija</span></div>
-      <div class="vocab-row"><span class="vocab-en">standing</span><span class="vocab-es">parado/a</span></div>
-      <div class="vocab-row"><span class="vocab-en">riding</span><span class="vocab-es">montando</span></div>
-      <div class="vocab-row"><span class="vocab-en">swimming</span><span class="vocab-es">nadando</span></div>
-      <div class="vocab-row"><span class="vocab-en">beach</span><span class="vocab-es">playa</span></div>
-      <div class="vocab-row"><span class="vocab-en">bicycle</span><span class="vocab-es">bicicleta</span></div>
+      <p class="vocab-hint">🔊 Toca una palabra para escucharla</p>
+      <div class="vocab-grid">
+        <div class="vocab-tile" onclick="playVocab(this,'u5.wife.mp3')">
+          <div class="vocab-left"><span class="vocab-en">wife</span><span class="vocab-es">esposa</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.husband.mp3')">
+          <div class="vocab-left"><span class="vocab-en">husband</span><span class="vocab-es">esposo</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.son.mp3')">
+          <div class="vocab-left"><span class="vocab-en">son</span><span class="vocab-es">hijo</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.daughter.mp3')">
+          <div class="vocab-left"><span class="vocab-en">daughter</span><span class="vocab-es">hija</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.standing.mp3')">
+          <div class="vocab-left"><span class="vocab-en">standing</span><span class="vocab-es">parado/a</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.riding.mp3')">
+          <div class="vocab-left"><span class="vocab-en">riding</span><span class="vocab-es">montando</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.swimming.mp3')">
+          <div class="vocab-left"><span class="vocab-en">swimming</span><span class="vocab-es">nadando</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.beach.mp3')">
+          <div class="vocab-left"><span class="vocab-en">beach</span><span class="vocab-es">playa</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+        <div class="vocab-tile" onclick="playVocab(this,'u5.bicycle.mp3')">
+          <div class="vocab-left"><span class="vocab-en">bicycle</span><span class="vocab-es">bicicleta</span></div>
+          <span class="vocab-speaker">🔊</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Main card -->
   <div class="card">
-    <div class="counter-row">
-      <span id="counter">1 / 4</span>
-    </div>
-    <div class="bar-wrap">
-      <div class="bar-fill" id="progressBar"></div>
-    </div>
-
+    <div class="counter-row"><span id="counter">1 / 4</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
     <img id="lessonImg" class="lesson-img" src="" alt="" />
-
     <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
-
     <div class="karaoke-box" id="karaokeBox"></div>
-
     <div class="question-area" id="questionArea">
       <div class="question-label" id="questionLabel"></div>
       <div class="answer-row" id="answerRow"></div>
@@ -302,6 +274,28 @@ body{
   <p style="margin:10px 0 20px">Completaste la Parte 1.</p>
   <a href="p2.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 2</a>
 </div>
+
+<script>
+  const VOCAB_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u5/";
+  let vocabAudio = null;
+
+  window.playVocab = function(tile, file) {
+    if (vocabAudio) { vocabAudio.pause(); vocabAudio = null; }
+    document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
+    tile.classList.add("playing");
+    vocabAudio = new Audio(VOCAB_BASE + file);
+    vocabAudio.play().catch(() => {});
+    vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
+  };
+
+  window.toggleVocab = function() {
+    const body   = document.getElementById("vocabBody");
+    const toggle = document.getElementById("vocabToggle");
+    const isOpen = !body.classList.contains("hidden");
+    body.classList.toggle("hidden", isOpen);
+    toggle.classList.toggle("open", !isOpen);
+  };
+</script>
 
 <script src="../../../../js/u5/u5_l1_p1.js"></script>
 </body>
