@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 2 • Parte 5</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 60px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+.back-btn{
+  display:inline-block;
+  margin-bottom:16px;
+  padding:7px 14px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+.progress-container{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;
+  background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;
+  color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* Vocabulary panel */
+.vocab-panel{
+  background:rgba(255,255,255,.88);
+  border-radius:18px;
+  margin-bottom:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.vocab-toggle{
+  width:100%;background:none;border:none;padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#1e40af;
+}
+.vocab-toggle .arrow{transition:transform .3s;font-size:12px}
+.vocab-toggle.open .arrow{transform:rotate(180deg)}
+.vocab-body{padding:0 18px 16px}
+.vocab-body.hidden{display:none}
+.vocab-hint{font-size:12px;color:#64748b;font-weight:600;margin-bottom:10px}
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vocab-tile{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 14px;border-radius:12px;background:#eff6ff;
+  border:2px solid #bfdbfe;cursor:pointer;
+  transition:background .15s,border-color .15s;user-select:none;min-height:56px;
+}
+.vocab-tile:hover{background:#dbeafe;border-color:#93c5fd}
+.vocab-tile.playing{background:#fef9c3;border-color:#f59e0b}
+.vocab-left{display:flex;flex-direction:column;gap:2px}
+.vocab-en{font-weight:700;color:#1d4ed8;font-size:14px}
+.vocab-es{color:#64748b;font-size:12px}
+.vocab-speaker{font-size:20px;flex-shrink:0;margin-left:6px}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.88);
+  border-radius:18px;padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#2563eb;
+  border-radius:999px;transition:width .4s;
+}
+
+/* Image — tappable to play audio */
+.img-wrap{
+  position:relative;
+  margin-bottom:20px;
+  cursor:pointer;
+}
+.lesson-img{
+  width:100%;height:auto;max-height:300px;object-fit:contain;
+  border-radius:14px;display:block;background:#f1f5f9;
+  transition:opacity .15s;
+}
+.img-wrap:active .lesson-img{opacity:.85}
+.img-audio-hint{
+  text-align:center;font-size:12px;color:#64748b;
+  font-weight:600;margin-top:6px;
+}
+.img-audio-hint.playing{color:#f59e0b;font-weight:700}
+
+/* Spelling word display */
+.spell-label{
+  text-align:center;font-size:13px;font-weight:600;
+  color:#64748b;margin-bottom:10px;
+}
+.word-tiles{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:24px;
+}
+.letter-tile{
+  width:40px;height:50px;
+  border-radius:10px;
+  border:2px solid #bfdbfe;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-family:'Poppins',sans-serif;
+  font-weight:900;
+  font-size:20px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,border-color .15s;
+}
+@media(max-width:380px){
+  .letter-tile{width:34px;height:44px;font-size:17px;border-radius:8px}
+}
+.letter-tile.blank{
+  background:#fff;
+  border:2px dashed #93c5fd;
+  color:#2563eb;
+  cursor:pointer;
+}
+.letter-tile.blank:hover{background:#eff6ff}
+.letter-tile.blank.active{
+  background:#fef9c3;
+  border-color:#f59e0b;
+  border-style:solid;
+}
+.letter-tile.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+  border-style:solid;
+  color:#15803d;
+  cursor:default;
+}
+.letter-tile.error{
+  background:#fee2e2;
+  border-color:#ef4444;
+  color:#b91c1c;
+  animation:shake .4s;
+}
+
+/* Letter picker popup */
+.picker-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:100;
+  align-items:flex-end;
+  justify-content:center;
+}
+.picker-overlay.show{display:flex}
+.picker-box{
+  background:white;
+  border-radius:20px 20px 0 0;
+  padding:24px 20px 36px;
+  width:100%;
+  max-width:420px;
+  box-shadow:0 -8px 30px rgba(0,0,0,.15);
+}
+.picker-title{
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  color:#64748b;
+  margin-bottom:18px;
+}
+.picker-letters{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+}
+.picker-letter{
+  width:68px;height:68px;
+  border-radius:14px;
+  border:2px solid #bfdbfe;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-family:'Poppins',sans-serif;
+  font-weight:900;
+  font-size:30px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+@media(max-width:380px){
+  .picker-letter{width:60px;height:60px;font-size:26px}
+}
+.picker-letter:hover{background:#dbeafe;border-color:#93c5fd}
+.picker-cancel{
+  display:block;
+  width:100%;
+  margin-top:16px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#f1f5f9;
+  color:#64748b;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+}
+.picker-cancel:hover{background:#e2e8f0}
+
+@keyframes shake{
+  0%{transform:translateX(0)}25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 2 • Parte 5</div>
+  <div class="subline">Completa la palabra que falta</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+    <div class="counter-row"><span id="counter">1 / 10</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+
+    <div class="img-wrap" id="imgWrap" onclick="playWordAudio()">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
+      <p class="img-audio-hint" id="audioHint">🔊 Toca la imagen para escuchar</p>
+    </div>
+
+    <p class="spell-label">Completa la palabra:</p>
+    <div class="word-tiles" id="wordTiles"></div>
+  </div>
+</div>
+
+<!-- Letter picker popup -->
+<div class="picker-overlay" id="pickerOverlay">
+  <div class="picker-box">
+    <p class="picker-title">Selecciona la letra correcta</p>
+    <div class="picker-letters" id="pickerLetters"></div>
+    <button class="picker-cancel" onclick="closePicker()">Cancelar</button>
+  </div>
+</div>
+
+<!-- End screen outside card -->
+<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:36px 24px;margin:16px auto;max-width:700px" id="endScreen">
+  <div style="font-size:52px;margin-bottom:12px">🎉</div>
+  <h2 style="font-size:26px;font-weight:900;color:#1e40af;margin-bottom:10px">¡Muy bien!</h2>
+  <p style="font-size:17px;font-weight:700;color:#374151;margin-bottom:6px">¡Completaste la Lección 2!</p>
+  <p style="font-size:14px;color:#64748b;margin-bottom:28px">¡Excelente trabajo! Sigue practicando.</p>
+  <a href="../index.html" style="display:inline-block;padding:14px 32px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">Volver a la Unidad 5 →</a>
+</div>
+
+<script>
+  const VOCAB_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u5/";
+  let vocabAudio = null;
+  window.playVocab = function(tile, file) {
+    if (vocabAudio) { vocabAudio.pause(); vocabAudio = null; }
+    document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
+    tile.classList.add("playing");
+    vocabAudio = new Audio(VOCAB_BASE + file);
+    vocabAudio.play().catch(() => {});
+    vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
+  };
+  window.toggleVocab = function() {
+    const body   = document.getElementById("vocabBody");
+    const toggle = document.getElementById("vocabToggle");
+    const isOpen = !body.classList.contains("hidden");
+    body.classList.toggle("hidden", isOpen);
+    toggle.classList.toggle("open", !isOpen);
+  };
+</script>
+<script src="../../../../js/inglesco-progress.js"></script>
+<script src="../../../../js/u5/u5_l2_p5.js"></script>
+</body>
+</html>
