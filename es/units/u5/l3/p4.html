@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 3 • Parte 4</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 60px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#2563eb;
+  border-radius:999px;transition:width .4s;
+}
+
+/* Image */
+.lesson-img{
+  width:100%;height:auto;max-height:280px;object-fit:contain;
+  border-radius:14px;margin-bottom:14px;display:block;background:#f1f5f9;
+}
+
+/* Slide text */
+.slide-text{
+  text-align:center;font-size:15px;font-weight:600;
+  color:#1e3a5f;line-height:1.7;margin-bottom:18px;
+  min-height:48px;
+}
+
+/* Audio controls */
+.audio-controls{
+  display:flex;align-items:center;justify-content:center;
+  gap:14px;margin-bottom:18px;
+}
+.play-btn{
+  width:56px;height:56px;border-radius:50%;
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;transition:background .2s,transform .1s;
+  flex-shrink:0;
+}
+.play-btn.idle{background:#2563eb;color:white;}
+.play-btn.playing{background:#f59e0b;color:white;}
+.play-btn.done{background:#22c55e;color:white;}
+.play-btn:active{transform:scale(.93)}
+.play-btn:disabled{opacity:.4;cursor:default}
+
+/* Continue arrow */
+.continue-btn{
+  display:none;
+  margin:0 auto;
+  padding:11px 28px;
+  background:#2563eb;color:white;
+  border:none;border-radius:12px;
+  font-weight:700;font-size:15px;font-family:'Poppins',sans-serif;
+  cursor:pointer;transition:background .2s;
+}
+.continue-btn.visible{display:block}
+.continue-btn:hover{background:#1d4ed8}
+
+/* Word tile section */
+.tile-section{display:none}
+.tile-section.visible{display:block}
+.tile-instruction{
+  text-align:center;font-size:13px;font-weight:600;
+  color:#94a3b8;margin-bottom:14px;
+}
+.tiles-row{
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  margin-bottom:14px;
+}
+.word-tile{
+  padding:13px 20px;
+  border-radius:12px;border:2px solid #bfdbfe;
+  background:#eff6ff;color:#1d4ed8;
+  font-weight:700;font-size:14px;
+  cursor:pointer;text-align:center;
+  font-family:'Poppins',sans-serif;
+  transition:background .15s,border-color .15s,transform .1s;
+}
+.word-tile:hover{background:#dbeafe;border-color:#93c5fd}
+.word-tile.playing{background:#f59e0b;border-color:#f59e0b;color:white;}
+.word-tile.done{background:#22c55e;border-color:#22c55e;color:white;}
+.word-tile:active{transform:scale(.96)}
+.word-tile:disabled{cursor:default}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 3 • Parte 4</div>
+  <div class="subline">Escucha y lee</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Main card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row"><span id="counter">1 / 7</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+
+    <img id="lessonImg" class="lesson-img" src="" alt="" />
+    <div class="slide-text" id="slideText"></div>
+
+    <!-- Audio controls (shown for audio slides) -->
+    <div class="audio-controls" id="audioControls">
+      <button class="play-btn idle" id="playBtn" title="Reproducir">▶</button>
+    </div>
+
+    <!-- Continue button -->
+    <button class="continue-btn" id="continueBtn">Continuar →</button>
+  </div>
+</div>
+
+<!-- End screen outside card -->
+<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:36px 24px;margin:16px auto;max-width:700px" id="endScreen">
+  <div style="font-size:52px;margin-bottom:12px">🎉</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px">¡Muy buen trabajo!</h2>
+  <p style="font-size:16px;font-weight:600;color:#374151;margin-bottom:6px">Completaste la Parte 4.</p>
+  <p style="font-size:14px;color:#64748b;margin-bottom:24px">¡Excelente esfuerzo!</p>
+  <a href="p5.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">Continuar → Parte 5</a>
+</div>
+
+<script src="../../../../js/u5/u5_l3_p4.js"></script>
+</body>
+</html>
