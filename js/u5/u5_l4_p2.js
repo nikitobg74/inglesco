@@ -19,11 +19,11 @@
       image: IMG_BASE   + "u5.boy.riding.jpg",
       audio: AUDIO_BASE + "u5.riding.bike.2.mp3",
       q1: {
-        question: "Where is your cousin?",
+        question: "Where is your cousin Tommy?",
         sentence: "He is at the _____.",
         options: [
           { text: "park",      correct: true  },
-          { text: "at school", correct: false }
+          { text: "school", correct: false }
         ]
       },
       q2: {
@@ -39,11 +39,11 @@
       image: IMG_BASE   + "u5.feed.birds.jpg",
       audio: AUDIO_BASE + "u5.feed.birds2.mp3",
       q1: {
-        question: "Where is your cousin?",
+        question: "Where is your cousin Shelly?",
         sentence: "She is at the _____.",
         options: [
           { text: "park",   correct: true  },
-          { text: "at zoo", correct: false }
+          { text: "zoo", correct: false }
         ]
       },
       q2: {
@@ -59,7 +59,7 @@
       image: IMG_BASE   + "u5.bake.cookies.jpg",
       audio: AUDIO_BASE + "u5.bake.cookies.2.mp3",
       q1: {
-        question: "Where is your aunt?",
+        question: "Where is your aunt Carla?",
         sentence: "She is in the _____.",
         options: [
           { text: "bedroom", correct: false },
@@ -79,7 +79,7 @@
       image: IMG_BASE   + "u5.mowing.grass.jpg",
       audio: AUDIO_BASE + "u5.mowing.grass.2.mp3",
       q1: {
-        question: "Where is your uncle?",
+        question: "Where is your uncle Greg?",
         sentence: "He is in the _____.",
         options: [
           { text: "park", correct: false },
