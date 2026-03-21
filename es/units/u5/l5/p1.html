@@ -80,6 +80,11 @@ body{
 .grammar-rule .highlight{
   color:#2563eb;
 }
+.grammar-rule .hook{
+  font-size:18px;font-weight:900;color:#1e40af;
+}
+.map-en{color:#1e40af;font-weight:900}
+.map-es{color:#0d9488;font-weight:900}
 
 /* Structure comparison */
 .structure-box{
@@ -113,6 +118,12 @@ body{
   text-align:center;width:100%;margin-bottom:6px;
   text-transform:uppercase;letter-spacing:.05em;
 }
+.structure-pattern{
+  text-align:center;font-size:14px;font-weight:700;
+  color:#334155;line-height:1.6;margin-bottom:10px;
+}
+.structure-pattern .en-pattern{color:#1e40af}
+.structure-pattern .es-pattern{color:#0d9488}
 
 /* Example comparison table */
 .compare-table{
@@ -230,13 +241,18 @@ body{
 
       <!-- Rule -->
       <div class="grammar-rule">
-        <span>Tom's dog &nbsp;→&nbsp; <span class="highlight">El perro de Tom</span></span>
-        <span>👉 Usamos <strong>'s</strong> para decir que algo pertenece a alguien.</span>
+        <span class="hook">👉 ¿De quién es?</span>
+        <span><span class="map-en">Tom's dog</span> &nbsp;→&nbsp; <span class="highlight map-es">El perro de Tom</span></span>
+        <span>👉 <strong>'s</strong> indica posesión.</span>
         <span>👉 Es igual a <strong>"de"</strong> en español.</span>
       </div>
 
       <!-- Structure visual -->
       <div class="structure-box">
+        <div class="structure-pattern">
+          <div class="en-pattern">En inglés: persona + 's + cosa</div>
+          <div class="es-pattern">En español: cosa + de + persona</div>
+        </div>
         <div class="str-label">En inglés</div>
         <div class="structure-row">
           <span class="str-pill">Tom</span>
@@ -259,25 +275,18 @@ body{
       <!-- Examples table -->
       <table class="compare-table">
         <thead>
-          <tr><th>🇺🇸 English</th><th>🇲🇽 Español</th></tr>
+          <tr><th>🇺🇸 EN INGLÉS</th><th>🇲🇽 EN ESPAÑOL</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td class="en-cell">Tom's dog</td>
-            <td class="es-cell">el perro de Tom</td>
+            <td class="en-cell"><strong>Tom's</strong> dog</td>
+            <td class="es-cell">el perro <strong>de Tom</strong></td>
           </tr>
           <tr>
-            <td class="en-cell">Robert's house</td>
-            <td class="es-cell">la casa de Robert</td>
+            <td class="en-cell"><strong>Robert's</strong> house</td>
+            <td class="es-cell">la casa <strong>de Robert</strong></td>
           </tr>
-          <tr>
-            <td class="en-cell">Linda's car</td>
-            <td class="es-cell">el carro de Linda</td>
-          </tr>
-          <tr>
-            <td class="en-cell">Lisa's cat</td>
-            <td class="es-cell">el gato de Lisa</td>
-          </tr>
+         
         </tbody>
       </table>
 
