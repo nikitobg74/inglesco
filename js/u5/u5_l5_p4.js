@@ -141,7 +141,12 @@
     questionText.textContent = q.prompt;
 
     optionsWrap.innerHTML = "";
-    q.options.forEach((opt, i) => {
+    // Shuffle: pair each option with its original index, then randomise order
+    const shuffled = q.options
+      .map((opt, i) => ({ opt, i }))
+      .sort(() => Math.random() - 0.5);
+
+    shuffled.forEach(({ opt, i }) => {
       const btn = document.createElement("button");
       btn.className   = "option-btn";
       btn.textContent = opt;
@@ -169,7 +174,8 @@
       errors++;
       failBox.textContent = `Errores: ${errors}`;
       btnEl.classList.add("wrong");
-      allBtns[q.correct].classList.add("correct");
+      // Find the correct button by its text content, not position
+      allBtns.find(b => b.textContent === q.options[q.correct]).classList.add("correct");
       feedbackWrong.className     = "feedback-line bad";
       feedbackWrong.textContent   = `✘ Incorrecto: ${q.wrongMeaning}`;
       feedbackCorrect.textContent = q.correctAnswer;

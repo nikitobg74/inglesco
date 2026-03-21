@@ -151,12 +151,24 @@
     }
   ];
 
+  // ── Shuffle (Fisher-Yates) ─────────────────────────────────────────────────
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Shuffle slide order at load
+  shuffle(SLIDES);
+
   // ── DOM refs ───────────────────────────────────────────────────────────────
-  const imgEl       = document.getElementById("lessonImg");
-  const counterEl   = document.getElementById("counter");
-  const barEl       = document.getElementById("progressBar");
-  const mainCard    = document.getElementById("mainCard");
-  const endScreen   = document.getElementById("endScreen");
+  const imgEl        = document.getElementById("lessonImg");
+  const counterEl    = document.getElementById("counter");
+  const barEl        = document.getElementById("progressBar");
+  const mainCard     = document.getElementById("mainCard");
+  const endScreen    = document.getElementById("endScreen");
   const questionArea = document.getElementById("questionArea");
 
   let slideIndex = 0;
@@ -188,7 +200,10 @@
       const optRow = document.createElement("div");
       optRow.className = "options-row";
 
-      q.options.forEach(opt => {
+      // Shuffle a copy of the options so the originals stay intact
+      const shuffledOptions = shuffle([...q.options]);
+
+      shuffledOptions.forEach(opt => {
         const btn = document.createElement("button");
         btn.className = "opt-btn";
         btn.textContent = opt.text;

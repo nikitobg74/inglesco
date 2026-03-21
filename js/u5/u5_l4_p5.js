@@ -25,13 +25,6 @@
             { text: "parents",  correct: false }
           ]
         },
-        {
-          text:    "They are on ______.",
-          options: [
-            { text: "vacation", correct: true  },
-            { text: "school",   correct: false }
-          ]
-        }
       ]
     },
     {
@@ -131,6 +124,21 @@
     }
   ];
 
+  // ── Shuffle (Fisher-Yates) ─────────────────────────────────────────────────
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Shuffle slide order at load
+  shuffle(SLIDES);
+
+  // Total question count (for counter display)
+  const TOTAL_QUESTIONS = SLIDES.reduce((sum, s) => sum + s.sentences.length, 0);
+
   // ── DOM refs ───────────────────────────────────────────────────────────────
   const imgEl        = document.getElementById("lessonImg");
   const counterEl    = document.getElementById("counter");
@@ -139,14 +147,15 @@
   const endScreen    = document.getElementById("endScreen");
   const questionArea = document.getElementById("questionArea");
 
-  let slideIndex = 0;
+  let slideIndex    = 0;
+  let questionIndex = 0;
 
   // ── Helpers ────────────────────────────────────────────────────────────────
   function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
   function updateCounter() {
-    counterEl.textContent = `${slideIndex + 1} / ${SLIDES.length}`;
-    barEl.style.width = ((slideIndex + 1) / SLIDES.length * 100) + "%";
+    counterEl.textContent = `${questionIndex} / ${TOTAL_QUESTIONS}`;
+    barEl.style.width = (questionIndex / TOTAL_QUESTIONS * 100) + "%";
   }
 
   // ── Show one sentence, resolves on correct answer ──────────────────────────
@@ -164,7 +173,10 @@
       const optRow = document.createElement("div");
       optRow.className = "options-row";
 
-      s.options.forEach(opt => {
+      // Shuffle a copy of the options so the originals stay intact
+      const shuffledOptions = shuffle([...s.options]);
+
+      shuffledOptions.forEach(opt => {
         const btn = document.createElement("button");
         btn.className = "opt-btn";
         btn.textContent = opt.text;
@@ -198,6 +210,8 @@
   // ── Run all sentences for a slide ─────────────────────────────────────────
   async function runSlide(slide) {
     for (const s of slide.sentences) {
+      questionIndex++;
+      updateCounter();
       await showSentence(s);
       // Small pause between sentence 1 and 2 so the green lock is visible
       await delay(400);
@@ -207,7 +221,6 @@
   // ── Load slide ─────────────────────────────────────────────────────────────
   async function loadSlide(index) {
     slideIndex = index;
-    updateCounter();
     questionArea.innerHTML = "";
 
     const slide = SLIDES[index];

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 5 • Parte 5</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 60px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+.progress-container{display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Vocab panel ─────────────────────────────────────────────────────────── */
+.vocab-panel{
+  background:rgba(255,255,255,.92);
+  border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.09);
+  margin-bottom:18px;
+  overflow:hidden;
+  border-left:5px solid #0d9488;
+}
+.vocab-toggle{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Poppins',sans-serif;text-align:left;
+}
+.vocab-toggle:hover{background:rgba(0,0,0,.02)}
+.vocab-toggle-label{
+  font-size:17px;font-weight:900;color:#0f766e;
+  display:flex;align-items:center;gap:8px;
+}
+.vocab-badge{
+  background:#0d9488;color:white;
+  font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:999px;letter-spacing:.04em;
+}
+.toggle-arrow{font-size:13px;color:#94a3b8;flex-shrink:0}
+.vocab-body{display:none;padding:0 18px 18px}
+.vocab-body.open{display:block}
+.vocab-table{width:100%;border-collapse:collapse;font-size:15px}
+.vocab-table th{
+  background:#0f766e;color:white;
+  padding:9px 12px;font-weight:700;font-size:14px;text-align:left;
+}
+.vocab-table th:first-child{border-radius:8px 0 0 0}
+.vocab-table th:last-child{border-radius:0 8px 0 0}
+.vocab-table td{
+  padding:9px 12px;border-bottom:1px solid #e2e8f0;
+  font-weight:600;vertical-align:middle;
+}
+.vocab-table tr:last-child td{border-bottom:none}
+.vocab-table tr:nth-child(even) td{background:#f0fdfa}
+.vocab-es{color:#0d9488;font-weight:700}
+.vocab-tap{
+  background:none;border:none;cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-size:15px;font-weight:700;color:#1e40af;
+  padding:4px 2px;text-align:left;
+  text-decoration:underline dotted #93c5fd;
+  transition:color .2s;
+}
+.vocab-tap:hover{color:#1d4ed8}
+
+/* ── Slide card ──────────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.9);border-radius:20px;padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  margin-bottom:16px;
+}
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:8px;margin-bottom:18px;overflow:hidden}
+.bar-fill{height:100%;width:0;background:#a855f7;border-radius:999px;transition:width .35s}
+
+.lesson-img{
+  width:100%;height:auto;max-height:240px;object-fit:contain;border-radius:16px;
+  margin-bottom:16px;display:block;background:#f8fafc;
+}
+
+/* Who are they? header */
+.who-label{
+  text-align:center;
+  font-size:15px;font-weight:900;color:#2563eb;
+  background:#eff6ff;border-radius:10px;
+  padding:8px 14px;margin-bottom:12px;
+  border-left:4px solid #2563eb;
+}
+
+/* Slide text lines */
+.slide-lines{
+  margin-bottom:16px;
+}
+.line-en{
+  font-size:15px;font-weight:700;color:#1e3a5f;
+  display:block;line-height:1.7;
+  padding-left:4px;
+}
+
+/* Audio play button */
+.audio-controls{
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.play-btn{
+  width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;transition:background .2s,transform .1s;
+}
+.play-btn.idle   {background:#2563eb;color:white}
+.play-btn.playing{background:#f59e0b;color:white}
+.play-btn.done   {background:#22c55e;color:white}
+.play-btn:active {transform:scale(.93)}
+.play-btn:disabled{opacity:.4;cursor:default}
+
+/* ── Quiz section (revealed after audio) ─────────────────────────────────── */
+.quiz-section{display:none}
+.quiz-section.visible{display:block}
+
+.score-badge{
+  display:inline-block;
+  background:#f0fdf4;border:2px solid #86efac;
+  color:#166534;border-radius:999px;
+  padding:3px 12px;font-size:13px;font-weight:700;
+  margin-bottom:14px;
+}
+
+/* Question prompt */
+.q-prompt{
+  font-size:16px;font-weight:800;color:#1e40af;
+  background:#eff6ff;border-radius:12px;
+  padding:11px 14px;margin-bottom:12px;
+  border-left:4px solid #2563eb;
+}
+
+/* Option buttons */
+.options{display:grid;gap:10px;margin-bottom:14px}
+.option-btn{
+  width:100%;border:none;border-radius:14px;padding:13px 16px;text-align:left;
+  background:#eff6ff;color:#1e3a8a;font-size:17px;font-weight:800;cursor:pointer;
+  transition:transform .06s,background .2s;
+}
+.option-btn:active{transform:scale(.99)}
+.option-btn:disabled{cursor:default;opacity:1}
+.option-btn.correct{background:#dcfce7;color:#166534}
+.option-btn.wrong  {background:#fee2e2;color:#b91c1c}
+
+/* Feedback */
+.feedback-box{
+  display:none;border-radius:12px;padding:11px 14px;
+  margin-bottom:14px;font-size:14px;font-weight:700;line-height:1.6;
+}
+.feedback-box.show{display:block}
+.feedback-box.correct{background:#f0fdf4;border:2px solid #86efac;color:#166534}
+.feedback-box.wrong  {background:#fef2f2;border:2px solid #fca5a5;color:#991b1b}
+
+/* Continue / Next / End buttons */
+.btn-next{
+  display:none;margin:0 auto;
+  padding:12px 28px;background:#2563eb;color:white;
+  border:none;border-radius:14px;
+  font-weight:800;font-size:15px;font-family:'Poppins',sans-serif;
+  cursor:pointer;transition:background .2s;
+}
+.btn-next.visible{display:block}
+.btn-next:hover{background:#1d4ed8}
+
+/* End screen */
+.end-screen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.9);border-radius:20px;
+  padding:36px 24px;margin:0 auto;max-width:700px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 5 • Parte 5</div>
+  <div class="subline">Los abuelos</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
+  </div>
+
+  <!-- ── Vocab panel ────────────────────────────────────────────────────── -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span class="vocab-toggle-label">
+        📗 Vocabulario
+        <span class="vocab-badge">NUEVO</span>
+      </span>
+      <span class="toggle-arrow" id="vocabArrow">▲</span>
+    </button>
+    <div class="vocab-body open" id="vocabBody">
+      <table class="vocab-table">
+        <thead>
+          <tr><th>🇺🇸 English (tap to listen)</th><th>🇲🇽 Español</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.grandmother1.mp3">🔊 grandmother</button></td>
+            <td class="vocab-es">abuela</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.grandfather1.mp3">🔊 grandfather</button></td>
+            <td class="vocab-es">abuelo</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.granddaughter.mp3">🔊 granddaughter</button></td>
+            <td class="vocab-es">nieta</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.grandson.mp3">🔊 grandson</button></td>
+            <td class="vocab-es">nieto</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.grandparents.mp3">🔊 grandparents</button></td>
+            <td class="vocab-es">abuelos</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.parents.mp3">🔊 parents</button></td>
+            <td class="vocab-es">padres</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Main card ──────────────────────────────────────────────────────── -->
+  <div class="card" id="mainCard">
+    <div class="bar-wrap"><div class="bar-fill" id="barFill"></div></div>
+
+    <img class="lesson-img" id="slideImg" src="" alt="" />
+
+    <div class="who-label" id="whoLabel"></div>
+
+    <div class="slide-lines" id="slideLines"></div>
+
+    <div class="audio-controls">
+      <button class="play-btn idle" id="playBtn">▶</button>
+    </div>
+
+    <!-- Quiz section — revealed after audio ends -->
+    <div class="quiz-section" id="quizSection">
+      <div class="score-badge">✅ <span id="scoreNum">0</span> / <span id="scoreTotal"></span></div>
+      <div class="q-prompt"   id="qPrompt"></div>
+      <div class="options"    id="optionsWrap"></div>
+      <div class="feedback-box" id="feedbackBox"></div>
+      <button class="btn-next" id="btnNext">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ── End screen ─────────────────────────────────────────────────────── -->
+  <div class="end-screen" id="endScreen"
+       data-unit="5" data-lesson="5" data-part="5">
+    <!-- populated by JS -->
+  </div>
+
+</div><!-- /wrap -->
+<script src="../../../../js/u5/u5_l5_p5.js"></script>
+</body>
+</html>
