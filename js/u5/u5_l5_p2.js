@@ -9,13 +9,13 @@
   const QUESTIONS = [
     {
       image: IMG_BASE + "u5.tom.dog.jpg",
-      prompt: "👉 Tom's cat",
+      prompt: "👉 Tom's dog",
       options: [
-        { text: "el gato de Tom", correct: true },
-        { text: "Tom es el gato",  correct: false }
+        { text: "el perro de Tom", correct: true },
+        { text: "Tom es el perro",  correct: false }
       ],
-      feedbackCorrect: "✔ Correcto: <strong>el gato de Tom</strong>",
-      feedbackWrong:   "❌ <em>Tom es el gato</em> = Tom is the cat"
+      feedbackCorrect: "✔ Correcto: <strong>el perro de Tom</strong>",
+      feedbackWrong:   "❌ <em>Tom es el perro</em> = Tom is the dog"
     },
     {
       image: IMG_BASE + "u5.robert.house.jpg",
