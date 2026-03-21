@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 5 • Parte 4</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 60px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+.progress-container{display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Vocab panel ─────────────────────────────────────────────────────────── */
+.vocab-panel{
+  background:rgba(255,255,255,.92);
+  border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.09);
+  margin-bottom:18px;
+  overflow:hidden;
+  border-left:5px solid #0d9488;
+}
+.vocab-toggle{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  text-align:left;
+}
+.vocab-toggle:hover{background:rgba(0,0,0,.02)}
+.vocab-toggle-label{
+  font-size:17px;font-weight:900;color:#0f766e;
+  display:flex;align-items:center;gap:8px;
+}
+.vocab-badge{
+  background:#0d9488;color:white;
+  font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:999px;
+  letter-spacing:.04em;
+}
+.toggle-arrow{font-size:13px;color:#94a3b8;flex-shrink:0}
+.vocab-body{display:none;padding:0 18px 18px}
+.vocab-body.open{display:block}
+.vocab-table{width:100%;border-collapse:collapse;font-size:15px}
+.vocab-table th{
+  background:#0f766e;color:white;
+  padding:9px 12px;font-weight:700;font-size:14px;text-align:left;
+}
+.vocab-table th:first-child{border-radius:8px 0 0 0}
+.vocab-table th:last-child{border-radius:0 8px 0 0}
+.vocab-table td{
+  padding:9px 12px;border-bottom:1px solid #e2e8f0;
+  font-weight:600;vertical-align:middle;
+}
+.vocab-table tr:last-child td{border-bottom:none}
+.vocab-table tr:nth-child(even) td{background:#f0fdfa}
+.vocab-es{color:#0d9488;font-weight:700}
+.vocab-tap{
+  background:none;border:none;cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-size:15px;font-weight:700;color:#1e40af;
+  padding:4px 2px;text-align:left;
+  text-decoration:underline dotted #93c5fd;
+  transition:color .2s;
+}
+.vocab-tap:hover{color:#1d4ed8}
+
+/* ── Quiz card ───────────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.9);border-radius:20px;padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.top-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.small-label{font-size:13px;font-weight:800;color:#486581}
+.fail-box{
+  padding:6px 10px;border-radius:999px;background:#fee2e2;color:#b91c1c;
+  font-size:12px;font-weight:800;white-space:nowrap;
+}
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:8px;margin-bottom:18px;overflow:hidden}
+.bar-fill{height:100%;width:0;background:#a855f7;border-radius:999px;transition:width .35s}
+.prompt{
+  text-align:center;margin-bottom:14px;font-size:15px;font-weight:800;color:#1e40af;
+}
+.lesson-img{
+  width:100%;height:auto;max-height:240px;object-fit:contain;border-radius:16px;
+  margin-bottom:16px;display:block;background:#f8fafc;
+}
+.en-sentence{
+  text-align:center;font-size:22px;font-weight:900;line-height:1.35;color:#1e3a5f;
+  margin-bottom:6px;
+}
+.hint{
+  text-align:center;font-size:13px;font-weight:700;color:#64748b;margin-bottom:16px;
+}
+.options{display:grid;gap:12px}
+.option-btn{
+  width:100%;border:none;border-radius:16px;padding:14px 16px;text-align:left;
+  background:#eff6ff;color:#1e3a8a;font-size:18px;font-weight:800;cursor:pointer;
+  box-shadow:0 2px 8px rgba(37,99,235,.08);transition:transform .06s, background .2s;
+}
+.option-btn:active{transform:scale(.99)}
+.option-btn:disabled{cursor:default;opacity:1}
+.option-btn.correct{background:#dcfce7;color:#166534}
+.option-btn.wrong{background:#fee2e2;color:#b91c1c}
+.feedback{
+  display:none;margin-top:16px;border-radius:16px;padding:14px 14px 12px;
+  background:#f8fafc;border:2px solid #e2e8f0;
+}
+.feedback.show{display:block}
+.feedback-line{font-size:15px;font-weight:700;line-height:1.6;margin-bottom:6px}
+.feedback-line.bad{color:#b91c1c}
+.feedback-line.good{color:#166534}
+.feedback-line.info{color:#334155}
+.next-btn, .restart-btn, .continue-btn{
+  display:inline-flex;align-items:center;justify-content:center;border:none;cursor:pointer;
+  text-decoration:none;padding:12px 24px;border-radius:14px;font-weight:800;font-size:15px;
+}
+.next-wrap{text-align:center;margin-top:14px}
+.next-btn{background:#2563eb;color:#fff}
+.end-screen{display:none;text-align:center}
+.end-title{font-size:24px;font-weight:900;color:#1e3a8a;margin-bottom:8px}
+.end-sub{font-size:16px;font-weight:700;color:#334155;margin-bottom:18px;line-height:1.55}
+.score-box{
+  background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:16px;margin-bottom:18px;
+}
+.score-main{font-size:28px;font-weight:900;color:#1e40af;margin-bottom:6px}
+.score-detail{font-size:15px;font-weight:700;color:#475569;line-height:1.6}
+.end-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.restart-btn{background:#e2e8f0;color:#1f2937}
+.continue-btn{background:#2563eb;color:#fff}
+@media(max-width:480px){
+  .en-sentence{font-size:20px}
+  .option-btn{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 5 • Parte 4</div>
+  <div class="subline">Familia y posesivo</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- ── Vocab panel ────────────────────────────────────────────────────── -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span class="vocab-toggle-label">
+        📗 Vocabulario
+        <span class="vocab-badge">REPASO</span>
+      </span>
+      <span class="toggle-arrow" id="vocabArrow">▲</span>
+    </button>
+    <div class="vocab-body open" id="vocabBody">
+      <table class="vocab-table">
+        <thead>
+          <tr><th>🇺🇸 English (tap to listen)</th><th>🇲🇽 Español</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.nephew.mp3">🔊 nephew</button></td>
+            <td class="vocab-es">sobrino</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.niece.mp3">🔊 niece</button></td>
+            <td class="vocab-es">sobrina</td>
+          </tr>
+          <tr>
+            <td><button class="vocab-tap" data-audio="u5.cousin.mp3">🔊 cousin</button></td>
+            <td class="vocab-es">primo / prima</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Quiz card ──────────────────────────────────────────────────────── -->
+  <div class="card" id="quizCard">
+    <div class="top-meta">
+      <div class="small-label" id="counter">1 / 8</div>
+      <div class="fail-box" id="failBox">Errores: 0</div>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barFill"></div></div>
+
+    <div class="prompt">Piensa bien y toca la respuesta correcta.</div>
+    <img class="lesson-img" id="questionImg" src="" alt="Imagen de la familia" />
+    <div class="en-sentence" id="questionText"></div>
+    <div class="hint">Elige la opción correcta en inglés.</div>
+
+    <div class="options" id="optionsWrap"></div>
+
+    <div class="feedback" id="feedbackBox">
+      <div class="feedback-line" id="feedbackWrong"></div>
+      <div class="feedback-line good" id="feedbackCorrect"></div>
+      <div class="feedback-line info" id="feedbackExplain"></div>
+      <div class="next-wrap">
+        <button class="next-btn" id="nextBtn">Siguiente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── End screen ─────────────────────────────────────────────────────── -->
+  <div class="card end-screen" id="endScreen">
+    <div style="font-size:52px;margin-bottom:12px" id="endTrophy">🏆</div>
+    <div class="end-title" id="endTitle">Lección completada</div>
+    <div class="end-sub" id="endSub">Terminaste la Parte 4.</div>
+    <div class="score-box">
+      <div class="score-main" id="scoreMain">Puntaje: 0 / 8</div>
+      <div class="score-detail" id="scoreDetail"></div>
+    </div>
+    <div class="end-actions" id="endActions"></div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script src="../../../../js/u5/u5_l5_p4.js"></script>
+</body>
+</html>
