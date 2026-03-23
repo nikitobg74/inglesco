@@ -4,118 +4,190 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unidad 1 - Inglesco</title>
-<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-      font-family: 'Poppins', sans-serif; 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
-    body { 
-      padding: 20px; 
-       background: linear-gradient(135deg, #dbeafe, #fef9c3);
-
+    body {
+      padding: 18px 14px 36px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
     }
 
-    .back-btn { 
-      display: inline-block; 
-      margin-bottom: 20px; 
-      padding: 8px 15px; 
-      background: #2563eb; 
-      color: white; 
-      border-radius: 10px; 
-      text-decoration: none; 
-      font-weight: 700; 
+    .page {
+      max-width: 620px;
+      margin: 0 auto;
     }
 
-    .back-btn:hover { 
-      background: #1e40af; 
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 9px 15px;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 5px 12px rgba(37, 99, 235, 0.18);
+      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    h1 { 
-      text-align: center; 
-      margin-bottom: 22px; 
-      color: #2563eb; 
+    .back-btn:hover {
+      background: #1e40af;
+      transform: translateY(-1px);
     }
 
-    .lesson-list { 
-      max-width: 600px; 
-      margin: 0 auto; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 15px; 
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      color: #2563eb;
+      font-size: clamp(1.8rem, 5vw, 2.3rem);
+      line-height: 1.2;
     }
 
-    .lesson { 
-      background: #3b82f6; 
-      color: white; 
-      padding: 15px 20px; 
-      border-radius: 10px; 
-      cursor: pointer; 
-      transition: all 0.3s ease; 
+    .subtitle {
+      text-align: center;
+      margin-bottom: 22px;
+      color: #4b5d73;
+      font-size: 0.98rem;
+      line-height: 1.5;
     }
 
-    .lesson:hover { 
-      background: #1e40af; 
-      transform: scale(1.02); 
+    .lesson-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .lesson span { 
-      display: block; 
-      font-size: 14px; 
-      opacity: 0.8; 
-      margin-top: 5px; 
+    .lesson-link {
+      text-decoration: none;
+      display: block;
     }
 
-    .lesson strong {
-      margin-right: 10px;
-      font-size: 20px;
+    .lesson {
+      background: #3b82f6;
+      color: white;
+      padding: 16px 18px;
+      border-radius: 14px;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.16);
+    }
+
+    .lesson:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(30, 64, 175, 0.24);
+    }
+
+    .lesson-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .lesson-number {
+      font-size: 1.15rem;
       color: #ffeb3b;
+      min-width: 24px;
+      line-height: 1.2;
+    }
+
+    .lesson-sub {
+      display: block;
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 6px;
+      padding-left: 34px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px 12px 28px;
+      }
+
+      .lesson {
+        padding: 15px 15px;
+        border-radius: 12px;
+      }
+
+      .lesson-title {
+        font-size: 0.98rem;
+      }
+
+      .lesson-sub {
+        font-size: 0.88rem;
+        padding-left: 34px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="page">
 
-  <a href="../../dashboard.html" class="back-btn">← Volver a Unidades</a>
+    <a href="../../dashboard.html" class="back-btn">← Volver a Unidades</a>
 
-  <h1>Unidad 1 - Introducción</h1>
+    <h1>Unidad 1 - Introducción</h1>
+    <p class="subtitle">
+      Aprende a saludar, presentarte y dar información básica.
+    </p>
 
-  <div class="lesson-list">
+    <div class="lesson-list">
 
-    <a href="l1/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>1.</strong> Hello. My name is…
-        <span>Hola, me llamo…</span>
-      </div>
-    </a>
+      <a href="l1/p1.html" class="lesson-link">
+        <div class="lesson">
+          <div class="lesson-title">
+            <span class="lesson-number">1.</span>
+            <span>Hello. My name is...</span>
+          </div>
+          <span class="lesson-sub">Hola, me llamo...</span>
+        </div>
+      </a>
 
-    <a href="l2/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>2.</strong> Nationality, I am from Los Angeles.
-        <span>Nacionalidad </span>
-      </div>
-    </a>
+      <a href="l2/p1.html" class="lesson-link">
+        <div class="lesson">
+          <div class="lesson-title">
+            <span class="lesson-number">2.</span>
+            <span>Where are you from?</span>
+          </div>
+          <span class="lesson-sub">¿De dónde eres?</span>
+        </div>
+      </a>
 
-    <a href="l3/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>3.</strong> My address is… 123
-        <span>Mi dirección es… 123</span>
-      </div>
-    </a>
+      <a href="l3/p1.html" class="lesson-link">
+        <div class="lesson">
+          <div class="lesson-title">
+            <span class="lesson-number">3.</span>
+            <span>My address is...</span>
+          </div>
+          <span class="lesson-sub">Mi dirección es...</span>
+        </div>
+      </a>
 
-    <a href="l4/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>4.</strong> Filling Out a Form
-        <span>Completando un formulario de registro</span>
-      </div>
-    </a>
+      <a href="l4/p1.html" class="lesson-link">
+        <div class="lesson">
+          <div class="lesson-title">
+            <span class="lesson-number">4.</span>
+            <span>Filling out a form</span>
+          </div>
+          <span class="lesson-sub">Completar un formulario</span>
+        </div>
+      </a>
+
+    </div>
 
   </div>
-
 </body>
 </html>
