@@ -3,14 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 6 • Lección 1 • Parte 1</title>
+<title>Unidad 6 • Lección 1 • Parte 3</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Insights -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <script>
   if (window.va) {
-    window.va('track', 'U6 P1 Started');
+    window.va('track', 'U6 P3 Started');
   }
 </script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -39,7 +47,7 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* ── Vocab card ────────────────────────────────────────────────────────────── */
+/* ── Vocab card ─────────────────────────────────────────────────────────────── */
 .vocab-card{
   background:rgba(255,255,255,.88);border-radius:18px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
@@ -103,28 +111,38 @@ body{
 }
 .img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
 
-/* ── Answer sentence ────────────────────────────────────────────────────────── */
-.answer-text{
-  text-align:center;font-size:22px;font-weight:900;color:#1e40af;
-  margin-bottom:18px;min-height:32px;
-  opacity:0;transition:opacity .4s;
+/* ── Question row ───────────────────────────────────────────────────────────── */
+.question-row{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  margin-bottom:20px;
 }
-.answer-text.show{opacity:1}
+.question-text{
+  font-size:20px;font-weight:900;color:#1e40af;
+}
+.q-audio-btn{
+  background:#0d9488;border:none;border-radius:10px;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;transition:background .15s,transform .1s;
+}
+.q-audio-btn:hover{background:#0f766e;transform:scale(1.08)}
+.q-audio-btn:active{transform:scale(.95)}
+.q-audio-btn svg{width:20px;height:20px;fill:white}
 
-/* ── Play / Repeat button ───────────────────────────────────────────────────── */
-.main-btn{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;padding:14px;margin-bottom:14px;
-  border:none;border-radius:14px;
+/* ── Choice buttons ─────────────────────────────────────────────────────────── */
+.choices{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.choice-btn{
+  width:100%;padding:14px 18px;border:none;border-radius:14px;
   font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
-  cursor:pointer;transition:background .15s,opacity .2s,transform .1s;
+  cursor:pointer;background:#0d9488;color:white;
+  transition:background .15s,transform .1s,opacity .2s;
+  text-align:left;
 }
-.main-btn:active{transform:scale(.98)}
-.main-btn.ready   {background:#0d9488;color:white}
-.main-btn.playing {background:#6b7280;color:white;cursor:default}
-.main-btn.repeat  {background:#f0fdfa;color:#0f766e;border:2px solid #0d9488}
-.main-btn.repeat:hover{background:#ccfbf1}
-.main-btn svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+.choice-btn:hover:not(:disabled){background:#0f766e;transform:translateY(-1px)}
+.choice-btn:active:not(:disabled){transform:scale(.98)}
+.choice-btn:disabled{cursor:default}
+.choice-btn.correct{background:#16a34a !important;color:white}
+.choice-btn.wrong  {background:#dc2626 !important;color:white}
+.choice-btn.dimmed {opacity:.38}
 
 /* ── Siguiente button ───────────────────────────────────────────────────────── */
 .next-btn{
@@ -150,13 +168,13 @@ body{
 <div class="wrap">
 
   <a href="../index.html" class="back-btn">← Unidad 6</a>
-  <div class="top-title">Unidad 6 • Lección 1 • Parte 1</div>
+  <div class="top-title">Unidad 6 • Lección 1 • Parte 3</div>
   <div class="subline">El clima</div>
 
   <div class="progress-container">
-    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p1.html">1</a>
     <a class="step" href="p2.html">2</a>
-    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
   </div>
@@ -197,38 +215,40 @@ body{
       <div class="vocab-row">
         <span class="vocab-en">Hot</span><span class="vocab-es">Caluroso</span>
         <button class="play-btn" onclick="playVocab('u6.hot.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-      
       </div>
     </div>
   </div>
 
   <!-- Main lesson card -->
   <div class="card" id="mainCard">
-    <div class="counter-row"><span id="counter">1 / 7</span></div>
+    <div class="counter-row"><span id="counter">1 / 4</span></div>
     <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
 
     <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
-    <div class="answer-text" id="answerText"></div>
 
-    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
-      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-      Play
-    </button>
+    <div class="question-row">
+      <div class="question-text">How is the weather?</div>
+      <button class="q-audio-btn" id="qAudioBtn" onclick="playQuestion()">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      </button>
+    </div>
+
+    <div class="choices" id="choices"></div>
 
     <button class="next-btn" id="nextBtn"></button>
   </div>
 
 </div>
 
-<!-- End screen (outside .wrap matches your pattern) -->
-<div id="endScreen" data-unit="6" data-lesson="1" data-part="1">
+<!-- End screen (outside .wrap) -->
+<div id="endScreen" data-unit="6" data-lesson="1" data-part="3">
   <div style="font-size:52px;margin-bottom:16px">🏆</div>
   <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
-  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Aprendiste el vocabulario del clima.</p>
-  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 1.</p>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Practicaste describir el clima.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 3.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-    <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
-      Continuar → Parte 2
+    <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 4
     </a>
   </div>
 </div>
@@ -237,35 +257,52 @@ body{
 (() => {
   const UNIT   = 6;
   const LESSON = 1;
-  const PART   = 1;
+  const PART   = 3;
 
   const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
   const IMG   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
 
+  // Each item: img, correct answer text, distractor text, audio for correct answer
   const SLIDES = [
-    { img: 'u6.sunny.watermelon.jpg', audio: 'u6.sunny.2.mp3',   text: 'It is sunny!',   es: 'Está soleado.' },
-    { img: 'u6.cloudy.jpg',           audio: 'u6.cloudy.2.mp3',  text: 'It is cloudy.',  es: 'Está nublado.' },
-    { img: 'u6.rainy.umbrella.jpg',   audio: 'u6.raining.2.mp3', text: 'It is raining.', es: 'Está lloviendo.' },
-    { img: 'u6.snowing.jpg',          audio: 'u6.snowing.2.mp3', text: 'It is snowing.', es: 'Está nevando.' },
-    { img: 'u6.windy.jpg',            audio: 'u6.windy.2.mp3',   text: 'It is windy.',   es: 'Está ventoso.' },
-    { img: 'u6.weather.hot.jpg',      audio: 'u6.hot.2.mp3',     text: 'It is hot.',     es: 'Hace calor.' },
-    { img: 'u6.weather.cold.jpg',     audio: 'u6.cold.2.mp3',    text: 'It is cold.',    es: 'Hace frío.' },
+    {
+      img:        'u6.sunny.2.jpg',
+      choices:    ['It is sunny.', 'It is cloudy.'],
+      correct:    'It is sunny.',
+      audio:      'u6.sunny.2.mp3',
+    },
+    {
+      img:        'u6.cloudy.jpg',
+      choices:    ['It is sunny.', 'It is cloudy.'],
+      correct:    'It is cloudy.',
+      audio:      'u6.cloudy.2.mp3',
+    },
+    {
+      img:        'u6.raining.2.jpg',
+      choices:    ['It is raining.', 'It is snowing.'],
+      correct:    'It is raining.',
+      audio:      'u6.raining.2.mp3',
+    },
+    {
+      img:        'u6.snowing.2.jpg',
+      choices:    ['It is sunny.', 'It is snowing.'],
+      correct:    'It is snowing.',
+      audio:      'u6.snowing.2.mp3',
+    },
   ];
 
   const TOTAL = SLIDES.length;
   let current  = 0;
-  let playing  = false;
+  let answered = false;
   let snd      = null;
   let vocabSnd = null;
 
-  const slideImg  = document.getElementById('slideImg');
-  const answerTxt = document.getElementById('answerText');
-  const mainBtn   = document.getElementById('mainBtn');
-  const nextBtn   = document.getElementById('nextBtn');
-  const counter   = document.getElementById('counter');
-  const bar       = document.getElementById('bar');
+  const slideImg = document.getElementById('slideImg');
+  const choices  = document.getElementById('choices');
+  const nextBtn  = document.getElementById('nextBtn');
+  const counter  = document.getElementById('counter');
+  const bar      = document.getElementById('bar');
 
-  // vocab
+  // ── Vocab ─────────────────────────────────────────────────────────────────
   let vocabOpen = true;
   function toggleVocab() {
     vocabOpen = !vocabOpen;
@@ -281,9 +318,23 @@ body{
   }
   window.playVocab = playVocab;
 
+  // ── Question audio ────────────────────────────────────────────────────────
+  function playQuestion() {
+    stopSnd();
+    snd = new Audio(AUDIO + 'u6.how.weather.today.mp3');
+    snd.play().catch(() => {});
+  }
+  window.playQuestion = playQuestion;
+
+  // ── Stop any active sound ─────────────────────────────────────────────────
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+  }
+
+  // ── Load slide ────────────────────────────────────────────────────────────
   function loadSlide(idx) {
     stopSnd();
-    playing = false;
+    answered = false;
 
     const s = SLIDES[idx];
 
@@ -291,48 +342,20 @@ body{
     bar.style.width = ((idx + 1) / TOTAL * 100) + '%';
 
     slideImg.src = IMG + s.img;
-    slideImg.alt = s.text;
+    slideImg.alt = s.correct;
 
-    // 🔥 HERE IS THE KEY CHANGE
-   answerTxt.innerHTML = `
-  <div style="
-    font-size:22px;
-    font-weight:900;
-    color:#1e40af;
-    margin-bottom:6px;
-  ">
-    How is the weather?
-  </div>
+    // Build choice buttons
+    choices.innerHTML = '';
+    s.choices.forEach((label, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.textContent = String.fromCharCode(65 + i) + '. ' + label;
+      btn.dataset.label = label;
+      btn.onclick = () => handleChoice(btn, label === s.correct, s.audio);
+      choices.appendChild(btn);
+    });
 
-  <div style="
-    font-size:16px;
-    font-weight:600;
-    color:#9ca3af;
-    margin-bottom:14px;
-  ">
-    ¿Cómo está el clima?
-  </div>
-
-  <div style="
-    font-size:22px;
-    font-weight:900;
-    color:#1e40af;
-  ">
-    ${s.text}
-  </div>
-
-  <div style="
-    font-size:16px;
-    font-weight:600;
-    color:#9ca3af;
-    margin-top:6px;
-  ">
-    ${s.es}
-  </div>
-`;
-
-    answerTxt.classList.remove('show');
-
+    // Next button
     if (idx < TOTAL - 1) {
       nextBtn.textContent = 'Siguiente →';
       nextBtn.onclick = () => { stopSnd(); current++; loadSlide(current); };
@@ -340,89 +363,72 @@ body{
       nextBtn.textContent = 'Finalizar →';
       nextBtn.onclick = () => { stopSnd(); showEnd(); };
     }
-
     nextBtn.classList.remove('show');
-    setBtn('ready');
   }
 
-  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+  // ── Handle choice selection ───────────────────────────────────────────────
+  function handleChoice(btn, isCorrect, audioFile) {
+    if (answered) return;
+    answered = true;
 
-  function setBtn(state) {
-    mainBtn.className = 'main-btn ' + state;
+    const allBtns = choices.querySelectorAll('.choice-btn');
 
-    if (state === 'ready') {
-      mainBtn.innerHTML = ICON + ' Play';
-      mainBtn.disabled = false;
-    }
+    // Disable all buttons
+    allBtns.forEach(b => { b.disabled = true; });
 
-    if (state === 'playing') {
-      mainBtn.innerHTML = ICON + ' Escuchando…';
-      mainBtn.disabled = true;
-    }
+    if (isCorrect) {
+      btn.classList.add('correct');
+      // Dim the other button
+      allBtns.forEach(b => { if (b !== btn) b.classList.add('dimmed'); });
 
-    if (state === 'repeat') {
-      mainBtn.innerHTML = ICON + ' Repetir';
-      mainBtn.disabled = false;
-    }
-  }
-
-  function stopSnd() {
-    if (snd) { snd.pause(); snd = null; }
-  }
-
-  function handlePlay() {
-    if (playing) return;
-
-    playing = true;
-    setBtn('playing');
-    nextBtn.classList.remove('show');
-    answerTxt.classList.remove('show');
-
-    snd = new Audio(AUDIO + 'u6.how.weather.mp3');
-    snd.play().catch(() => {});
-
-    snd.onended = () => {
       setTimeout(() => {
-        const s = SLIDES[current];
+        stopSnd();
+        snd = new Audio(AUDIO + audioFile);
+        snd.play().catch(() => {});
+        snd.onended = () => { nextBtn.classList.add('show'); };
+        snd.onerror = () => { nextBtn.classList.add('show'); };
+      }, 600);
 
-        snd = new Audio(AUDIO + s.audio);
+    } else {
+      btn.classList.add('wrong');
+
+      setTimeout(() => {
+        stopSnd();
+        snd = new Audio(AUDIO + audioFile);
         snd.play().catch(() => {});
 
-        snd.onended = onSequenceDone;
-        snd.onerror = onSequenceDone;
-      }, 1000);
-    };
-
-    snd.onerror = () => {
-      const s = SLIDES[current];
-
-      snd = new Audio(AUDIO + s.audio);
-      snd.play().catch(() => {});
-
-      snd.onended = onSequenceDone;
-      snd.onerror = onSequenceDone;
-    };
+        snd.onended = () => {
+          // Unlock — keep wrong highlighted, re-enable other buttons for retry
+          answered = false;
+          allBtns.forEach(b => {
+            b.disabled = false;
+            b.classList.remove('dimmed');
+          });
+          // Keep the wrong button visually red but re-enable it
+          btn.disabled = false;
+        };
+        snd.onerror = () => {
+          answered = false;
+          allBtns.forEach(b => {
+            b.disabled = false;
+            b.classList.remove('dimmed');
+          });
+          btn.disabled = false;
+        };
+      }, 600);
+    }
   }
 
-  window.handlePlay = handlePlay;
-
-  function onSequenceDone() {
-    playing = false;
-    answerTxt.classList.add('show');
-    nextBtn.classList.add('show');
-    setBtn('repeat');
+  // ── End screen ────────────────────────────────────────────────────────────
+  function showEnd() {
+    if (window.va) {
+      window.va('track', 'U6 P3 Finished');
+    }
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
   }
 
-function showEnd() {
-  // ✅ TRACK FINISH
-  if (window.va) {
-    window.va('track', 'U6 P1 Finished');
-  }
-
-  document.getElementById('mainCard').style.display = 'none';
-  document.getElementById('endScreen').style.display = 'block';
-}
-
+  // ── Boot ──────────────────────────────────────────────────────────────────
   loadSlide(0);
 })();
 </script>
