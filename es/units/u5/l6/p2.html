@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 6 • Parte 2</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 100px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:20px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:24px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .4s;
+}
+
+/* ── Question blocks ─────────────────────────────────────────────────────── */
+.q-block{
+  margin-bottom:24px;padding-bottom:24px;
+  border-bottom:1px solid #e2e8f0;
+}
+.q-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+.q-context{
+  text-align:center;font-size:18px;color:#6b7280;font-weight:600;
+  margin-bottom:6px;line-height:1.5;
+}
+.q-sentence{
+  text-align:center;font-size:16px;font-weight:700;
+  color:#0d9488;line-height:1.6;margin-bottom:12px;
+}
+
+.options-row{
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+}
+
+.opt-btn{
+  padding:11px 28px;
+  border-radius:12px;
+  border:2px solid #0d9488;
+  background:#f0fdfa;color:#0f766e;
+  font-weight:700;font-size:15px;
+  font-family:'Poppins',sans-serif;
+  cursor:pointer;min-width:100px;text-align:center;
+  transition:background .15s,border-color .15s,color .15s,transform .1s;
+}
+.opt-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
+.opt-btn:active:not(:disabled){transform:scale(.96)}
+.opt-btn:disabled{cursor:default}
+.opt-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
+.opt-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c}
+
+/* ── Floating Siguiente ──────────────────────────────────────────────────── */
+#sigBtn{
+  display:none;
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  padding:14px 40px;background:#2563eb;color:white;
+  border:none;border-radius:14px;font-family:'Poppins',sans-serif;
+  font-weight:700;font-size:16px;cursor:pointer;
+  box-shadow:0 6px 20px rgba(37,99,235,.4);
+  z-index:100;
+}
+#sigBtn.visible{display:block}
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:16px auto;max-width:700px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.score-circle{
+  width:90px;height:90px;border-radius:50%;
+  background:#dbeafe;border:4px solid #2563eb;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+}
+.score-num{font-size:28px;font-weight:900;color:#1e40af}
+.score-label{font-size:11px;font-weight:700;color:#486581}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 6 • Parte 2</div>
+  <div class="subline">Pronombres posesivos</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step active" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="card" id="mainCard">
+    <div class="counter-row">
+      <span id="counter">0 / 8</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+    <div id="questionArea"></div>
+  </div>
+</div>
+
+<!-- Floating Siguiente -->
+<button id="sigBtn">Ver resultado →</button>
+
+<!-- End screen -->
+<div id="endScreen" data-unit="5" data-lesson="6" data-part="2">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <div class="score-circle">
+    <span class="score-num" id="scoreNum">0</span>
+    <span class="score-label">correctas</span>
+  </div>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px" id="scoreMsg"></p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 2.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button id="redoBtn" style="padding:12px 28px;background:#0d9488;color:white;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;cursor:pointer">
+      Reintentar
+    </button>
+    <a href="p3.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 3
+    </a>
+  </div>
+</div>
+
+<script src="../../../../js/u5/u5_l6_p2.js"></script>
+</body>
+</html>

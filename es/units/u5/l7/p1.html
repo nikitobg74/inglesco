@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 7 • Mi familia</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.screen-dots{display:flex;justify-content:center;gap:8px;margin:0 0 20px}
+.sdot{width:10px;height:10px;border-radius:50%;background:#d1d5db;transition:background .3s,transform .2s}
+.sdot.active{background:#2563eb;transform:scale(1.3)}
+.sdot.done{background:#0d9488}
+
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:22px 18px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+  margin-bottom:16px;
+}
+.screen-label{
+  font-size:11px;font-weight:700;color:#a855f7;
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px
+}
+
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:20px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:#a855f7;border-radius:999px;transition:width .4s}
+.counter-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:700;color:#486581}
+
+.builder-intro{
+  font-size:14px;color:#374151;font-weight:600;
+  margin-bottom:20px;line-height:1.6;text-align:center
+}
+
+.me-row{
+  display:flex;align-items:center;gap:10px;
+  background:#eff6ff;border-radius:14px;padding:12px 14px;margin-bottom:16px;
+}
+.me-avatar{font-size:26px}
+.me-label{font-size:13px;font-weight:700;color:#1e40af;min-width:72px}
+.name-input{
+  flex:1;border:2px solid #bfdbfe;border-radius:10px;
+  padding:8px 12px;font-family:'Poppins',sans-serif;
+  font-size:14px;font-weight:600;color:#111827;outline:none;transition:border-color .2s;
+}
+.name-input:focus{border-color:#2563eb}
+
+.member-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.member-row{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  background:#f9fafb;border-radius:14px;padding:10px 14px;
+  border:2px solid #e5e7eb;transition:border-color .2s;
+}
+.member-row.active{border-color:#0d9488;background:#f0fdfa}
+
+.member-emoji{font-size:22px;min-width:26px;text-align:center}
+.member-label{font-size:13px;font-weight:700;color:#374151;min-width:86px}
+
+.add-btn{
+  margin-left:auto;background:#0d9488;color:white;border:none;border-radius:8px;
+  padding:6px 14px;font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;
+  cursor:pointer;line-height:1;transition:background .15s;flex-shrink:0;
+}
+.add-btn:hover{background:#0f766e}
+.add-btn.remove{background:#ef4444;font-size:14px;padding:6px 12px}
+.add-btn.remove:hover{background:#dc2626}
+
+.toggle-group{display:flex;gap:4px;flex-wrap:nowrap}
+.tgl{
+  padding:5px 10px;border-radius:8px;border:2px solid #d1d5db;
+  background:white;color:#374151;font-family:'Poppins',sans-serif;
+  font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.tgl.selected{background:#2563eb;border-color:#2563eb;color:white}
+
+.member-extras{display:flex;gap:6px;flex-wrap:wrap;width:100%;margin-top:4px;align-items:center}
+
+.build-btn{
+  display:block;width:100%;padding:14px;background:#2563eb;color:white;
+  border:none;border-radius:14px;font-family:'Poppins',sans-serif;
+  font-weight:900;font-size:16px;cursor:pointer;transition:background .15s,transform .1s;
+}
+.build-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+
+.tree-intro{text-align:center;font-size:14px;font-weight:600;color:#374151;margin-bottom:20px;line-height:1.6}
+.tree-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:20px}
+.tree-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tree-card{
+  background:white;border-radius:14px;padding:10px 14px;
+  box-shadow:0 3px 10px rgba(0,0,0,.1);
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  min-width:88px;border:2px solid transparent;
+}
+.tree-card.me-card{border-color:#2563eb;background:#eff6ff}
+.tree-card .t-emoji{font-size:22px}
+.tree-card .t-name{font-size:13px;font-weight:700;color:#111827}
+.tree-card .t-role{font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:.04em}
+.tree-connector{width:2px;height:16px;background:#d1d5db;margin:0 auto}
+
+.sentences-preview{
+  background:#f0fdfa;border-radius:14px;padding:14px 16px;margin-bottom:16px;
+}
+.sentences-preview p{font-size:14px;font-weight:600;color:#0f766e;line-height:1.9}
+
+.delete-btn{
+  display:block;width:100%;padding:11px;background:#fff;color:#ef4444;
+  border:2px solid #fca5a5;border-radius:12px;font-family:'Poppins',sans-serif;
+  font-weight:700;font-size:14px;cursor:pointer;margin-bottom:10px;
+  transition:background .15s,border-color .15s;
+}
+.delete-btn:hover{background:#fef2f2;border-color:#ef4444}
+
+.continue-btn{
+  display:block;width:100%;padding:13px;background:#0d9488;color:white;
+  border:none;border-radius:14px;font-family:'Poppins',sans-serif;
+  font-weight:900;font-size:15px;cursor:pointer;transition:background .15s,transform .1s;
+}
+.continue-btn:hover{background:#0f766e;transform:translateY(-1px)}
+
+.screen-title{text-align:center;font-size:17px;font-weight:900;color:#1e40af;margin-bottom:4px}
+.screen-desc{text-align:center;font-size:13px;font-weight:600;color:#6b7280;margin-bottom:20px}
+
+.q-block{opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.q-block.visible{opacity:1;transform:translateY(0)}
+.q-sentence{text-align:center;font-size:17px;font-weight:700;color:#0d9488;line-height:1.6;margin-bottom:18px}
+
+.options-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.opt-btn{
+  padding:12px 28px;border-radius:12px;border:2px solid #0d9488;
+  background:#f0fdfa;color:#0f766e;font-weight:700;font-size:15px;
+  font-family:'Poppins',sans-serif;cursor:pointer;min-width:120px;text-align:center;
+  transition:background .15s,border-color .15s,color .15s,transform .1s;
+}
+.opt-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
+.opt-btn:active:not(:disabled){transform:scale(.96)}
+.opt-btn:disabled{cursor:default}
+.opt-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
+.opt-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c}
+
+.end-wrap{text-align:center;padding:10px 0}
+.trophy{font-size:56px;margin-bottom:12px}
+.end-title{font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px}
+.end-sub{font-size:14px;color:#6b7280;margin-bottom:20px}
+.score-circle{
+  width:90px;height:90px;border-radius:50%;background:#dbeafe;border:4px solid #2563eb;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.score-num{font-size:28px;font-weight:900;color:#1e40af}
+.score-lbl{font-size:11px;font-weight:700;color:#486581}
+.score-msg{font-size:15px;font-weight:600;color:#374151;margin-bottom:6px}
+.end-note{font-size:13px;color:#64748b;margin-bottom:28px}
+.end-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.redo-btn{
+  padding:12px 28px;background:#0d9488;color:white;border:none;border-radius:12px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;cursor:pointer;
+}
+.next-link{
+  display:inline-block;padding:12px 28px;background:#2563eb;color:white;
+  border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;
+}
+
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 7</div>
+  <div class="subline" id="pageSubline">Mi familia</div>
+  <div class="screen-dots" id="screenDots"></div>
+
+  <!-- SCREEN 1 -->
+  <div id="screen1" class="card">
+    <p class="screen-label">🏗️ Paso 1 — Crea tu familia</p>
+    <p class="builder-intro">
+      Escribe los nombres de tu familia en inglés.<br>
+      ¡Solo primeros nombres!
+    </p>
+
+    <div class="me-row">
+      <span class="me-avatar">🧑</span>
+      <span class="me-label">Me</span>
+      <input class="name-input" id="inp-me" type="text" placeholder="Your name" maxlength="20" autocomplete="off" />
+    </div>
+
+    <div class="member-list" id="memberList">
+
+      <div class="member-row" id="row-mother">
+        <span class="member-emoji">👩</span>
+        <span class="member-label">Mother</span>
+        <input class="name-input hidden" id="inp-mother" type="text" placeholder="Name" maxlength="20" autocomplete="off" />
+        <button class="add-btn" id="btn-mother" onclick="toggleMember('mother')">+</button>
+      </div>
+
+      <div class="member-row" id="row-father">
+        <span class="member-emoji">👨</span>
+        <span class="member-label">Father</span>
+        <input class="name-input hidden" id="inp-father" type="text" placeholder="Name" maxlength="20" autocomplete="off" />
+        <button class="add-btn" id="btn-father" onclick="toggleMember('father')">+</button>
+      </div>
+
+      <div class="member-row" id="row-sibling">
+        <span class="member-emoji" id="emoji-sibling">🧒</span>
+        <span class="member-label" id="label-sibling">Brother/Sister</span>
+        <input class="name-input hidden" id="inp-sibling" type="text" placeholder="Name" maxlength="20" autocomplete="off" />
+        <button class="add-btn" id="btn-sibling" onclick="toggleMember('sibling')">+</button>
+        <div class="member-extras hidden" id="extras-sibling">
+          <span style="font-size:12px;font-weight:700;color:#374151">Gender:</span>
+          <div class="toggle-group">
+            <button class="tgl selected" id="tgl-sibling-brother" onclick="setGender('sibling','brother')">Brother</button>
+            <button class="tgl" id="tgl-sibling-sister" onclick="setGender('sibling','sister')">Sister</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-row" id="row-grandparent">
+        <span class="member-emoji" id="emoji-grandparent">👴</span>
+        <span class="member-label" id="label-grandparent">Grandparent</span>
+        <input class="name-input hidden" id="inp-grandparent" type="text" placeholder="Name" maxlength="20" autocomplete="off" />
+        <button class="add-btn" id="btn-grandparent" onclick="toggleMember('grandparent')">+</button>
+        <div class="member-extras hidden" id="extras-grandparent">
+          <span style="font-size:12px;font-weight:700;color:#374151">Gender:</span>
+          <div class="toggle-group">
+            <button class="tgl selected" id="tgl-gp-grandfather" onclick="setGpGender('grandfather')">Grandfather</button>
+            <button class="tgl" id="tgl-gp-grandmother" onclick="setGpGender('grandmother')">Grandmother</button>
+          </div>
+          <span style="font-size:12px;font-weight:700;color:#374151;margin-left:6px">Side:</span>
+          <div class="toggle-group">
+            <button class="tgl selected" id="tgl-gp-mother" onclick="setGpSide('mother')">Mother's</button>
+            <button class="tgl" id="tgl-gp-father" onclick="setGpSide('father')">Father's</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-row" id="row-cousin">
+        <span class="member-emoji" id="emoji-cousin">👦</span>
+        <span class="member-label" id="label-cousin">Cousin</span>
+        <input class="name-input hidden" id="inp-cousin" type="text" placeholder="Name" maxlength="20" autocomplete="off" />
+        <button class="add-btn" id="btn-cousin" onclick="toggleMember('cousin')">+</button>
+        <div class="member-extras hidden" id="extras-cousin">
+          <span style="font-size:12px;font-weight:700;color:#374151">Gender:</span>
+          <div class="toggle-group">
+            <button class="tgl selected" id="tgl-cousin-male" onclick="setCouGender('male')">Boy</button>
+            <button class="tgl" id="tgl-cousin-female" onclick="setCouGender('female')">Girl</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-row" id="row-pet">
+        <span class="member-emoji" id="emoji-pet">🐾</span>
+        <span class="member-label">Pet</span>
+        <input class="name-input hidden" id="inp-pet" type="text" placeholder="Name" maxlength="20" autocomplete="off" />
+        <button class="add-btn" id="btn-pet" onclick="toggleMember('pet')">+</button>
+        <div class="member-extras hidden" id="extras-pet">
+          <div class="toggle-group">
+            <button class="tgl selected" id="tgl-pet-dog" onclick="setPetType('dog')">🐶 Dog</button>
+            <button class="tgl" id="tgl-pet-cat" onclick="setPetType('cat')">🐱 Cat</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p id="builder-error" style="color:#ef4444;font-size:13px;font-weight:700;text-align:center;margin-bottom:12px;min-height:18px"></p>
+    <button class="build-btn" onclick="buildFamily()">Build my family tree! 🌳</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="screen2" class="card hidden">
+    <p class="screen-label">🌳 Tu familia</p>
+    <p class="tree-intro" id="treeIntro"></p>
+    <div class="tree-wrap" id="treeWrap"></div>
+    <div class="sentences-preview" id="sentencesPreview"></div>
+    <button class="delete-btn" onclick="deleteTree()">🗑 Borrar árbol familiar</button>
+    <button class="continue-btn" onclick="startExercises()">Comenzar ejercicios →</button>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div id="screen3" class="card hidden">
+    <p class="screen-label">⭐ Nivel 1 — ¿Quién es?</p>
+    <p class="screen-desc" id="desc3"></p>
+    <div class="counter-row"><span id="counter3">1 / ?</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar3"></div></div>
+    <div id="qArea3"></div>
+  </div>
+
+  <!-- SCREEN 4 -->
+  <div id="screen4" class="card hidden">
+    <p class="screen-label">🔥 Nivel 2 — Familia de...</p>
+    <p class="screen-desc" id="desc4"></p>
+    <div class="counter-row"><span id="counter4">1 / ?</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar4"></div></div>
+    <div id="qArea4"></div>
+  </div>
+
+  <!-- SCREEN 5 -->
+  <div id="screen5" class="card hidden">
+    <p class="screen-label">🧠 Nivel 3 — Reto final</p>
+    <p class="screen-desc" id="desc5"></p>
+    <div class="counter-row"><span id="counter5">1 / ?</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar5"></div></div>
+    <div id="qArea5"></div>
+  </div>
+
+  <!-- SCREEN 6 -->
+  <div id="screen6" class="card hidden">
+    <div class="end-wrap" data-unit="5" data-lesson="7" data-part="1">
+      <div class="trophy">🏆</div>
+      <h2 class="end-title">¡Muy buen trabajo!</h2>
+      <p class="end-sub" id="endSub"></p>
+      <div class="score-circle">
+        <span class="score-num" id="scoreNum">0</span>
+        <span class="score-lbl">correct</span>
+      </div>
+      <p class="score-msg" id="scoreMsg"></p>
+      <p class="end-note">You completed Lesson 7.</p>
+      <div class="end-btns">
+        <button class="redo-btn" onclick="redoExercises()">Try again</button>
+        <a class="next-link" href="../index.html">Finish Unit 5 →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  const STORAGE_KEY = 'inglesco_u5l7_family';
+  const TOTAL_SCREENS = 6;
+
+  let active = {};
+  let gpGender = 'grandfather';
+  let gpSide = 'mother';
+  let sibGender = 'brother';
+  let couGender = 'male';
+  let petType = 'dog';
+
+  let F = {};
+
+  let currentScreen = 1;
+  let correctCount = 0;
+  let totalQs = 0;
+  let qs3 = [], qs4 = [], qs5 = [];
+  let idx3 = 0, idx4 = 0, idx5 = 0;
+
+  const SCREEN_IDS = ['screen1','screen2','screen3','screen4','screen5','screen6'];
+  const sublines = [
+    'Crea tu familia',
+    'Tu familia',
+    '¿Quién es?',
+    'Familia de...',
+    'Reto final',
+    '¡Terminado!'
+  ];
+
+  function buildDots() {
+    const wrap = document.getElementById('screenDots');
+    wrap.innerHTML = '';
+    for (let i = 1; i <= TOTAL_SCREENS; i++) {
+      const d = document.createElement('div');
+      d.className = 'sdot' + (i < currentScreen ? ' done' : i === currentScreen ? ' active' : '');
+      wrap.appendChild(d);
+    }
+  }
+
+  function goScreen(n) {
+    currentScreen = n;
+    SCREEN_IDS.forEach((id, i) =>
+      document.getElementById(id).classList.toggle('hidden', i + 1 !== n)
+    );
+    document.getElementById('pageSubline').textContent = sublines[n - 1];
+    buildDots();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function toggleMember(key) {
+    active[key] = !active[key];
+    const row = document.getElementById('row-' + key);
+    const btn = document.getElementById('btn-' + key);
+    const inp = document.getElementById('inp-' + key);
+    const extras = document.getElementById('extras-' + key);
+
+    if (active[key]) {
+      row.classList.add('active');
+      inp.classList.remove('hidden');
+      if (extras) extras.classList.remove('hidden');
+      btn.textContent = '−';
+      btn.classList.add('remove');
+    } else {
+      row.classList.remove('active');
+      inp.classList.add('hidden');
+      inp.value = '';
+      if (extras) extras.classList.add('hidden');
+      btn.textContent = '+';
+      btn.classList.remove('remove');
+    }
+  }
+  window.toggleMember = toggleMember;
+
+  function setGender(key, val) {
+    sibGender = val;
+    document.getElementById('tgl-sibling-brother').classList.toggle('selected', val === 'brother');
+    document.getElementById('tgl-sibling-sister').classList.toggle('selected', val === 'sister');
+    document.getElementById('emoji-sibling').textContent = val === 'brother' ? '👦' : '👧';
+    document.getElementById('label-sibling').textContent = val === 'brother' ? 'Brother' : 'Sister';
+  }
+  window.setGender = setGender;
+
+  function setGpGender(val) {
+    gpGender = val;
+    document.getElementById('tgl-gp-grandfather').classList.toggle('selected', val === 'grandfather');
+    document.getElementById('tgl-gp-grandmother').classList.toggle('selected', val === 'grandmother');
+    document.getElementById('emoji-grandparent').textContent = val === 'grandfather' ? '👴' : '👵';
+    updateGpLabel();
+  }
+  window.setGpGender = setGpGender;
+
+  function setGpSide(val) {
+    gpSide = val;
+    document.getElementById('tgl-gp-mother').classList.toggle('selected', val === 'mother');
+    document.getElementById('tgl-gp-father').classList.toggle('selected', val === 'father');
+    updateGpLabel();
+  }
+  window.setGpSide = setGpSide;
+
+  function updateGpLabel() {
+    const g = gpGender === 'grandfather' ? 'Grandfather' : 'Grandmother';
+    const s = gpSide === 'mother' ? "Mother's" : "Father's";
+    document.getElementById('label-grandparent').textContent = `${g} (${s})`;
+  }
+
+  function setCouGender(val) {
+    couGender = val;
+    document.getElementById('tgl-cousin-male').classList.toggle('selected', val === 'male');
+    document.getElementById('tgl-cousin-female').classList.toggle('selected', val === 'female');
+    document.getElementById('emoji-cousin').textContent = val === 'male' ? '👦' : '👧';
+  }
+  window.setCouGender = setCouGender;
+
+  function setPetType(val) {
+    petType = val;
+    document.getElementById('tgl-pet-dog').classList.toggle('selected', val === 'dog');
+    document.getElementById('tgl-pet-cat').classList.toggle('selected', val === 'cat');
+    document.getElementById('emoji-pet').textContent = val === 'dog' ? '🐶' : '🐱';
+  }
+  window.setPetType = setPetType;
+
+  function showError(msg) {
+    document.getElementById('builder-error').textContent = msg;
+  }
+
+  function buildFamily() {
+    const me = document.getElementById('inp-me').value.trim();
+    if (!me) {
+      showError('Please write your name.');
+      return;
+    }
+
+    const optionals = ['mother','father','sibling','grandparent','cousin','pet'];
+    let hasOne = false;
+
+    for (const k of optionals) {
+      if (active[k]) {
+        if (!document.getElementById('inp-' + k).value.trim()) {
+          showError('Please write a name for every family member you added.');
+          return;
+        }
+        hasOne = true;
+      }
+    }
+
+    if (!hasOne) {
+      showError('Add at least one family member.');
+      return;
+    }
+
+    showError('');
+
+    F = { me };
+
+    if (active.mother) F.mother = document.getElementById('inp-mother').value.trim();
+    if (active.father) F.father = document.getElementById('inp-father').value.trim();
+
+    if (active.sibling) {
+      F.sibling = document.getElementById('inp-sibling').value.trim();
+      F.sibGender = sibGender;
+    }
+
+    if (active.grandparent) {
+      F.grandparent = document.getElementById('inp-grandparent').value.trim();
+      F.gpGender = gpGender;
+      F.gpSide = gpSide;
+    }
+
+    if (active.cousin) {
+      F.cousin = document.getElementById('inp-cousin').value.trim();
+      F.couGender = couGender;
+    }
+
+    if (active.pet) {
+      F.pet = document.getElementById('inp-pet').value.trim();
+      F.petType = petType;
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(F));
+    renderTree();
+    goScreen(2);
+  }
+  window.buildFamily = buildFamily;
+
+  function deleteTree() {
+    if (!confirm('Delete your family tree and start again?')) return;
+
+    localStorage.removeItem(STORAGE_KEY);
+    F = {};
+
+    ['mother','father','sibling','grandparent','cousin','pet'].forEach(k => {
+      if (active[k]) toggleMember(k);
+    });
+
+    document.getElementById('inp-me').value = '';
+    document.getElementById('builder-error').textContent = '';
+
+    gpGender = 'grandfather';
+    gpSide = 'mother';
+    sibGender = 'brother';
+    couGender = 'male';
+    petType = 'dog';
+
+    setGpGender('grandfather');
+    setGpSide('mother');
+    setGender('sibling','brother');
+    setCouGender('male');
+    setPetType('dog');
+    updateGpLabel();
+
+    goScreen(1);
+  }
+  window.deleteTree = deleteTree;
+
+  function tCard(emoji, name, role, isMe) {
+    const d = document.createElement('div');
+    d.className = 'tree-card' + (isMe ? ' me-card' : '');
+    d.innerHTML = `
+      <span class="t-emoji">${emoji}</span>
+      <span class="t-name">${name}</span>
+      <span class="t-role">${role}</span>
+    `;
+    return d;
+  }
+
+  function connector() {
+    const c = document.createElement('div');
+    c.className = 'tree-connector';
+    return c;
+  }
+
+  function row(...cards) {
+    const r = document.createElement('div');
+    r.className = 'tree-row';
+    cards.forEach(c => c && r.appendChild(c));
+    return r;
+  }
+
+  function gpRoleLabel() {
+    return F.gpGender === 'grandmother' ? 'Grandmother' : 'Grandfather';
+  }
+
+  function gpSideLabel() {
+    return F.gpSide === 'mother' ? "Mother's side" : "Father's side";
+  }
+
+  function renderTree() {
+    const tw = document.getElementById('treeWrap');
+    tw.innerHTML = '';
+
+    if (F.grandparent) {
+      const emoji = F.gpGender === 'grandmother' ? '👵' : '👴';
+      tw.appendChild(row(tCard(emoji, F.grandparent, gpRoleLabel() + ' · ' + gpSideLabel(), false)));
+      tw.appendChild(connector());
+    }
+
+    if (F.mother || F.father) {
+      const cards = [];
+      if (F.mother) cards.push(tCard('👩', F.mother, 'Mother', false));
+      if (F.father) cards.push(tCard('👨', F.father, 'Father', false));
+      tw.appendChild(row(...cards));
+      tw.appendChild(connector());
+    }
+
+    const mid = [];
+    if (F.sibling) {
+      const e = F.sibGender === 'sister' ? '👧' : '👦';
+      const lbl = F.sibGender === 'sister' ? 'Sister' : 'Brother';
+      mid.push(tCard(e, F.sibling, lbl, false));
+    }
+
+    mid.push(tCard('🧑', F.me, 'Me', true));
+
+    if (F.cousin) {
+      const e = F.couGender === 'female' ? '👧' : '👦';
+      mid.push(tCard(e, F.cousin, 'Cousin', false));
+    }
+
+    tw.appendChild(row(...mid));
+
+    if (F.pet) {
+      tw.appendChild(connector());
+      const e = F.petType === 'dog' ? '🐶' : '🐱';
+      const lbl = F.petType === 'dog' ? 'Dog' : 'Cat';
+      tw.appendChild(row(tCard(e, F.pet, lbl, false)));
+    }
+
+    document.getElementById('treeIntro').textContent =
+      `Hello, ${F.me}! This is your family in English.`;
+
+    const sp = document.getElementById('sentencesPreview');
+    sp.innerHTML = '<p>' + buildSentences().map(s => '• ' + s).join('<br>') + '</p>';
+  }
+
+  function buildSentences() {
+    const s = [];
+    if (F.mother) s.push(`${F.mother} is your mother.`);
+    if (F.father) s.push(`${F.father} is your father.`);
+    if (F.sibling) s.push(`${F.sibling} is your ${F.sibGender}.`);
+    if (F.grandparent) s.push(`${F.grandparent} is your ${gpRoleLabel().toLowerCase()}.`);
+    if (F.cousin) s.push(`${F.cousin} is your cousin.`);
+    if (F.pet) s.push(`${F.pet} is your ${F.petType}.`);
+    return s;
+  }
+
+  const ALL_LABELS = [
+    'mother','father','brother','sister','grandfather','grandmother',
+    'cousin','wife','husband','dog','cat','aunt','uncle'
+  ];
+
+  function pickWrong(correct) {
+    const pool = ALL_LABELS.filter(x => x !== correct);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function shuffleArr(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function makeQ(sentence, correct) {
+    const wrong = pickWrong(correct);
+    return {
+      sentence,
+      options: shuffleArr([
+        { text: correct, correct: true },
+        { text: wrong, correct: false }
+      ])
+    };
+  }
+
+  function roleLabel(key) {
+    if (key === 'mother') return 'mother';
+    if (key === 'father') return 'father';
+    if (key === 'sibling') return F.sibGender;
+    if (key === 'grandparent') return F.gpGender === 'grandmother' ? 'grandmother' : 'grandfather';
+    if (key === 'cousin') return 'cousin';
+    if (key === 'pet') return F.petType;
+    return key;
+  }
+
+  function gpGenderLabel() {
+    return F.gpGender === 'grandmother' ? 'grandmother' : 'grandfather';
+  }
+
+  function crossRel(roleA, roleB) {
+    if (roleA === 'grandparent') {
+      if (F.gpSide === 'mother' && roleB === 'mother') {
+        return F.gpGender === 'grandmother' ? 'mother' : 'father';
+      }
+      if (F.gpSide === 'father' && roleB === 'father') {
+        return F.gpGender === 'grandmother' ? 'mother' : 'father';
+      }
+      if (roleB === 'sibling') return gpGenderLabel();
+      return null;
+    }
+
+    const map = {
+      mother: {
+        father: 'wife',
+        sibling: 'mother',
+        cousin: 'aunt'
+      },
+      father: {
+        mother: 'husband',
+        sibling: 'father',
+        cousin: 'uncle'
+      },
+      sibling: {
+        cousin: 'cousin'
+      },
+      cousin: {
+        sibling: 'cousin'
+      }
+    };
+
+    return (map[roleA] && map[roleA][roleB]) || null;
+  }
+
+  function genQ3() {
+    const qs = [];
+    ['mother','father','sibling','grandparent','cousin','pet'].forEach(k => {
+      if (!F[k]) return;
+      qs.push(makeQ(`${F[k]} is your ___.`, roleLabel(k)));
+    });
+    return shuffleArr(qs);
+  }
+
+  function genQ4() {
+    const qs = [];
+    ['mother','father','sibling','grandparent','cousin','pet'].forEach(k => {
+      if (!F[k]) return;
+      qs.push(makeQ(`${F[k]} is ${F.me}'s ___.`, roleLabel(k)));
+    });
+    return shuffleArr(qs);
+  }
+
+  function genQ5() {
+    const qs = [];
+    const roles = ['mother','father','sibling','grandparent','cousin'];
+
+    for (const rA of roles) {
+      if (!F[rA]) continue;
+      for (const rB of roles) {
+        if (!F[rB] || rA === rB) continue;
+        const rel = crossRel(rA, rB);
+        if (!rel) continue;
+        qs.push(makeQ(`${F[rA]} is ${F[rB]}'s ___.`, rel));
+      }
+    }
+
+    if (F.pet) {
+      qs.push(makeQ(`${F.pet} is your ___.`, F.petType));
+    }
+
+    const bonus = shuffleArr(genQ3()).slice(0, 2);
+    const combined = shuffleArr([...qs, ...bonus]);
+
+    return combined.slice(0, 10);
+  }
+
+  function startExercises() {
+    qs3 = genQ3(); idx3 = 0;
+    qs4 = genQ4(); idx4 = 0;
+    qs5 = genQ5(); idx5 = 0;
+
+    correctCount = 0;
+    totalQs = qs3.length + qs4.length + qs5.length;
+
+    document.getElementById('desc3').textContent = `Who is in ${F.me}'s family?`;
+    document.getElementById('desc4').textContent = `Use ${F.me}'s name to describe the relationships.`;
+    document.getElementById('desc5').textContent = 'Lee y elige la relación correcta.';
+
+    goScreen(3);
+    loadQ(3);
+  }
+  window.startExercises = startExercises;
+
+  function screenMeta(n) {
+    const meta = {
+      3: { qs: qs3, getIdx: ()=>idx3, setIdx: v=>idx3=v, area:'qArea3', counter:'counter3', bar:'bar3', next:4 },
+      4: { qs: qs4, getIdx: ()=>idx4, setIdx: v=>idx4=v, area:'qArea4', counter:'counter4', bar:'bar4', next:5 },
+      5: { qs: qs5, getIdx: ()=>idx5, setIdx: v=>idx5=v, area:'qArea5', counter:'counter5', bar:'bar5', next:6 }
+    };
+    return meta[n];
+  }
+
+  function loadQ(n) {
+    const m = screenMeta(n);
+    const idx = m.getIdx();
+
+    if (idx >= m.qs.length) {
+      if (m.next === 6) {
+        showEnd();
+        return;
+      }
+      goScreen(m.next);
+      loadQ(m.next);
+      return;
+    }
+
+    const q = m.qs[idx];
+    document.getElementById(m.counter).textContent = `${idx + 1} / ${m.qs.length}`;
+    document.getElementById(m.bar).style.width = ((idx + 1) / m.qs.length * 100) + '%';
+
+    const area = document.getElementById(m.area);
+    area.innerHTML = '';
+
+    const block = document.createElement('div');
+    block.className = 'q-block';
+
+    const sent = document.createElement('p');
+    sent.className = 'q-sentence';
+    sent.textContent = q.sentence;
+
+    const optRow = document.createElement('div');
+    optRow.className = 'options-row';
+
+    let answered = false;
+
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = opt.text;
+      btn.onclick = async () => {
+        if (answered) return;
+        answered = true;
+
+        optRow.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+
+        if (opt.correct) {
+          btn.classList.add('correct');
+          sent.textContent = q.sentence.replace('___', opt.text);
+          correctCount++;
+        } else {
+          btn.classList.add('wrong');
+          optRow.querySelectorAll('.opt-btn').forEach(b => {
+            if (q.options.find(o => o.text === b.textContent && o.correct)) {
+              b.classList.add('correct');
+            }
+          });
+        }
+
+        await new Promise(r => setTimeout(r, 2000));
+        m.setIdx(m.getIdx() + 1);
+        loadQ(n);
+      };
+      optRow.appendChild(btn);
+    });
+
+    block.appendChild(sent);
+    block.appendChild(optRow);
+    area.appendChild(block);
+
+    requestAnimationFrame(() => requestAnimationFrame(() => block.classList.add('visible')));
+  }
+
+  function showEnd() {
+    goScreen(6);
+    document.getElementById('scoreNum').textContent = `${correctCount}/${totalQs}`;
+    document.getElementById('endSub').textContent =
+      `Great job, ${F.me}! You know your family in English.`;
+
+    const pct = correctCount / totalQs;
+    document.getElementById('scoreMsg').textContent =
+      pct === 1 ? '¡Perfecto! Everything correct!' :
+      pct >= 0.7 ? '¡Muy bien! Almost perfect.' :
+      '¡Sigue practicando!';
+  }
+
+  function redoExercises() {
+    startExercises();
+  }
+  window.redoExercises = redoExercises;
+
+  function tryRestore() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return false;
+
+      const data = JSON.parse(saved);
+      if (!data.me) return false;
+
+      F = data;
+
+      document.getElementById('inp-me').value = F.me;
+
+      const keys = ['mother','father','sibling','grandparent','cousin','pet'];
+      keys.forEach(k => {
+        if (F[k]) {
+          if (!active[k]) toggleMember(k);
+          document.getElementById('inp-' + k).value = F[k];
+        }
+      });
+
+      if (F.sibGender) {
+        sibGender = F.sibGender;
+        setGender('sibling', sibGender);
+      }
+      if (F.gpGender) {
+        gpGender = F.gpGender;
+        setGpGender(gpGender);
+      }
+      if (F.gpSide) {
+        gpSide = F.gpSide;
+        setGpSide(gpSide);
+      }
+      if (F.couGender) {
+        couGender = F.couGender;
+        setCouGender(couGender);
+      }
+      if (F.petType) {
+        petType = F.petType;
+        setPetType(petType);
+      }
+
+      updateGpLabel();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  buildDots();
+  updateGpLabel();
+
+  if (tryRestore()) {
+    renderTree();
+    goScreen(2);
+  } else {
+    goScreen(1);
+  }
+
+})();
+</script>
+</body>
+</html>

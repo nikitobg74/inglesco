@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 4 • Parte 5</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .4s;
+}
+
+.instruction{
+  text-align:center;font-size:14px;font-weight:700;
+  color:#6b7280;margin-bottom:14px;
+}
+
+.prompt-box{
+  background:#eff6ff;
+  border:2px solid #bfdbfe;
+  border-radius:16px;
+  padding:16px 14px;
+  text-align:center;
+  margin-bottom:16px;
+}
+.prompt-label{
+  font-size:12px;
+  font-weight:700;
+  color:#64748b;
+  margin-bottom:6px;
+}
+.prompt-sentence{
+  font-size:28px;
+  font-weight:900;
+  color:#1e3a8a;
+  line-height:1.2;
+}
+
+.task-box{
+  background:#f8fafc;
+  border:2px solid #e5e7eb;
+  border-radius:16px;
+  padding:14px 12px;
+  margin-bottom:14px;
+}
+.task-title{
+  font-size:15px;
+  font-weight:800;
+  color:#111827;
+  margin-bottom:6px;
+  text-align:center;
+}
+.task-subtitle{
+  font-size:13px;
+  font-weight:600;
+  color:#6b7280;
+  margin-bottom:12px;
+  text-align:center;
+}
+
+.options{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.option-btn{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:14px 14px;
+  text-align:left;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  background:#0d9488;
+  color:#fff;
+  transition:transform .12s, background .15s, opacity .2s;
+}
+.option-btn:hover{background:#0f766e;transform:translateY(-1px)}
+.option-btn:active{transform:translateY(0)}
+.option-btn:disabled{cursor:default;opacity:.92}
+
+.option-btn.correct{
+  background:#16a34a !important;
+}
+.option-btn.wrong{
+  background:#dc2626 !important;
+}
+.option-btn.dim{
+  opacity:.55;
+}
+
+.feedback{
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  min-height:20px;
+  margin:8px 0 2px;
+}
+.feedback.ok{color:#16a34a}
+.feedback.err{color:#dc2626}
+
+.stage-indicator{
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+  color:#7c3aed;
+  margin-bottom:12px;
+}
+
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:16px auto;max-width:700px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.score-circle{
+  width:90px;height:90px;border-radius:50%;
+  background:#dbeafe;border:4px solid #2563eb;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+}
+.score-num{font-size:28px;font-weight:900;color:#1e40af}
+.score-label{font-size:11px;font-weight:700;color:#486581}
+
+@media (max-width: 520px){
+  .prompt-sentence{font-size:24px}
+  .option-btn{font-size:15px;padding:13px 12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 4 • Parte 5</div>
+  <div class="subline">Negativo y opuesto</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
+  </div>
+
+  <div class="card" id="mainCard">
+    <div class="counter-row">
+      <span id="counter">1 / 6</span>
+    </div>
+
+    <div class="bar-wrap">
+      <div class="bar-fill" id="progressBar"></div>
+    </div>
+
+    <div class="instruction">
+      Lee la frase. Primero hazla negativa. Después elige la frase opuesta.
+    </div>
+
+    <div class="stage-indicator" id="stageIndicator">Paso 1 de 2 • Negativo</div>
+
+    <div class="prompt-box">
+      <div class="prompt-label">Frase</div>
+      <div class="prompt-sentence" id="promptSentence">It is new.</div>
+    </div>
+
+    <div class="task-box">
+      <div class="task-title" id="taskTitle">Hazla negativa.</div>
+      <div class="task-subtitle" id="taskSubtitle">Toca la respuesta correcta.</div>
+      <div class="options" id="optionsBox"></div>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+  </div>
+</div>
+
+<div id="endScreen" data-unit="5" data-lesson="4" data-part="5">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+
+  <div class="score-circle">
+    <span class="score-num" id="scoreNum">0</span>
+    <span class="score-label">correctas</span>
+  </div>
+
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px" id="scoreMsg"></p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 5.</p>
+
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button id="redoBtn" style="padding:12px 28px;background:#0d9488;color:white;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;cursor:pointer">
+      Reintentar
+    </button>
+    <a href="../index.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const ITEMS = [
+    {
+      prompt: "It is new.",
+      negative: {
+        correct: "It is not new.",
+        wrong: "It is new not."
+      },
+      opposite: {
+        correct: "It is old.",
+        wrong: "It is nice."
+      }
+    },
+    {
+      prompt: "They are quiet.",
+      negative: {
+        correct: "They are not quiet.",
+        wrong: "They quiet are not."
+      },
+      opposite: {
+        correct: "They are noisy.",
+        wrong: "They are happy."
+      }
+    },
+    {
+      prompt: "It is large.",
+      negative: {
+        correct: "It is not large.",
+        wrong: "It large is not."
+      },
+      opposite: {
+        correct: "It is small.",
+        wrong: "It is clean."
+      }
+    },
+    {
+      prompt: "He is single.",
+      negative: {
+        correct: "He is not single.",
+        wrong: "He single is not."
+      },
+      opposite: {
+        correct: "He is married.",
+        wrong: "He is young."
+      }
+    },
+    {
+      prompt: "She is young.",
+      negative: {
+        correct: "She is not young.",
+        wrong: "She young is not."
+      },
+      opposite: {
+        correct: "She is old.",
+        wrong: "She is tall."
+      }
+    },
+    {
+      prompt: "They are short.",
+      negative: {
+        correct: "They are not short.",
+        wrong: "They short are not."
+      },
+      opposite: {
+        correct: "They are tall.",
+        wrong: "They are pretty."
+      }
+    }
+  ];
+
+  let current = 0;
+  let phase = "negative"; // negative -> opposite
+  let score = 0;
+  let locked = false;
+
+  const counterEl = document.getElementById("counter");
+  const progressBar = document.getElementById("progressBar");
+  const promptSentence = document.getElementById("promptSentence");
+  const taskTitle = document.getElementById("taskTitle");
+  const taskSubtitle = document.getElementById("taskSubtitle");
+  const optionsBox = document.getElementById("optionsBox");
+  const feedback = document.getElementById("feedback");
+  const stageIndicator = document.getElementById("stageIndicator");
+
+  const mainCard = document.getElementById("mainCard");
+  const endScreen = document.getElementById("endScreen");
+  const scoreNum = document.getElementById("scoreNum");
+  const scoreMsg = document.getElementById("scoreMsg");
+  const redoBtn = document.getElementById("redoBtn");
+
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function updateProgress(){
+    counterEl.textContent = `${current + 1} / ${ITEMS.length}`;
+    progressBar.style.width = `${((current + 1) / ITEMS.length) * 100}%`;
+  }
+
+  function render(){
+    locked = false;
+    feedback.textContent = "";
+    feedback.className = "feedback";
+
+    const item = ITEMS[current];
+    promptSentence.textContent = item.prompt;
+    updateProgress();
+
+    let correctText = "";
+    let wrongText = "";
+
+    if(phase === "negative"){
+      stageIndicator.textContent = "Paso 1 de 2 • Negativo";
+      taskTitle.textContent = "Hazla negativa.";
+      taskSubtitle.textContent = "Toca la respuesta correcta.";
+      correctText = item.negative.correct;
+      wrongText = item.negative.wrong;
+    } else {
+      stageIndicator.textContent = "Paso 2 de 2 • Opuesto";
+      taskTitle.textContent = "Elige la frase opuesta.";
+      taskSubtitle.textContent = "Toca la respuesta correcta.";
+      correctText = item.opposite.correct;
+      wrongText = item.opposite.wrong;
+    }
+
+    const options = shuffle([
+      { text: correctText, correct: true },
+      { text: wrongText, correct: false }
+    ]);
+
+    optionsBox.innerHTML = "";
+
+    options.forEach(option => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = option.text;
+      btn.addEventListener("click", () => handleChoice(btn, option.correct));
+      optionsBox.appendChild(btn);
+    });
+  }
+
+  function handleChoice(button, isCorrect){
+    if(locked) return;
+    locked = true;
+
+    const buttons = [...optionsBox.querySelectorAll(".option-btn")];
+
+    if(isCorrect){
+      button.classList.add("correct");
+      feedback.textContent = "✓ ¡Correcto!";
+      feedback.className = "feedback ok";
+
+      if(phase === "negative"){
+        setTimeout(() => {
+          phase = "opposite";
+          render();
+        }, 1100);
+      } else {
+        score++;
+        setTimeout(() => {
+          current++;
+          if(current >= ITEMS.length){
+            showEndScreen();
+          } else {
+            phase = "negative";
+            render();
+          }
+        }, 1100);
+      }
+    } else {
+      button.classList.add("wrong");
+      feedback.textContent = "✗ Inténtalo otra vez.";
+      feedback.className = "feedback err";
+
+      buttons.forEach(btn => {
+        if(btn !== button) btn.classList.add("dim");
+      });
+
+      setTimeout(() => {
+        render();
+      }, 1000);
+    }
+  }
+
+  function showEndScreen(){
+    mainCard.style.display = "none";
+    endScreen.style.display = "block";
+    scoreNum.textContent = `${score} / ${ITEMS.length}`;
+
+    if(score === ITEMS.length){
+      scoreMsg.textContent = "¡Perfecto! ¡Todo correcto!";
+    } else if(score >= Math.ceil(ITEMS.length * 0.7)){
+      scoreMsg.textContent = "¡Muy bien! Casi perfecto.";
+    } else {
+      scoreMsg.textContent = "¡Sigue practicando!";
+    }
+  }
+
+  redoBtn.addEventListener("click", () => {
+    current = 0;
+    phase = "negative";
+    score = 0;
+    locked = false;
+    endScreen.style.display = "none";
+    mainCard.style.display = "block";
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

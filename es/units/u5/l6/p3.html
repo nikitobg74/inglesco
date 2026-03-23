@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 5 • Lección 6 • Parte 3</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Reading card ────────────────────────────────────────────────────────── */
+.reading-card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+  margin-bottom:16px;
+}
+.reading-label{
+  font-size:12px;font-weight:700;color:#a855f7;
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;
+}
+.reading-text{
+  font-size:15px;line-height:1.9;color:#1e3a5f;font-weight:600;
+}
+.reading-text span{
+  display:block;padding:2px 0;
+}
+
+/* ── Question card ───────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .4s;
+}
+
+/* ── Question block ──────────────────────────────────────────────────────── */
+.q-block{
+  opacity:0;transform:translateY(8px);
+  transition:opacity .3s,transform .3s;
+}
+.q-block.visible{opacity:1;transform:translateY(0)}
+
+.q-sentence{
+  text-align:center;font-size:17px;font-weight:700;
+  color:#0d9488;line-height:1.6;margin-bottom:14px;
+}
+
+.options-row{
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+}
+
+.opt-btn{
+  padding:12px 28px;
+  border-radius:12px;
+  border:2px solid #0d9488;
+  background:#f0fdfa;color:#0f766e;
+  font-weight:700;font-size:15px;
+  font-family:'Poppins',sans-serif;
+  cursor:pointer;min-width:120px;text-align:center;
+  transition:background .15s,border-color .15s,color .15s,transform .1s;
+}
+.opt-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
+.opt-btn:active:not(:disabled){transform:scale(.96)}
+.opt-btn:disabled{cursor:default}
+.opt-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
+.opt-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c}
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:16px auto;max-width:700px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.score-circle{
+  width:90px;height:90px;border-radius:50%;
+  background:#dbeafe;border:4px solid #2563eb;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+}
+.score-num{font-size:28px;font-weight:900;color:#1e40af}
+.score-label{font-size:11px;font-weight:700;color:#486581}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 5</a>
+  <div class="top-title">Unidad 5 • Lección 6 • Parte 3</div>
+  <div class="subline">La familia de Carlos</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Reading passage -->
+  <div class="reading-card">
+    <p class="reading-label">📖 Lee el texto</p>
+    <div class="reading-text">
+      <span>Carlos is Ana's brother.</span>
+      <span>Ana is Luis's wife.</span>
+      <span>Mateo is their son.</span>
+      <span>Ana is Sofía and Mateo's aunt.</span>
+      <span>Carlos is their uncle.</span>
+      <span>Sofía is Ana and Luis's niece.</span>
+      <span>Mateo is their nephew.</span>
+      <span>Luis is Sofía's uncle.</span>
+      <span>Mateo is Sofía's cousin.</span>
+    </div>
+  </div>
+
+  <!-- Question card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row"><span id="counter">1 / 6</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+    <div id="questionArea"></div>
+  </div>
+</div>
+
+<!-- End screen -->
+<div id="endScreen" data-unit="5" data-lesson="6" data-part="3">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <div class="score-circle">
+    <span class="score-num" id="scoreNum">0</span>
+    <span class="score-label">correctas</span>
+  </div>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px" id="scoreMsg"></p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 3.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button id="redoBtn" style="padding:12px 28px;background:#0d9488;color:white;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;cursor:pointer">
+      Reintentar
+    </button>
+    <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 4
+    </a>
+  </div>
+</div>
+
+<script src="../../../../js/u5/u5_l6_p3.js"></script>
+</body>
+</html>

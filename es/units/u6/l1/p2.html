@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 6 • Lección 1 • Parte 2</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Vocab card ── */
+.vocab-card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  margin-bottom:16px;overflow:hidden;
+}
+.vocab-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;cursor:pointer;user-select:none;
+}
+.vocab-header-left{display:flex;align-items:center;gap:10px}
+.vocab-label{font-size:12px;font-weight:700;color:#a855f7;text-transform:uppercase;letter-spacing:.08em}
+.vocab-title{font-size:15px;font-weight:700;color:#111827}
+.vocab-chevron{font-size:18px;color:#9ca3af;transition:transform .3s}
+.vocab-chevron.open{transform:rotate(180deg)}
+.vocab-body{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8px;padding:0 16px 16px;
+}
+@media(max-width:420px){.vocab-body{grid-template-columns:1fr}}
+.vocab-row{
+  display:flex;align-items:center;gap:10px;
+  background:#f8fafc;border-radius:12px;
+  padding:10px 12px;border:2px solid #e2e8f0;
+}
+.vocab-en{font-size:14px;font-weight:700;color:#1e3a5f;flex:1}
+.vocab-es{font-size:13px;font-weight:600;color:#6b7280;flex:1}
+.play-btn{
+  background:#0d9488;border:none;border-radius:8px;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;transition:background .15s,transform .1s;
+}
+.play-btn:hover{background:#0f766e;transform:scale(1.08)}
+.play-btn:active{transform:scale(.95)}
+.play-btn svg{width:14px;height:14px;fill:white}
+
+/* ── Main card ── */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:20px 18px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .5s;
+}
+
+/* ── Image ── */
+.img-wrap{
+  width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#e2e8f0;display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ── Dialogue lines ── */
+.dialogue{
+  background:#f0f9ff;border-radius:12px;padding:12px 14px;
+  margin-bottom:16px;border-left:4px solid #2563eb;
+  opacity:0;transition:opacity .4s;
+}
+.dialogue.show{opacity:1}
+.dialogue p{
+  font-size:14px;font-weight:600;color:#1e3a5f;
+  line-height:1.8;
+}
+.dialogue p span.q{color:#6b7280}
+.dialogue p span.a{color:#1e40af;font-weight:700}
+
+/* ── Play button ── */
+.main-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px;margin-bottom:16px;
+  border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;transition:background .15s,transform .1s;
+}
+.main-btn:active{transform:scale(.98)}
+.main-btn.ready  {background:#0d9488;color:white}
+.main-btn.playing{background:#6b7280;color:white;cursor:default}
+.main-btn.repeat {background:#f0fdfa;color:#0f766e;border:2px solid #0d9488}
+.main-btn.repeat:hover{background:#ccfbf1}
+.main-btn svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+
+/* ── Tile exercise section ── */
+.exercise{
+  opacity:0;transition:opacity .4s;
+  pointer-events:none;
+}
+.exercise.show{opacity:1;pointer-events:auto}
+
+.ex-prompt{
+  text-align:center;font-size:15px;font-weight:700;
+  color:#374151;margin-bottom:10px;
+}
+/* The sentence with blank slot */
+.ex-sentence{
+  text-align:center;font-size:17px;font-weight:700;
+  color:#0d9488;line-height:1.8;margin-bottom:16px;
+}
+.ex-sentence .blank{
+  display:inline-block;min-width:110px;padding:2px 10px;
+  border-bottom:3px solid #0d9488;color:#0d9488;
+}
+.ex-sentence .blank.correct{color:#16a34a;border-color:#16a34a}
+.ex-sentence .blank.wrong  {color:#dc2626;border-color:#dc2626}
+
+/* Tile choices */
+.tile-row{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:16px;
+}
+.tile{
+  padding:10px 22px;border-radius:12px;border:2px solid #0d9488;
+  background:#f0fdfa;color:#0f766e;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;transition:background .15s,border-color .15s,transform .1s;
+}
+.tile:hover:not(:disabled){background:#ccfbf1}
+.tile:active:not(:disabled){transform:scale(.96)}
+.tile:disabled{cursor:default}
+.tile.correct{background:#22c55e;border-color:#22c55e;color:white}
+.tile.wrong  {background:#fee2e2;border-color:#ef4444;color:#b91c1c}
+
+/* ── Siguiente button ── */
+.next-btn{
+  display:block;width:100%;padding:13px;
+  background:#2563eb;color:white;border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:900;font-size:15px;
+  cursor:pointer;transition:background .15s,transform .1s;
+  opacity:0;pointer-events:none;
+}
+.next-btn.show{opacity:1;pointer-events:auto}
+.next-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+
+/* ── Retry banner ── */
+.retry-banner{
+  text-align:center;font-size:13px;font-weight:700;
+  color:#b45309;background:#fef3c7;border-radius:10px;
+  padding:8px 12px;margin-bottom:14px;
+}
+
+/* ── End screen ── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+  <div class="top-title">Unidad 6 • Lección 1 • Parte 2</div>
+  <div class="subline">El clima</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step active" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Vocab panel -->
+  <div class="vocab-card">
+    <div class="vocab-header" onclick="toggleVocab()">
+      <div class="vocab-header-left">
+        <span>📚</span>
+        <div>
+          <div class="vocab-label">Vocabulario</div>
+          <div class="vocab-title">El clima — Weather</div>
+        </div>
+      </div>
+      <span class="vocab-chevron open" id="vocabChevron">▾</span>
+    </div>
+    <div class="vocab-body" id="vocabBody">
+      <div class="vocab-row">
+        <span class="vocab-en">Sunny</span><span class="vocab-es">Soleado</span>
+        <button class="play-btn" onclick="playVocab('u6.sunny.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Cloudy</span><span class="vocab-es">Nublado</span>
+        <button class="play-btn" onclick="playVocab('u6.cloudy.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Raining</span><span class="vocab-es">Lloviendo</span>
+        <button class="play-btn" onclick="playVocab('u6.raining.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Snowing</span><span class="vocab-es">Nevando</span>
+        <button class="play-btn" onclick="playVocab('u6.snowing.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Cold</span><span class="vocab-es">Frío</span>
+        <button class="play-btn" onclick="playVocab('u6.cold.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Hot</span><span class="vocab-es">Caluroso</span>
+        <button class="play-btn" onclick="playVocab('u6.hot.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">watermelon</span><span class="vocab-es">sandía</span>
+        <button class="play-btn" onclick="playVocab('u6.watermelon.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main lesson card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row"><span id="counter">1 / 4</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <!-- Image -->
+    <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
+
+    <!-- Dialogue reveal -->
+    <div class="dialogue" id="dialogue">
+      <p id="dialogueText"></p>
+    </div>
+
+    <!-- Play / Repeat button -->
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Play
+    </button>
+
+    <!-- Tile exercise (hidden until audio done) -->
+    <div class="exercise" id="exercise">
+      <div class="ex-prompt" id="exPrompt"></div>
+      <div class="ex-sentence" id="exSentence"></div>
+      <div class="tile-row" id="tileRow"></div>
+    </div>
+
+    <!-- Siguiente -->
+    <button class="next-btn" id="nextBtn"></button>
+  </div>
+
+</div>
+
+<!-- End screen -->
+<div id="endScreen" data-unit="6" data-lesson="1" data-part="2">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Completaste la Parte 2.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">¡Excelente trabajo con el clima!</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p3.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 3
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 1;
+  const PART   = 2;
+
+  const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+  const IMG   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+
+  // ── Lesson data ────────────────────────────────────────────────────────────
+  // dialogue: array of [question, answer] pairs shown after audio
+  // exercise: { before, blank, after, correct, wrong }
+  //   sentence renders as: before [blank] after
+  const SLIDES = [
+    {
+      img:   'u6.sunny.watermelon.jpg',
+      audio: 'u6.eating.watermelon.mp3',
+      dialogue: [
+        ['How is the weather in Miami today?', 'It is sunny.'],
+        ['What are you doing?',                'I am eating watermelon.'],
+      ],
+      exercise: {
+        before:  'I am',
+        blank:   'eating',
+        after:   'watermelon.',
+        correct: 'eating',
+        wrong:   'drinking',
+      },
+    },
+    {
+      img:   'u6.riding.cloudy.jpg',
+      audio: 'u6.cloudy.bicycle.mp3',
+      dialogue: [
+        ['How is the weather in New York?', 'It is cloudy.'],
+        ['What are you doing?',             'I am riding my bicycle.'],
+      ],
+      exercise: {
+        before:  'I am',
+        blank:   'riding',
+        after:   'my bicycle.',
+        correct: 'riding',
+        wrong:   'reading',
+      },
+    },
+    {
+      img:   'u5.rain.read.book.jpg',
+      audio: 'u6.home.raining.mp3',
+      dialogue: [
+        ['How is the weather in Chicago?', 'It is raining.'],
+        ['What are you doing?',            'I am at home, reading a book.'],
+      ],
+      exercise: {
+        before:  'I am',
+        blank:   'reading',
+        after:   'a book.',
+        correct: 'reading',
+        wrong:   'riding',
+      },
+    },
+    {
+      img:   'u6.snow.playing.jpg',
+      audio: 'u6.play.snow.mp3',
+      dialogue: [
+        ['How is the weather in Montreal?', 'It is snowing.'],
+        ['What are you doing?',             'I am playing in the snow.'],
+      ],
+      exercise: {
+        before:  'I am',
+        blank:   'playing',
+        after:   'in the snow.',
+        correct: 'playing',
+        wrong:   'cooking',
+      },
+    },
+  ];
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  let queue      = [];   // indices into SLIDES to work through
+  let wrongOnes  = [];   // indices of slides answered incorrectly
+  let retryMode  = false;
+  let qPos       = 0;    // position in queue
+  let playing    = false;
+  let snd        = null;
+  let vocabSnd   = null;
+
+  // DOM refs
+  const slideImg    = document.getElementById('slideImg');
+  const dialogue    = document.getElementById('dialogue');
+  const dialogueTxt = document.getElementById('dialogueText');
+  const mainBtn     = document.getElementById('mainBtn');
+  const exercise    = document.getElementById('exercise');
+  const exPrompt    = document.getElementById('exPrompt');
+  const exSentence  = document.getElementById('exSentence');
+  const tileRow     = document.getElementById('tileRow');
+  const nextBtn     = document.getElementById('nextBtn');
+  const counter     = document.getElementById('counter');
+  const bar         = document.getElementById('bar');
+
+  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  // ── Vocab ──────────────────────────────────────────────────────────────────
+  let vocabOpen = true;
+  function toggleVocab() {
+    vocabOpen = !vocabOpen;
+    document.getElementById('vocabBody').style.display = vocabOpen ? '' : 'none';
+    document.getElementById('vocabChevron').classList.toggle('open', vocabOpen);
+  }
+  window.toggleVocab = toggleVocab;
+
+  function playVocab(file) {
+    if (vocabSnd) { vocabSnd.pause(); vocabSnd = null; }
+    vocabSnd = new Audio(AUDIO + file);
+    vocabSnd.play().catch(() => {});
+  }
+  window.playVocab = playVocab;
+
+  // ── Audio helpers ──────────────────────────────────────────────────────────
+  function stopSnd() { if (snd) { snd.pause(); snd = null; } }
+
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    mainBtn.disabled  = state === 'playing';
+    if (state === 'ready')   mainBtn.innerHTML = ICON + ' Play';
+    if (state === 'playing') mainBtn.innerHTML = ICON + ' Escuchando…';
+    if (state === 'repeat')  mainBtn.innerHTML = ICON + ' Repetir';
+  }
+
+  // ── Load a slide ───────────────────────────────────────────────────────────
+  function loadSlide() {
+    stopSnd();
+    playing = false;
+
+    const idx = queue[qPos];
+    const s   = SLIDES[idx];
+    const total = queue.length;
+
+    // Counter & bar
+    counter.textContent = `${qPos + 1} / ${total}`;
+    bar.style.width     = ((qPos + 1) / total * 100) + '%';
+
+    // Image
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.dialogue[0][1];
+
+    // Reset dialogue & exercise
+    dialogue.classList.remove('show');
+    dialogueTxt.innerHTML = '';
+    exercise.classList.remove('show');
+    exSentence.innerHTML  = '';
+    tileRow.innerHTML     = '';
+    nextBtn.classList.remove('show');
+
+    // Retry banner
+    const oldBanner = document.getElementById('retryBanner');
+    if (oldBanner) oldBanner.remove();
+    if (retryMode) {
+      const banner = document.createElement('div');
+      banner.className = 'retry-banner';
+      banner.id = 'retryBanner';
+      banner.textContent = '🔁 Repasando respuestas incorrectas';
+      mainBtn.parentNode.insertBefore(banner, mainBtn);
+    }
+
+    setBtn('ready');
+  }
+
+  // ── Play audio ─────────────────────────────────────────────────────────────
+  function handlePlay() {
+    if (playing) return;
+    playing = true;
+    setBtn('playing');
+
+    const idx = queue[qPos];
+    const s   = SLIDES[idx];
+
+    snd = new Audio(AUDIO + s.audio);
+    snd.play().catch(() => {});
+    snd.onended = onAudioDone;
+    snd.onerror = onAudioDone;
+  }
+  window.handlePlay = handlePlay;
+
+  function onAudioDone() {
+    playing = false;
+    setBtn('repeat');
+
+    // Show dialogue
+    const idx = queue[qPos];
+    const s   = SLIDES[idx];
+    dialogueTxt.innerHTML = s.dialogue
+      .map(([q, a]) =>
+        `<span class="q">— ${q}</span><br><span class="a">— ${a}</span>`)
+      .join('<br>');
+    dialogue.classList.add('show');
+
+    // Show exercise after short delay
+    setTimeout(() => showExercise(s), 600);
+  }
+
+  // ── Build exercise ─────────────────────────────────────────────────────────
+  function showExercise(s) {
+    const ex = s.exercise;
+    exPrompt.textContent = 'Completa la oración:';
+
+    // Sentence with blank
+    exSentence.innerHTML =
+      `${ex.before} <span class="blank" id="blankSpan">______</span> ${ex.after}`;
+
+    // Shuffle tiles
+    const tiles = [ex.correct, ex.wrong].sort(() => Math.random() - .5);
+    tileRow.innerHTML = '';
+    tiles.forEach(word => {
+      const btn = document.createElement('button');
+      btn.className   = 'tile';
+      btn.textContent = word;
+      btn.onclick     = () => handleTile(btn, word, s);
+      tileRow.appendChild(btn);
+    });
+
+    exercise.classList.add('show');
+  }
+
+  function handleTile(btn, word, s) {
+    // Lock all tiles
+    tileRow.querySelectorAll('.tile').forEach(b => b.disabled = true);
+
+    const blankSpan = document.getElementById('blankSpan');
+    const idx       = queue[qPos];
+
+    if (word.toLowerCase() === s.exercise.correct.toLowerCase()) {
+      btn.classList.add('correct');
+      blankSpan.textContent = word;
+      blankSpan.classList.add('correct');
+    } else {
+      btn.classList.add('wrong');
+      blankSpan.classList.add('wrong');
+      // Highlight correct
+      tileRow.querySelectorAll('.tile').forEach(b => {
+        if (b.textContent.toLowerCase() === s.exercise.correct.toLowerCase()) {
+          b.classList.add('correct');
+        }
+      });
+      // Mark as wrong for retry
+      if (!wrongOnes.includes(idx)) wrongOnes.push(idx);
+    }
+
+    // Show next button after short pause
+    setTimeout(() => nextBtn.classList.add('show'), 800);
+  }
+
+  // ── Advance ────────────────────────────────────────────────────────────────
+  function advance() {
+    stopSnd();
+    qPos++;
+
+    if (qPos < queue.length) {
+      loadSlide();
+      return;
+    }
+
+    // First pass done — retry wrong ones if any
+    if (!retryMode && wrongOnes.length > 0) {
+      retryMode = true;
+      queue     = [...wrongOnes];
+      wrongOnes = [];
+      qPos      = 0;
+      loadSlide();
+      return;
+    }
+
+    // All done
+    showEnd();
+  }
+
+  // ── Wire next button ───────────────────────────────────────────────────────
+  function setupNextBtn() {
+    nextBtn.textContent = 'Siguiente →';
+    nextBtn.onclick     = advance;
+  }
+
+  // ── End ────────────────────────────────────────────────────────────────────
+  function showEnd() {
+    document.getElementById('mainCard').style.display  = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  queue = SLIDES.map((_, i) => i);  // [0, 1, 2, 3]
+  setupNextBtn();
+  loadSlide();
+
+})();
+</script>
+</body>
+</html>

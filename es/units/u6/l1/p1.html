@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 6 • Lección 1 • Parte 1</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Vocab card ────────────────────────────────────────────────────────────── */
+.vocab-card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  margin-bottom:16px;overflow:hidden;
+}
+.vocab-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;cursor:pointer;user-select:none;
+}
+.vocab-header-left{display:flex;align-items:center;gap:10px}
+.vocab-label{font-size:12px;font-weight:700;color:#a855f7;text-transform:uppercase;letter-spacing:.08em}
+.vocab-title{font-size:15px;font-weight:700;color:#111827}
+.vocab-chevron{font-size:18px;color:#9ca3af;transition:transform .3s}
+.vocab-chevron.open{transform:rotate(180deg)}
+
+.vocab-body{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8px;padding:0 16px 16px;
+}
+@media(max-width:420px){.vocab-body{grid-template-columns:1fr}}
+
+.vocab-row{
+  display:flex;align-items:center;gap:10px;
+  background:#f8fafc;border-radius:12px;
+  padding:10px 12px;border:2px solid #e2e8f0;
+}
+.vocab-en{font-size:14px;font-weight:700;color:#1e3a5f;flex:1}
+.vocab-es{font-size:13px;font-weight:600;color:#6b7280;flex:1}
+.play-btn{
+  background:#0d9488;border:none;border-radius:8px;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;transition:background .15s,transform .1s;
+}
+.play-btn:hover{background:#0f766e;transform:scale(1.08)}
+.play-btn:active{transform:scale(.95)}
+.play-btn svg{width:14px;height:14px;fill:white}
+
+/* ── Main card ──────────────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:20px 18px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .5s;
+}
+
+/* ── Image ──────────────────────────────────────────────────────────────────── */
+.img-wrap{
+  width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#e2e8f0;display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ── Answer sentence ────────────────────────────────────────────────────────── */
+.answer-text{
+  text-align:center;font-size:22px;font-weight:900;color:#1e40af;
+  margin-bottom:18px;min-height:32px;
+  opacity:0;transition:opacity .4s;
+}
+.answer-text.show{opacity:1}
+
+/* ── Play / Repeat button ───────────────────────────────────────────────────── */
+.main-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px;margin-bottom:14px;
+  border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;transition:background .15s,opacity .2s,transform .1s;
+}
+.main-btn:active{transform:scale(.98)}
+.main-btn.ready   {background:#0d9488;color:white}
+.main-btn.playing {background:#6b7280;color:white;cursor:default}
+.main-btn.repeat  {background:#f0fdfa;color:#0f766e;border:2px solid #0d9488}
+.main-btn.repeat:hover{background:#ccfbf1}
+.main-btn svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+
+/* ── Siguiente button ───────────────────────────────────────────────────────── */
+.next-btn{
+  display:block;width:100%;padding:13px;
+  background:#2563eb;color:white;border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:900;font-size:15px;
+  cursor:pointer;transition:background .15s,transform .1s;
+  opacity:0;pointer-events:none;
+}
+.next-btn.show{opacity:1;pointer-events:auto}
+.next-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+
+/* ── End screen ─────────────────────────────────────────────────────────────── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+  <div class="top-title">Unidad 6 • Lección 1 • Parte 1</div>
+  <div class="subline">El clima</div>
+
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Vocab panel -->
+  <div class="vocab-card">
+    <div class="vocab-header" onclick="toggleVocab()">
+      <div class="vocab-header-left">
+        <span>📚</span>
+        <div>
+          <div class="vocab-label">Vocabulario</div>
+          <div class="vocab-title">El clima — Weather</div>
+        </div>
+      </div>
+      <span class="vocab-chevron open" id="vocabChevron">▾</span>
+    </div>
+    <div class="vocab-body" id="vocabBody">
+      <div class="vocab-row">
+        <span class="vocab-en">Sunny</span><span class="vocab-es">Soleado</span>
+        <button class="play-btn" onclick="playVocab('u6.sunny.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Cloudy</span><span class="vocab-es">Nublado</span>
+        <button class="play-btn" onclick="playVocab('u6.cloudy.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Raining</span><span class="vocab-es">Lloviendo</span>
+        <button class="play-btn" onclick="playVocab('u6.raining.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Snowing</span><span class="vocab-es">Nevando</span>
+        <button class="play-btn" onclick="playVocab('u6.snowing.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Cold</span><span class="vocab-es">Frío</span>
+        <button class="play-btn" onclick="playVocab('u6.cold.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en">Hot</span><span class="vocab-es">Caluroso</span>
+        <button class="play-btn" onclick="playVocab('u6.hot.1.mp3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      
+      </div>
+    </div>
+  </div>
+
+  <!-- Main lesson card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row"><span id="counter">1 / 7</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
+    <div class="answer-text" id="answerText"></div>
+
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Play
+    </button>
+
+    <button class="next-btn" id="nextBtn"></button>
+  </div>
+
+</div>
+
+<!-- End screen (outside .wrap matches your pattern) -->
+<div id="endScreen" data-unit="6" data-lesson="1" data-part="1">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Aprendiste el vocabulario del clima.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 1.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 2
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 1;
+  const PART   = 1;
+
+  const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+  const IMG   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+
+  const SLIDES = [
+    { img: 'u6.sunny.watermelon.jpg', audio: 'u6.sunny.2.mp3',   text: 'It is sunny!',   es: 'Está soleado.' },
+    { img: 'u6.cloudy.jpg',           audio: 'u6.cloudy.2.mp3',  text: 'It is cloudy.',  es: 'Está nublado.' },
+    { img: 'u6.rainy.umbrella.jpg',   audio: 'u6.raining.2.mp3', text: 'It is raining.', es: 'Está lloviendo.' },
+    { img: 'u6.snowing.jpg',          audio: 'u6.snowing.2.mp3', text: 'It is snowing.', es: 'Está nevando.' },
+    { img: 'u6.windy.jpg',            audio: 'u6.windy.2.mp3',   text: 'It is windy.',   es: 'Está ventoso.' },
+    { img: 'u6.weather.hot.jpg',      audio: 'u6.hot.2.mp3',     text: 'It is hot.',     es: 'Hace calor.' },
+    { img: 'u6.weather.cold.jpg',     audio: 'u6.cold.2.mp3',    text: 'It is cold.',    es: 'Hace frío.' },
+  ];
+
+  const TOTAL = SLIDES.length;
+  let current  = 0;
+  let playing  = false;
+  let snd      = null;
+  let vocabSnd = null;
+
+  const slideImg  = document.getElementById('slideImg');
+  const answerTxt = document.getElementById('answerText');
+  const mainBtn   = document.getElementById('mainBtn');
+  const nextBtn   = document.getElementById('nextBtn');
+  const counter   = document.getElementById('counter');
+  const bar       = document.getElementById('bar');
+
+  // vocab
+  let vocabOpen = true;
+  function toggleVocab() {
+    vocabOpen = !vocabOpen;
+    document.getElementById('vocabBody').style.display = vocabOpen ? '' : 'none';
+    document.getElementById('vocabChevron').classList.toggle('open', vocabOpen);
+  }
+  window.toggleVocab = toggleVocab;
+
+  function playVocab(file) {
+    if (vocabSnd) { vocabSnd.pause(); vocabSnd = null; }
+    vocabSnd = new Audio(AUDIO + file);
+    vocabSnd.play().catch(() => {});
+  }
+  window.playVocab = playVocab;
+
+  function loadSlide(idx) {
+    stopSnd();
+    playing = false;
+
+    const s = SLIDES[idx];
+
+    counter.textContent = `${idx + 1} / ${TOTAL}`;
+    bar.style.width = ((idx + 1) / TOTAL * 100) + '%';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.text;
+
+    // 🔥 HERE IS THE KEY CHANGE
+   answerTxt.innerHTML = `
+  <div style="
+    font-size:22px;
+    font-weight:900;
+    color:#1e40af;
+    margin-bottom:6px;
+  ">
+    How is the weather?
+  </div>
+
+  <div style="
+    font-size:16px;
+    font-weight:600;
+    color:#9ca3af;
+    margin-bottom:14px;
+  ">
+    ¿Cómo está el clima?
+  </div>
+
+  <div style="
+    font-size:22px;
+    font-weight:900;
+    color:#1e40af;
+  ">
+    ${s.text}
+  </div>
+
+  <div style="
+    font-size:16px;
+    font-weight:600;
+    color:#9ca3af;
+    margin-top:6px;
+  ">
+    ${s.es}
+  </div>
+`;
+
+    answerTxt.classList.remove('show');
+
+    if (idx < TOTAL - 1) {
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.onclick = () => { stopSnd(); current++; loadSlide(current); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => { stopSnd(); showEnd(); };
+    }
+
+    nextBtn.classList.remove('show');
+    setBtn('ready');
+  }
+
+  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+
+    if (state === 'ready') {
+      mainBtn.innerHTML = ICON + ' Play';
+      mainBtn.disabled = false;
+    }
+
+    if (state === 'playing') {
+      mainBtn.innerHTML = ICON + ' Escuchando…';
+      mainBtn.disabled = true;
+    }
+
+    if (state === 'repeat') {
+      mainBtn.innerHTML = ICON + ' Repetir';
+      mainBtn.disabled = false;
+    }
+  }
+
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+  }
+
+  function handlePlay() {
+    if (playing) return;
+
+    playing = true;
+    setBtn('playing');
+    nextBtn.classList.remove('show');
+    answerTxt.classList.remove('show');
+
+    snd = new Audio(AUDIO + 'u6.how.weather.mp3');
+    snd.play().catch(() => {});
+
+    snd.onended = () => {
+      setTimeout(() => {
+        const s = SLIDES[current];
+
+        snd = new Audio(AUDIO + s.audio);
+        snd.play().catch(() => {});
+
+        snd.onended = onSequenceDone;
+        snd.onerror = onSequenceDone;
+      }, 1000);
+    };
+
+    snd.onerror = () => {
+      const s = SLIDES[current];
+
+      snd = new Audio(AUDIO + s.audio);
+      snd.play().catch(() => {});
+
+      snd.onended = onSequenceDone;
+      snd.onerror = onSequenceDone;
+    };
+  }
+
+  window.handlePlay = handlePlay;
+
+  function onSequenceDone() {
+    playing = false;
+    answerTxt.classList.add('show');
+    nextBtn.classList.add('show');
+    setBtn('repeat');
+  }
+
+  function showEnd() {
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  loadSlide(0);
+})();
+</script>
+</body>
+</html>
