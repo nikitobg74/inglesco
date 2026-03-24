@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 6 • Lección 2 • Parte 1</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) {
+    window.va('track', 'U6 L2 P1 Started');
+  }
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Main card ──────────────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:20px 18px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .5s;
+}
+
+/* ── Image ──────────────────────────────────────────────────────────────────── */
+.img-wrap{
+  width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#e2e8f0;display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ── Dialogue lines ─────────────────────────────────────────────────────────── */
+.dialogue-box{
+  background:#f8fafc;border-radius:14px;
+  padding:14px 16px;margin-bottom:18px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.dial-line{
+  font-size:14px;font-weight:600;color:#94a3b8;
+  border-left:3px solid transparent;
+  padding-left:10px;line-height:1.6;
+  transition:color .25s,border-color .25s,font-weight .2s;
+}
+.dial-line.highlight{
+  color:#1e40af;font-weight:700;
+  border-left-color:#fbbf24;
+}
+
+/* ── Play / Repeat button ───────────────────────────────────────────────────── */
+.main-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px;margin-bottom:14px;
+  border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;transition:background .15s,opacity .2s,transform .1s;
+}
+.main-btn:active{transform:scale(.98)}
+.main-btn.ready   {background:#0d9488;color:white}
+.main-btn.playing {background:#6b7280;color:white;cursor:default}
+.main-btn.repeat  {background:#f0fdfa;color:#0f766e;border:2px solid #0d9488}
+.main-btn.repeat:hover{background:#ccfbf1}
+.main-btn svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+
+/* ── Question panel ─────────────────────────────────────────────────────────── */
+.question-panel{
+  display:none;flex-direction:column;gap:10px;
+  margin-bottom:14px;animation:fadeUp .35s ease;
+}
+.question-panel.visible{display:flex}
+.question-text{
+  font-size:15px;font-weight:900;color:#1e40af;
+  text-align:center;margin-bottom:4px;
+}
+.choice-btn{
+  width:100%;padding:13px 16px;
+  background:#0d9488;color:white;border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;
+  cursor:pointer;text-align:left;
+  transition:background .15s,transform .1s;
+}
+.choice-btn:hover{background:#0f766e}
+.choice-btn:active{transform:scale(.98)}
+.choice-btn.correct{background:#16a34a}
+.choice-btn.wrong  {background:#dc2626}
+.choice-btn:disabled{cursor:not-allowed}
+
+/* ── Siguiente button ───────────────────────────────────────────────────────── */
+.next-btn{
+  display:block;width:100%;padding:13px;
+  background:#2563eb;color:white;border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:900;font-size:15px;
+  cursor:pointer;transition:background .15s,transform .1s;
+  opacity:0;pointer-events:none;
+}
+.next-btn.show{opacity:1;pointer-events:auto}
+.next-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+
+/* ── End screen ─────────────────────────────────────────────────────────────── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+  <div class="top-title">Unidad 6 • Lección 2 • Parte 1</div>
+  <div class="subline">Diálogos — El clima</div>
+
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Main lesson card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row"><span id="counter">1 / 2</span></div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
+
+    <div class="dialogue-box" id="dialogueBox"></div>
+
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Reproducir diálogo
+    </button>
+
+    <div class="question-panel" id="questionPanel">
+      <div class="question-text" id="questionText"></div>
+      <button class="choice-btn" id="choiceA" onclick="checkAnswer(0)"></button>
+      <button class="choice-btn" id="choiceB" onclick="checkAnswer(1)"></button>
+    </div>
+
+    <button class="next-btn" id="nextBtn"></button>
+  </div>
+
+</div>
+
+<!-- End screen (outside .wrap) -->
+<div id="endScreen" data-unit="6" data-lesson="2" data-part="1">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Escuchaste y comprendiste los diálogos.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 1.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 2
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 2;
+  const PART   = 1;
+
+  const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+  const IMG   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+
+  const SCENES = [
+    {
+      img:   'u6.rain.beach.jpg',
+      audio: 'u6.sunny.beach.dial.mp3',
+      lines: [
+        { sp: 'A', text: 'Hi Greg, this is Carl. I am calling from Sunny Beach.' },
+        { sp: 'B', text: 'From Sunny Beach? What are you doing there?' },
+        { sp: 'A', text: 'I am on vacation.' },
+        { sp: 'B', text: 'How is the weather in Sunny Beach? Is it hot?' },
+        { sp: 'A', text: 'No, it is not. It is cold. In fact, it is raining right now.' },
+        { sp: 'B', text: 'Are you having a good time?' },
+        { sp: 'A', text: 'No, I am having a terrible time.' },
+        { sp: 'B', text: 'Oh, I am so sorry.' },
+      ],
+      question: 'Is it hot in Sunny Beach?',
+      choices: [
+        { text: 'A.  No, it is cold.',  correct: true  },
+        { text: 'B.  Yes, it is hot.',  correct: false },
+      ]
+    },
+    {
+      img:   'u6.ski.resort.jpg',
+      audio: 'u6.ski.resort.mp3',
+      lines: [
+        { sp: 'A', text: 'Hi Mark, this is Kate. I am calling from a ski resort in the Alps.' },
+        { sp: 'B', text: 'The Alps? What are you doing there?' },
+        { sp: 'A', text: 'I am on vacation.' },
+        { sp: 'B', text: 'How is the weather in the Alps? Is it cold?' },
+        { sp: 'A', text: 'No, it is not. It is warm.' },
+        { sp: 'B', text: 'Are you skiing?' },
+        { sp: 'A', text: 'No, I am not skiing.' },
+        { sp: 'B', text: 'Are you having a good time?' },
+        { sp: 'A', text: 'No, I am having a terrible time.' },
+        { sp: 'B', text: 'Oh, I am so sorry.' },
+      ],
+      question: 'Is it cold in the Alps?',
+      choices: [
+        { text: 'A.  No, it is warm.',  correct: true  },
+        { text: 'B.  Yes, it is cold.', correct: false },
+      ]
+    }
+  ];
+
+  const TOTAL = SCENES.length;
+  let current  = 0;
+  let playing  = false;
+  let answered = false;
+  let snd      = null;
+
+  const slideImg      = document.getElementById('slideImg');
+  const dialogueBox   = document.getElementById('dialogueBox');
+  const mainBtn       = document.getElementById('mainBtn');
+  const nextBtn       = document.getElementById('nextBtn');
+  const counter       = document.getElementById('counter');
+  const bar           = document.getElementById('bar');
+  const questionPanel = document.getElementById('questionPanel');
+  const questionText  = document.getElementById('questionText');
+  const choiceA       = document.getElementById('choiceA');
+  const choiceB       = document.getElementById('choiceB');
+
+  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  function loadScene(idx) {
+    stopSnd();
+    playing  = false;
+    answered = false;
+
+    const s = SCENES[idx];
+
+    counter.textContent = `${idx + 1} / ${TOTAL}`;
+    bar.style.width = ((idx + 1) / TOTAL * 100) + '%';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.question;
+
+    // Build dialogue lines
+    dialogueBox.innerHTML = '';
+    s.lines.forEach((line, i) => {
+      const div = document.createElement('div');
+      div.className = 'dial-line';
+      div.id = 'line-' + i;
+      div.textContent = line.sp + ': ' + line.text;
+      dialogueBox.appendChild(div);
+    });
+
+    // Reset question panel
+    questionPanel.classList.remove('visible');
+    choiceA.className = 'choice-btn';
+    choiceB.className = 'choice-btn';
+    choiceA.disabled = false;
+    choiceB.disabled = false;
+    questionText.textContent = s.question;
+    choiceA.textContent = s.choices[0].text;
+    choiceB.textContent = s.choices[1].text;
+
+    // Next btn
+    nextBtn.classList.remove('show');
+    if (idx < TOTAL - 1) {
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.onclick = () => { stopSnd(); current++; loadScene(current); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => { stopSnd(); showEnd(); };
+    }
+
+    setBtn('ready');
+  }
+
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    if (state === 'ready')   { mainBtn.innerHTML = ICON + ' Reproducir diálogo'; mainBtn.disabled = false; }
+    if (state === 'playing') { mainBtn.innerHTML = ICON + ' Escuchando…';        mainBtn.disabled = true;  }
+    if (state === 'repeat')  { mainBtn.innerHTML = ICON + ' Repetir';            mainBtn.disabled = false; }
+  }
+
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+  }
+
+  function handlePlay() {
+    if (playing) return;
+    playing = true;
+    setBtn('playing');
+    questionPanel.classList.remove('visible');
+    nextBtn.classList.remove('show');
+
+    document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+
+    const s = SCENES[current];
+    let timers = [];
+
+    snd = new Audio(AUDIO + s.audio);
+
+    // Schedule highlights once we know duration
+    snd.addEventListener('loadedmetadata', () => {
+      timers.forEach(t => clearTimeout(t));
+      timers = [];
+      const interval = (snd.duration * 1000) / s.lines.length;
+      s.lines.forEach((_, i) => {
+        const t = setTimeout(() => {
+          document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+          const el = document.getElementById('line-' + i);
+          if (el) el.classList.add('highlight');
+        }, i * interval);
+        timers.push(t);
+      });
+    });
+
+    // Fallback: evenly spaced at 1.8s per line if metadata is slow
+    s.lines.forEach((_, i) => {
+      const t = setTimeout(() => {
+        document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+        const el = document.getElementById('line-' + i);
+        if (el) el.classList.add('highlight');
+      }, i * 1800);
+      timers.push(t);
+    });
+
+    snd.play().catch(() => {});
+
+    snd.onended = () => {
+      timers.forEach(t => clearTimeout(t));
+      document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+      playing = false;
+      setBtn('repeat');
+      questionPanel.classList.add('visible');
+    };
+
+    snd.onerror = () => {
+      timers.forEach(t => clearTimeout(t));
+      playing = false;
+      setBtn('repeat');
+      questionPanel.classList.add('visible');
+    };
+  }
+
+  window.handlePlay = handlePlay;
+
+  function checkAnswer(index) {
+    if (answered) return;
+    const s = SCENES[current];
+    const choice = s.choices[index];
+    const btn = index === 0 ? choiceA : choiceB;
+
+    if (choice.correct) {
+      answered = true;
+      btn.classList.add('correct');
+      choiceA.disabled = true;
+      choiceB.disabled = true;
+      nextBtn.classList.add('show');
+    } else {
+      btn.classList.add('wrong');
+      setTimeout(() => { btn.classList.remove('wrong'); }, 700);
+    }
+  }
+
+  window.checkAnswer = checkAnswer;
+
+  function showEnd() {
+    // ✅ TRACK FINISH
+    if (window.va) {
+      window.va('track', 'U6 L2 P1 Finished');
+    }
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  loadScene(0);
+})();
+</script>
+</body>
+</html>
