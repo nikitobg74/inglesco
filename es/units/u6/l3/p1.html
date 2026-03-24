@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 - Lección 3 - Parte 1</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  padding: 20px;
+  background: #dbeafe;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 15px;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.back-btn:hover { background: #1e40af; }
+
+.unit-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+/* Progress */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+.step {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.step.active {
+  background: #2563eb;
+  color: white;
+}
+.step:hover { transform: scale(1.1); }
+
+.exercise-box {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.exercise-text {
+  text-align: center;
+  margin-top: 10px;
+}
+.exercise-text .en {
+  font-size: 18px;
+  color: #1e40af;
+  font-weight: 600;
+}
+.exercise-text .es {
+  font-size: 14px;
+  color: #2563eb;
+  display: block;
+  margin-top: 4px;
+}
+
+.matching-container {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 30px;
+  align-items: flex-start;
+}
+
+/* left */
+.audio-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 170px;
+}
+
+.audio-box {
+  min-height: 58px;
+  background: #e0f2fe;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+  padding: 10px;
+}
+.audio-box:hover { background: #bae6fd; }
+
+.audio-box.active {
+  background: #2563eb;
+  color: white;
+  transform: scale(1.03);
+}
+
+.audio-box.answered {
+  background: #bbf7d0;
+  color: #166534;
+  cursor: default;
+}
+
+/* right */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.number-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 520px;
+}
+
+.number-card {
+  width: 88px;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: white;
+  user-select: none;
+}
+.number-card:hover { transform: scale(1.08); }
+
+.number-digit {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.number-word {
+  font-size: 13px;
+  font-weight: 800;
+  color: black;
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.number-card.correct {
+  background: #16a34a !important;
+  position: relative;
+}
+.number-card.correct::after {
+  content: "✔";
+  position: absolute;
+  top: 6px;
+  right: 9px;
+  font-size: 18px;
+  color: white;
+}
+
+.number-card.disabled {
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.number-card.wrong {
+  animation: shake 0.3s;
+  border: 3px solid #dc2626;
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-5px); }
+  50%  { transform: translateX(5px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+#feedback {
+  margin-top: 18px;
+  font-weight: 600;
+  font-size: 18px;
+  min-height: 28px;
+  text-align: center;
+}
+
+.next-btn {
+  margin: 30px auto 0 auto;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+}
+.next-btn:hover { background: #1e40af; }
+
+.end-screen {
+  text-align: center;
+}
+.end-screen h2 {
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+.end-screen p {
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+.i18n { display: none; }
+
+/* mobile */
+@media (max-width: 820px) {
+  .matching-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .audio-column {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .number-container {
+    max-width: 100%;
+  }
+
+  .number-card {
+    width: 82px;
+    height: 82px;
+  }
+
+  .number-digit {
+    font-size: 28px;
+  }
+
+  .number-word {
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 6</a>
+
+<div class="unit-title">Lección 3 - Parte 1</div>
+
+<div class="progress-container">
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+  <div class="step" data-page="p5.html">5</div>
+</div>
+
+<div class="exercise-box" id="mainCard">
+
+  <p class="exercise-text">
+    <span class="en">Listen to the audio and click the correct number.</span><br>
+    <span class="es">Escucha el audio y selecciona el número correcto.</span>
+  </p>
+
+  <div class="i18n">
+    <span id="txt-listen">🔊 Escuchar</span>
+    <span id="msg-wrong">❌ Intenta otra vez</span>
+    <span id="good-1">¡Excelente!</span>
+    <span id="good-2">¡Muy bien!</span>
+    <span id="good-3">¡Bien hecho!</span>
+  </div>
+
+  <div class="matching-container">
+    <div class="audio-column" id="audioColumn"></div>
+
+    <div class="right-column">
+      <div class="number-container" id="numberContainer"></div>
+      <div id="feedback"></div>
+    </div>
+  </div>
+
+  <button class="next-btn" id="nextBtn">Siguiente →</button>
+</div>
+
+<div class="exercise-box end-screen" id="endScreen" style="display:none;">
+  <h2>Good job!</h2>
+  <p>Ahora vamos a los números del 10 al 20.</p>
+  <button class="next-btn" id="goNextBtn" style="display:block;">Ir a Parte 2</button>
+</div>
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+if (window.va) {
+  window.va('track', 'U6 L3 P1 Started');
+}
+</script>
+
+<script>
+/* ================= PATHS ================= */
+const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+const SFX   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+
+/* ================= SFX ================= */
+const sfxCorrect   = new Audio(SFX + 'correct.wav');
+const sfxIncorrect = new Audio(SFX + 'incorrect.wav');
+sfxCorrect.load();
+sfxIncorrect.load();
+
+function playSfx(isCorrect) {
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(() => {});
+}
+
+/* ================= DATA ================= */
+/* Adjust the audio filenames here if your files are named differently */
+const NUMBERS = [
+  { num: 1,  word: 'one',   color: '#ef4444', audio: 'one.mp3' },
+  { num: 2,  word: 'two',   color: '#f97316', audio: 'two.mp3' },
+  { num: 3,  word: 'three', color: '#eab308', audio: 'three.mp3' },
+  { num: 4,  word: 'four',  color: '#22c55e', audio: 'four.mp3' },
+  { num: 5,  word: 'five',  color: '#14b8a6', audio: 'five.mp3' },
+  { num: 6,  word: 'six',   color: '#06b6d4', audio: 'six.mp3' },
+  { num: 7,  word: 'seven', color: '#3b82f6', audio: 'seven.mp3' },
+  { num: 8,  word: 'eight', color: '#6366f1', audio: 'eight.mp3' },
+  { num: 9,  word: 'nine',  color: '#8b5cf6', audio: 'nine.mp3' },
+  { num: 10, word: 'ten',   color: '#ec4899', audio: 'ten.mp3' }
+];
+
+/* Short recycle only: 5 rounds */
+const ROUNDS = 5;
+
+/* ================= ELEMENTS ================= */
+const audioColumn     = document.getElementById('audioColumn');
+const numberContainer = document.getElementById('numberContainer');
+const feedback        = document.getElementById('feedback');
+const nextBtn         = document.getElementById('nextBtn');
+const goNextBtn       = document.getElementById('goNextBtn');
+
+const txtListen = document.getElementById('txt-listen').textContent;
+const msgWrong  = document.getElementById('msg-wrong').textContent;
+const praiseArr = [
+  document.getElementById('good-1').textContent,
+  document.getElementById('good-2').textContent,
+  document.getElementById('good-3').textContent
+];
+
+/* ================= HELPERS ================= */
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function randomPraise() {
+  return praiseArr[Math.floor(Math.random() * praiseArr.length)];
+}
+
+/* pick 5 random numbers from 1-10 */
+const selectedRounds = shuffle(NUMBERS).slice(0, ROUNDS);
+
+/* ================= BUILD LEFT AUDIO BOXES ================= */
+let currentIndex = null;
+let completed = 0;
+
+selectedRounds.forEach((item, index) => {
+  const box = document.createElement('div');
+  box.className = 'audio-box';
+  box.dataset.index = index;
+  box.dataset.answer = item.num;
+  box.innerHTML = txtListen;
+
+  box.addEventListener('click', () => {
+    if (box.classList.contains('answered')) return;
+
+    document.querySelectorAll('.audio-box').forEach(b => b.classList.remove('active'));
+    box.classList.add('active');
+    currentIndex = index;
+
+    const audio = new Audio(AUDIO + item.audio);
+    audio.play().catch(() => {});
+  });
+
+  audioColumn.appendChild(box);
+});
+
+/* ================= BUILD RIGHT NUMBER GRID ================= */
+shuffle(NUMBERS).forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'number-card';
+  card.dataset.num = item.num;
+  card.style.background = item.color;
+
+  card.innerHTML = `
+    <div class="number-digit">${item.num}</div>
+    <div class="number-word">${item.word}</div>
+  `;
+
+  card.addEventListener('click', () => {
+    if (currentIndex === null) return;
+
+    const activeBox = document.querySelector('.audio-box.active');
+    if (!activeBox) return;
+
+    const correctAnswer = Number(activeBox.dataset.answer);
+    const clickedNum = Number(card.dataset.num);
+
+    if (clickedNum === correctAnswer) {
+      playSfx(true);
+      card.classList.add('correct', 'disabled');
+      activeBox.classList.remove('active');
+      activeBox.classList.add('answered');
+      feedback.textContent = randomPraise();
+      feedback.style.color = '#16a34a';
+
+      currentIndex = null;
+      completed++;
+
+      if (completed === ROUNDS) {
+        nextBtn.style.display = 'block';
+      }
+    } else {
+      playSfx(false);
+      card.classList.add('wrong');
+      feedback.textContent = msgWrong;
+      feedback.style.color = '#dc2626';
+
+      setTimeout(() => {
+        card.classList.remove('wrong');
+      }, 350);
+    }
+  });
+
+  numberContainer.appendChild(card);
+});
+
+/* ================= NAVIGATION ================= */
+document.querySelectorAll('.step').forEach(step => {
+  step.addEventListener('click', () => {
+    const page = step.dataset.page;
+    if (page) window.location.href = page;
+  });
+});
+
+nextBtn.addEventListener('click', showEnd);
+
+goNextBtn.addEventListener('click', () => {
+  window.location.href = 'p2.html';
+});
+
+/* ================= END ================= */
+function showEnd() {
+  if (window.va) {
+    window.va('track', 'U6 L3 P1 Finished');
+  }
+
+  document.getElementById('mainCard').style.display = 'none';
+  document.getElementById('endScreen').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
