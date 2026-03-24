@@ -6,6 +6,7 @@
 <title>Unidad 6 • Lección 2 • Parte 2</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
@@ -15,6 +16,7 @@
     window.va('track', 'U6 L2 P2 Started');
   }
 </script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -43,7 +45,6 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* ── Main card ──────────────────────────────────────────────────────────────── */
 .card{
   background:rgba(255,255,255,.88);border-radius:18px;
   padding:20px 18px;box-shadow:0 8px 20px rgba(0,0,0,.08);
@@ -61,7 +62,6 @@ body{
   border-radius:999px;transition:width .5s;
 }
 
-/* ── Image ──────────────────────────────────────────────────────────────────── */
 .img-wrap{
   width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
   background:#e2e8f0;display:flex;align-items:center;justify-content:center;
@@ -69,7 +69,6 @@ body{
 }
 .img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
 
-/* ── Dialogue lines ─────────────────────────────────────────────────────────── */
 .dialogue-box{
   background:#f8fafc;border-radius:14px;
   padding:14px 16px;margin-bottom:18px;
@@ -81,7 +80,6 @@ body{
   border-left:3px solid #e2e8f0;
 }
 
-/* ── Question section ───────────────────────────────────────────────────────── */
 .q-label{
   font-size:12px;font-weight:700;color:#a855f7;
   text-transform:uppercase;letter-spacing:.07em;
@@ -90,7 +88,6 @@ body{
 .question-text{
   font-size:16px;font-weight:900;color:#1e40af;
   margin-bottom:14px;line-height:1.4;
-  animation:fadeUp .3s ease;
 }
 .choices-wrap{
   display:flex;flex-direction:column;gap:10px;
@@ -99,18 +96,14 @@ body{
 .choice-btn{
   width:100%;padding:13px 16px;
   background:#0d9488;color:white;border:none;border-radius:14px;
-  font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;
+  font-weight:700;font-size:14px;
   cursor:pointer;text-align:left;
-  transition:background .15s,transform .1s;
-  animation:fadeUp .3s ease;
 }
 .choice-btn:hover:not(:disabled){background:#0f766e}
-.choice-btn:active:not(:disabled){transform:scale(.98)}
-.choice-btn.correct {background:#16a34a;cursor:not-allowed}
-.choice-btn.wrong   {background:#dc2626;cursor:not-allowed}
+.choice-btn.correct {background:#16a34a}
+.choice-btn.wrong   {background:#dc2626}
 .choice-btn:disabled{opacity:.85;cursor:not-allowed}
 
-/* ── Feedback line ──────────────────────────────────────────────────────────── */
 .feedback{
   font-size:13px;font-weight:700;text-align:center;
   min-height:20px;margin-bottom:10px;
@@ -120,318 +113,263 @@ body{
 .feedback.ok  {color:#16a34a}
 .feedback.err {color:#dc2626}
 
-/* ── Next buttons ───────────────────────────────────────────────────────────── */
 .next-btn{
   display:block;width:100%;padding:13px;
   background:#2563eb;color:white;border:none;border-radius:14px;
-  font-family:'Poppins',sans-serif;font-weight:900;font-size:15px;
-  cursor:pointer;transition:background .15s,transform .1s;
+  font-weight:900;font-size:15px;
+  cursor:pointer;
   opacity:0;pointer-events:none;
 }
 .next-btn.show{opacity:1;pointer-events:auto}
-.next-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+.next-btn:hover{background:#1d4ed8}
 
-/* ── End screen ─────────────────────────────────────────────────────────────── */
 #endScreen{
   display:none;text-align:center;
   background:rgba(255,255,255,.88);border-radius:18px;
   padding:36px 24px;margin:0 auto;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+#endScreen h2{
+  font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px;
+}
+#endScreen a{
+  display:inline-block;
+  padding:12px 28px;
+  background:#2563eb;
+  color:white;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:15px;
+}
 </style>
 </head>
+
 <body>
 <div class="wrap">
 
-  <a href="../index.html" class="back-btn">← Unidad 6</a>
-  <div class="top-title">Unidad 6 • Lección 2 • Parte 2</div>
-  <div class="subline">Comprensión — El clima</div>
+<a href="../index.html" class="back-btn">← Unidad 6</a>
+<div class="top-title">Unidad 6 • Lección 2 • Parte 2</div>
+<div class="subline">Lee y responde</div>
 
-  <div class="progress-container">
-    <a class="step" href="p1.html">1</a>
-    <a class="step active" href="p2.html">2</a>
-    <a class="step" href="p3.html">3</a>
-    <a class="step" href="p4.html">4</a>
-    <a class="step" href="p5.html">5</a>
-  </div>
-
-  <!-- Main lesson card -->
-  <div class="card" id="mainCard">
-    <div class="counter-row">
-      <span id="counter">Diálogo 1 / 2</span>
-      <span id="qCounter"></span>
-    </div>
-    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
-
-    <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
-
-    <div class="dialogue-box" id="dialogueBox"></div>
-
-    <div class="q-label">🧠 Comprensión</div>
-    <div class="question-text" id="questionText"></div>
-
-    <div class="choices-wrap" id="choicesWrap"></div>
-
-    <div class="feedback" id="feedback"></div>
-
-    <button class="next-btn" id="nextBtn"></button>
-  </div>
-
+<div class="progress-container">
+  <a class="step" href="p1.html">1</a>
+  <a class="step active" href="p2.html">2</a>
+  <a class="step" href="p3.html">3</a>
+  <a class="step" href="p4.html">4</a>
+  <a class="step" href="p5.html">5</a>
 </div>
 
-<!-- End screen (outside .wrap) -->
-<div id="endScreen" data-unit="6" data-lesson="2" data-part="2">
-  <div style="font-size:52px;margin-bottom:16px">🏆</div>
-  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
-  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Respondiste todas las preguntas.</p>
-  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 2.</p>
-  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-    <a href="p3.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
-      Continuar → Parte 3
-    </a>
+<div class="card" id="mainCard">
+
+  <div class="counter-row">
+    <span id="counter"></span>
+    <span id="qCounter"></span>
   </div>
+
+  <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+  <div class="img-wrap">
+    <img id="slideImg" src="" alt="Diálogo">
+  </div>
+
+  <div class="dialogue-box" id="dialogueBox"></div>
+
+  <div class="q-label">🧠 Responde</div>
+  <div class="question-text" id="questionText"></div>
+
+  <div class="choices-wrap" id="choicesWrap"></div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <button class="next-btn" id="nextBtn"></button>
+
+</div>
+</div>
+
+<div id="endScreen">
+  <h2>¡Muy bien!</h2>
+  <a href="p3.html">Continuar → Parte 3</a>
 </div>
 
 <script>
 (() => {
-  const UNIT   = 6;
-  const LESSON = 2;
-  const PART   = 2;
 
-  const IMG = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+const IMG = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+const SFX = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
 
-  const SCENES = [
+// Preload SFX
+const sfxCorrect = new Audio(SFX + 'correct.wav');
+const sfxIncorrect = new Audio(SFX + 'incorrect.wav');
+sfxCorrect.load();
+sfxIncorrect.load();
+
+function playSfx(isCorrect) {
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(() => {});
+}
+
+const SCENES = [
+{
+  img: 'u6.rain.beach.jpg',
+  lines: [
+    { sp:'A', text:'Hi Greg, this is Carl.' },
+    { sp:'A', text:'I am calling from Sunny Beach.' },
+    { sp:'A', text:'I am on vacation.' },
+    { sp:'B', text:'Is it hot?' },
+    { sp:'A', text:'No, it is cold.' },
+    { sp:'A', text:'It is raining.' }
+  ],
+  questions: [
     {
-      img: 'u6.rain.beach.jpg',
-      lines: [
-        { sp: 'A', text: 'Hi Greg, this is Carl. I am calling from Sunny Beach.' },
-        { sp: 'B', text: 'From Sunny Beach? What are you doing there?' },
-        { sp: 'A', text: 'I am on vacation.' },
-        { sp: 'B', text: 'How is the weather in Sunny Beach? Is it hot?' },
-        { sp: 'A', text: 'No, it is not. It is cold. In fact, it is raining right now.' },
-        { sp: 'B', text: 'Are you having a good time?' },
-        { sp: 'A', text: 'No, I am having a terrible time.' },
-        { sp: 'B', text: 'Oh, I am so sorry.' },
-      ],
-      questions: [
-        {
-          text: 'Greg is on vacation.',
-          choices: [
-            { text: 'Yes, he is.',                    correct: false },
-            { text: 'No, he is not.',                 correct: true  },
-          ]
-        },
-        {
-          text: 'The weather is hot.',
-          choices: [
-            { text: 'Yes, it is.',                    correct: false },
-            { text: 'No, it is cold.',                correct: true  },
-          ]
-        },
-        {
-          text: 'It is sunny.',
-          choices: [
-            { text: 'Yes, it is.',                    correct: false },
-            { text: 'No, it is raining.',             correct: true  },
-          ]
-        },
-        {
-          text: 'Carl is having a good time.',
-          choices: [
-            { text: 'Yes, he is.',                    correct: false },
-            { text: 'No, he is having a terrible time.', correct: true },
-          ]
-        },
+      text:'Is Carl on vacation?',
+      choices:[
+        {text:'Yes.',correct:true},
+        {text:'No.',correct:false}
       ]
     },
     {
-      img: 'u6.ski.resort.jpg',
-      lines: [
-        { sp: 'A', text: 'Hi Mark, this is Kate. I am calling from a ski resort in the Alps.' },
-        { sp: 'B', text: 'The Alps? What are you doing there?' },
-        { sp: 'A', text: 'I am on vacation.' },
-        { sp: 'B', text: 'How is the weather in the Alps? Is it cold?' },
-        { sp: 'A', text: 'No, it is not. It is warm.' },
-        { sp: 'B', text: 'Are you skiing?' },
-        { sp: 'A', text: 'No, I am not skiing.' },
-        { sp: 'B', text: 'Are you having a good time?' },
-        { sp: 'A', text: 'No, I am having a terrible time.' },
-        { sp: 'B', text: 'Oh, I am so sorry.' },
-      ],
-      questions: [
-        {
-          text: 'Kate is calling from the Alps.',
-          choices: [
-            { text: 'Yes, she is.',                        correct: true  },
-            { text: 'No, she is not.',                     correct: false },
-          ]
-        },
-        {
-          text: 'Kate is on vacation.',
-          choices: [
-            { text: 'No, she is not.',                     correct: false },
-            { text: 'Yes, she is.',                        correct: true  },
-          ]
-        },
-        {
-          text: 'The weather is cold.',
-          choices: [
-            { text: 'Yes, it is.',                         correct: false },
-            { text: 'No, it is warm.',                     correct: true  },
-          ]
-        },
-        {
-          text: 'Kate is skiing.',
-          choices: [
-            { text: 'Yes, she is.',                        correct: false },
-            { text: 'No, she is not skiing.',              correct: true  },
-          ]
-        },
-        {
-          text: 'Kate is having a good time.',
-          choices: [
-            { text: 'Yes, she is.',                        correct: false },
-            { text: 'No, she is having a terrible time.',  correct: true  },
-          ]
-        },
+      text:'Is it hot?',
+      choices:[
+        {text:'Yes.',correct:false},
+        {text:'No.',correct:true}
+      ]
+    },
+    {
+      text:'Is it raining?',
+      choices:[
+        {text:'Yes.',correct:true},
+        {text:'No.',correct:false}
       ]
     }
-  ];
-
-  // Count total questions across all scenes for global progress bar
-  const TOTAL_Q = SCENES.reduce((sum, s) => sum + s.questions.length, 0);
-  let globalQ   = 0;
-
-  let sceneIdx = 0;
-  let qIdx     = 0;
-  let locked   = false;
-
-  const slideImg    = document.getElementById('slideImg');
-  const dialogueBox = document.getElementById('dialogueBox');
-  const counter     = document.getElementById('counter');
-  const qCounter    = document.getElementById('qCounter');
-  const bar         = document.getElementById('bar');
-  const questionText = document.getElementById('questionText');
-  const choicesWrap  = document.getElementById('choicesWrap');
-  const feedback     = document.getElementById('feedback');
-  const nextBtn      = document.getElementById('nextBtn');
-
-  function shuffle(arr) {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+  ]
+},
+{
+  img: 'u6.ski.resort.jpg',
+  lines: [
+    { sp:'A', text:'Hi Mark, this is Kate.' },
+    { sp:'A', text:'I am calling from the Alps.' },
+    { sp:'A', text:'I am on vacation.' },
+    { sp:'B', text:'Is it cold?' },
+    { sp:'A', text:'No, it is warm.' },
+    { sp:'B', text:'Are you skiing?' },
+    { sp:'A', text:'No, I am not skiing.' }
+  ],
+  questions: [
+    {
+      text:'Is Kate on vacation?',
+      choices:[
+        {text:'Yes.',correct:true},
+        {text:'No.',correct:false}
+      ]
+    },
+    {
+      text:'Is it cold?',
+      choices:[
+        {text:'Yes.',correct:false},
+        {text:'No.',correct:true}
+      ]
+    },
+    {
+      text:'Is Kate skiing?',
+      choices:[
+        {text:'Yes.',correct:false},
+        {text:'No.',correct:true}
+      ]
     }
-    return a;
-  }
+  ]
+}
+];
 
-  function loadScene(si) {
-    const s = SCENES[si];
-    counter.textContent = `Diálogo ${si + 1} / ${SCENES.length}`;
+let scene = 0;
+let q = 0;
+let total = SCENES.reduce((a, s) => a + s.questions.length, 0);
+let count = 0;
 
-    slideImg.src = IMG + s.img;
-    slideImg.alt = 'Escena ' + (si + 1);
+const img = document.getElementById('slideImg');
+const box = document.getElementById('dialogueBox');
+const qText = document.getElementById('questionText');
+const wrap = document.getElementById('choicesWrap');
+const fb = document.getElementById('feedback');
+const next = document.getElementById('nextBtn');
+const bar = document.getElementById('bar');
+const counter = document.getElementById('counter');
+const qCounter = document.getElementById('qCounter');
 
-    dialogueBox.innerHTML = '';
-    s.lines.forEach(line => {
-      const div = document.createElement('div');
-      div.className = 'dial-line';
-      div.textContent = line.sp + ': ' + line.text;
-      dialogueBox.appendChild(div);
-    });
+function load() {
+  const s = SCENES[scene];
+  counter.textContent = `Diálogo ${scene + 1}/${SCENES.length}`;
+  img.src = IMG + s.img;
+  img.alt = `Diálogo ${scene + 1}`;
 
-    qIdx = 0;
-    loadQuestion();
-  }
+  box.innerHTML = '';
+  s.lines.forEach(l => {
+    let d = document.createElement('div');
+    d.className = 'dial-line';
+    d.textContent = l.sp + ': ' + l.text;
+    box.appendChild(d);
+  });
 
-  function loadQuestion() {
-    locked = false;
-    feedback.className = 'feedback';
-    feedback.textContent = '';
-    nextBtn.classList.remove('show');
+  const current = s.questions[q];
+  qText.textContent = current.text;
+  qCounter.textContent = `Pregunta ${q + 1}/${s.questions.length}`;
 
-    const s = SCENES[sceneIdx];
-    const q = s.questions[qIdx];
+  wrap.innerHTML = '';
+  current.choices.forEach(c => {
+    let b = document.createElement('button');
+    b.className = 'choice-btn';
+    b.textContent = c.text;
+    b.onclick = () => answer(c.correct);
+    wrap.appendChild(b);
+  });
 
-    qCounter.textContent = `Pregunta ${qIdx + 1} / ${s.questions.length}`;
-    questionText.textContent = q.text;
+  fb.textContent = '';
+  fb.className = 'feedback';
+  next.classList.remove('show');
 
-    // Shuffle choices but remember which is correct
-    const shuffled = shuffle(q.choices);
+  bar.style.width = (count / total * 100) + '%';
+}
 
-    choicesWrap.innerHTML = '';
-    shuffled.forEach((choice) => {
-      const btn = document.createElement('button');
-      btn.className = 'choice-btn';
-      btn.textContent = choice.text;
-      btn.addEventListener('click', () => handleAnswer(btn, choice.correct, shuffled));
-      choicesWrap.appendChild(btn);
-    });
+function answer(correct) {
+  playSfx(correct);
 
-    // Update progress bar
-    bar.style.width = (globalQ / TOTAL_Q * 100) + '%';
-  }
+  const currentChoices = SCENES[scene].questions[q].choices;
+  [...wrap.children].forEach((b, i) => {
+    b.disabled = true;
+    if (currentChoices[i].correct) b.classList.add('correct');
+    else b.classList.add('wrong');
+  });
 
-  function handleAnswer(clickedBtn, isCorrect, shuffled) {
-    if (locked) return;
-    locked = true;
+  fb.textContent = correct ? '✓ ¡Correcto!' : '✗ Incorrecto';
+  fb.className = 'feedback show ' + (correct ? 'ok' : 'err');
 
-    const allBtns = choicesWrap.querySelectorAll('.choice-btn');
+  count++;
+  bar.style.width = (count / total * 100) + '%';
 
-    // Lock and colour all buttons
-    allBtns.forEach((btn, i) => {
-      btn.disabled = true;
-      if (shuffled[i].correct) {
-        btn.classList.add('correct');
-      } else {
-        btn.classList.add('wrong');
+  next.classList.add('show');
+  next.textContent = 'Siguiente →';
+  next.onclick = () => {
+    q++;
+    if (q >= SCENES[scene].questions.length) {
+      scene++;
+      q = 0;
+    }
+
+    if (scene >= SCENES.length) {
+      if (window.va) {
+        window.va('track', 'U6 L2 P2 Finished');
       }
-    });
-
-    // Feedback
-    if (isCorrect) {
-      feedback.textContent = '✓ ¡Correcto!';
-      feedback.className = 'feedback show ok';
+      document.getElementById('mainCard').style.display = 'none';
+      document.getElementById('endScreen').style.display = 'block';
     } else {
-      feedback.textContent = '✗ Incorrecto.';
-      feedback.className = 'feedback show err';
+      load();
     }
+  };
+}
 
-    globalQ++;
-    bar.style.width = (globalQ / TOTAL_Q * 100) + '%';
+load();
 
-    // Determine next label
-    const s = SCENES[sceneIdx];
-    const isLastQ     = qIdx === s.questions.length - 1;
-    const isLastScene = sceneIdx === SCENES.length - 1;
-
-    if (!isLastQ) {
-      nextBtn.textContent = 'Siguiente pregunta →';
-      nextBtn.onclick = () => { qIdx++; loadQuestion(); };
-    } else if (!isLastScene) {
-      nextBtn.textContent = 'Siguiente diálogo →';
-      nextBtn.onclick = () => { sceneIdx++; loadScene(sceneIdx); };
-    } else {
-      nextBtn.textContent = 'Finalizar →';
-      nextBtn.onclick = () => showEnd();
-    }
-
-    nextBtn.classList.add('show');
-  }
-
-  function showEnd() {
-    // ✅ TRACK FINISH
-    if (window.va) {
-      window.va('track', 'U6 L2 P2 Finished');
-    }
-    document.getElementById('mainCard').style.display = 'none';
-    document.getElementById('endScreen').style.display = 'block';
-  }
-
-  // Init
-  loadScene(0);
 })();
 </script>
 </body>

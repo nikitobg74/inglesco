@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 6 • Lección 2 • Parte 4</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <script>
+    if (window.va) {
+      window.va('track', 'U6 L2 P4 Started');
+    }
+  </script>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:'Poppins',sans-serif
+    }
+
+    body{
+      background:linear-gradient(135deg,#dbeafe,#fef9c3);
+      min-height:100vh;
+      padding:16px 12px 80px;
+      color:#111827;
+    }
+
+    .wrap{
+      max-width:700px;
+      margin:0 auto;
+    }
+
+    .back-btn{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:7px 14px;
+      background:#2563eb;
+      color:#fff;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .top-title{
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .subline{
+      text-align:center;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:16px;
+      color:#374151;
+    }
+
+    .progress-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:12px 0 20px 0;
+    }
+
+    .step{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:#d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      text-decoration:none;
+      color:#1f2933;
+      transition:.3s;
+      font-size:15px;
+    }
+
+    .step.active{
+      background:#2563eb;
+      color:#fff;
+    }
+
+    .card{
+      background:rgba(255,255,255,.9);
+      border-radius:18px;
+      padding:20px 18px;
+      box-shadow:0 8px 20px rgba(0,0,0,.08);
+    }
+
+    .counter-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:8px;
+      font-size:13px;
+      font-weight:700;
+      color:#486581;
+    }
+
+    .bar-wrap{
+      background:#e2e8f0;
+      border-radius:999px;
+      height:7px;
+      margin-bottom:20px;
+      overflow:hidden;
+    }
+
+    .bar-fill{
+      height:100%;
+      width:0%;
+      background:#a855f7;
+      border-radius:999px;
+      transition:width .4s;
+    }
+
+    .img-wrap{
+      width:100%;
+      aspect-ratio:16/9;
+      border-radius:14px;
+      overflow:hidden;
+      background:#e2e8f0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:18px;
+    }
+
+    .img-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    .instruction-box{
+      background:#eff6ff;
+      border-radius:14px;
+      padding:14px 16px;
+      margin-bottom:16px;
+      text-align:center;
+    }
+
+    .instruction-box h2{
+      font-size:20px;
+      font-weight:900;
+      color:#1e40af;
+      margin-bottom:4px;
+    }
+
+    .instruction-box p{
+      font-size:14px;
+      font-weight:600;
+      color:#374151;
+      line-height:1.5;
+    }
+
+    .message-box{
+      background:#f8fafc;
+      border-radius:14px;
+      padding:16px;
+      margin-bottom:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .msg-line{
+      font-size:15px;
+      font-weight:600;
+      color:#374151;
+      line-height:1.6;
+    }
+
+    .blank{
+      display:inline-block;
+      min-width:84px;
+      padding:3px 10px;
+      border-radius:10px;
+      background:#e0e7ff;
+      color:#1d4ed8;
+      font-weight:800;
+      text-align:center;
+      border:2px dashed #93c5fd;
+    }
+
+    .blank.active{
+      background:#dbeafe;
+      border-color:#2563eb;
+      color:#1e3a8a;
+    }
+
+    .question-text{
+      font-size:14px;
+      font-weight:800;
+      color:#1e40af;
+      margin-bottom:10px;
+      line-height:1.4;
+    }
+
+    .word-bank{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .word-btn{
+      padding:10px 8px;
+      min-height:46px;
+      background:#0d9488;
+      color:#fff;
+      border:none;
+      border-radius:12px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      transition:background .15s, transform .1s;
+    }
+
+    .word-btn:hover:not(:disabled){
+      background:#0f766e;
+    }
+
+    .word-btn:active:not(:disabled){
+      transform:scale(.98);
+    }
+
+    .word-btn.correct{
+      background:#16a34a;
+    }
+
+    .word-btn.wrong{
+      background:#dc2626;
+    }
+
+    .word-btn.used{
+      background:#94a3b8;
+      cursor:not-allowed;
+    }
+
+    .word-btn:disabled{
+      opacity:.92;
+      cursor:not-allowed;
+    }
+
+    .feedback{
+      font-size:13px;
+      font-weight:700;
+      text-align:center;
+      min-height:20px;
+      margin-bottom:10px;
+      opacity:0;
+      transition:opacity .3s;
+    }
+
+    .feedback.show{
+      opacity:1;
+    }
+
+    .feedback.ok{
+      color:#16a34a;
+    }
+
+    .feedback.err{
+      color:#dc2626;
+    }
+
+    .next-btn{
+      display:block;
+      width:100%;
+      padding:13px;
+      background:#2563eb;
+      color:#fff;
+      border:none;
+      border-radius:14px;
+      font-weight:900;
+      font-size:15px;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .next-btn.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .next-btn:hover{
+      background:#1d4ed8;
+    }
+
+    #endScreen{
+      display:none;
+      text-align:center;
+      background:rgba(255,255,255,.9);
+      border-radius:18px;
+      padding:36px 24px;
+      box-shadow:0 8px 20px rgba(0,0,0,.08);
+    }
+
+    #endScreen h2{
+      font-size:24px;
+      font-weight:900;
+      color:#1e40af;
+      margin-bottom:14px;
+    }
+
+    #endScreen p{
+      font-size:15px;
+      color:#374151;
+      font-weight:600;
+      margin-bottom:24px;
+    }
+
+    #endScreen a{
+      display:inline-block;
+      padding:12px 28px;
+      background:#2563eb;
+      color:white;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:15px;
+    }
+
+    @media (max-width:520px){
+      .word-bank{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+      }
+
+      .msg-line{
+        font-size:14px;
+      }
+
+      .question-text{
+        font-size:14px;
+      }
+
+      .word-btn{
+        font-size:13px;
+        min-height:44px;
+        padding:9px 6px;
+        border-radius:10px;
+      }
+
+      .instruction-box h2{
+        font-size:18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <a href="../index.html" class="back-btn">← Unidad 6</a>
+    <div class="top-title">Unidad 6 • Lección 2 • Parte 4</div>
+    <div class="subline">Build your vacation</div>
+
+    <div class="progress-container">
+      <a class="step" href="p1.html">1</a>
+      <a class="step" href="p2.html">2</a>
+      <a class="step" href="p3.html">3</a>
+      <a class="step active" href="p4.html">4</a>
+      <a class="step" href="p5.html">5</a>
+    </div>
+
+    <div class="card" id="mainCard">
+      <div class="counter-row">
+        <span id="counter">Mensaje 1 / 2</span>
+        <span id="blankCounter">Paso 1 / 4</span>
+      </div>
+
+      <div class="bar-wrap">
+        <div class="bar-fill" id="bar"></div>
+      </div>
+
+      <div class="img-wrap">
+        <img id="sceneImg" src="" alt="Vacation image" />
+      </div>
+
+      <div class="instruction-box">
+        <h2>Planifica tus vacaciones</h2>
+        <p>Escribe un mensaje.</p>
+      </div>
+
+      <div class="message-box" id="messageBox"></div>
+
+      <div class="question-text" id="questionText"></div>
+
+      <div class="word-bank" id="wordBank"></div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <button class="next-btn" id="nextBtn">Siguiente →</button>
+    </div>
+
+    <div id="endScreen">
+      <div style="font-size:52px;margin-bottom:14px">🏖️</div>
+      <h2>¡Muy buen trabajo!</h2>
+      <p>Has completado los dos mensajes.</p>
+      <a href="p5.html">Continuar → Parte 5</a>
+    </div>
+
+  </div>
+
+  <script>
+    (() => {
+      const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+      const IMG   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+      const SFX   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+
+      const sfxCorrect   = new Audio(SFX + 'correct.wav');
+      const sfxIncorrect = new Audio(SFX + 'incorrect.wav');
+      sfxCorrect.load();
+      sfxIncorrect.load();
+
+      function playSfx(isCorrect) {
+        const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+        sfx.currentTime = 0;
+        sfx.play().catch(() => {});
+      }
+
+      const SCENES = [
+        {
+          img: 'u6.paris.vacation.2.jpg',
+          prompt: 'Elige la palabra.',
+          lines: [
+            { type: 'fixed', text: 'Hello Jack.' },
+            { type: 'blank', before: 'I am in ', answer: 'Paris', after: '.' },
+            { type: 'fixed', text: 'I am on vacation.' },
+            { type: 'blank', before: 'The weather is ', answer: 'hot', after: '.' },
+            { type: 'blank', before: 'It is ', answer: 'sunny', after: '.' },
+            { type: 'blank', before: 'I am having a ', answer: 'great', after: ' time.' }
+          ],
+          bank: ['Paris', 'Hawaii', 'hot', 'cold', 'sunny', 'raining', 'great', 'terrible']
+        },
+        {
+          img: 'u6.hawaii.vacation.jpg',
+          prompt: 'Elige la palabra.',
+          lines: [
+            { type: 'fixed', text: 'Hello Jack.' },
+            { type: 'blank', before: 'I am in ', answer: 'Hawaii', after: '.' },
+            { type: 'fixed', text: 'I am on vacation.' },
+            { type: 'blank', before: 'The weather is ', answer: 'hot', after: '.' },
+            { type: 'blank', before: 'It is ', answer: 'sunny', after: '.' },
+            { type: 'blank', before: 'I am having a ', answer: 'great', after: ' time.' }
+          ],
+          bank: ['Hawaii', 'Paris', 'hot', 'cold', 'sunny', 'raining', 'great', 'terrible']
+        }
+      ];
+
+      let sceneIndex = 0;
+      let blankIndex = 0;
+      let totalSteps = SCENES.reduce((sum, scene) => sum + scene.lines.filter(l => l.type === 'blank').length, 0);
+      let completedSteps = 0;
+      let locked = false;
+
+      const sceneImg = document.getElementById('sceneImg');
+      const messageBox = document.getElementById('messageBox');
+      const questionText = document.getElementById('questionText');
+      const wordBank = document.getElementById('wordBank');
+      const feedback = document.getElementById('feedback');
+      const nextBtn = document.getElementById('nextBtn');
+      const counter = document.getElementById('counter');
+      const blankCounter = document.getElementById('blankCounter');
+      const bar = document.getElementById('bar');
+
+      function getBlankLines(scene) {
+        return scene.lines.filter(line => line.type === 'blank');
+      }
+
+      function renderScene() {
+        const scene = SCENES[sceneIndex];
+        const blanks = getBlankLines(scene);
+
+        counter.textContent = `Mensaje ${sceneIndex + 1} / ${SCENES.length}`;
+        blankCounter.textContent = `Paso ${blankIndex + 1} / ${blanks.length}`;
+        questionText.textContent = scene.prompt;
+        sceneImg.src = IMG + scene.img;
+        sceneImg.alt = `Vacation ${sceneIndex + 1}`;
+
+        feedback.textContent = '';
+        feedback.className = 'feedback';
+        nextBtn.classList.remove('show');
+        locked = false;
+
+        renderMessage();
+        renderBank();
+        updateBar();
+      }
+
+      function renderMessage() {
+        const scene = SCENES[sceneIndex];
+        messageBox.innerHTML = '';
+
+        let currentBlankCount = 0;
+
+        scene.lines.forEach(line => {
+          const div = document.createElement('div');
+          div.className = 'msg-line';
+
+          if (line.type === 'fixed') {
+            div.textContent = line.text;
+          } else {
+            const isFilled = currentBlankCount < blankIndex;
+            const isActive = currentBlankCount === blankIndex;
+            const span = document.createElement('span');
+            span.className = 'blank' + (isActive ? ' active' : '');
+            span.textContent = isFilled ? line.answer : '_____';
+
+            div.append(line.before);
+            div.appendChild(span);
+            div.append(line.after);
+
+            currentBlankCount++;
+          }
+
+          messageBox.appendChild(div);
+        });
+      }
+
+      function renderBank() {
+        const scene = SCENES[sceneIndex];
+        const blanks = getBlankLines(scene);
+        const currentAnswer = blanks[blankIndex].answer;
+
+        wordBank.innerHTML = '';
+
+        scene.bank.forEach(word => {
+          const btn = document.createElement('button');
+          btn.className = 'word-btn';
+          btn.textContent = word;
+          btn.addEventListener('click', () => handleWord(btn, word === currentAnswer));
+          wordBank.appendChild(btn);
+        });
+      }
+
+      function handleWord(btn, isCorrect) {
+        if (locked) return;
+        locked = true;
+
+        if (isCorrect) {
+          playSfx(true);
+          btn.classList.add('correct');
+          btn.disabled = true;
+
+          feedback.textContent = '✓ ¡Correcto!';
+          feedback.className = 'feedback show ok';
+
+          blankIndex++;
+          completedSteps++;
+          updateBar();
+
+          if (blankIndex >= getBlankLines(SCENES[sceneIndex]).length) {
+            nextBtn.textContent = sceneIndex < SCENES.length - 1 ? 'Siguiente mensaje →' : 'Terminar →';
+            nextBtn.classList.add('show');
+            nextBtn.onclick = () => {
+              if (sceneIndex < SCENES.length - 1) {
+                sceneIndex++;
+                blankIndex = 0;
+                renderScene();
+              } else {
+                showEnd();
+              }
+            };
+
+            renderMessage();
+          } else {
+            setTimeout(() => {
+              renderMessage();
+              renderBank();
+              blankCounter.textContent = `Paso ${blankIndex + 1} / ${getBlankLines(SCENES[sceneIndex]).length}`;
+              feedback.textContent = '';
+              feedback.className = 'feedback';
+              locked = false;
+            }, 400);
+          }
+        } else {
+          playSfx(false);
+          btn.classList.add('wrong');
+          btn.disabled = true;
+
+          feedback.textContent = '✗ Inténtalo otra vez.';
+          feedback.className = 'feedback show err';
+
+          locked = false;
+        }
+      }
+
+      function updateBar() {
+        bar.style.width = (completedSteps / totalSteps * 100) + '%';
+      }
+
+      function showEnd() {
+        if (window.va) {
+          window.va('track', 'U6 L2 P4 Finished');
+        }
+
+        document.getElementById('mainCard').style.display = 'none';
+        document.getElementById('endScreen').style.display = 'block';
+      }
+
+      renderScene();
+    })();
+  </script>
+</body>
+</html>

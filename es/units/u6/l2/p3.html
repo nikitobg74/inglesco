@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 6 • Lección 2 • Parte 3</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) {
+    window.va('track', 'U6 L2 P3 Started');
+  }
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* ── Main card ──────────────────────────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:20px 18px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.counter-row{
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
+}
+.bar-wrap{
+  background:#e2e8f0;border-radius:999px;height:7px;
+  margin-bottom:20px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;width:0%;background:#a855f7;
+  border-radius:999px;transition:width .5s;
+}
+
+/* ── Image ──────────────────────────────────────────────────────────────────── */
+.img-wrap{
+  width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#e2e8f0;display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ── Voicemail text box ─────────────────────────────────────────────────────── */
+.text-box{
+  background:#f8fafc;border-radius:14px;
+  padding:14px 16px;margin-bottom:18px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.text-line{
+  font-size:15px;font-weight:600;color:#374151;
+  padding-left:10px;line-height:1.6;
+  border-left:3px solid #e2e8f0;
+}
+
+/* ── Play audio button ──────────────────────────────────────────────────────── */
+.main-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px;margin-bottom:18px;
+  border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;transition:background .15s,opacity .2s,transform .1s;
+}
+.main-btn:active{transform:scale(.98)}
+.main-btn.ready   {background:#0d9488;color:white}
+.main-btn.playing {background:#6b7280;color:white;cursor:default}
+.main-btn.repeat  {background:#f0fdfa;color:#0f766e;border:2px solid #0d9488}
+.main-btn.repeat:hover{background:#ccfbf1}
+.main-btn svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+
+/* ── Question section ───────────────────────────────────────────────────────── */
+.q-label{
+  font-size:12px;font-weight:700;color:#a855f7;
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:6px;
+}
+.question-text{
+  font-size:16px;font-weight:900;color:#1e40af;
+  margin-bottom:14px;line-height:1.4;
+  animation:fadeUp .3s ease;
+}
+.choices-wrap{
+  display:flex;flex-direction:column;gap:10px;
+  margin-bottom:14px;
+}
+.choice-btn{
+  width:100%;padding:13px 16px;
+  background:#0d9488;color:white;border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;
+  cursor:pointer;text-align:left;
+  transition:background .15s,transform .1s;
+  animation:fadeUp .3s ease;
+}
+.choice-btn:hover:not(:disabled){background:#0f766e}
+.choice-btn:active:not(:disabled){transform:scale(.98)}
+.choice-btn.correct{background:#16a34a;cursor:not-allowed}
+.choice-btn.wrong  {background:#dc2626;cursor:not-allowed}
+.choice-btn:disabled{opacity:.85;cursor:not-allowed}
+
+/* ── Feedback line ──────────────────────────────────────────────────────────── */
+.feedback{
+  font-size:13px;font-weight:700;text-align:center;
+  min-height:20px;margin-bottom:10px;
+  opacity:0;transition:opacity .3s;
+}
+.feedback.show{opacity:1}
+.feedback.ok  {color:#16a34a}
+.feedback.err {color:#dc2626}
+
+/* ── Next button ────────────────────────────────────────────────────────────── */
+.next-btn{
+  display:block;width:100%;padding:13px;
+  background:#2563eb;color:white;border:none;border-radius:14px;
+  font-family:'Poppins',sans-serif;font-weight:900;font-size:15px;
+  cursor:pointer;transition:background .15s,transform .1s;
+  opacity:0;pointer-events:none;
+}
+.next-btn.show{opacity:1;pointer-events:auto}
+.next-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+
+/* ── End screen ─────────────────────────────────────────────────────────────── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  padding:36px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+  <div class="top-title">Unidad 6 • Lección 2 • Parte 3</div>
+  <div class="subline">Mensajes de voz — I am calling from…</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Main lesson card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row">
+      <span id="counter">Mensaje 1 / 4</span>
+      <span id="qCounter"></span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
+
+    <div class="text-box" id="textBox"></div>
+
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar mensaje
+    </button>
+
+    <div class="q-label" id="qLabel" style="display:none">🧠 Práctica</div>
+    <div class="question-text" id="questionText" style="display:none"></div>
+    <div class="choices-wrap" id="choicesWrap"></div>
+    <div class="feedback" id="feedback"></div>
+
+    <button class="next-btn" id="nextBtn"></button>
+  </div>
+
+</div>
+
+<!-- End screen (outside .wrap) -->
+<div id="endScreen" data-unit="6" data-lesson="2" data-part="3">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Completaste todos los mensajes.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 3.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 4
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 2;
+  const PART   = 3;
+
+  const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+  const IMG   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/';
+  const SFX   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+
+  // Preload SFX
+  const sfxCorrect   = new Audio(SFX + 'correct.wav');
+  const sfxIncorrect = new Audio(SFX + 'incorrect.wav');
+  sfxCorrect.load();
+  sfxIncorrect.load();
+
+  function playSfx(isCorrect) {
+    const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+    sfx.currentTime = 0;
+    sfx.play().catch(() => {});
+  }
+
+  const SLIDES = [
+    {
+      img:   'u6.paris.vacation.jpg',
+      audio: 'u6.paris.vacation.mp3',
+      lines: [
+        'Hi Jack, this is Mary.',
+        'I am calling from Paris.',
+        'I am on vacation.',
+      ],
+      questions: [
+        {
+          text: 'I am ______ from Paris.',
+          choices: [
+            { text: 'calling', correct: true  },
+            { text: 'going',   correct: false },
+          ]
+        },
+        {
+          text: 'Which is correct?',
+          choices: [
+            { text: 'I am on vacation.',  correct: true  },
+            { text: 'I am in vacation.',  correct: false },
+          ]
+        },
+      ]
+    },
+    {
+      img:   'u6.new.york.vacation.jpg',
+      audio: 'u6.new.york.vacation.mp3',
+      lines: [
+        'Hi Jack, this is Tim.',
+        'I am calling from New York.',
+        'I am on vacation.',
+      ],
+      questions: [
+        {
+          text: 'I am ______ from New York.',
+          choices: [
+            { text: 'calling',   correct: true  },
+            { text: 'traveling', correct: false },
+          ]
+        },
+        {
+          text: 'Which is correct?',
+          choices: [
+            { text: 'I am on vacation.',  correct: true  },
+            { text: 'I am at vacation.',  correct: false },
+          ]
+        },
+      ]
+    },
+    {
+      img:   'u6.hawaii.vacation.jpg',
+      audio: 'u6.hawaii.vacation.mp3',
+      lines: [
+        'Hi Jack, this is Brad.',
+        'I am calling from Hawaii.',
+        'I am on vacation.',
+      ],
+      questions: [
+        {
+          text: 'I am calling ______ Hawaii.',
+          choices: [
+            { text: 'from', correct: true  },
+            { text: 'to',   correct: false },
+          ]
+        },
+        {
+          text: 'Which is correct?',
+          choices: [
+            { text: 'I am on vacation.',  correct: true  },
+            { text: 'I am in vacation.',  correct: false },
+          ]
+        },
+      ]
+    },
+    {
+      img:   'u6.egypt.vacation.jpg',
+      audio: 'u6.egypt.vacation.mp3',
+      lines: [
+        'Hi Jack, this is Carla.',
+        'I am calling from Egypt.',
+        'I am on vacation.',
+      ],
+      questions: [
+        {
+          text: 'I am ______ from Egypt.',
+          choices: [
+            { text: 'calling',  correct: true  },
+            { text: 'speaking', correct: false },
+          ]
+        },
+        {
+          text: 'Which is correct?',
+          choices: [
+            { text: 'I am on vacation.',   correct: true  },
+            { text: 'I am for vacation.',  correct: false },
+          ]
+        },
+      ]
+    },
+  ];
+
+  // Total questions for global progress bar
+  const TOTAL_Q = SLIDES.reduce((sum, s) => sum + s.questions.length, 0);
+  let globalQ   = 0;
+
+  let slideIdx = 0;
+  let qIdx     = 0;
+  let locked   = false;
+  let snd      = null;
+  let audioPlayed = false;
+
+  const slideImg    = document.getElementById('slideImg');
+  const textBox     = document.getElementById('textBox');
+  const mainBtn     = document.getElementById('mainBtn');
+  const counter     = document.getElementById('counter');
+  const qCounter    = document.getElementById('qCounter');
+  const bar         = document.getElementById('bar');
+  const qLabel      = document.getElementById('qLabel');
+  const questionText = document.getElementById('questionText');
+  const choicesWrap  = document.getElementById('choicesWrap');
+  const feedback     = document.getElementById('feedback');
+  const nextBtn      = document.getElementById('nextBtn');
+
+  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function loadSlide(si) {
+    stopSnd();
+    audioPlayed = false;
+    locked      = false;
+    qIdx        = 0;
+
+    const s = SLIDES[si];
+    counter.textContent = `Mensaje ${si + 1} / ${SLIDES.length}`;
+    qCounter.textContent = '';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.lines[0];
+
+    // Build text lines
+    textBox.innerHTML = '';
+    s.lines.forEach(line => {
+      const div = document.createElement('div');
+      div.className = 'text-line';
+      div.textContent = line;
+      textBox.appendChild(div);
+    });
+
+    // Reset question area
+    qLabel.style.display = 'none';
+    questionText.style.display = 'none';
+    questionText.textContent = '';
+    choicesWrap.innerHTML = '';
+    feedback.className = 'feedback';
+    feedback.textContent = '';
+    nextBtn.classList.remove('show');
+
+    setBtn('ready');
+    bar.style.width = (globalQ / TOTAL_Q * 100) + '%';
+  }
+
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    if (state === 'ready')   { mainBtn.innerHTML = ICON + ' Escuchar mensaje'; mainBtn.disabled = false; }
+    if (state === 'playing') { mainBtn.innerHTML = ICON + ' Escuchando…';      mainBtn.disabled = true;  }
+    if (state === 'repeat')  { mainBtn.innerHTML = ICON + ' Repetir';          mainBtn.disabled = false; }
+  }
+
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+  }
+
+  function handlePlay() {
+    stopSnd();
+    setBtn('playing');
+
+    snd = new Audio(AUDIO + SLIDES[slideIdx].audio);
+    snd.play().catch(() => {});
+
+    snd.onended = () => {
+      setBtn('repeat');
+      if (!audioPlayed) {
+        audioPlayed = true;
+        // Show first question after first play
+        showQuestion();
+      }
+    };
+
+    snd.onerror = () => {
+      setBtn('repeat');
+      if (!audioPlayed) {
+        audioPlayed = true;
+        showQuestion();
+      }
+    };
+  }
+
+  window.handlePlay = handlePlay;
+
+  function showQuestion() {
+    locked = false;
+    feedback.className = 'feedback';
+    feedback.textContent = '';
+    nextBtn.classList.remove('show');
+
+    const s = SLIDES[slideIdx];
+    const q = s.questions[qIdx];
+
+    qLabel.style.display = 'block';
+    questionText.style.display = 'block';
+    questionText.textContent = q.text;
+    qCounter.textContent = `Pregunta ${qIdx + 1} / ${s.questions.length}`;
+
+    const shuffled = shuffle(q.choices);
+    choicesWrap.innerHTML = '';
+    shuffled.forEach(choice => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.textContent = choice.text;
+      btn.addEventListener('click', () => handleAnswer(btn, choice.correct, shuffled));
+      choicesWrap.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(clickedBtn, isCorrect, shuffled) {
+    if (locked) return;
+    locked = true;
+
+    playSfx(isCorrect);
+
+    const allBtns = choicesWrap.querySelectorAll('.choice-btn');
+    allBtns.forEach((btn, i) => {
+      btn.disabled = true;
+      if (shuffled[i].correct) {
+        btn.classList.add('correct');
+      } else {
+        btn.classList.add('wrong');
+      }
+    });
+
+    if (isCorrect) {
+      feedback.textContent = '✓ ¡Correcto!';
+      feedback.className = 'feedback show ok';
+    } else {
+      feedback.textContent = '✗ Incorrecto.';
+      feedback.className = 'feedback show err';
+    }
+
+    globalQ++;
+    bar.style.width = (globalQ / TOTAL_Q * 100) + '%';
+
+    const s = SLIDES[slideIdx];
+    const isLastQ     = qIdx === s.questions.length - 1;
+    const isLastSlide = slideIdx === SLIDES.length - 1;
+
+    if (!isLastQ) {
+      nextBtn.textContent = 'Siguiente pregunta →';
+      nextBtn.onclick = () => { qIdx++; showQuestion(); };
+    } else if (!isLastSlide) {
+      nextBtn.textContent = 'Siguiente mensaje →';
+      nextBtn.onclick = () => { slideIdx++; loadSlide(slideIdx); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => showEnd();
+    }
+
+    nextBtn.classList.add('show');
+  }
+
+  function showEnd() {
+    // ✅ TRACK FINISH
+    if (window.va) {
+      window.va('track', 'U6 L2 P3 Finished');
+    }
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  // Init
+  loadSlide(0);
+})();
+</script>
+</body>
+</html>
