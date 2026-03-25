@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 3 • Parte 4</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- ✅ Vercel Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) { window.va('track', 'U6 L3 P4 Started'); }
+</script>
+
+<style>
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+/* ── Body / Background ───────────────────────────────────────────────────── */
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+/* ── Page wrapper ────────────────────────────────────────────────────────── */
+.wrap { max-width: 700px; margin: 0 auto; }
+
+/* ── Back button — outside .wrap, truly centered ─────────────────────────── */
+.back-wrap {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.back-btn {
+  display: inline-block;
+  padding: 11px 24px;
+  background: #2563eb;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  min-width: 130px;
+  transition: background .15s, transform .1s;
+}
+.back-btn:hover  { background: #1e40af; }
+.back-btn:active { transform: scale(.97); }
+
+/* ── Page title & subtitle ───────────────────────────────────────────────── */
+.top-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 4px;
+  color: #111827;
+}
+.subline {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #374151;
+}
+
+/* ── Progress dots ───────────────────────────────────────────────────────── */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0 20px 0;
+}
+.step {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px;
+  text-decoration: none;
+  color: #1f2933;
+  transition: background .3s, color .3s;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step:hover:not(.active) { background: #93c5fd; }
+
+/* ── Main card ───────────────────────────────────────────────────────────── */
+.card {
+  background: rgba(255, 255, 255, .88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+/* ── Progress bar ────────────────────────────────────────────────────────── */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+.bar-wrap {
+  background: #e2e8f0; border-radius: 999px;
+  height: 7px; margin-bottom: 20px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; width: 0%;
+  background: #a855f7;
+  border-radius: 999px;
+  transition: width .5s;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ── Forecast lines ──────────────────────────────────────────────────────── */
+.dialogue-box {
+  background: #f8fafc; border-radius: 14px;
+  padding: 14px 16px; margin-bottom: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.dial-line {
+  font-size: 14px; font-weight: 600; color: #94a3b8;
+  border-left: 3px solid transparent;
+  padding-left: 10px; line-height: 1.6;
+  transition: color .25s, border-color .25s, font-weight .2s;
+}
+.dial-line.highlight {
+  color: #1e40af; font-weight: 700;
+  border-left-color: #fbbf24;
+}
+
+/* ── Play / Repeat button ────────────────────────────────────────────────── */
+.main-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px; margin-bottom: 14px;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, opacity .2s, transform .1s;
+}
+.main-btn:active { transform: scale(.98); }
+.main-btn.ready   { background: #0d9488; color: white; }
+.main-btn.playing { background: #6b7280; color: white; cursor: default; }
+.main-btn.repeat  { background: #f0fdfa; color: #0f766e; border: 2px solid #0d9488; }
+.main-btn.repeat:hover { background: #ccfbf1; }
+.main-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+/* ── Question panel ──────────────────────────────────────────────────────── */
+.question-panel {
+  display: none; flex-direction: column; gap: 10px;
+  margin-bottom: 14px;
+  animation: fadeUp .35s ease;
+}
+.question-panel.visible { display: flex; }
+
+/* ── Question step indicator ─────────────────────────────────────────────── */
+.q-label {
+  font-size: 11px; font-weight: 700; color: #a855f7;
+  text-transform: uppercase; letter-spacing: .08em;
+  text-align: center; margin-bottom: 2px;
+}
+.question-text {
+  font-size: 15px; font-weight: 900; color: #1e40af;
+  text-align: center; margin-bottom: 4px;
+}
+.choice-btn {
+  width: 100%; padding: 13px 16px;
+  background: #0d9488; color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer; text-align: left;
+  transition: background .15s, transform .1s;
+}
+.choice-btn:hover { background: #0f766e; }
+.choice-btn:active { transform: scale(.98); }
+.choice-btn.correct { background: #16a34a; }
+.choice-btn.wrong   { background: #dc2626; }
+.choice-btn:disabled { cursor: not-allowed; opacity: .75; }
+
+/* ── Next button ─────────────────────────────────────────────────────────── */
+.next-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  opacity: 0; pointer-events: none;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+.next-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen {
+  display: none; text-align: center;
+  background: rgba(255, 255, 255, .88);
+  border-radius: 18px; padding: 36px 24px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+/* ── Animation ───────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- ✅ Back button — outside .wrap, truly centered -->
+<div class="back-wrap">
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+</div>
+
+<div class="wrap">
+
+  <div class="top-title">Unidad 6 • Lección 3 • Parte 4</div>
+  <div class="subline">Weather Forecast — Pronóstico del clima</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Main lesson card -->
+  <div class="card" id="mainCard">
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+      <span id="cityLabel" style="color:#2563eb;font-weight:900"></span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap"><img id="slideImg" src="" alt="" /></div>
+
+    <div class="dialogue-box" id="dialogueBox"></div>
+
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Listen to Forecast
+    </button>
+
+    <!-- Question panel — shared, reused for Q1 and Q2 -->
+    <div class="question-panel" id="questionPanel">
+      <div class="q-label" id="qLabel">Question 1 of 2</div>
+      <div class="question-text" id="questionText"></div>
+      <button class="choice-btn" id="choiceA" onclick="checkAnswer(0)"></button>
+      <button class="choice-btn" id="choiceB" onclick="checkAnswer(1)"></button>
+    </div>
+
+    <button class="next-btn" id="nextBtn"></button>
+  </div>
+
+</div><!-- end .wrap -->
+
+<!-- End screen -->
+<div id="endScreen" data-unit="6" data-lesson="3" data-part="4">
+  <div style="font-size:52px;margin-bottom:16px">🌍</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">Great job!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">You listened and understood the weather forecasts.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">You completed Part 4.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p5.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continue → Part 5
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 3;
+  const PART   = 4;
+
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const AUDIO = BASE + 'audio/u6/';
+  const IMG   = BASE + 'images/u6/';
+  const SFX   = AUDIO;
+
+  // ── Preload SFX ────────────────────────────────────────────────────────────
+  const sfxCorrect   = new Audio(SFX + 'correct.wav');
+  const sfxIncorrect = new Audio(SFX + 'incorrect.wav');
+  sfxCorrect.load();
+  sfxIncorrect.load();
+  function playSfx(isCorrect) {
+    const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+    sfx.currentTime = 0;
+    sfx.play().catch(() => {});
+  }
+
+  // ── Scenes — 2 questions each ───────────────────────────────────────────
+  const SCENES = [
+    {
+      city:  'Seattle',
+      img:   'u6.temp.weather.jpg',
+      audio: 'u6.seattle.weather.mp3',
+      lines: [
+        { text: 'Seattle Weather Forecast' },
+        { text: 'Today, the weather is warm and sunny.' },
+        { text: 'The temperature is 19 degrees.' },
+      ],
+      questions: [
+        {
+          text: 'How is the weather in Seattle?',
+          choices: [
+            { text: 'A.  It is warm.',  correct: true  },
+            { text: 'B.  It is cold.',  correct: false },
+          ]
+        },
+        {
+          text: 'What is the temperature?',
+          choices: [
+            { text: 'A.  It is 19 degrees.',  correct: true  },
+            { text: 'B.  It is 12 degrees.',  correct: false },
+          ]
+        }
+      ]
+    },
+    {
+      city:  'London',
+      img:   'u6.temp.london.jpg',
+      audio: 'u6.london.weather.mp3',
+      lines: [
+        { text: 'London Weather Forecast' },
+        { text: 'Today, the weather is cool.' },
+        { text: 'The temperature is 12 degrees.' },
+      ],
+      questions: [
+        {
+          text: 'How is the weather in London?',
+          choices: [
+            { text: 'A.  It is cool.',  correct: true  },
+            { text: 'B.  It is warm.',  correct: false },
+          ]
+        },
+        {
+          text: 'What is the temperature?',
+          choices: [
+            { text: 'A.  It is 12 degrees.',  correct: true  },
+            { text: 'B.  It is 19 degrees.',  correct: false },
+          ]
+        }
+      ]
+    },
+    {
+      city:  'Miami',
+      img:   'u6.temp.miami.jpg',
+      audio: 'u6.miami.weather.mp3',
+      lines: [
+        { text: 'Miami Weather Forecast' },
+        { text: 'Today, the weather is very hot.' },
+        { text: 'The temperature is 33 degrees.' },
+      ],
+      questions: [
+        {
+          text: 'How is the weather in Miami?',
+          choices: [
+            { text: 'A.  It is hot.',   correct: true  },
+            { text: 'B.  It is cold.',  correct: false },
+          ]
+        },
+        {
+          text: 'What is the temperature?',
+          choices: [
+            { text: 'A.  It is 33 degrees.',  correct: true  },
+            { text: 'B.  It is 5 degrees.',   correct: false },
+          ]
+        }
+      ]
+    },
+    {
+      city:  'Moscow',
+      img:   'u6.temp.moscow.jpg',
+      audio: 'u6.moscow.weather.mp3',
+      lines: [
+        { text: 'Moscow Weather Forecast' },
+        { text: 'Today, the weather is cold and cloudy.' },
+        { text: 'The temperature is 1 degree.' },
+      ],
+      questions: [
+        {
+          text: 'How is the weather in Moscow?',
+          choices: [
+            { text: 'A.  It is cold.',  correct: true  },
+            { text: 'B.  It is warm.',  correct: false },
+          ]
+        },
+        {
+          text: 'What is the temperature?',
+          choices: [
+            { text: 'A.  It is 1 degree.',   correct: true  },
+            { text: 'B.  It is 10 degrees.', correct: false },
+          ]
+        }
+      ]
+    }
+  ];
+
+  // ── State ───────────────────────────────────────────────────────────────
+  const TOTAL = SCENES.length;
+  let current   = 0;
+  let qIndex    = 0;   // 0 = first question, 1 = second question
+  let playing   = false;
+  let answered  = false;
+  let snd       = null;
+
+  // ── DOM refs ────────────────────────────────────────────────────────────
+  const slideImg      = document.getElementById('slideImg');
+  const dialogueBox   = document.getElementById('dialogueBox');
+  const mainBtn       = document.getElementById('mainBtn');
+  const nextBtn       = document.getElementById('nextBtn');
+  const counter       = document.getElementById('counter');
+  const cityLabel     = document.getElementById('cityLabel');
+  const bar           = document.getElementById('bar');
+  const questionPanel = document.getElementById('questionPanel');
+  const qLabel        = document.getElementById('qLabel');
+  const questionText  = document.getElementById('questionText');
+  const choiceA       = document.getElementById('choiceA');
+  const choiceB       = document.getElementById('choiceB');
+
+  const ICON_PLAY   = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+  const ICON_REPEAT = `<svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>`;
+
+  // ── Load scene ──────────────────────────────────────────────────────────
+  function loadScene(idx) {
+    stopSnd();
+    playing  = false;
+    answered = false;
+    qIndex   = 0;
+
+    const s = SCENES[idx];
+
+    counter.textContent  = `${idx + 1} / ${TOTAL}`;
+    cityLabel.textContent = s.city;
+    bar.style.width = ((idx + 1) / TOTAL * 100) + '%';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.city + ' weather';
+
+    // Build forecast lines
+    dialogueBox.innerHTML = '';
+    s.lines.forEach((line, i) => {
+      const div = document.createElement('div');
+      div.className = 'dial-line';
+      div.id = 'line-' + i;
+      div.textContent = line.text;
+      dialogueBox.appendChild(div);
+    });
+
+    // Hide question panel and next btn
+    questionPanel.classList.remove('visible');
+    nextBtn.classList.remove('show');
+
+    setBtn('ready');
+  }
+
+  // ── Load a specific question (q = 0 or 1) ───────────────────────────────
+  function loadQuestion(q) {
+    answered = false;
+    const s = SCENES[current];
+    const question = s.questions[q];
+
+    qLabel.textContent   = `Question ${q + 1} of 2`;
+    questionText.textContent = question.text;
+    choiceA.textContent  = question.choices[0].text;
+    choiceB.textContent  = question.choices[1].text;
+    choiceA.className    = 'choice-btn';
+    choiceB.className    = 'choice-btn';
+    choiceA.disabled     = false;
+    choiceB.disabled     = false;
+    nextBtn.classList.remove('show');
+
+    questionPanel.classList.remove('visible');
+    // Small delay so fadeUp animation re-triggers
+    setTimeout(() => questionPanel.classList.add('visible'), 30);
+  }
+
+  // ── Button state ─────────────────────────────────────────────────────────
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    if (state === 'ready')   { mainBtn.innerHTML = ICON_PLAY + ' Listen to Forecast'; mainBtn.disabled = false; }
+    if (state === 'playing') { mainBtn.innerHTML = ICON_PLAY + ' Listening…';          mainBtn.disabled = true;  }
+    if (state === 'repeat')  { mainBtn.innerHTML = ICON_REPEAT + ' Repeat';            mainBtn.disabled = false; }
+  }
+
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+  }
+
+  // ── Play audio ────────────────────────────────────────────────────────────
+  function handlePlay() {
+    if (playing) return;
+    playing = true;
+    setBtn('playing');
+    questionPanel.classList.remove('visible');
+    nextBtn.classList.remove('show');
+
+    document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+
+    const s = SCENES[current];
+    let timers = [];
+
+    snd = new Audio(AUDIO + s.audio);
+
+    snd.addEventListener('loadedmetadata', () => {
+      timers.forEach(t => clearTimeout(t));
+      timers = [];
+      const interval = (snd.duration * 1000) / s.lines.length;
+      s.lines.forEach((_, i) => {
+        const t = setTimeout(() => {
+          document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+          const el = document.getElementById('line-' + i);
+          if (el) el.classList.add('highlight');
+        }, i * interval);
+        timers.push(t);
+      });
+    });
+
+    // Fallback highlight
+    s.lines.forEach((_, i) => {
+      const t = setTimeout(() => {
+        document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+        const el = document.getElementById('line-' + i);
+        if (el) el.classList.add('highlight');
+      }, i * 1800);
+      timers.push(t);
+    });
+
+    snd.play().catch(() => {});
+
+    snd.onended = () => {
+      timers.forEach(t => clearTimeout(t));
+      document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+      playing = false;
+      setBtn('repeat');
+      // Show first question
+      qIndex = 0;
+      loadQuestion(0);
+    };
+
+    snd.onerror = () => {
+      timers.forEach(t => clearTimeout(t));
+      playing = false;
+      setBtn('repeat');
+      qIndex = 0;
+      loadQuestion(0);
+    };
+  }
+
+  window.handlePlay = handlePlay;
+
+  // ── Check answer ──────────────────────────────────────────────────────────
+  function checkAnswer(index) {
+    if (answered) return;
+    const s = SCENES[current];
+    const choice = s.questions[qIndex].choices[index];
+    const btn = index === 0 ? choiceA : choiceB;
+
+    playSfx(choice.correct);
+
+    if (choice.correct) {
+      answered = true;
+      btn.classList.add('correct');
+      choiceA.disabled = true;
+      choiceB.disabled = true;
+
+      if (qIndex === 0) {
+        // First question correct → load second question after short pause
+        setTimeout(() => {
+          qIndex = 1;
+          loadQuestion(1);
+        }, 600);
+      } else {
+        // Second question correct → show next/finish button
+        nextBtn.classList.add('show');
+        if (current < TOTAL - 1) {
+          nextBtn.textContent = 'Next City →';
+          nextBtn.onclick = () => { stopSnd(); current++; loadScene(current); };
+        } else {
+          nextBtn.textContent = 'Finish →';
+          nextBtn.onclick = () => { stopSnd(); showEnd(); };
+        }
+      }
+    } else {
+      btn.classList.add('wrong');
+      setTimeout(() => { btn.classList.remove('wrong'); }, 700);
+    }
+  }
+
+  window.checkAnswer = checkAnswer;
+
+  // ── End screen ────────────────────────────────────────────────────────────
+  function showEnd() {
+    if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  loadScene(0);
+})();
+</script>
+</body>
+</html>
