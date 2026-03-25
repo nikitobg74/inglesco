@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 - Lección 3 - Parte 2</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+      background:linear-gradient(135deg,#dbeafe,#fef9c3);
+      min-height:100vh;
+      padding:16px 12px 80px;
+      color:#111827;
+    }
+
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 15px;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.back-btn:hover { background: #1e40af; }
+
+.unit-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+/* Progress */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+.step {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.step.active {
+  background: #2563eb;
+  color: white;
+}
+.step:hover { transform: scale(1.1); }
+
+.exercise-box {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* ── Vocab Word Bank ── */
+.vocab-bank {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.vocab-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  padding: 14px 10px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  user-select: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.vocab-card:hover { transform: scale(1.06); box-shadow: 0 6px 14px rgba(0,0,0,0.2); }
+.vocab-card:active { transform: scale(0.97); }
+
+.vocab-number {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+.vocab-word {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 5px;
+  color: white;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+.vocab-card.playing {
+  outline: 3px solid rgba(255,255,255,0.8);
+  transform: scale(1.08);
+}
+
+/* ── Slide layout ── */
+.slide-area {
+  display: none;
+}
+.slide-area.active {
+  display: block;
+}
+
+.slide-inner {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.slide-image-wrap {
+  flex: 0 0 auto;
+  width: 280px;
+}
+.slide-image-wrap img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+  height: auto;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.slide-right {
+  flex: 1;
+  min-width: 0;
+}
+
+.dialogue-box {
+  background: #f0f9ff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.dialogue-line {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+.dialogue-line:last-child { margin-bottom: 0; }
+
+.speaker-label {
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 22px;
+  padding-top: 1px;
+}
+.speaker-label.A { color: #2563eb; }
+.speaker-label.B { color: #0d9488; }
+
+.dialogue-text {
+  font-size: 14px;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+/* highlight current line during playback */
+.dialogue-line.highlight .dialogue-text {
+  background: #fef08a;
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+/* play button */
+.play-audio-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 18px;
+}
+.play-audio-btn:hover { background: #1e40af; }
+.play-audio-btn:disabled { background: #93c5fd; cursor: default; }
+.play-audio-btn .play-icon { font-size: 20px; }
+
+/* ── Question panel (shown after audio) ── */
+.question-panel {
+  display: none;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-radius: 12px;
+  padding: 18px 20px;
+  animation: fadeIn 0.4s ease;
+}
+.question-panel.visible { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.question-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #166534;
+  margin-bottom: 14px;
+}
+
+.answer-prompt {
+  font-size: 15px;
+  color: #374151;
+  margin-bottom: 14px;
+}
+.answer-prompt span {
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.number-choices {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.choice-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.choice-btn:hover { transform: scale(1.06); box-shadow: 0 5px 12px rgba(0,0,0,0.2); }
+.choice-btn.correct-choice {
+  background: #16a34a !important;
+}
+.choice-btn.wrong-choice {
+  animation: shake 0.3s;
+  border: 3px solid #dc2626;
+}
+.choice-btn:disabled { cursor: default; }
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-5px); }
+  50%  { transform: translateX(5px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+#feedback {
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 17px;
+  min-height: 26px;
+}
+
+/* next slide / finish btn */
+.next-btn {
+  margin: 22px auto 0 auto;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+}
+.next-btn:hover { background: #1e40af; }
+
+/* end screen */
+.end-screen {
+  text-align: center;
+}
+.end-screen h2 {
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+.end-screen p {
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+/* mobile */
+@media (max-width: 700px) {
+  .slide-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+  .slide-image-wrap {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 6</a>
+
+<div class="unit-title">Lección 3 - Parte 2</div>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step active" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+  <div class="step" data-page="p5.html">5</div>
+</div>
+
+<!-- MAIN CARD -->
+<div class="exercise-box" id="mainCard">
+
+  <!-- Vocab Word Bank -->
+  <div class="vocab-bank">
+    <div class="vocab-card" style="background:#f97316;" data-audio="u6.eleven.mp3" id="vocab-11">
+      <div class="vocab-number">11</div>
+      <div class="vocab-word">eleven</div>
+    </div>
+    <div class="vocab-card" style="background:#8b5cf6;" data-audio="u6.twelve.mp3" id="vocab-12">
+      <div class="vocab-number">12</div>
+      <div class="vocab-word">twelve</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 1 -->
+  <div class="slide-area active" id="slide-1">
+    <div class="slide-inner">
+      <div class="slide-image-wrap">
+        <img
+          src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/u6.shower.room.11.jpg"
+          alt="Hotel shower room 11"
+        />
+      </div>
+      <div class="slide-right">
+        <button class="play-audio-btn" id="playBtn1">
+          <span class="play-icon">🔊</span> Escuchar conversación
+        </button>
+
+        <div class="dialogue-box" id="dialogue1">
+          <div class="dialogue-line" data-line="0">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">Hotel Paradise, room service.</span>
+          </div>
+          <div class="dialogue-line" data-line="1">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">Hello.</span>
+          </div>
+          <div class="dialogue-line" data-line="2">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">The shower is not working.</span>
+          </div>
+          <div class="dialogue-line" data-line="3">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">Oh, I am sorry.</span>
+          </div>
+          <div class="dialogue-line" data-line="4">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">What is your room number?</span>
+          </div>
+          <div class="dialogue-line" data-line="5">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">Room eleven.</span>
+          </div>
+          <div class="dialogue-line" data-line="6">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">The repairman is coming.</span>
+          </div>
+        </div>
+
+        <!-- Question panel (hidden until audio ends) -->
+        <div class="question-panel" id="qPanel1">
+          <div class="question-text">❓ What is the room number?</div>
+          <div class="answer-prompt">Room _____ &nbsp; <span>11 / 12</span></div>
+          <div class="number-choices">
+            <button class="choice-btn" style="background:#f97316;" data-correct="true" data-slide="1">11</button>
+            <button class="choice-btn" style="background:#8b5cf6;" data-correct="false" data-slide="1">12</button>
+          </div>
+          <div id="feedback1" class="feedback-msg"></div>
+        </div>
+
+        <button class="next-btn" id="nextBtn1">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide-area" id="slide-2">
+    <div class="slide-inner">
+      <div class="slide-image-wrap">
+        <img
+          src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/u6.TV.room.12.jpg"
+          alt="Hotel TV room 12"
+        />
+      </div>
+      <div class="slide-right">
+        <button class="play-audio-btn" id="playBtn2">
+          <span class="play-icon">🔊</span> Escuchar conversación
+        </button>
+
+        <div class="dialogue-box" id="dialogue2">
+          <div class="dialogue-line" data-line="0">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">Hotel Paradise, room service.</span>
+          </div>
+          <div class="dialogue-line" data-line="1">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">Hello.</span>
+          </div>
+          <div class="dialogue-line" data-line="2">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">The TV is not working.</span>
+          </div>
+          <div class="dialogue-line" data-line="3">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">Oh, I am sorry.</span>
+          </div>
+          <div class="dialogue-line" data-line="4">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">What is your room number?</span>
+          </div>
+          <div class="dialogue-line" data-line="5">
+            <span class="speaker-label A">A:</span>
+            <span class="dialogue-text">Room twelve.</span>
+          </div>
+          <div class="dialogue-line" data-line="6">
+            <span class="speaker-label B">B:</span>
+            <span class="dialogue-text">The repairman is coming.</span>
+          </div>
+        </div>
+
+        <!-- Question panel -->
+        <div class="question-panel" id="qPanel2">
+          <div class="question-text">❓ What is the room number?</div>
+          <div class="answer-prompt">Room _____ &nbsp; <span>11 / 12</span></div>
+          <div class="number-choices">
+            <button class="choice-btn" style="background:#f97316;" data-correct="false" data-slide="2">11</button>
+            <button class="choice-btn" style="background:#8b5cf6;" data-correct="true" data-slide="2">12</button>
+          </div>
+          <div id="feedback2" class="feedback-msg"></div>
+        </div>
+
+        <button class="next-btn" id="nextBtn2" style="display:none;">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /mainCard -->
+
+<!-- END SCREEN -->
+<div class="exercise-box end-screen" id="endScreen" style="display:none;">
+  <h2>¡Muy buen trabajo!</h2>
+  <p>Ya conoces los números once y doce. ¡Sigamos!</p>
+  <button class="next-btn" id="goNextBtn" style="display:block;">Ir a Parte 3</button>
+</div>
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+if (window.va) window.va('track', 'U6 L3 P2 Started');
+</script>
+
+<script>
+/* ── PATHS ── */
+const AUDIO_BASE = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+
+/* ── SFX ── */
+const sfxCorrect   = new Audio(AUDIO_BASE + 'correct.wav');
+const sfxIncorrect = new Audio(AUDIO_BASE + 'incorrect.wav');
+sfxCorrect.load();
+sfxIncorrect.load();
+
+function playSfx(ok) {
+  const sfx = ok ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(() => {});
+}
+
+/* ── PRAISE ── */
+const praise = ['¡Excelente!', '¡Muy bien!', '¡Bien hecho!'];
+function randomPraise() { return praise[Math.floor(Math.random() * praise.length)]; }
+
+/* ── VOCAB WORD BANK AUDIO ── */
+document.querySelectorAll('.vocab-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const audio = new Audio(AUDIO_BASE + card.dataset.audio);
+    card.classList.add('playing');
+    audio.play().catch(() => {});
+    audio.addEventListener('ended', () => card.classList.remove('playing'));
+  });
+});
+
+/* ── SLIDE STATE ── */
+let currentSlide = 1;
+
+/* ─────────────────────────────────────────
+   SLIDE CONTROLLER
+   ───────────────────────────────────────── */
+function setupSlide(slideNum, audioFile) {
+  const playBtn   = document.getElementById('playBtn' + slideNum);
+  const qPanel    = document.getElementById('qPanel'  + slideNum);
+  const feedback  = document.getElementById('feedback'+ slideNum);
+  const nextBtn   = document.getElementById('nextBtn' + slideNum);
+  const dialogue  = document.getElementById('dialogue'+ slideNum);
+  const lines     = dialogue.querySelectorAll('.dialogue-line');
+
+  let audio = null;
+  let answered = false;
+
+  playBtn.addEventListener('click', () => {
+    if (audio) { audio.pause(); audio.currentTime = 0; }
+
+    playBtn.disabled = true;
+    playBtn.innerHTML = '<span class="play-icon">⏸</span> Reproduciendo...';
+
+    audio = new Audio(AUDIO_BASE + audioFile);
+
+    /* ── simple sequential line highlight ── */
+    const totalLines = lines.length;
+    audio.addEventListener('loadedmetadata', () => {
+      const dur = audio.duration;
+      const interval = dur / totalLines;
+
+      let idx = 0;
+      const timer = setInterval(() => {
+        lines.forEach(l => l.classList.remove('highlight'));
+        if (idx < totalLines) {
+          lines[idx].classList.add('highlight');
+          idx++;
+        } else {
+          clearInterval(timer);
+        }
+      }, interval * 1000);
+
+      audio.addEventListener('ended', () => {
+        clearInterval(timer);
+        lines.forEach(l => l.classList.remove('highlight'));
+        playBtn.disabled = false;
+        playBtn.innerHTML = '<span class="play-icon">🔊</span> Escuchar otra vez';
+        /* show question */
+        qPanel.classList.add('visible');
+      });
+    });
+
+    /* fallback: if metadata doesn't load, still show question on end */
+    audio.addEventListener('ended', () => {
+      playBtn.disabled = false;
+      playBtn.innerHTML = '<span class="play-icon">🔊</span> Escuchar otra vez';
+      qPanel.classList.add('visible');
+    });
+
+    audio.play().catch(() => {
+      playBtn.disabled = false;
+      playBtn.innerHTML = '<span class="play-icon">🔊</span> Escuchar conversación';
+    });
+  });
+
+  /* ── CHOICE BUTTONS ── */
+  const choices = qPanel.querySelectorAll('.choice-btn');
+  choices.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (answered) return;
+
+      const isCorrect = btn.dataset.correct === 'true';
+      if (isCorrect) {
+        playSfx(true);
+        btn.classList.add('correct-choice');
+        choices.forEach(b => b.disabled = true);
+        feedback.textContent = randomPraise();
+        feedback.style.color = '#16a34a';
+        answered = true;
+        nextBtn.style.display = 'block';
+      } else {
+        playSfx(false);
+        btn.classList.add('wrong-choice');
+        feedback.textContent = '❌ Intenta otra vez';
+        feedback.style.color = '#dc2626';
+        setTimeout(() => btn.classList.remove('wrong-choice'), 350);
+      }
+    });
+  });
+
+  /* ── NEXT BUTTON ── */
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (slideNum < 2) {
+        /* go to next slide */
+        document.getElementById('slide-' + slideNum).classList.remove('active');
+        document.getElementById('slide-' + (slideNum + 1)).classList.add('active');
+        currentSlide = slideNum + 1;
+      } else {
+        /* finished all slides */
+        if (window.va) window.va('track', 'U6 L3 P2 Finished');
+        document.getElementById('mainCard').style.display = 'none';
+        document.getElementById('endScreen').style.display = 'block';
+      }
+    });
+  }
+}
+
+/* ── INIT SLIDES ── */
+setupSlide(1, 'u6.shower.not.working.mp3');
+setupSlide(2, 'u6.tv.not.working.mp3');
+
+/* ── PROGRESS STEPS NAV ── */
+document.querySelectorAll('.step').forEach(step => {
+  step.addEventListener('click', () => {
+    const page = step.dataset.page;
+    if (page) window.location.href = page;
+  });
+});
+
+/* ── END SCREEN NEXT ── */
+document.getElementById('goNextBtn').addEventListener('click', () => {
+  window.location.href = 'p3.html';
+});
+</script>
+</body>
+</html>

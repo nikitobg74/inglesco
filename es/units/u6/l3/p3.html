@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 - Lección 3 - Parte 3</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 15px;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.back-btn:hover { background: #1e40af; }
+
+.unit-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+/* Progress */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+.step {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.step.active {
+  background: #2563eb;
+  color: white;
+}
+.step:hover { transform: scale(1.1); }
+
+/* VIDEO */
+.video-box {
+  max-width: 420px;
+  margin: 0 auto 22px auto;
+}
+video {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+.video-hint {
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* EXERCISE CARD */
+.exercise-box {
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  padding: 28px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* locked state */
+.exercise-box.locked {
+  opacity: 0.45;
+  pointer-events: none;
+  user-select: none;
+}
+
+.exercise-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 6px;
+}
+.exercise-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+#question {
+  font-size: 34px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+/* options */
+#options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.word-btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #8b5cf6;
+  color: white;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.word-btn:hover { transform: scale(1.06); }
+
+.word-btn.correct {
+  background: #16a34a !important;
+}
+.word-btn.wrong {
+  animation: shake 0.3s;
+  border: 3px solid #dc2626;
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-5px); }
+  50%  { transform: translateX(5px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+#feedback {
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 18px;
+  min-height: 26px;
+}
+
+.next-btn {
+  margin: 20px auto 0 auto;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+}
+.next-btn:hover { background: #1e40af; }
+
+/* end screen */
+.end-screen {
+  text-align: center;
+}
+.end-screen h2 {
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+.end-screen p {
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Volver a Unidad 6</a>
+
+<div class="unit-title">Lección 3 - Parte 3</div>
+
+<div class="progress-container">
+  <div class="step" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step active" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+  <div class="step" data-page="p5.html">5</div>
+</div>
+
+<!-- VIDEO -->
+<div class="video-box">
+  <video id="lessonVideo" controls>
+    <source src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/video/teen.numbers.mp4" type="video/mp4">
+  </video>
+  <p class="video-hint" id="videoHint">Mira el video primero para desbloquear el ejercicio.</p>
+</div>
+
+<!-- EXERCISE CARD (locked until video ends) -->
+<div class="exercise-box locked" id="mainCard">
+
+  <div class="exercise-title">👉 Selecciona la palabra correcta</div>
+  <div class="exercise-subtitle">Escucha y elige cómo se dice el número en inglés.</div>
+
+  <div id="question"></div>
+  <div id="options"></div>
+  <div id="feedback"></div>
+  <button class="next-btn" id="nextBtn">Siguiente →</button>
+
+</div>
+
+<!-- END SCREEN -->
+<div class="exercise-box end-screen" id="endScreen" style="display:none;">
+  <h2>¡Muy buen trabajo!</h2>
+  <p>Ya conoces los números del 13 al 20. ¡Sigamos!</p>
+  <button class="next-btn" id="goNextBtn" style="display:block;">Ir a Parte 4</button>
+</div>
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+if (window.va) window.va('track', 'U6 L3 P3 Started');
+</script>
+
+<script>
+/* ── PATHS ── */
+const AUDIO = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+const SFX   = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+
+/* ── SFX ── */
+const sfxCorrect   = new Audio(SFX + 'correct.wav');
+const sfxIncorrect = new Audio(SFX + 'incorrect.wav');
+sfxCorrect.load();
+sfxIncorrect.load();
+
+function playSfx(isCorrect) {
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(() => {});
+}
+
+/* ── PRAISE ── */
+const praiseArr = ['¡Excelente!', '¡Muy bien!', '¡Bien hecho!'];
+function randomPraise() { return praiseArr[Math.floor(Math.random() * praiseArr.length)]; }
+
+/* ── DATA ── */
+const data = [
+  { number: 13, word: 'thirteen',  audio: 'u6.thirteen.mp3'  },
+  { number: 14, word: 'fourteen',  audio: 'u6.fourteen.mp3'  },
+  { number: 15, word: 'fifteen',   audio: 'u6.fifteen.mp3'   },
+  { number: 16, word: 'sixteen',   audio: 'u6.sixteen.mp3'   },
+  { number: 17, word: 'seventeen', audio: 'u6.seventeen.mp3' },
+  { number: 18, word: 'eighteen',  audio: 'u6.eighteen.mp3'  },
+  { number: 19, word: 'nineteen',  audio: 'u6.nineteen.mp3'  },
+  { number: 20, word: 'twenty',    audio: 'u6.twenty.mp3'    }
+];
+
+let currentIndex = 0;
+let answered = false;
+
+/* ── UNLOCK EXERCISE AFTER VIDEO ENDS ── */
+const video     = document.getElementById('lessonVideo');
+const mainCard  = document.getElementById('mainCard');
+const videoHint = document.getElementById('videoHint');
+
+video.addEventListener('ended', () => {
+  mainCard.classList.remove('locked');
+  videoHint.textContent = '¡Ahora completa el ejercicio!';
+  videoHint.style.color = '#16a34a';
+  videoHint.style.fontWeight = '600';
+  loadQuestion();
+});
+
+/* ── LOAD QUESTION ── */
+function loadQuestion() {
+  answered = false;
+  const current = data[currentIndex];
+
+  document.getElementById('question').textContent = current.number + ' = ?';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('nextBtn').style.display = 'none';
+
+  /* 3 choices: correct + 2 random distractors */
+  const pool = data.filter(d => d.word !== current.word);
+  const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 2);
+  const choices = [current, ...distractors].sort(() => Math.random() - 0.5);
+
+  const optionsDiv = document.getElementById('options');
+  optionsDiv.innerHTML = '';
+
+  choices.forEach(item => {
+    const btn = document.createElement('button');
+    btn.className = 'word-btn';
+    btn.textContent = item.word;
+
+    btn.addEventListener('click', () => {
+      if (answered) return;
+
+      if (item.word === current.word) {
+        /* correct */
+        playSfx(true);
+        const wordAudio = new Audio(AUDIO + current.audio);
+        wordAudio.play().catch(() => {});
+        btn.classList.add('correct');
+        document.getElementById('feedback').textContent = randomPraise();
+        document.getElementById('feedback').style.color = '#16a34a';
+        answered = true;
+        document.getElementById('nextBtn').style.display = 'block';
+      } else {
+        /* wrong */
+        playSfx(false);
+        btn.classList.add('wrong');
+        document.getElementById('feedback').textContent = '❌ Intenta otra vez';
+        document.getElementById('feedback').style.color = '#dc2626';
+        setTimeout(() => btn.classList.remove('wrong'), 350);
+      }
+    });
+
+    optionsDiv.appendChild(btn);
+  });
+}
+
+/* ── NEXT ── */
+document.getElementById('nextBtn').addEventListener('click', () => {
+  currentIndex++;
+  if (currentIndex >= data.length) {
+    showEnd();
+  } else {
+    loadQuestion();
+  }
+});
+
+/* ── END ── */
+function showEnd() {
+  if (window.va) window.va('track', 'U6 L3 P3 Finished');
+  document.getElementById('mainCard').style.display = 'none';
+  document.getElementById('endScreen').style.display = 'block';
+}
+
+document.getElementById('goNextBtn').addEventListener('click', () => {
+  window.location.href = 'p4.html';
+});
+
+/* ── PROGRESS STEPS NAV ── */
+document.querySelectorAll('.step').forEach(step => {
+  step.addEventListener('click', () => {
+    const page = step.dataset.page;
+    if (page) window.location.href = page;
+  });
+});
+</script>
+</body>
+</html>
