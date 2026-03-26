@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 4 • Parte 3 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) { window.va('track', 'U6 L4 P3 Started'); }
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; color: #111827; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+/* ── Progress dots ───────────────────────────────────────────────────────── */
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px 0;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933; transition: background .3s, color .3s;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step:hover:not(.active) { background: #93c5fd; }
+
+/* ── Main card ───────────────────────────────────────────────────────────── */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* ── Progress bar ────────────────────────────────────────────────────────── */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+.bar-wrap {
+  background: #e2e8f0; border-radius: 999px;
+  height: 7px; margin-bottom: 20px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; width: 0%;
+  background: #a855f7;
+  border-radius: 999px;
+  transition: width .5s;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ── Sentences ───────────────────────────────────────────────────────────── */
+.sentences {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-bottom: 24px;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.sentence-row {
+  font-size: 16px; font-weight: 600; color: #1e293b;
+  line-height: 2;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 5px;
+}
+
+/* ── Blank chip ──────────────────────────────────────────────────────────── */
+.blank-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 80px; padding: 4px 14px;
+  background: #e2e8f0;
+  border: 2px dashed #94a3b8;
+  border-radius: 999px;
+  font-size: 14px; font-weight: 700;
+  color: transparent;
+  cursor: default;
+  transition: background .25s, color .25s, border-color .25s;
+  white-space: nowrap;
+}
+.blank-chip.filled {
+  background: #fef9c3;
+  color: #92400e;
+  border: 2px solid #fbbf24;
+}
+
+/* ── Word bank ───────────────────────────────────────────────────────────── */
+.word-bank-label {
+  font-size: 11px; font-weight: 700; color: #94a3b8;
+  text-transform: uppercase; letter-spacing: .6px;
+  margin-bottom: 10px;
+}
+.word-bank {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 20px;
+}
+.word-btn {
+  padding: 10px 20px;
+  background: #0d9488; color: white;
+  border: none; border-radius: 999px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.word-btn:hover  { background: #0f766e; }
+.word-btn:active { transform: scale(.96); }
+.word-btn.used   { background: #d1d5db; color: #9ca3af; cursor: default; pointer-events: none; }
+
+/* ── Status hint ─────────────────────────────────────────────────────────── */
+.status-hint {
+  text-align: center;
+  font-size: 13px; font-weight: 600; color: #6b7280;
+  margin-bottom: 14px;
+  min-height: 20px;
+}
+
+/* ── Next button ─────────────────────────────────────────────────────────── */
+.next-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  opacity: 0; pointer-events: none;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+.next-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen {
+  display: none; text-align: center;
+  background: rgba(255,255,255,.88);
+  border-radius: 18px; padding: 36px 24px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-body { animation: fadeUp .35s ease; }
+</style>
+</head>
+<body>
+
+<div class="back-wrap">
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+</div>
+
+<div class="wrap">
+
+  <div class="top-title">Unidad 6 • Lección 4 • Parte 3</div>
+  <div class="subline">El clima del mundo — Completa las oraciones</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="card" id="mainCard">
+
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+      <span id="pctLabel">0%</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap">
+      <img id="slideImg" src="" alt="">
+    </div>
+
+    <div id="cardBody" class="card-body"></div>
+
+    <div class="status-hint" id="statusHint"></div>
+    <button class="next-btn" id="nextBtn"></button>
+
+  </div>
+
+</div><!-- end .wrap -->
+
+<!-- End screen — OUTSIDE .wrap -->
+<div id="endScreen" data-unit="6" data-lesson="4" data-part="3">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Describiste el clima de La Habana, Nueva York, Londres y París.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 3.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 4
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 4;
+  const PART   = 3;
+
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const IMG   = BASE + 'images/u6/';
+  const AUDIO = BASE + 'audio/u6/';
+
+  // Sentence model:
+  // "Today it is [weather] in [city]. It is [condition]. The temperature is [temp] degrees."
+  // words[] = the word-bank buttons shown to student (shuffled display order)
+
+  const SCENES = [
+    {
+      city:      'Havana',
+      img:       'u6.cuba.havana.jpg',
+      audio:     'u6.havana.mp3',
+      weather:   'sunny',
+      condition: 'hot',
+      temp:      '33',
+      words:     ['sunny', 'Havana', 'hot', '33'],
+    },
+    {
+      city:      'New York',
+      img:       'u6.new.york.jpg',
+      audio:     'u6.new.york.1.mp3',
+      weather:   'cool',
+      condition: 'windy',
+      temp:      '12',
+      words:     ['cool', 'New York', 'windy', '12'],
+    },
+    {
+      city:      'London',
+      img:       'u6.london.rain.jpg',
+      audio:     'u6.london.1.mp3',
+      weather:   'cold',
+      condition: 'raining',
+      temp:      '5',
+      words:     ['cold', 'London', 'raining', '5'],
+    },
+    {
+      city:      'Paris',
+      img:       'u6.paris.cloudy.jpg',
+      audio:     'u6.paris.1.mp3',
+      weather:   'warm',
+      condition: 'cloudy',
+      temp:      '19',
+      words:     ['warm', 'Paris', 'cloudy', '19'],
+    },
+  ];
+
+  // ═══════════════════════════════════════════════════
+  // ENGINE
+  // ═══════════════════════════════════════════════════
+
+  const TOTAL     = SCENES.length;
+  let current     = 0;
+  let filledCount = 0;
+  let filledMap   = {};
+  let autoTimer   = null;
+  let snd         = null;
+
+  const slideImg   = document.getElementById('slideImg');
+  const counter    = document.getElementById('counter');
+  const pctLabel   = document.getElementById('pctLabel');
+  const bar        = document.getElementById('bar');
+  const cardBody   = document.getElementById('cardBody');
+  const statusHint = document.getElementById('statusHint');
+  const nextBtn    = document.getElementById('nextBtn');
+
+  function loadScene(idx) {
+    clearTimeout(autoTimer);
+    stopSnd();
+    filledCount = 0;
+    filledMap   = { weather: false, city: false, condition: false, temp: false };
+    statusHint.textContent = '';
+    nextBtn.classList.remove('show');
+
+    const s = SCENES[idx];
+    const pct = Math.round((idx / TOTAL) * 100);
+    counter.textContent  = `${idx + 1} / ${TOTAL}`;
+    pctLabel.textContent = pct + '%';
+    bar.style.width      = pct + '%';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.city;
+
+    if (idx < TOTAL - 1) {
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.onclick = () => { clearTimeout(autoTimer); stopSnd(); current++; loadScene(current); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => { clearTimeout(autoTimer); stopSnd(); showEnd(); };
+    }
+
+    renderBody(s);
+  }
+
+  function renderBody(s) {
+    cardBody.innerHTML = '';
+    cardBody.className = 'card-body';
+
+    // ── Sentences ──────────────────────────────────
+    const sentences = document.createElement('div');
+    sentences.className = 'sentences';
+
+    sentences.appendChild(buildRow([
+      txt('Today it is '),
+      blank('weather'),
+      txt(' in '),
+      blank('city'),
+      txt('.'),
+    ]));
+
+    sentences.appendChild(buildRow([
+      txt('It is '),
+      blank('condition'),
+      txt('.'),
+    ]));
+
+    sentences.appendChild(buildRow([
+      txt('The temperature is '),
+      blank('temp'),
+      txt(' degrees.'),
+    ]));
+
+    cardBody.appendChild(sentences);
+
+    // ── Word bank ──────────────────────────────────
+    const lbl = document.createElement('div');
+    lbl.className = 'word-bank-label';
+    lbl.textContent = 'Toca las palabras para completar';
+    cardBody.appendChild(lbl);
+
+    const bank = document.createElement('div');
+    bank.className = 'word-bank';
+    bank.id = 'wordBank';
+
+    s.words.forEach(word => {
+      const btn = document.createElement('button');
+      btn.className = 'word-btn';
+      btn.textContent = word;
+      btn.dataset.word = word;
+      btn.onclick = () => handleWord(word, btn, s);
+      bank.appendChild(btn);
+    });
+
+    cardBody.appendChild(bank);
+  }
+
+  // Map each word to its blank key
+  function wordToKey(word, s) {
+    if (word === s.weather)   return 'weather';
+    if (word === s.city)      return 'city';
+    if (word === s.condition) return 'condition';
+    if (word === s.temp)      return 'temp';
+    return null;
+  }
+
+  function handleWord(word, btn, s) {
+    const key = wordToKey(word, s);
+    if (!key || filledMap[key]) return;
+
+    filledMap[key] = true;
+    filledCount++;
+
+    const chip = document.getElementById('blank-' + key);
+    if (chip) {
+      chip.textContent = word;
+      chip.classList.add('filled');
+    }
+    btn.classList.add('used');
+
+    if (filledCount === 4) {
+      onAllFilled(s);
+    }
+  }
+
+  function onAllFilled(s) {
+    const isLast = current === TOTAL - 1;
+
+    // Play audio first
+    statusHint.textContent = '🔊 Escucha…';
+    snd = new Audio(AUDIO + s.audio);
+    snd.play().catch(() => {});
+
+    snd.onended = () => afterAudio(isLast);
+    snd.onerror = () => afterAudio(isLast);
+  }
+
+  function afterAudio(isLast) {
+    if (isLast) {
+      statusHint.textContent = '';
+      nextBtn.classList.add('show');
+    } else {
+      statusHint.textContent = 'Siguiente ciudad…';
+      autoTimer = setTimeout(() => {
+        current++;
+        loadScene(current);
+      }, 2000);
+    }
+  }
+
+  function stopSnd() {
+    if (snd) {
+      snd.pause();
+      snd.onended = null;
+      snd.onerror = null;
+      snd = null;
+    }
+  }
+
+  // ── DOM helpers ───────────────────────────────────
+
+  function txt(str) {
+    const el = document.createElement('span');
+    el.textContent = str;
+    return el;
+  }
+
+  function blank(key) {
+    const el = document.createElement('span');
+    el.className = 'blank-chip';
+    el.id = 'blank-' + key;
+    el.textContent = key; // invisible (color: transparent) until filled
+    return el;
+  }
+
+  function buildRow(parts) {
+    const row = document.createElement('div');
+    row.className = 'sentence-row';
+    parts.forEach(p => row.appendChild(p));
+    return row;
+  }
+
+  function showEnd() {
+    if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
+    counter.textContent  = `${TOTAL} / ${TOTAL}`;
+    pctLabel.textContent = '100%';
+    bar.style.width      = '100%';
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  loadScene(0);
+})();
+</script>
+
+</body>
+</html>

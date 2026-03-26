@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 6 • Lección 4 • Parte 1 | Práctica de clima | Inglesco</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  min-height:100vh;
+  padding:16px 12px 80px;
+  color:#111827;
+}
+.wrap{max-width:700px;margin:0 auto}
+
+.back-btn{
+  display:inline-block;margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
+}
+.top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
+.subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+.progress-container{
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+}
+.step{
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
+}
+.step.active{background:#2563eb;color:#fff}
+
+/* Background */
+body{
+  background:linear-gradient(135deg,#dbeafe,#fef9c3);
+  padding:14px 12px 80px;
+}
+
+/* Vocabulary */
+.vocab{
+  text-align:center;
+  background:white;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:16px;
+  font-weight:600;
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.9);
+  padding:18px;
+  border-radius:16px;
+}
+
+/* Image */
+.img-box{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+.img-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  cursor:pointer;
+}
+
+/* Play button (fixed width issue) */
+.play-btn{
+  display:block;
+  margin:0 auto 12px auto;
+  padding:12px 18px;
+  background:#0d9488;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* Question */
+.question{
+  display:none;
+  text-align:center;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+/* Tiles */
+.tiles{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+.tile{
+  width:110px;
+  padding:14px;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-weight:800;
+  text-align:center;
+  cursor:pointer;
+}
+
+.tile.wrong{background:#dc2626}
+.tile.correct{background:#16a34a}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <!-- Back button -->
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+
+
+ <!-- Titles -->
+  <div class="top-title">Unidad 6 • Lección 4 • Parte 1</div>
+  <div class="subline">Práctica de clima</div>
+
+  <!-- Progress -->
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+ 
+  <!-- Vocabulary -->
+  <div class="vocab">
+    <h2>🌡️ Weather Vocabulary</h2>
+    <p><strong>Warm</strong> = <strong>caliente / templado</strong></p>
+    <p><strong>Cool</strong> = <strong>fresco</strong></p>
+  </div>
+
+  <div class="card" id="lesson"></div>
+
+</div>
+
+<script>
+
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const AUDIO = BASE + 'audio/u6/';
+const IMG   = BASE + 'images/u6/';
+
+const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+
+function playSfx(isCorrect){
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(()=>{});
+}
+
+const lessons = [
+  {
+    img: 'u6.cool.miami.jpg',
+    audio: 'u6.cool.miami.mp3',
+    question: 'What is the temperature?',
+    correct: '12',
+    options: ['12','20']
+  },
+  {
+    img: 'u6.warm.montreal.jpg',
+    audio: 'u6.warm.montreal.mp3',
+    question: 'What is the temperature?',
+    correct: '20',
+    options: ['12','20']
+  }
+];
+
+let current = 0;
+let audio = null;
+
+const lessonDiv = document.getElementById('lesson');
+
+function loadLesson(){
+  const l = lessons[current];
+
+  lessonDiv.innerHTML = `
+    <div class="img-box">
+      <img src="${IMG + l.img}" onclick="playAudio()">
+    </div>
+
+    <button class="play-btn" onclick="playAudio()">▶️ Reproducir diálogo</button>
+
+    <div class="question" id="question">${l.question}</div>
+
+    <div class="tiles">
+      <div class="tile" onclick="checkAnswer('${l.options[0]}')">${l.options[0]}°</div>
+      <div class="tile" onclick="checkAnswer('${l.options[1]}')">${l.options[1]}°</div>
+    </div>
+  `;
+
+  document.getElementById('question').style.display = 'none';
+}
+
+function playAudio(){
+  const l = lessons[current];
+
+  if(audio) audio.pause();
+
+  audio = new Audio(AUDIO + l.audio);
+  audio.play();
+
+  audio.onended = () => {
+    document.getElementById('question').style.display = 'block';
+  };
+}
+
+function checkAnswer(val){
+  const l = lessons[current];
+  const tiles = document.querySelectorAll('.tile');
+
+  if(val === l.correct){
+    playSfx(true);
+
+    tiles.forEach(t=>{
+      if(t.innerText.includes(l.correct)){
+        t.classList.add('correct');
+      }
+    });
+
+    setTimeout(()=>{
+      current++;
+      if(current < lessons.length){
+        loadLesson();
+      } else {
+        lessonDiv.innerHTML = "<h2 style='text-align:center'>🏆 ¡Muy buen trabajo!</h2>";
+      }
+    },1000);
+
+  } else {
+    playSfx(false);
+    event.target.classList.add('wrong');
+  }
+}
+
+loadLesson();
+
+</script>
+
+</body>
+</html>
