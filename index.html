@@ -6,12 +6,14 @@
 <title>Inglesco</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html, body {
     width: 100%; height: 100%;
   }
@@ -79,16 +81,13 @@
 
   @keyframes ambIn { to { opacity: 1; } }
 
-  /* ── NEW WORLD (behind door) — warm golden glow ── */
+  /* ── NEW WORLD (behind door, inside .door-scene) ── */
   .new-world {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* matches door size, scales with CSS var */
-    width: var(--door-w, 280px);
-    height: var(--door-h, 400px);
-    border-radius: 6px 6px 0 0;
+    top: 4px; left: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 5px);
+    border-radius: 4px 4px 0 0;
     background:
       radial-gradient(ellipse 90% 50% at 50% 100%, rgba(232,100,42,0.7)  0%, transparent 60%),
       radial-gradient(ellipse 70% 40% at 50% 80%,  rgba(240,180,30,0.55) 0%, transparent 55%),
@@ -98,45 +97,20 @@
     opacity: 0;
     transition: opacity 0.7s ease;
     z-index: 1;
-    overflow: hidden;
+    pointer-events: none;
   }
 
-  .new-world::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 45%;
-    background: linear-gradient(to top,
-      rgba(240,120,30,0.6) 0%,
-      rgba(240,180,30,0.35) 30%,
-      transparent 100%
-    );
-  }
+  .new-world.visible { opacity: 1; }
 
-  /* Central light beam */
-  .new-world::after {
-    content: '';
-    position: absolute;
-    bottom: 15%; left: 50%;
-    transform: translateX(-50%);
-    width: 60px; height: 70%;
-    background: radial-gradient(ellipse at 50% 100%, rgba(255,220,120,0.45), transparent 70%);
-    filter: blur(8px);
-  }
-
-  .new-world.visible {
-    opacity: 1;
-  }
-
-  /* ── DOOR SCENE ── */
-  .scene {
+  /* ── SCENE WRAPPER ── */
+  .scene-wrap {
     position: relative;
-    width: var(--door-w, 280px);
-    height: var(--door-h, 400px);
+    display: flex;
+    align-items: center;
+    gap: 0;
     z-index: 10;
     opacity: 0;
     animation: sceneIn 1s 0.9s ease forwards;
-    cursor: pointer;
   }
 
   @keyframes sceneIn {
@@ -144,7 +118,16 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── DOOR FRAME SVG ── */
+  /* ── DOOR SCENE ── */
+  .door-scene {
+    position: relative;
+    width: var(--door-w, 240px);
+    height: var(--door-h, 340px);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* ── DOOR FRAME (rainbow border via SVG) ── */
   .door-frame-svg {
     position: absolute;
     inset: 0;
@@ -160,7 +143,6 @@
     width: calc(100% - 8px);
     height: calc(100% - 5px);
     border-radius: 4px 4px 0 0;
-    /* Bold, warm wood-like tone */
     background: linear-gradient(150deg,
       #d9cfc3 0%,
       #c8bdb0 30%,
@@ -178,7 +160,6 @@
       3px 6px 24px rgba(0,0,0,0.15);
   }
 
-  /* Top raised panel */
   .door-panel::before {
     content: '';
     position: absolute;
@@ -191,7 +172,6 @@
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
   }
 
-  /* Bottom raised panel */
   .door-panel::after {
     content: '';
     position: absolute;
@@ -204,7 +184,7 @@
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
   }
 
-  /* ── DOOR HANDLE — horizontal lever ── */
+  /* ── DOOR HANDLE ── */
   .knob-wrap {
     position: absolute;
     right: 10px;
@@ -222,7 +202,16 @@
     transition: filter 0.3s;
   }
 
-  .scene.open .knob-wrap svg {
+  /* ── OPEN STATE ── */
+  .door-scene.open .door-panel {
+    transform: perspective(900px) rotateY(-68deg);
+    box-shadow:
+      inset -4px 0 14px rgba(0,0,0,0.08),
+      inset  0  3px 8px  rgba(255,255,255,0.4),
+      6px 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .door-scene.open .knob-wrap svg {
     filter: drop-shadow(1px 3px 10px rgba(210,160,30,0.6));
   }
 
@@ -278,21 +267,106 @@
   }
 
   @keyframes frameBreath {
-    0%, 100% {
-      box-shadow: 0 0 18px rgba(232,80,42,0.15),  0 0 50px rgba(90,58,232,0.08);
-    }
-    50% {
-      box-shadow: 0 0 34px rgba(232,80,42,0.32),  0 0 90px rgba(90,58,232,0.18);
-    }
+    0%, 100% { box-shadow: 0 0 18px rgba(232,80,42,0.15),  0 0 50px rgba(90,58,232,0.08); }
+    50%       { box-shadow: 0 0 34px rgba(232,80,42,0.32),  0 0 90px rgba(90,58,232,0.18); }
   }
 
-  /* ── OPEN STATE ── */
-  .scene.open .door-panel {
-    transform: perspective(900px) rotateY(-68deg);
-    box-shadow:
-      inset -4px 0 14px rgba(0,0,0,0.08),
-      inset  0  3px 8px  rgba(255,255,255,0.4),
-      6px 8px 32px rgba(0,0,0,0.2);
+  /* ── LANGUAGE PANEL ── */
+  .lang-panel {
+    background: rgba(255,252,248,0.97);
+    border: 1px solid rgba(180,160,130,0.22);
+    border-radius: 12px;
+    padding: 14px 14px 10px;
+    width: 216px;
+    box-shadow: 4px 8px 32px rgba(80,50,20,0.1);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+    margin-left: 14px;
+    flex-shrink: 0;
+  }
+
+  .lang-panel.visible {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+  }
+
+  .lang-panel-title {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(80,55,35,0.38);
+    margin-bottom: 8px;
+    padding: 0 4px;
+  }
+
+  .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .lang-item:hover { background: rgba(232,160,40,0.08); }
+  .lang-item.live:hover { background: rgba(42,160,80,0.07); }
+
+  .lang-flag {
+    font-size: 20px;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .lang-info { flex: 1; min-width: 0; }
+
+  .lang-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3d2e1e;
+    line-height: 1.2;
+  }
+
+  .lang-native {
+    font-size: 10.5px;
+    color: rgba(80,55,35,0.42);
+  }
+
+  .lang-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .badge-live {
+    background: rgba(42,160,80,0.13);
+    color: #1a7a3a;
+  }
+
+  .badge-soon {
+    background: rgba(80,55,35,0.08);
+    color: rgba(80,55,35,0.48);
+  }
+
+  .badge-later {
+    background: rgba(90,58,232,0.08);
+    color: rgba(60,40,160,0.52);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: rgba(180,160,130,0.15);
+    margin: 5px 0;
   }
 
   /* ── LOGO ── */
@@ -302,12 +376,19 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 4px;
     opacity: 0;
     animation: fadeDown 0.9s 0.3s ease forwards;
     z-index: 20;
     white-space: nowrap;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
 
   .logo-word {
@@ -315,7 +396,6 @@
     font-weight: 800;
     font-size: clamp(44px, 10vw, 72px);
     letter-spacing: -2px;
-    /* Warmer spectrum — heavy on red/orange/yellow, blue/purple — lighter green */
     background: linear-gradient(100deg,
       #e82010 0%,
       #e85020 18%,
@@ -330,6 +410,14 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: flow 6s linear infinite;
+  }
+
+  .logo-tagline {
+    font-size: clamp(11px, 2vw, 13px);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(80,55,35,0.72);
+    font-weight: 700;
   }
 
   @keyframes flow {
@@ -362,19 +450,211 @@
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 
+  /* ── WAITLIST MODAL OVERLAY ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(60,40,20,0.35);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .modal-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: #fff8f2;
+    border: 1px solid rgba(180,160,130,0.25);
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    width: min(360px, 90vw);
+    box-shadow: 0 24px 60px rgba(60,40,20,0.18);
+    transform: translateY(12px) scale(0.97);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .modal-overlay.visible .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-flag {
+    font-size: 38px;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #2a1e10;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .modal-sub {
+    font-size: 13px;
+    color: rgba(80,55,35,0.55);
+    text-align: center;
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid rgba(180,160,130,0.35);
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: #2a1e10;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .modal-input:focus {
+    border-color: rgba(232,120,40,0.55);
+  }
+
+  .modal-input::placeholder {
+    color: rgba(80,55,35,0.35);
+  }
+
+  .modal-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #e87030 0%, #e84020 100%);
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .modal-btn:hover { opacity: 0.92; }
+  .modal-btn:active { transform: scale(0.98); }
+  .modal-btn:disabled { opacity: 0.55; cursor: default; }
+
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: rgba(80,55,35,0.4);
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+
+  .modal-close:hover { background: rgba(80,55,35,0.07); }
+
+  .modal-msg {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 10px;
+    min-height: 18px;
+    color: rgba(80,55,35,0.55);
+  }
+
+  .modal-msg.success { color: #1a7a3a; }
+  .modal-msg.error   { color: #c03020; }
+
   /* ── MOBILE ── */
-  @media (max-width: 480px) {
+  @media (max-width: 540px) {
     :root {
-      --door-w: 220px;
-      --door-h: 310px;
+      --door-w: 200px;
+      --door-h: 284px;
+    }
+
+    .lang-panel {
+      display: none;
+    }
+
+    /* On mobile show language panel below the door */
+    .mobile-lang-row {
+      display: flex !important;
     }
   }
 
-  @media (min-width: 481px) {
+  @media (min-width: 541px) {
     :root {
-      --door-w: 280px;
-      --door-h: 400px;
+      --door-w: 240px;
+      --door-h: 340px;
     }
+
+    .mobile-lang-row {
+      display: none;
+    }
+  }
+
+  /* mobile tap state */
+  @media (max-width: 540px) {
+    .door-scene.open .door-panel {
+      transform: perspective(900px) rotateY(-68deg);
+    }
+    .door-scene.open .new-world {
+      opacity: 1;
+    }
+  }
+
+  /* mobile language list shown below door */
+  .mobile-lang-row {
+    position: absolute;
+    bottom: clamp(50px, 12vh, 80px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    gap: 10px;
+    z-index: 20;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 340px;
+  }
+
+  .mobile-lang-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: rgba(255,252,248,0.95);
+    border: 1px solid rgba(180,160,130,0.22);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d2e1e;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .mobile-lang-pill:hover { background: rgba(255,248,235,1); }
+  .mobile-lang-pill .pill-flag { font-size: 16px; }
+  .mobile-lang-pill .pill-badge {
+    font-size: 8.5px;
+    padding: 1px 5px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 </style>
 </head>
@@ -387,132 +667,326 @@
   <div class="amb amb-3"></div>
 </div>
 
-<!-- Warm world behind the door -->
-<div class="new-world" id="newWorld"></div>
-
 <!-- Logo -->
 <div class="logo">
-  <div class="logo-word">inglesco</div>
-  <svg width="28" height="34" viewBox="0 0 52 64" fill="none" style="opacity:0.82;flex-shrink:0;">
-    <defs>
-      <linearGradient id="lg" x1="0" y1="0" x2="52" y2="64" gradientUnits="userSpaceOnUse">
-        <stop offset="0%"   stop-color="#e82010"/>
-        <stop offset="40%"  stop-color="#e8a020"/>
-        <stop offset="70%"  stop-color="#2a90e8"/>
-        <stop offset="100%" stop-color="#7030c8"/>
-      </linearGradient>
-    </defs>
-    <rect x="1.5" y="1.5" width="49" height="61" rx="3" fill="none" stroke="url(#lg)" stroke-width="3.5"/>
-    <rect x="4"   y="4"   width="44" height="56" rx="2" fill="rgba(245,242,238,0.92)" stroke="url(#lg)" stroke-width="2"/>
-    <circle cx="38" cy="33" r="4.5" fill="url(#lg)"/>
-    <line x1="0" y1="63" x2="52" y2="63" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
-  </svg>
+  <div class="logo-row">
+    <div class="logo-word">inglesco</div>
+    <svg width="28" height="34" viewBox="0 0 52 64" fill="none" style="opacity:0.82;flex-shrink:0;">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="52" y2="64" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#e82010"/>
+          <stop offset="40%"  stop-color="#e8a020"/>
+          <stop offset="70%"  stop-color="#2a90e8"/>
+          <stop offset="100%" stop-color="#7030c8"/>
+        </linearGradient>
+      </defs>
+      <rect x="1.5" y="1.5" width="49" height="61" rx="3" fill="none" stroke="url(#lg)" stroke-width="3.5"/>
+      <rect x="4"   y="4"   width="44" height="56" rx="2" fill="rgba(245,242,238,0.92)" stroke="url(#lg)" stroke-width="2"/>
+      <circle cx="38" cy="33" r="4.5" fill="url(#lg)"/>
+      <line x1="0" y1="63" x2="52" y2="63" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="logo-tagline">Learn American English</div>
 </div>
 
-<!-- Door -->
-<div class="scene" id="scene">
-  <div class="frame-glow"></div>
+<!-- Scene: door + language panel -->
+<div class="scene-wrap" id="sceneWrap">
 
-  <svg class="door-frame-svg" viewBox="0 0 280 400" preserveAspectRatio="none" fill="none">
-    <defs>
-      <linearGradient id="frameGrad" x1="0" y1="0" x2="280" y2="400" gradientUnits="userSpaceOnUse">
-        <stop offset="0%"   stop-color="#e82010"/>
-        <stop offset="18%"  stop-color="#e85020"/>
-        <stop offset="35%"  stop-color="#e8a020"/>
-        <stop offset="50%"  stop-color="#e8d030"/>
-        <stop offset="68%"  stop-color="#2a90e8"/>
-        <stop offset="85%"  stop-color="#4a30d8"/>
-        <stop offset="100%" stop-color="#8030d0"/>
-      </linearGradient>
-    </defs>
-    <!-- Thick bold frame — 6px stroke -->
-    <rect x="3" y="3" width="274" height="394" rx="7"
-          fill="none" stroke="url(#frameGrad)" stroke-width="6"/>
-  </svg>
+  <div class="door-scene" id="scene">
+  <!-- Warm world behind door (inside door, pointer-events off) -->
+  <div class="new-world" id="newWorld"></div>
+    <div class="frame-glow"></div>
 
-  <div class="door-panel" id="doorPanel">
-    <div class="knob-wrap">
-      <!-- Classic horizontal lever door handle -->
-      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#f0d060"/>
-            <stop offset="35%"  stop-color="#c89030"/>
-            <stop offset="65%"  stop-color="#e0b040"/>
-            <stop offset="100%" stop-color="#a07020"/>
-          </linearGradient>
-          <linearGradient id="brassH" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"   stop-color="#c89030"/>
-            <stop offset="40%"  stop-color="#f0d060"/>
-            <stop offset="100%" stop-color="#a07020"/>
-          </linearGradient>
-        </defs>
-        <!-- Escutcheon plate (tall, narrow, on the right) -->
-        <rect x="36" y="8" width="10" height="36" rx="5" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
-        <!-- Rose/collar where lever meets plate -->
-        <circle cx="41" cy="26" r="6" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
-        <!-- Lever arm — horizontal, pointing left -->
-        <rect x="8" y="23" width="33" height="6" rx="3" fill="url(#brassH)" stroke="#9a7010" stroke-width="0.8"/>
-        <!-- Lever tip — slight rounded end -->
-        <ellipse cx="10" cy="26" rx="5" ry="4" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
-        <!-- Highlight on lever -->
-        <rect x="10" y="24" width="28" height="2" rx="1" fill="rgba(255,248,200,0.4)"/>
-      </svg>
+    <svg class="door-frame-svg" viewBox="0 0 240 340" preserveAspectRatio="none" fill="none">
+      <defs>
+        <linearGradient id="frameGrad" x1="0" y1="0" x2="240" y2="340" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#e82010"/>
+          <stop offset="18%"  stop-color="#e85020"/>
+          <stop offset="35%"  stop-color="#e8a020"/>
+          <stop offset="50%"  stop-color="#e8d030"/>
+          <stop offset="68%"  stop-color="#2a90e8"/>
+          <stop offset="85%"  stop-color="#4a30d8"/>
+          <stop offset="100%" stop-color="#8030d0"/>
+        </linearGradient>
+      </defs>
+      <rect x="3" y="3" width="234" height="334" rx="7"
+            fill="none" stroke="url(#frameGrad)" stroke-width="6"/>
+    </svg>
+
+    <div class="door-panel" id="doorPanel">
+      <div class="knob-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#f0d060"/>
+              <stop offset="35%"  stop-color="#c89030"/>
+              <stop offset="65%"  stop-color="#e0b040"/>
+              <stop offset="100%" stop-color="#a07020"/>
+            </linearGradient>
+            <linearGradient id="brassH" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#c89030"/>
+              <stop offset="40%"  stop-color="#f0d060"/>
+              <stop offset="100%" stop-color="#a07020"/>
+            </linearGradient>
+          </defs>
+          <rect x="36" y="8" width="10" height="36" rx="5" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
+          <circle cx="41" cy="26" r="6" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
+          <rect x="8" y="23" width="33" height="6" rx="3" fill="url(#brassH)" stroke="#9a7010" stroke-width="0.8"/>
+          <ellipse cx="10" cy="26" rx="5" ry="4" fill="url(#brass)" stroke="#9a7010" stroke-width="0.8"/>
+          <rect x="10" y="24" width="28" height="2" rx="1" fill="rgba(255,248,200,0.4)"/>
+        </svg>
+      </div>
     </div>
+
+    <div class="door-leak"></div>
+    <div class="floor-line"></div>
   </div>
 
-  <div class="door-leak"></div>
-  <div class="floor-line"></div>
+  <!-- Desktop language panel -->
+  <div class="lang-panel" id="langPanel">
+    <div class="lang-panel-title">Choose your language</div>
+
+    <div class="lang-item live" onclick="goLive('es/index.html')">
+      <div class="lang-flag">🇲🇽</div>
+      <div class="lang-info">
+        <div class="lang-name">Español</div>
+        <div class="lang-native">Spanish</div>
+      </div>
+      <span class="lang-badge badge-live">Live</span>
+    </div>
+
+    <div class="lang-divider"></div>
+
+    <div class="lang-item" onclick="openWaitlist('Português','Portuguese','🇧🇷')">
+      <div class="lang-flag">🇧🇷</div>
+      <div class="lang-info">
+        <div class="lang-name">Português</div>
+        <div class="lang-native">Portuguese</div>
+      </div>
+      <span class="lang-badge badge-soon">Soon</span>
+    </div>
+
+    <div class="lang-item" onclick="openWaitlist('Français','French','🇫🇷')">
+      <div class="lang-flag">🇫🇷</div>
+      <div class="lang-info">
+        <div class="lang-name">Français</div>
+        <div class="lang-native">French</div>
+      </div>
+      <span class="lang-badge badge-soon">Soon</span>
+    </div>
+
+    <div class="lang-divider"></div>
+
+    <div class="lang-item" onclick="openWaitlist('Русский','Russian','🇷🇺')">
+      <div class="lang-flag">🇷🇺</div>
+      <div class="lang-info">
+        <div class="lang-name">Русский</div>
+        <div class="lang-native">Russian</div>
+      </div>
+      <span class="lang-badge badge-later">Later</span>
+    </div>
+
+    <div class="lang-item" onclick="openWaitlist('Srpski','Serbian','🇷🇸')">
+      <div class="lang-flag">🇷🇸</div>
+      <div class="lang-info">
+        <div class="lang-name">Srpski</div>
+        <div class="lang-native">Serbian</div>
+      </div>
+      <span class="lang-badge badge-later">Later</span>
+    </div>
+
+    <div class="lang-item" onclick="openWaitlist('Български','Bulgarian','🇧🇬')">
+      <div class="lang-flag">🇧🇬</div>
+      <div class="lang-info">
+        <div class="lang-name">Български</div>
+        <div class="lang-native">Bulgarian</div>
+      </div>
+      <span class="lang-badge badge-later">Later</span>
+    </div>
+
+    <div class="lang-item" onclick="openWaitlist('हिन्दी','Hindi','🇮🇳')">
+      <div class="lang-flag">🇮🇳</div>
+      <div class="lang-info">
+        <div class="lang-name">हिन्दी</div>
+        <div class="lang-native">Hindi</div>
+      </div>
+      <span class="lang-badge badge-later">Later</span>
+    </div>
+
+  </div>
 </div>
 
-<div class="hint" id="hint">— click to enter —</div>
+<!-- Mobile language pills (shown below door on small screens) -->
+<div class="mobile-lang-row" id="mobileLangRow">
+  <div class="mobile-lang-pill" onclick="goLive('es/index.html')">
+    <span class="pill-flag">🇲🇽</span> Español
+    <span class="pill-badge badge-live">Live</span>
+  </div>
+  <div class="mobile-lang-pill" onclick="openWaitlist('Português','Portuguese','🇧🇷')">
+    <span class="pill-flag">🇧🇷</span> Português
+    <span class="pill-badge badge-soon">Soon</span>
+  </div>
+  <div class="mobile-lang-pill" onclick="openWaitlist('Français','French','🇫🇷')">
+    <span class="pill-flag">🇫🇷</span> Français
+    <span class="pill-badge badge-soon">Soon</span>
+  </div>
+  <div class="mobile-lang-pill" onclick="openWaitlist('More languages','Other','🌍')">
+    <span class="pill-flag">🌍</span> More coming
+    <span class="pill-badge badge-later">Later</span>
+  </div>
+</div>
+
+<div class="hint" id="hint">— hover to enter —</div>
+
+<!-- Waitlist Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <div class="modal-flag" id="modalFlag">🇧🇷</div>
+    <div class="modal-title" id="modalTitle">Português is coming</div>
+    <div class="modal-sub">Enter your email and we will notify you when the <span id="modalLangName">Portuguese</span> version launches.</div>
+    <input
+      class="modal-input"
+      type="email"
+      id="modalEmail"
+      placeholder="your@email.com"
+      autocomplete="email"
+    />
+    <button class="modal-btn" id="modalSubmit">Notify me</button>
+    <div class="modal-msg" id="modalMsg"></div>
+  </div>
+</div>
 
 <script>
-  const scene    = document.getElementById('scene');
-  const newWorld = document.getElementById('newWorld');
-  const hint     = document.getElementById('hint');
-  let isOpen     = false;
-  let navigating = false;
+  // ── Supabase ──
+  const { createClient } = supabase;
+  const db = createClient(
+    'https://cnbuzahtzqknhhdxncur.supabase.co',
+    'sb_publishable_MR8n8chgzIa9MjOcvAKlSg_60IRXAaF'
+  );
 
-  // Hover — preview open
-  scene.addEventListener('mouseenter', () => { if (!navigating) openDoor(); });
-  scene.addEventListener('mouseleave', () => { if (!navigating) closeDoor(); });
-
-  // Click — open then navigate
-  scene.addEventListener('click', () => {
-    if (navigating) return;
-    navigating = true;
-    openDoor();
-    setTimeout(() => {
-      window.location.href = 'es/index.html';
-    }, 750);
-  });
-
-  // Touch support (mobile tap)
-  scene.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    if (navigating) return;
-    navigating = true;
-    openDoor();
-    setTimeout(() => {
-      window.location.href = 'es/index.html';
-    }, 750);
-  }, { passive: false });
+  // ── Door logic ──
+  const scene     = document.getElementById('scene');
+  const newWorld  = document.getElementById('newWorld');
+  const langPanel = document.getElementById('langPanel');
+  const hint      = document.getElementById('hint');
+  const sceneWrap = document.getElementById('sceneWrap');
+  let isOpen      = false;
+  let navigating  = false;
+  let closeTimer  = null;
 
   function openDoor() {
+    clearTimeout(closeTimer);
     if (isOpen) return;
     isOpen = true;
     scene.classList.add('open');
     newWorld.classList.add('visible');
+    langPanel.classList.add('visible');
     hint.classList.add('hidden');
   }
 
-  function closeDoor() {
+  function schedulClose() {
     if (navigating) return;
-    isOpen = false;
-    scene.classList.remove('open');
-    newWorld.classList.remove('visible');
-    hint.classList.remove('hidden');
+    // Small delay so moving mouse between door and panel doesn't flicker
+    closeTimer = setTimeout(() => {
+      isOpen = false;
+      scene.classList.remove('open');
+      newWorld.classList.remove('visible');
+      langPanel.classList.remove('visible');
+      hint.classList.remove('hidden');
+    }, 120);
+  }
+
+  // Keep open when mouse re-enters any child (door or panel)
+  sceneWrap.addEventListener('mouseenter', () => { if (!navigating) openDoor(); });
+  sceneWrap.addEventListener('mouseleave', schedulClose);
+
+  // Also guard the panel itself — mouseenter cancels the pending close
+  langPanel.addEventListener('mouseenter', () => { clearTimeout(closeTimer); });
+  langPanel.addEventListener('mouseleave', schedulClose);
+
+  // Mobile: tap door to toggle panel
+  scene.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    isOpen ? schedulClose() : openDoor();
+  }, { passive: false });
+
+  function goLive(url) {
+    if (navigating) return;
+    navigating = true;
+    clearTimeout(closeTimer);
+    openDoor();
+    setTimeout(() => { window.location.href = url; }, 750);
+  }
+
+  // ── Waitlist modal ──
+  let currentLanguage = '';
+
+  function openWaitlist(nativeName, englishName, flag) {
+    currentLanguage = englishName;
+    document.getElementById('modalFlag').textContent = flag;
+    document.getElementById('modalTitle').textContent = nativeName + ' is coming';
+    document.getElementById('modalLangName').textContent = englishName;
+    document.getElementById('modalEmail').value = '';
+    document.getElementById('modalMsg').textContent = '';
+    document.getElementById('modalMsg').className = 'modal-msg';
+    document.getElementById('modalSubmit').disabled = false;
+    document.getElementById('modalSubmit').textContent = 'Notify me';
+    document.getElementById('modalOverlay').classList.add('visible');
+    setTimeout(() => document.getElementById('modalEmail').focus(), 300);
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('visible');
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  });
+
+  document.getElementById('modalEmail').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitWaitlist();
+  });
+
+  document.getElementById('modalSubmit').addEventListener('click', submitWaitlist);
+
+  async function submitWaitlist() {
+    const email = document.getElementById('modalEmail').value.trim().toLowerCase();
+    const msg   = document.getElementById('modalMsg');
+    const btn   = document.getElementById('modalSubmit');
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      msg.textContent = 'Please enter a valid email address.';
+      msg.className = 'modal-msg error';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+    msg.textContent = '';
+    msg.className = 'modal-msg';
+
+    const { error } = await db
+      .from('language_waitlist')
+      .insert({ email, language: currentLanguage });
+
+    if (error && error.code === '23505') {
+      msg.textContent = 'You are already on the ' + currentLanguage + ' waitlist!';
+      msg.className = 'modal-msg';
+      btn.textContent = 'Already registered';
+    } else if (error) {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.className = 'modal-msg error';
+      btn.disabled = false;
+      btn.textContent = 'Notify me';
+    } else {
+      msg.textContent = 'You are on the list! We will notify you when ' + currentLanguage + ' launches.';
+      msg.className = 'modal-msg success';
+      btn.textContent = 'Done!';
+      setTimeout(closeModal, 2200);
+    }
   }
 </script>
 </body>
