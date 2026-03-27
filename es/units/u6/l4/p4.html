@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 4 • Parte 4 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+
+.bar-wrap { background: #e2e8f0; border-radius: 999px; height: 7px; margin-bottom: 18px; }
+.bar-fill { height: 100%; width: 0%; background: #a855f7; border-radius: 999px; }
+
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  margin-bottom: 18px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+/* LISTEN BLOCK */
+.listen-box {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.listen-btn {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 900;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* QUESTION BLOCK */
+.q-block {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.q-title {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+/* FIXED OPTION STYLE (NO PANCAKE) */
+.opt-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option {
+  display: inline-block;
+  width: auto;
+  min-width: 120px;
+  max-width: 160px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.option.correct { background: #dcfce7; border-color: #22c55e; }
+.option.wrong { background: #fee2e2; border-color: #ef4444; }
+
+.next-btn {
+  width: 100%;
+  padding: 13px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 900;
+  margin-top: 10px;
+  opacity: 0;
+  pointer-events: none;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+
+  <div class="top-title">Unidad 6 • Lección 4 • Parte 4</div>
+  <div class="subline">Escucha y selecciona</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="card">
+
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+      <span id="pct">0%</span>
+    </div>
+
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap">
+      <img id="img">
+    </div>
+
+    <div id="content"></div>
+
+    <button id="nextBtn" class="next-btn">Siguiente →</button>
+
+  </div>
+</div>
+
+<script>
+(() => {
+
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IMG   = BASE + 'images/u6/';
+const AUDIO = BASE + 'audio/u6/';
+
+const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+
+function playSfx(isCorrect){
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(()=>{});
+}
+const SCENES = [
+  {
+    img:'u6.cuba.havana2.jpg',
+    audio:'u6.havana.mp3',
+    correct:{city:'Havana', weather:'sunny', temp:'33'},
+    options:{
+      city:['Havana','Paris'],
+      weather:['sunny','rainy'],
+      temp:['33','12']
+    }
+  },
+  {
+    img:'u6.new.york2.jpg',
+    audio:'u6.new.york.1.mp3',
+    correct:{city:'New York', weather:'windy', temp:'12'},
+    options:{
+      city:['New York','London'],
+      weather:['windy','cloudy'],
+      temp:['12','19']
+    }
+  },
+  {
+    img:'u6.london.rain2.jpg',
+    audio:'u6.london.1.mp3',
+    correct:{city:'London', weather:'raining', temp:'5'},
+    options:{
+      city:['London','Paris'],
+      weather:['raining','sunny'],
+      temp:['5','19']
+    }
+  },
+  {
+    img:'u6.paris.cloudy2.jpg',
+    audio:'u6.paris.1.mp3',
+    correct:{city:'Paris', weather:'cloudy', temp:'19'},
+    options:{
+      city:['Paris','Havana'],
+      weather:['cloudy','rainy'],
+      temp:['19','33']
+    }
+  }
+];
+
+let i=0, answered=0;
+
+const img=document.getElementById('img');
+const content=document.getElementById('content');
+const nextBtn=document.getElementById('nextBtn');
+
+function shuffle(arr){
+  return arr.sort(()=>Math.random()-0.5);
+}
+
+function load(){
+  answered=0;
+  nextBtn.classList.remove('show');
+  content.innerHTML='';
+
+  const s=SCENES[i];
+
+  img.src=IMG+s.img;
+
+  document.getElementById('counter').textContent=`${i+1} / ${SCENES.length}`;
+  document.getElementById('pct').textContent=Math.round((i/SCENES.length)*100)+'%';
+  document.getElementById('bar').style.width=(i/SCENES.length)*100+'%';
+
+  showListen(s);
+}
+
+function showListen(s){
+  content.innerHTML='';
+
+  const box=document.createElement('div');
+  box.className='listen-box';
+
+  const btn=document.createElement('button');
+  btn.className='listen-btn';
+  btn.textContent='🔊 Toca para escuchar';
+
+  btn.onclick=()=>{
+    const audio=new Audio(AUDIO+s.audio);
+    btn.disabled=true;
+    btn.textContent='🔊 Reproduciendo...';
+
+    audio.play();
+    audio.onended=()=>showQuestions(s);
+  };
+
+  box.appendChild(btn);
+  content.appendChild(box);
+}
+
+function showQuestions(s){
+  content.innerHTML='';
+
+  content.appendChild(qBlock('City', s,'city'));
+  content.appendChild(qBlock('Weather', s,'weather'));
+  content.appendChild(qBlock('Temperature', s,'temp'));
+}
+
+function qBlock(title,s,key){
+  const div=document.createElement('div');
+  div.className='q-block';
+
+  const t=document.createElement('div');
+  t.className='q-title';
+  t.textContent=title;
+  div.appendChild(t);
+
+  const wrap=document.createElement('div');
+  wrap.className='opt-wrap';
+
+  shuffle([...s.options[key]]).forEach(opt=>{
+    const b=document.createElement('button');
+    b.className='option';
+    b.textContent=opt;
+
+    b.onclick=()=>{
+      const correct=s.correct[key];
+
+    if(opt===correct){
+  b.classList.add('correct');
+  playSfx(true);
+} else {
+  b.classList.add('wrong');
+  playSfx(false);
+}
+
+      wrap.querySelectorAll('button').forEach(x=>x.disabled=true);
+
+      answered++;
+      if(answered===3){
+        nextBtn.classList.add('show');
+      }
+    };
+
+    wrap.appendChild(b);
+  });
+
+  div.appendChild(wrap);
+  return div;
+}
+
+nextBtn.onclick=()=>{
+  if(i<SCENES.length-1){
+    i++;
+    load();
+  } else {
+    document.querySelector('.card').innerHTML=
+      "<h2 style='text-align:center;font-weight:900'>¡Completado!</h2>";
+  }
+};
+
+load();
+
+})();
+</script>
+
+</body>
+</html>

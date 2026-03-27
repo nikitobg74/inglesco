@@ -310,6 +310,14 @@ body {
   const AUDIO = BASE + 'audio/u6/';
   const IMG   = BASE + 'images/u6/';
 
+const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+
+function playSfx(isCorrect){
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(()=>{});
+}
   // before: text before the blank | blank: the hidden word | after: text after the blank
   const SCENES = [
     {

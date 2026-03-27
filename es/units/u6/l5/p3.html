@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 5 • Parte 3 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+
+.bar-wrap { background: #e2e8f0; border-radius: 999px; height: 7px; margin-bottom: 18px; }
+.bar-fill { height: 100%; width: 0%; background: #a855f7; border-radius: 999px; transition: width .3s; }
+
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  margin-bottom: 18px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+/* PHASE LABEL */
+.phase-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9333ea;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* LISTEN BLOCK */
+.listen-box {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.listen-btn {
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 900;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.listen-btn:disabled { opacity: .6; cursor: default; }
+
+/* SENTENCE BLOCK */
+.sentence-block {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.sentence-row {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.blank {
+  display: inline-block;
+  min-width: 90px;
+  height: 34px;
+  border-radius: 8px;
+  border: 2px dashed #a0aec0;
+  background: white;
+  vertical-align: middle;
+  transition: all .2s;
+}
+.blank.filled-correct {
+  border: 2px solid #22c55e;
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 800;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+.blank.filled-wrong {
+  border: 2px solid #ef4444;
+  background: #fee2e2;
+  color: #dc2626;
+  font-weight: 800;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.tiles-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tile {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .1s;
+}
+.tile:active { transform: scale(.96); }
+.tile.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+.tile.wrong   { background: #fee2e2; border-color: #ef4444; color: #dc2626; }
+.tile:disabled { cursor: default; }
+
+/* NEXT BUTTON */
+.next-btn {
+  width: 100%;
+  padding: 13px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 15px;
+  margin-top: 10px;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+
+/* END SCREEN */
+.end-screen {
+  text-align: center;
+  padding: 30px 10px;
+}
+.end-screen h2 { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+.end-screen p  { font-size: 14px; color: #374151; }
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+
+  <div class="top-title">Unidad 6 • Lección 5 • Parte 3</div>
+  <div class="subline">Completa las oraciones</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="card">
+
+    <div class="counter-row">
+      <span id="counter">1 / 6</span>
+      <span id="pct">0%</span>
+    </div>
+
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap">
+      <img id="img" alt="">
+    </div>
+
+    <div id="content"></div>
+
+    <button id="nextBtn" class="next-btn">Siguiente →</button>
+
+  </div>
+</div>
+
+<script>
+(() => {
+
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IMG   = BASE + 'images/u6/';
+const AUDIO = BASE + 'audio/u6/';
+
+const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+
+function playSfx(isCorrect){
+  const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+  sfx.currentTime = 0;
+  sfx.play().catch(()=>{});
+}
+
+const SCENES = [
+  {
+    img:   'u6.children.yard.jpg',
+    audio: 'u6.children.yard.mp3',
+    sentences: [
+      {
+        before: 'Today the weather is',
+        after:  '.',
+        correct: 'sunny',
+        wrong:   'cloudy'
+      },
+      {
+        before: 'My children',
+        after:  'in the backyard.',
+        correct: 'are',
+        wrong:   'is'
+      }
+    ]
+  },
+  {
+    img:   'u6.girls.badminton.jpg',
+    audio: 'u6.girls.badminton.mp3',
+    sentences: [
+      {
+        before: 'My two',
+        after:  'are playing badminton.',
+        correct: 'girls',
+        wrong:   'girl'
+      },
+      {
+        before: 'They',
+        after:  'having fun.',
+        correct: 'are',
+        wrong:   'is'
+      }
+    ]
+  },
+  {
+    img:   'u6.boys.soccer.jpg',
+    audio: 'u6.boys.soccer.mp3',
+    sentences: [
+      {
+        before: 'My two',
+        after:  'are playing soccer.',
+        correct: 'boys',
+        wrong:   'boy'
+      },
+      {
+        before: 'They',
+        after:  'outside.',
+        correct: 'are',
+        wrong:   'is'
+      }
+    ]
+  }
+];
+
+const TOTAL = SCENES.length;
+
+let phase = 1;   // 1 = introduce, 2 = quiz
+let i = 0;       // current scene index
+let answeredInScene = 0;
+
+const imgEl   = document.getElementById('img');
+const content = document.getElementById('content');
+const nextBtn = document.getElementById('nextBtn');
+
+function updateProgress(){
+  const step  = phase === 1 ? i : TOTAL + i;
+  const total = TOTAL * 2;
+  document.getElementById('counter').textContent = `${step + 1} / ${total}`;
+  document.getElementById('pct').textContent = Math.round((step / total) * 100) + '%';
+  document.getElementById('bar').style.width = (step / total) * 100 + '%';
+}
+
+function load(){
+  answeredInScene = 0;
+  nextBtn.classList.remove('show');
+  content.innerHTML = '';
+
+  const scene = SCENES[i];
+  imgEl.src = IMG + scene.img;
+  updateProgress();
+
+  if(phase === 1){
+    showIntroduce(scene);
+  } else {
+    showQuiz(scene);
+  }
+}
+
+/* ── PHASE 1: tap to listen ── */
+function showIntroduce(scene){
+  const lbl = document.createElement('div');
+  lbl.className = 'phase-label';
+  lbl.textContent = 'Escucha el audio';
+  content.appendChild(lbl);
+
+  const box = document.createElement('div');
+  box.className = 'listen-box';
+
+  const btn = document.createElement('button');
+  btn.className = 'listen-btn';
+  btn.textContent = '🔊 Toca para escuchar';
+
+  btn.onclick = () => {
+    const audio = new Audio(AUDIO + scene.audio);
+    btn.disabled = true;
+    btn.textContent = '🔊 Reproduciendo...';
+    audio.play().catch(()=>{});
+    audio.onended = () => {
+      btn.textContent = '🔊 Escuchar de nuevo';
+      btn.disabled = false;
+      btn.onclick = () => {
+        const a2 = new Audio(AUDIO + scene.audio);
+        a2.play().catch(()=>{});
+      };
+      nextBtn.classList.add('show');
+    };
+  };
+
+  box.appendChild(btn);
+  content.appendChild(box);
+}
+
+/* ── PHASE 2: fill-in-the-blank quiz ── */
+function showQuiz(scene){
+  const lbl = document.createElement('div');
+  lbl.className = 'phase-label';
+  lbl.textContent = 'Completa las oraciones';
+  content.appendChild(lbl);
+
+  scene.sentences.forEach((sent, idx) => {
+    content.appendChild(buildSentenceBlock(scene, sent, idx));
+  });
+}
+
+function buildSentenceBlock(scene, sent, idx){
+  const block = document.createElement('div');
+  block.className = 'sentence-block';
+
+  // Sentence row with blank
+  const row = document.createElement('div');
+  row.className = 'sentence-row';
+
+  const before = document.createElement('span');
+  before.textContent = sent.before + ' ';
+  row.appendChild(before);
+
+  const blank = document.createElement('span');
+  blank.className = 'blank';
+  blank.id = `blank-${i}-${idx}`;
+  row.appendChild(blank);
+
+  if(sent.after){
+    const after = document.createElement('span');
+    after.textContent = ' ' + sent.after;
+    row.appendChild(after);
+  }
+
+  block.appendChild(row);
+
+  // Tile options
+  const tilesWrap = document.createElement('div');
+  tilesWrap.className = 'tiles-wrap';
+
+  const options = shuffle([sent.correct, sent.wrong]);
+
+  options.forEach(opt => {
+    const b = document.createElement('button');
+    b.className = 'tile';
+    b.textContent = opt;
+
+    b.onclick = () => {
+      tilesWrap.querySelectorAll('button').forEach(x => x.disabled = true);
+
+      if(opt === sent.correct){
+        b.classList.add('correct');
+        playSfx(true);
+        blank.textContent = opt;
+        blank.className = 'blank filled-correct';
+      } else {
+        b.classList.add('wrong');
+        playSfx(false);
+        blank.textContent = opt;
+        blank.className = 'blank filled-wrong';
+        // Reveal correct tile
+        tilesWrap.querySelectorAll('button').forEach(x => {
+          if(x.textContent === sent.correct) x.classList.add('correct');
+        });
+      }
+
+      answeredInScene++;
+      if(answeredInScene === scene.sentences.length){
+        // Play scene audio then auto-advance
+        setTimeout(() => {
+          const audio = new Audio(AUDIO + scene.audio);
+          audio.play().catch(()=>{});
+          audio.onended = () => setTimeout(() => advance(), 500);
+        }, 300);
+      }
+    };
+
+    tilesWrap.appendChild(b);
+  });
+
+  block.appendChild(tilesWrap);
+  return block;
+}
+
+function advance(){
+  i++;
+  if(i < TOTAL){
+    load();
+  } else {
+    showEnd();
+  }
+}
+
+function showEnd(){
+  nextBtn.classList.remove('show');
+  document.getElementById('bar').style.width = '100%';
+  document.getElementById('counter').textContent = `${TOTAL * 2} / ${TOTAL * 2}`;
+  document.getElementById('pct').textContent = '100%';
+  document.querySelector('.card').innerHTML =
+    `<div class="end-screen">
+       <h2>¡Completado! 🎉</h2>
+       <p>Has terminado la Parte 3.</p>
+     </div>`;
+}
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+
+/* ── NEXT BUTTON (Phase 1 only) ── */
+nextBtn.onclick = () => {
+  if(phase === 1){
+    i++;
+    if(i < TOTAL){
+      load();
+    } else {
+      phase = 2;
+      i = 0;
+      load();
+    }
+  }
+};
+
+load();
+
+})();
+</script>
+
+</body>
+</html>
