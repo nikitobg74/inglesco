@@ -957,8 +957,9 @@
     const msg   = document.getElementById('modalMsg');
     const btn   = document.getElementById('modalSubmit');
 
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      msg.textContent = 'Please enter a valid email address.';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!email || !emailRegex.test(email)) {
+      msg.textContent = 'That does not look like a valid email address. Please check and try again.';
       msg.className = 'modal-msg error';
       return;
     }
