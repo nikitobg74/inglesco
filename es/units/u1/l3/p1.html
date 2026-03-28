@@ -1,278 +1,637 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<title>Unidad 1 - Lección 3 - Parte 1</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 
-<!-- ✅ Correct JS path -->
-<script defer src="../../../../js/u1/u1_l3_p1.js"></script>
+  <title>Lección 3, Parte 1: Diálogo — Where are you from? | Inglesco</title>
+  <meta name="description" content="Escucha un diálogo en inglés sobre presentaciones y direcciones. Unidad 1, Lección 3, Parte 1.">
 
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; }
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
 
-.back-btn {
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
-}
-.back-btn:hover { background:#1e40af; }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-.unit-title {
-  text-align:center;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:#2563eb;
-}
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
 
-/* Progress bar */
-.progress-container {
-  display:flex;
-  justify-content:center;
-  margin:15px 0 25px 0;
-  gap:10px;
-}
-.step {
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-}
-.step.active { background:#2563eb; color:white; }
-.step:hover { transform: scale(1.1); }
+    /* BACK BUTTON */
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
 
-/* Main Box */
-.exercise-box {
-  max-width:950px;
-  margin:0 auto;
-  background:white;
-  padding:40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
+    }
 
-/* Characters */
-.top-characters {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
 
-.character {
-  width:220px;
-  text-align:center;
-}
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
 
-.character img {
-  width:100%;
-  border-radius:16px;
-  border:4px solid #2563eb;
-}
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
 
-/* Play button */
-.player-controls {
-  text-align:center;
-  margin:20px 0 30px 0;
-}
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
 
-.play-btn {
-  padding:12px 30px;
-  border:none;
-  border-radius:12px;
-  background:#7c3aed;
-  color:white;
-  font-weight:600;
-  font-size:16px;
-  cursor:pointer;
-}
-.play-btn:hover { background:#6d28d9; }
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
 
-/* Dialogue */
-.dialogue-container {
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
+    /* CHARACTERS ROW — compact avatars */
+    .characters-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      border-radius: 14px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 14px;
+    }
 
-.dialogue-row {
-  display:flex;
-  width:100%;
-}
+    .char {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.dialogue-box {
-  padding:16px 22px;
-  border-radius:18px;
-  font-size:18px;
-  line-height:1.6;
-  max-width:70%;
-  transition:all 0.3s;
-}
+    .char img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
 
-/* ANA left */
-.ana-row { justify-content:flex-start; }
-.ana-box { background:#fce7f3; color:#111; text-align:left; }
+    .char-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1e2a38;
+    }
 
-/* GEORGE right */
-.george-row { justify-content:flex-end; }
-.george-box { background:#e0f2fe; color:#111; text-align:right; }
+    .char-label {
+      font-size: 11px;
+      color: #486581;
+    }
 
-.dialogue-box.active { box-shadow:0 0 0 3px #facc15; }
+    .vs {
+      font-size: 18px;
+      font-weight: 800;
+      color: #d1d5db;
+    }
 
-/* Bottom buttons */
-.controls {
-  text-align:center;
-  margin-top:35px;
-}
+    /* PLAY CONTROLS */
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
 
-.replay-btn {
-  padding:12px 25px;
-  border:none;
-  border-radius:12px;
-  background:#f97316;
-  color:white;
-  font-weight:600;
-  font-size:15px;
-  cursor:pointer;
-  margin-right:15px;
-}
-.replay-btn:hover { background:#ea580c; }
+    .play-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+    }
+    .play-btn:hover { background: #1e40af; transform: translateY(-1px); }
+    .play-btn:active { transform: scale(0.98); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn svg { width: 14px; height: 14px; fill: white; margin-left: 1px; flex-shrink: 0; }
 
-.next-btn {
-  padding:12px 25px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:600;
-  font-size:15px;
-  cursor:pointer;
-  display:none;
-}
-.next-btn:hover { background:#1e40af; }
+    .replay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.8);
+      color: #486581;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .replay-btn:hover { background: white; }
+    .replay-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-@media(max-width:768px){
-  .top-characters{ flex-direction:column; gap:20px; }
-}
+    /* DIALOGUE */
+    .dialogue {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
 
-/* hidden language strings */
-.i18n { display:none; }
+    .dialogue-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
 
-/* Prevent iOS from auto-linking phone numbers, addresses etc */
-a[href^="tel"], a[x-apple-data-detectors] {
-  color: inherit !important;
-  text-decoration: none !important;
-  pointer-events: none !important;
-}
-.no-link {
-  unicode-bidi: isolate;
-}
-</style>
+    /* ANA — left */
+    .ana-row { justify-content: flex-start; }
+
+    .ana-row .bubble-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+      border: 2px solid rgba(0,0,0,0.06);
+      order: 0;
+    }
+
+    .ana-row .bubble {
+      background: #fce7f3;
+      border-radius: 18px 18px 18px 4px;
+      color: #1e2a38;
+      text-align: left;
+      order: 1;
+    }
+
+    /* GEORGE — right */
+    .george-row { justify-content: flex-end; }
+
+    .george-row .bubble-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+      border: 2px solid rgba(0,0,0,0.06);
+      order: 1;
+    }
+
+    .george-row .bubble {
+      background: #e0f2fe;
+      border-radius: 18px 18px 4px 18px;
+      color: #1e2a38;
+      text-align: left;
+      order: 0;
+    }
+
+    .bubble {
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 78%;
+      transition: all 0.2s;
+      font-weight: 600;
+    }
+
+    /* Active — currently speaking */
+    .bubble.speaking {
+      box-shadow: 0 0 0 2px #2563eb;
+      transform: scale(1.01);
+    }
+
+    /* Done — already played */
+    .bubble.played {
+      opacity: 0.7;
+    }
+
+    /* not yet played */
+    .bubble.pending {
+      opacity: 0.4;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 14px;
+      background: #f0fdf4;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      font-size: 15px;
+      color: #16a34a;
+      margin-bottom: 12px;
+    }
+
+    /* CONTINUE BUTTON */
+    .continue-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: #d1d5db;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: not-allowed;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .continue-btn.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      animation: pulse-in 0.4s ease;
+    }
+    .continue-btn.enabled:hover  { background: #1e40af; transform: translateY(-2px); }
+    .continue-btn.enabled:active { transform: scale(0.98); }
+
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 
 <body>
 
-<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+  <a class="back-btn" href="../index.html">← Lección 3</a>
 
-<div class="unit-title">Lección 3 - Parte 1</div>
+  <div class="wrap">
 
-<div class="progress-container">
-  <div class="step active" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step" data-page="p4.html">4</div>
-<div class="step" data-page="p5.html">5</div>
-</div>
+    <span class="lesson-tag">Unidad 1 · Lección 3 · Parte 1</span>
+    <h1>Where are you from?</h1>
+    <p class="subtitle">Escucha el diálogo completo</p>
 
-<div class="exercise-box">
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot active" data-part="1">1</div>
+      <div class="dot" data-part="2">2</div>
+      <div class="dot" data-part="3">3</div>
+      <div class="dot" data-part="4">4</div>
+      <div class="dot" data-part="5">5</div>
+    </div>
 
-  <div class="player-controls">
-    <button class="play-btn" id="playPauseBtn">▶️ Reproducir</button>
+    <!-- CHARACTERS -->
+    <div class="characters-row">
+      <div class="char">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana">
+        <div>
+          <div class="char-name">Ana</div>
+          <div class="char-label">Colombia</div>
+        </div>
+      </div>
+      <div class="vs">↔</div>
+      <div class="char">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+        <div>
+          <div class="char-name">George</div>
+          <div class="char-label">Venezuela</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAY CONTROLS -->
+    <div class="controls">
+      <button class="play-btn" id="playBtn">
+        <svg id="playIcon" viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        <span id="playLabel">Reproducir</span>
+      </button>
+      <button class="replay-btn" id="replayBtn" title="Repetir desde el principio">
+        <svg viewBox="0 0 16 16" style="width:13px;height:13px;fill:#486581"><path d="M8 3a5 5 0 1 0 4.546 2.914l1.81-.906A7 7 0 1 1 8 1V3z"/><path d="M6.5 1.5l2-2 2 2-2 2z"/></svg>
+        Repetir
+      </button>
+    </div>
+
+    <!-- DIALOGUE -->
+    <div class="dialogue" id="dialogue">
+
+      <div class="dialogue-row ana-row" data-audio="u1_l3_p1_ana1.mp3">
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana">
+        <div class="bubble pending">Hello George. I am Ana. Where are you from?</div>
+      </div>
+
+      <div class="dialogue-row george-row" data-audio="u1_l3_p1_george1.mp3">
+        <div class="bubble pending">Hello Ana. I am from Caracas. I am Venezuelan. Where are you from?</div>
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+      </div>
+
+      <div class="dialogue-row ana-row" data-audio="u1_l3_p1_ana2.mp3">
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana">
+        <div class="bubble pending">I am from Medellín. I am Colombian.</div>
+      </div>
+
+      <div class="dialogue-row george-row" data-audio="u1_l3_p1_george2.mp3">
+        <div class="bubble pending">What is your address?</div>
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+      </div>
+
+      <div class="dialogue-row ana-row" data-audio="u1_l3_p1_ana3.mp3">
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana">
+        <div class="bubble pending">My address is 213 Main Street. And you?</div>
+      </div>
+
+      <div class="dialogue-row george-row" data-audio="u1_l3_p1_george3.mp3">
+        <div class="bubble pending">My address is 94 River Street, apartment 2.</div>
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+      </div>
+
+      <div class="dialogue-row george-row" data-audio="u1_l3_p1_george4.mp3">
+        <div class="bubble pending">What is your phone number?</div>
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+      </div>
+
+      <div class="dialogue-row ana-row" data-audio="u1_l3_p1_ana4.mp3">
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana">
+        <div class="bubble pending">My telephone number is 758-9251. And you? What is your phone number?</div>
+      </div>
+
+      <div class="dialogue-row george-row" data-audio="u1_l3_p1_george5.mp3">
+        <div class="bubble pending">My phone number is 549-2137.</div>
+        <img class="bubble-avatar" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+      </div>
+
+    </div>
+
+    <!-- SUCCESS + CONTINUE -->
+    <div class="success-msg" id="successMsg">
+      ✅ ¡Muy bien! Escuchaste el diálogo completo.
+    </div>
+
+    <button class="continue-btn" id="continueBtn" disabled>
+      Continuar →
+    </button>
+
   </div>
 
-  <div class="top-characters">
-    <div class="character">
-      <img src="../../../../assets/images/u1/ana.png" alt="Ana">
-      <p><strong>Ana</strong></p>
-    </div>
+  <!-- SFX -->
+  <audio id="sfx-correct" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav" preload="auto"></audio>
 
-    <div class="character">
-      <img src="../../../../assets/images/u1/george.png" alt="George">
-      <p><strong>George</strong></p>
-    </div>
-  </div>
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT           = 'u1';
+    const LESSON         = 'l3';
+    const PARTS_TOTAL    = 5;
+    const CURRENT_PART_NUM = 1;
+    const NEXT_PAGE      = 'p2.html';
+    const PART_PAGES     = ['p1.html','p2.html','p3.html','p4.html','p5.html'];
+    const BASE           = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/';
 
-  <!-- ✅ Language text lives in HTML -->
-  <div class="i18n">
-    <span id="txt-play">▶️ Reproducir</span>
-    <span id="txt-pause">⏸ Pausar</span>
-    <span id="txt-next">Siguiente →</span>
-  </div>
+    // ─── DIALOGUE ROWS ───────────────────────────────────────
+    const rows    = Array.from(document.querySelectorAll('.dialogue-row[data-audio]'));
+    const bubbles = rows.map(r => r.querySelector('.bubble'));
 
-  <div class="dialogue-container" id="dialogueContainer"
-       data-audio-base="../../../../assets/audio/u1/"
-       data-next="p2.html">
+    // ─── STATE ───────────────────────────────────────────────
+    let currentIndex = 0;
+    let isPlaying    = false;
+    let currentAudio = null;
+    let hasCompleted = false;
 
-    <div class="dialogue-row ana-row">
-      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana1.mp3">Hello George. I am Ana. Where are you from?</div>
-    </div>
+    // ─── AUDIO ───────────────────────────────────────────────
+    function stopAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
+    }
 
-    <div class="dialogue-row george-row">
-      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george1.mp3">Hello Ana. I am from Caracas. I am Venezuelan. Where are you from?</div>
-    </div>
+    window.addEventListener('beforeunload', stopAudio);
 
-    <div class="dialogue-row ana-row">
-      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana2.mp3">I am from Medellin. I am Colombian.</div>
-    </div>
+    // ─── UI HELPERS ──────────────────────────────────────────
+    const playBtn   = document.getElementById('playBtn');
+    const playIcon  = document.getElementById('playIcon');
+    const playLabel = document.getElementById('playLabel');
 
-    <div class="dialogue-row george-row">
-      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george2.mp3">What is your address?</div>
-    </div>
+    function setPlayState(playing) {
+      isPlaying = playing;
+      playBtn.classList.toggle('playing', playing);
+      if (playing) {
+        playIcon.innerHTML = '<rect x="3" y="2" width="3" height="12"/><rect x="10" y="2" width="3" height="12"/>';
+        playLabel.textContent = 'Pausar';
+      } else {
+        playIcon.innerHTML = '<path d="M4 2l10 6-10 6V2z"/>';
+        playLabel.textContent = currentIndex > 0 ? 'Continuar' : 'Reproducir';
+      }
+    }
 
-    <div class="dialogue-row ana-row">
-      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana3.mp3">My address is 213 Main Street. And you?</div>
-    </div>
+    function resetUI() {
+      bubbles.forEach(b => {
+        b.classList.remove('speaking', 'played');
+        b.classList.add('pending');
+      });
+      currentIndex = 0;
+      setPlayState(false);
+    }
 
-    <div class="dialogue-row george-row">
-      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george3.mp3">My address is 94 River Street, apartment 2.</div>
-    </div>
+    // ─── PLAYBACK ────────────────────────────────────────────
+    function playCurrent() {
+      if (!isPlaying) return;
 
-    <div class="dialogue-row george-row">
-      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george4.mp3">What is your phone number?</div>
-    </div>
+      if (currentIndex >= rows.length) {
+        // Finished entire dialogue
+        setPlayState(false);
+        onComplete();
+        return;
+      }
 
-    <div class="dialogue-row ana-row">
-      <div class="dialogue-box ana-box" data-audio="u1_l3_p1_ana4.mp3">My telephone number is <span class="no-link">758 9251</span>. And you? What is your phone number?</div>
-    </div>
+      const row    = rows[currentIndex];
+      const bubble = bubbles[currentIndex];
+      const file   = row.dataset.audio;
 
-    <div class="dialogue-row george-row">
-      <div class="dialogue-box george-box" data-audio="u1_l3_p1_george5.mp3">My phone number is <span class="no-link">549 2137</span>.</div>
-    </div>
+      stopAudio();
 
-  </div>
+      // Highlight current bubble
+      bubbles.forEach((b, i) => {
+        b.classList.remove('speaking');
+        if (i < currentIndex) {
+          b.classList.add('played');
+          b.classList.remove('pending');
+        }
+      });
+      bubble.classList.remove('pending', 'played');
+      bubble.classList.add('speaking');
 
-  <div class="controls">
-    <button class="replay-btn" id="replayBtn">Repetir diálogo</button>
-    <button class="next-btn" id="nextBtn">Siguiente →</button>
-  </div>
+      // Scroll bubble into view smoothly
+      bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-</div>
+      const audio = new Audio(BASE + file);
+      currentAudio = audio;
+      audio.play().catch(() => {});
+
+      audio.onended = () => {
+        if (currentAudio !== audio) return;
+        currentAudio = null;
+        bubble.classList.remove('speaking');
+        bubble.classList.add('played');
+        currentIndex++;
+        setTimeout(playCurrent, 400);
+      };
+    }
+
+    // ─── PLAY BUTTON ─────────────────────────────────────────
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        setPlayState(true);
+        playCurrent();
+      } else {
+        setPlayState(false);
+        if (currentAudio) currentAudio.pause();
+      }
+    });
+
+    // ─── REPLAY BUTTON ───────────────────────────────────────
+    document.getElementById('replayBtn').addEventListener('click', () => {
+      stopAudio();
+      resetUI();
+    });
+
+    // ─── ON COMPLETE ─────────────────────────────────────────
+    function onComplete() {
+      if (hasCompleted) return;
+      hasCompleted = true;
+
+      document.getElementById('sfx-correct').play().catch(() => {});
+      document.getElementById('successMsg').style.display = 'block';
+
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.onclick = () => {
+        saveProgress();
+        updateFurthest(CURRENT_PART_NUM + 1);
+        window.location.href = NEXT_PAGE;
+      };
+    }
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    function saveProgress() {
+      try {
+        const lp = JSON.parse(localStorage.getItem('inglesco_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        if (lp[LESSON].partsCompleted < CURRENT_PART_NUM) {
+          lp[LESSON].partsCompleted = CURRENT_PART_NUM;
+        }
+        localStorage.setItem('inglesco_progress_' + UNIT, JSON.stringify(lp));
+      } catch(e) {}
+    }
+
+    // ─── DOT NAVIGATION ──────────────────────────────────────
+    const FURTHEST_KEY = `inglesco_furthest_${UNIT}_${LESSON}`;
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || '1', 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART_NUM) {
+          dot.classList.add('active');
+        } else if (part < CURRENT_PART_NUM) {
+          dot.classList.add('done');
+          dot.addEventListener('click', () => { stopAudio(); window.location.href = PART_PAGES[part - 1]; });
+        } else {
+          dot.addEventListener('click', () => { stopAudio(); window.location.href = PART_PAGES[part - 1]; });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART_NUM);
+    initDots();
+  </script>
 
 </body>
 </html>
