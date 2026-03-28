@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inglesco</title>
+<title>Learn English from Zero | Inglesco – Simple English for Beginners</title>
+<meta name="description" content="Learn American English from zero with simple, visual lessons designed for Spanish speakers and beginners. Start in your language. No grammar overload.">
+<meta name="keywords" content="learn english, english for spanish speakers, beginner english, learn english from zero, inglesco">
+<meta property="og:title" content="Learn English from Zero – Inglesco">
+<meta property="og:description" content="Start learning English in your language. Simple, visual, beginner-friendly lessons.">
+<meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -279,18 +284,12 @@
     padding: 14px 14px 10px;
     width: 216px;
     box-shadow: 4px 8px 32px rgba(80,50,20,0.1);
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    pointer-events: none;
-    margin-left: 14px;
-    flex-shrink: 0;
-  }
-
-  .lang-panel.visible {
     opacity: 1;
     transform: translateX(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
     pointer-events: all;
+    margin-left: 14px;
+    flex-shrink: 0;
   }
 
   .lang-panel-title {
@@ -578,6 +577,37 @@
   .modal-msg.success { color: #1a7a3a; }
   .modal-msg.error   { color: #c03020; }
 
+  /* ── HERO TEXT ── */
+  .hero-text {
+    position: absolute;
+    top: clamp(110px, 18vh, 160px);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 20;
+  }
+  .hero-text h1 {
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 700;
+    color: #2a1e10;
+    margin-bottom: 6px;
+  }
+  .hero-text p {
+    font-size: clamp(13px, 3vw, 16px);
+    color: rgba(80,55,35,0.6);
+  }
+
+  /* ── SEO TEXT ── */
+  .seo-text {
+    position: absolute;
+    bottom: 10px;
+    max-width: 600px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(80,55,35,0.35);
+    line-height: 1.4;
+  }
+
   /* ── MOBILE ── */
   @media (max-width: 540px) {
     :root {
@@ -689,6 +719,12 @@
   <div class="logo-tagline">Learn American English</div>
 </div>
 
+<!-- Hero text -->
+<div class="hero-text">
+  <h1>Learn English from zero</h1>
+  <p>Start in your language</p>
+</div>
+
 <!-- Scene: door + language panel -->
 <div class="scene-wrap" id="sceneWrap">
 
@@ -761,7 +797,7 @@
       <div class="lang-flag">🇧🇷</div>
       <div class="lang-info">
         <div class="lang-name">Português</div>
-        <div class="lang-native">Portuguese</div>
+        <div class="lang-native">Português em breve</div>
       </div>
       <span class="lang-badge badge-soon">Soon</span>
     </div>
@@ -770,7 +806,7 @@
       <div class="lang-flag">🇫🇷</div>
       <div class="lang-info">
         <div class="lang-name">Français</div>
-        <div class="lang-native">French</div>
+        <div class="lang-native">Français bientôt</div>
       </div>
       <span class="lang-badge badge-soon">Soon</span>
     </div>
@@ -781,7 +817,7 @@
       <div class="lang-flag">🇷🇺</div>
       <div class="lang-info">
         <div class="lang-name">Русский</div>
-        <div class="lang-native">Russian</div>
+        <div class="lang-native">Скоро</div>
       </div>
       <span class="lang-badge badge-later">Later</span>
     </div>
@@ -799,7 +835,7 @@
       <div class="lang-flag">🇧🇬</div>
       <div class="lang-info">
         <div class="lang-name">Български</div>
-        <div class="lang-native">Bulgarian</div>
+        <div class="lang-native">Скоро</div>
       </div>
       <span class="lang-badge badge-later">Later</span>
     </div>
@@ -808,7 +844,7 @@
       <div class="lang-flag">🇮🇳</div>
       <div class="lang-info">
         <div class="lang-name">हिन्दी</div>
-        <div class="lang-native">Hindi</div>
+        <div class="lang-native">जल्द आ रहा है</div>
       </div>
       <span class="lang-badge badge-later">Later</span>
     </div>
@@ -836,8 +872,6 @@
   </div>
 </div>
 
-<div class="hint" id="hint">— hover to enter —</div>
-
 <!-- Waitlist Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modal">
@@ -857,8 +891,16 @@
   </div>
 </div>
 
+<!-- SEO text -->
+<div class="seo-text">
+  <h2>Learn English for beginners</h2>
+  <p>
+    Inglesco helps you learn English from zero with simple lessons, audio, and real-life examples.
+    Designed especially for Spanish speakers, with more languages coming soon including Portuguese, French, and Bulgarian.
+  </p>
+</div>
+
 <script>
-  // ── Supabase ──
   const { createClient } = supabase;
   const db = createClient(
     'https://cnbuzahtzqknhhdxncur.supabase.co',
@@ -881,7 +923,6 @@
     isOpen = true;
     scene.classList.add('open');
     newWorld.classList.add('visible');
-    langPanel.classList.add('visible');
     hint.classList.add('hidden');
   }
 
@@ -892,7 +933,6 @@
       isOpen = false;
       scene.classList.remove('open');
       newWorld.classList.remove('visible');
-      langPanel.classList.remove('visible');
       hint.classList.remove('hidden');
     }, 120);
   }
@@ -900,10 +940,6 @@
   // Keep open when mouse re-enters any child (door or panel)
   sceneWrap.addEventListener('mouseenter', () => { if (!navigating) openDoor(); });
   sceneWrap.addEventListener('mouseleave', schedulClose);
-
-  // Also guard the panel itself — mouseenter cancels the pending close
-  langPanel.addEventListener('mouseenter', () => { clearTimeout(closeTimer); });
-  langPanel.addEventListener('mouseleave', schedulClose);
 
   // Mobile: tap door to toggle panel
   scene.addEventListener('touchstart', (e) => {

@@ -3,176 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unidad 1 - Lección 1 Parte 1: Saludos básicos | Inglesco</title>
+
+<title>Lección 1: Hello, my name is... | Inglesco</title>
+<meta name="description" content="Aprende a decir tu nombre en inglés con ejemplos claros y audio.">
+
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script> 
- <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body { padding:20px; background:#eef2ff; }
 
-    .back-btn { display:inline-block; margin-bottom:20px; padding:8px 15px; background:#2563eb; color:white; border-radius:10px; text-decoration:none; font-weight:600; }
-    .back-btn:hover { background:#1e40af; }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
 
-    h1 { text-align:center; margin-bottom:15px; color:#2563eb; }
+body {
+  padding:20px;
+  background:#eef2ff;
+}
 
-    /* Progress Bar with Steps */
-    .progress-container {
-      display:flex;
-      justify-content:center;
-      margin-bottom:30px;
-      gap:10px;
-    }
+/* Back */
+.back-btn {
+  display:inline-block;
+  margin-bottom:18px;
+  padding:8px 14px;
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
 
-    .step {
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      color:black;
-      cursor:pointer;
-      transition: all 0.3s ease;
-    }
+/* Title */
+h1 {
+  text-align:center;
+  color:#2563eb;
+  margin-bottom:6px;
+}
 
-    .step.active {
-      background:#2563eb;
-      color:white;
-    }
+.subtitle {
+  text-align:center;
+  font-size:14px;
+  color:#555;
+  margin-bottom:20px;
+}
 
-    .step:hover {
-      transform: scale(1.1);
-    }
+/* Progress */
+.progress-container {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:25px;
+}
 
-    /* Character Card */
-    .character {
-      background: white;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+.step {
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#d1d5db;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:background 0.2s, transform 0.15s;
+}
 
-    .character img {
-      width: 220px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+.step:hover {
+  background:#93c5fd;
+  transform:scale(1.1);
+}
 
-    .character img:hover { transform: scale(1.05); }
+.step.active {
+  background:#2563eb;
+  color:white;
+}
 
-    .english { font-size: 22px; font-weight: 600; margin-top: 15px; }
-    .spanish { font-size: 16px; color: #555; margin-top: 5px; }
-    .counter { margin-top: 10px; font-weight: 600; color: #2563eb; }
+.step.active:hover {
+  background:#1e40af;
+}
 
-    /* Continue Button */
-    .continue-btn {
-      display: block;
-      margin: 40px auto;
-      padding: 12px 25px;
-      background: #9ca3af;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: not-allowed;
-    }
+/* Instruction */
+.instruction {
+  text-align:center;
+  font-size:15px;
+  margin-bottom:20px;
+  color:#1e40af;
+  font-weight:600;
+}
 
-    .continue-btn.enabled {
-      background: #2563eb;
-      cursor: pointer;
-    }
+/* Card */
+.character {
+  background:white;
+  max-width:520px;
+  margin:16px auto;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+}
 
-  </style>
+.character img {
+  width:200px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+.character img:hover {
+  transform:scale(1.05);
+}
+
+.english {
+  font-size:20px;
+  font-weight:600;
+  margin-top:12px;
+}
+
+.spanish {
+  font-size:14px;
+  color:#555;
+  margin-top:4px;
+}
+
+/* Progress text */
+.counter {
+  margin-top:8px;
+  font-size:13px;
+  color:#2563eb;
+}
+
+/* Continue */
+.continue-btn {
+  display:block;
+  margin:30px auto;
+  padding:12px 25px;
+  background:#9ca3af;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.continue-btn.enabled {
+  background:#22c55e;
+  cursor:pointer;
+}
+
+/* Success */
+.success {
+  text-align:center;
+  margin-top:15px;
+  font-weight:700;
+  color:#16a34a;
+  display:none;
+}
+</style>
 </head>
 
 <body>
 
-<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
-<h1>Lección 1</h1>
+<a href="../index.html" class="back-btn">← Unidad 1</a>
 
-<!-- Progress -->
+<h1>Lección 1</h1>
+<p class="subtitle">Aprende a decir tu nombre en inglés</p>
+
 <div class="progress-container">
-  <div class="step active" onclick="window.location.href='p1.html'">1</div>
-  <div class="step" onclick="window.location.href='p2.html'">2</div>
-  <div class="step" onclick="window.location.href='p3.html'">3</div>
-  <div class="step" onclick="window.location.href='p4.html'">4</div>
-<div class="step" onclick="window.location.href='p5.html'">5</div>
+  <div class="step active" data-page="p1.html">1</div>
+  <div class="step" data-page="p2.html">2</div>
+  <div class="step" data-page="p3.html">3</div>
+  <div class="step" data-page="p4.html">4</div>
+  <div class="step" data-page="p5.html">5</div>
 </div>
 
-<!-- Ana -->
+<div class="instruction">
+  Toca cada imagen y escucha 2 veces 👇
+</div>
+
+<!-- CARDS -->
+
 <div class="character">
-  <img src="../../../../assets/images/u1/ana.png" alt="Ana saying: Hello, my name is Ana" onclick="playAudio('ana')" />
+  <img src="../../../../assets/images/u1/ana.png" onclick="playAudio('ana')" />
   <div class="english">Hello. My name is Ana.</div>
   <div class="spanish">Hola, me llamo Ana.</div>
-  <div class="counter" id="ana-count">Plays: 0/2</div>
+  <div class="counter" id="ana-count">0 / 2 escuchas</div>
   <audio id="ana-audio" src="../../../../assets/audio/u1/ana.mp3"></audio>
 </div>
 
-<!-- Pedro -->
 <div class="character">
-  <img src="../../../../assets/images/u1/pedro.png" alt="Pedro saying: Hello, my name is Pedro" onclick="playAudio('pedro')" />
+  <img src="../../../../assets/images/u1/pedro.png" onclick="playAudio('pedro')" />
   <div class="english">Hello. My name is Pedro.</div>
   <div class="spanish">Hola, me llamo Pedro.</div>
-  <div class="counter" id="pedro-count">Plays: 0/2</div>
+  <div class="counter" id="pedro-count">0 / 2 escuchas</div>
   <audio id="pedro-audio" src="../../../../assets/audio/u1/pedro.mp3"></audio>
 </div>
 
-<!-- George -->
 <div class="character">
-  <img src="../../../../assets/images/u1/george.png" alt="George saying: Hello, my name is George" onclick="playAudio('george')" />
+  <img src="../../../../assets/images/u1/george.png" onclick="playAudio('george')" />
   <div class="english">Hello. My name is George.</div>
   <div class="spanish">Hola, me llamo George.</div>
-  <div class="counter" id="george-count">Plays: 0/2</div>
+  <div class="counter" id="george-count">0 / 2 escuchas</div>
   <audio id="george-audio" src="../../../../assets/audio/u1/george.mp3"></audio>
 </div>
 
-<!-- Julie -->
 <div class="character">
-  <img src="../../../../assets/images/u1/julie.png" alt="Julie saying: Hello, my name is Julie" onclick="playAudio('julie')" />
+  <img src="../../../../assets/images/u1/julie.png" onclick="playAudio('julie')" />
   <div class="english">Hello. My name is Julie.</div>
   <div class="spanish">Hola, me llamo Julie.</div>
-  <div class="counter" id="julie-count">Plays: 0/2</div>
+  <div class="counter" id="julie-count">0 / 2 escuchas</div>
   <audio id="julie-audio" src="../../../../assets/audio/u1/julie.mp3"></audio>
 </div>
 
+<div class="success" id="successMsg">
+  ✅ ¡Bien hecho! Ahora continúa
+</div>
+
 <button class="continue-btn" id="continueBtn" disabled>
-  Continue / Continuar →
+  Continuar →
 </button>
 
 <script>
-let plays = { ana:0, pedro:0, george:0, julie:0 };
+  // Progress bar navigation
+  document.querySelectorAll('.step[data-page]').forEach(step => {
+    step.addEventListener('click', () => {
+      window.location.href = step.dataset.page;
+    });
+  });
 
-function playAudio(name) {
-  const audio = document.getElementById(name + "-audio");
-  audio.play();
+  // Audio logic
+  let plays = { ana:0, pedro:0, george:0, julie:0 };
 
-  if (plays[name] < 2) {
-    plays[name]++;
-    document.getElementById(name + "-count").innerText =
-      "Plays: " + plays[name] + "/2";
+  function playAudio(name) {
+    const audio = document.getElementById(name + '-audio');
+    audio.currentTime = 0;
+    audio.play();
+
+    if (plays[name] < 2) {
+      plays[name]++;
+      document.getElementById(name + '-count').innerText =
+        plays[name] + ' / 2 escuchas';
+    }
+
+    checkCompletion();
   }
 
-  checkCompletion();
-}
-
-function checkCompletion() {
-  if (plays.ana >=2 && plays.pedro >=2 && plays.george >=2 && plays.julie >=2) {
-    const btn = document.getElementById("continueBtn");
-    btn.disabled = false;
-    btn.classList.add("enabled");
-    btn.onclick = () => { window.location.href = "p2.html"; };
+  function checkCompletion() {
+    if (plays.ana >= 2 && plays.pedro >= 2 && plays.george >= 2 && plays.julie >= 2) {
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.onclick = () => { window.location.href = 'p2.html'; };
+      document.getElementById('successMsg').style.display = 'block';
+    }
   }
-}
 </script>
 
 </body>

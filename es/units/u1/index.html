@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Unidad 1: Introducción al inglés | Inglesco</title>
+
+  <!-- SEO -->
+  <title>Unidad 1: Saludos y presentaciones en inglés | Inglesco</title>
+  <meta name="description" content="Aprende inglés desde cero: saludos, presentaciones y frases básicas. Empieza tu primera lección paso a paso.">
+
   <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -40,28 +41,28 @@
       font-weight: 700;
       font-size: 14px;
       box-shadow: 0 5px 12px rgba(37, 99, 235, 0.18);
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .back-btn:hover {
-      background: #1e40af;
-      transform: translateY(-1px);
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #2563eb;
       font-size: clamp(1.8rem, 5vw, 2.3rem);
-      line-height: 1.2;
     }
 
     .subtitle {
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
       color: #4b5d73;
-      font-size: 0.98rem;
-      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .start-note {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      color: #1e40af;
+      font-weight: 600;
     }
 
     .lesson-list {
@@ -72,7 +73,6 @@
 
     .lesson-link {
       text-decoration: none;
-      display: block;
     }
 
     .lesson {
@@ -80,58 +80,48 @@
       color: white;
       padding: 16px 18px;
       border-radius: 14px;
-      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      transition: 0.25s;
       box-shadow: 0 8px 20px rgba(37, 99, 235, 0.16);
     }
 
     .lesson:hover {
       background: #1e40af;
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(30, 64, 175, 0.24);
+    }
+
+    /* 🔥 FIRST LESSON = GREEN */
+    .lesson.first {
+      background: #22c55e;
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
+    }
+
+    .lesson.first:hover {
+      background: #15803d;
     }
 
     .lesson-title {
       display: flex;
-      align-items: flex-start;
       gap: 10px;
       font-size: 1rem;
       font-weight: 700;
-      line-height: 1.4;
     }
 
     .lesson-number {
-      font-size: 1.15rem;
       color: #ffeb3b;
       min-width: 24px;
-      line-height: 1.2;
     }
 
     .lesson-sub {
       display: block;
       font-size: 0.9rem;
-      opacity: 0.9;
       margin-top: 6px;
       padding-left: 34px;
-      line-height: 1.45;
+      opacity: 0.9;
     }
 
     @media (max-width: 640px) {
-      body {
-        padding: 14px 12px 28px;
-      }
-
       .lesson {
-        padding: 15px 15px;
-        border-radius: 12px;
-      }
-
-      .lesson-title {
-        font-size: 0.98rem;
-      }
-
-      .lesson-sub {
-        font-size: 0.88rem;
-        padding-left: 34px;
+        padding: 15px;
       }
     }
   </style>
@@ -140,17 +130,20 @@
 <body>
   <div class="page">
 
-    <a href="../../dashboard.html" class="back-btn">← Volver a Unidades</a>
+    <a href="../../index.html" class="back-btn">← Volver a Unidades</a>
 
-    <h1>Unidad 1 - Introducción</h1>
+    <h1>Unidad 1: Introducción</h1>
     <p class="subtitle">
-      Aprende a saludar, presentarte y dar información básica.
+      Aprende a saludar, presentarte y decir información básica en inglés.
     </p>
+
+    <div class="start-note">Empieza por la lección 1 👇</div>
 
     <div class="lesson-list">
 
+      <!-- LESSON 1 (HIGHLIGHTED) -->
       <a href="l1/p1.html" class="lesson-link">
-        <div class="lesson">
+        <div class="lesson first">
           <div class="lesson-title">
             <span class="lesson-number">1.</span>
             <span>Hello. My name is...</span>

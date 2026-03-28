@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 5 • Parte 5 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) { window.va('track', 'U6 L5 P5 Started'); }
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; color: #111827; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+/* ── Progress dots ───────────────────────────────────────────────────────── */
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px 0;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933; transition: background .3s, color .3s;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step:hover:not(.active) { background: #93c5fd; }
+
+/* ── Main card ───────────────────────────────────────────────────────────── */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* ── Progress bar ────────────────────────────────────────────────────────── */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+.bar-wrap {
+  background: #e2e8f0; border-radius: 999px;
+  height: 7px; margin-bottom: 20px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; width: 0%;
+  background: #a855f7;
+  border-radius: 999px;
+  transition: width .5s;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ── Dialogue box ────────────────────────────────────────────────────────── */
+.dialogue-box {
+  background: #f8fafc; border-radius: 14px;
+  padding: 14px 16px; margin-bottom: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.dial-line {
+  font-size: 14px; font-weight: 600; color: #94a3b8;
+  border-left: 3px solid transparent;
+  padding-left: 10px; line-height: 1.6;
+  transition: color .25s, border-color .25s;
+}
+.dial-line.highlight {
+  color: #1e40af; font-weight: 700;
+  border-left-color: #fbbf24;
+}
+
+/* ── Play button ─────────────────────────────────────────────────────────── */
+.main-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px; margin-bottom: 18px;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.main-btn:active { transform: scale(.98); }
+.main-btn.ready   { background: #0d9488; color: white; }
+.main-btn.playing { background: #6b7280; color: white; cursor: default; }
+.main-btn.repeat  { background: #f0fdfa; color: #0f766e; border: 2px solid #0d9488; }
+.main-btn.repeat:hover { background: #ccfbf1; }
+.main-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+/* ── Fill panel ──────────────────────────────────────────────────────────── */
+.fill-panel {
+  display: none;
+  flex-direction: column; gap: 16px;
+  margin-bottom: 18px;
+  animation: fadeUp .35s ease;
+}
+.fill-panel.visible { display: flex; }
+
+/* Each fill row: sentence + its inline choice buttons */
+.fill-row {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.fill-sentence {
+  font-size: 15px; font-weight: 600; color: #1e293b;
+  line-height: 1.9;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 5px;
+}
+
+/* Blank slot */
+.blank-slot {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 70px; padding: 4px 12px;
+  background: #e2e8f0;
+  border: 2px dashed #94a3b8;
+  border-radius: 999px;
+  font-size: 14px; font-weight: 700;
+  color: transparent;
+  transition: background .25s, color .25s, border-color .25s;
+  white-space: nowrap;
+}
+.blank-slot.correct-fill {
+  background: #dcfce7;
+  color: #166534;
+  border: 2px solid #16a34a;
+}
+.blank-slot.wrong-fill {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #dc2626;
+}
+
+/* Choice buttons row */
+.choices-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.choice-btn {
+  padding: 8px 18px;
+  background: #0d9488; color: white;
+  border: none; border-radius: 999px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.choice-btn:hover  { background: #0f766e; }
+.choice-btn:active { transform: scale(.96); }
+.choice-btn.used-correct { background: #16a34a; pointer-events: none; }
+.choice-btn.used-wrong   { background: #dc2626; pointer-events: none; }
+.choice-btn.disabled-btn { background: #d1d5db; color: #9ca3af; pointer-events: none; }
+
+/* ── Next button ─────────────────────────────────────────────────────────── */
+.next-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  opacity: 0; pointer-events: none;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+.next-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen {
+  display: none; text-align: center;
+  background: rgba(255,255,255,.88);
+  border-radius: 18px; padding: 36px 24px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="back-wrap">
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+</div>
+
+<div class="wrap">
+
+  <div class="top-title">Unidad 6 • Lección 5 • Parte 5</div>
+  <div class="subline">La familia — Escucha y completa</div>
+
+  <!-- Vocab note -->
+  <div style="text-align:center;margin-bottom:14px;font-size:14px;font-weight:700;color:#374151;">
+    twins = <span style="color:#0f766e;">gemelos / mellizos</span>
+  </div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
+  </div>
+
+  <div class="card" id="mainCard">
+
+    <div class="counter-row">
+      <span id="counter">1 / 2</span>
+      <span id="pctLabel">0%</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap">
+      <img id="slideImg" src="" alt="">
+    </div>
+
+    <div class="dialogue-box" id="dialogueBox"></div>
+
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar
+    </button>
+
+    <div class="fill-panel" id="fillPanel"></div>
+
+    <button class="next-btn" id="nextBtn"></button>
+
+  </div>
+
+</div><!-- end .wrap -->
+
+<!-- End screen — OUTSIDE .wrap -->
+<div id="endScreen" data-unit="6" data-lesson="5" data-part="5">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Escuchaste y completaste las oraciones.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Lección 5.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="../index.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Volver a la Unidad 6
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 5;
+  const PART   = 5;
+
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const AUDIO = BASE + 'audio/u6/';
+  const IMG   = BASE + 'images/u6/';
+
+  // ── SFX ───────────────────────────────────────────
+  const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+  const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+  sfxCorrect.load();
+  sfxIncorrect.load();
+  function playSfx(isCorrect) {
+    const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+    sfx.currentTime = 0;
+    sfx.play().catch(() => {});
+  }
+
+  // Each scene: image, audio, dialogue lines, and fill blanks.
+  // blank: { before, after, correct, wrong[] }
+  // correct = right answer, wrong = distractor(s)
+  // choices are shuffled before display.
+
+  const SCENES = [
+    {
+      img:   'u6.boy.girl.jpg',
+      audio: 'u6.children1.mp3',
+      lines: [
+        'My brother\'s children are a boy and a girl.',
+        'Mayra is 7 years old.',
+        'Jeremy is 8 years old.',
+        'They are young.',
+      ],
+      blanks: [
+        {
+          before:  'Mayra is',
+          after:   'years old.',
+          correct: '7',
+          wrong:   ['8'],
+        },
+        {
+          before:  'Jeremy is',
+          after:   'years old.',
+          correct: '8',
+          wrong:   ['7'],
+        },
+        {
+          before:  'They are',
+          after:   '.',
+          correct: 'young',
+          wrong:   ['old'],
+        },
+      ],
+    },
+    {
+      img:   'u6.twin.girls.jpg',
+      audio: 'u6.children2.mp3',
+      lines: [
+        'My sister\'s children are two girls.',
+        'They are 6 years old.',
+        'They are twins.',
+        'Their names are Grace and Emma.',
+      ],
+      blanks: [
+        {
+          before:  'Grace and Emma are',
+          after:   'years old.',
+          correct: '6',
+          wrong:   ['7'],
+        },
+        {
+          before:  'They are',
+          after:   '.',
+          correct: 'twins',
+          wrong:   ['brothers'],
+        },
+      ],
+    },
+  ];
+
+  // ═══════════════════════════════════════════════════
+  // ENGINE
+  // ═══════════════════════════════════════════════════
+
+  const TOTAL     = SCENES.length;
+  let current     = 0;
+  let playing     = false;
+  let snd         = null;
+  // per-scene: how many blanks are correctly filled
+  let filledCorrect = 0;
+  let totalBlanks   = 0;
+
+  const slideImg    = document.getElementById('slideImg');
+  const dialogueBox = document.getElementById('dialogueBox');
+  const mainBtn     = document.getElementById('mainBtn');
+  const fillPanel   = document.getElementById('fillPanel');
+  const nextBtn     = document.getElementById('nextBtn');
+  const counter     = document.getElementById('counter');
+  const pctLabel    = document.getElementById('pctLabel');
+  const bar         = document.getElementById('bar');
+
+  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  function loadScene(idx) {
+    stopSnd();
+    playing = false;
+    filledCorrect = 0;
+
+    const s = SCENES[idx];
+    totalBlanks = s.blanks.length;
+
+    const pct = Math.round((idx / TOTAL) * 100);
+    counter.textContent  = `${idx + 1} / ${TOTAL}`;
+    pctLabel.textContent = pct + '%';
+    bar.style.width      = pct + '%';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = s.lines[0];
+
+    // Build dialogue
+    dialogueBox.innerHTML = '';
+    s.lines.forEach((line, i) => {
+      const div = document.createElement('div');
+      div.className = 'dial-line';
+      div.id = 'line-' + i;
+      div.textContent = line;
+      dialogueBox.appendChild(div);
+    });
+
+    // Reset fill panel
+    fillPanel.innerHTML = '';
+    fillPanel.classList.remove('visible');
+
+    // Next button
+    nextBtn.classList.remove('show');
+    if (idx < TOTAL - 1) {
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.onclick = () => { current++; loadScene(current); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => showEnd();
+    }
+
+    setBtn('ready');
+  }
+
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    if (state === 'ready')   { mainBtn.innerHTML = ICON + ' Escuchar';    mainBtn.disabled = false; }
+    if (state === 'playing') { mainBtn.innerHTML = ICON + ' Escuchando…'; mainBtn.disabled = true;  }
+    if (state === 'repeat')  { mainBtn.innerHTML = ICON + ' Repetir';     mainBtn.disabled = false; }
+  }
+
+  function stopSnd() {
+    if (snd) { snd.pause(); snd.onended = null; snd.onerror = null; snd = null; }
+  }
+
+  window.handlePlay = function () {
+    if (playing) return;
+    playing = true;
+    setBtn('playing');
+    fillPanel.classList.remove('visible');
+    nextBtn.classList.remove('show');
+
+    document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+
+    const s = SCENES[current];
+    let timers = [];
+    snd = new Audio(AUDIO + s.audio);
+
+    snd.addEventListener('loadedmetadata', () => {
+      timers.forEach(t => clearTimeout(t));
+      timers = [];
+      const interval = (snd.duration * 1000) / s.lines.length;
+      s.lines.forEach((_, i) => {
+        const t = setTimeout(() => highlight(i), i * interval);
+        timers.push(t);
+      });
+    });
+
+    // Fallback highlight
+    s.lines.forEach((_, i) => {
+      const t = setTimeout(() => highlight(i), i * 1800);
+      timers.push(t);
+    });
+
+    snd.play().catch(() => {});
+
+    snd.onended = () => {
+      timers.forEach(t => clearTimeout(t));
+      document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+      playing = false;
+      setBtn('repeat');
+      showFillPanel(s);
+    };
+
+    snd.onerror = () => {
+      timers.forEach(t => clearTimeout(t));
+      playing = false;
+      setBtn('repeat');
+      showFillPanel(s);
+    };
+  };
+
+  function highlight(i) {
+    document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+    const el = document.getElementById('line-' + i);
+    if (el) el.classList.add('highlight');
+  }
+
+  // ── Fill panel ────────────────────────────────────
+
+  function showFillPanel(s) {
+    fillPanel.innerHTML = '';
+
+    s.blanks.forEach((blank, bIdx) => {
+      const row = document.createElement('div');
+      row.className = 'fill-row';
+
+      // Sentence with blank slot
+      const sentence = document.createElement('div');
+      sentence.className = 'fill-sentence';
+
+      const slotId = `slot-${current}-${bIdx}`;
+
+      // before text
+      const beforeSpan = document.createElement('span');
+      beforeSpan.textContent = blank.before;
+      sentence.appendChild(beforeSpan);
+
+      // blank slot
+      const slot = document.createElement('span');
+      slot.className = 'blank-slot';
+      slot.id = slotId;
+      slot.textContent = blank.correct; // invisible until filled
+      sentence.appendChild(slot);
+
+      // after text
+      const afterSpan = document.createElement('span');
+      afterSpan.textContent = blank.after;
+      sentence.appendChild(afterSpan);
+
+      row.appendChild(sentence);
+
+      // Choices (shuffle correct + wrong together)
+      const allChoices = shuffle([blank.correct, ...blank.wrong]);
+      const choicesRow = document.createElement('div');
+      choicesRow.className = 'choices-row';
+      choicesRow.id = `choices-${current}-${bIdx}`;
+
+      allChoices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = choice;
+        btn.onclick = () => handleChoice(choice, blank.correct, slotId, `choices-${current}-${bIdx}`, bIdx, btn);
+        choicesRow.appendChild(btn);
+      });
+
+      row.appendChild(choicesRow);
+      fillPanel.appendChild(row);
+    });
+
+    fillPanel.classList.add('visible');
+
+    // Update bar to mid-point
+    const pct = Math.round(((current + 0.5) / TOTAL) * 100);
+    bar.style.width      = pct + '%';
+    pctLabel.textContent = pct + '%';
+  }
+
+  function handleChoice(choice, correct, slotId, choicesRowId, blankIdx, btn) {
+    const isCorrect = choice === correct;
+    const slot = document.getElementById(slotId);
+    const choicesRow = document.getElementById(choicesRowId);
+
+    if (isCorrect) {
+      playSfx(true);
+      // Lock all buttons in this group
+      choicesRow.querySelectorAll('.choice-btn').forEach(b => {
+        b.classList.add(b.textContent === correct ? 'used-correct' : 'disabled-btn');
+      });
+
+      // Fill the slot
+      slot.classList.add('correct-fill');
+
+      filledCorrect++;
+      if (filledCorrect === totalBlanks) {
+        onAllCorrect();
+      }
+    } else {
+      playSfx(false);
+      // Flash wrong on clicked button only, briefly
+      btn.classList.add('used-wrong');
+      setTimeout(() => btn.classList.remove('used-wrong'), 600);
+
+      // Show wrong fill briefly then clear
+      slot.textContent = choice;
+      slot.classList.add('wrong-fill');
+      setTimeout(() => {
+        slot.classList.remove('wrong-fill');
+        slot.textContent = correct; // reset invisible text
+      }, 600);
+    }
+  }
+
+  function onAllCorrect() {
+    const pct = Math.round(((current + 1) / TOTAL) * 100);
+    bar.style.width      = pct + '%';
+    pctLabel.textContent = pct + '%';
+    nextBtn.classList.add('show');
+  }
+
+  // ── Shuffle helper ────────────────────────────────
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ── End ───────────────────────────────────────────
+
+  function showEnd() {
+    if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
+    counter.textContent  = `${TOTAL} / ${TOTAL}`;
+    pctLabel.textContent = '100%';
+    bar.style.width      = '100%';
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  }
+
+  loadScene(0);
+})();
+</script>
+
+</body>
+</html>

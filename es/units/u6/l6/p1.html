@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 6 • Parte 1 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- ✅ Vercel Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) { window.va('track', 'U6 L6 P1 Started'); }
+</script>
+
+<style>
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+/* ── Body / Background ───────────────────────────────────────────────────── */
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; color: #111827; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+/* ── Progress dots ───────────────────────────────────────────────────────── */
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px 0;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933; transition: background .3s, color .3s;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step:hover:not(.active) { background: #93c5fd; }
+
+/* ── Main card ───────────────────────────────────────────────────────────── */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* ── Progress bar ────────────────────────────────────────────────────────── */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px; font-size: 13px; font-weight: 700; color: #486581;
+}
+.bar-wrap {
+  background: #e2e8f0; border-radius: 999px;
+  height: 7px; margin-bottom: 20px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; width: 0%;
+  background: #a855f7;
+  border-radius: 999px;
+  transition: width .5s;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ── Play button ─────────────────────────────────────────────────────────── */
+.main-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px; margin-bottom: 18px;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, opacity .2s, transform .1s;
+}
+.main-btn:active { transform: scale(.98); }
+.main-btn.ready   { background: #0d9488; color: white; }
+.main-btn.playing { background: #6b7280; color: white; cursor: default; }
+.main-btn.repeat  { background: #f0fdfa; color: #0f766e; border: 2px solid #0d9488; }
+.main-btn.repeat:hover { background: #ccfbf1; }
+.main-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+/* ── Exercise area ───────────────────────────────────────────────────────── */
+.exercise-area {
+  display: none;
+  flex-direction: column; gap: 16px;
+  margin-bottom: 18px;
+  animation: fadeUp .35s ease;
+}
+.exercise-area.visible { display: flex; }
+
+/* ── Sentence with blanks ────────────────────────────────────────────────── */
+.sentence-row {
+  font-size: 17px; font-weight: 700; color: #1e293b;
+  text-align: center; line-height: 2;
+}
+
+/* Drop zone (blank slot) */
+.slot {
+  display: inline-block;
+  min-width: 90px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 2px dashed #94a3b8;
+  background: #f8fafc;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 700;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, transform .1s;
+  user-select: none;
+  position: relative;
+}
+.slot:empty::after { content: '___'; color: #cbd5e1; }
+.slot.filled { border-color: #a78bfa; background: #f5f3ff; color: #4c1d95; cursor: default; }
+.slot.correct { border-color: #16a34a; background: #dcfce7; color: #14532d; animation: pop .25s ease; }
+.slot.wrong   { border-color: #dc2626; background: #fee2e2; color: #991b1b; animation: shake .3s ease; }
+
+/* ── Word tiles ──────────────────────────────────────────────────────────── */
+.tile-bank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+}
+.tile {
+  padding: 8px 16px;
+  background: #2563eb; color: white;
+  border-radius: 10px;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  transition: background .15s, transform .1s, opacity .2s;
+  user-select: none;
+}
+.tile:hover { background: #1d4ed8; transform: translateY(-2px); }
+.tile:active { transform: scale(.95); }
+.tile.used { opacity: 0; pointer-events: none; }
+
+/* ── Feedback badge ──────────────────────────────────────────────────────── */
+.feedback {
+  text-align: center;
+  font-size: 15px; font-weight: 700;
+  min-height: 22px;
+  color: #16a34a;
+  animation: fadeUp .2s ease;
+}
+.feedback.error { color: #dc2626; }
+
+/* ── Next button ─────────────────────────────────────────────────────────── */
+.next-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  opacity: 0; pointer-events: none;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+.next-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen {
+  display: none; text-align: center;
+  background: rgba(255,255,255,.88);
+  border-radius: 18px; padding: 36px 24px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.score-bar {
+  background: #e2e8f0; border-radius: 999px;
+  height: 12px; margin: 12px 0 20px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%; border-radius: 999px;
+  background: #16a34a;
+  transition: width 1s ease;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-5px); }
+  75%       { transform: translateX(5px); }
+}
+</style>
+</head>
+<body>
+
+<div class="back-wrap">
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+</div>
+
+<div class="wrap">
+
+  <div class="top-title">Unidad 6 • Lección 6 • Parte 1</div>
+  <div class="subline">La familia — Escucha y completa</div>
+
+  <!-- Progress dots -->
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Main lesson card -->
+  <div class="card" id="mainCard">
+
+    <div class="counter-row">
+      <span id="counter">1 / 6</span>
+      <span id="pctLabel">0%</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap">
+      <img id="slideImg" src="" alt="">
+    </div>
+
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar
+    </button>
+
+    <div class="exercise-area" id="exerciseArea">
+      <div class="sentence-row" id="sentenceRow"></div>
+      <div class="tile-bank" id="tileBank"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <button class="next-btn" id="nextBtn"></button>
+
+  </div>
+
+</div><!-- end .wrap -->
+
+<!-- End screen -->
+<div id="endScreen" data-unit="6" data-lesson="6" data-part="1">
+  <div id="endEmoji" style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 id="endTitle" style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Excelente trabajo!</h2>
+  <p id="endScore" style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
+  <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+  <p id="endMsg" style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 2
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ════════════════════════════════════════════════
+  const UNIT   = 6;
+  const LESSON = 6;
+  const PART   = 1;
+  // ════════════════════════════════════════════════
+
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const AUDIO = BASE + 'audio/u6/';
+  const IMG   = BASE + 'images/u6/';
+
+  const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+  const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+
+  function playSfx(isCorrect) {
+    const sfx = isCorrect ? sfxCorrect : sfxIncorrect;
+    sfx.currentTime = 0;
+    sfx.play().catch(() => {});
+  }
+
+  // ── Scene definitions ─────────────────────────────────────────────────────
+  // Each scene: img, audio, blanks[], sentence template using {0} {1}… for slot indices,
+  // tiles: [ [correct, wrong, wrong…], … ] per blank
+  //
+  const SCENES = [
+    {
+      img:   'u6.family.house.jpg',
+      audio: 'u6.busy.1.mp3',
+      // Two separate blanks, each with its own tile set
+      lines: [
+        {
+          template: 'The weather is {0} and {1}.',
+          blanks: [
+            { correct: 'sunny',  distractors: ['cloudy'] },
+            { correct: 'warm',   distractors: ['cold']   }
+          ]
+        },
+        {
+          template: 'The temperature is {0} degrees.',
+          blanks: [
+            { correct: '20', distractors: ['12'] }
+          ]
+        }
+      ]
+    },
+    {
+      img:   'u6.girl.bench.reading.jpg',
+      audio: 'u6.daughter.park.mp3',
+      lines: [
+        {
+          template: 'My daughter is in the park.',
+          blanks: []
+        },
+        {
+          template: 'She is sitting on a {0}. She is {1} a book.',
+          blanks: [
+            { correct: 'bench',   distractors: ['chair'] },
+            { correct: 'reading', distractors: ['riding'] }
+          ]
+        }
+      ]
+    },
+    {
+      img:   'u6.brother.riding.jpg',
+      audio: 'u6.riding.2.mp3',
+      lines: [
+        {
+          template: 'My son {0} in the park too.',
+          blanks: [
+            { correct: 'is', distractors: ['are'] }
+          ]
+        },
+        {
+          template: 'He is {0} a bicycle.',
+          blanks: [
+            { correct: 'riding', distractors: ['reading'] }
+          ]
+        }
+      ]
+    },
+    {
+      img:   'u6.woman.planting.flowers.jpg',
+      audio: 'u6.mother.flowers.mp3',
+      lines: [
+        {
+          template: 'My mother {0} in the garden.',
+          blanks: [
+            { correct: 'is', distractors: ['are'] }
+          ]
+        },
+        {
+          template: 'She is {0} flowers.',
+          blanks: [
+            { correct: 'planting', distractors: ['fixing'] }
+          ]
+        }
+      ]
+    },
+    {
+      img:   'u6.helping.jpg',
+      audio: 'u6.father.help.mp3',
+      lines: [
+        {
+          template: 'My father is {0} my mother.',
+          blanks: [
+            { correct: 'helping', distractors: ['planting'] }
+          ]
+        }
+      ]
+    },
+    {
+      img:   'u6.man.hot.water.tank.jpg',
+      audio: 'u6.husband.fixing.mp3',
+      lines: [
+        {
+          template: 'He is {0} the hot water tank.',
+          blanks: [
+            { correct: 'fixing', distractors: ['planting'] }
+          ]
+        }
+      ]
+    }
+  ];
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  const TOTAL    = SCENES.length;
+  let current    = 0;
+  let playing    = false;
+  let snd        = null;
+  let totalErrors = 0;
+  let totalBlanks = 0;
+
+  // Per-scene slot state
+  let sceneSlots = [];   // [ { correct, filled, slotEl, tileEl } ]
+  let sceneErrors = 0;
+  let slotsRemaining = 0;
+
+  // ── DOM refs ──────────────────────────────────────────────────────────────
+  const slideImg     = document.getElementById('slideImg');
+  const mainBtn      = document.getElementById('mainBtn');
+  const nextBtn      = document.getElementById('nextBtn');
+  const counterEl    = document.getElementById('counter');
+  const pctLabelEl   = document.getElementById('pctLabel');
+  const barEl        = document.getElementById('bar');
+  const exerciseArea = document.getElementById('exerciseArea');
+  const sentenceRow  = document.getElementById('sentenceRow');
+  const tileBank     = document.getElementById('tileBank');
+  const feedbackEl   = document.getElementById('feedback');
+
+  const ICON_PLAY = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  // ── Scene loader ──────────────────────────────────────────────────────────
+  function loadScene(idx) {
+    stopSnd();
+    playing = false;
+
+    const s = SCENES[idx];
+    const pct = Math.round((idx / TOTAL) * 100);
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
+    pctLabelEl.textContent = pct + '%';
+    barEl.style.width = pct + '%';
+
+    slideImg.src = IMG + s.img;
+    slideImg.alt = '';
+
+    exerciseArea.classList.remove('visible');
+    sentenceRow.innerHTML = '';
+    tileBank.innerHTML = '';
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    sceneSlots = [];      // ← reset so buildExercise always runs for every scene
+    slotsRemaining = 0;
+
+    nextBtn.classList.remove('show');
+    if (idx < TOTAL - 1) {
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.onclick = () => { stopSnd(); current++; loadScene(current); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => { stopSnd(); showEnd(); };
+    }
+
+    setBtn('ready');
+  }
+
+  // ── Build exercise for current scene ─────────────────────────────────────
+  function buildExercise() {
+    const s = SCENES[current];
+    sceneSlots = [];
+    sceneErrors = 0;
+    slotsRemaining = 0;
+
+    sentenceRow.innerHTML = '';
+    tileBank.innerHTML = '';
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+
+    let globalSlotIdx = 0;
+
+    s.lines.forEach((line, lineIdx) => {
+      const lineDiv = document.createElement('div');
+      lineDiv.style.cssText = 'margin-bottom:6px;';
+
+      if (line.blanks.length === 0) {
+        // Plain text line — no blanks
+        lineDiv.textContent = line.template;
+        lineDiv.style.cssText = 'margin-bottom:6px;font-size:17px;font-weight:700;color:#1e293b;text-align:center;line-height:2;';
+        sentenceRow.appendChild(lineDiv);
+        return;
+      }
+
+      // Parse template: split on {0}, {1} etc.
+      const parts = line.template.split(/\{(\d+)\}/);
+      const span = document.createElement('span');
+      span.style.cssText = 'font-size:17px;font-weight:700;color:#1e293b;line-height:2;';
+
+      parts.forEach(part => {
+        if (/^\d+$/.test(part)) {
+          const blankIdx = parseInt(part);
+          const blankDef = line.blanks[blankIdx];
+          if (!blankDef) return;
+
+          const slotEl = document.createElement('span');
+          slotEl.className = 'slot';
+          slotEl.dataset.slotid = globalSlotIdx;
+
+          const slotRecord = {
+            correct: blankDef.correct,
+            filled: false,
+            slotEl,
+            tileEl: null
+          };
+          sceneSlots.push(slotRecord);
+          slotsRemaining++;
+          totalBlanks++;
+
+          // Click on a filled slot to return tile (if wrong, not locked)
+          slotEl.addEventListener('click', () => {
+            const sid = parseInt(slotEl.dataset.slotid);
+            const rec = sceneSlots[sid];
+            if (!rec.filled) return;
+            if (slotEl.classList.contains('correct')) return; // locked
+            // Return tile
+            rec.tileEl.classList.remove('used');
+            slotEl.classList.remove('filled', 'wrong');
+            slotEl.textContent = '';
+            slotEl.dataset.slotid = sid;
+            rec.filled = false;
+            rec.tileEl = null;
+            feedbackEl.textContent = '';
+            feedbackEl.className = 'feedback';
+          });
+
+          span.appendChild(slotEl);
+          globalSlotIdx++;
+        } else {
+          span.appendChild(document.createTextNode(part));
+        }
+      });
+
+      lineDiv.appendChild(span);
+      sentenceRow.appendChild(lineDiv);
+    });
+
+    // Build unified tile bank — gather all tiles across all blanks for this scene
+    // Shuffle correct + distractors together
+    const allTiles = [];
+    s.lines.forEach(line => {
+      line.blanks.forEach(blankDef => {
+        allTiles.push({ word: blankDef.correct, isCorrect: true });
+        blankDef.distractors.forEach(d => allTiles.push({ word: d, isCorrect: false }));
+      });
+    });
+
+    // Deduplicate by word (in case same word appears multiple times)
+    const seen = {};
+    const uniqueTiles = [];
+    allTiles.forEach(t => {
+      if (!seen[t.word]) { seen[t.word] = true; uniqueTiles.push(t); }
+    });
+
+    // Shuffle
+    for (let i = uniqueTiles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [uniqueTiles[i], uniqueTiles[j]] = [uniqueTiles[j], uniqueTiles[i]];
+    }
+
+    uniqueTiles.forEach(tDef => {
+      const btn = document.createElement('button');
+      btn.className = 'tile';
+      btn.textContent = tDef.word;
+      btn.dataset.word = tDef.word;
+
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('used')) return;
+        // Find the first unfilled slot
+        const target = sceneSlots.find(r => !r.filled);
+        if (!target) return;
+
+        const word = btn.dataset.word;
+        const isCorrect = (word === target.correct);
+
+        target.filled = true;
+        target.tileEl = btn;
+        btn.classList.add('used');
+        target.slotEl.textContent = word;
+        target.slotEl.classList.add('filled');
+        target.slotEl.dataset.slotid = sceneSlots.indexOf(target);
+
+        if (isCorrect) {
+          target.slotEl.classList.add('correct');
+          playSfx(true);
+          feedbackEl.textContent = '✓ ¡Correcto!';
+          feedbackEl.className = 'feedback';
+          slotsRemaining--;
+          if (slotsRemaining === 0) {
+            // All blanks done — lock everything and show next
+            nextBtn.classList.add('show');
+          }
+        } else {
+          sceneErrors++;
+          totalErrors++;
+          target.slotEl.classList.add('wrong');
+          playSfx(false);
+          feedbackEl.textContent = '✗ Inténtalo de nuevo';
+          feedbackEl.className = 'feedback error';
+
+          // After brief pause: return tile and reset slot
+          setTimeout(() => {
+            btn.classList.remove('used');
+            target.slotEl.classList.remove('filled', 'wrong');
+            target.slotEl.textContent = '';
+            target.filled = false;
+            target.tileEl = null;
+            feedbackEl.textContent = '';
+            feedbackEl.className = 'feedback';
+          }, 700);
+        }
+      });
+
+      tileBank.appendChild(btn);
+    });
+  }
+
+  // ── Audio helpers ─────────────────────────────────────────────────────────
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    if (state === 'ready')   { mainBtn.innerHTML = ICON_PLAY + ' Escuchar'; mainBtn.disabled = false; }
+    if (state === 'playing') { mainBtn.innerHTML = ICON_PLAY + ' Escuchando…'; mainBtn.disabled = true; }
+    if (state === 'repeat')  { mainBtn.innerHTML = ICON_PLAY + ' Repetir'; mainBtn.disabled = false; }
+  }
+
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+  }
+
+  function handlePlay() {
+    if (playing) return;
+    playing = true;
+    setBtn('playing');
+
+    const s = SCENES[current];
+    snd = new Audio(AUDIO + s.audio);
+    snd.play().catch(() => {});
+
+    const afterAudio = () => {
+      playing = false;
+      setBtn('repeat');
+      exerciseArea.classList.add('visible');
+      if (sceneSlots.length === 0) buildExercise();
+    };
+
+    snd.onended = afterAudio;
+    snd.onerror = afterAudio;
+  }
+
+  window.handlePlay = handlePlay;
+
+  // ── End screen ─────────────────────────────────────────────────────────────
+  function showEnd() {
+    if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
+
+    // Update progress bar to 100%
+    counterEl.textContent = `${TOTAL} / ${TOTAL}`;
+    pctLabelEl.textContent = '100%';
+    barEl.style.width = '100%';
+
+    document.getElementById('mainCard').style.display = 'none';
+
+    const correctCount = totalBlanks - totalErrors;
+    const pct = totalBlanks > 0 ? Math.round((correctCount / totalBlanks) * 100) : 100;
+
+    let emoji, title, msg;
+    if (pct === 100) {
+      emoji = '🏆'; title = '¡Perfecto!'; msg = 'No cometiste ningún error. ¡Increíble!';
+    } else if (pct >= 75) {
+      emoji = '🌟'; title = '¡Muy buen trabajo!'; msg = `Cometiste ${totalErrors} error${totalErrors !== 1 ? 'es' : ''}. ¡Sigue así!`;
+    } else if (pct >= 50) {
+      emoji = '👍'; title = '¡Buen intento!'; msg = `Cometiste ${totalErrors} errores. Sigue practicando.`;
+    } else {
+      emoji = '💪'; title = '¡Sigue practicando!'; msg = `Cometiste ${totalErrors} errores. Repasa el vocabulario e inténtalo de nuevo.`;
+    }
+
+    document.getElementById('endEmoji').textContent = emoji;
+    document.getElementById('endTitle').textContent = title;
+    document.getElementById('endScore').textContent = `${correctCount} de ${totalBlanks} respuestas correctas (${pct}%)`;
+    document.getElementById('endMsg').textContent = msg;
+    document.getElementById('endScreen').style.display = 'block';
+
+    // Animate score bar
+    setTimeout(() => {
+      document.getElementById('scoreBarFill').style.width = pct + '%';
+    }, 100);
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  loadScene(0);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 • Lección 4 • Parte 4 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) { window.va('track', 'U6 L4 P4 Started'); }
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; color: #111827; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+/* ── Progress dots ───────────────────────────────────────────────────────── */
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px 0;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933; transition: background .3s, color .3s;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step:hover:not(.active) { background: #93c5fd; }
+
+/* ── Main card ───────────────────────────────────────────────────────────── */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* ── Progress bar ────────────────────────────────────────────────────────── */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+.bar-wrap {
+  background: #e2e8f0; border-radius: 999px;
+  height: 7px; margin-bottom: 20px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; width: 0%;
+  background: #a855f7;
+  border-radius: 999px;
+  transition: width .5s;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #e2e8f0;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ── Dialogue box ────────────────────────────────────────────────────────── */
+.dialogue-box {
+  background: #f8fafc; border-radius: 14px;
+  padding: 14px 16px; margin-bottom: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.dial-line {
+  font-size: 14px; font-weight: 600; color: #94a3b8;
+  border-left: 3px solid transparent;
+  padding-left: 10px; line-height: 1.6;
+  transition: color .25s, border-color .25s;
+}
+.dial-line.highlight {
+  color: #1e40af; font-weight: 700;
+  border-left-color: #fbbf24;
+}
+
+/* ── Play button ─────────────────────────────────────────────────────────── */
+.main-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px; margin-bottom: 18px;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.main-btn:active { transform: scale(.98); }
+.main-btn.ready   { background: #0d9488; color: white; }
+.main-btn.playing { background: #6b7280; color: white; cursor: default; }
+.main-btn.repeat  { background: #f0fdfa; color: #0f766e; border: 2px solid #0d9488; }
+.main-btn.repeat:hover { background: #ccfbf1; }
+.main-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+/* ── Answer panel ────────────────────────────────────────────────────────── */
+.answer-panel {
+  display: none;
+  flex-direction: column; gap: 14px;
+  margin-bottom: 18px;
+  animation: fadeUp .35s ease;
+}
+.answer-panel.visible { display: flex; }
+
+.answer-prompt {
+  font-size: 15px; font-weight: 700; color: #1e40af;
+  text-align: center;
+}
+
+.answer-row {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: 8px;
+  font-size: 16px; font-weight: 600; color: #1e293b;
+  background: #f8fafc; border-radius: 14px;
+  padding: 14px 18px;
+}
+
+/* The inline type input */
+.age-input {
+  width: 80px;
+  padding: 6px 10px;
+  border: 2px solid #94a3b8;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  outline: none;
+  transition: border-color .2s, background .2s;
+  -moz-appearance: textfield;
+}
+.age-input::-webkit-inner-spin-button,
+.age-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.age-input:focus { border-color: #2563eb; }
+.age-input.locked {
+  background: #fef9c3;
+  border: 2px solid #fbbf24;
+  color: #92400e;
+  pointer-events: none;
+}
+
+.confirm-btn {
+  padding: 10px 22px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 12px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  white-space: nowrap;
+}
+.confirm-btn:hover  { background: #1d4ed8; }
+.confirm-btn:active { transform: scale(.97); }
+.confirm-btn.hidden { display: none; }
+
+/* ── Next button ─────────────────────────────────────────────────────────── */
+.next-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  opacity: 0; pointer-events: none;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+.next-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* ── End screen ──────────────────────────────────────────────────────────── */
+#endScreen {
+  display: none; text-align: center;
+  background: rgba(255,255,255,.88);
+  border-radius: 18px; padding: 36px 24px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="back-wrap">
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+</div>
+
+<div class="wrap">
+
+  <div class="top-title">Unidad 6 • Lección 4 • Parte 4</div>
+  <div class="subline">¿Cuántos años tienes? — Escucha y escribe</div>
+
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
+
+  <div class="card" id="mainCard">
+
+    <div class="counter-row">
+      <span id="counter">1 / 1</span>
+      <span id="pctLabel">0%</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <!-- Image -->
+    <div class="img-wrap">
+      <img id="slideImg" src="" alt="Teenagers talking">
+    </div>
+
+    <!-- Dialogue -->
+    <div class="dialogue-box" id="dialogueBox"></div>
+
+    <!-- Play button -->
+    <button class="main-btn ready" id="mainBtn" onclick="handlePlay()">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar diálogo
+    </button>
+
+    <!-- Answer panel — shown after audio ends -->
+    <div class="answer-panel" id="answerPanel">
+      <div class="answer-prompt">How old are you?</div>
+      <div class="answer-row">
+        <span>I am</span>
+        <input
+          class="age-input"
+          id="ageInput"
+          type="number"
+          min="1"
+          max="120"
+          placeholder="?"
+          oninput="onInput()"
+          onkeydown="onKey(event)"
+        >
+        <span>years old.</span>
+        <button class="confirm-btn hidden" id="confirmBtn" onclick="lockAnswer()">
+          Listo ✓
+        </button>
+      </div>
+    </div>
+
+    <button class="next-btn" id="nextBtn">Finalizar →</button>
+
+  </div>
+
+</div><!-- end .wrap -->
+
+<!-- End screen — OUTSIDE .wrap -->
+<div id="endScreen" data-unit="6" data-lesson="4" data-part="4">
+  <div style="font-size:52px;margin-bottom:16px">🏆</div>
+  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
+  <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px">Escuchaste el diálogo y escribiste tu respuesta.</p>
+  <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 4.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="p5.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 5
+    </a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const UNIT   = 6;
+  const LESSON = 4;
+  const PART   = 4;
+
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const AUDIO = BASE + 'audio/u6/';
+  const IMG   = BASE + 'images/u6/';
+
+  const SCENE = {
+    img:   'u6.teenagers.talking.jpg',
+    audio: 'u6.how.old.mp3',
+    lines: [
+      { sp: 'A', text: 'How old are you?' },
+      { sp: 'B', text: 'I am 22 years old.' },
+      { sp: 'A', text: 'How old is your brother?' },
+      { sp: 'B', text: 'He is 17.' },
+    ],
+  };
+
+  const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  let playing  = false;
+  let locked   = false;
+  let snd      = null;
+
+  const slideImg    = document.getElementById('slideImg');
+  const dialogueBox = document.getElementById('dialogueBox');
+  const mainBtn     = document.getElementById('mainBtn');
+  const answerPanel = document.getElementById('answerPanel');
+  const ageInput    = document.getElementById('ageInput');
+  const confirmBtn  = document.getElementById('confirmBtn');
+  const nextBtn     = document.getElementById('nextBtn');
+  const bar         = document.getElementById('bar');
+  const pctLabel    = document.getElementById('pctLabel');
+
+  // ── Init ──────────────────────────────────────────
+
+  slideImg.src = IMG + SCENE.img;
+
+  SCENE.lines.forEach((line, i) => {
+    const div = document.createElement('div');
+    div.className = 'dial-line';
+    div.id = 'line-' + i;
+    div.textContent = line.sp + ': ' + line.text;
+    dialogueBox.appendChild(div);
+  });
+
+  // ── Play ──────────────────────────────────────────
+
+  window.handlePlay = function () {
+    if (playing) return;
+    playing = true;
+    setBtn('playing');
+    answerPanel.classList.remove('visible');
+    nextBtn.classList.remove('show');
+
+    document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+
+    let timers = [];
+    snd = new Audio(AUDIO + SCENE.audio);
+
+    snd.addEventListener('loadedmetadata', () => {
+      timers.forEach(t => clearTimeout(t));
+      timers = [];
+      const interval = (snd.duration * 1000) / SCENE.lines.length;
+      SCENE.lines.forEach((_, i) => {
+        const t = setTimeout(() => highlight(i), i * interval);
+        timers.push(t);
+      });
+    });
+
+    // Fallback highlight at 1.8s per line
+    SCENE.lines.forEach((_, i) => {
+      const t = setTimeout(() => highlight(i), i * 1800);
+      timers.push(t);
+    });
+
+    snd.play().catch(() => {});
+
+    snd.onended = () => {
+      timers.forEach(t => clearTimeout(t));
+      document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+      playing = false;
+      setBtn('repeat');
+      showAnswerPanel();
+    };
+
+    snd.onerror = () => {
+      timers.forEach(t => clearTimeout(t));
+      playing = false;
+      setBtn('repeat');
+      showAnswerPanel();
+    };
+  };
+
+  function highlight(i) {
+    document.querySelectorAll('.dial-line').forEach(el => el.classList.remove('highlight'));
+    const el = document.getElementById('line-' + i);
+    if (el) el.classList.add('highlight');
+  }
+
+  function setBtn(state) {
+    mainBtn.className = 'main-btn ' + state;
+    if (state === 'ready')   { mainBtn.innerHTML = ICON + ' Escuchar diálogo'; mainBtn.disabled = false; }
+    if (state === 'playing') { mainBtn.innerHTML = ICON + ' Escuchando…';      mainBtn.disabled = true;  }
+    if (state === 'repeat')  { mainBtn.innerHTML = ICON + ' Repetir';          mainBtn.disabled = false; }
+  }
+
+  // ── Answer panel ──────────────────────────────────
+
+  function showAnswerPanel() {
+    bar.style.width      = '50%';
+    pctLabel.textContent = '50%';
+    answerPanel.classList.add('visible');
+    setTimeout(() => ageInput.focus(), 350);
+  }
+
+  window.onInput = function () {
+    if (locked) return;
+    const val = ageInput.value.trim();
+    if (val.length > 0) {
+      confirmBtn.classList.remove('hidden');
+    } else {
+      confirmBtn.classList.add('hidden');
+      nextBtn.classList.remove('show');
+    }
+  };
+
+  window.onKey = function (e) {
+    if (e.key === 'Enter') lockAnswer();
+  };
+
+  window.lockAnswer = function () {
+    if (locked) return;
+    const val = ageInput.value.trim();
+    if (!val) return;
+
+    locked = true;
+    ageInput.classList.add('locked');
+    confirmBtn.classList.add('hidden');
+
+    bar.style.width      = '100%';
+    pctLabel.textContent = '100%';
+
+    nextBtn.classList.add('show');
+  };
+
+  // ── End ───────────────────────────────────────────
+
+  nextBtn.onclick = () => {
+    if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
+    document.getElementById('mainCard').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+  };
+
+})();
+</script>
+
+</body>
+</html>
