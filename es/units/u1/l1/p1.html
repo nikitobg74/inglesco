@@ -1,258 +1,560 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lección 1: Hello, my name is... | Inglesco</title>
-<meta name="description" content="Aprende a decir tu nombre en inglés con ejemplos claros y audio.">
+  <title>Lección 1: Hello, my name is... | Inglesco</title>
+  <meta name="description" content="Aprende a decir tu nombre en inglés con ejemplos claros y audio. Unidad 1, Lección 1.">
 
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
 
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-body {
-  padding:20px;
-  background:#eef2ff;
-}
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
 
-/* Back */
-.back-btn {
-  display:inline-block;
-  margin-bottom:18px;
-  padding:8px 14px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
-}
+    /* BACK BUTTON — fixed glass pill, canonical pattern */
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
 
-/* Title */
-h1 {
-  text-align:center;
-  color:#2563eb;
-  margin-bottom:6px;
-}
+    .back-btn:active {
+      transform: scale(0.96);
+      background: rgba(255,255,255,1);
+    }
 
-.subtitle {
-  text-align:center;
-  font-size:14px;
-  color:#555;
-  margin-bottom:20px;
-}
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
+    }
 
-/* Progress */
-.progress-container {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:25px;
-}
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
 
-.step {
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:background 0.2s, transform 0.15s;
-}
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
 
-.step:hover {
-  background:#93c5fd;
-  transform:scale(1.1);
-}
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
 
-.step.active {
-  background:#2563eb;
-  color:white;
-}
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
 
-.step.active:hover {
-  background:#1e40af;
-}
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+    }
 
-/* Instruction */
-.instruction {
-  text-align:center;
-  font-size:15px;
-  margin-bottom:20px;
-  color:#1e40af;
-  font-weight:600;
-}
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+    }
 
-/* Card */
-.character {
-  background:white;
-  max-width:520px;
-  margin:16px auto;
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 6px 18px rgba(0,0,0,0.1);
-}
+    .dot.done {
+      background: #22c55e;
+      color: white;
+      border-color: #22c55e;
+      cursor: pointer;
+    }
 
-.character img {
-  width:200px;
-  border-radius:12px;
-  cursor:pointer;
-  transition:0.25s;
-}
+    .dot.done:hover {
+      transform: scale(1.1);
+    }
 
-.character img:hover {
-  transform:scale(1.05);
-}
+    .dot.reachable {
+      cursor: pointer;
+    }
 
-.english {
-  font-size:20px;
-  font-weight:600;
-  margin-top:12px;
-}
+    .dot.reachable:hover,
+    .dot.done:hover {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.85);
+    }
 
-.spanish {
-  font-size:14px;
-  color:#555;
-  margin-top:4px;
-}
+    /* INSTRUCTION */
+    .instruction {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 18px;
+    }
 
-/* Progress text */
-.counter {
-  margin-top:8px;
-  font-size:13px;
-  color:#2563eb;
-}
+    /* CHARACTER CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-/* Continue */
-.continue-btn {
-  display:block;
-  margin:30px auto;
-  padding:12px 25px;
-  background:#9ca3af;
-  color:white;
-  border:none;
-  border-radius:10px;
-  font-size:15px;
-}
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      position: relative;
+    }
 
-.continue-btn.enabled {
-  background:#22c55e;
-  cursor:pointer;
-}
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
 
-/* Success */
-.success {
-  text-align:center;
-  margin-top:15px;
-  font-weight:700;
-  color:#16a34a;
-  display:none;
-}
-</style>
+    .card:active {
+      transform: scale(0.98);
+    }
+
+    .card.listening {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .card.done {
+      border-color: #22c55e;
+      background: #f0fdf4;
+    }
+
+    .card img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 3px solid rgba(0,0,0,0.06);
+    }
+
+    .card-text {
+      flex: 1;
+    }
+
+    .card-english {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e2a38;
+      margin-bottom: 3px;
+    }
+
+    .card-spanish {
+      font-size: 13px;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+
+    .card-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: #9ca3af;
+    }
+
+    .card-counter.complete {
+      color: #22c55e;
+    }
+
+    /* play icon in card */
+    .play-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .card:hover .play-icon {
+      background: #1e40af;
+      transform: scale(1.05);
+    }
+
+    .card.done .play-icon {
+      background: #22c55e;
+    }
+
+    .play-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: white;
+      margin-left: 2px;
+    }
+
+    /* SUCCESS MESSAGE */
+    .success-msg {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      padding: 14px;
+      background: #f0fdf4;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      font-size: 15px;
+      color: #16a34a;
+    }
+
+    /* CONTINUE BUTTON */
+    .continue-btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 16px;
+      background: #d1d5db;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: not-allowed;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .continue-btn.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      animation: pulse-in 0.4s ease;
+    }
+
+    .continue-btn.enabled:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+    }
+
+    .continue-btn.enabled:active {
+      transform: scale(0.98);
+    }
+
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 
 <body>
 
-<a href="../index.html" class="back-btn">← Unidad 1</a>
+  <a class="back-btn" href="../index.html">← Lección 1</a>
 
-<h1>Lección 1</h1>
-<p class="subtitle">Aprende a decir tu nombre en inglés</p>
+  <div class="wrap">
 
-<div class="progress-container">
-  <div class="step active" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step" data-page="p4.html">4</div>
-  <div class="step" data-page="p5.html">5</div>
-</div>
+    <span class="lesson-tag">Unidad 1 · Lección 1 · Parte 1</span>
+    <h1>Hello. My name is...</h1>
+    <p class="subtitle">Toca cada tarjeta y escucha 2 veces</p>
 
-<div class="instruction">
-  Toca cada imagen y escucha 2 veces 👇
-</div>
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot active" data-part="1">1</div>
+      <div class="dot" data-part="2">2</div>
+      <div class="dot" data-part="3">3</div>
+      <div class="dot" data-part="4">4</div>
+      <div class="dot" data-part="5">5</div>
+    </div>
 
-<!-- CARDS -->
+    <div class="instruction">👇 Escucha a cada persona 2 veces</div>
 
-<div class="character">
-  <img src="../../../../assets/images/u1/ana.png" onclick="playAudio('ana')" />
-  <div class="english">Hello. My name is Ana.</div>
-  <div class="spanish">Hola, me llamo Ana.</div>
-  <div class="counter" id="ana-count">0 / 2 escuchas</div>
-  <audio id="ana-audio" src="../../../../assets/audio/u1/ana.mp3"></audio>
-</div>
+    <!-- CARDS -->
+    <div class="cards">
 
-<div class="character">
-  <img src="../../../../assets/images/u1/pedro.png" onclick="playAudio('pedro')" />
-  <div class="english">Hello. My name is Pedro.</div>
-  <div class="spanish">Hola, me llamo Pedro.</div>
-  <div class="counter" id="pedro-count">0 / 2 escuchas</div>
-  <audio id="pedro-audio" src="../../../../assets/audio/u1/pedro.mp3"></audio>
-</div>
+      <div class="card" id="card-ana" onclick="playAudio('ana')">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana" />
+        <div class="card-text">
+          <div class="card-english">Hello. My name is Ana.</div>
+          <div class="card-spanish">Hola, me llamo Ana.</div>
+          <div class="card-counter" id="count-ana">0 / 2 escuchas</div>
+        </div>
+        <div class="play-icon">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <audio id="audio-ana" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/ana.mp3" preload="auto"></audio>
+      </div>
 
-<div class="character">
-  <img src="../../../../assets/images/u1/george.png" onclick="playAudio('george')" />
-  <div class="english">Hello. My name is George.</div>
-  <div class="spanish">Hola, me llamo George.</div>
-  <div class="counter" id="george-count">0 / 2 escuchas</div>
-  <audio id="george-audio" src="../../../../assets/audio/u1/george.mp3"></audio>
-</div>
+      <div class="card" id="card-pedro" onclick="playAudio('pedro')">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/pedro.jpg" alt="Pedro" />
+        <div class="card-text">
+          <div class="card-english">Hello. My name is Pedro.</div>
+          <div class="card-spanish">Hola, me llamo Pedro.</div>
+          <div class="card-counter" id="count-pedro">0 / 2 escuchas</div>
+        </div>
+        <div class="play-icon">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <audio id="audio-pedro" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/pedro.mp3" preload="auto"></audio>
+      </div>
 
-<div class="character">
-  <img src="../../../../assets/images/u1/julie.png" onclick="playAudio('julie')" />
-  <div class="english">Hello. My name is Julie.</div>
-  <div class="spanish">Hola, me llamo Julie.</div>
-  <div class="counter" id="julie-count">0 / 2 escuchas</div>
-  <audio id="julie-audio" src="../../../../assets/audio/u1/julie.mp3"></audio>
-</div>
+      <div class="card" id="card-george" onclick="playAudio('george')">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George" />
+        <div class="card-text">
+          <div class="card-english">Hello. My name is George.</div>
+          <div class="card-spanish">Hola, me llamo George.</div>
+          <div class="card-counter" id="count-george">0 / 2 escuchas</div>
+        </div>
+        <div class="play-icon">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <audio id="audio-george" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/george.mp3" preload="auto"></audio>
+      </div>
 
-<div class="success" id="successMsg">
-  ✅ ¡Bien hecho! Ahora continúa
-</div>
+      <div class="card" id="card-julie" onclick="playAudio('julie')">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/julie.jpg" alt="Julie" />
+        <div class="card-text">
+          <div class="card-english">Hello. My name is Julie.</div>
+          <div class="card-spanish">Hola, me llamo Julie.</div>
+          <div class="card-counter" id="count-julie">0 / 2 escuchas</div>
+        </div>
+        <div class="play-icon">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <audio id="audio-julie" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/julie.mp3" preload="auto"></audio>
+      </div>
 
-<button class="continue-btn" id="continueBtn" disabled>
-  Continuar →
-</button>
+    </div>
 
-<script>
-  // Progress bar navigation
-  document.querySelectorAll('.step[data-page]').forEach(step => {
-    step.addEventListener('click', () => {
-      window.location.href = step.dataset.page;
-    });
-  });
+    <!-- SUCCESS + CONTINUE -->
+    <div class="success-msg" id="successMsg">
+      ✅ ¡Muy bien! Ya escuchaste a todos. Continúa a la siguiente parte.
+    </div>
 
-  // Audio logic
-  let plays = { ana:0, pedro:0, george:0, julie:0 };
+    <button class="continue-btn" id="continueBtn" disabled>
+      Continuar →
+    </button>
 
-  function playAudio(name) {
-    const audio = document.getElementById(name + '-audio');
-    audio.currentTime = 0;
-    audio.play();
+  </div>
 
-    if (plays[name] < 2) {
-      plays[name]++;
-      document.getElementById(name + '-count').innerText =
-        plays[name] + ' / 2 escuchas';
+  <!-- SFX (preloaded) -->
+  <audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+  <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT        = 'u1';
+    const LESSON      = 'l1';
+    const PART        = 'p1';
+    const PARTS_TOTAL = 5;   // total parts in this lesson (p1–p5)
+    const NEXT_PAGE   = 'p2.html';
+    const CHARS       = ['ana', 'pedro', 'george', 'julie'];
+    const REQUIRED    = 2;   // listens needed per character
+
+    // ─── STATE (persisted in sessionStorage so refresh keeps count) ──
+    const SESSION_KEY = `inglesco_plays_${UNIT}_${LESSON}_${PART}`;
+    let plays = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}');
+    CHARS.forEach(c => { if (!plays[c]) plays[c] = 0; });
+
+    function savePlays() {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(plays));
     }
 
-    checkCompletion();
-  }
+    // ─── AUDIO ───────────────────────────────────────────────
+    function playAudio(name) {
+      // Stop any currently playing character audio
+      CHARS.forEach(c => {
+        const a = document.getElementById('audio-' + c);
+        if (!a.paused) { a.pause(); a.currentTime = 0; }
+      });
 
-  function checkCompletion() {
-    if (plays.ana >= 2 && plays.pedro >= 2 && plays.george >= 2 && plays.julie >= 2) {
+      const audio = document.getElementById('audio-' + name);
+      audio.currentTime = 0;
+      audio.play();
+
+      // Mark as listening
+      document.getElementById('card-' + name).classList.add('listening');
+      audio.onended = () => {
+        document.getElementById('card-' + name).classList.remove('listening');
+      };
+
+      // Increment counter up to REQUIRED
+      if (plays[name] < REQUIRED) {
+        plays[name]++;
+        savePlays();
+      }
+
+      updateCard(name);
+      checkCompletion();
+    }
+
+    function updateCard(name) {
+      const count  = plays[name];
+      const el     = document.getElementById('count-' + name);
+      const card   = document.getElementById('card-' + name);
+
+      el.textContent = count + ' / ' + REQUIRED + ' escuchas';
+
+      if (count >= REQUIRED) {
+        el.textContent = '✓ Completado';
+        el.classList.add('complete');
+        card.classList.remove('listening');
+        card.classList.add('done');
+      }
+    }
+
+    function checkCompletion() {
+      const allDone = CHARS.every(c => plays[c] >= REQUIRED);
+      if (!allDone) return;
+
+      // Play correct SFX once
+      const sfx = document.getElementById('sfx-correct');
+      sfx.currentTime = 0;
+      sfx.play();
+
+      // Show success message
+      document.getElementById('successMsg').style.display = 'block';
+
+      // Unlock continue button
       const btn = document.getElementById('continueBtn');
       btn.disabled = false;
       btn.classList.add('enabled');
-      btn.onclick = () => { window.location.href = 'p2.html'; };
-      document.getElementById('successMsg').style.display = 'block';
+      btn.textContent = 'Continuar →';
+      btn.onclick = () => {
+        saveProgress();
+        updateFurthest(2);
+        window.location.href = NEXT_PAGE;
+      };
     }
-  }
-</script>
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    // This page (p1) is part 1 of 5. We mark 1 part completed
+    // in the per-lesson store. The lesson's LAST part (p5) is
+    // responsible for also updating the unit-level summary.
+    function saveProgress() {
+      try {
+        const lp = JSON.parse(localStorage.getItem('inglesco_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        // Only move forward, never back
+        if (lp[LESSON].partsCompleted < 1) {
+          lp[LESSON].partsCompleted = 1;
+        }
+        localStorage.setItem('inglesco_progress_' + UNIT, JSON.stringify(lp));
+      } catch(e) {}
+    }
+
+    // ─── DOTS ────────────────────────────────────────────────
+    // Track furthest part reached in sessionStorage so student
+    // can navigate back to any visited part but not skip ahead.
+    const FURTHEST_KEY = `inglesco_furthest_${UNIT}_${LESSON}`;
+    const PART_PAGES   = ['p1.html','p2.html','p3.html','p4.html','p5.html'];
+    const CURRENT_PART = 1; // this is p1
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || '1', 10);
+    }
+
+    function updateFurthest(n) {
+      const cur = getFurthest();
+      if (n > cur) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      const furthest = getFurthest();
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART) {
+          dot.classList.add('active');
+          // no click needed — already here
+        } else if (part < CURRENT_PART) {
+          // behind current — always green + clickable
+          dot.classList.add('done', 'reachable');
+          dot.addEventListener('click', () => {
+            window.location.href = PART_PAGES[part - 1];
+          });
+        } else {
+          // ahead — always reachable (dots are navigation, not a gate)
+          dot.classList.add('reachable');
+          dot.addEventListener('click', () => {
+            window.location.href = PART_PAGES[part - 1];
+          });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART);
+    initDots();
+
+    // ─── RESTORE STATE ON LOAD ───────────────────────────────
+    CHARS.forEach(c => updateCard(c));
+    // Check if already complete (student returned to this page)
+    if (CHARS.every(c => plays[c] >= REQUIRED)) {
+      document.getElementById('successMsg').style.display = 'block';
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.onclick = () => { saveProgress(); updateFurthest(2); window.location.href = NEXT_PAGE; };
+    }
+  </script>
 
 </body>
 </html>

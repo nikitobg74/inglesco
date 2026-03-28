@@ -1,242 +1,754 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unidad 1 - Lección 1 Parte 5: Práctica de saludos | Inglesco</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lección 1, Parte 5: Completa la frase | Inglesco</title>
+  <meta name="description" content="Completa las frases en inglés eligiendo la palabra correcta. Unidad 1, Lección 1, Parte 5.">
+
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body { padding:20px; background:#eef2ff; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* BACK BUTTON */
     .back-btn {
-      display:inline-block; margin-bottom:20px; padding:8px 15px;
-      background:#2563eb; color:white; border-radius:10px;
-      text-decoration:none; font-weight:600;
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
     }
-    .back-btn:hover { background:#1e40af; }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
 
-    h1 { text-align:center; margin-bottom:15px; color:#2563eb; }
-
-    .progress-container { display:flex; justify-content:center; margin-bottom:30px; }
-    .step {
-      width:40px; height:40px; border-radius:50%;
-      background:#d1d5db; display:flex; align-items:center; justify-content:center;
-      font-weight:600; margin:0 8px; color:black; cursor:pointer;
-      transition: all 0.3s ease;
-    }
-    .step.active { background:#2563eb; color:white; }
-    .step:hover { transform: scale(1.1); }
-
-    .instructions {
-      text-align:center; margin-bottom:25px;
-      font-size:15px; color:#374151;
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
     }
 
-    /* Card */
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
+
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+    /* EXERCISE COUNTER */
+    .ex-counter {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
+      margin-bottom: 16px;
+    }
+
+    /* CARD */
     .card {
-      max-width:520px; margin:0 auto 30px;
-      background:white; border-radius:16px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.1);
-      overflow:hidden;
-      display:none;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: none;
+      margin-bottom: 14px;
     }
-    .card.active { display:block; }
+    .card.active { display: block; }
 
-    .card-img-wrap {
-      position:relative; cursor:pointer;
-      background:#1e40af;
+    /* CHARACTER CARD — horizontal, no cropping */
+    .char-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #f8faff;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .card-img-wrap img {
-      width:100%; max-height:260px;
-      object-fit:cover; display:block;
-      transition: opacity 0.2s;
-    }
-    .card-img-wrap:hover img { opacity:0.88; }
 
-    .audio-overlay {
-      position:absolute; top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      background:rgba(37,99,235,0.82);
-      color:white; border-radius:50%;
-      width:60px; height:60px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:26px;
-      pointer-events:none;
+    .char-card:hover { background: #eff6ff; }
+    .char-card.playing { background: #dbeafe; }
+
+    .char-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+      border: 3px solid rgba(37,99,235,0.15);
+    }
+
+    .char-info { flex: 1; }
+
+    .char-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e2a38;
+    }
+
+    .char-tap {
+      font-size: 12px;
+      color: #486581;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    .char-play {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
       transition: background 0.2s;
     }
-    .card-img-wrap:hover .audio-overlay { background:rgba(30,64,175,0.95); }
 
-    .card-body { padding:20px 22px 24px; }
+    .char-card:hover .char-play { background: #1e40af; }
+    .char-card.playing .char-play { background: #1e40af; }
 
+    .char-play svg {
+      width: 13px;
+      height: 13px;
+      fill: white;
+      margin-left: 2px;
+    }
+
+    /* CARD BODY */
+    .card-body {
+      padding: 18px 16px 20px;
+    }
+
+    /* PHRASE with blank */
     .phrase {
-      font-size:20px; font-weight:600;
-      color:#1e293b; text-align:center;
-      margin-bottom:16px; line-height:1.5;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e2a38;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
 
-    .input-row {
-      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-      margin-bottom:10px;
+    .blank {
+      display: inline-block;
+      min-width: 80px;
+      border-bottom: 3px solid #2563eb;
+      color: #2563eb;
+      font-weight: 800;
+      padding: 0 4px;
+      transition: all 0.3s;
     }
 
-    .blank-input {
-      padding:10px 14px;
-      font-size:16px; font-family:'Poppins', sans-serif;
-      border:2px solid #cbd5e1; border-radius:10px;
-      width:160px; text-align:center;
-      outline:none;
-      transition: border-color 0.2s, background 0.2s;
+    .blank.correct {
+      border-bottom-color: #22c55e;
+      color: #22c55e;
     }
-    .blank-input:focus { border-color:#2563eb; }
-    .blank-input.correct  { border-color:#22c55e; background:#f0fdf4; color:#15803d; }
-    .blank-input.wrong    { border-color:#ef4444; background:#fef2f2; color:#b91c1c;
-                            animation: shake 0.35s ease; }
+
+    .blank.wrong {
+      border-bottom-color: #ef4444;
+      color: #ef4444;
+    }
+
+    /* CHOICE BUTTONS */
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .choice {
+      padding: 13px 16px;
+      background: white;
+      border: 2px solid rgba(37,99,235,0.2);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e2a38;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .choice:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+      transform: translateY(-1px);
+    }
+
+    .choice:active { transform: scale(0.98); }
+
+    .choice.correct {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      color: #15803d;
+      cursor: default;
+    }
+
+    .choice.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+      color: #b91c1c;
+      animation: shake 0.35s ease;
+      cursor: default;
+    }
+
+    .choice.disabled {
+      opacity: 0.4;
+      cursor: default;
+      pointer-events: none;
+    }
 
     @keyframes shake {
-      0%,100% { transform:translateX(0); }
-      20%      { transform:translateX(-6px); }
-      40%      { transform:translateX(6px); }
-      60%      { transform:translateX(-4px); }
-      80%      { transform:translateX(4px); }
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
     }
 
-    .check-btn {
-      padding:10px 26px; font-size:15px; font-weight:700;
-      background:#2563eb; color:white; border:none; border-radius:10px;
-      cursor:pointer; transition: background 0.2s;
-    }
-    .check-btn:hover { background:#1e40af; }
-    .check-btn:disabled { background:#93c5fd; cursor:default; }
-
+    /* FEEDBACK */
     .feedback {
-      text-align:center; font-weight:600; font-size:15px;
-      min-height:22px; margin-bottom:8px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 20px;
+      margin-top: 14px;
     }
 
-    .hint {
-      text-align:center; font-size:13px; color:#7c3aed;
-      font-weight:600; min-height:20px; margin-bottom:4px;
-    }
-
-    .attempts-dots {
-      display:flex; justify-content:center; gap:6px; margin-bottom:12px;
-    }
-    .dot {
-      width:10px; height:10px; border-radius:50%;
-      background:#d1d5db; transition: background 0.3s;
-    }
-    .dot.used { background:#ef4444; }
-
-    /* Nav */
+    /* NAV ROW */
     .nav-row {
-      max-width:520px; margin:0 auto;
-      display:flex; justify-content:space-between; align-items:center;
-      gap:10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
     }
 
     .nav-btn {
-      padding:11px 24px; font-size:15px; font-weight:700;
-      border:none; border-radius:10px; cursor:pointer;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
       transition: all 0.2s;
     }
-    .nav-btn.prev { background:#e2e8f0; color:#374151; }
-    .nav-btn.prev:hover { background:#cbd5e1; }
-    .nav-btn.next { background:#22c55e; color:white; }
-    .nav-btn.next:hover { background:#16a34a; }
-    .nav-btn:disabled { opacity:0.4; cursor:default; }
 
-    .counter {
-      font-size:14px; font-weight:600; color:#2563eb;
+    .nav-btn.prev {
+      background: rgba(255,255,255,0.7);
+      color: #486581;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .nav-btn.prev:hover  { background: rgba(255,255,255,0.95); }
+    .nav-btn.prev:disabled { opacity: 0.3; cursor: default; }
+
+    .nav-btn.next {
+      background: #d1d5db;
+      color: white;
+      cursor: not-allowed;
+      flex: 1;
+    }
+    .nav-btn.next.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+    }
+    .nav-btn.next.enabled:hover  { background: #1e40af; transform: translateY(-1px); }
+    .nav-btn.next.enabled:active { transform: scale(0.98); }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center;
+      margin-top: 16px;
+      padding: 16px;
+      background: #f0fdf4;
+      border-radius: 14px;
+      border: 1px solid #bbf7d0;
+      font-weight: 800;
+      font-size: 16px;
+      color: #16a34a;
     }
 
-    /* i18n hidden */
-    .i18n { display:none; }
+    /* FINISH BUTTON */
+    .finish-btn {
+      display: none;
+      width: 100%;
+      margin-top: 12px;
+      padding: 16px;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+      animation: pulse-in 0.4s ease;
+      transition: all 0.2s;
+    }
+    .finish-btn:hover  { background: #16a34a; transform: translateY(-2px); }
+    .finish-btn:active { transform: scale(0.98); }
 
-    @media (max-width:480px) {
-      .phrase { font-size:17px; }
-      .blank-input { width:130px; }
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
+
 <body>
 
-  <a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
-  <h1>Lección 1</h1>
+  <a class="back-btn" href="../index.html">← Lección 1</a>
 
-  <div class="progress-container">
-    <div class="step" data-page="p1.html">1</div>
-    <div class="step" data-page="p2.html">2</div>
-    <div class="step" data-page="p3.html">3</div>
-    <div class="step" data-page="p4.html">4</div>
-    <div class="step active" data-page="p5.html">5</div>
+  <div class="wrap">
+
+    <span class="lesson-tag">Unidad 1 · Lección 1 · Parte 5</span>
+    <h1>Completa la frase</h1>
+    <p class="subtitle">Toca la imagen, escucha, y elige la palabra correcta</p>
+
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot" data-part="1">1</div>
+      <div class="dot" data-part="2">2</div>
+      <div class="dot" data-part="3">3</div>
+      <div class="dot" data-part="4">4</div>
+      <div class="dot active" data-part="5">5</div>
+    </div>
+
+    <div class="ex-counter" id="exCounter">Ejercicio 1 / 4</div>
+
+    <!-- CARDS injected by JS -->
+    <div id="cardsContainer"></div>
+
+    <!-- NAV -->
+    <div class="nav-row">
+      <button class="nav-btn prev" id="prevBtn" disabled>← Atrás</button>
+      <button class="nav-btn next" id="nextBtn" disabled>Siguiente →</button>
+    </div>
+
+    <!-- SUCCESS + FINISH -->
+    <div class="success-msg" id="successMsg">
+      🎉 ¡Lección completada! Excelente trabajo.
+    </div>
+
+    <button class="finish-btn" id="finishBtn">
+      Finalizar lección ✓
+    </button>
+
   </div>
 
-  <p class="instructions">
-    Haz clic en la imagen para escuchar. Escribe la palabra que falta.
-  </p>
+  <!-- SFX -->
+  <audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+  <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
 
-  <!-- Cards injected by JS -->
-  <div id="cards-container"></div>
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT           = 'u1';
+    const LESSON         = 'l1';
+    const PARTS_TOTAL    = 5;
+    const CURRENT_PART_NUM = 5;
+    const NEXT_URL       = '../index.html'; // back to lesson list after finishing
+    const PART_PAGES     = ['p1.html','p2.html','p3.html','p4.html','p5.html'];
+    const BASE           = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
 
-  <div class="nav-row">
-    <button class="nav-btn prev" id="prevBtn" disabled>← Anterior</button>
-    <span class="counter" id="counter"></span>
-    <button class="nav-btn next" id="nextBtn">Siguiente →</button>
-  </div>
+    // ─── EXERCISE DATA ───────────────────────────────────────
+    // before / answer / after — one blank per card
+    // choices: [correct, wrong1, wrong2] — shuffled at runtime
+    const exercises = [
+      {
+        image:   BASE + 'images/u1/ana.jpg',
+        audio:   BASE + 'audio/u1/ana.mp3',
+        before:  '',
+        answer:  'Hello.',
+        after:   'My name is Ana.',
+        choices: ['Hello.', 'Goodbye.', 'Sorry.']
+      },
+      {
+        image:   BASE + 'images/u1/pedro.jpg',
+        audio:   BASE + 'audio/u1/pedro.mp3',
+        before:  'Hello.',
+        answer:  'My name is',
+        after:   'Pedro.',
+        choices: ['My name is', 'I am from', 'Nice to meet']
+      },
+      {
+        image:   BASE + 'images/u1/george.jpg',
+        audio:   BASE + 'audio/u1/george.mp3',
+        before:  'Hello. My name',
+        answer:  'is',
+        after:   'George.',
+        choices: ['is', 'are', 'am']
+      },
+      {
+        image:   BASE + 'images/u1/julie.jpg',
+        audio:   BASE + 'audio/u1/julie.mp3',
+        before:  'Hello. My name is',
+        answer:  'Julie.',
+        after:   '',
+        choices: ['Julie.', 'Ana.', 'Maria.']
+      }
+    ];
 
-  <!-- i18n strings live in HTML -->
-  <div class="i18n">
-    <span id="msg-correct">✅ ¡Correcto!</span>
-    <span id="msg-wrong">❌ Intenta de nuevo</span>
-    <span id="msg-hint-prefix">💡 Pista:</span>
-    <span id="msg-next-page">p4.html</span>
-  </div>
+    // ─── STATE ───────────────────────────────────────────────
+    let currentIndex = 0;
+    const solved = exercises.map(() => false);
 
-  <!--
-    Exercise data — edit only this section to change exercises.
-    Each item:
-      image : path to character image
-      audio : path to character audio
-      before: text before the blank  (use "" if blank is first)
-      answer: the missing word (lowercase, used for comparison)
-      after : text after the blank   (use "" if blank is last)
-  -->
-  <script id="exercise-data" type="application/json">
-  [
-    {
-      "image": "../../../../assets/images/u1/ana.png",
-      "audio": "../../../../assets/audio/u1/ana.mp3",
-      "before": "",
-      "answer": "Hello",
-      "after": ", my name is Ana."
-    },
-    {
-      "image": "../../../../assets/images/u1/pedro.png",
-      "audio": "../../../../assets/audio/u1/pedro.mp3",
-      "before": "Hello, my",
-      "answer": "name",
-      "after": "is Pedro."
-    },
-    {
-      "image": "../../../../assets/images/u1/george.png",
-      "audio": "../../../../assets/audio/u1/george.mp3",
-      "before": "Hello, my name",
-      "answer": "is",
-      "after": "George."
-    },
-    {
-      "image": "../../../../assets/images/u1/julie.png",
-      "audio": "../../../../assets/audio/u1/julie.mp3",
-      "before": "Hello,",
-      "answer": "my name",
-      "after": "is Julie."
+    // ─── HELPERS ─────────────────────────────────────────────
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
-  ]
+
+    function playSFX(id) {
+      const a = document.getElementById(id);
+      if (!a) return;
+      a.currentTime = 0;
+      a.play().catch(() => {});
+    }
+
+    function escHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // ─── BUILD CARDS ─────────────────────────────────────────
+    const container = document.getElementById('cardsContainer');
+    const cardEls   = [];
+
+    exercises.forEach((ex, idx) => {
+      const card = document.createElement('div');
+      card.className = 'card' + (idx === 0 ? ' active' : '');
+
+      // — Character card (horizontal, no crop) —
+      const charCard = document.createElement('div');
+      charCard.className = 'char-card';
+
+      const avatar = document.createElement('img');
+      avatar.src = ex.image;
+      avatar.alt = ex.answer;
+      avatar.className = 'char-avatar';
+
+      const charInfo = document.createElement('div');
+      charInfo.className = 'char-info';
+
+      // derive name from answer or image path
+      const charName = document.createElement('div');
+      charName.className = 'char-name';
+      // extract name from image URL e.g. ".../ana.jpg" → "Ana"
+      const namePart = ex.image.split('/').pop().replace(/\.[^.]+$/, '');
+      charName.textContent = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+
+      const charTap = document.createElement('div');
+      charTap.className = 'char-tap';
+      charTap.textContent = 'Toca para escuchar';
+
+      charInfo.appendChild(charName);
+      charInfo.appendChild(charTap);
+
+      const charPlay = document.createElement('div');
+      charPlay.className = 'char-play';
+      charPlay.innerHTML = '<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>';
+
+      const audio = new Audio(ex.audio);
+
+      charCard.appendChild(avatar);
+      charCard.appendChild(charInfo);
+      charCard.appendChild(charPlay);
+
+      charCard.addEventListener('click', () => {
+        charCard.classList.add('playing');
+        charTap.textContent = 'Escuchando...';
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.onended = () => {
+          charCard.classList.remove('playing');
+          charTap.textContent = 'Toca para escuchar';
+        };
+      });
+
+      // — Body —
+      const body = document.createElement('div');
+      body.className = 'card-body';
+
+      // Phrase with blank
+      const phrase = document.createElement('div');
+      phrase.className = 'phrase';
+
+      const blankEl = document.createElement('span');
+      blankEl.className = 'blank';
+      blankEl.textContent = '_____';
+
+      if (ex.before) {
+        phrase.appendChild(document.createTextNode(ex.before + ' '));
+      }
+      phrase.appendChild(blankEl);
+      if (ex.after) {
+        phrase.appendChild(document.createTextNode(' ' + ex.after));
+      }
+
+      // Feedback
+      const feedback = document.createElement('div');
+      feedback.className = 'feedback';
+
+      // Choices
+      const choicesWrap = document.createElement('div');
+      choicesWrap.className = 'choices';
+
+      const shuffledChoices = shuffle(ex.choices);
+
+      shuffledChoices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = choice;
+
+        btn.addEventListener('click', () => {
+          if (solved[idx]) return;
+
+          const allBtns = choicesWrap.querySelectorAll('.choice');
+
+          if (choice === ex.answer) {
+            // ✅ Correct
+            playSFX('sfx-correct');
+            btn.classList.add('correct');
+            blankEl.textContent = ex.answer;
+            blankEl.classList.add('correct');
+            feedback.textContent = '✅ ¡Correcto!';
+            feedback.style.color = '#22c55e';
+            solved[idx] = true;
+
+            // Disable all other choices
+            allBtns.forEach(b => {
+              if (b !== btn) b.classList.add('disabled');
+            });
+
+            updateNav();
+            checkAllSolved();
+
+          } else {
+            // ❌ Wrong
+            playSFX('sfx-incorrect');
+            btn.classList.add('wrong');
+            blankEl.classList.add('wrong');
+            feedback.textContent = '❌ Intenta otra vez';
+            feedback.style.color = '#ef4444';
+
+            setTimeout(() => {
+              btn.classList.remove('wrong');
+              btn.classList.add('disabled'); // disable wrong choice after attempt
+              blankEl.classList.remove('wrong');
+              feedback.textContent = '';
+            }, 600);
+          }
+        });
+
+        choicesWrap.appendChild(btn);
+      });
+
+      body.appendChild(phrase);
+      body.appendChild(choicesWrap);
+      body.appendChild(feedback);
+      card.appendChild(charCard);
+      card.appendChild(body);
+      container.appendChild(card);
+      cardEls.push(card);
+    });
+
+    // ─── NAVIGATION ──────────────────────────────────────────
+    const prevBtn   = document.getElementById('prevBtn');
+    const nextBtn   = document.getElementById('nextBtn');
+    const exCounter = document.getElementById('exCounter');
+
+    function showCard(idx) {
+      cardEls.forEach((c, i) => c.classList.toggle('active', i === idx));
+      currentIndex = idx;
+      updateNav();
+    }
+
+    function updateNav() {
+      exCounter.textContent = `Ejercicio ${currentIndex + 1} / ${exercises.length}`;
+      prevBtn.disabled = currentIndex === 0;
+
+      const isLast    = currentIndex === exercises.length - 1;
+      const canGoNext = solved[currentIndex];
+
+      if (isLast) {
+        nextBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'block';
+        nextBtn.textContent   = 'Siguiente →';
+        nextBtn.classList.toggle('enabled', canGoNext);
+        nextBtn.disabled = !canGoNext;
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) showCard(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (!nextBtn.classList.contains('enabled')) return;
+      if (currentIndex < exercises.length - 1) showCard(currentIndex + 1);
+    });
+
+    // ─── ALL SOLVED → FINISH ─────────────────────────────────
+    function checkAllSolved() {
+      if (!solved.every(s => s)) return;
+
+      // Show success + finish button
+      document.getElementById('successMsg').style.display = 'block';
+      const finishBtn = document.getElementById('finishBtn');
+      finishBtn.style.display = 'block';
+      finishBtn.onclick = () => {
+        saveProgress();
+        window.location.href = NEXT_URL;
+      };
+    }
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    // p5 is the last part — also update the unit-level summary
+    function saveProgress() {
+      try {
+        // Per-lesson
+        const lp = JSON.parse(localStorage.getItem('inglesco_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        lp[LESSON].partsCompleted = PARTS_TOTAL; // all parts done
+        localStorage.setItem('inglesco_progress_' + UNIT, JSON.stringify(lp));
+
+        // Unit-level summary (read by main index)
+        const p = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+        if (!p[UNIT]) p[UNIT] = { lessonsTotal: 4, lessonsCompleted: 0 };
+        // Count completed lessons
+        const completedLessons = Object.values(lp)
+          .filter(l => l.partsCompleted >= l.partsTotal).length;
+        p[UNIT].lessonsCompleted = completedLessons;
+        localStorage.setItem('inglesco_progress', JSON.stringify(p));
+      } catch(e) {}
+    }
+
+    // ─── DOT NAVIGATION ──────────────────────────────────────
+    const FURTHEST_KEY = `inglesco_furthest_${UNIT}_${LESSON}`;
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || String(CURRENT_PART_NUM), 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART_NUM) {
+          dot.classList.add('active');
+        } else if (part < CURRENT_PART_NUM) {
+          dot.classList.add('done');
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        } else {
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART_NUM);
+    initDots();
+    updateNav();
   </script>
 
-  <script src="../../../../js/u1/p5.js"></script>
 </body>
 </html>
