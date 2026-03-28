@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Unidad 1 - Lección 1 Parte 2: Práctica de saludos | Inglesco</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <title>Unidad 1 - Lección 1 Parte 2: Práctica de saludos | Inglesco</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -32,6 +32,9 @@
       width: 100%; max-width:600px; margin:0 auto 10px;
       padding:15px 20px; background:#3b82f6; color:white; border-radius:10px;
       cursor:pointer; text-align:center; font-size:24px; font-weight:600;
+    }
+    .question-box .listen-label {
+      display:block; font-size:14px; font-weight:400; color:#dbeafe; margin-bottom:6px;
     }
     .question-box span { display:block; font-size:16px; margin-top:5px; color:#f0f0f0; font-weight:400; }
 
@@ -76,16 +79,20 @@
     <div class="step" data-page="p2.html">2</div>
     <div class="step" data-page="p3.html">3</div>
     <div class="step" data-page="p4.html">4</div>
-<div class="step" onclick="window.location.href='p5.html'">5</div>
+    <div class="step" data-page="p5.html">5</div>
   </div>
 
-  <!-- Instructions (Spanish lives in HTML) -->
+  <!-- Instructions -->
   <div class="instructions">
-    Haz clic en el recuadro para escuchar "What is your name?"
+    👂 Escucha varias veces. No necesitas memorizar todavía.
+  </div>
+  <div class="instructions" style="margin-bottom:30px;">
+    Solo familiarízate con las frases.
   </div>
 
   <!-- Question Box -->
   <div id="question-box" class="question-box">
+    <span class="listen-label">👂 Escucha la pregunta</span>
     What is your name?
     <span>¿Cómo te llamas?</span>
   </div>
@@ -103,7 +110,7 @@
         <div class="character-text">Ana</div>
         <div class="translation">Hello, my name is Ana</div>
       </div>
-      <div class="played">❌</div>
+      <div class="played">👂</div>
       <audio data-role="answer" src="../../../../assets/audio/u1/ana.mp3"></audio>
     </div>
 
@@ -113,7 +120,7 @@
         <div class="character-text">Pedro</div>
         <div class="translation">Hello, my name is Pedro</div>
       </div>
-      <div class="played">❌</div>
+      <div class="played">👂</div>
       <audio data-role="answer" src="../../../../assets/audio/u1/pedro.mp3"></audio>
     </div>
 
@@ -123,7 +130,7 @@
         <div class="character-text">George</div>
         <div class="translation">Hello, my name is George</div>
       </div>
-      <div class="played">❌</div>
+      <div class="played">👂</div>
       <audio data-role="answer" src="../../../../assets/audio/u1/george.mp3"></audio>
     </div>
 
@@ -133,7 +140,7 @@
         <div class="character-text">Julie</div>
         <div class="translation">Hello, my name is Julie</div>
       </div>
-      <div class="played">❌</div>
+      <div class="played">👂</div>
       <audio data-role="answer" src="../../../../assets/audio/u1/julie.mp3"></audio>
     </div>
 
@@ -142,12 +149,16 @@
   <!-- Question Audio -->
   <audio id="question-audio" src="../../../../assets/audio/u1/question1.mp3"></audio>
 
-  <!-- Continue Button (Spanish lives in HTML) -->
+  <!-- Continue Button -->
   <button id="continue-btn" class="continue-btn" data-next="p3.html" disabled>
-    Continuar →
+    Continuar a la siguiente parte →
   </button>
 
-  <!-- JS (language-neutral) -->
-<script src="../../../../js/u1/p2.js"></script>
+  <!-- Success Message -->
+  <div id="success-msg" style="text-align:center; margin-top:15px; font-weight:700; color:#16a34a; display:none;">
+    ✔ ¡Bien hecho! Has escuchado todas las frases
+  </div>
+
+  <script src="../../../../js/u1/p2.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 const questionBox = document.getElementById("question-box");
 const questionAudio = document.getElementById("question-audio");
 const continueBtn = document.getElementById("continue-btn");
+const successMsg = document.getElementById("success-msg");
 
 // Collect all character cards dynamically (no hard-coded names)
 const characterCards = Array.from(document.querySelectorAll(".character"));
@@ -71,6 +72,7 @@ function checkAllAnswered() {
   if (allDone) {
     continueBtn.disabled = false;
     continueBtn.classList.add("enabled");
+    if (successMsg) successMsg.style.display = "block";
   }
 }
 
