@@ -3,294 +3,442 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <title>Unidad 1 - Lección 3 - Parte 5</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<!-- ✅ Correct JS path -->
-<script defer src="../../../../js/u1/u1_l3_p5.js"></script>
+<link rel="manifest" href="../../../../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#dbeafe; }
 
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  color: #1e2a38;
+  padding: 20px 14px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* BACK BUTTON */
 .back-btn {
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a38;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.15s;
 }
-.back-btn:hover { background:#1e40af; }
+.back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
 
-.unit-title {
-  text-align:center;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:15px;
-  color:#2563eb;
+/* WRAP */
+.wrap {
+  width: 100%;
+  max-width: 680px;
+  padding-top: 20px;
 }
 
-/* Progress bar */
-.progress-container {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:25px;
+/* HEADER */
+.lesson-tag {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #486581;
+  margin-bottom: 6px;
 }
-.step {
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
-}
-.step.active { background:#2563eb; color:white; }
-.step:hover { transform:scale(1.1); }
 
+h1 {
+  text-align: center;
+  color: #1e40af;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #486581;
+  margin-bottom: 20px;
+}
+
+/* PROGRESS DOTS */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(37,99,235,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #486581;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+.dot.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+  cursor: default;
+}
+.dot.active:hover { transform: none; background: #2563eb; }
+.dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* EXERCISE CARD */
 .exercise-box {
-  max-width:1000px;
-  margin:0 auto;
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  background: white;
+  padding: 24px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
 }
 
-.exercise-text { text-align:center; margin-top:10px; }
-.exercise-text .en { font-size:18px; color:#1e40af; font-weight:600; }
-.exercise-text .es { font-size:14px; color:#2563eb; display:block; margin-top:4px; }
+.exercise-text { text-align: center; margin-bottom: 20px; }
+.exercise-text .en { font-size: 17px; color: #1e40af; font-weight: 700; }
+.exercise-text .es { font-size: 13px; color: #486581; display: block; margin-top: 4px; }
 
 /* MATCHING LAYOUT */
 .matching-container {
-  display:flex;
-  justify-content:center;
-  gap:60px;
-  margin-top:30px;
-  align-items:flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 
-/* LEFT COLUMN */
 .audio-column {
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-  width:180px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
 }
 
 .audio-box {
-  height:60px;
-  background:#e0f2fe;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.2s;
+  height: 52px;
+  min-width: 100px;
+  flex: 1 1 100px;
+  max-width: 140px;
+  background: #e0f2fe;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
 }
-.audio-box:hover { background:#bae6fd; }
-
+.audio-box:hover { background: #bae6fd; }
 .audio-box.active {
-  background:#2563eb;
-  color:white;
-  transform:scale(1.05);
+  background: #2563eb;
+  color: white;
+  transform: scale(1.05);
 }
-
 .audio-box.answered {
-  background:#bbf7d0;
-  color:#166534;
-  cursor:default;
+  background: #bbf7d0;
+  color: #166534;
+  cursor: default;
 }
 
-/* RIGHT COLUMN */
 .right-column {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-/* NUMBER GRID */
 .number-container {
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
-  justify-content:center;
-  max-width:500px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
 }
 
-/* NUMBER CARD WITH WORD ONLY */
 .number-card {
-  width:100px;
-  height:100px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  border-radius:12px;
-  cursor:pointer;
-  transition:0.2s;
-  background:#2563eb;
-  color:white;
+  width: clamp(70px, 22vw, 90px);
+  height: clamp(70px, 22vw, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
 }
-
-.number-card:hover { transform:scale(1.1); }
+.number-card:hover { transform: scale(1.08); }
 
 .number-word {
-  font-size:18px;
-  font-weight:800;
-  color:black;
-  letter-spacing:1px;
-  line-height:1.2;
-  text-align:center;
+  font-size: clamp(13px, 3.5vw, 17px);
+  font-weight: 800;
+  color: black;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
-.number-card.correct {
-  background:#16a34a !important;
-  position:relative;
-}
+.number-card.correct { background: #16a34a !important; }
+.number-card.correct .number-word { color: white; }
 .number-card.correct::after {
-  content:"✔";
-  position:absolute;
-  top:6px;
-  right:10px;
-  font-size:20px;
-  color:white;
+  content: "✔";
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  font-size: 16px;
+  color: white;
 }
-
-.number-card.disabled {
-  pointer-events:none;
-  opacity:0.6;
-}
-
+.number-card.disabled { pointer-events: none; opacity: 0.6; }
 .number-card.wrong {
-  animation:shake 0.3s;
-  border:3px solid #dc2626;
+  animation: shake 0.3s;
+  border: 3px solid #dc2626;
 }
 
 @keyframes shake {
-  0% { transform:translateX(0); }
-  25% { transform:translateX(-5px); }
-  50% { transform:translateX(5px); }
-  75% { transform:translateX(-5px); }
-  100% { transform:translateX(0); }
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-5px); }
+  50%  { transform: translateX(5px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }
 
-/* FEEDBACK */
 #feedback {
-  margin-top:18px;
-  font-weight:600;
-  font-size:18px;
-  min-height:28px;
-  text-align:center;
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 17px;
+  min-height: 26px;
+  text-align: center;
 }
 
 /* NEXT BUTTON */
 .next-btn {
-  margin:30px auto 0 auto;
-  padding:12px 25px;
-  font-size:16px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-  display:none;
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: #d1d5db;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
-.next-btn:hover { background:#1e40af; }
+.next-btn.enabled {
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+}
+.next-btn.enabled:hover { background: #1e40af; transform: translateY(-2px); }
+.next-btn.enabled:active { transform: scale(0.98); }
 
-/* Hidden language strings */
-.i18n { display:none; }
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .matching-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-  }
-  .audio-column {
-    width: 100%;
-    max-width: 340px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .audio-box {
-    width: 80px;
-    height: 50px;
-    font-size: 13px;
-  }
-  .number-container {
-    max-width: 340px;
-    gap: 10px;
-  }
-  .number-card {
-    width: 80px;
-    height: 80px;
-  }
-  .number-word {
-    font-size: 15px;
-  }
-  .unit-title {
-    font-size: 22px;
-  }
+@keyframes pulse-in {
+  0%   { transform: scale(0.97); }
+  60%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
 </style>
 </head>
 
-<body>
+<body data-unit="1" data-lesson="3" data-part="5">
 
-<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+<a href="../index.html" class="back-btn">← Lección 3</a>
 
-<div class="unit-title">Lección 3 - Parte 5</div>
+<div class="wrap">
 
-<div class="progress-container">
-  <div class="step" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step" data-page="p4.html">4</div>
-  <div class="step active" data-page="p5.html">5</div>
-</div>
+  <span class="lesson-tag">Unidad 1 · Lección 3 · Parte 5</span>
+  <h1>Numbers</h1>
+  <p class="subtitle">Escucha y selecciona la palabra correcta</p>
 
-<div class="exercise-box">
-
-  <p class="exercise-text">
-    <span class="en">Listen to the audio and click the correct word.</span><br>
-    <span class="es">Escucha el audio y selecciona la palabra correcta.</span>
-  </p>
-
-  <!-- ✅ Language strings in HTML (JS reads them) -->
-  <div class="i18n">
-    <span id="txt-listen">🔊 Listen</span>
-    <span id="msg-wrong">❌ Intentar otra vez</span>
-    <span id="msg-good-1">Excellent!</span>
-    <span id="msg-good-2">Great!</span>
+  <!-- PROGRESS DOTS -->
+  <div class="progress-dots">
+    <div class="dot" data-page="p1.html">1</div>
+    <div class="dot" data-page="p2.html">2</div>
+    <div class="dot" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
+    <div class="dot active" data-page="p5.html">5</div>
   </div>
 
-  <div class="matching-container">
-    <!-- ✅ Base path + next target stored here -->
-    <div class="audio-column" id="audioColumn"
-         data-audio-base="../../../../assets/audio/u1/"
-         data-next="../index.html"></div>
+  <!-- EXERCISE CARD -->
+  <div class="exercise-box">
 
-    <div class="right-column">
-      <div class="number-container" id="numberContainer"></div>
-      <div id="feedback"></div>
+    <p class="exercise-text">
+      <span class="en">Listen to the audio and click the correct word.</span>
+      <span class="es">Escucha el audio y selecciona la palabra correcta.</span>
+    </p>
+
+    <div class="matching-container">
+      <div class="audio-column" id="audioColumn"></div>
+      <div class="right-column">
+        <div class="number-container" id="numberContainer"></div>
+        <div id="feedback"></div>
+      </div>
     </div>
+
   </div>
 
-  <button class="next-btn" id="nextBtn">Siguiente →</button>
+  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+
 </div>
 
+<!-- SFX -->
+<audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+<audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+<script>
+const UNIT       = 1;
+const LESSON     = 3;
+const PART       = 5;
+const AUDIO_BASE = "../../../../assets/audio/u1/";
+const NEXT_PAGE  = "../index.html";
+
+const audioColumn     = document.getElementById("audioColumn");
+const numberContainer = document.getElementById("numberContainer");
+const feedback        = document.getElementById("feedback");
+const nextBtn         = document.getElementById("nextBtn");
+const sfxCorrect      = document.getElementById("sfx-correct");
+const sfxIncorrect    = document.getElementById("sfx-incorrect");
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+}
+
+const lessonData = [
+  { num: "1",  word: "ONE",   audio: "one.mp3",   color: "#f87171" },
+  { num: "2",  word: "TWO",   audio: "two.mp3",   color: "#fbbf24" },
+  { num: "3",  word: "THREE", audio: "three.mp3", color: "#34d399" },
+  { num: "4",  word: "FOUR",  audio: "four.mp3",  color: "#60a5fa" },
+  { num: "5",  word: "FIVE",  audio: "five.mp3",  color: "#a78bfa" },
+  { num: "6",  word: "SIX",   audio: "six.mp3",   color: "#f472b6" },
+  { num: "7",  word: "SEVEN", audio: "seven.mp3", color: "#fb923c" },
+  { num: "8",  word: "EIGHT", audio: "eight.mp3", color: "#22d3ee" },
+  { num: "9",  word: "NINE",  audio: "nine.mp3",  color: "#facc15" },
+  { num: "0",  word: "ZERO",  audio: "zero.mp3",  color: "#94a3b8" },
+  { num: "10", word: "TEN",   audio: "ten.mp3",   color: "#6ee7b7" }
+];
+
+const shuffledAudio = [...lessonData].sort(() => Math.random() - 0.5);
+const shuffledWords = [...lessonData].sort(() => Math.random() - 0.5);
+
+let currentTarget  = null;
+let answeredCount  = 0;
+let currentAudioEl = null;
+
+function stopAudio() {
+  if (!currentAudioEl) return;
+  try { currentAudioEl.pause(); currentAudioEl.currentTime = 0; } catch (_) {}
+  currentAudioEl = null;
+}
+
+function playSfx(el) {
+  try { el.currentTime = 0; el.play(); } catch (_) {}
+}
+
+window.addEventListener("beforeunload", stopAudio);
+
+// Progress dot navigation
+document.querySelectorAll(".dot").forEach(dot => {
+  dot.addEventListener("click", () => {
+    const page = dot.dataset.page;
+    if (!page) return;
+    stopAudio();
+    window.location.href = page;
+  });
+});
+
+// Build audio boxes
+shuffledAudio.forEach(item => {
+  const box = document.createElement("div");
+  box.className = "audio-box";
+  box.textContent = "🔊 Listen";
+  box.dataset.num = item.num;
+
+  box.addEventListener("click", () => {
+    if (box.classList.contains("answered")) return;
+    document.querySelectorAll(".audio-box").forEach(b => b.classList.remove("active"));
+    box.classList.add("active");
+    currentTarget = item;
+    stopAudio();
+    const a = new Audio(AUDIO_BASE + item.audio);
+    currentAudioEl = a;
+    a.play();
+    a.onended = () => { if (currentAudioEl === a) currentAudioEl = null; };
+  });
+
+  audioColumn.appendChild(box);
+});
+
+// Build word cards
+shuffledWords.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "number-card";
+  card.style.backgroundColor = item.color;
+  card.dataset.num = item.num;
+  card.innerHTML = `<div class="number-word">${item.word}</div>`;
+
+  card.addEventListener("click", () => {
+    if (!currentTarget) return;
+    if (card.classList.contains("disabled")) return;
+
+    if (card.dataset.num === currentTarget.num) {
+      card.classList.add("correct", "disabled");
+      const activeBox = document.querySelector(".audio-box.active");
+      if (activeBox) { activeBox.classList.remove("active"); activeBox.classList.add("answered"); }
+      playSfx(sfxCorrect);
+      feedback.style.color = "#16a34a";
+      feedback.textContent = Math.random() > 0.5 ? "¡Excelente!" : "¡Muy bien!";
+      currentTarget = null;
+      answeredCount++;
+      if (answeredCount === lessonData.length) {
+        nextBtn.classList.add("enabled");
+        nextBtn.disabled = false;
+      }
+    } else {
+      card.classList.add("wrong");
+      playSfx(sfxIncorrect);
+      feedback.style.color = "#dc2626";
+      feedback.textContent = "❌ Intentar otra vez";
+      setTimeout(() => { card.classList.remove("wrong"); feedback.textContent = ""; }, 800);
+    }
+  });
+
+  numberContainer.appendChild(card);
+});
+
+nextBtn.addEventListener("click", () => {
+  if (!nextBtn.classList.contains("enabled")) return;
+  stopAudio();
+  window.location.href = NEXT_PAGE;
+});
+</script>
 </body>
 </html>

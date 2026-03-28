@@ -6,114 +6,212 @@
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <title>Unidad 1 - Lección 3 - Parte 3</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- Use the external JS only -->
-<script defer src="../../../../js/u1/u1_l3_p3.js"></script>
+<link rel="manifest" href="../../../../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; }
 
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  color: #1e2a38;
+  padding: 20px 14px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* BACK BUTTON */
 .back-btn {
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a38;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.15s;
 }
-.back-btn:hover { background:#1e40af; }
+.back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
 
-.unit-title {
-  text-align:center;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:#2563eb;
+/* WRAP */
+.wrap {
+  width: 100%;
+  max-width: 620px;
+  padding-top: 20px;
 }
 
-.progress-container {
-  display:flex;
-  justify-content:center;
-  margin:15px 0 25px 0;
-  gap:10px;
+/* HEADER */
+.lesson-tag {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #486581;
+  margin-bottom: 6px;
 }
-.step {
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-}
-.step.active { background:#2563eb; color:white; }
-.step:hover { transform: scale(1.1); }
 
+h1 {
+  text-align: center;
+  color: #1e40af;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #486581;
+  margin-bottom: 20px;
+}
+
+/* PROGRESS DOTS */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(37,99,235,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #486581;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+.dot.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+  cursor: default;
+}
+.dot.active:hover { transform: none; background: #2563eb; }
+.dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* CHARACTERS ROW */
+.characters-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 14px;
+}
+
+.char {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.char img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid rgba(0,0,0,0.06);
+}
+
+.char-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e2a38;
+}
+
+.char-label {
+  font-size: 11px;
+  color: #486581;
+}
+
+.vs {
+  font-size: 18px;
+  font-weight: 800;
+  color: #d1d5db;
+}
+
+/* INSTRUCTION BANNER */
+.instruction-banner {
+  background: #eff6ff;
+  border-left: 5px solid #2563eb;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: 15px;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+/* EXERCISE CARD */
 .exercise-box {
-  max-width:950px;
-  margin:0 auto;
-  background:white;
-  padding:40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  background: white;
+  padding: 24px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
 }
 
-.top-characters {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-.character { width:220px; text-align:center; }
-.character img { width:100%; border-radius:16px; border:4px solid #2563eb; }
-
-.play-btn {
-  padding:8px 18px;
-  border:none;
-  border-radius:12px;
-  background:#7c3aed;
-  color:white;
-  font-weight:600;
-  font-size:14px;
-  cursor:pointer;
-  margin-right:10px;
-}
-.play-btn:hover { background:#6d28d9; }
-
-.check-btn {
-  padding:8px 18px;
-  border:none;
-  border-radius:12px;
-  background:#16a34a;
-  color:white;
-  font-weight:600;
-  font-size:14px;
-  cursor:pointer;
-  margin-left:10px;
-}
-.feedback { font-weight:600; margin-left:10px; }
-
+/* DIALOGUE */
 .dialogue-container { display:flex; flex-direction:column; gap:24px; }
-.dialogue-box { padding:12px 16px; border-radius:16px; font-size:16px; line-height:1.5; min-width:50px; margin-top:6px; }
-.ana-box { background:#fce7f3; color:#111; text-align:left; }
-.george-box { background:#e0f2fe; color:#111; text-align:right; }
+
+.dialogue-box {
+  padding: 12px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  min-width: 50px;
+  margin-top: 6px;
+}
+
+.ana-box {
+  background: #fce7f3;
+  color: #1e2a38;
+  text-align: left;
+  border-radius: 18px 18px 18px 4px;
+}
+.george-box {
+  background: #e0f2fe;
+  color: #1e2a38;
+  text-align: left;
+  border-radius: 18px 18px 4px 18px;
+}
+
 .locked { opacity:0.5; pointer-events:none; }
 
+/* WORD TILES */
 .word {
   display: inline-block;
   margin: 6px 8px;
-  padding: 14px 20px;
+  padding: 12px 18px;
   background: #f3f4f6;
   border-radius: 12px;
   cursor: pointer;
   user-select: none;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
   border: 2px solid #d1d5db;
   transition: background 0.15s, transform 0.1s;
@@ -123,6 +221,15 @@ body { padding:20px; background:#eef2ff; }
 .word:active { transform: scale(0.95); }
 .ana-box .word { background: #fde2f0; border-color: #f9a8d4; }
 .george-box .word { background: #d0f0ff; border-color: #7dd3fc; }
+
+.word.correct-pulse {
+  animation: correctPulse 0.3s ease-out;
+}
+@keyframes correctPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
 
 .hint-highlight {
   background: #fef08a !important;
@@ -139,7 +246,7 @@ body { padding:20px; background:#eef2ff; }
   display: inline-block;
 }
 
-/* Row layout with avatar */
+/* DIALOGUE ROWS */
 .dialogue-row {
   display: flex;
   align-items: flex-start;
@@ -148,11 +255,12 @@ body { padding:20px; background:#eef2ff; }
 }
 
 .row-avatar {
-  width: 52px;
-  height: 52px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #2563eb;
+  object-position: top center;
+  border: 2px solid rgba(0,0,0,0.06);
   flex-shrink: 0;
   margin-top: 8px;
 }
@@ -186,83 +294,555 @@ body { padding:20px; background:#eef2ff; }
   flex-wrap: wrap;
 }
 
-.instruction-banner {
-  background: #eff6ff;
-  border-left: 5px solid #2563eb;
-  border-radius: 10px;
-  padding: 14px 18px;
-  margin-bottom: 24px;
+/* BUTTONS */
+.play-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #7c3aed;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.play-btn:hover { background: #6d28d9; }
+
+.check-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #16a34a;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+.check-btn:disabled { opacity: 0.5; cursor: default; }
+
+.hint-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #f59e0b;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+.hint-btn:disabled { opacity: 0.5; cursor: default; }
+
+.feedback { font-weight: 600; margin-left: 4px; }
+
+/* NEXT BUTTON */
+.next-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: #d1d5db;
+  color: white;
+  font-weight: 800;
   font-size: 16px;
-  color: #1e3a8a;
-  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+.next-btn.enabled {
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+}
+.next-btn.enabled:hover { background: #1e40af; transform: translateY(-2px); }
+.next-btn.enabled:active { transform: scale(0.98); }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.97); }
+  60%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
 
-/* Prevent iOS auto-links */
 a[href^="tel"], a[x-apple-data-detectors] {
   color: inherit !important;
   text-decoration: none !important;
   pointer-events: none !important;
 }
 
-.controls {
-  text-align:center;
-  margin-top:35px;
-}
-.next-btn {
-  padding:12px 25px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:600;
-  font-size:15px;
-  cursor:pointer;
-}
-.next-btn:hover { background:#1e40af; }
-
-@media(max-width:768px){
-  .top-characters{ flex-direction:column; gap:20px; }
-  .row-avatar { width:40px; height:40px; }
+@media(max-width:480px){
+  .row-avatar { width:30px; height:30px; }
 }
 </style>
 </head>
 
-<body>
+<body data-unit="1" data-lesson="3" data-part="3">
 
-<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
+<a href="../index.html" class="back-btn">← Lección 3</a>
 
-<div class="unit-title">Lección 3 - Parte 3</div>
+<div class="wrap">
 
-<div class="progress-container">
-  <div class="step" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step active" data-page="p3.html">3</div>
-  <div class="step" data-page="p4.html">4</div>
-<div class="step" data-page="p5.html">5</div>
+  <span class="lesson-tag">Unidad 1 · Lección 3 · Parte 3</span>
+  <h1>Where are you from?</h1>
+  <p class="subtitle">Ordena las palabras del diálogo</p>
+
+  <!-- PROGRESS DOTS -->
+  <div class="progress-dots">
+    <div class="dot" data-page="p1.html">1</div>
+    <div class="dot" data-page="p2.html">2</div>
+    <div class="dot active" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
+    <div class="dot" data-page="p5.html">5</div>
+  </div>
+
+  <!-- CHARACTERS -->
+  <div class="characters-row">
+    <div class="char">
+      <img src="../../../../assets/images/u1/ana.png" alt="Ana">
+      <div>
+        <div class="char-name">Ana</div>
+        <div class="char-label">Colombia</div>
+      </div>
+    </div>
+    <div class="vs">↔</div>
+    <div class="char">
+      <img src="../../../../assets/images/u1/george.png" alt="George">
+      <div>
+        <div class="char-name">George</div>
+        <div class="char-label">Venezuela</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCISE CARD -->
+  <div class="exercise-box">
+
+    <div class="instruction-banner">
+      🎧 Escucha cada línea del diálogo y ordena las palabras en el orden correcto. Toca ▶ para escuchar, luego toca las palabras para armarlas.
+    </div>
+
+    <div class="dialogue-container" id="dialogueContainer"></div>
+
+  </div>
+
+  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+
 </div>
 
-<div class="exercise-box">
+<script>
+const UNIT = 1;
+const LESSON = 3;
+const PART = 3;
+const STORAGE_KEY = `u${UNIT}_l${LESSON}_p${PART}_done`;
 
-  <div class="instruction-banner">
-    🎧 Escucha cada línea del diálogo y ordena las palabras en el orden correcto. Toca ▶ para escuchar, luego toca las palabras para armarlas.
-  </div>
+document.addEventListener("DOMContentLoaded", function () {
 
-  <div class="top-characters">
-    <div class="character">
-      <img src="../../../../assets/images/u1/ana.png" alt="Ana"><p><strong>Ana</strong></p>
-    </div>
-    <div class="character">
-      <img src="../../../../assets/images/u1/george.png" alt="George"><p><strong>George</strong></p>
-    </div>
-  </div>
+  // SW registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+  }
 
-  <!-- This is where JS will render dialogue rows -->
-  <div class="dialogue-container" id="dialogueContainer"></div>
+  // ==========================
+  // iOS-SAFE TAP HELPER
+  // ==========================
+  function onTap(el, handler) {
+    let touchMoved = false;
+    let handledByTouch = false;
+    el.addEventListener("touchstart", () => { touchMoved = false; handledByTouch = false; }, { passive: true });
+    el.addEventListener("touchmove", () => { touchMoved = true; }, { passive: true });
+    el.addEventListener("touchend", (e) => {
+      if (touchMoved) return;
+      e.preventDefault();
+      handledByTouch = true;
+      handler(e);
+    });
+    el.addEventListener("click", (e) => {
+      if (handledByTouch) { handledByTouch = false; return; }
+      handler(e);
+    });
+  }
 
-  <div class="controls">
-    <button class="next-btn" id="nextBtn">Siguiente →</button>
-  </div>
-</div>
+  // ==========================
+  // DATA
+  // ==========================
+  const dialogues = [
+    {
+      text: "I am Ana. Where are you from?",
+      chunks: ["I am Ana.", "Where are you", "from?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_ana1.mp3",
+      speaker: "ana"
+    },
+    {
+      text: "Hello Ana. I am from Caracas.",
+      chunks: ["Hello Ana.", "I am", "from", "Caracas."],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_george1.mp3",
+      speaker: "george"
+    },
+    {
+      text: "What is your address?",
+      chunks: ["What is", "your address?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_george2.mp3",
+      speaker: "george"
+    },
+    {
+      text: "My address is 213 Main Street. And you?",
+      chunks: ["My address is", "213 Main Street.", "And you?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_ana3.mp3",
+      speaker: "ana"
+    },
+    {
+      text: "My address is 94 River Street.",
+      chunks: ["My address is", "94 River Street."],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_george3.mp3",
+      speaker: "george"
+    },
+    {
+      text: "What is your phone number?",
+      chunks: ["What is", "your phone number?"],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_george4.mp3",
+      speaker: "george"
+    },
+    {
+      text: "My telephone number is 758 9251.",
+      chunks: ["My telephone number is", "758 9251."],
+      audio: "../../../../assets/audio/u1/u1_l3_p2_ana4.mp3",
+      speaker: "ana"
+    },
+    {
+      text: "My phone number is 549 2137.",
+      chunks: ["My phone number is", "549 2137."],
+      audio: "../../../../assets/audio/u1/u1_l3_p1_george5.mp3",
+      speaker: "george"
+    }
+  ];
 
+  const container = document.getElementById("dialogueContainer");
+  const nextBtn = document.getElementById("nextBtn");
+
+  // ==========================
+  // PROGRESS STATE
+  // ==========================
+  let completedRows = new Set();
+
+  // Restore from localStorage
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) completedRows = new Set(JSON.parse(saved));
+  } catch (_) {}
+
+  function saveProgress() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...completedRows])); } catch (_) {}
+  }
+
+  function checkAllComplete() {
+    if (completedRows.size === dialogues.length) {
+      nextBtn.classList.add("enabled");
+      nextBtn.disabled = false;
+    }
+  }
+
+  // ==========================
+  // AUDIO
+  // ==========================
+  let currentAudio = null;
+
+  function stopCurrentAudio() {
+    if (!currentAudio) return;
+    try { currentAudio.pause(); currentAudio.currentTime = 0; } catch (_) {}
+    currentAudio = null;
+  }
+
+  function playAudio(src) {
+    stopCurrentAudio();
+    currentAudio = new Audio(src);
+    currentAudio.currentTime = 0;
+    currentAudio.addEventListener("ended", () => { currentAudio = null; });
+    currentAudio.play();
+  }
+
+  // ==========================
+  // SHUFFLE
+  // ==========================
+  function shuffle(arr) {
+    if (arr.length <= 1) return [...arr];
+    let result;
+    let attempts = 0;
+    do {
+      result = [...arr];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      attempts++;
+    } while (result.join("|") === arr.join("|") && attempts < 10);
+    return result;
+  }
+
+  // ==========================
+  // RENDER ROWS
+  // ==========================
+  dialogues.forEach((item, index) => {
+    const isAna = item.speaker === "ana";
+    const boxClass = isAna ? "ana-box" : "george-box";
+    const alreadyDone = completedRows.has(index);
+
+    const row = document.createElement("div");
+    row.classList.add("dialogue-row");
+    // Lock if: not first row AND previous not done (unless already done itself)
+    if (index !== 0 && !alreadyDone && !completedRows.has(index - 1)) {
+      row.classList.add("locked");
+    }
+
+    const avatar = document.createElement("img");
+    avatar.src = isAna
+      ? "../../../../assets/images/u1/ana.png"
+      : "../../../../assets/images/u1/george.png";
+    avatar.alt = isAna ? "Ana" : "George";
+    avatar.classList.add("row-avatar");
+
+    const contentWrap = document.createElement("div");
+    contentWrap.classList.add("content-wrap");
+
+    const playBtn = document.createElement("button");
+    playBtn.textContent = "▶";
+    playBtn.classList.add("play-btn");
+    playBtn.addEventListener("click", () => playAudio(item.audio));
+
+    const wordContainer = document.createElement("div");
+    wordContainer.classList.add("dialogue-box", boxClass, "bank-box");
+
+    const answerContainer = document.createElement("div");
+    answerContainer.classList.add("dialogue-box", boxClass, "answer-box");
+
+    const btnRow = document.createElement("div");
+    btnRow.classList.add("btn-row");
+
+    const checkBtn = document.createElement("button");
+    checkBtn.textContent = "✔ Verificar";
+    checkBtn.classList.add("check-btn");
+
+    const hintBtn = document.createElement("button");
+    hintBtn.textContent = "💡 Ayuda";
+    hintBtn.classList.add("hint-btn");
+
+    const feedback = document.createElement("span");
+    feedback.classList.add("feedback");
+
+    btnRow.appendChild(playBtn);
+    btnRow.appendChild(checkBtn);
+    btnRow.appendChild(hintBtn);
+    btnRow.appendChild(feedback);
+
+    // --- State ---
+    let bankChunks = shuffle(item.chunks);
+    let userOrder = [];
+
+    function renderAnswer() {
+      answerContainer.innerHTML = "";
+      const allPlaced = userOrder.length > 0 && userOrder.length === item.chunks.length;
+
+      if (userOrder.length === 0) {
+        const placeholder = document.createElement("span");
+        placeholder.classList.add("answer-placeholder");
+        placeholder.textContent = "Toca las fichas para armar la oración...";
+        answerContainer.appendChild(placeholder);
+      }
+
+      userOrder.forEach((chunk, i) => {
+        const span = document.createElement("span");
+        span.textContent = chunk;
+        span.classList.add("word");
+        span.title = "Toca para quitar";
+
+        (function(capturedIndex) {
+          onTap(span, () => {
+            if (alreadyDone) return; // guard completed rows
+            bankChunks.push(userOrder[capturedIndex]);
+            userOrder.splice(capturedIndex, 1);
+            renderBank();
+            renderAnswer();
+          });
+        })(i);
+
+        answerContainer.appendChild(span);
+      });
+
+      // Disable hint if bank empty
+      hintBtn.disabled = bankChunks.length === 0;
+
+      if (allPlaced) {
+        setTimeout(checkAnswer, 150);
+      }
+    }
+
+    function renderBank() {
+      wordContainer.innerHTML = "";
+      bankChunks.forEach((chunk, i) => {
+        const span = document.createElement("span");
+        span.textContent = chunk;
+        span.classList.add("word");
+
+        (function(capturedIndex) {
+          onTap(span, () => {
+            userOrder.push(bankChunks[capturedIndex]);
+            bankChunks.splice(capturedIndex, 1);
+            renderBank();
+            renderAnswer();
+          });
+        })(i);
+
+        wordContainer.appendChild(span);
+      });
+    }
+
+    function markRowComplete() {
+      feedback.textContent = "✅";
+      feedback.style.color = "green";
+      checkBtn.disabled = true;
+      hintBtn.disabled = true;
+      wordContainer.style.display = "none";
+
+      // Pulse + green tiles
+      answerContainer.querySelectorAll(".word").forEach(w => {
+        w.classList.add("correct-pulse");
+        w.style.background = "#bbf7d0";
+        w.style.borderColor = "#22c55e";
+        w.style.cursor = "default";
+        w.style.pointerEvents = "none";
+      });
+
+      completedRows.add(index);
+      saveProgress();
+      checkAllComplete();
+
+      // Unlock next row
+      const nextRow = container.children[index + 1];
+      if (nextRow) {
+        nextRow.classList.remove("locked");
+        setTimeout(() => {
+          nextRow.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 300);
+      }
+    }
+
+    function checkAnswer() {
+      if (userOrder.length !== item.chunks.length) return;
+      const isCorrect = userOrder.join(" ") === item.chunks.join(" ");
+      if (isCorrect) markRowComplete();
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (userOrder.length !== item.chunks.length) return;
+      const isCorrect = userOrder.join(" ") === item.chunks.join(" ");
+      if (!isCorrect) {
+        feedback.textContent = "❌";
+        feedback.style.color = "red";
+        setTimeout(() => (feedback.textContent = ""), 1200);
+      } else {
+        checkAnswer();
+      }
+    });
+
+    hintBtn.addEventListener("click", () => {
+      for (let i = 0; i < item.chunks.length; i++) {
+        if (userOrder[i] !== item.chunks[i]) {
+          const correctChunk = item.chunks[i];
+          const bankIdx = bankChunks.indexOf(correctChunk);
+          if (bankIdx !== -1) {
+            bankChunks.splice(bankIdx, 1);
+            userOrder.splice(i, 0, correctChunk);
+          } else {
+            const wrongIdx = userOrder.indexOf(correctChunk, i + 1);
+            if (wrongIdx !== -1) {
+              userOrder.splice(wrongIdx, 1);
+              userOrder.splice(i, 0, correctChunk);
+            }
+          }
+          renderBank();
+          renderAnswer();
+          const spans = answerContainer.querySelectorAll(".word");
+          if (spans[i]) {
+            spans[i].classList.add("hint-highlight");
+            setTimeout(() => spans[i].classList.remove("hint-highlight"), 1000);
+          }
+          return;
+        }
+      }
+    });
+
+    // Assemble row
+    if (isAna) {
+      row.appendChild(avatar);
+      row.appendChild(contentWrap);
+    } else {
+      row.appendChild(contentWrap);
+      row.appendChild(avatar);
+    }
+
+    contentWrap.appendChild(btnRow);
+    contentWrap.appendChild(wordContainer);
+    contentWrap.appendChild(answerContainer);
+    container.appendChild(row);
+
+    // Restore completed state from localStorage
+    if (alreadyDone) {
+      wordContainer.style.display = "none";
+      checkBtn.disabled = true;
+      hintBtn.disabled = true;
+      feedback.textContent = "✅";
+      feedback.style.color = "green";
+      // Show completed answer tiles
+      userOrder = [...item.chunks];
+      renderAnswer();
+      answerContainer.querySelectorAll(".word").forEach(w => {
+        w.style.background = "#bbf7d0";
+        w.style.borderColor = "#22c55e";
+        w.style.cursor = "default";
+        w.style.pointerEvents = "none";
+      });
+      bankChunks = [];
+    } else {
+      renderBank();
+      renderAnswer();
+    }
+  });
+
+  // Unlock rows that should be open based on restored progress
+  dialogues.forEach((_, index) => {
+    const row = container.children[index];
+    if (row && (index === 0 || completedRows.has(index - 1) || completedRows.has(index))) {
+      row.classList.remove("locked");
+    }
+  });
+
+  checkAllComplete();
+
+  // ==========================
+  // PROGRESS NAV
+  // ==========================
+  document.querySelectorAll(".dot").forEach(function(dot) {
+    dot.addEventListener("click", function () {
+      stopCurrentAudio();
+      const page = this.getAttribute("data-page");
+      if (page) window.location.href = page;
+    });
+  });
+
+  // ==========================
+  // NEXT BUTTON
+  // ==========================
+  nextBtn.addEventListener("click", () => {
+    if (!nextBtn.classList.contains("enabled")) return;
+    stopCurrentAudio();
+    window.location.href = "p4.html";
+  });
+
+  window.addEventListener("beforeunload", () => stopCurrentAudio());
+});
+</script>
 </body>
 </html>
