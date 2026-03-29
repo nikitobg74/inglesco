@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+<title>Lección 6, Parte 3: Getting Ready For | Inglesco</title>
+<meta name="description" content="Practica 'getting ready for' en inglés. Responde preguntas con fichas. Unidad 6, Lección 6, Parte 3.">
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link rel="manifest" href="../../../../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  color: #1e2a38;
+  padding: 20px 14px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a38;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.15s;
+}
+.back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+/* WRAP */
+.wrap {
+  width: 100%;
+  max-width: 720px;
+  padding-top: 20px;
+}
+
+/* HEADER */
+.lesson-tag {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #486581;
+  margin-bottom: 6px;
+}
+
+h1 {
+  text-align: center;
+  color: #1e40af;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #486581;
+  margin-bottom: 20px;
+}
+
+/* PROGRESS DOTS */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(37,99,235,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #486581;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+.dot.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+  cursor: default;
+}
+.dot.active:hover { transform: none; background: #2563eb; }
+.dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* EXERCISE CARD */
+.exercise-box {
+  background: white;
+  padding: 24px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
+}
+
+.hidden { display: none !important; }
+
+/* ── SCENE IMAGE ── */
+.scene-wrap {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.scene-img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s;
+  display: block;
+  margin: 0 auto;
+}
+.scene-img:active { transform: scale(0.97); }
+
+/* ── QUESTION AREA ── */
+.question-area {
+  margin-bottom: 18px;
+}
+
+.question-bubble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #eff6ff;
+  border-left: 5px solid #2563eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, transform 0.1s;
+  user-select: none;
+}
+.question-bubble:active { transform: scale(0.98); background: #dbeafe; }
+.question-bubble.playing { background: #dbeafe; }
+
+.q-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.question-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e3a8a;
+  flex: 1;
+}
+
+.play-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2563eb;
+  background: white;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 3px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ANSWER ZONE */
+.answer-zone {
+  min-height: 46px;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.answer-zone.has-tiles {
+  border-color: #93c5fd;
+  background: #f0f9ff;
+}
+.answer-zone.correct-zone {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+/* TILE POOL */
+.tile-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 40px;
+}
+
+/* TILES */
+.tile {
+  padding: 9px 16px;
+  background: #e0f2fe;
+  border: 2px solid #bae6fd;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e2a38;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s, opacity 0.2s;
+  user-select: none;
+  white-space: nowrap;
+}
+.tile:active { transform: scale(0.95); }
+.tile.in-answer {
+  background: #dbeafe;
+  border-color: #60a5fa;
+}
+.tile.correct-tile {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #15803d;
+  cursor: default;
+}
+
+/* QUESTION COUNTER */
+.q-counter {
+  font-size: 12px;
+  font-weight: 700;
+  color: #486581;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #486581;
+  margin-bottom: 8px;
+}
+
+/* CARD FADE-IN */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.q-block { animation: card-in 0.3s ease; }
+
+/* FINISH */
+.finish-box {
+  margin-top: 20px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-align: center;
+}
+.finish-box p {
+  font-weight: 700;
+  font-size: 15px;
+  color: #16a34a;
+  margin-bottom: 14px;
+}
+.next-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+  transition: background 0.2s, transform 0.15s;
+}
+.next-btn:hover  { background: #1e40af; transform: translateY(-2px); }
+.next-btn:active { transform: scale(0.98); }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.97); }
+  60%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 500px) {
+  .tile { font-size: 13px; padding: 8px 12px; }
+}
+</style>
+</head>
+
+<body data-unit="6" data-lesson="6" data-part="3">
+
+<a href="../index.html" class="back-btn nav-link">← Lección 6</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidad 6 · Lección 6 · Parte 3</span>
+  <h1>Getting Ready For</h1>
+  <p class="subtitle">Se está preparando para…</p>
+
+  <!-- PROGRESS DOTS -->
+  <div class="progress-dots">
+    <div class="dot done"   data-page="p1.html">1</div>
+    <div class="dot done"   data-page="p2.html">2</div>
+    <div class="dot active" data-page="p3.html">3</div>
+    <div class="dot"        data-page="p4.html">4</div>
+<div class="dot"        data-page="p5.html">5</div>
+  </div>
+
+  <!-- EXERCISE CARD -->
+  <div class="exercise-box">
+    <audio id="mainAudio"></audio>
+
+    <!-- Dynamic content rendered here -->
+    <div id="stage"></div>
+
+    <div class="finish-box hidden" id="finishSection">
+      <p>🎉 ¡Excelente! Has completado esta parte.</p>
+      <a href="p4.html" class="next-btn nav-link">Siguiente →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- SFX -->
+<audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+<audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+<audio id="sfx-ding"      src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"    preload="auto"></audio>
+
+<script>
+const UNIT   = 6;
+const LESSON = 6;
+const PART   = 3;
+const FURTHEST_KEY = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+const PROGRESS_KEY = `inglesco_progress_u${UNIT}`;
+const BASE_IMG   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/";
+const BASE_AUDIO = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/";
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+}
+
+// ── ELEMENTS ──────────────────────────────────────────────
+const mainAudio    = document.getElementById("mainAudio");
+const sfxCorrect   = document.getElementById("sfx-correct");
+const sfxIncorrect = document.getElementById("sfx-incorrect");
+const sfxDing      = document.getElementById("sfx-ding");
+const stage        = document.getElementById("stage");
+const finishSection = document.getElementById("finishSection");
+
+// ── AUDIO ─────────────────────────────────────────────────
+function stopAudio() {
+  try { mainAudio.pause(); mainAudio.currentTime = 0; mainAudio.removeAttribute("src"); mainAudio.load(); } catch (_) {}
+}
+function playAudio(src, onEnd) {
+  stopAudio();
+  mainAudio.src = src;
+  if (onEnd) mainAudio.addEventListener("ended", onEnd, { once: true });
+  mainAudio.play().catch(() => { if (onEnd) onEnd(); });
+}
+function playSfx(el) { try { el.currentTime = 0; el.play(); } catch (_) {} }
+window.addEventListener("beforeunload", stopAudio);
+
+// ── IOS-SAFE TAP ──────────────────────────────────────────
+function onTap(el, handler) {
+  let moved = false, touchHandled = false;
+  el.addEventListener("touchstart", () => { moved = false; touchHandled = false; }, { passive: true });
+  el.addEventListener("touchmove",  () => { moved = true; }, { passive: true });
+  el.addEventListener("touchend", (e) => {
+    if (moved) return;
+    e.preventDefault();
+    touchHandled = true;
+    handler(e);
+  });
+  el.addEventListener("click", (e) => {
+    if (touchHandled) { touchHandled = false; return; }
+    handler(e);
+  });
+}
+
+// ── PROGRESS DOTS NAV ─────────────────────────────────────
+document.querySelectorAll(".dot").forEach(dot => {
+  dot.addEventListener("click", () => {
+    const page = dot.dataset.page;
+    if (!page) return;
+    stopAudio();
+    window.location.href = page;
+  });
+});
+document.querySelectorAll(".nav-link").forEach(link => {
+  link.addEventListener("click", () => stopAudio());
+});
+
+// ── PROGRESS TRACKING ─────────────────────────────────────
+function getFurthest() { return parseInt(localStorage.getItem(FURTHEST_KEY) || '1', 10); }
+function updateFurthest(n) { if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n)); }
+function saveProgress() {
+  try {
+    const lp = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+    const lKey = `l${LESSON}`;
+    if (!lp[lKey]) lp[lKey] = { partsTotal: 4, partsCompleted: 0 };
+    if (lp[lKey].partsCompleted < PART) lp[lKey].partsCompleted = PART;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(lp));
+  } catch (_) {}
+}
+updateFurthest(PART);
+
+// ── SHUFFLE ───────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── DATA ──────────────────────────────────────────────────
+// Each scene has an image + array of questions.
+// Each question has: audio, text, tiles (correct order).
+const scenes = [
+  {
+    image: BASE_IMG + "u6.brush.teeth.girl.jpg",
+    imageAlt: "Chica cepillándose los dientes",
+    questions: [
+      {
+        audio: BASE_AUDIO + "u6.where.sister.mp3",
+        text:  "Where is my sister?",
+        tiles: ["She is", "in the bathroom."],
+      },
+      {
+        audio: BASE_AUDIO + "u6.what.she.doing.mp3",
+        text:  "What is she doing?",
+        tiles: ["She is", "brushing", "her teeth."],
+      },
+      {
+        audio: BASE_AUDIO + "u6.why.get.ready.mp3",
+        text:  "Why is she getting ready?",
+        tiles: ["She is", "getting ready", "for school."],
+      },
+    ],
+  },
+  {
+    image: BASE_IMG + "u6.boy.play.guitar.jpg",
+    imageAlt: "Chico tocando la guitarra",
+    questions: [
+      {
+        audio: BASE_AUDIO + "u6.where.brother.mp3",
+        text:  "Where is my brother?",
+        tiles: ["He is", "in the bedroom."],
+      },
+      {
+        audio: BASE_AUDIO + "u6.what.he.doing.mp3",
+        text:  "What is he doing?",
+        tiles: ["He is", "playing", "the guitar."],
+      },
+      {
+        audio: BASE_AUDIO + "u6.why.get.ready.2.mp3",
+        text:  "Why is he getting ready?",
+        tiles: ["He is", "getting ready", "for the concert."],
+      },
+    ],
+  },
+];
+
+// ── STATE ─────────────────────────────────────────────────
+let sceneIdx = 0;
+let questionIdx = 0;
+
+// Tiles state for current question
+let answerTiles  = []; // { text, el } placed in answer zone
+let poolTiles    = []; // { text, el } remaining in pool
+
+// ── RENDER ────────────────────────────────────────────────
+function renderScene() {
+  const scene = scenes[sceneIdx];
+  questionIdx = 0;
+  stage.innerHTML = "";
+
+  // Image
+  const sceneWrap = document.createElement("div");
+  sceneWrap.className = "scene-wrap";
+
+  const img = document.createElement("img");
+  img.src = scene.image;
+  img.alt = scene.imageAlt;
+  img.className = "scene-img";
+  sceneWrap.appendChild(img);
+  stage.appendChild(sceneWrap);
+
+  // Question container
+  const qContainer = document.createElement("div");
+  qContainer.id = "qContainer";
+  stage.appendChild(qContainer);
+
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const scene    = scenes[sceneIdx];
+  const q        = scene.questions[questionIdx];
+  const qContainer = document.getElementById("qContainer");
+  qContainer.innerHTML = "";
+  answerTiles = [];
+  poolTiles   = [];
+
+  // Block wrapper (fade-in)
+  const block = document.createElement("div");
+  block.className = "q-block";
+
+  // Counter
+  const counter = document.createElement("div");
+  counter.className = "q-counter";
+  const totalQ = scenes.reduce((s, sc) => s + sc.questions.length, 0);
+  const doneQ  = scenes.slice(0, sceneIdx).reduce((s, sc) => s + sc.questions.length, 0) + questionIdx + 1;
+  counter.textContent = `Pregunta ${doneQ} de ${totalQ}`;
+  block.appendChild(counter);
+
+  // Question bubble (tap to replay audio)
+  const bubble = document.createElement("div");
+  bubble.className = "question-bubble";
+
+  const icon = document.createElement("span");
+  icon.className = "q-icon";
+  icon.textContent = "🔊";
+
+  const qText = document.createElement("span");
+  qText.className = "question-text";
+  qText.textContent = q.text;
+
+  const badge = document.createElement("span");
+  badge.className = "play-badge";
+  badge.textContent = "▶ Escuchar";
+
+  bubble.appendChild(icon);
+  bubble.appendChild(qText);
+  bubble.appendChild(badge);
+
+  onTap(bubble, () => {
+    bubble.classList.add("playing");
+    playAudio(q.audio, () => bubble.classList.remove("playing"));
+  });
+
+  block.appendChild(bubble);
+
+  // Answer zone
+  const answerZone = document.createElement("div");
+  answerZone.className = "answer-zone";
+  answerZone.id = "answerZone";
+  block.appendChild(answerZone);
+
+  // Pool label
+  const poolLabel = document.createElement("div");
+  poolLabel.className = "section-label";
+  poolLabel.textContent = "Fichas";
+  block.appendChild(poolLabel);
+
+  // Tile pool
+  const tilePool = document.createElement("div");
+  tilePool.className = "tile-pool";
+  tilePool.id = "tilePool";
+  block.appendChild(tilePool);
+
+  qContainer.appendChild(block);
+
+  // Build shuffled tiles
+  const shuffled = shuffle(q.tiles);
+  shuffled.forEach(text => {
+    const tile = makeTile(text, "pool", answerZone, tilePool, q.tiles);
+    tilePool.appendChild(tile.el);
+    poolTiles.push(tile);
+  });
+
+  // Auto-play question audio
+  setTimeout(() => {
+    bubble.classList.add("playing");
+    playAudio(q.audio, () => bubble.classList.remove("playing"));
+  }, 200);
+}
+
+function makeTile(text, location, answerZone, tilePool, correctOrder) {
+  const tile = { text, el: document.createElement("div") };
+  tile.el.className = "tile";
+  tile.el.textContent = text;
+
+  onTap(tile.el, () => {
+    if (tile.el.classList.contains("correct-tile")) return;
+
+    if (location === "pool") {
+      // Move to answer zone
+      tilePool.removeChild(tile.el);
+      tile.el.classList.add("in-answer");
+      answerZone.classList.add("has-tiles");
+      answerZone.appendChild(tile.el);
+      answerTiles.push(tile);
+      poolTiles = poolTiles.filter(t => t !== tile);
+      location = "answer";
+      checkAnswer(answerZone, tilePool, correctOrder);
+    } else {
+      // Move back to pool
+      answerZone.removeChild(tile.el);
+      tile.el.classList.remove("in-answer");
+      tilePool.appendChild(tile.el);
+      answerTiles = answerTiles.filter(t => t !== tile);
+      poolTiles.push(tile);
+      location = "pool";
+      if (answerTiles.length === 0) answerZone.classList.remove("has-tiles");
+    }
+  });
+
+  return tile;
+}
+
+function checkAnswer(answerZone, tilePool, correctOrder) {
+  if (answerTiles.length !== correctOrder.length) return;
+
+  const isCorrect = answerTiles.every((t, i) => t.text === correctOrder[i]);
+
+  if (isCorrect) {
+    playSfx(sfxCorrect);
+    // Mark tiles correct
+    answerTiles.forEach(t => {
+      t.el.classList.remove("in-answer");
+      t.el.classList.add("correct-tile");
+    });
+    answerZone.classList.remove("has-tiles");
+    answerZone.classList.add("correct-zone");
+
+    // Advance after short pause
+    setTimeout(() => advanceQuestion(), 900);
+
+  } else {
+    playSfx(sfxIncorrect);
+    // Shake and send all answer tiles back to pool
+    answerZone.classList.add("shake");
+    setTimeout(() => {
+      answerZone.classList.remove("shake");
+      // Return tiles to pool in original shuffled order
+      [...answerTiles].forEach(t => {
+        answerZone.removeChild(t.el);
+        t.el.classList.remove("in-answer");
+        tilePool.appendChild(t.el);
+        poolTiles.push(t);
+      });
+      answerTiles = [];
+      answerZone.classList.remove("has-tiles");
+    }, 400);
+  }
+}
+
+function advanceQuestion() {
+  const scene = scenes[sceneIdx];
+  questionIdx++;
+
+  if (questionIdx < scene.questions.length) {
+    renderQuestion();
+    // Scroll to question area
+    setTimeout(() => {
+      document.getElementById("qContainer").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 50);
+  } else {
+    // Next scene or finish
+    sceneIdx++;
+    if (sceneIdx < scenes.length) {
+      setTimeout(() => {
+        renderScene();
+        setTimeout(() => stage.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+      }, 300);
+    } else {
+      saveProgress();
+      updateFurthest(PART + 1);
+      finishSection.classList.remove("hidden");
+      setTimeout(() => finishSection.scrollIntoView({ behavior: "smooth", block: "nearest" }), 50);
+    }
+  }
+}
+
+// ── SHAKE ANIMATION ───────────────────────────────────────
+const shakeStyle = document.createElement("style");
+shakeStyle.textContent = `
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%      { transform: translateX(-6px); }
+    40%      { transform: translateX(6px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(4px); }
+  }
+  .shake { animation: shake 0.4s ease; }
+`;
+document.head.appendChild(shakeStyle);
+
+// ── INIT ──────────────────────────────────────────────────
+renderScene();
+</script>
+</body>
+</html>

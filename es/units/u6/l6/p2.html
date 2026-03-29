@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+<title>Lección 6, Parte 2: Getting Ready For | Inglesco</title>
+<meta name="description" content="Practica 'getting ready for' en inglés. Unidad 6, Lección 6, Parte 2.">
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link rel="manifest" href="../../../../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  color: #1e2a38;
+  padding: 20px 14px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a38;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.15s;
+}
+.back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+/* WRAP */
+.wrap {
+  width: 100%;
+  max-width: 720px;
+  padding-top: 20px;
+}
+
+/* HEADER */
+.lesson-tag {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #486581;
+  margin-bottom: 6px;
+}
+
+h1 {
+  text-align: center;
+  color: #1e40af;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #486581;
+  margin-bottom: 20px;
+}
+
+/* PROGRESS DOTS */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(37,99,235,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #486581;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+.dot.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+  cursor: default;
+}
+.dot.active:hover { transform: none; background: #2563eb; }
+.dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* EXERCISE CARD */
+.exercise-box {
+  background: white;
+  padding: 24px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
+}
+
+.hidden { display: none !important; }
+.center { text-align: center; }
+
+/* ─── INTRO SECTION ─── */
+.intro-section { text-align: center; }
+
+.intro-title {
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  font-weight: 800;
+  color: #1e40af;
+  margin-bottom: 4px;
+}
+.intro-translation {
+  font-size: 14px;
+  color: #486581;
+  margin-bottom: 20px;
+}
+
+/* PLAY LISTEN BUTTON */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn:hover  { background: #1e40af; }
+.btn:active { transform: scale(0.97); }
+.btn.purple { background: #7c3aed; }
+.btn.purple:hover { background: #6d28d9; }
+.btn.green  { background: #16a34a; }
+.btn.green:hover  { background: #15803d; }
+.btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+/* CONTENT HIDDEN / FADE IN */
+.q-content-col.content-hidden .q-lines,
+.q-content-col.content-hidden .fill-row {
+  display: none;
+}
+
+.q-card {
+  animation: card-in 0.35s ease;
+}
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── QUESTIONS SECTION ─── */
+.questions-section { display: flex; flex-direction: column; gap: 28px; }
+
+/* QUESTION CARD */
+.q-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.q-card.completed { border-color: #22c55e; }
+
+.q-card-inner {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.q-image-col {
+  width: 140px;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.q-image-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s;
+}
+.q-image-col:active img { transform: scale(0.97); }
+
+/* TAP HINT OVERLAY */
+.tap-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(37,99,235,0.85);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.3px;
+  transition: opacity 0.3s;
+}
+.q-card.played .tap-hint { opacity: 0; }
+
+/* PLAY RIPPLE */
+.play-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+}
+.play-ripple.animate {
+  animation: ripple-out 0.45s ease-out forwards;
+}
+@keyframes ripple-out {
+  to { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+}
+
+.q-content-col {
+  flex: 1;
+  padding: 16px 16px 16px 16px;
+  min-width: 0;
+}
+
+/* LINES */
+.q-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.q-line {
+  font-size: 14px;
+  color: #1e2a38;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.q-line.muted { color: #64748b; font-weight: 400; font-style: italic; font-size: 13px; }
+
+/* FILL BLANK ROW */
+.fill-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a38;
+  line-height: 1.8;
+}
+
+.blank-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 130px;
+  padding: 6px 14px;
+  background: #e0f2fe;
+  border: 2px dashed #7dd3fc;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #486581;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.blank-chip:hover { background: #bae6fd; border-color: #38bdf8; }
+.blank-chip.filled {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+  cursor: default;
+}
+.blank-chip.correct-chip {
+  background: #dcfce7;
+  border: 2px solid #16a34a;
+  color: #15803d;
+  cursor: default;
+}
+
+/* INSTRUCTION BANNER */
+.instruction-banner {
+  background: #eff6ff;
+  border-left: 5px solid #2563eb;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+/* FINISH */
+.finish-box {
+  margin-top: 20px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-align: center;
+}
+.finish-box p {
+  font-weight: 700;
+  font-size: 15px;
+  color: #16a34a;
+  margin-bottom: 14px;
+}
+.next-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+  transition: background 0.2s, transform 0.15s;
+}
+.next-btn:hover  { background: #1e40af; transform: translateY(-2px); }
+.next-btn:active { transform: scale(0.98); }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.97); }
+  60%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+  .q-image-col { width: 110px; }
+  .blank-chip { min-width: 110px; }
+}
+</style>
+</head>
+
+<body data-unit="6" data-lesson="6" data-part="2">
+
+<a href="../index.html" class="back-btn nav-link">← Lección 6</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidad 6 · Lección 6 · Parte 2</span>
+  <h1>Getting Ready For</h1>
+  <p class="subtitle">Se está preparando para…</p>
+
+  <!-- PROGRESS DOTS -->
+  <div class="progress-dots">
+    <div class="dot done"   data-page="p1.html">1</div>
+    <div class="dot active" data-page="p2.html">2</div>
+    <div class="dot"        data-page="p3.html">3</div>
+    <div class="dot"        data-page="p4.html">4</div>
+     <div class="dot"        data-page="p5.html">5</div>
+  </div>
+
+  <!-- EXERCISE CARD -->
+  <div class="exercise-box">
+
+    <audio id="mainAudio"></audio>
+
+    <!-- ─── INTRO SECTION ─── -->
+    <div id="introSection">
+
+      <div class="intro-section" style="margin-bottom:24px;">
+        <p class="intro-title">My family is getting ready for the day.</p>
+        <p class="intro-translation">Mi familia se está preparando para el día.</p>
+      </div>
+
+      <!-- QUESTIONS shown immediately, one at a time -->
+      <div id="questionsWrapper" style="margin-top:4px;">
+        <div class="questions-section" id="questionsSection"></div>
+        <div class="finish-box hidden" id="finishSection">
+          <p>🎉 ¡Excelente! Has completado esta parte.</p>
+          <a href="p3.html" class="next-btn nav-link">Siguiente →</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /exercise-box -->
+</div><!-- /wrap -->
+
+<!-- SFX -->
+<audio id="sfx-ding"    src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+<audio id="sfx-correct" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+
+<script>
+const UNIT   = 6;
+const LESSON = 6;
+const PART   = 2;
+const STORAGE_KEY  = `u${UNIT}_l${LESSON}_p${PART}_done`;
+const FURTHEST_KEY = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+const PROGRESS_KEY = `inglesco_progress_u${UNIT}`;
+const BASE_IMG   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u6/";
+const BASE_AUDIO = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/";
+
+// SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+}
+
+// ELEMENTS
+const mainAudio    = document.getElementById("mainAudio");
+const sfxDing      = document.getElementById("sfx-ding");
+const sfxCorrect   = document.getElementById("sfx-correct");
+const questionsWrapper = document.getElementById("questionsWrapper");
+const questionsSection = document.getElementById("questionsSection");
+const finishSection    = document.getElementById("finishSection");
+
+// AUDIO HELPERS
+function stopAudio() {
+  try { mainAudio.pause(); mainAudio.currentTime = 0; mainAudio.removeAttribute("src"); mainAudio.load(); } catch (_) {}
+}
+function playAudio(src, onEnd) {
+  stopAudio();
+  mainAudio.src = src;
+  if (onEnd) mainAudio.addEventListener("ended", onEnd, { once: true });
+  mainAudio.play().catch(() => { if (onEnd) onEnd(); });
+}
+function playSfx(el) {
+  try { el.currentTime = 0; el.play(); } catch (_) {}
+}
+window.addEventListener("beforeunload", stopAudio);
+
+// IOS-SAFE TAP
+function onTap(el, handler) {
+  let moved = false, touchHandled = false;
+  el.addEventListener("touchstart", () => { moved = false; touchHandled = false; }, { passive: true });
+  el.addEventListener("touchmove",  () => { moved = true; }, { passive: true });
+  el.addEventListener("touchend",   (e) => {
+    if (moved) return;
+    e.preventDefault();
+    touchHandled = true;
+    handler(e);
+  });
+  el.addEventListener("click", (e) => {
+    if (touchHandled) { touchHandled = false; return; }
+    handler(e);
+  });
+}
+
+// PROGRESS DOTS NAV
+document.querySelectorAll(".dot").forEach(dot => {
+  dot.addEventListener("click", () => {
+    const page = dot.dataset.page;
+    if (!page) return;
+    stopAudio();
+    window.location.href = page;
+  });
+});
+document.querySelectorAll(".nav-link").forEach(link => {
+  link.addEventListener("click", () => stopAudio());
+});
+
+// PROGRESS TRACKING
+function getFurthest() { return parseInt(localStorage.getItem(FURTHEST_KEY) || '1', 10); }
+function updateFurthest(n) { if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n)); }
+function saveProgress() {
+  try {
+    const lp = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+    const lKey = `l${LESSON}`;
+    if (!lp[lKey]) lp[lKey] = { partsTotal: 4, partsCompleted: 0 };
+    if (lp[lKey].partsCompleted < PART) lp[lKey].partsCompleted = PART;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(lp));
+  } catch (_) {}
+}
+updateFurthest(PART);
+
+// ─── QUESTIONS DATA ───────────────────────────────────────
+const questions = [
+  {
+    image: BASE_IMG + "u6.brush.teeth.girl.jpg",
+    audio: BASE_AUDIO + "u6.brush.girl.teeth.mp3",
+    lines: [
+      "My sister is in the bathroom.",
+      "She is brushing her teeth.",
+      "She is getting ready for school.",
+    ],
+    before: "My sister is",
+    answer: "getting ready",
+    after:  "for school.",
+  },
+  {
+    image: BASE_IMG + "u6.boy.play.guitar.jpg",
+    audio: BASE_AUDIO + "u6.boy.play.guitar.mp3",
+    lines: [
+      "My brother is in the bedroom.",
+      "He is playing the guitar.",
+      "He is getting ready for the concert.",
+    ],
+    before: "My brother is",
+    answer: "getting ready",
+    after:  "for the concert.",
+  },
+  {
+    image: BASE_IMG + "u6.woman.breakfast.jpg",
+    audio: BASE_AUDIO + "u6.woman.breakfast.mp3",
+    lines: [
+      "My mother is in the kitchen.",
+      "She is preparing breakfast.",
+      "She is getting ready for work.",
+    ],
+    before: "My mother is",
+    answer: "getting ready",
+    after:  "for work.",
+  },
+  {
+    image: BASE_IMG + "u6.man.drinking.coffee.jpg",
+    audio: BASE_AUDIO + "u6.man.drinking.coffee.mp3",
+    lines: [
+      "My father is in the living room.",
+      "He is drinking coffee.",
+      "He is getting ready for the office.",
+    ],
+    before: "My father is",
+    answer: "getting ready",
+    after:  "for the office.",
+  },
+];
+
+// ─── SEQUENTIAL CARD SYSTEM ───────────────────────────────
+let currentIdx = 0;
+
+function buildCard(idx) {
+  const q = questions[idx];
+
+  const card = document.createElement("div");
+  card.className = "q-card";
+  card.dataset.idx = idx;
+
+  // IMAGE COL
+  const imgCol = document.createElement("div");
+  imgCol.className = "q-image-col";
+
+  const img = document.createElement("img");
+  img.src = q.image;
+  img.alt = q.lines[0];
+  imgCol.appendChild(img);
+
+  const tapHint = document.createElement("div");
+  tapHint.className = "tap-hint";
+  tapHint.textContent = "▶ Escuchar";
+  imgCol.appendChild(tapHint);
+
+  const ripple = document.createElement("div");
+  ripple.className = "play-ripple";
+  imgCol.appendChild(ripple);
+
+  // CONTENT COL — starts hidden
+  const contentCol = document.createElement("div");
+  contentCol.className = "q-content-col content-hidden";
+
+  // Lines
+  const linesDiv = document.createElement("div");
+  linesDiv.className = "q-lines";
+  q.lines.forEach(line => {
+    const p = document.createElement("p");
+    p.className = "q-line";
+    p.textContent = line;
+    linesDiv.appendChild(p);
+  });
+  contentCol.appendChild(linesDiv);
+
+  // Fill-the-blank row
+  const fillRow = document.createElement("div");
+  fillRow.className = "fill-row";
+
+  if (q.before) {
+    const beforeSpan = document.createElement("span");
+    beforeSpan.textContent = q.before;
+    fillRow.appendChild(beforeSpan);
+  }
+
+  const chip = document.createElement("div");
+  chip.className = "blank-chip";
+  chip.textContent = "___________";
+  chip.dataset.filled = "false";
+
+  onTap(chip, () => {
+    if (chip.dataset.filled === "true") return;
+    chip.textContent = q.answer;
+    chip.classList.add("filled");
+    chip.dataset.filled = "true";
+    playSfx(sfxCorrect);
+    setTimeout(() => {
+      chip.classList.remove("filled");
+      chip.classList.add("correct-chip");
+      card.classList.add("completed");
+      // After 1000ms, load next card or finish
+      setTimeout(() => {
+        currentIdx++;
+        if (currentIdx < questions.length) {
+          buildCard(currentIdx);
+        } else {
+          saveProgress();
+          updateFurthest(PART + 1);
+          finishSection.classList.remove("hidden");
+          finishSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      }, 1000);
+    }, 350);
+  });
+
+  fillRow.appendChild(chip);
+
+  if (q.after) {
+    const afterSpan = document.createElement("span");
+    afterSpan.textContent = q.after;
+    fillRow.appendChild(afterSpan);
+  }
+
+  contentCol.appendChild(fillRow);
+
+  // TAP IMAGE → play audio → reveal content
+  let hasPlayed = false;
+  onTap(imgCol, () => {
+    playSfx(sfxDing);
+    ripple.classList.remove("animate");
+    void ripple.offsetWidth;
+    ripple.classList.add("animate");
+    card.classList.add("played");
+    playAudio(q.audio, () => {
+      if (!hasPlayed) {
+        hasPlayed = true;
+        contentCol.classList.remove("content-hidden");
+      }
+    });
+    // Fallback: reveal after 3s if audio doesn't fire ended
+    setTimeout(() => {
+      if (!hasPlayed) {
+        hasPlayed = true;
+        contentCol.classList.remove("content-hidden");
+      }
+    }, 3000);
+  });
+
+  // ASSEMBLE
+  const inner = document.createElement("div");
+  inner.className = "q-card-inner";
+  inner.appendChild(imgCol);
+  inner.appendChild(contentCol);
+  card.appendChild(inner);
+
+  questionsSection.appendChild(card);
+
+  // Smooth scroll to new card (not on first)
+  if (idx > 0) {
+    setTimeout(() => card.scrollIntoView({ behavior: "smooth", block: "nearest" }), 50);
+  }
+}
+
+// ─── INIT: show first card immediately on load ────────────
+buildCard(0);
+</script>
+</body>
+</html>
