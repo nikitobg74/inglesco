@@ -1,238 +1,302 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 2 - Lección 2 - Parte 3</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>Lección 2, Parte 3: Lugares públicos | Inglesco</title>
+<meta name="description" content="Aprende el vocabulario de lugares públicos en inglés: restaurant, bank, hospital y más.">
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-.back-btn{
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:#ffffff;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
-}
-.back-btn:hover{ background:#1e40af; }
-
-.progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:15px 0 25px 0;
-}
-.step{
-  width:40px; height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-  color:#1f2933;
-}
-.step.active{ background:#2563eb; color:#ffffff; }
-.step:hover{ transform:scale(1.1); }
-
-.exercise-box{
-  max-width:950px;
-  margin:0 auto;
-  background:#ffffff;
-  padding:30px 40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  color:#2c3e50;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: #1e2a38;
 }
 
-.unit-title{
-  color:#2563eb;
-  font-size:28px;
-  font-weight:700;
-  text-align:center;
-  margin-bottom:10px;
+.back-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 30px;
+  padding: 10px 14px; font-size: 14px; font-weight: 700;
+  color: #1e2a38; text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
 }
 
-.instruction-box{
-  background:#e0e7ff;
-  padding:15px 20px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:600;
-  margin-bottom:18px;
+.wrap { width: 100%; max-width: 520px; padding: 20px 16px 40px; }
+
+.lesson-tag {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #486581; text-align: center; margin-bottom: 6px;
+}
+h1 {
+  color: #1e40af; font-weight: 800; font-size: clamp(1.3rem, 5vw, 1.7rem);
+  text-align: center; line-height: 1.25; margin-bottom: 6px;
+}
+.subtitle { font-size: 14px; color: #486581; text-align: center; margin-bottom: 20px; }
+
+/* Progress dots */
+.dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; cursor: pointer;
+  border: 2px solid rgba(37,99,235,0.2);
+  background: rgba(255,255,255,0.5); color: #486581;
+  text-decoration: none; transition: transform 0.15s;
+}
+.dot:hover { transform: scale(1.1); }
+.dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); }
+.dot.done   { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* Exercise box */
+.exercise-box {
+  background: white; border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08); padding: 24px 20px;
 }
 
-/* NEW: list cards */
-.cards{
-  display:grid;
+/* Counter row */
+.counter-row {
+  display: flex; justify-content: center; margin-bottom: 18px;
+}
+.counter-pill {
+  font-size: 13px; font-weight: 800; color: #2563eb;
+  background: #eff6ff; border-radius: 20px; padding: 5px 16px;
+}
+
+/* ── Location cards grid ── */
+.cards-grid {
+  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap:14px;
-  margin-top:14px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.loc-card{
-  background:#ffffff;
-  border:1px solid #e5e7eb;
-  border-radius:14px;
-  padding:10px;                 /* smaller padding */
-  box-shadow:0 6px 14px rgba(0,0,0,0.05);
-  max-width:420px;              /* limits card width */
-  margin:0 auto;                /* center on mobile */
-  transition:transform 0.15s;
+.loc-card {
+  border: 2px solid rgba(37,99,235,0.1);
+  border-radius: 14px; overflow: hidden;
+  background: #f8faff; cursor: pointer;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
-.loc-card:hover{ transform:translateY(-1px); }
-
-.loc-card.played{
-  filter: grayscale(1);
-  opacity: 0.78;
-  outline: 3px solid rgba(22,163,74,0.30);
-  background:#f0fdf4;
+.loc-card:active { transform: scale(0.97); }
+.loc-card.played {
+  border-color: #22c55e; background: #f0fdf4;
 }
 
-.loc-img{
-  width:100%;
-  height:150px;                 /* fixed smaller height */
-  border-radius:12px;
-  display:block;
-  object-fit:cover;
-  background:#f3f4f6;
+.loc-card img {
+  width: 100%; height: 110px;
+  object-fit: cover; display: block;
+  background: #e0e7ff;
+}
+.loc-card.played img { opacity: 0.85; }
+
+.card-body {
+  padding: 8px 10px 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
+}
+.card-words { flex: 1; min-width: 0; }
+.loc-en {
+  font-size: 13px; font-weight: 800; color: #1e2a38;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.loc-card.played .loc-en { color: #16a34a; }
+.loc-es {
+  font-size: 11px; font-weight: 400; color: #486581; margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-.loc-words{
-  margin-top:8px;
-  text-align:center;
+/* Play / check icon */
+.card-icon {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+  background: #2563eb; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
 }
-.loc-en{
-  font-size:18px;
-  font-weight:900;
-  color:#111827;
+.loc-card.played .card-icon { background: #22c55e; }
+.card-icon svg { width: 13px; height: 13px; fill: white; }
+
+/* Continue button */
+.continue-btn {
+  width: 100%; border: none; border-radius: 14px; padding: 16px;
+  font-size: 16px; font-weight: 800; font-family: 'Poppins', sans-serif;
+  cursor: not-allowed; transition: all 0.25s;
+  background: #d1d5db; color: white;
 }
-.loc-es{
-  margin-top:2px;
-  font-size:12px;
-  font-weight:700;
-  color:#6b7280;
+.continue-btn.unlocked {
+  background: #2563eb; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+}
+.continue-btn.unlocked:hover { background: #1e40af; }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
-.play-row{
-  margin-top:10px;
-  display:flex;
-  justify-content:center;
-}
-
-.play-btn{
-  border:none;
-  cursor:pointer;
-  background:#2563eb;
-  color:#fff;
-  width:40px;            /* smaller */
-  height:40px;           /* smaller */
-  border-radius:10px;    /* tighter */
-  font-size:16px;        /* smaller icon */
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 4px 10px rgba(37,99,235,0.20);
-  transition:all 0.2s ease;
-}
-
-.play-btn:hover{
-  transform:scale(1.05);
-}
-
-.play-btn:active{
-  transform:scale(0.95);
-}
-.play-btn:active{ transform:translateY(1px); }
-
-.counter-row{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  margin-top:18px;
-  color:#1f2933;
-  font-weight:700;
-}
-.counter-pill{
-  background:#2563eb;
-  color:#fff;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:14px;
-}
-
-.next-btn{
-  display:inline-block;
-  margin-top:18px;
-  padding:10px 18px;
-  border-radius:12px;
-  background:#2563eb;
-  color:#fff;
-  text-decoration:none;
-  font-weight:900;
-}
-.next-btn.disabled{
-  opacity:0.55;
-  pointer-events:none;
-}
-@media (max-width:520px){
-
-  .loc-img{
-    height:170px;   /* a bit taller on phone */
-  }
-
-}
-@media (max-width:900px){
-  .cards{ grid-template-columns: 1fr; }
-}
-@media (max-width:768px){
-  .exercise-box{ padding:22px 18px; }
+.success-msg {
+  display: none; margin-bottom: 16px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 14px; color: #16a34a;
+  font-weight: 700; font-size: 15px; text-align: center;
 }
 </style>
 </head>
-
 <body>
 
-  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+<a href="../index.html" class="back-btn">← Lección 2</a>
 
-  <div class="progress-container">
-    <div class="step" data-page="p1.html">1</div>
-    <div class="step" data-page="p2.html">2</div>
-    <div class="step active" data-page="p3.html">3</div>
-    <div class="step" data-page="p4.html">4</div>
+<div class="wrap">
+  <div class="lesson-tag">Unidad 2 · Lección 2 · Parte 3</div>
+  <h1>Lugares públicos</h1>
+  <p class="subtitle">Toca cada imagen para escuchar</p>
+
+  <div class="dots">
+    <a class="dot done" href="p1.html">1</a>
+    <a class="dot done" href="p2.html">2</a>
+    <a class="dot active" href="p3.html">3</a>
+    <a class="dot" href="p4.html">4</a>
   </div>
 
   <div class="exercise-box">
 
-    <h1 class="unit-title">Lugares públicos</h1>
-
-    <div class="instruction-box">
-      Escucha la pronunciación. Puedes repetir el audio. <br />
-      Cuando escuches todos, toca <strong>Siguiente →</strong>
-    </div>
-
     <div class="counter-row">
-      <span class="counter-pill">Escuchados: <span id="playedCount">0</span>/<span id="totalCount">0</span></span>
+      <div class="counter-pill">Escuchados: <span id="playedCount">0</span> / 10</div>
     </div>
 
-    <!-- Cards rendered by JS -->
-    <div class="cards" id="cards"></div>
+    <div class="cards-grid" id="cardsGrid"></div>
 
-    <a href="p4.html" class="next-btn disabled" id="nextBtn">Siguiente →</a>
+    <div class="success-msg" id="successMsg">✅ ¡Muy bien! Escuchaste todos los lugares.</div>
+    <button class="continue-btn" id="continueBtn" onclick="doContinue()">Continuar →</button>
 
   </div>
+</div>
 
-  <script src="../../../../js/u2/u2_l2_p3.js"></script>
+<script>
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IBASE = BASE + 'images/u2/';
+const ABASE = BASE + 'audio/u2/';
+
+const UNIT = 2, LESSON = 2, PART = 3, PARTS_TOTAL = 4;
+
+const LOCATIONS = [
+  { key: 'restaurant',   en: 'Restaurant',    es: 'restaurante',        img: 'u2.l2.p3.restaurant.jpg',   audio: 'u2.l2.p3.restaurant.mp3' },
+  { key: 'bank',         en: 'Bank',          es: 'banco',              img: 'u2.l2.p3.bank.jpg',         audio: 'u2.l2.p3.bank.mp3' },
+  { key: 'hospital',     en: 'Hospital',      es: 'hospital',           img: 'u2.l2.p3.hospital.jpg',     audio: 'u2.l2.p3.hospital.mp3' },
+  { key: 'supermarket',  en: 'Supermarket',   es: 'supermercado',       img: 'u2.l2.p3.supermarket.jpg',  audio: 'u2.l2.p3.supermarket.mp3' },
+  { key: 'library',      en: 'Library',       es: 'biblioteca',         img: 'u2.l2.p3.library.jpg',      audio: 'u2.l2.p3.library.mp3' },
+  { key: 'park',         en: 'Park',          es: 'parque',             img: 'u2.l2.p3.park.jpg',         audio: 'u2.l2.p3.park.mp3' },
+  { key: 'zoo',          en: 'Zoo',           es: 'zoológico',          img: 'u2.l2.p3.zoo.jpg',          audio: 'u2.l2.p3.zoo.mp3' },
+  { key: 'postoffice',   en: 'Post office',   es: 'oficina de correos', img: 'u2.l2.p3.postoffice.jpg',   audio: 'u2.l2.p3.postoffice.mp3' },
+  { key: 'movietheatre', en: 'Movie theatre', es: 'cine',               img: 'u2.l2.p3.movietheater.jpg', audio: 'u2.l2.p3.movietheatre.mp3' },
+  { key: 'office',       en: 'Office',        es: 'oficina',            img: 'u2.l2.p3.office.jpg',       audio: 'u2.l2.p3.office.mp3' }
+];
+
+const PLAY_ICON  = `<svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M3 2l9 5-9 5V2z"/></svg>`;
+const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5"/></svg>`;
+
+const listened = new Set();
+let activeAudio = null;
+
+function stopAudio() {
+  if (activeAudio) { activeAudio.pause(); activeAudio.currentTime = 0; activeAudio = null; }
+}
+
+function playAudio(file) {
+  stopAudio();
+  const a = new Audio(ABASE + file);
+  activeAudio = a;
+  a.onended = () => { activeAudio = null; };
+  a.play().catch(() => {});
+}
+
+function updateCounter() {
+  document.getElementById('playedCount').textContent = listened.size;
+}
+
+function checkAllHeard() {
+  if (listened.size < LOCATIONS.length) return;
+  document.getElementById('successMsg').style.display = 'block';
+  document.getElementById('continueBtn').classList.add('unlocked');
+  saveProgress();
+}
+
+function buildCards() {
+  const grid = document.getElementById('cardsGrid');
+  grid.innerHTML = '';
+
+  LOCATIONS.forEach(loc => {
+    const card = document.createElement('div');
+    card.className = 'loc-card';
+    card.dataset.key = loc.key;
+
+    card.innerHTML = `
+      <img src="${IBASE}${loc.img}" alt="${loc.en}" loading="lazy">
+      <div class="card-body">
+        <div class="card-words">
+          <div class="loc-en">${loc.en}</div>
+          <div class="loc-es">${loc.es}</div>
+        </div>
+        <div class="card-icon">${PLAY_ICON}</div>
+      </div>`;
+
+    card.addEventListener('click', () => {
+      playAudio(loc.audio);
+
+      if (!listened.has(loc.key)) {
+        listened.add(loc.key);
+        card.classList.add('played');
+        card.querySelector('.card-icon').innerHTML = CHECK_ICON;
+        updateCounter();
+        checkAllHeard();
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function doContinue() {
+  if (!document.getElementById('continueBtn').classList.contains('unlocked')) return;
+  stopAudio();
+  window.location.href = 'p4.html';
+}
+
+function saveProgress() {
+  const key = `inglesco_progress_u${UNIT}`;
+  const lp = JSON.parse(localStorage.getItem(key) || '{}');
+  const lk = `l${LESSON}`;
+  if (!lp[lk]) lp[lk] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+  if (lp[lk].partsCompleted < PART) lp[lk].partsCompleted = PART;
+  localStorage.setItem(key, JSON.stringify(lp));
+  const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+  const prev = parseInt(localStorage.getItem(fkey) || '0', 10);
+  if (PART > prev) localStorage.setItem(fkey, String(PART));
+  updateDotStyles();
+}
+
+function updateDotStyles() {
+  const furthest = parseInt(localStorage.getItem(`inglesco_furthest_u${UNIT}_l${LESSON}`) || '0', 10);
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    const n = i + 1;
+    d.classList.remove('active', 'done');
+    if (n === PART) d.classList.add('active');
+    else if (n <= furthest) d.classList.add('done');
+  });
+}
+
+window.addEventListener('beforeunload', stopAudio);
+updateDotStyles();
+buildCards();
+</script>
 </body>
 </html>
