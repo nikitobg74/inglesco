@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>Inglesco — Unidad 6 · Lección 6 · Parte 5 | Práctica de inglés</title>
+  <meta name="description" content="Practica el presente continuo y los pronombres posesivos en inglés. Ejercicio interactivo de Inglesco para hispanohablantes." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://inglesco.co/es/units/u6/l6/p5.html" />
+  <meta property="og:title" content="Inglesco — Unidad 6 · Lección 6 · Parte 5" />
+  <meta property="og:description" content="Completa las oraciones con el verbo o pronombre correcto. Aprende inglés de forma interactiva." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://inglesco.co/es/units/u6/l6/p5.html" />
+
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 20px 16px 60px;
+      color: #111827;
+    }
+
+    .wrap { max-width: 820px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #1e40af;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1.5px solid rgba(255,255,255,0.7);
+      box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+      transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.80); }
+
+    /* ── Header ── */
+    .lesson-tag {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .top-title {
+      text-align: center;
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .subline {
+      text-align: center;
+      margin: 0 0 18px 0;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .subline span {
+      background: rgba(255,255,255,.7);
+      padding: 6px 10px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    /* ── Progress dots ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0 25px 0;
+    }
+    .step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 2px solid rgba(255,255,255,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .3s;
+      color: #374151;
+      text-decoration: none;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+    }
+    .step.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+    }
+    .step.done {
+      background: #16a34a;
+      color: #fff;
+      border-color: #16a34a;
+    }
+    .step:hover { transform: scale(1.1); }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.85);
+      border-radius: 18px;
+      padding: 20px 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
+
+    /* ── Exercise header ── */
+    .ex-header {
+      text-align: center;
+      background: #2563eb;
+      color: white;
+      border-radius: 16px;
+      padding: 10px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.25);
+    }
+
+    /* ── Word bank ── */
+    .word-bank {
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .word-chip {
+      background: white;
+      border: 2px solid #93c5fd;
+      color: #1e40af;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .word-chip:hover {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      transform: translateY(-2px);
+    }
+    .word-chip.selected {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+    .word-chip.used {
+      opacity: 0.25;
+      pointer-events: none;
+      transform: none;
+    }
+
+    /* ── Score bar ── */
+    .score-bar {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      font-size: 14px;
+      color: #486581;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* ── Sentences ── */
+    .sentences {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .sentence-row {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      color: #1e2a38;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      flex-wrap: wrap;
+      line-height: 1.6;
+      transition: box-shadow 0.2s;
+    }
+    .sentence-row:hover { box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+
+    .num {
+      font-weight: 700;
+      color: #2563eb;
+      min-width: 24px;
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 95px;
+      height: 36px;
+      border-bottom: 3px solid #93c5fd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 16px;
+      color: #1e40af;
+      text-align: center;
+      line-height: 36px;
+      padding: 0 8px;
+    }
+    .blank.correct {
+      background: #dcfce7;
+      border-bottom: 3px solid #16a34a;
+      color: #15803d;
+      cursor: default;
+    }
+    .blank.wrong {
+      background: #fee2e2;
+      border-bottom: 3px solid #dc2626;
+      color: #dc2626;
+      animation: shake 0.4s ease;
+    }
+    .blank.active {
+      background: #eff6ff;
+      border-bottom: 3px solid #2563eb;
+    }
+
+    @keyframes shake {
+      0%   { transform: translateX(0); }
+      20%  { transform: translateX(-6px); }
+      40%  { transform: translateX(6px); }
+      60%  { transform: translateX(-4px); }
+      80%  { transform: translateX(4px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ── End screen ── */
+    .end {
+      text-align: center;
+      padding: 16px 10px 4px;
+      display: none;
+    }
+    .end.show { display: block; }
+
+    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+
+    .end h2 {
+      margin: 8px 0;
+      font-size: 24px;
+      font-weight: 900;
+      color: #1e40af;
+    }
+
+    .end p {
+      margin: 6px 0;
+      font-weight: 600;
+      color: #486581;
+    }
+
+    .score-result {
+      display: inline-block;
+      margin: 12px auto;
+      padding: 10px 28px;
+      background: #eff6ff;
+      border-radius: 14px;
+      font-size: 22px;
+      font-weight: 900;
+      color: #1e40af;
+      letter-spacing: 0.03em;
+    }
+
+    .score-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 17px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(22,163,74,.30);
+      transition: background .2s, transform .1s;
+      margin-top: 16px;
+      text-decoration: none;
+      animation: pulseIn 0.5s ease forwards;
+    }
+    .next-btn:hover { background: #15803d; }
+    .next-btn:active { transform: scale(.97); }
+
+    @keyframes pulseIn {
+      0%   { transform: scale(0.85); opacity: 0; }
+      70%  { transform: scale(1.04); }
+      100% { transform: scale(1);    opacity: 1; }
+    }
+
+    @media (max-width: 520px) {
+      .step { width: 34px; height: 34px; font-size: 14px; }
+      .top-title { font-size: 18px; }
+      .sentence-row { font-size: 15px; }
+      .word-chip { font-size: 14px; padding: 7px 14px; }
+      .blank { min-width: 82px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 6</a>
+
+  <p class="lesson-tag">Unidad 6 · Lección 6</p>
+  <h1 class="top-title">Parte 5 — Práctica final</h1>
+  <div class="subline">
+    <span>Haz clic en una palabra y luego en el espacio.</span>
+  </div>
+
+  <div class="progress-container">
+    <a class="step done" href="p1.html" aria-label="Parte 1">1</a>
+    <a class="step done" href="p2.html" aria-label="Parte 2">2</a>
+    <a class="step done" href="p3.html" aria-label="Parte 3">3</a>
+    <a class="step done" href="p4.html" aria-label="Parte 4">4</a>
+    <a class="step active" href="p5.html" aria-label="Parte 5">5</a>
+  </div>
+
+  <div class="card">
+    <div class="ex-header">Completa con la palabra correcta</div>
+
+    <div class="word-bank" id="wordBank"></div>
+
+    <div class="score-bar">
+      ✅ <span id="scoreCount">0</span> de 8 correctas
+    </div>
+
+    <div class="sentences" id="exerciseBox">
+
+      <!-- 1: possessive pronoun -->
+      <div class="sentence-row">
+        <span class="num">1.</span>
+        She is painting
+        <span class="blank" data-answer="her"></span>
+        living room.
+      </div>
+
+      <!-- 2: present-continuous verb -->
+      <div class="sentence-row">
+        <span class="num">2.</span>
+        We are
+        <span class="blank" data-answer="cleaning"></span>
+        our yard.
+      </div>
+
+      <!-- 3: possessive pronoun -->
+      <div class="sentence-row">
+        <span class="num">3.</span>
+        The dog is eating
+        <span class="blank" data-answer="its"></span>
+        dinner.
+      </div>
+
+      <!-- 4: present-continuous verb -->
+      <div class="sentence-row">
+        <span class="num">4.</span>
+        He is
+        <span class="blank" data-answer="washing"></span>
+        his hair.
+      </div>
+
+      <!-- 5: possessive pronoun -->
+      <div class="sentence-row">
+        <span class="num">5.</span>
+        They are fixing
+        <span class="blank" data-answer="their"></span>
+        sink.
+      </div>
+
+      <!-- 6: present-continuous verb -->
+      <div class="sentence-row">
+        <span class="num">6.</span>
+        I am
+        <span class="blank" data-answer="feeding"></span>
+        my cat.
+      </div>
+
+      <!-- 7: possessive pronoun -->
+      <div class="sentence-row">
+        <span class="num">7.</span>
+        He is reading
+        <span class="blank" data-answer="his"></span>
+        email.
+      </div>
+
+      <!-- 8: present-continuous verb -->
+      <div class="sentence-row">
+        <span class="num">8.</span>
+        She is
+        <span class="blank" data-answer="cooking"></span>
+        dinner.
+      </div>
+
+    </div>
+
+    <div class="end" id="endScreen">
+      <div class="trophy" id="endTrophy">🎉</div>
+      <h2 id="endTitle">¡Excelente!</h2>
+      <div class="score-result" id="finalScore">
+        8 / 8
+        <span class="score-label" id="scoreLabel">¡Puntaje perfecto!</span>
+      </div>
+      <p id="endMsg">Completaste la lección. ¡Estás listo para continuar!</p>
+      <a href="../index.html" class="next-btn" id="nextBtn">Volver a la lección →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Vercel Analytics -->
+<script>
+  window.va = window.va || function() { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+  // ── PWA / progress scaffolding ──────────────────────────────────────────
+  const UNIT   = 6;
+  const LESSON = 6;
+  const PART   = 5;
+
+  // ── Audio (Supabase-hosted) ─────────────────────────────────────────────
+  const BASE = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/';
+  const sfx = { correct: new Audio(BASE + 'correct.wav'), incorrect: new Audio(BASE + 'incorrect.wav') };
+  // Preload
+  Object.values(sfx).forEach(a => { a.load(); });
+
+  function playSound(type) {
+    try {
+      sfx[type].currentTime = 0;
+      sfx[type].play().catch(() => {});
+    } catch(e) {}
+  }
+
+  // ── Word bank data (mixed: verbs + pronouns) ────────────────────────────
+  const WORDS = ['her', 'cleaning', 'its', 'washing', 'their', 'feeding', 'his', 'cooking'];
+
+  // ── State ───────────────────────────────────────────────────────────────
+  let selectedChip = null;
+  let score = 0;
+  const TOTAL = 8;
+
+  // ── Build word bank dynamically ─────────────────────────────────────────
+  const bankEl = document.getElementById('wordBank');
+  WORDS.forEach(word => {
+    const chip = document.createElement('div');
+    chip.className = 'word-chip';
+    chip.dataset.word = word;
+    chip.textContent = word;
+    chip.addEventListener('click', () => onChipClick(chip));
+    bankEl.appendChild(chip);
+  });
+
+  // ── Blank click ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.blank').forEach(blank => {
+    blank.addEventListener('click', () => onBlankClick(blank));
+  });
+
+  function onChipClick(chip) {
+    // Deselect previous
+    if (selectedChip) selectedChip.classList.remove('selected');
+
+    if (selectedChip === chip) {
+      selectedChip = null;
+      return;
+    }
+    selectedChip = chip;
+    chip.classList.add('selected');
+
+    // Auto-clear active blank highlight
+    document.querySelectorAll('.blank.active').forEach(b => b.classList.remove('active'));
+  }
+
+  function onBlankClick(blank) {
+    if (blank.classList.contains('correct')) return;
+
+    if (!selectedChip) {
+      // Highlight blank to guide user
+      document.querySelectorAll('.blank.active').forEach(b => b.classList.remove('active'));
+      blank.classList.add('active');
+      return;
+    }
+
+    const answer  = blank.dataset.answer.toLowerCase();
+    const attempt = selectedChip.dataset.word.toLowerCase();
+
+    if (attempt === answer) {
+      blank.textContent = selectedChip.dataset.word;
+      blank.classList.remove('wrong', 'active');
+      blank.classList.add('correct');
+      selectedChip.classList.add('used');
+      selectedChip.classList.remove('selected');
+      selectedChip = null;
+      playSound('correct');
+      score++;
+      document.getElementById('scoreCount').textContent = score;
+      if (score === TOTAL) setTimeout(showEnd, 600);
+    } else {
+      blank.classList.add('wrong');
+      blank.classList.remove('active');
+      playSound('incorrect');
+      setTimeout(() => blank.classList.remove('wrong'), 500);
+      // Deselect chip so user must re-pick
+      selectedChip.classList.remove('selected');
+      selectedChip = null;
+    }
+  }
+
+  // ── End screen ──────────────────────────────────────────────────────────
+  function showEnd() {
+    const end = document.getElementById('endScreen');
+
+    // Dynamic result messaging
+    const trophy   = document.getElementById('endTrophy');
+    const title    = document.getElementById('endTitle');
+    const scoreEl  = document.getElementById('finalScore');
+    const label    = document.getElementById('scoreLabel');
+    const msg      = document.getElementById('endMsg');
+
+    scoreEl.childNodes[0].textContent = score + ' / ' + TOTAL + '\n';
+
+    if (score === TOTAL) {
+      trophy.textContent = '🏆';
+      title.textContent  = '¡Puntaje perfecto!';
+      label.textContent  = '¡Increíble! Todo correcto.';
+      msg.textContent    = 'Dominaste la lección. ¡Sigue así!';
+    } else if (score >= 6) {
+      trophy.textContent = '🎉';
+      title.textContent  = '¡Muy bien!';
+      label.textContent  = 'Buen trabajo.';
+      msg.textContent    = 'Completaste la lección. ¡Puedes continuar!';
+    } else if (score >= 4) {
+      trophy.textContent = '💪';
+      title.textContent  = '¡Sigue practicando!';
+      label.textContent  = 'Casi lo logras.';
+      msg.textContent    = 'Repasa y vuelve a intentarlo.';
+    } else {
+      trophy.textContent = '📚';
+      title.textContent  = '¡Necesitas repasar!';
+      label.textContent  = 'No te rindas.';
+      msg.textContent    = 'Vuelve a las partes anteriores y practica más.';
+    }
+
+    // Persist progress to localStorage
+    try {
+      const key = 'inglesco_u' + UNIT + '_l' + LESSON + '_p' + PART;
+      localStorage.setItem(key, JSON.stringify({ score, total: TOTAL, done: true }));
+    } catch(e) {}
+
+    end.classList.add('show');
+    end.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+
+</body>
+</html>

@@ -1,390 +1,524 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 2 - Lección 1 - Parte 4</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>Lección 1, Parte 4: Where are you? | Inglesco</title>
+<meta name="description" content="Practica las habitaciones de la casa en inglés. Escucha la pregunta y ordena la respuesta.">
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-.back-btn{
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:#ffffff;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
-}
-.back-btn:hover{ background:#1e40af; }
-
-.progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:15px 0 25px 0;
-}
-.step{
-  width:40px; height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-  color:#1f2933;
-}
-.step.active{ background:#2563eb; color:#ffffff; }
-.step:hover{ transform:scale(1.1); }
-
-.exercise-box{
-  max-width:950px;
-  margin:0 auto;
-  background:#ffffff;
-  padding:30px 40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  color:#2c3e50;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: #1e2a38;
 }
 
-.unit-title{
-  color:#2563eb;
-  font-size:28px;
-  font-weight:700;
-  text-align:center;
-  margin-bottom:10px;
+.back-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 30px;
+  padding: 10px 14px; font-size: 14px; font-weight: 700;
+  color: #1e2a38; text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
 }
 
-.instruction-box{
-  background:#e0e7ff;
-  padding:15px 20px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:600;
-  margin-bottom:18px;
+.wrap { width: 100%; max-width: 520px; padding: 20px 16px 40px; }
+
+.lesson-tag {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #486581; text-align: center; margin-bottom: 6px;
+}
+h1 {
+  color: #1e40af; font-weight: 800; font-size: clamp(1.3rem, 5vw, 1.7rem);
+  text-align: center; line-height: 1.25; margin-bottom: 6px;
+}
+.subtitle { font-size: 14px; color: #486581; text-align: center; margin-bottom: 20px; }
+
+/* Progress dots */
+.dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; cursor: pointer;
+  border: 2px solid rgba(37,99,235,0.2);
+  background: rgba(255,255,255,0.5); color: #486581;
+  text-decoration: none; transition: transform 0.15s;
+}
+.dot:hover { transform: scale(1.1); }
+.dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); }
+.dot.done   { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* Exercise box */
+.exercise-box {
+  background: white; border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08); padding: 24px 20px;
 }
 
-.counter-row{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  margin-bottom:18px;
-  color:#1f2933;
-  font-weight:700;
+/* ── Person card ── */
+.person-card {
+  display: flex; align-items: center; gap: 14px;
+  background: #f8faff; border: 2px solid rgba(37,99,235,0.1);
+  border-radius: 14px; padding: 14px; margin-bottom: 18px;
 }
-.counter-pill{
-  background:#2563eb;
-  color:#fff;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:14px;
+.person-avatar { flex-shrink: 0; position: relative; }
+.person-avatar img {
+  width: 64px; height: 64px; border-radius: 50%;
+  object-fit: cover; object-position: top center;
+  border: 2px solid rgba(37,99,235,0.15); display: block;
 }
-
-.split-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  flex-wrap:wrap;
-  gap:22px;
+.speaker-pip {
+  position: absolute; bottom: 0; right: 0;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #2563eb; border: 2px solid white;
+  display: flex; align-items: center; justify-content: center;
 }
-
-.col{
-  flex:1 1 45%;
-  min-width:240px;
-  text-align:center;
+.speaker-pip svg { width: 10px; height: 10px; fill: white; }
+.person-info { flex: 1; }
+.person-says { font-size: 17px; font-weight: 800; color: #1e2a38; }
+.person-sub  { font-size: 12px; font-weight: 400; color: #486581; margin-top: 2px; }
+.round-badge {
+  flex-shrink: 0; font-size: 12px; font-weight: 800; color: #2563eb;
+  background: #eff6ff; border-radius: 20px; padding: 4px 12px;
 }
 
-.image-box{
-  background:#f8fafc;
-  border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:14px;
+/* ── Room image ── */
+.room-wrap {
+  width: 100%; border-radius: 14px; overflow: hidden;
+  border: 2px solid rgba(37,99,235,0.1); margin-bottom: 18px;
+  background: #f1f5f9; transition: border-color 0.3s, box-shadow 0.3s;
+}
+.room-wrap.solved { border-color: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
+.room-wrap img {
+  width: 100%; height: auto; display: block;
+  object-fit: contain; max-height: 200px;
 }
 
-.image-box img{
-  width:100%;
-  max-width:420px;
-  max-height:180px;
-  object-fit:cover;
-  border-radius:14px;
-  margin-bottom:10px;
+/* ── Build area ── */
+.build-area {
+  min-height: 54px;
+  border: 2px dashed rgba(37,99,235,0.2);
+  border-radius: 14px; background: #f8faff;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 8px; padding: 10px 12px; margin-bottom: 14px;
+  transition: border-color 0.3s, background 0.3s;
+}
+.build-area.correct-area {
+  border-color: #22c55e; background: #f0fdf4; border-style: solid;
+}
+.build-area.wrong-area {
+  border-color: #dc2626; background: #fef2f2; border-style: solid;
+  animation: shake-area 0.35s ease;
+}
+@keyframes shake-area {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
+}
+.build-hint {
+  font-size: 13px; font-weight: 700; color: #94a3b8;
+  width: 100%; text-align: center;
+}
+.placed-tile {
+  background: #dbeafe; border: 2px solid #93c5fd;
+  border-radius: 10px; padding: 8px 14px;
+  font-size: 14px; font-weight: 800; color: #1e2a38;
+  cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s;
+}
+.placed-tile:active { transform: scale(0.95); }
+.correct-area .placed-tile {
+  background: #dcfce7; border-color: #22c55e; color: #16a34a; cursor: default;
 }
 
-.small-actions{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:6px;
+/* ── Tile bank ── */
+.tile-bank {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; margin-bottom: 18px;
+}
+.tile {
+  background: #eff6ff; border: 2px solid #bfdbfe;
+  border-radius: 12px; padding: 12px 18px;
+  font-size: 15px; font-weight: 800; color: #1e2a38;
+  cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s, background 0.15s, border-color 0.15s, opacity 0.2s;
+}
+.tile:active { transform: scale(0.95); }
+.tile:hover  { background: #dbeafe; border-color: #93c5fd; }
+.tile.used   { opacity: 0.25; pointer-events: none; }
+.tile.wrong-tile {
+  background: #fef2f2; border-color: #dc2626; color: #dc2626;
+  animation: shake 0.3s ease;
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-5px); }
+  75%      { transform: translateX(5px); }
 }
 
-.small-btn{
-  border:none;
-  cursor:pointer;
-  background:#2563eb;
-  color:#fff;
-  padding:8px 12px;
-  border-radius:12px;
-  font-weight:700;
-  transition:all 0.2s;
+/* Feedback */
+.feedback {
+  text-align: center; font-weight: 800; font-size: 14px;
+  min-height: 20px; margin-bottom: 16px;
 }
-.small-btn:hover{ background:#1e40af; }
+.feedback.correct { color: #16a34a; }
+.feedback.wrong   { color: #dc2626; }
 
-.section-title{
-  margin:14px 0 10px 0;
-  font-weight:800;
-  color:#111827;
+/* Continue button */
+.continue-btn {
+  width: 100%; border: none; border-radius: 14px; padding: 16px;
+  font-size: 16px; font-weight: 800; font-family: 'Poppins', sans-serif;
+  cursor: not-allowed; transition: all 0.25s;
+  background: #d1d5db; color: white;
 }
-
-.builder{
-  margin-top:10px;
-  background:#ffffff;
-  border:1px dashed #93c5fd;
-  border-radius:14px;
-  padding:14px;
+.continue-btn.unlocked {
+  background: #2563eb; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
 }
+.continue-btn.unlocked:hover { background: #1e40af; }
 
-.slots{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:12px;
+@keyframes pulse-in {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
-.slot{
-  min-width:92px;
-  padding:12px 10px;
-  border-radius:12px;
-  background:#eef2ff;
-  border:2px solid #bfdbfe;
-  font-weight:800;
-  color:#111827;
-}
-.slot.empty{ color:#6b7280; font-weight:700; }
-
-.wordbank{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.token{
-  background:#e0f2fe;
-  border:1px solid #bfdbfe;
-  padding:10px 14px;
-  border-radius:12px;
-  cursor:grab;
-  user-select:none;
-  font-weight:800;
-  color:#111827;
-  min-width:80px;
-  text-align:center;
-  transition:all 0.2s;
-}
-.token:hover{ background:#dbeafe; }
-
-.controls{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.control-btn{
-  border:none;
-  cursor:pointer;
-  background:#2563eb;
-  color:#fff;
-  padding:10px 18px;
-  border-radius:12px;
-  font-weight:800;
-  transition:all 0.2s;
-}
-.control-btn.secondary{ background:#0ea5e9; }
-.control-btn.gray{ background:#6b7280; }
-.control-btn:hover{ filter:brightness(0.95); }
-
-.feedback{
-  margin-top:14px;
-  text-align:center;
-  font-weight:900;
-  font-size:18px;
-}
-.feedback.good{ color:#16a34a; }
-.feedback.bad{ color:#dc2626; }
-
-.next-link{
-  display:none;
-  margin-top:15px;
-  background:#2563eb;
-  color:white;
-  padding:10px 20px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:700;
-}
-.next-link:hover{ background:#1e40af; }
-
-@media (max-width:768px){
-  .exercise-box{ padding:14px 12px; }
-  .unit-title{ font-size:20px; }
-  .split-row{ flex-direction:column; align-items:center; }
-  .col{ flex:1 1 100%; max-width:100%; }
-  .image-box img{ max-height:140px; }
+.success-msg {
+  display: none; margin-bottom: 16px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 14px; color: #16a34a;
+  font-weight: 700; font-size: 15px; text-align: center;
 }
 </style>
 </head>
-
 <body>
 
-<a href="../index.html" class="back-btn" id="backBtn">← Volver a Unidad 2</a>
+<a href="../index.html" class="back-btn">← Lección 1</a>
 
-<div class="progress-container">
-  <div class="step" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step active" data-page="p4.html">4</div>
-</div>
+<div class="wrap">
+  <div class="lesson-tag">Unidad 2 · Lección 1 · Parte 4</div>
+  <h1>Where are you?</h1>
+  <p class="subtitle">Ordena la respuesta</p>
 
-<div class="exercise-box">
-  <div class="unit-title" id="unitTitle">Unidad 2 – Lección 1</div>
-
-  <!-- This visible instruction text can be translated per page -->
-  <div class="instruction-box" id="instructionBox">
-    Mira las imágenes y ordena las palabras para formar la pregunta y la respuesta.
+  <div class="dots">
+    <a class="dot done" href="p1.html">1</a>
+    <a class="dot done" href="p2.html">2</a>
+    <a class="dot done" href="p3.html">3</a>
+    <a class="dot active" href="p4.html">4</a>
   </div>
 
-  <div class="counter-row">
-    <span class="counter-pill" id="counterPill">Ejercicio 1/4</span>
-  </div>
+  <div class="exercise-box">
 
-  <div class="split-row">
-    <!-- LEFT -->
-    <div class="col">
-      <div class="image-box">
-        <img id="personImg" src="" alt="Persona" />
-        <div class="small-actions">
-          <button class="small-btn" id="playPersonAudioBtn">🔊 Audio (Pregunta)</button>
+    <!-- Person card — shows who is asking, auto-plays their audio -->
+    <div class="person-card">
+      <div class="person-avatar" id="personAvatar">
+        <img id="personImg" src="" alt="Person">
+        <div class="speaker-pip">
+          <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><path d="M1 3h2l3-2v8L3 7H1z"/><path d="M7.5 3.5a2.5 2.5 0 010 3" stroke="white" stroke-width="1" fill="none" stroke-linecap="round"/></svg>
         </div>
       </div>
-
-      <div class="section-title" id="qTitle">Ordena la pregunta</div>
-      <div class="builder">
-        <div class="slots" id="qSlots"></div>
-        <div class="wordbank" id="qBank"></div>
-        <div class="small-actions" style="margin-top:10px;">
-          <button class="small-btn" id="resetQBtn" style="background:#6b7280;">Reiniciar</button>
-        </div>
+      <div class="person-info">
+        <div class="person-says">"Where are you?"</div>
+        <div class="person-sub" id="personSub">Toca para repetir la pregunta</div>
       </div>
+      <div class="round-badge" id="roundBadge">1 / 4</div>
     </div>
 
-    <!-- RIGHT -->
-    <div class="col">
-      <div class="image-box">
-        <img id="roomImg" src="" alt="Habitación" />
-        <div class="small-actions">
-          <button class="small-btn" id="playRoomAudioBtn">🔊 Audio (Lugar)</button>
-        </div>
-      </div>
-
-      <div class="section-title" id="aTitle">Ordena la respuesta</div>
-      <div class="builder">
-        <div class="slots" id="aSlots"></div>
-        <div class="wordbank" id="aBank"></div>
-        <div class="small-actions" style="margin-top:10px;">
-          <button class="small-btn" id="resetABtn" style="background:#6b7280;">Reiniciar</button>
-        </div>
-      </div>
+    <!-- Room image -->
+    <div class="room-wrap" id="roomWrap">
+      <img id="roomImg" src="" alt="">
     </div>
+
+    <!-- Build area -->
+    <div class="build-area" id="buildArea">
+      <div class="build-hint" id="buildHint">Ordena los bloques para responder ↓</div>
+    </div>
+
+    <!-- Tile bank -->
+    <div class="tile-bank" id="tileBank"></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="success-msg" id="successMsg">🎉 ¡Lección completada! Muy bien.</div>
+    <button class="continue-btn" id="continueBtn" onclick="doContinue()">Continuar →</button>
+
   </div>
-
-  <div class="controls">
-    <button class="control-btn gray" id="shuffleBtn">Cambiar imágenes</button>
-    <button class="control-btn secondary" id="checkBtn">Comprobar</button>
-    <button class="control-btn" id="nextBtn" style="display:none;">Siguiente</button>
-  </div>
-
-  <div class="feedback" id="feedback"></div>
-
-  <a href="../index.html" class="next-link" id="goL2Link">➡️ Ir a Lección 2</a>
 </div>
 
 <script>
-/**
- * ✅ ALL language strings live here (NOT in JS).
- * For Portuguese version, you change only this object + the visible HTML text above.
- */
-window.P4_CONFIG = {
-  // asset base paths
-  IMG_BASE: "../../../../assets/images/u2/",
-  AUDIO_BASE: "../../../../assets/audio/u2/",
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IBASE = BASE + 'images/u2/';
+const ABASE = BASE + 'audio/u2/';
 
-  // total exercises
-  totalExercises: 4,
+const PEOPLE = [
+  { image: 'u2.l1.p4.man.jpg',    audio: 'u2.l1.p4.man.whereareyou.mp3' },
+  { image: 'u2.l1.p4.man1.jpg',   audio: 'u2.l1.p4.man1.whereareyou.mp3' },
+  { image: 'u2.l1.p4.woman.jpg',  audio: 'u2.l1.p4.woman.whereareyou.mp3' },
+  { image: 'u2.l1.p4.woman1.jpg', audio: 'u2.l1.p4.woman1.whereareyou.mp3' }
+];
 
-  // people (images + question audio)
-  people: [
-    { key: "man",    image: "u2.l1.p4.man.jpg",    audio: "u2.l1.p4.man.whereareyou.mp3" },
-    { key: "man1",   image: "u2.l1.p4.man1.jpg",   audio: "u2.l1.p4.man1.whereareyou.mp3" },
-    { key: "woman",  image: "u2.l1.p4.woman.jpg",  audio: "u2.l1.p4.woman.whereareyou.mp3" },
-    { key: "woman1", image: "u2.l1.p4.woman1.jpg", audio: "u2.l1.p4.woman1.whereareyou.mp3" }
-  ],
+const ROOMS = [
+  { id: 'livingroom', label: 'living room', image: 'u2.l1.p2.livingroom1.jpg', audio: 'u2.l1.p2.livingroom.mp3' },
+  { id: 'kitchen',    label: 'kitchen',     image: 'u2.l1.p2.kitchen1.jpg',    audio: 'u2.l1.p2.kitchen.mp3' },
+  { id: 'bedroom',    label: 'bedroom',     image: 'u2.l1.p2.bedroom1.jpg',    audio: 'u2.l1.p2.bedroom.mp3' },
+  { id: 'garage',     label: 'garage',      image: 'u2.l1.p1.garage.jpg',      audio: 'u2.l1.p2.garage.mp3' },
+  { id: 'bathroom',   label: 'bathroom',    image: 'u2.l1.p2.bathroom1.jpg',   audio: 'u2.l1.p2.bathroom.mp3' },
+  { id: 'basement',   label: 'basement',    image: 'u2.l1.p2.basement1.jpg',   audio: 'u2.l1.p2.basement.mp3' },
+  { id: 'yard',       label: 'yard',        image: 'u2.l1.p2.yard1.jpg',       audio: 'u2.l1.p2.yard.mp3' },
+  { id: 'attic',      label: 'attic',       image: 'u2.l1.p2.attic1.jpg',      audio: 'u2.l1.p2.attic.mp3' }
+];
 
-  // rooms (images + room audio)
-  items: [
-    { id: "livingroom", display: "Living room", image: "u2.l1.p2.livingroom1.jpg", audio: "u2.l1.p2.livingroom.mp3" },
-    { id: "kitchen",    display: "Kitchen",     image: "u2.l1.p2.kitchen1.jpg",    audio: "u2.l1.p2.kitchen.mp3" },
-    { id: "bedroom",    display: "Bedroom",     image: "u2.l1.p2.bedroom1.jpg",    audio: "u2.l1.p2.bedroom.mp3" },
-    { id: "garage",     display: "Garage",      image: "u2.l1.p1.garage1.jpg",     audio: "u2.l1.p2.garage.mp3" },
-    { id: "bathroom",   display: "Bathroom",    image: "u2.l1.p2.bathroom1.jpg",   audio: "u2.l1.p2.bathroom.mp3" },
-    { id: "basement",   display: "Basement",    image: "u2.l1.p2.basement1.jpg",   audio: "u2.l1.p2.basement.mp3" },
-    { id: "yard",       display: "Yard",        image: "u2.l1.p2.yard1.jpg",       audio: "u2.l1.p2.yard.mp3" },
-    { id: "attic",      display: "Attic",       image: "u2.l1.p2.attic1.jpg",      audio: "u2.l1.p2.attic.mp3" }
-  ],
+// Correct answer chunks in order: "I am" / "in the" / "<room>"
+const ANSWER_ORDER = ['I am', 'in the', '{{room}}'];
 
-  // targets (the English you are teaching)
-  targets: {
-    question: ["Where", "are", "you?"],
-    answerPrefix: ["I", "am", "in", "the"],
+const TOTAL_ROUNDS = 4;
+const UNIT = 2, LESSON = 1, PART = 4, PARTS_TOTAL = 4;
 
-    // how to convert room display into the word used in the answer (bedroom, kitchen...)
-    roomWordTransform: "lowercase" // "lowercase" | "none"
-  },
+// SFX
+const sfxCorrect   = new Audio(BASE + 'audio/u2/correct.wav');
+const sfxIncorrect = new Audio(BASE + 'audio/u2/incorrect.wav');
+sfxCorrect.preload = sfxIncorrect.preload = 'auto';
 
-  // UI text (ALL strings used by JS)
-  ui: {
-    counterFormat: (current, total) => `Ejercicio ${current}/${total}`,
-    completedFormat: (total) => `Completado: ${total}/${total}`,
+// State
+let roundIndex  = 0;
+let roundOrder  = [];   // picked rooms
+let peopleOrder = [];   // picked people
+let currentRoom = null;
+let currentPerson = null;
+let placed      = [];
+let isLocked    = false;
+let activeAudio = null;
 
-    buttons: {
-      playQuestion: "🔊 Audio (Pregunta)",
-      playPlace: "🔊 Audio (Lugar)",
-      reset: "Reiniciar",
-      shuffle: "Cambiar imágenes",
-      check: "Comprobar",
-      next: "Siguiente",
-      goL2: "➡️ Ir a Lección 2"
-    },
-
-    feedback: {
-      success: ["¡Muy bien!", "¡Excelente!", "Great!"],
-      fail: ["Intenta otra vez.", "Revisa el orden.", "Casi. Inténtalo de nuevo."]
-    }
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-};
-</script>
+  return a;
+}
 
-<script src="../../../../js/u2/u2_l1_p4.js"></script>
+function stopAudio() {
+  if (activeAudio) { activeAudio.pause(); activeAudio.currentTime = 0; activeAudio = null; }
+}
+function playAudio(file, onEnd) {
+  stopAudio();
+  const a = new Audio(ABASE + file);
+  activeAudio = a;
+  a.onended = () => { activeAudio = null; if (onEnd) onEnd(); };
+  a.play().catch(() => { activeAudio = null; if (onEnd) onEnd(); });
+}
+
+function setFeedback(text, type) {
+  const el = document.getElementById('feedback');
+  el.textContent = text;
+  el.className = 'feedback ' + (type || '');
+}
+function clearFeedback() { setFeedback('', ''); }
+
+function renderBuildArea() {
+  const area = document.getElementById('buildArea');
+  const hint = document.getElementById('buildHint');
+  area.querySelectorAll('.placed-tile').forEach(n => n.remove());
+
+  if (placed.length === 0) {
+    hint.style.display = 'block';
+  } else {
+    hint.style.display = 'none';
+    placed.forEach((chunk, idx) => {
+      const el = document.createElement('div');
+      el.className = 'placed-tile';
+      el.textContent = chunk;
+      el.addEventListener('click', () => {
+        if (isLocked) return;
+        // Remove from this index onward
+        const removed = placed.splice(idx);
+        removed.forEach(text => {
+          document.querySelectorAll('.tile').forEach(t => {
+            if (t.textContent === text) t.classList.remove('used');
+          });
+        });
+        renderBuildArea();
+        clearFeedback();
+      });
+      area.appendChild(el);
+    });
+  }
+}
+
+function buildTiles(room) {
+  const others = ROOMS.filter(r => r.id !== room.id);
+  const distractor = shuffle(others)[0];
+
+  const chunks = shuffle([
+    { text: 'I am',           type: 'fixed' },
+    { text: 'in the',         type: 'fixed' },
+    { text: room.label,       type: 'answer' },
+    { text: distractor.label, type: 'distractor' }
+  ]);
+
+  const bank = document.getElementById('tileBank');
+  bank.innerHTML = '';
+
+  chunks.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'tile';
+    el.textContent = c.text;
+
+    el.addEventListener('click', () => {
+      if (isLocked || el.classList.contains('used')) return;
+      clearFeedback();
+
+      const nextPos = placed.length;
+      if (nextPos >= ANSWER_ORDER.length) return;
+
+      const expected = ANSWER_ORDER[nextPos] === '{{room}}'
+        ? room.label
+        : ANSWER_ORDER[nextPos];
+
+      if (c.text === expected) {
+        // Correct chunk
+        el.classList.add('used');
+        placed.push(c.text);
+        renderBuildArea();
+
+        if (placed.length === ANSWER_ORDER.length) {
+          // Full answer complete!
+          isLocked = true;
+          sfxCorrect.currentTime = 0;
+          sfxCorrect.play().catch(() => {});
+          setFeedback('¡Correcto! ✅', 'correct');
+          document.getElementById('buildArea').classList.add('correct-area');
+          document.getElementById('roomWrap').classList.add('solved');
+          bank.querySelectorAll('.tile').forEach(t => t.classList.add('used'));
+
+          roundIndex++;
+          if (roundIndex >= TOTAL_ROUNDS) {
+            document.getElementById('roundBadge').textContent = `${TOTAL_ROUNDS} / ${TOTAL_ROUNDS}`;
+            setTimeout(() => {
+              clearFeedback();
+              document.getElementById('successMsg').style.display = 'block';
+              document.getElementById('continueBtn').classList.add('unlocked');
+              saveProgress();
+            }, 700);
+          } else {
+            setTimeout(() => { clearFeedback(); loadRound(); }, 800);
+          }
+        }
+
+      } else {
+        // Wrong chunk
+        el.classList.add('wrong-tile');
+        sfxIncorrect.currentTime = 0;
+        sfxIncorrect.play().catch(() => {});
+        document.getElementById('buildArea').classList.add('wrong-area');
+        setFeedback('Intenta otra vez 🔄', 'wrong');
+        setTimeout(() => {
+          el.classList.remove('wrong-tile');
+          document.getElementById('buildArea').classList.remove('wrong-area');
+          clearFeedback();
+        }, 500);
+      }
+    });
+
+    bank.appendChild(el);
+  });
+}
+
+function loadRound() {
+  isLocked = false;
+  placed = [];
+
+  currentPerson = peopleOrder[roundIndex];
+  currentRoom   = roundOrder[roundIndex];
+
+  // Update person card
+  document.getElementById('personImg').src = IBASE + currentPerson.image;
+  document.getElementById('roundBadge').textContent = `${roundIndex + 1} / ${TOTAL_ROUNDS}`;
+
+  // Update room image
+  const roomWrap = document.getElementById('roomWrap');
+  roomWrap.classList.remove('solved');
+  const img = document.getElementById('roomImg');
+  img.src = IBASE + currentRoom.image;
+  img.alt = currentRoom.label;
+
+  // Reset build area
+  const area = document.getElementById('buildArea');
+  area.classList.remove('correct-area', 'wrong-area');
+  renderBuildArea();
+
+  buildTiles(currentRoom);
+  clearFeedback();
+
+  // Auto-play the question audio
+  playAudio(currentPerson.audio);
+}
+
+// Tap person card to replay question
+document.getElementById('personAvatar').addEventListener('click', () => {
+  if (currentPerson) playAudio(currentPerson.audio);
+});
+document.getElementById('personImg').addEventListener('click', () => {
+  if (currentPerson) playAudio(currentPerson.audio);
+});
+
+function doContinue() {
+  if (!document.getElementById('continueBtn').classList.contains('unlocked')) return;
+  stopAudio();
+  window.location.href = '../index.html';
+}
+
+// Progress + last-part unit summary
+function saveProgress() {
+  const key = `inglesco_progress_u${UNIT}`;
+  const lp = JSON.parse(localStorage.getItem(key) || '{}');
+  const lk = `l${LESSON}`;
+  if (!lp[lk]) lp[lk] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+  if (lp[lk].partsCompleted < PART) lp[lk].partsCompleted = PART;
+  localStorage.setItem(key, JSON.stringify(lp));
+
+  // Last part — update unit-level summary
+  const up = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+  if (!up[`u${UNIT}`]) up[`u${UNIT}`] = { lessonsTotal: 4, lessonsCompleted: 0 };
+  const completedLessons = Object.values(lp).filter(l => l.partsCompleted >= l.partsTotal).length;
+  up[`u${UNIT}`].lessonsCompleted = completedLessons;
+  localStorage.setItem('inglesco_progress', JSON.stringify(up));
+
+  const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+  const prev = parseInt(localStorage.getItem(fkey) || '0', 10);
+  if (PART > prev) localStorage.setItem(fkey, String(PART));
+  updateDotStyles();
+}
+
+function updateDotStyles() {
+  const furthest = parseInt(localStorage.getItem(`inglesco_furthest_u${UNIT}_l${LESSON}`) || '0', 10);
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    const n = i + 1;
+    d.classList.remove('active', 'done');
+    if (n === PART) d.classList.add('active');
+    else if (n <= furthest) d.classList.add('done');
+  });
+}
+
+window.addEventListener('beforeunload', stopAudio);
+
+// Init — pick 4 unique rooms and 4 people (can repeat people)
+roundOrder  = shuffle(ROOMS).slice(0, TOTAL_ROUNDS);
+peopleOrder = shuffle([...PEOPLE, ...PEOPLE]).slice(0, TOTAL_ROUNDS); // allow repeats if needed
+updateDotStyles();
+loadRound();
+</script>
 </body>
 </html>

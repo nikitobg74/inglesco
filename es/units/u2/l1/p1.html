@@ -3,243 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unidad 2 - Lección 1 - Parte 1</title>
+<meta name="format-detection" content="telephone=no">
+<title>Lección 1, Parte 1: Rooms in the House | Inglesco</title>
+<meta name="description" content="Aprende las habitaciones de la casa en inglés: kitchen, bedroom, bathroom y más. Escucha cada pronunciación y avanza a tu ritmo.">
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-:root {
-  --blue:        #2563eb;
-  --blue-dark:   #1e40af;
-  --blue-light:  #dbeafe;
-  --green:       #16a34a;
-  --green-light: #bbf7d0;
-  --green-border:#86efac;
-  --bg:          #f0f4ff;
-  --card-bg:     #ffffff;
-  --text:        #1e293b;
-  --muted:       #94a3b8;
-  --radius:      16px;
-}
-
 body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
   min-height: 100vh;
-  padding: 16px;
+  display: flex;
+  justify-content: center;
+  color: #1e2a38;
 }
 
-/* ── Back button ── */
 .back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: var(--blue);
-  color: #fff;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 16px;
-  transition: background 0.2s;
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 30px;
+  padding: 10px 14px; font-size: 14px; font-weight: 700;
+  color: #1e2a38; text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
 }
-.back-btn:hover { background: var(--blue-dark); }
 
-/* ── Progress steps ── */
-.progress-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 0 0 20px 0;
-}
-.step {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #d1d5db;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: #1f2933;
-}
-.step.active { background: var(--blue); color: #fff; }
-.step:hover  { transform: scale(1.1); }
+.wrap { width: 100%; max-width: 520px; padding: 20px 16px 40px; }
 
-/* ── Main card ── */
+.lesson-tag {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #486581; text-align: center; margin-bottom: 6px;
+}
+h1 {
+  color: #1e40af; font-weight: 800; font-size: clamp(1.3rem, 5vw, 1.7rem);
+  text-align: center; line-height: 1.25; margin-bottom: 6px;
+}
+.subtitle { font-size: 14px; color: #486581; text-align: center; margin-bottom: 20px; }
+
+.dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; cursor: pointer;
+  border: 2px solid rgba(37,99,235,0.2);
+  background: rgba(255,255,255,0.5); color: #486581;
+  text-decoration: none; transition: transform 0.15s;
+}
+.dot:hover { transform: scale(1.1); }
+.dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); }
+.dot.done   { background: #22c55e; color: white; border-color: #22c55e; }
+
 .exercise-box {
-  max-width: 950px;
-  margin: 0 auto;
-  background: var(--card-bg);
-  padding: 28px 28px 32px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(37,99,235,0.10);
+  background: white; border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08); padding: 24px 20px;
 }
 
-.unit-title {
-  color: var(--blue);
-  font-size: clamp(18px, 4vw, 26px);
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 14px;
-  line-height: 1.3;
+.meta-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
+.instruction { font-size: 13px; font-weight: 700; color: #486581; flex: 1; }
+.counter {
+  font-size: 13px; font-weight: 800; color: #2563eb;
+  background: #eff6ff; border-radius: 20px; padding: 4px 14px; white-space: nowrap;
 }
 
-.instruction-box {
-  background: var(--blue-light);
-  padding: 12px 18px;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: 700;
-  font-size: clamp(13px, 3vw, 15px);
-  margin-bottom: 24px;
-  color: var(--blue-dark);
-}
-
-/* ── Word cards grid ── */
-.words-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
+/* Card */
 .word-card {
-  background: #f8faff;
-  border: 2px solid #e0e7ff;
-  border-radius: var(--radius);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  background: white; border: 2px solid rgba(37,99,235,0.12); border-radius: 16px;
+  overflow: hidden; cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent; animation: card-in 0.3s ease;
 }
-.word-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(37,99,235,0.15);
-  border-color: var(--blue);
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.word-card:active { transform: scale(0.97); }
-.word-card.played {
-  background: var(--green-light);
-  border-color: var(--green-border);
-}
+.word-card.heard { border-color: #22c55e; background: #f0fdf4; }
 
-/* Image area */
 .card-img-wrap {
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  position: relative;
-  background: #e0e7ff;
+  width: 100%; aspect-ratio: 16/9; overflow: hidden;
+  position: relative; background: #dbeafe;
 }
-.card-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s;
-}
-.word-card:hover .card-img-wrap img { transform: scale(1.05); }
+.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Speaker icon overlay */
-.speaker-overlay {
-  position: absolute;
-  bottom: 7px;
-  right: 7px;
-  background: rgba(37,99,235,0.85);
-  color: #fff;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  transition: background 0.2s;
-  pointer-events: none;
+.play-btn {
+  position: absolute; bottom: 12px; right: 12px;
+  width: 44px; height: 44px; border-radius: 50%; background: #2563eb;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.4); pointer-events: none; transition: background 0.2s;
 }
-.word-card.played .speaker-overlay { background: rgba(22,163,74,0.90); }
+.word-card.heard .play-btn { background: #22c55e; }
+.play-btn svg { width: 18px; height: 18px; }
 
-/* Text area */
-.card-text {
-  padding: 10px 8px 12px;
-  text-align: center;
-  width: 100%;
-}
-.word-en {
-  font-size: clamp(14px, 3vw, 17px);
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1.2;
-}
-.word-es {
-  font-size: clamp(11px, 2.5vw, 13px);
-  color: var(--muted);
-  font-weight: 600;
-  margin-top: 3px;
-}
-.word-card.played .word-en { color: var(--green); }
+.card-body { padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+.word-en { font-size: 20px; font-weight: 800; color: #1e2a38; }
+.word-card.heard .word-en { color: #16a34a; }
+.word-es { font-size: 13px; font-weight: 400; color: #486581; margin-top: 2px; }
+.tap-hint { font-size: 12px; font-weight: 700; color: #2563eb; background: #eff6ff; border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+.word-card.heard .tap-hint { visibility: hidden; }
 
-/* ── Next button ── */
-.next-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--blue);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 15px;
-  transition: background 0.2s;
+/* Track */
+.progress-track { display: flex; justify-content: center; gap: 7px; margin: 16px 0; }
+.track-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(37,99,235,0.12); cursor: pointer; transition: background 0.25s;
 }
-.next-btn:hover { background: var(--blue-dark); }
+.track-dot.current { background: #2563eb; }
+.track-dot.heard   { background: #22c55e; }
 
-/* ── Responsive ── */
-@media (max-width: 480px) {
-  .exercise-box     { padding: 20px 14px 24px; }
-  .words-container  { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+/* Nav */
+.nav-row { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+.btn-prev {
+  background: none; border: 2px solid rgba(37,99,235,0.2); border-radius: 12px;
+  padding: 13px 16px; font-size: 18px; font-weight: 700; color: #486581;
+  cursor: pointer; font-family: 'Poppins', sans-serif; transition: all 0.2s; flex-shrink: 0;
+}
+.btn-prev:hover:not(:disabled) { border-color: #2563eb; color: #2563eb; }
+.btn-prev:disabled { opacity: 0.25; cursor: not-allowed; }
+
+.btn-next {
+  flex: 1; border: none; border-radius: 14px; padding: 16px;
+  font-size: 16px; font-weight: 800; font-family: 'Poppins', sans-serif;
+  cursor: not-allowed; transition: all 0.25s; background: #d1d5db; color: white;
+}
+.btn-next.unlocked {
+  background: #2563eb; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35); animation: pulse-in 0.4s ease;
+}
+.btn-next.unlocked:hover { background: #1e40af; }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.success-msg {
+  display: none; margin-top: 16px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 14px; color: #16a34a;
+  font-weight: 700; font-size: 15px; text-align: center;
 }
 </style>
 </head>
-
 <body>
 
-<a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+<a href="../index.html" class="back-btn">← Lección 1</a>
 
-<div class="progress-container">
-  <div class="step active" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step" data-page="p4.html">4</div>
-</div>
+<div class="wrap">
+  <div class="lesson-tag">Unidad 2 · Lección 1 · Parte 1</div>
+  <h1>Rooms in the House</h1>
+  <p class="subtitle">Habitaciones de la casa</p>
 
-<div class="exercise-box">
-
-  <h1 class="unit-title">Lección 1 · Parte 1<br>Rooms in the House – Habitaciones de la casa</h1>
-
-  <div class="instruction-box">
-    👆 Toca cada imagen para escuchar la pronunciación en inglés
+  <div class="dots">
+    <a class="dot active" href="p1.html">1</a>
+    <a class="dot" href="p2.html">2</a>
+    <a class="dot" href="p3.html">3</a>
+    <a class="dot" href="p4.html">4</a>
   </div>
 
-  <div class="words-container" id="wordsContainer"></div>
+  <div class="exercise-box">
+    <div class="meta-row">
+      <div class="instruction">👆 Toca la imagen para escuchar</div>
+      <div class="counter" id="counter">1 / 8</div>
+    </div>
 
-  <a href="p2.html" class="next-btn">Siguiente →</a>
+    <div id="cardSlot"></div>
+    <div class="progress-track" id="track"></div>
 
+    <div class="nav-row">
+      <button class="btn-prev" id="btnPrev" onclick="go(-1)" disabled>←</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()">Siguiente →</button>
+    </div>
+
+    <div class="success-msg" id="successMsg">✅ ¡Muy bien! Escuchaste todas las palabras.</div>
+  </div>
 </div>
 
-<script src="../../../../js/u2/u2_l1_p1.js"></script>
+<script>
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IBASE = BASE + 'images/u2/';
+const ABASE = BASE + 'audio/u2/';
+
+const WORDS = [
+  { en: "Garage",      es: "garaje",        file: "u2.l1.p1.garage1.mp3",     img: "u2.l1.p1.garage.jpg" },
+  { en: "Bedroom",     es: "habitación",    file: "u2.l1.p1.bedroom1.mp3",    img: "u2.l1.p2.bedroom1.jpg" },
+  { en: "Kitchen",     es: "cocina",        file: "u2.l1.p1.kitchen1.mp3",    img: "u2.l1.p2.kitchen1.jpg" },
+  { en: "Bathroom",    es: "baño",          file: "u2.l1.p1.bathroom1.mp3",   img: "u2.l1.p2.bathroom1.jpg" },
+  { en: "Living room", es: "sala de estar", file: "u2.l1.p1.livingroom1.mp3", img: "u2.l1.p2.livingroom1.jpg" },
+  { en: "Basement",    es: "sótano",        file: "u2.l1.p1.basement1.mp3",   img: "u2.l1.p2.basement1.jpg" },
+  { en: "Yard",        es: "jardín",        file: "u2.l1.p1.yard1.mp3",       img: "u2.l1.p2.yard1.jpg" },
+  { en: "Attic",       es: "ático",         file: "u2.l1.p1.attic1.mp3",      img: "u2.l1.p2.attic1.jpg" }
+];
+
+const TOTAL = WORDS.length;
+const heard = new Array(TOTAL).fill(false);
+let current = 0;
+let activeAudio = null;
+
+const PLAY_ICON  = `<svg viewBox="0 0 14 14" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M3 2l9 5-9 5V2z"/></svg>`;
+const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5"/></svg>`;
+
+// Preload audio
+const audioEls = WORDS.map((w, i) => {
+  const a = new Audio(ABASE + w.file);
+  a.preload = 'auto';
+  a.onended = () => {
+    heard[i] = true;
+    render();
+    if (heard.every(Boolean)) { saveProgress(); }
+  };
+  return a;
+});
+
+function stopAudio() {
+  if (activeAudio) { activeAudio.pause(); activeAudio.currentTime = 0; activeAudio = null; }
+}
+
+function playWord(i) {
+  stopAudio();
+  activeAudio = audioEls[i];
+  activeAudio.currentTime = 0;
+  activeAudio.play().catch(() => {});
+}
+
+function render() {
+  const w = WORDS[current];
+  const isHeard = heard[current];
+  const allHeard = heard.every(Boolean);
+
+  // Card
+  document.getElementById('cardSlot').innerHTML = `
+    <div class="word-card${isHeard ? ' heard' : ''}" onclick="playWord(${current})">
+      <div class="card-img-wrap">
+        <img src="${IBASE}${w.img}" alt="${w.en}">
+        <div class="play-btn">${isHeard ? CHECK_ICON : PLAY_ICON}</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="word-en">${w.en}</div>
+          <div class="word-es">${w.es}</div>
+        </div>
+        <div class="tap-hint">Toca para escuchar</div>
+      </div>
+    </div>`;
+
+  // Counter
+  document.getElementById('counter').textContent = `${current + 1} / ${TOTAL}`;
+
+  // Track
+  document.getElementById('track').innerHTML = WORDS.map((_, i) => {
+    let cls = 'track-dot';
+    if (heard[i]) cls += ' heard';
+    else if (i === current) cls += ' current';
+    return `<div class="${cls}" onclick="jumpTo(${i})"></div>`;
+  }).join('');
+
+  // Prev button
+  document.getElementById('btnPrev').disabled = (current === 0);
+
+  // Next button
+  const btn = document.getElementById('btnNext');
+  if (allHeard) {
+    btn.textContent = 'Continuar →';
+    btn.classList.add('unlocked');
+    document.getElementById('successMsg').style.display = 'block';
+  } else if (isHeard && current < TOTAL - 1) {
+    btn.textContent = 'Siguiente →';
+    btn.classList.add('unlocked');
+  } else {
+    btn.textContent = current === TOTAL - 1 ? 'Continuar →' : 'Siguiente →';
+    btn.classList.remove('unlocked');
+  }
+}
+
+function jumpTo(i) {
+  stopAudio(); current = i; render();
+}
+
+function go(dir) {
+  const n = current + dir;
+  if (n < 0 || n >= TOTAL) return;
+  stopAudio(); current = n; render();
+}
+
+function goNext() {
+  const allHeard = heard.every(Boolean);
+  if (allHeard) { stopAudio(); window.location.href = 'p2.html'; return; }
+  if (heard[current] && current < TOTAL - 1) { go(1); }
+}
+
+// Progress
+const UNIT = 2, LESSON = 1, PART = 1, PARTS_TOTAL = 4;
+
+function saveProgress() {
+  const key = `inglesco_progress_u${UNIT}`;
+  const lp = JSON.parse(localStorage.getItem(key) || '{}');
+  const lk = `l${LESSON}`;
+  if (!lp[lk]) lp[lk] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+  if (lp[lk].partsCompleted < PART) lp[lk].partsCompleted = PART;
+  localStorage.setItem(key, JSON.stringify(lp));
+
+  const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+  const prev = parseInt(localStorage.getItem(fkey) || '0', 10);
+  if (PART > prev) localStorage.setItem(fkey, String(PART));
+
+  // Update lesson dot styles
+  const furthest = parseInt(localStorage.getItem(fkey) || '0', 10);
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    const n = i + 1;
+    d.classList.remove('active', 'done');
+    if (n === PART) d.classList.add('active');
+    else if (n <= furthest) d.classList.add('done');
+  });
+}
+
+window.addEventListener('beforeunload', stopAudio);
+
+// Init
+render();
+// Restore dot styles from localStorage
+(function() {
+  const furthest = parseInt(localStorage.getItem(`inglesco_furthest_u${UNIT}_l${LESSON}`) || '0', 10);
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    const n = i + 1;
+    d.classList.remove('active', 'done');
+    if (n === PART) d.classList.add('active');
+    else if (n <= furthest) d.classList.add('done');
+  });
+})();
+</script>
 </body>
 </html>
