@@ -3,14 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unidad 6: Is it hot in Miami? | Inglesco</title>
+  <title>Unidad 7: Is there a supermarket? | Inglesco</title>
   <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 
   <style>
     * {
@@ -34,6 +29,7 @@
       max-width: 520px;
     }
 
+    /* BACK BUTTON */
     .back-btn {
       position: fixed;
       top: 14px;
@@ -60,6 +56,7 @@
       background: rgba(255,255,255,1);
     }
 
+    /* HEADER */
     .unit-header {
       text-align: center;
       padding-top: 62px;
@@ -88,12 +85,14 @@
       color: #486581;
     }
 
+    /* LESSON LIST */
     .lesson-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
+    /* LESSON CARD */
     .lesson-card {
       background: white;
       border-radius: 16px;
@@ -118,11 +117,12 @@
       transform: scale(0.98);
     }
 
+    /* Number bubble */
     .lesson-num {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #0891b2;
+      background: #16a34a;
       color: white;
       font-size: 15px;
       font-weight: 800;
@@ -148,6 +148,27 @@
       color: #486581;
     }
 
+    /* Coming soon overlay */
+    .lesson-card.coming-soon {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .coming-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: #fef9c3;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      border-radius: 20px;
+      padding: 3px 9px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Completed state */
     .lesson-card.lesson-done .lesson-num {
       background: #22c55e;
     }
@@ -172,59 +193,64 @@
   <div class="page">
 
     <div class="unit-header">
-      <div class="unit-eyebrow">Unidad 6</div>
-      <div class="unit-title">Is it hot in Miami?</div>
-      <div class="unit-subtitle">Hablar del clima</div>
+      <div class="unit-eyebrow">Unidad 7</div>
+      <div class="unit-title">Is there a supermarket?</div>
+      <div class="unit-subtitle">¿Hay un supermercado?</div>
     </div>
 
     <div class="lesson-list">
 
-      <a href="l1/p1.html" class="lesson-card" data-lesson="u6-l1">
+      <a href="l1/p1.html" class="lesson-card">
         <div class="lesson-num">1</div>
         <div class="lesson-text">
-          <div class="lesson-name">How is the weather today?</div>
-          <div class="lesson-desc">¿Cómo está el clima hoy? (Hace calor / hace frío)</div>
+          <div class="lesson-name">I am renting an apartment.</div>
+          <div class="lesson-desc">Estoy alquilando un apartamento.</div>
         </div>
-      </a>
+            </a>
 
-      <a href="l2/p1.html" class="lesson-card" data-lesson="u6-l2">
+      <a href="l2/p1.html" class="lesson-card coming-soon">
         <div class="lesson-num">2</div>
         <div class="lesson-text">
-          <div class="lesson-name">On vacation</div>
-          <div class="lesson-desc">Estoy de vacaciones</div>
+          <div class="lesson-name">Coming soon</div>
+          <div class="lesson-desc">Próximamente</div>
         </div>
+        <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l3/p1.html" class="lesson-card" data-lesson="u6-l3">
+      <a href="l3/p1.html" class="lesson-card coming-soon">
         <div class="lesson-num">3</div>
         <div class="lesson-text">
-          <div class="lesson-name">What is your room number?</div>
-          <div class="lesson-desc">Número de habitación</div>
+          <div class="lesson-name">Coming soon</div>
+          <div class="lesson-desc">Próximamente</div>
         </div>
+        <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l4/p1.html" class="lesson-card" data-lesson="u6-l4">
+      <a href="l4/p1.html" class="lesson-card coming-soon">
         <div class="lesson-num">4</div>
         <div class="lesson-text">
-          <div class="lesson-name">Is it Cool or Warm?</div>
-          <div class="lesson-desc">¿Hace calor o frío?</div>
+          <div class="lesson-name">Coming soon</div>
+          <div class="lesson-desc">Próximamente</div>
         </div>
+        <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l5/p1.html" class="lesson-card" data-lesson="u6-l5">
+      <a href="l5/p1.html" class="lesson-card coming-soon">
         <div class="lesson-num">5</div>
         <div class="lesson-text">
-          <div class="lesson-name">Boys and girls — plural forms</div>
-          <div class="lesson-desc">Niños y niñas — formas plurales</div>
+          <div class="lesson-name">Coming soon</div>
+          <div class="lesson-desc">Próximamente</div>
         </div>
+        <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l6/p1.html" class="lesson-card" data-lesson="u6-l6">
+      <a href="l6/p1.html" class="lesson-card coming-soon">
         <div class="lesson-num">6</div>
         <div class="lesson-text">
-          <div class="lesson-name">We are busy</div>
-          <div class="lesson-desc">Estamos ocupados</div>
+          <div class="lesson-name">Coming soon</div>
+          <div class="lesson-desc">Próximamente</div>
         </div>
+        <span class="coming-tag">Pronto</span>
       </a>
 
     </div>
@@ -232,15 +258,22 @@
   </div>
 
   <script>
+    // Progress dots — mirrors the same localStorage pattern used across Inglesco
     function renderProgress() {
       try {
         const progress = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
-        document.querySelectorAll('.lesson-card[data-lesson]').forEach(card => {
-          const key = card.dataset.lesson;
-          if (progress[key] && progress[key].done) {
+        for (let l = 1; l <= 6; l++) {
+          const key = 'u7-l' + l;
+          const card = document.querySelector('[href="l' + l + '/p1.html"]');
+          if (card && progress[key] && progress[key].done) {
+            card.classList.remove('coming-soon');
             card.classList.add('lesson-done');
+            card.style.pointerEvents = 'auto';
+            card.style.opacity = '1';
+            const tag = card.querySelector('.coming-tag');
+            if (tag) tag.remove();
           }
-        });
+        }
       } catch(e) {}
     }
     renderProgress();
