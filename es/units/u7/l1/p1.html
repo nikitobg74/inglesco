@@ -6,7 +6,7 @@
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 
 <title>Lección 1, Parte 1: Renting an Apartment | Inglesco</title>
-<meta name="description" content="Practica vocabulario de apartamentos en inglés. Unidad 7, Lección 1, Parte 1.">
+<meta name="description" content="Aprende vocabulario de apartamentos en inglés. Unidad 7, Lección 1, Parte 1.">
 
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link rel="manifest" href="../../../../manifest.json">
@@ -173,102 +173,38 @@ h1 {
 .main-btn.repeat:hover { background: #dbeafe; }
 .main-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
 
-/* EXERCISE AREA */
-.exercise-area {
-  display: none;
-  flex-direction: column; gap: 14px;
-  margin-bottom: 18px;
-  animation: fadeUp 0.35s ease;
-}
-.exercise-area.visible { display: flex; }
-
-/* SCENE LABEL */
-.scene-label {
-  font-size: 13px; font-weight: 700; color: #486581;
-  text-align: center;
-}
-
-/* FILL-IN-BLANK */
-.fill-question {
-  font-size: 16px; font-weight: 700; color: #1e2a38;
-  text-align: center; line-height: 1.6;
-}
-.fill-options {
-  display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
-}
-.fill-tile {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid #2563eb;
-  background: white;
-  color: #2563eb;
-  font-size: 15px; font-weight: 700;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  transition: all 0.15s;
-}
-.fill-tile:hover { background: #eff6ff; }
-.fill-tile.correct-fill { background: #dcfce7; border-color: #22c55e; color: #15803d; pointer-events: none; }
-.fill-tile.wrong-fill   { background: #fee2e2; border-color: #dc2626; color: #dc2626; animation: shake 0.35s ease; }
-
-/* TILE ORDERING */
-.tile-label {
-  font-size: 12px; font-weight: 700; color: #486581;
-  letter-spacing: 0.5px; text-align: center;
-}
-.answer-slots {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  justify-content: center;
-  min-height: 46px;
-  border: 2px dashed rgba(37,99,235,0.25);
-  border-radius: 12px;
-  padding: 8px;
+/* PHRASE AREA — text lines shown during/after audio */
+.phrase-area {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
   background: #f8fafc;
+  border-radius: 12px;
+  border-left: 4px solid #2563eb;
 }
-.tile-bank {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  justify-content: center;
-}
-.tile {
-  padding: 9px 14px;
-  background: #2563eb; color: white;
-  border-radius: 10px;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer;
-  border: none;
-  font-family: 'Poppins', sans-serif;
-  transition: background 0.15s, transform 0.1s;
-  user-select: none;
-}
-.tile:hover { background: #1d4ed8; transform: translateY(-2px); }
-.tile:active { transform: scale(0.95); }
-.tile.in-answer { background: #7c3aed; }
-.tile.used { opacity: 0; pointer-events: none; }
-.tile.correct-tile { background: #22c55e; cursor: default; transform: none !important; pointer-events: none; }
-.tile.wrong-tile   { background: #dc2626; animation: shake 0.35s ease; }
+.phrase-area:empty { display: none; padding: 0; margin: 0; }
 
-/* FEEDBACK */
-.feedback {
-  text-align: center;
-  font-size: 15px; font-weight: 700;
-  min-height: 22px;
-  animation: fadeUp 0.2s ease;
+.phrase-line {
+  font-size: 15px;
+  font-weight: 400;
+  color: #334155;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
-.feedback.ok    { color: #22c55e; }
-.feedback.error { color: #dc2626; }
-
-/* CHECK / NEXT BUTTONS */
-.check-btn {
-  width: 100%; padding: 13px;
-  background: #2563eb; color: white;
-  border: none; border-radius: 12px;
-  font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+.phrase-line.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
-.check-btn:hover { background: #1d4ed8; }
-.check-btn:active { transform: scale(0.97); }
+.phrase-line strong {
+  font-weight: 800;
+  color: #2563eb;
+}
 
+/* NEXT BUTTON */
 .next-btn {
   display: block; width: 100%; padding: 13px;
   background: #2563eb; color: white;
@@ -290,23 +226,10 @@ h1 {
   box-shadow: 0 4px 20px rgba(0,0,0,0.07);
   margin-bottom: 16px;
 }
-.score-bar {
-  background: #e2e8f0; border-radius: 999px;
-  height: 12px; margin: 12px 0 20px; overflow: hidden;
-}
-.score-bar-fill {
-  height: 100%; border-radius: 999px;
-  background: #22c55e; transition: width 1s ease;
-}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25%       { transform: translateX(-6px); }
-  75%       { transform: translateX(6px); }
 }
 </style>
 </head>
@@ -316,9 +239,9 @@ h1 {
 
 <div class="wrap">
 
-  <span class="lesson-tag">Unidad 7 · Lección 1</span>
-  <h1>Renting an Apartment</h1>
-  <p class="subtitle">Alquilando un apartamento</p>
+  <span class="lesson-tag">Unidad 7 · Lección 1 · Parte 1</span>
+  <h1>There is one apartment for rent.</h1>
+  <p class="subtitle">Hay un apartamento en alquiler.</p>
 
   <div class="progress-dots">
     <div class="dot active" id="dot-1" data-page="p1.html">1</div>
@@ -326,11 +249,11 @@ h1 {
     <div class="dot"        id="dot-3" data-page="p3.html">3</div>
     <div class="dot"        id="dot-4" data-page="p4.html">4</div>
     <div class="dot"        id="dot-5" data-page="p5.html">5</div>
-      </div>
+  </div>
 
   <div class="card" id="mainCard">
     <div class="counter-row">
-      <span id="counter">1 / 6</span>
+      <span id="counter">1 / 4</span>
       <span id="pctLabel">0%</span>
     </div>
     <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
@@ -344,19 +267,17 @@ h1 {
       Escuchar
     </button>
 
-    <div class="exercise-area" id="exerciseArea">
-      <!-- populated by JS -->
-    </div>
+    <div class="phrase-area" id="phraseArea"></div>
 
     <button class="next-btn" id="nextBtn"></button>
   </div>
 
   <div id="endScreen">
-    <div id="endEmoji" style="font-size:52px;margin-bottom:16px"></div>
-    <h2 id="endTitle" style="font-size:24px;font-weight:800;color:#1e40af;margin-bottom:16px"></h2>
-    <p id="endScore" style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
-    <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
-    <p id="endMsg" style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+    <div style="font-size:52px;margin-bottom:16px">🏠</div>
+    <h2 style="font-size:24px;font-weight:800;color:#1e40af;margin-bottom:12px">¡Lección completada!</h2>
+    <p style="font-size:14px;color:#486581;margin-bottom:28px;line-height:1.6">
+      Aprendiste vocabulario sobre el apartamento.<br>¡Sigue así!
+    </p>
     <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
       Continuar → Parte 2
     </a>
@@ -364,15 +285,10 @@ h1 {
 
 </div><!-- /wrap -->
 
-<!-- SFX -->
-<audio id="sfx-correct" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
-<audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
-
 <script>
 const UNIT   = 7;
 const LESSON = 1;
 const PART   = 1;
-const STORAGE_KEY  = `u${UNIT}_l${LESSON}_p${PART}_done`;
 const FURTHEST_KEY = `inglesco_furthest_u${UNIT}_l${LESSON}`;
 const PROGRESS_KEY = `inglesco_progress_u${UNIT}`;
 
@@ -382,8 +298,8 @@ if ('serviceWorker' in navigator) {
 }
 
 // PROGRESS DOTS NAV
-document.querySelectorAll(".dot").forEach(dot => {
-  dot.addEventListener("click", () => {
+document.querySelectorAll('.dot').forEach(dot => {
+  dot.addEventListener('click', () => {
     const page = dot.dataset.page;
     if (!page) return;
     stopSndGlobal();
@@ -402,7 +318,7 @@ function saveProgress() {
   try {
     const lp = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
     const lKey = `l${LESSON}`;
-    if (!lp[lKey]) lp[lKey] = { partsTotal: 6, partsCompleted: 0 };
+    if (!lp[lKey]) lp[lKey] = { partsTotal: 5, partsCompleted: 0 };
     if (lp[lKey].partsCompleted < PART) lp[lKey].partsCompleted = PART;
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(lp));
   } catch (_) {}
@@ -414,450 +330,221 @@ updateFurthest(PART);
   const AUDIO = BASE + 'audio/u7/';
   const IMG   = BASE + 'images/u7/';
 
-  const sfxCorrect   = document.getElementById('sfx-correct');
-  const sfxIncorrect = document.getElementById('sfx-incorrect');
+  // ── Slide data ──────────────────────────────────────────────────────────────
+  // type 'single'   — phrases visible immediately; tap Escuchar to hear audio;
+  //                   Siguiente appears after audio ends.
+  // type 'sequence' — same image stays; tap Escuchar once to auto-play all
+  //                   sub-phrases in order with 1s pause between each;
+  //                   Siguiente appears after last phrase completes.
 
-  function playSfx(ok) {
-    const el = ok ? sfxCorrect : sfxIncorrect;
-    try { el.currentTime = 0; el.play(); } catch (_) {}
-  }
-
-  // ── Scene data ────────────────────────────────────────────────────────────
-  const SCENES = [
+  const SLIDES = [
     {
-      type:  'fill',
-      img:   'u7.apartment.building.jpg',
-      audio: 'u7.renting.apartment.mp3',
-      phrase: 'This is a new apartment building.\nIt is big.\nI am renting an apartment.',
-      question: 'The apartment building is ______',
-      correct: 'new',
-      wrong:   'old'
+      type:    'single',
+      img:     'u7.apartment.building.jpg',
+      audio:   'u7.rent.apartment.1.mp3',
+      phrases: [
+        'This is a new building in Los Angeles neighborhood.',
+        'There is one apartment for rent.'
+      ]
     },
     {
-      type:        'order',
-      img:         'u7.rental.office.jpg',
-      audio:       'u7.nice.apartment.mp3',
-      context:     'At the rental office',
-      question:    ['Is there', 'an apartment', 'for rent?'],
-      answer:      ['There is', 'a very nice', 'apartment', 'for rent'],
-      qDistract:   ['There is', 'a very nice'],
-      aDistract:   ['Is there', 'an apartment']
+      type: 'sequence',
+      img:  'u7.kitchen.model.jpg',
+      steps: [
+        { audio: 'u7.rent.apartment.2.mp3', phrases: ['This is the kitchen.', 'There is a modern stove.'] },
+        { audio: 'u7.rent.apartment.3.mp3', phrases: ['There is a nice fridge.'] },
+        { audio: 'u7.rent.apartment.4.mp3', phrases: ['There is a big window.'] },
+        { audio: 'u7.rent.apartment.5.mp3', phrases: ['There is a nice table.'] }
+      ]
     },
     {
-      type:      'order',
-      img:       'u7.kitchen.stove.jpg',
-      audio:     'u7.stove.mp3',
-      question:  ['Is there', 'a stove', 'in the kitchen?'],
-      answer:    ['There is', 'a stove', 'in the kitchen'],
-      qDistract: ['There is', 'in the apartment'],
-      aDistract: ['Is there', 'in the apartment']
+      type:    'single',
+      img:     'u7.shower.jpg',
+      audio:   'u7.bathroom.shower.mp3',
+      phrases: [
+        'This is the bathroom.',
+        'There is a big shower.'
+      ]
     },
     {
-      type:      'order',
-      img:       'u7.fridge.jpg',
-      audio:     'u7.big.fridge.mp3',
-      question:  ['Is there', 'a fridge', 'in the kitchen?'],
-      answer:    ['There is', 'a fridge', 'in the kitchen'],
-      qDistract: ['There is', 'a stove'],
-      aDistract: ['Is there', 'a stove']
-    },
-    {
-      type:      'order',
-      img:       'u7.window.kitchen.jpg',
-      audio:     'u7.window.kitchen.mp3',
-      question:  ['Is there', 'a window', 'in the kitchen?'],
-      answer:    ['There is', 'a window', 'in the kitchen'],
-      qDistract: ['There is', 'a table'],
-      aDistract: ['Is there', 'a table']
-    },
-    {
-      type:      'order',
-      img:       'u7.table.jpg',
-      audio:     'u7.table.kitchen.mp3',
-      question:  ['Is there', 'a table', 'in the kitchen?'],
-      answer:    ['There is', 'a table', 'in the kitchen'],
-      qDistract: ['There is', 'a window'],
-      aDistract: ['Is there', 'a window']
+      type:    'single',
+      img:     'u7.bed.bedroom.jpg',
+      audio:   'u7.bedroom.bed.mp3',
+      phrases: [
+        'This is the bedroom.',
+        'There is a comfortable bed.'
+      ]
     }
   ];
 
-  const TOTAL = SCENES.length;
-  let current     = 0;
-  let playing     = false;
-  let snd         = null;
-  let totalErrors = 0;
-  let stepDone    = {};
+  const TOTAL = SLIDES.length; // 4 logical slides for the counter
 
-  // DOM
-  const slideImg    = document.getElementById('slideImg');
-  const mainBtn     = document.getElementById('mainBtn');
-  const nextBtn     = document.getElementById('nextBtn');
-  const counterEl   = document.getElementById('counter');
-  const pctLabelEl  = document.getElementById('pctLabel');
-  const barEl       = document.getElementById('bar');
-  const exerciseArea= document.getElementById('exerciseArea');
+  const slideImg   = document.getElementById('slideImg');
+  const mainBtn    = document.getElementById('mainBtn');
+  const nextBtn    = document.getElementById('nextBtn');
+  const counterEl  = document.getElementById('counter');
+  const pctLabelEl = document.getElementById('pctLabel');
+  const barEl      = document.getElementById('bar');
+  const phraseArea = document.getElementById('phraseArea');
 
   const ICON_PLAY = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
 
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+  let current = 0;
+  let playing = false;
+  let snd     = null;
 
-  // ── Scene loader ──────────────────────────────────────────────────────────
-  function loadScene(idx) {
-    stopSnd();
+  // ── Helpers ─────────────────────────────────────────────────────────────────
+  function stopSnd() {
+    if (snd) { snd.pause(); snd = null; }
+    window._snd = null;
     playing = false;
-
-    const s = SCENES[idx];
-    const pct = Math.round((idx / TOTAL) * 100);
-    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
-    pctLabelEl.textContent = pct + '%';
-    barEl.style.width = pct + '%';
-
-    slideImg.src = IMG + s.img;
-    slideImg.alt = '';
-
-    exerciseArea.classList.remove('visible');
-    exerciseArea.innerHTML = '';
-    nextBtn.classList.remove('show');
-
-    if (idx < TOTAL - 1) {
-      nextBtn.textContent = 'Siguiente →';
-      nextBtn.onclick = () => { stopSnd(); current++; loadScene(current); updateDots(); };
-    } else {
-      nextBtn.textContent = 'Finalizar →';
-      nextBtn.onclick = () => { stopSnd(); showEnd(); };
-    }
-
-    setBtn('ready');
   }
 
-  // ── Build exercise after audio ────────────────────────────────────────────
-  function buildExercise() {
-    const s = SCENES[current];
-    exerciseArea.innerHTML = '';
-
-    if (s.type === 'fill') {
-      buildFill(s);
-    } else {
-      buildOrderQuestion(s);
-    }
-
-    exerciseArea.classList.add('visible');
-  }
-
-  // ── FILL exercise ─────────────────────────────────────────────────────────
-  function buildFill(s) {
-    if (s.phrase) {
-      const phraseEl = document.createElement('div');
-      phraseEl.style.cssText = 'font-size:14px;color:#486581;text-align:center;line-height:1.8;white-space:pre-line;';
-      phraseEl.textContent = s.phrase;
-      exerciseArea.appendChild(phraseEl);
-    }
-
-    const qEl = document.createElement('div');
-    qEl.className = 'fill-question';
-    qEl.textContent = s.question;
-    exerciseArea.appendChild(qEl);
-
-    const opts = document.createElement('div');
-    opts.className = 'fill-options';
-    const fb = document.createElement('div');
-    fb.className = 'feedback';
-
-    [s.correct, s.wrong].forEach(word => {
-      const btn = document.createElement('button');
-      btn.className = 'fill-tile';
-      btn.textContent = word;
-      btn.onclick = () => {
-        if (stepDone[current]) return;
-        const isCorrect = word === s.correct;
-        if (isCorrect) {
-          btn.classList.add('correct-fill');
-          fb.textContent = '✓ ¡Correcto!';
-          fb.className = 'feedback ok';
-          playSfx(true);
-          stepDone[current] = true;
-          markDot(current);
-          setTimeout(() => {
-            stopSnd(); current++; loadScene(current); updateDots();
-          }, 2000);
-        } else {
-          btn.classList.add('wrong-fill');
-          fb.textContent = '✗ Intenta de nuevo';
-          fb.className = 'feedback error';
-          playSfx(false);
-          totalErrors++;
-          setTimeout(() => {
-            btn.classList.remove('wrong-fill');
-            fb.textContent = '';
-            fb.className = 'feedback';
-          }, 900);
-        }
-      };
-      opts.appendChild(btn);
-    });
-
-    exerciseArea.appendChild(opts);
-    exerciseArea.appendChild(fb);
-  }
-
-  // ── ORDER exercise — phase 1: question ───────────────────────────────────
-  function buildOrderQuestion(s) {
-    if (s.context) {
-      const ctx = document.createElement('div');
-      ctx.className = 'scene-label';
-      ctx.textContent = s.context;
-      exerciseArea.appendChild(ctx);
-    }
-
-    const label = document.createElement('div');
-    label.className = 'tile-label';
-    label.textContent = 'Ordena la pregunta:';
-    exerciseArea.appendChild(label);
-
-    const answerSlots = document.createElement('div');
-    answerSlots.className = 'answer-slots';
-    const tileBank = document.createElement('div');
-    tileBank.className = 'tile-bank';
-    const fb = document.createElement('div');
-    fb.className = 'feedback';
-
-    exerciseArea.appendChild(answerSlots);
-    exerciseArea.appendChild(tileBank);
-    exerciseArea.appendChild(fb);
-
-    const checkBtn = document.createElement('button');
-    checkBtn.className = 'check-btn';
-    checkBtn.textContent = 'Verificar';
-    exerciseArea.appendChild(checkBtn);
-
-    let answerTiles = [];
-
-    const allTiles = shuffle([...s.question]);
-    allTiles.forEach(word => {
-      const tile = createTile(word, false, (tile) => {
-        if (tile.classList.contains('used')) return;
-        tile.classList.add('used');
-        const copy = createAnswerTile(word, tile, answerSlots, answerTiles, fb);
-        answerSlots.appendChild(copy);
-        answerTiles.push(copy);
-        fb.textContent = '';
-        fb.className = 'feedback';
-      });
-      tileBank.appendChild(tile);
-    });
-
-    checkBtn.onclick = () => {
-      const placed = answerTiles.map(t => t.dataset.word);
-      const correct = s.question;
-      const ok = placed.length === correct.length &&
-        placed.every((w, i) => w.toLowerCase() === correct[i].toLowerCase());
-
-      if (ok) {
-        answerTiles.forEach(t => { t.classList.remove('in-answer','wrong-tile'); t.classList.add('correct-tile'); });
-        fb.textContent = '✓ ¡Correcto!';
-        fb.className = 'feedback ok';
-        playSfx(true);
-        checkBtn.style.display = 'none';
-        setTimeout(() => buildOrderAnswer(s), 1000);
-      } else {
-        answerTiles.forEach(t => { t.classList.add('wrong-tile'); setTimeout(() => t.classList.remove('wrong-tile'), 400); });
-        fb.textContent = '✗ El orden no es correcto. Intenta de nuevo.';
-        fb.className = 'feedback error';
-        playSfx(false);
-        totalErrors++;
-        setTimeout(() => { fb.textContent = ''; }, 1500);
-      }
-    };
-  }
-
-  // ── ORDER exercise — phase 2: answer ─────────────────────────────────────
-  function buildOrderAnswer(s) {
-    exerciseArea.innerHTML = '';
-
-    if (s.context) {
-      const ctx = document.createElement('div');
-      ctx.className = 'scene-label';
-      ctx.textContent = s.context;
-      exerciseArea.appendChild(ctx);
-    }
-
-    const qStatic = document.createElement('div');
-    qStatic.style.cssText = 'text-align:center;font-size:14px;font-weight:700;color:#22c55e;margin-bottom:2px;';
-    qStatic.textContent = '✓ ' + s.question.join(' ');
-    exerciseArea.appendChild(qStatic);
-
-    const label = document.createElement('div');
-    label.className = 'tile-label';
-    label.style.marginTop = '10px';
-    label.textContent = 'Ahora ordena la respuesta:';
-    exerciseArea.appendChild(label);
-
-    const answerSlots = document.createElement('div');
-    answerSlots.className = 'answer-slots';
-    const tileBank = document.createElement('div');
-    tileBank.className = 'tile-bank';
-    const fb = document.createElement('div');
-    fb.className = 'feedback';
-
-    exerciseArea.appendChild(answerSlots);
-    exerciseArea.appendChild(tileBank);
-    exerciseArea.appendChild(fb);
-
-    const checkBtn = document.createElement('button');
-    checkBtn.className = 'check-btn';
-    checkBtn.textContent = 'Verificar';
-    exerciseArea.appendChild(checkBtn);
-
-    let answerTiles = [];
-
-    const allTiles = shuffle([...s.answer]);
-    allTiles.forEach(word => {
-      const tile = createTile(word, false, (tile) => {
-        if (tile.classList.contains('used')) return;
-        tile.classList.add('used');
-        const copy = createAnswerTile(word, tile, answerSlots, answerTiles, fb);
-        answerSlots.appendChild(copy);
-        answerTiles.push(copy);
-        fb.textContent = '';
-        fb.className = 'feedback';
-      });
-      tileBank.appendChild(tile);
-    });
-
-    checkBtn.onclick = () => {
-      const placed = answerTiles.map(t => t.dataset.word);
-      const correct = s.answer;
-      const ok = placed.length === correct.length &&
-        placed.every((w, i) => w.toLowerCase() === correct[i].toLowerCase());
-
-      if (ok) {
-        answerTiles.forEach(t => { t.classList.remove('in-answer','wrong-tile'); t.classList.add('correct-tile'); });
-        fb.textContent = '✓ ¡Correcto!';
-        fb.className = 'feedback ok';
-        playSfx(true);
-        stepDone[current] = true;
-        checkBtn.style.display = 'none';
-        markDot(current);
-        nextBtn.classList.add('show');
-      } else {
-        answerTiles.forEach(t => { t.classList.add('wrong-tile'); setTimeout(() => t.classList.remove('wrong-tile'), 400); });
-        fb.textContent = '✗ El orden no es correcto. Intenta de nuevo.';
-        fb.className = 'feedback error';
-        playSfx(false);
-        totalErrors++;
-        setTimeout(() => { fb.textContent = ''; }, 1500);
-      }
-    };
-  }
-
-  // ── Tile helpers ──────────────────────────────────────────────────────────
-  function createTile(word, inAnswer, onClick) {
-    const tile = document.createElement('button');
-    tile.className = 'tile' + (inAnswer ? ' in-answer' : '');
-    tile.textContent = word;
-    tile.dataset.word = word;
-    tile.addEventListener('click', () => onClick(tile));
-    return tile;
-  }
-
-  function createAnswerTile(word, original, slotsEl, tilesArr, fb) {
-    const copy = document.createElement('button');
-    copy.className = 'tile in-answer';
-    copy.textContent = word;
-    copy.dataset.word = word;
-    copy.addEventListener('click', () => {
-      slotsEl.removeChild(copy);
-      const idx = tilesArr.indexOf(copy);
-      if (idx > -1) tilesArr.splice(idx, 1);
-      original.classList.remove('used');
-      fb.textContent = '';
-      fb.className = 'feedback';
-    });
-    return copy;
-  }
-
-  // ── Audio helpers ─────────────────────────────────────────────────────────
   function setBtn(state) {
+    if (state === 'hidden') {
+      mainBtn.style.display = 'none';
+      return;
+    }
+    mainBtn.style.display = '';
     mainBtn.className = 'main-btn ' + state;
     if (state === 'ready')   { mainBtn.innerHTML = ICON_PLAY + ' Escuchar'; mainBtn.disabled = false; }
     if (state === 'playing') { mainBtn.innerHTML = ICON_PLAY + ' Escuchando…'; mainBtn.disabled = true; }
     if (state === 'repeat')  { mainBtn.innerHTML = ICON_PLAY + ' Repetir'; mainBtn.disabled = false; }
   }
 
-  function stopSnd() {
-    if (snd) { snd.pause(); snd = null; }
-    window._snd = null;
+  function updateBar(idx) {
+    const pct = Math.round((idx / TOTAL) * 100);
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
+    pctLabelEl.textContent = pct + '%';
+    barEl.style.width = pct + '%';
   }
 
-  window.handlePlay = function() {
-    if (playing) return;
-    playing = true;
-    setBtn('playing');
-    snd = new Audio(AUDIO + SCENES[current].audio);
-    window._snd = snd;
-    snd.play().catch(() => {});
-    const afterAudio = () => {
-      playing = false;
-      setBtn('repeat');
-      if (!exerciseArea.classList.contains('visible')) buildExercise();
-    };
-    snd.onended = afterAudio;
-    snd.onerror = afterAudio;
-  };
+  function addPhraseLine(text) {
+    const line = document.createElement('div');
+    line.className = 'phrase-line';
+    // Bold "There is" wherever it appears
+    line.innerHTML = text.replace(/\bThere is\b/g, '<strong>There is</strong>');
+    phraseArea.appendChild(line);
+    requestAnimationFrame(() => requestAnimationFrame(() => line.classList.add('visible')));
+  }
 
-  // ── Dots ──────────────────────────────────────────────────────────────────
-  function updateDots() {
-    for (let i = 0; i < TOTAL; i++) {
-      const dot = document.getElementById('dot-' + (i + 1));
-      if (!dot) continue;
-      dot.className = 'dot';
-      if (stepDone[i])         dot.classList.add('done');
-      else if (i === current)  dot.classList.add('active');
+  function clearPhrases() {
+    phraseArea.innerHTML = '';
+  }
+
+  // ── Load slide ───────────────────────────────────────────────────────────────
+  function loadSlide(idx) {
+    stopSnd();
+    current = idx;
+
+    const s = SLIDES[idx];
+
+    // Update image only when it changes
+    const newSrc = IMG + s.img;
+    if (slideImg.getAttribute('src') !== newSrc) {
+      slideImg.src = newSrc;
+      slideImg.alt = '';
+    }
+
+    clearPhrases();
+    nextBtn.classList.remove('show');
+    updateBar(idx);
+
+    // Wire up Siguiente / Finalizar
+    if (idx < TOTAL - 1) {
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.onclick = () => { stopSnd(); loadSlide(current + 1); };
+    } else {
+      nextBtn.textContent = 'Finalizar →';
+      nextBtn.onclick = () => { stopSnd(); showEnd(); };
+    }
+
+    if (s.type === 'single') {
+      // Show phrases immediately, wait for Escuchar tap
+      s.phrases.forEach(p => addPhraseLine(p));
+      setBtn('ready');
+    } else {
+      // Sequence: no phrases yet, wait for first Escuchar tap
+      setBtn('ready');
     }
   }
 
-  function markDot(idx) {
-    const dot = document.getElementById('dot-' + (idx + 1));
-    if (dot) { dot.className = 'dot done'; }
+  // ── Play handler ─────────────────────────────────────────────────────────────
+  window.handlePlay = function() {
+    if (playing) return;
+    const s = SLIDES[current];
+    if (s.type === 'single') {
+      playSingle(s);
+    } else {
+      playSequence(s, 0);
+    }
+  };
+
+  function playSingle(s) {
+    playing = true;
+    setBtn('playing');
+    snd = new Audio(AUDIO + s.audio);
+    window._snd = snd;
+    snd.play().catch(() => {});
+    const done = () => {
+      playing = false;
+      setBtn('repeat');
+      nextBtn.classList.add('show');
+    };
+    snd.onended = done;
+    snd.onerror = done;
   }
 
-  // ── End screen ────────────────────────────────────────────────────────────
+  function playSequence(s, stepIdx) {
+    // All steps done — reveal Siguiente
+    if (stepIdx >= s.steps.length) {
+      playing = false;
+      setBtn('hidden');
+      nextBtn.classList.add('show');
+      return;
+    }
+
+    playing = true;
+    if (stepIdx === 0) setBtn('playing');
+
+    const step = s.steps[stepIdx];
+
+    // Show this step's phrase(s)
+    step.phrases.forEach(p => addPhraseLine(p));
+
+    // Play audio
+    snd = new Audio(AUDIO + step.audio);
+    window._snd = snd;
+    snd.play().catch(() => {});
+
+    const onDone = () => {
+      snd = null;
+      window._snd = null;
+      // 1 second pause, then next step
+      setTimeout(() => playSequence(s, stepIdx + 1), 1000);
+    };
+    snd.onended = onDone;
+    snd.onerror = onDone;
+  }
+
+  // ── End screen ───────────────────────────────────────────────────────────────
   function showEnd() {
     if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
-    counterEl.textContent = `${TOTAL} / ${TOTAL}`;
-    pctLabelEl.textContent = '100%';
     barEl.style.width = '100%';
+    pctLabelEl.textContent = '100%';
     document.getElementById('mainCard').style.display = 'none';
-
-    const pct = totalErrors === 0 ? 100 : Math.max(0, Math.round(((TOTAL - totalErrors) / TOTAL) * 100));
-    let emoji, title, msg;
-    if (pct === 100)     { emoji = '🏆'; title = '¡Perfecto!';           msg = 'No cometiste ningún error. ¡Increíble!'; }
-    else if (pct >= 75)  { emoji = '🌟'; title = '¡Muy buen trabajo!';   msg = `Cometiste ${totalErrors} error${totalErrors !== 1 ? 'es' : ''}. ¡Sigue así!`; }
-    else if (pct >= 50)  { emoji = '👍'; title = '¡Buen intento!';       msg = `Cometiste ${totalErrors} errores. Sigue practicando.`; }
-    else                 { emoji = '💪'; title = '¡Sigue practicando!';  msg = 'Repasa el vocabulario e inténtalo de nuevo.'; }
-
-    document.getElementById('endEmoji').textContent = emoji;
-    document.getElementById('endTitle').textContent = title;
-    document.getElementById('endScore').textContent = `${TOTAL - totalErrors} de ${TOTAL} correctas (${pct}%)`;
-    document.getElementById('endMsg').textContent = msg;
     document.getElementById('endScreen').style.display = 'block';
+
+    const dot1 = document.getElementById('dot-1');
+    if (dot1) dot1.className = 'dot done';
 
     saveProgress();
     updateFurthest(PART + 1);
-
-    setTimeout(() => { document.getElementById('scoreBarFill').style.width = pct + '%'; }, 100);
   }
 
-  // ── Init ──────────────────────────────────────────────────────────────────
-  loadScene(0);
-  updateDots();
+  // ── Init ─────────────────────────────────────────────────────────────────────
+  loadSlide(0);
+
 })();
 </script>
 

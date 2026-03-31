@@ -3,143 +3,553 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unidad 2: ¿Dónde está? | Inglesco</title>
-<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
+  <title>Unidad 2: Ubicación y espacios en inglés | Inglesco</title>
+  <meta name="description" content="Aprende vocabulario de ubicación, espacios y el verbo to be en inglés. Siete lecciones paso a paso para hispanohablantes principiantes.">
+
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-      font-family: 'Poppins', sans-serif; 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
-    body { 
-      padding: 20px; 
-       background: linear-gradient(135deg, #dbeafe, #fef9c3);
-
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
     }
 
-    .back-btn { 
-      display: inline-block; 
-      margin-bottom: 20px; 
-      padding: 8px 15px; 
-      background: #2563eb; 
-      color: white; 
-      border-radius: 10px; 
-      text-decoration: none; 
-      font-weight: 700; 
+    /* BACK BUTTON — fixed, outside wrap, viewport-centered chrome */
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
     }
 
-    .back-btn:hover { 
-      background: #1e40af; 
+    .back-btn:active {
+      transform: scale(0.96);
+      background: rgba(255,255,255,1);
     }
 
-    h1 { 
-      text-align: center; 
-      margin-bottom: 25px; 
-      color: #2563eb; 
+    .page {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
     }
 
-    .lesson-list { 
-      max-width: 600px; 
-      margin: 0 auto; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 15px; 
+    /* HEADER */
+    .unit-header {
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    .lesson { 
-      background: #3b82f6; 
-      color: white; 
-      padding: 15px 20px; 
-      border-radius: 10px; 
-      cursor: pointer; 
-      transition: all 0.3s ease; 
+    .unit-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 8px;
     }
 
-    .lesson:hover { 
-      background: #1e40af; 
-      transform: scale(1.02); 
+    .unit-header h1 {
+      font-size: clamp(1.4rem, 5vw, 1.9rem);
+      font-weight: 800;
+      color: #1e40af;
+      margin-bottom: 6px;
+      line-height: 1.2;
     }
 
-    .lesson span { 
-      display: block; 
-      font-size: 14px; 
-      opacity: 0.85; 
-      margin-top: 5px; 
+    .unit-header p {
+      font-size: 0.95rem;
+      color: #486581;
     }
 
-    .lesson strong {
-      margin-right: 10px;
-      font-size: 20px;
-      color: #ffeb3b;
+    /* UNIT PROGRESS BAR */
+    .unit-progress {
+      background: rgba(255,255,255,0.6);
+      border-radius: 30px;
+      padding: 10px 16px;
+      margin-bottom: 18px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: #486581;
+    }
+
+    .unit-progress.visible {
+      display: flex;
+    }
+
+    .unit-progress .bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .unit-progress .bar-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 30px;
+      transition: width 0.5s ease;
+    }
+
+    .unit-progress .pct {
+      font-weight: 700;
+      color: #1e2a38;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* START NOTE */
+    .start-note {
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 14px;
+    }
+
+    /* LESSON LIST */
+    .lesson-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lesson-link {
+      text-decoration: none;
+      display: block;
+    }
+
+    .lesson {
+      background: #2563eb;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Per-lesson colors */
+    .lesson[data-lesson="1"] { background: #2563eb; }
+    .lesson[data-lesson="2"] { background: #059669; }
+    .lesson[data-lesson="3"] { background: #7c3aed; }
+    .lesson[data-lesson="4"] { background: #d97706; }
+    .lesson[data-lesson="5"] { background: #db2777; }
+    .lesson[data-lesson="6"] { background: #0891b2; }
+    .lesson[data-lesson="7"] { background: #65a30d; }
+
+    .lesson:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      filter: brightness(1.08);
+    }
+
+    .lesson:active {
+      transform: scale(0.98);
+    }
+
+    .lesson-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .lesson-text {
+      flex: 1;
+    }
+
+    .lesson-number {
+      font-size: 11px;
+      font-weight: 700;
+      opacity: 0.8;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .lesson-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .lesson-sub {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      margin-top: 3px;
+      opacity: 0.9;
+    }
+
+    /* STATUS BADGE */
+    .lesson-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: none;
+    }
+
+    .badge-done {
+      background: rgba(255,255,255,0.3);
+      color: white;
+    }
+
+    .badge-progress {
+      background: rgba(255,255,255,0.25);
+      color: white;
+    }
+
+    /* LESSON MINI BAR */
+    .lesson-bar-wrap {
+      margin-top: 8px;
+      height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 30px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .lesson-bar-fill {
+      height: 100%;
+      background: rgba(255,255,255,0.85);
+      border-radius: 30px;
+      transition: width 0.4s ease;
+    }
+
+    .lesson.is-completed {
+      opacity: 0.82;
+    }
+
+    .lesson.is-completed::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+
+    /* RESET BUTTON */
+    .reset-wrap {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .reset-btn {
+      background: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: rgba(255,255,255,0.6);
+      color: #dc2626;
+      border-color: #dc2626;
+    }
+
+    /* SEO */
+    .seo {
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(0,0,0,0.3);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .seo h2 {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
     }
   </style>
 </head>
 
 <body>
 
-  <a href="../../index.html" class="back-btn">← Volver a Unidades</a>
+  <a class="back-btn" href="../../index.html">← Unidades</a>
 
-  <h1>Unidad 2 - Ubicación y Espacios</h1>
+  <div class="page">
 
-  <div class="lesson-list">
+    <!-- HEADER -->
+    <div class="unit-header">
+      <span class="unit-tag">Principiante A · Unidad 2</span>
+      <h1>Ubicación y espacios en inglés</h1>
+      <p>Aprende vocabulario de lugares y el verbo to be.</p>
+    </div>
 
-    <a href="l1/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>1.</strong> At Home
-        <span>En casa</span>
+    <!-- UNIT PROGRESS BAR -->
+    <div class="unit-progress" id="unitProgress">
+      <span>Progreso</span>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="unitBar" style="width:0%"></div>
       </div>
-    </a>
+      <span class="pct" id="unitPct">0%</span>
+    </div>
 
-    <a href="l2/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>2.</strong> Where are you? Where is ..?
-        <span>¿Dónde estás? </span>
-      </div>
-    </a>
+    <!-- START NOTE — hidden once progress begins -->
+    <div class="start-note" id="startNote">👇 Empieza por la lección 1</div>
 
-    <a href="l3/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>3.</strong> I am - He is - She is 
-        <span>Yo soy, Él es, Ella es </span>
-      </div>
-    </a>
+    <!-- LESSONS -->
+    <div class="lesson-list">
 
-    <a href="l4/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>4.</strong> I am - He is - She is - part 2
-        <span>Yo soy, Él es, Ella es - parte 2</span>
-      </div>
-    </a>
+      <a href="l1/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="1" id="lesson-1">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 1</span>
+              <span class="lesson-title">At Home</span>
+              <span class="lesson-sub">En casa</span>
+            </div>
+            <span class="lesson-badge" id="badge-1"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-1">
+            <div class="lesson-bar-fill" id="bar-1" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
 
-    <a href="l5/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>5.</strong> I am - He is - She is - part 3
-        <span> Yo soy, Él es, Ella es - parte 3</span>
-      </div>
-    </a>
+      <a href="l2/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="2" id="lesson-2">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 2</span>
+              <span class="lesson-title">Where are you? Where is...?</span>
+              <span class="lesson-sub">¿Dónde estás? ¿Dónde está...?</span>
+            </div>
+            <span class="lesson-badge" id="badge-2"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-2">
+            <div class="lesson-bar-fill" id="bar-2" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
 
-    <a href="l6/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>6.</strong> My classroom
-        <span>Mi aula - classroom objects - objetos del aula</span>
-      </div>
-    </a>
+      <a href="l3/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="3" id="lesson-3">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 3</span>
+              <span class="lesson-title">I am · He is · She is</span>
+              <span class="lesson-sub">Yo soy · Él es · Ella es</span>
+            </div>
+            <span class="lesson-badge" id="badge-3"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-3">
+            <div class="lesson-bar-fill" id="bar-3" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
 
-    <a href="l7/p1.html" style="text-decoration: none;">
-      <div class="lesson">
-        <strong>7.</strong> Unit 2 Review
-        <span>Repaso Final de la Unidad 2</span>
-      </div>
-    </a>
+      <a href="l4/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="4" id="lesson-4">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 4</span>
+              <span class="lesson-title">I am · He is · She is — Part 2</span>
+              <span class="lesson-sub">Yo soy · Él es · Ella es — parte 2</span>
+            </div>
+            <span class="lesson-badge" id="badge-4"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-4">
+            <div class="lesson-bar-fill" id="bar-4" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="l5/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="5" id="lesson-5">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 5</span>
+              <span class="lesson-title">I am · He is · She is — Part 3</span>
+              <span class="lesson-sub">Yo soy · Él es · Ella es — parte 3</span>
+            </div>
+            <span class="lesson-badge" id="badge-5"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-5">
+            <div class="lesson-bar-fill" id="bar-5" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="l6/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="6" id="lesson-6">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 6</span>
+              <span class="lesson-title">My Classroom</span>
+              <span class="lesson-sub">Mi aula · objetos del aula</span>
+            </div>
+            <span class="lesson-badge" id="badge-6"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-6">
+            <div class="lesson-bar-fill" id="bar-6" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="l7/p1.html" class="lesson-link">
+        <div class="lesson" data-lesson="7" id="lesson-7">
+          <div class="lesson-row">
+            <div class="lesson-text">
+              <span class="lesson-number">Lección 7</span>
+              <span class="lesson-title">Unit 2 Review</span>
+              <span class="lesson-sub">Repaso final de la Unidad 2</span>
+            </div>
+            <span class="lesson-badge" id="badge-7"></span>
+          </div>
+          <div class="lesson-bar-wrap" id="bar-wrap-7">
+            <div class="lesson-bar-fill" id="bar-7" style="width:0%"></div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- RESET -->
+    <div class="reset-wrap">
+      <button class="reset-btn" id="resetBtn" onclick="resetProgress()">↺ Reiniciar progreso de esta unidad</button>
+    </div>
+
+    <!-- SEO -->
+    <div class="seo">
+      <h2>Lecciones de inglés para principiantes — Unidad 2</h2>
+      <p>Vocabulario de ubicación, lugares del hogar y el verbo to be. Diseñado para hispanohablantes que aprenden desde cero.</p>
+    </div>
 
   </div>
+
+  <script>
+    const UNIT_KEY = 'u2';
+    const LESSONS_TOTAL = 7;
+
+    (function initUnitRecord() {
+      try {
+        const p = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+        if (!p[UNIT_KEY]) {
+          p[UNIT_KEY] = { lessonsTotal: LESSONS_TOTAL, lessonsCompleted: 0 };
+          localStorage.setItem('inglesco_progress', JSON.stringify(p));
+        } else if (!p[UNIT_KEY].lessonsTotal) {
+          p[UNIT_KEY].lessonsTotal = LESSONS_TOTAL;
+          localStorage.setItem('inglesco_progress', JSON.stringify(p));
+        }
+      } catch(e) {}
+    })();
+
+    function loadLessonProgress() {
+      try {
+        return JSON.parse(localStorage.getItem('inglesco_progress_u2') || '{}');
+      } catch(e) {
+        return {};
+      }
+    }
+
+    function renderProgress() {
+      const lp = loadLessonProgress();
+      let completedCount = 0;
+      let hasAnyProgress = false;
+
+      for (let l = 1; l <= LESSONS_TOTAL; l++) {
+        const key = 'l' + l;
+        const data = lp[key];
+        const lessonEl = document.getElementById('lesson-' + l);
+        const badgeEl  = document.getElementById('badge-' + l);
+        const barWrap  = document.getElementById('bar-wrap-' + l);
+        const barFill  = document.getElementById('bar-' + l);
+
+        if (!data || data.partsCompleted === 0) continue;
+
+        hasAnyProgress = true;
+        const pct   = Math.round((data.partsCompleted / data.partsTotal) * 100);
+        const isDone = data.partsCompleted >= data.partsTotal;
+
+        barWrap.style.display = 'block';
+        barFill.style.width   = pct + '%';
+        badgeEl.style.display = 'inline-block';
+
+        if (isDone) {
+          badgeEl.className   = 'lesson-badge badge-done';
+          badgeEl.textContent = '✓ Completada';
+          lessonEl.classList.add('is-completed');
+          completedCount++;
+        } else {
+          badgeEl.className   = 'lesson-badge badge-progress';
+          badgeEl.textContent = '▶ En progreso';
+        }
+      }
+
+      if (hasAnyProgress) {
+        document.getElementById('startNote').style.display = 'none';
+
+        const pct = Math.round((completedCount / LESSONS_TOTAL) * 100);
+        document.getElementById('unitProgress').classList.add('visible');
+        document.getElementById('unitBar').style.width = pct + '%';
+        document.getElementById('unitPct').textContent = pct + '%';
+      }
+    }
+
+    function resetProgress() {
+      if (!confirm('¿Reiniciar el progreso de la Unidad 2? Esta acción no se puede deshacer.')) return;
+      try {
+        localStorage.removeItem('inglesco_progress_u2');
+        const p = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+        if (p[UNIT_KEY]) {
+          p[UNIT_KEY].lessonsCompleted = 0;
+          localStorage.setItem('inglesco_progress', JSON.stringify(p));
+        }
+      } catch(e) {}
+      location.reload();
+    }
+
+    renderProgress();
+  </script>
 
 </body>
 </html>

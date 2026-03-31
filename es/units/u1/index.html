@@ -261,9 +261,34 @@
       pointer-events: none;
     }
 
+    /* RESET BUTTON */
+    .reset-wrap {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .reset-btn {
+      background: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: rgba(255,255,255,0.6);
+      color: #dc2626;
+      border-color: #dc2626;
+    }
+
     /* SEO */
     .seo {
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 12px;
       color: rgba(0,0,0,0.3);
       text-align: center;
@@ -370,6 +395,11 @@
         </div>
       </a>
 
+    </div>
+
+    <!-- RESET -->
+    <div class="reset-wrap">
+      <button class="reset-btn" onclick="resetProgress()">↺ Reiniciar progreso de esta unidad</button>
     </div>
 
     <!-- SEO -->
@@ -483,6 +513,19 @@
         document.getElementById('unitBar').style.width = pct + '%';
         document.getElementById('unitPct').textContent = pct + '%';
       }
+    }
+
+    function resetProgress() {
+      if (!confirm('¿Reiniciar el progreso de la Unidad 1? Esta acción no se puede deshacer.')) return;
+      try {
+        localStorage.removeItem('inglesco_progress_u1');
+        const p = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+        if (p[UNIT_KEY]) {
+          p[UNIT_KEY].lessonsCompleted = 0;
+          localStorage.setItem('inglesco_progress', JSON.stringify(p));
+        }
+      } catch(e) {}
+      location.reload();
     }
 
     renderProgress();
