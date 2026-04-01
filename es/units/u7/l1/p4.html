@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+<title>Lección 1, Parte 4: Room Sentences | Inglesco</title>
+<meta name="description" content="Practica oraciones con There is en inglés. Unidad 7, Lección 1, Parte 4.">
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link rel="manifest" href="../../../../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  if (window.va) { window.va('track', 'U7 L1 P4 Started'); }
+</script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  color: #1e2a38;
+  padding: 20px 14px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.back-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 30px;
+  font-size: 14px; font-weight: 600; color: #1e2a38;
+  text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.15s;
+}
+.back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+.wrap { width: 100%; max-width: 520px; padding-top: 20px; }
+
+.lesson-tag {
+  display: block; text-align: center;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #486581; margin-bottom: 6px;
+}
+h1 { text-align: center; color: #1e40af; font-size: clamp(1.2rem,5vw,1.6rem); font-weight: 800; margin-bottom: 4px; }
+.subtitle { text-align: center; font-size: 14px; color: #486581; margin-bottom: 20px; }
+
+.progress-dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 22px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.5); border: 2px solid rgba(37,99,235,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: #486581;
+  transition: all 0.2s; cursor: pointer;
+}
+.dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+.dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); cursor: default; }
+.dot.active:hover { transform: none; background: #2563eb; }
+.dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+.card {
+  background: white; border-radius: 16px; padding: 20px 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07); margin-bottom: 16px;
+}
+
+.counter-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: #486581; }
+.bar-wrap { background: #e2e8f0; border-radius: 999px; height: 7px; margin-bottom: 20px; overflow: hidden; }
+.bar-fill { height: 100%; width: 0%; background: #2563eb; border-radius: 999px; transition: width 0.5s; }
+
+.img-wrap {
+  width: 100%; height: 180px; border-radius: 12px; overflow: hidden;
+  background: #f1f5f9; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ── TEACH PANEL ── */
+.sent-label {
+  text-align: center; font-size: 11px; font-weight: 800;
+  letter-spacing: 1.2px; text-transform: uppercase; color: #486581; margin-bottom: 12px;
+}
+
+.word-stage {
+  position: relative; height: 60px; margin-bottom: 6px; overflow: visible;
+}
+
+.w {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800;
+  padding: 7px 13px; border-radius: 10px; white-space: nowrap;
+}
+.w-there { background: #dbeafe; color: #1d4ed8; }
+.w-is    { background: #dbeafe; color: #1d4ed8; }
+/* rest words — shown in the phrase-area instead (see below) */
+
+/* Color states for question */
+.w-is.q-state    { background: #fef3c7; color: #92400e; }
+.w-there.q-state { background: #f1f5f9; color: #486581; }
+
+/* Full sentence display (affirmative) */
+.phrase-area {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  align-items: center; margin-bottom: 10px; min-height: 44px;
+}
+.phrase-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700;
+  padding: 6px 12px; border-radius: 10px; white-space: nowrap;
+}
+.chip-blue  { background: #dbeafe; color: #1d4ed8; }
+.chip-plain { background: #f1f5f9; color: #334155; }
+
+.arrows-row {
+  display: flex; justify-content: center; height: 30px; margin-bottom: 6px;
+  opacity: 0; transition: opacity 0.35s;
+}
+.arrows-row.visible { opacity: 1; }
+
+.rule-box {
+  background: #f8fafc; border-radius: 10px; border-left: 4px solid #f59e0b;
+  padding: 12px 14px; font-size: 13px; color: #486581; line-height: 1.6;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.4s, transform 0.4s; margin-bottom: 16px;
+}
+.rule-box.visible { opacity: 1; transform: translateY(0); }
+.rule-box strong { color: #1e40af; font-weight: 800; }
+
+.teach-btn {
+  display: block; width: 100%; padding: 12px;
+  background: #eff6ff; color: #2563eb;
+  border: 2px solid #2563eb; border-radius: 12px;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer; transition: background 0.15s, transform 0.1s; margin-bottom: 20px;
+}
+.teach-btn:hover { background: #dbeafe; }
+.teach-btn:active { transform: scale(0.98); }
+.teach-btn:disabled { opacity: 0.45; cursor: default; }
+
+/* ── EXERCISE ── */
+.divider { border: none; border-top: 1px dashed #cbd5e1; margin-bottom: 18px; }
+
+.ex-label {
+  text-align: center; font-size: 11px; font-weight: 800;
+  letter-spacing: 1.2px; text-transform: uppercase; color: #486581; margin-bottom: 12px;
+}
+
+.tile-zone {
+  min-height: 54px; border: 2px dashed #cbd5e1; border-radius: 12px;
+  padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin-bottom: 12px; background: #f8fafc; transition: border-color 0.3s;
+}
+.tile-zone.correct-zone { border-color: #22c55e; background: #f0fdf4; }
+
+.tile-bank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; min-height: 44px; margin-bottom: 16px;
+}
+
+.tile {
+  padding: 8px 14px; background: white; border: 2px solid #2563eb;
+  border-radius: 10px; font-size: 15px; font-weight: 700; color: #1e2a38;
+  cursor: pointer; user-select: none; touch-action: manipulation;
+  transition: transform 0.1s, background 0.15s;
+}
+.tile:active { transform: scale(0.93); }
+.tile.in-answer { background: #eff6ff; }
+.tile.locked-green { background: #dcfce7; border-color: #22c55e; color: #15803d; cursor: default; pointer-events: none; }
+
+.feedback {
+  text-align: center; font-size: 14px; font-weight: 700;
+  min-height: 22px; margin-bottom: 8px; color: transparent; transition: color 0.2s;
+}
+.feedback.correct { color: #15803d; }
+.feedback.wrong   { color: #dc2626; }
+
+.check-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white; border: none; border-radius: 12px;
+  font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px;
+  cursor: pointer; transition: background 0.15s, transform 0.1s; margin-bottom: 10px;
+}
+.check-btn:disabled { background: #94a3b8; cursor: default; }
+.check-btn:not(:disabled):hover { background: #1d4ed8; }
+.check-btn:active:not(:disabled) { transform: scale(0.98); }
+
+.next-btn {
+  display: block; width: 100%; padding: 13px;
+  background: #2563eb; color: white; border: none; border-radius: 12px;
+  font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+  opacity: 0; pointer-events: none; margin-top: 6px;
+}
+.next-btn.show { opacity: 1; pointer-events: auto; }
+.next-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+#endScreen {
+  display: none; text-align: center; background: white; border-radius: 16px;
+  padding: 36px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); margin-bottom: 16px;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-6px); }
+  40%     { transform: translateX( 6px); }
+  60%     { transform: translateX(-4px); }
+  80%     { transform: translateX( 4px); }
+}
+.shake { animation: shake 0.4s ease; }
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Lección 1</a>
+
+<div class="wrap">
+  <span class="lesson-tag">Unidad 7 · Lección 1 · Parte 4</span>
+  <h1>There is … in the room.</h1>
+  <p class="subtitle">Hay … en la habitación.</p>
+
+  <div class="progress-dots">
+    <div class="dot done"   id="dot-1" data-page="p1.html">1</div>
+    <div class="dot done"   id="dot-2" data-page="p2.html">2</div>
+    <div class="dot done"   id="dot-3" data-page="p3.html">3</div>
+    <div class="dot active" id="dot-4" data-page="p4.html">4</div>
+    <div class="dot"        id="dot-5" data-page="p5.html">5</div>
+  </div>
+
+  <div class="card" id="mainCard">
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+      <span id="pctLabel">0%</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+
+    <div class="img-wrap">
+      <img id="slideImg" src="" alt="">
+    </div>
+
+    <!-- TEACH: affirmative chips -->
+    <p class="sent-label" id="sentLabel">Enunciado</p>
+    <div class="phrase-area" id="phraseArea"></div>
+
+    <!-- Animated There / is chips (absolutely positioned, shown during swap) -->
+    <div class="word-stage" id="wordStage" style="display:none;">
+      <div class="w w-there" id="wThere">There</div>
+      <div class="w w-is"    id="wIs">is</div>
+    </div>
+
+    <div class="arrows-row" id="arrowsRow">
+      <svg width="220" height="30" viewBox="0 0 220 30" overflow="visible">
+        <defs>
+          <marker id="aA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+          <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <path d="M 168 8 C 148 8,68 8,48 8"    stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#aA)" stroke-linecap="round"/>
+        <path d="M 52 22 C 72 22,148 22,168 22" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#aG)" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="rule-box" id="ruleBox"></div>
+
+    <button class="teach-btn" id="teachBtn" onclick="handleTeachBtn()">
+      Formar pregunta →
+    </button>
+
+    <hr class="divider">
+    <p class="ex-label">Ordena las palabras</p>
+
+    <div class="tile-zone" id="tileZone"></div>
+    <div class="tile-bank" id="tileBank"></div>
+
+    <div class="feedback"  id="feedback"></div>
+    <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Verificar</button>
+    <button class="next-btn"  id="nextBtn"></button>
+  </div>
+
+  <div id="endScreen">
+    <div style="font-size:52px;margin-bottom:16px">🛋️</div>
+    <h2 style="font-size:24px;font-weight:800;color:#1e40af;margin-bottom:12px">¡Ejercicio completado!</h2>
+    <p style="font-size:14px;color:#486581;margin-bottom:28px;line-height:1.6">
+      Practicaste oraciones con <strong>There is</strong> en distintas habitaciones.<br>¡Muy bien!
+    </p>
+    <a href="p5.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
+      Continuar → Parte 5
+    </a>
+  </div>
+</div>
+
+<script>
+const UNIT   = 7;
+const LESSON = 1;
+const PART   = 4;
+const FURTHEST_KEY = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+const PROGRESS_KEY = `inglesco_progress_u${UNIT}`;
+
+const BASE    = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IMG     = BASE + 'images/u7/';
+const SFX_OK  = BASE + 'audio/u2/correct.wav';
+const SFX_ERR = BASE + 'audio/u2/incorrect.wav';
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+}
+
+document.querySelectorAll('.dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    const page = dot.dataset.page;
+    if (page) window.location.href = page;
+  });
+});
+
+function getFurthest() { return parseInt(localStorage.getItem(FURTHEST_KEY) || '1', 10); }
+function updateFurthest(n) { if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n)); }
+function saveProgress() {
+  try {
+    const lp = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+    const lKey = `l${LESSON}`;
+    if (!lp[lKey]) lp[lKey] = { partsTotal: 5, partsCompleted: 0 };
+    if (lp[lKey].partsCompleted < PART) lp[lKey].partsCompleted = PART;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(lp));
+  } catch (_) {}
+}
+updateFurthest(PART);
+
+/* ── SLIDES ──────────────────────────────────────────────────────
+   chips:   array of {text, blue} shown as affirmative sentence
+   tiles:   shuffled word bank
+   answer:  correct question order
+──────────────────────────────────────────────────────────────── */
+const SLIDES = [
+  {
+    img:    'u7.kitchen.stove.jpg',
+    chips:  [
+      { text: 'There', blue: true },
+      { text: 'is',    blue: true },
+      { text: 'a stove',        blue: false },
+      { text: 'in the kitchen.', blue: false }
+    ],
+    restText: 'a stove in the kitchen.',
+    restQ:    'a stove in the kitchen?',
+    tiles:  ['There', 'is', 'a stove', 'in the kitchen?'],
+    answer: ['Is', 'there', 'a stove', 'in the kitchen?']
+  },
+  {
+    img:    'u7.fridge.jpg',
+    chips:  [
+      { text: 'There', blue: true },
+      { text: 'is',    blue: true },
+      { text: 'a fridge',        blue: false },
+      { text: 'in the kitchen.', blue: false }
+    ],
+    restText: 'a fridge in the kitchen.',
+    restQ:    'a fridge in the kitchen?',
+    tiles:  ['a fridge', 'There', 'in the kitchen?', 'is'],
+    answer: ['Is', 'there', 'a fridge', 'in the kitchen?']
+  },
+  {
+    img:    'u7.living.room.jpg',
+    chips:  [
+      { text: 'There', blue: true },
+      { text: 'is',    blue: true },
+      { text: 'a table',           blue: false },
+      { text: 'in the living room.', blue: false }
+    ],
+    restText: 'a table in the living room.',
+    restQ:    'a table in the living room?',
+    tiles:  ['in the living room?', 'is', 'There', 'a table'],
+    answer: ['Is', 'there', 'a table', 'in the living room?']
+  },
+  {
+    img:    'u7.living.room.jpg',
+    chips:  [
+      { text: 'There', blue: true },
+      { text: 'is',    blue: true },
+      { text: 'a TV',               blue: false },
+      { text: 'in the living room.', blue: false }
+    ],
+    restText: 'a TV in the living room.',
+    restQ:    'a TV in the living room?',
+    tiles:  ['a TV', 'in the living room?', 'Is', 'there'],
+    answer: ['Is', 'there', 'a TV', 'in the living room?']
+  }
+];
+
+const TOTAL = SLIDES.length;
+
+let current    = 0;
+let answered   = [];
+let locked     = false;
+let teachState = 'statement'; // 'statement' | 'animating' | 'question'
+
+/* ── DOM ── */
+const slideImg   = document.getElementById('slideImg');
+const phraseArea = document.getElementById('phraseArea');
+const wordStage  = document.getElementById('wordStage');
+const wThere     = document.getElementById('wThere');
+const wIs        = document.getElementById('wIs');
+const arrowsRow  = document.getElementById('arrowsRow');
+const ruleBox    = document.getElementById('ruleBox');
+const teachBtn   = document.getElementById('teachBtn');
+const sentLabel  = document.getElementById('sentLabel');
+const tileZone   = document.getElementById('tileZone');
+const tileBank   = document.getElementById('tileBank');
+const feedbackEl = document.getElementById('feedback');
+const checkBtn   = document.getElementById('checkBtn');
+const nextBtn    = document.getElementById('nextBtn');
+const counterEl  = document.getElementById('counter');
+const pctLabelEl = document.getElementById('pctLabel');
+const barEl      = document.getElementById('bar');
+
+function playSfx(url) { try { new Audio(url).play(); } catch(_) {} }
+
+function updateBar(idx) {
+  const pct = Math.round((idx / TOTAL) * 100);
+  counterEl.textContent  = `${idx + 1} / ${TOTAL}`;
+  pctLabelEl.textContent = pct + '%';
+  barEl.style.width      = pct + '%';
+}
+
+/* ── CHIPS (affirmative sentence) ── */
+function buildChips(slide) {
+  phraseArea.innerHTML = '';
+  slide.chips.forEach(c => {
+    const chip = document.createElement('div');
+    chip.className   = 'phrase-chip ' + (c.blue ? 'chip-blue' : 'chip-plain');
+    chip.textContent = c.text;
+    phraseArea.appendChild(chip);
+  });
+}
+
+/* ── QUESTION CHIPS (shown after animation) ── */
+function buildQuestionChips(slide) {
+  phraseArea.innerHTML = '';
+  // Question chips: [Is][there][rest...]
+  const words = slide.answer;
+  words.forEach((w, i) => {
+    const chip = document.createElement('div');
+    chip.className   = 'phrase-chip ' + (i === 0 ? 'chip-blue' : 'chip-plain');
+    chip.textContent = w;
+    phraseArea.appendChild(chip);
+  });
+}
+
+/* ── MEASURE (off-screen clone) ── */
+function measureWidth(el) {
+  const clone = el.cloneNode(true);
+  clone.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;transform:none;transition:none';
+  document.body.appendChild(clone);
+  const w = clone.getBoundingClientRect().width;
+  document.body.removeChild(clone);
+  return w;
+}
+
+const GAP = 10;
+let pos = null;
+
+/* ── TEACH LOGIC ── */
+function resetTeach(slide) {
+  teachState = 'statement';
+
+  // Show phrase chips, hide animated stage
+  buildChips(slide);
+  phraseArea.style.display = '';
+  wordStage.style.display  = 'none';
+
+  arrowsRow.classList.remove('visible');
+  ruleBox.classList.remove('visible');
+
+  ruleBox.innerHTML =
+    'En inglés, para formar una pregunta con <strong>there is</strong>, intercambia las dos palabras:<br>' +
+    '<strong>There is</strong> ' + slide.restText + ' → <strong>Is there</strong> ' + slide.restQ;
+
+  sentLabel.textContent = 'Enunciado';
+  teachBtn.textContent  = 'Formar pregunta →';
+  teachBtn.disabled     = false;
+}
+
+window.handleTeachBtn = function() {
+  if (teachState === 'animating') return;
+  if (teachState === 'statement') {
+    toQuestion();
+  } else {
+    toStatement();
+  }
+};
+
+function toQuestion() {
+  teachState = 'animating';
+  teachBtn.disabled = true;
+
+  // Hide chip row, show animated word stage
+  phraseArea.style.display = 'none';
+  wordStage.style.display  = 'block';
+
+  // Reset word text and colours
+  wThere.textContent = 'There';
+  wIs.textContent    = 'is';
+  wIs.classList.remove('q-state');
+  wThere.classList.remove('q-state');
+  wIs.style.transition = wThere.style.transition = 'none';
+  wIs.style.left = wThere.style.left = '';
+
+  // Place in statement positions after render
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const wT = measureWidth(wThere);
+    const wI = measureWidth(wIs);
+    const totalW = wT + GAP + wI;
+    const stageW = wordStage.getBoundingClientRect().width;
+    const startX = (stageW - totalW) / 2;
+
+    pos = {
+      there: { x: startX,          w: wT },
+      is:    { x: startX + wT + GAP, w: wI }
+    };
+
+    wThere.style.left = pos.there.x + 'px';
+    wIs.style.left    = pos.is.x    + 'px';
+
+    // Now animate cross
+    requestAnimationFrame(() => {
+      const TRANS = 'left 0.6s cubic-bezier(0.34,1.4,0.64,1), background 0.35s, color 0.35s';
+      wIs.style.transition    = TRANS;
+      wThere.style.transition = TRANS;
+
+      wIs.style.left    = pos.there.x + 'px';
+      wThere.style.left = pos.is.x    + 'px';
+      wIs.classList.add('q-state');
+      wThere.classList.add('q-state');
+
+      // Capitalise mid-flight
+      setTimeout(() => { wIs.textContent = 'Is'; }, 300);
+
+      // After cross: snap to even final spacing, show arrows + rule
+      setTimeout(() => {
+        const wI2 = measureWidth(wIs);
+        const wT2 = measureWidth(wThere);
+        const totalW2 = wI2 + GAP + wT2;
+        const stageW2 = wordStage.getBoundingClientRect().width;
+        const startX2 = (stageW2 - totalW2) / 2;
+
+        wIs.style.transition    = 'background 0.15s, color 0.15s';
+        wThere.style.transition = 'background 0.15s, color 0.15s';
+        wIs.style.left    = startX2 + 'px';
+        wThere.style.left = (startX2 + wI2 + GAP) + 'px';
+
+        arrowsRow.classList.add('visible');
+
+        setTimeout(() => {
+          ruleBox.classList.add('visible');
+          sentLabel.textContent = 'Pregunta';
+          teachBtn.textContent  = '← Volver al enunciado';
+          teachBtn.disabled     = false;
+          teachState = 'question';
+        }, 200);
+      }, 660);
+    });
+  }));
+}
+
+function toStatement() {
+  teachState = 'animating';
+  teachBtn.disabled = true;
+
+  arrowsRow.classList.remove('visible');
+  ruleBox.classList.remove('visible');
+
+  // Reset word text and animate back to statement positions
+  wIs.textContent = 'is';
+  wIs.classList.remove('q-state');
+  wThere.classList.remove('q-state');
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const TRANS = 'left 0.6s cubic-bezier(0.34,1.4,0.64,1), background 0.35s, color 0.35s';
+    wIs.style.transition    = TRANS;
+    wThere.style.transition = TRANS;
+    wIs.style.left    = pos.is.x    + 'px';
+    wThere.style.left = pos.there.x + 'px';
+
+    setTimeout(() => {
+      // Hide animated stage, show phrase chips again
+      wordStage.style.display  = 'none';
+      phraseArea.style.display = '';
+      buildChips(SLIDES[current]);
+      sentLabel.textContent = 'Enunciado';
+      teachBtn.textContent  = 'Formar pregunta →';
+      teachBtn.disabled     = false;
+      teachState = 'statement';
+    }, 660);
+  }));
+}
+
+/* ── TILES ── */
+function buildTiles(slide) {
+  tileBank.innerHTML = '';
+  tileZone.innerHTML = '';
+  answered = [];
+  const shuffled = [...slide.tiles].sort(() => Math.random() - 0.5);
+  shuffled.forEach(text => tileBank.appendChild(makeTile(text, 'bank')));
+}
+
+function makeTile(text, location) {
+  const tile = document.createElement('div');
+  tile.className   = 'tile';
+  tile.textContent = text;
+
+  tile.addEventListener('click', () => {
+    if (locked) return;
+    if (location === 'bank') {
+      tileBank.removeChild(tile);
+      location = 'answer';
+      tile.classList.add('in-answer');
+      tileZone.appendChild(tile);
+      answered.push({ text, el: tile });
+    } else {
+      tileZone.removeChild(tile);
+      location = 'bank';
+      tile.classList.remove('in-answer');
+      tileBank.appendChild(tile);
+      answered = answered.filter(a => a.el !== tile);
+    }
+    checkBtn.disabled      = answered.length === 0;
+    feedbackEl.className   = 'feedback';
+    feedbackEl.textContent = '';
+  });
+
+  return tile;
+}
+
+/* ── CHECK ── */
+window.checkAnswer = function() {
+  if (locked) return;
+  const slide      = SLIDES[current];
+  const userAnswer = answered.map(a => a.text);
+
+  const correct =
+    userAnswer.length === slide.answer.length &&
+    slide.answer.every((w, i) => userAnswer[i].toLowerCase() === w.toLowerCase());
+
+  if (correct) {
+    locked = true;
+    playSfx(SFX_OK);
+    answered.forEach(a => {
+      a.el.classList.remove('in-answer');
+      a.el.classList.add('locked-green');
+    });
+    tileZone.classList.add('correct-zone');
+    feedbackEl.className   = 'feedback correct';
+    feedbackEl.textContent = '¡Correcto! ✓';
+    checkBtn.disabled      = true;
+    nextBtn.classList.add('show');
+
+    // Show question form in the teach panel
+    if (teachState !== 'question') {
+      phraseArea.style.display = '';
+      wordStage.style.display  = 'none';
+      buildQuestionChips(slide);
+      arrowsRow.classList.add('visible');
+      ruleBox.classList.add('visible');
+      sentLabel.textContent = 'Pregunta';
+      teachBtn.style.display = 'none';
+      teachState = 'question';
+    }
+  } else {
+    playSfx(SFX_ERR);
+    feedbackEl.className   = 'feedback wrong';
+    feedbackEl.textContent = 'Intenta de nuevo.';
+    tileZone.classList.add('shake');
+    setTimeout(() => tileZone.classList.remove('shake'), 400);
+  }
+};
+
+/* ── LOAD SLIDE ── */
+function loadSlide(idx) {
+  current = idx;
+  locked  = false;
+  const slide = SLIDES[idx];
+
+  slideImg.src = IMG + slide.img;
+  slideImg.alt = '';
+
+  updateBar(idx);
+  resetTeach(slide);
+  buildTiles(slide);
+
+  feedbackEl.className   = 'feedback';
+  feedbackEl.textContent = '';
+  checkBtn.disabled      = true;
+  nextBtn.classList.remove('show');
+  tileZone.classList.remove('correct-zone');
+  teachBtn.style.display = '';
+
+  if (idx < TOTAL - 1) {
+    nextBtn.textContent = 'Siguiente →';
+    nextBtn.onclick     = () => loadSlide(current + 1);
+  } else {
+    nextBtn.textContent = 'Finalizar →';
+    nextBtn.onclick     = () => showEnd();
+  }
+}
+
+/* ── END ── */
+function showEnd() {
+  if (window.va) { window.va('track', `U${UNIT} L${LESSON} P${PART} Finished`); }
+  barEl.style.width      = '100%';
+  pctLabelEl.textContent = '100%';
+  document.getElementById('mainCard').style.display  = 'none';
+  document.getElementById('endScreen').style.display = 'block';
+  document.getElementById('dot-4').className = 'dot done';
+  saveProgress();
+  updateFurthest(PART + 1);
+}
+
+/* ── INIT ── */
+loadSlide(0);
+</script>
+</body>
+</html>
