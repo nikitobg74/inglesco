@@ -50,7 +50,6 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       transition: background 0.2s, transform 0.15s;
     }
-
     .back-btn:active {
       transform: scale(0.96);
       background: rgba(255,255,255,1);
@@ -62,7 +61,6 @@
       padding-top: 62px;
       margin-bottom: 28px;
     }
-
     .unit-eyebrow {
       font-size: 11px;
       font-weight: 800;
@@ -71,7 +69,6 @@
       color: #486581;
       margin-bottom: 8px;
     }
-
     .unit-title {
       font-size: 1.55rem;
       font-weight: 800;
@@ -79,7 +76,6 @@
       line-height: 1.2;
       margin-bottom: 6px;
     }
-
     .unit-subtitle {
       font-size: 0.9rem;
       color: #486581;
@@ -107,12 +103,10 @@
       position: relative;
       overflow: hidden;
     }
-
     .lesson-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     }
-
     .lesson-card:active {
       transform: scale(0.98);
     }
@@ -134,26 +128,24 @@
 
     .lesson-text {
       flex: 1;
+      min-width: 0;
     }
-
     .lesson-name {
       font-size: 15px;
       font-weight: 700;
       color: #1e2a38;
       margin-bottom: 2px;
     }
-
     .lesson-desc {
       font-size: 13px;
       color: #486581;
     }
 
-    /* Coming soon overlay */
+    /* Coming soon */
     .lesson-card.coming-soon {
       opacity: 0.6;
       pointer-events: none;
     }
-
     .coming-tag {
       font-size: 10px;
       font-weight: 700;
@@ -172,7 +164,6 @@
     .lesson-card.lesson-done .lesson-num {
       background: #22c55e;
     }
-
     .lesson-card.lesson-done::after {
       content: '✓';
       position: absolute;
@@ -183,6 +174,61 @@
       font-weight: 800;
       color: #22c55e;
     }
+
+    /* In-progress state */
+    .lesson-card.lesson-started .lesson-num {
+      background: #f59e0b;
+    }
+
+    /* Mini progress bar */
+    .mini-bar-wrap {
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+      display: none;
+    }
+    .mini-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.5s;
+    }
+    .mini-bar-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: 3px;
+      display: none;
+    }
+    .lesson-card.lesson-started .mini-bar-wrap,
+    .lesson-card.lesson-started .mini-bar-label,
+    .lesson-card.lesson-done .mini-bar-wrap,
+    .lesson-card.lesson-done .mini-bar-label { display: block; }
+
+    .lesson-card.lesson-started .mini-bar-fill { background: #f59e0b; }
+    .lesson-card.lesson-done    .mini-bar-fill { background: #22c55e; }
+    .lesson-card.lesson-done    .mini-bar-label { color: #22c55e; }
+
+    /* RESET BUTTON */
+    .reset-btn {
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+      padding: 12px;
+      background: none;
+      border: 1.5px solid #fca5a5;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #dc2626;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .reset-btn:hover { background: #fef2f2; }
+    .reset-btn:active { transform: scale(0.98); }
   </style>
 </head>
 
@@ -194,88 +240,135 @@
 
     <div class="unit-header">
       <div class="unit-eyebrow">Unidad 7</div>
-      <div class="unit-title">Renting an apertment</div>
+      <div class="unit-title">Renting an apartment</div>
       <div class="unit-subtitle">Alquilando un apartamento</div>
     </div>
 
     <div class="lesson-list">
 
-      <a href="l1/p1.html" class="lesson-card">
+      <a href="l1/p1.html" class="lesson-card" id="card-l1">
         <div class="lesson-num">1</div>
         <div class="lesson-text">
           <div class="lesson-name">I am renting an apartment.</div>
           <div class="lesson-desc">Estoy alquilando un apartamento.</div>
+          <div class="mini-bar-wrap"><div class="mini-bar-fill" id="bar-l1"></div></div>
+          <div class="mini-bar-label" id="label-l1"></div>
         </div>
-            </a>
+      </a>
 
-      <a href="l2/p1.html" class="lesson-card coming-soon">
+      <a href="l2/p1.html" class="lesson-card coming-soon" id="card-l2">
         <div class="lesson-num">2</div>
         <div class="lesson-text">
           <div class="lesson-name">Coming soon</div>
           <div class="lesson-desc">Próximamente</div>
+          <div class="mini-bar-wrap"><div class="mini-bar-fill" id="bar-l2"></div></div>
+          <div class="mini-bar-label" id="label-l2"></div>
         </div>
         <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l3/p1.html" class="lesson-card coming-soon">
+      <a href="l3/p1.html" class="lesson-card coming-soon" id="card-l3">
         <div class="lesson-num">3</div>
         <div class="lesson-text">
           <div class="lesson-name">Coming soon</div>
           <div class="lesson-desc">Próximamente</div>
+          <div class="mini-bar-wrap"><div class="mini-bar-fill" id="bar-l3"></div></div>
+          <div class="mini-bar-label" id="label-l3"></div>
         </div>
         <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l4/p1.html" class="lesson-card coming-soon">
+      <a href="l4/p1.html" class="lesson-card coming-soon" id="card-l4">
         <div class="lesson-num">4</div>
         <div class="lesson-text">
           <div class="lesson-name">Coming soon</div>
           <div class="lesson-desc">Próximamente</div>
+          <div class="mini-bar-wrap"><div class="mini-bar-fill" id="bar-l4"></div></div>
+          <div class="mini-bar-label" id="label-l4"></div>
         </div>
         <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l5/p1.html" class="lesson-card coming-soon">
+      <a href="l5/p1.html" class="lesson-card coming-soon" id="card-l5">
         <div class="lesson-num">5</div>
         <div class="lesson-text">
           <div class="lesson-name">Coming soon</div>
           <div class="lesson-desc">Próximamente</div>
+          <div class="mini-bar-wrap"><div class="mini-bar-fill" id="bar-l5"></div></div>
+          <div class="mini-bar-label" id="label-l5"></div>
         </div>
         <span class="coming-tag">Pronto</span>
       </a>
 
-      <a href="l6/p1.html" class="lesson-card coming-soon">
+      <a href="l6/p1.html" class="lesson-card coming-soon" id="card-l6">
         <div class="lesson-num">6</div>
         <div class="lesson-text">
           <div class="lesson-name">Coming soon</div>
           <div class="lesson-desc">Próximamente</div>
+          <div class="mini-bar-wrap"><div class="mini-bar-fill" id="bar-l6"></div></div>
+          <div class="mini-bar-label" id="label-l6"></div>
         </div>
         <span class="coming-tag">Pronto</span>
       </a>
 
     </div>
 
+    <button class="reset-btn" onclick="resetProgress()">
+      Reiniciar progreso de la Unidad 7
+    </button>
+
   </div>
 
   <script>
-    // Progress dots — mirrors the same localStorage pattern used across Inglesco
+    // Reads: 'inglesco_progress_u7'
+    // Value: { "l1": { "partsTotal": 5, "partsCompleted": 3 }, ... }
     function renderProgress() {
       try {
-        const progress = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+        const progress = JSON.parse(localStorage.getItem('inglesco_progress_u7') || '{}');
+
         for (let l = 1; l <= 6; l++) {
-          const key = 'u7-l' + l;
-          const card = document.querySelector('[href="l' + l + '/p1.html"]');
-          if (card && progress[key] && progress[key].done) {
-            card.classList.remove('coming-soon');
-            card.classList.add('lesson-done');
-            card.style.pointerEvents = 'auto';
-            card.style.opacity = '1';
-            const tag = card.querySelector('.coming-tag');
-            if (tag) tag.remove();
-          }
+          const lKey  = 'l' + l;
+          const card  = document.getElementById('card-l' + l);
+          const bar   = document.getElementById('bar-l' + l);
+          const label = document.getElementById('label-l' + l);
+
+          if (!card || !progress[lKey]) continue;
+
+          const { partsTotal = 5, partsCompleted = 0 } = progress[lKey];
+          if (partsCompleted === 0) continue;
+
+          // Clamp partsCompleted so stale data never shows e.g. 5/6
+          const completed = Math.min(partsCompleted, partsTotal);
+          const pct  = Math.round((completed / partsTotal) * 100);
+          const done = completed >= partsTotal;
+
+          // Unlock card if coming-soon
+          card.classList.remove('coming-soon');
+          card.style.pointerEvents = 'auto';
+          card.style.opacity = '1';
+          const tag = card.querySelector('.coming-tag');
+          if (tag) tag.remove();
+
+          card.classList.add(done ? 'lesson-done' : 'lesson-started');
+
+          bar.style.width   = pct + '%';
+          label.textContent = completed + ' / ' + partsTotal + ' partes';
         }
       } catch(e) {}
     }
+
+    function resetProgress() {
+      if (!confirm('¿Reiniciar todo el progreso de la Unidad 7? Esta acción no se puede deshacer.')) return;
+      localStorage.removeItem('inglesco_progress_u7');
+      localStorage.removeItem('inglesco_furthest_u7_l1');
+      localStorage.removeItem('inglesco_furthest_u7_l2');
+      localStorage.removeItem('inglesco_furthest_u7_l3');
+      localStorage.removeItem('inglesco_furthest_u7_l4');
+      localStorage.removeItem('inglesco_furthest_u7_l5');
+      localStorage.removeItem('inglesco_furthest_u7_l6');
+      location.reload();
+    }
+
     renderProgress();
   </script>
 
