@@ -802,52 +802,6 @@
       <span class="lang-badge badge-soon">Soon</span>
     </div>
 
-    <div class="lang-item" onclick="openWaitlist('Français','French','🇫🇷')">
-      <div class="lang-flag">🇫🇷</div>
-      <div class="lang-info">
-        <div class="lang-name">Français</div>
-        <div class="lang-native">Français bientôt</div>
-      </div>
-      <span class="lang-badge badge-soon">Soon</span>
-    </div>
-
-    <div class="lang-divider"></div>
-
-    <div class="lang-item" onclick="openWaitlist('Русский','Russian','🇷🇺')">
-      <div class="lang-flag">🇷🇺</div>
-      <div class="lang-info">
-        <div class="lang-name">Русский</div>
-        <div class="lang-native">Скоро</div>
-      </div>
-      <span class="lang-badge badge-later">Later</span>
-    </div>
-
-    <div class="lang-item" onclick="openWaitlist('Srpski','Serbian','🇷🇸')">
-      <div class="lang-flag">🇷🇸</div>
-      <div class="lang-info">
-        <div class="lang-name">Srpski</div>
-        <div class="lang-native">Serbian</div>
-      </div>
-      <span class="lang-badge badge-later">Later</span>
-    </div>
-
-    <div class="lang-item" onclick="openWaitlist('Български','Bulgarian','🇧🇬')">
-      <div class="lang-flag">🇧🇬</div>
-      <div class="lang-info">
-        <div class="lang-name">Български</div>
-        <div class="lang-native">Скоро</div>
-      </div>
-      <span class="lang-badge badge-later">Later</span>
-    </div>
-
-    <div class="lang-item" onclick="openWaitlist('हिन्दी','Hindi','🇮🇳')">
-      <div class="lang-flag">🇮🇳</div>
-      <div class="lang-info">
-        <div class="lang-name">हिन्दी</div>
-        <div class="lang-native">जल्द आ रहा है</div>
-      </div>
-      <span class="lang-badge badge-later">Later</span>
-    </div>
 
   </div>
 </div>
@@ -861,14 +815,6 @@
   <div class="mobile-lang-pill" onclick="openWaitlist('Português','Portuguese','🇧🇷')">
     <span class="pill-flag">🇧🇷</span> Português
     <span class="pill-badge badge-soon">Soon</span>
-  </div>
-  <div class="mobile-lang-pill" onclick="openWaitlist('Français','French','🇫🇷')">
-    <span class="pill-flag">🇫🇷</span> Français
-    <span class="pill-badge badge-soon">Soon</span>
-  </div>
-  <div class="mobile-lang-pill" onclick="openWaitlist('More languages','Other','🌍')">
-    <span class="pill-flag">🌍</span> More coming
-    <span class="pill-badge badge-later">Later</span>
   </div>
 </div>
 
@@ -969,71 +915,11 @@
       error:        'Algo deu errado. Por favor, tente novamente.',
       alreadyBtn:   'Já registrado',
     },
-    French: {
-      notifyBtn:    'Me notifier',
-      saving:       'Enregistrement...',
-      done:         'Fait !',
-      badEmail:     'Cette adresse e-mail ne semble pas valide. Veuillez vérifier et réessayer.',
-      alreadyOn:    'Vous êtes déjà sur la liste d\'attente pour le Français !',
-      success:      'Vous êtes sur la liste ! Nous vous informerons quand le Français sera lancé.',
-      error:        'Une erreur s\'est produite. Veuillez réessayer.',
-      alreadyBtn:   'Déjà inscrit',
-    },
-    Russian: {
-      notifyBtn:    'Уведомить меня',
-      saving:       'Сохранение...',
-      done:         'Готово!',
-      badEmail:     'Этот адрес электронной почты недействителен. Пожалуйста, проверьте и попробуйте снова.',
-      alreadyOn:    'Вы уже в списке ожидания для Русского!',
-      success:      'Вы в списке! Мы уведомим вас, когда Русский будет запущен.',
-      error:        'Что-то пошло не так. Пожалуйста, попробуйте снова.',
-      alreadyBtn:   'Уже зарегистрирован',
-    },
-    Serbian: {
-      notifyBtn:    'Obavesti me',
-      saving:       'Čuvanje...',
-      done:         'Gotovo!',
-      badEmail:     'Ova adresa e-pošte ne izgleda ispravno. Proverite i pokušajte ponovo.',
-      alreadyOn:    'Već ste na listi čekanja za Srpski!',
-      success:      'Na listi ste! Obavestićemo vas kada Srpski bude dostupan.',
-      error:        'Nešto je pošlo naopako. Molimo pokušajte ponovo.',
-      alreadyBtn:   'Već registrovan',
-    },
-    Bulgarian: {
-      notifyBtn:    'Уведоми ме',
-      saving:       'Запазване...',
-      done:         'Готово!',
-      badEmail:     'Този имейл адрес не изглежда валиден. Моля, проверете и опитайте отново.',
-      alreadyOn:    'Вече сте в списъка на чакащите за Български!',
-      success:      'Вие сте в списъка! Ще ви уведомим, когато Български бъде пуснат.',
-      error:        'Нещо се обърка. Моля, опитайте отново.',
-      alreadyBtn:   'Вече регистриран',
-    },
-    Hindi: {
-      notifyBtn:    'मुझे सूचित करें',
-      saving:       'सहेजा जा रहा है...',
-      done:         'हो गया!',
-      badEmail:     'यह ईमेल पता सही नहीं लगता। कृपया जाँचें और फिर से प्रयास करें।',
-      alreadyOn:    'आप पहले से हिन्दी की प्रतीक्षा सूची में हैं!',
-      success:      'आप सूची में हैं! जब हिन्दी लॉन्च होगी, हम आपको सूचित करेंगे।',
-      error:        'कुछ गलत हो गया। कृपया फिर से प्रयास करें।',
-      alreadyBtn:   'पहले से पंजीकृत',
-    },
-    Other: {
-      notifyBtn:    'Notify me',
-      saving:       'Saving...',
-      done:         'Done!',
-      badEmail:     'That does not look like a valid email address. Please check and try again.',
-      alreadyOn:    'You are already on the waitlist!',
-      success:      'You are on the list! We will notify you when your language launches.',
-      error:        'Something went wrong. Please try again.',
-      alreadyBtn:   'Already registered',
-    },
   };
 
   function t(key) {
-    const lang = waitlistT[currentLanguage] || waitlistT['Other'];
-    return lang[key] || waitlistT['Other'][key];
+    const lang = waitlistT[currentLanguage] || waitlistT['Portuguese'];
+    return lang[key] || waitlistT['Portuguese'][key];
   }
 
   function openWaitlist(nativeName, englishName, flag) {
