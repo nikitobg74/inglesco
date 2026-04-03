@@ -4,235 +4,303 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<title>Unidad 1 - Lección 4 - Parte 4</title>
+<title>Unidad 1 • Lección 4 • Parte 4 | Inglesco</title>
+
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script defer src="../../../../js/u1/u1_l4_p4.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; color:#2c3e50; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+/* ── BACK ── */
 .back-btn {
-  display:inline-block; margin-bottom:20px; padding:8px 15px;
-  background:#2563eb; color:white; border-radius:10px;
-  text-decoration:none; font-weight:600;
-}
-.back-btn:hover { background:#1e40af; }
-
-.unit-title {
-  text-align:center; font-size:28px; font-weight:700;
-  margin-bottom:10px; color:#2563eb;
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
 }
 
+/* ── HEADER ── */
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+/* ── STEP DOTS ── */
 .progress-container {
-  display:flex; justify-content:center;
-  margin:15px 0 25px 0; gap:10px;
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
 }
 .step {
-  width:40px; height:40px; border-radius:50%;
-  background:#d1d5db; display:flex; align-items:center;
-  justify-content:center; font-weight:600; cursor:pointer;
-  transition:all 0.3s; color:#1f2933;
-  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
-.step.active { background:#2563eb; color:white; }
-.step:hover { transform:scale(1.1); }
+.step.active { background: #2563eb; color: #fff; }
 
-.exercise-box {
-  max-width:950px; margin:0 auto; background:#ffffff;
-  padding:30px; border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-.instruction-banner {
-  background:#eff6ff; border-left:5px solid #2563eb;
-  border-radius:10px; padding:14px 18px; margin-bottom:24px;
-  font-size:16px; color:#1e3a8a; font-weight:500;
+/* ── CARD ── */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin-bottom: 16px;
 }
 
-.section-title { font-size:22px; font-weight:700; margin-bottom:20px; }
+/* ── INSTRUCTION ── */
+.instruction-box {
+  background: #e0e7ff; color: #111827; font-weight: 600;
+  padding: 14px 18px; border-radius: 12px; text-align: center;
+  font-size: 14px; line-height: 1.6;
+}
 
-.numbers-layout { display:flex; gap:20px; flex-wrap:wrap; }
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 13px; font-weight: 700; color: #2563eb;
+  letter-spacing: .05em; text-transform: uppercase;
+  margin: 0 0 14px;
+  padding-bottom: 6px; border-bottom: 2px solid #dbeafe;
+}
 
+/* ── LAYOUT ── */
+.numbers-layout {
+  display: flex; gap: 14px; flex-wrap: wrap;
+}
+
+/* ── REFERENCE BOX ── */
 .reference-box {
-  flex:1; min-width:130px; background:#f9fafb;
-  border-radius:16px; padding:18px 20px;
-  box-shadow:0 6px 16px rgba(0,0,0,0.06);
-  font-size:15px; font-weight:600;
+  flex: 0 0 130px; background: #f0f9ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px; padding: 14px 16px;
+  font-size: 14px; font-weight: 600;
 }
-.reference-title { font-weight:700; margin-bottom:10px; color:#2563eb; }
+.reference-title {
+  font-weight: 900; font-size: 13px; color: #2563eb;
+  text-transform: uppercase; letter-spacing: .05em;
+  margin-bottom: 10px;
+}
 .reference-row {
-  display:flex; justify-content:space-between;
-  padding:6px 0; border-bottom:1px solid #e5e7eb;
+  display: flex; justify-content: space-between;
+  padding: 5px 0; border-bottom: 1px solid #e2e8f0;
+  color: #374151;
 }
-.reference-row:last-child { border-bottom:none; }
+.reference-row:last-child { border-bottom: none; }
+.reference-row span:last-child { color: #2563eb; font-weight: 700; }
 
+/* ── EXERCISE COLUMNS ── */
 .exercise-column {
-  flex:1; min-width:200px; background:#f9fafb;
-  border-radius:16px; padding:18px 20px;
-  box-shadow:0 6px 16px rgba(0,0,0,0.06);
+  flex: 1; min-width: 160px; background: #f8fafc;
+  border-radius: 14px; padding: 14px 16px;
+  border: 1px solid #e2e8f0;
 }
-.exercise-column h3 { font-size:17px; font-weight:700; margin-bottom:14px; color:#2563eb; }
-
+.exercise-column h3 {
+  font-size: 13px; font-weight: 900; color: #1e40af;
+  text-transform: uppercase; letter-spacing: .04em;
+  margin-bottom: 12px; padding-bottom: 6px;
+  border-bottom: 2px solid #dbeafe;
+}
 .exercise-row {
-  display:flex; align-items:center;
-  gap:12px; margin-bottom:10px;
-  font-size:16px; font-weight:600;
+  display: flex; align-items: center;
+  gap: 10px; margin-bottom: 8px;
+  font-size: 15px; font-weight: 700; color: #1e3a5f;
 }
-.exercise-row span.word { min-width:55px; }
+.exercise-row span { min-width: 48px; }
 
-.number-input {
-  width: 80px;
-  padding:10px 12px; border-radius:8px;
-  border:2px solid #cbd5e1; font-size:16px;
-  font-family:'Poppins', sans-serif;
-  -webkit-appearance:none; transition:border-color 0.2s;
+.number-input, .word-input {
+  padding: 8px 10px; border-radius: 8px;
+  border: 2px solid #cbd5e1; font-size: 15px;
+  font-family: 'Poppins', sans-serif; font-weight: 600;
+  outline: none; background: white;
+  -webkit-appearance: none;
+  transition: border-color .2s, background .2s;
 }
-.word-input {
-  width: 130px;
-  padding:10px 12px; border-radius:8px;
-  border:2px solid #cbd5e1; font-size:16px;
-  font-family:'Poppins', sans-serif;
-  -webkit-appearance:none; transition:border-color 0.2s;
-}
-.number-input:focus, .word-input:focus { border-color:#2563eb; outline:none; }
-.number-input.correct, .word-input.correct { border-color:#16a34a; background:#f0fdf4; }
-.number-input.wrong,   .word-input.wrong   { border-color:#dc2626; background:#fef2f2; }
+.number-input { width: 72px; }
+.word-input   { width: 120px; }
+.number-input:focus, .word-input:focus { border-color: #2563eb; }
+.number-input.correct, .word-input.correct { border-color: #16a34a; background: #dcfce7; }
+.number-input.wrong,   .word-input.wrong   { border-color: #dc2626; background: #fee2e2; }
 
-@media(max-width:600px){
-  .exercise-box { padding:20px 16px; }
-  .numbers-layout { flex-direction:column; }
-}
-
+/* ── CONTROLS ── */
 .controls {
-  margin-top:25px; text-align:center;
-  display:flex; flex-wrap:wrap;
-  justify-content:center; align-items:center; gap:10px;
+  display: flex; flex-wrap: wrap;
+  justify-content: center; align-items: center;
+  gap: 10px; margin-top: 20px;
 }
-button {
-  padding:12px 24px; border:none; border-radius:12px;
-  background:#2563eb; color:white; font-weight:700; font-size:15px;
-  cursor:pointer; transition:background 0.3s;
-  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+.ctrl-btn {
+  padding: 12px 24px; border: none; border-radius: 12px;
+  background: #2563eb; color: white; font-weight: 900; font-size: 15px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: opacity .2s;
+  font-family: 'Poppins', sans-serif;
 }
-button:hover { background:#1e40af; }
+.ctrl-btn:hover { opacity: .88; }
+.ctrl-btn.reset { background: #6b7280; }
+.ctrl-btn.finish { background: #059669; text-decoration: none; display: inline-block; }
 
-.feedback { width:100%; margin-top:4px; font-weight:600; font-size:15px; text-align:center; }
-.feedback.correct { color:#16a34a; }
-.feedback.wrong   { color:#dc2626; }
-
-.next-btn {
-  display:inline-block; padding:12px 24px; border-radius:12px;
-  background:#16a34a; color:white; font-weight:700;
-  font-size:15px; text-decoration:none; touch-action:manipulation;
+/* ── FEEDBACK ── */
+.feedback {
+  width: 100%; text-align: center;
+  font-size: 14px; font-weight: 700; min-height: 20px;
 }
-.next-btn:hover { background:#15803d; }
+.feedback.correct { color: #16a34a; }
+.feedback.wrong   { color: #dc2626; }
 
-a[href^="tel"], a[x-apple-data-detectors] {
-  color:inherit !important; text-decoration:none !important; pointer-events:none !important;
-}
-.hidden { display:none; }
-
-@media(max-width:600px){
-  .exercise-box { padding:20px 16px; }
-  .numbers-layout { flex-direction:column; }
+/* ── MOBILE ── */
+@media (max-width: 520px) {
+  .numbers-layout { flex-direction: column; }
+  .reference-box  { flex: unset; width: 100%; }
 }
 </style>
 </head>
 
 <body>
+<div class="wrap">
 
-<a href="../index.html" class="back-btn">← Volver a Unidad 1</a>
-<h1 class="unit-title">Lección 4 - Parte 4</h1>
+  <a href="../index.html" class="back-btn">← Unidad 1</a>
 
-<div class="progress-container">
-  <div class="step" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step active" data-page="p4.html">4</div>
-</div>
+  <div class="top-title">Unidad 1 • Lección 4 • Parte 4</div>
+  <div class="subline">Personal Information</div>
 
-<div class="exercise-box">
-
-  <div class="instruction-banner">
-    ✏️ Escribe el número o la palabra que corresponde. Usa la lista de referencia si necesitas ayuda.
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
   </div>
 
-  <div class="section-title">Números 0–10</div>
-
-  <div class="numbers-layout">
-
-    <div class="reference-box">
-      <div class="reference-title">Referencia</div>
-      <div class="reference-row"><span>zero</span><span>0</span></div>
-      <div class="reference-row"><span>one</span><span>1</span></div>
-      <div class="reference-row"><span>two</span><span>2</span></div>
-      <div class="reference-row"><span>three</span><span>3</span></div>
-      <div class="reference-row"><span>four</span><span>4</span></div>
-      <div class="reference-row"><span>five</span><span>5</span></div>
-      <div class="reference-row"><span>six</span><span>6</span></div>
-      <div class="reference-row"><span>seven</span><span>7</span></div>
-      <div class="reference-row"><span>eight</span><span>8</span></div>
-      <div class="reference-row"><span>nine</span><span>9</span></div>
-      <div class="reference-row"><span>ten</span><span>10</span></div>
+  <!-- INSTRUCTION -->
+  <div class="card">
+    <div class="instruction-box">
+      ✏️ Escribe el número o la palabra que corresponde.<br>
+      Usa la lista de referencia si necesitas ayuda.
     </div>
-
-    <div class="exercise-column" id="writeNumberColumn">
-      <h3>Escribe el número.</h3>
-      <div class="exercise-row"><span class="word">four</span><input type="number" inputmode="numeric" class="number-input" data-answer="4"></div>
-      <div class="exercise-row"><span class="word">seven</span><input type="number" inputmode="numeric" class="number-input" data-answer="7"></div>
-      <div class="exercise-row"><span class="word">one</span><input type="number" inputmode="numeric" class="number-input" data-answer="1"></div>
-      <div class="exercise-row"><span class="word">eight</span><input type="number" inputmode="numeric" class="number-input" data-answer="8"></div>
-      <div class="exercise-row"><span class="word">ten</span><input type="number" inputmode="numeric" class="number-input" data-answer="10"></div>
-      <div class="exercise-row"><span class="word">two</span><input type="number" inputmode="numeric" class="number-input" data-answer="2"></div>
-      <div class="exercise-row"><span class="word">nine</span><input type="number" inputmode="numeric" class="number-input" data-answer="9"></div>
-      <div class="exercise-row"><span class="word">six</span><input type="number" inputmode="numeric" class="number-input" data-answer="6"></div>
-      <div class="exercise-row"><span class="word">five</span><input type="number" inputmode="numeric" class="number-input" data-answer="5"></div>
-      <div class="exercise-row"><span class="word">three</span><input type="number" inputmode="numeric" class="number-input" data-answer="3"></div>
-    </div>
-
-    <div class="exercise-column" id="writeWordColumn">
-      <h3>Escribe la palabra.</h3>
-      <div class="exercise-row"><span class="word">6</span><input type="text" class="word-input" data-answer="six"></div>
-      <div class="exercise-row"><span class="word">2</span><input type="text" class="word-input" data-answer="two"></div>
-      <div class="exercise-row"><span class="word">7</span><input type="text" class="word-input" data-answer="seven"></div>
-      <div class="exercise-row"><span class="word">3</span><input type="text" class="word-input" data-answer="three"></div>
-      <div class="exercise-row"><span class="word">1</span><input type="text" class="word-input" data-answer="one"></div>
-      <div class="exercise-row"><span class="word">8</span><input type="text" class="word-input" data-answer="eight"></div>
-      <div class="exercise-row"><span class="word">10</span><input type="text" class="word-input" data-answer="ten"></div>
-      <div class="exercise-row"><span class="word">4</span><input type="text" class="word-input" data-answer="four"></div>
-      <div class="exercise-row"><span class="word">9</span><input type="text" class="word-input" data-answer="nine"></div>
-      <div class="exercise-row"><span class="word">5</span><input type="text" class="word-input" data-answer="five"></div>
-    </div>
-
   </div>
 
-  <div class="controls">
-    <button id="checkBtn">Comprobar</button>
-    <button id="resetBtn">Reiniciar</button>
-    <a href="final.html" class="next-btn">Terminar →</a>
-    <div id="feedback" class="feedback"></div>
-  </div>
+  <!-- EXERCISE CARD -->
+  <div class="card">
+    <div class="section-label">Números 0 – 10</div>
 
-</div>
+    <div class="numbers-layout">
 
-<div id="i18n" class="hidden">
-  <span data-msg="all_correct">¡Excelente! Todas las respuestas son correctas.</span>
-  <span data-msg="check_red">Revisa las respuestas marcadas en rojo.</span>
-</div>
+      <!-- REFERENCE -->
+      <div class="reference-box">
+        <div class="reference-title">Referencia</div>
+        <div class="reference-row"><span>zero</span><span>0</span></div>
+        <div class="reference-row"><span>one</span><span>1</span></div>
+        <div class="reference-row"><span>two</span><span>2</span></div>
+        <div class="reference-row"><span>three</span><span>3</span></div>
+        <div class="reference-row"><span>four</span><span>4</span></div>
+        <div class="reference-row"><span>five</span><span>5</span></div>
+        <div class="reference-row"><span>six</span><span>6</span></div>
+        <div class="reference-row"><span>seven</span><span>7</span></div>
+        <div class="reference-row"><span>eight</span><span>8</span></div>
+        <div class="reference-row"><span>nine</span><span>9</span></div>
+        <div class="reference-row"><span>ten</span><span>10</span></div>
+      </div>
+
+      <!-- WRITE THE NUMBER -->
+      <div class="exercise-column">
+        <h3>Escribe el número</h3>
+        <div class="exercise-row"><span>four</span>  <input type="number" inputmode="numeric" class="number-input" data-answer="4"></div>
+        <div class="exercise-row"><span>seven</span> <input type="number" inputmode="numeric" class="number-input" data-answer="7"></div>
+        <div class="exercise-row"><span>one</span>   <input type="number" inputmode="numeric" class="number-input" data-answer="1"></div>
+        <div class="exercise-row"><span>eight</span> <input type="number" inputmode="numeric" class="number-input" data-answer="8"></div>
+        <div class="exercise-row"><span>ten</span>   <input type="number" inputmode="numeric" class="number-input" data-answer="10"></div>
+        <div class="exercise-row"><span>two</span>   <input type="number" inputmode="numeric" class="number-input" data-answer="2"></div>
+        <div class="exercise-row"><span>nine</span>  <input type="number" inputmode="numeric" class="number-input" data-answer="9"></div>
+        <div class="exercise-row"><span>six</span>   <input type="number" inputmode="numeric" class="number-input" data-answer="6"></div>
+        <div class="exercise-row"><span>five</span>  <input type="number" inputmode="numeric" class="number-input" data-answer="5"></div>
+        <div class="exercise-row"><span>three</span> <input type="number" inputmode="numeric" class="number-input" data-answer="3"></div>
+      </div>
+
+      <!-- WRITE THE WORD -->
+      <div class="exercise-column">
+        <h3>Escribe la palabra</h3>
+        <div class="exercise-row"><span>6</span>  <input type="text" class="word-input" data-answer="six"></div>
+        <div class="exercise-row"><span>2</span>  <input type="text" class="word-input" data-answer="two"></div>
+        <div class="exercise-row"><span>7</span>  <input type="text" class="word-input" data-answer="seven"></div>
+        <div class="exercise-row"><span>3</span>  <input type="text" class="word-input" data-answer="three"></div>
+        <div class="exercise-row"><span>1</span>  <input type="text" class="word-input" data-answer="one"></div>
+        <div class="exercise-row"><span>8</span>  <input type="text" class="word-input" data-answer="eight"></div>
+        <div class="exercise-row"><span>10</span> <input type="text" class="word-input" data-answer="ten"></div>
+        <div class="exercise-row"><span>4</span>  <input type="text" class="word-input" data-answer="four"></div>
+        <div class="exercise-row"><span>9</span>  <input type="text" class="word-input" data-answer="nine"></div>
+        <div class="exercise-row"><span>5</span>  <input type="text" class="word-input" data-answer="five"></div>
+      </div>
+
+    </div><!-- /numbers-layout -->
+
+    <div class="controls">
+      <button class="ctrl-btn" id="checkBtn">Comprobar</button>
+      <button class="ctrl-btn reset" id="resetBtn">Reiniciar</button>
+      <a href="../index.html" class="ctrl-btn finish">Terminar ✓</a>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+  </div><!-- /card -->
+
+</div><!-- /wrap -->
 
 <script>
-  function onTap(el, handler) {
-    let touchMoved = false, handledByTouch = false;
-    el.addEventListener("touchstart", () => { touchMoved = false; handledByTouch = false; }, { passive: true });
-    el.addEventListener("touchmove",  () => { touchMoved = true; }, { passive: true });
-    el.addEventListener("touchend", (e) => { if (touchMoved) return; e.preventDefault(); handledByTouch = true; handler(); });
-    el.addEventListener("click", () => { if (handledByTouch) { handledByTouch = false; return; } handler(); });
+(() => {
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const AUDIO = BASE + 'audio/u1/';
+
+  const sfxCorrect   = new Audio(AUDIO + 'correct.wav');
+  const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+  function playSfx(ok) {
+    const s = ok ? sfxCorrect : sfxIncorrect;
+    s.currentTime = 0; s.play().catch(() => {});
   }
-  document.querySelectorAll(".step").forEach(step => {
-    onTap(step, () => { const p = step.dataset.page; if (p) window.location.href = p; });
+
+  const checkBtn  = document.getElementById('checkBtn');
+  const resetBtn  = document.getElementById('resetBtn');
+  const feedbackEl= document.getElementById('feedback');
+
+  function setFeedback(msg, ok) {
+    feedbackEl.textContent = msg;
+    feedbackEl.className   = 'feedback ' + (ok ? 'correct' : 'wrong');
+  }
+
+  checkBtn.addEventListener('click', () => {
+    let allCorrect = true;
+
+    document.querySelectorAll('.number-input, .word-input').forEach(input => {
+      const answer = (input.dataset.answer || '').trim().toLowerCase();
+      const value  = (input.value || '').trim().toLowerCase();
+      input.classList.remove('correct', 'wrong');
+      if (value === answer) {
+        input.classList.add('correct');
+      } else {
+        input.classList.add('wrong');
+        allCorrect = false;
+      }
+    });
+
+    playSfx(allCorrect);
+    setFeedback(
+      allCorrect
+        ? '¡Excelente! Todas las respuestas son correctas.'
+        : 'Revisa las respuestas marcadas en rojo.',
+      allCorrect
+    );
   });
+
+  resetBtn.addEventListener('click', () => {
+    document.querySelectorAll('.number-input, .word-input').forEach(input => {
+      input.value = '';
+      input.classList.remove('correct', 'wrong');
+    });
+    feedbackEl.textContent = '';
+    feedbackEl.className   = 'feedback';
+  });
+})();
 </script>
 
 </body>

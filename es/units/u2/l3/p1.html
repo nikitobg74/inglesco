@@ -1,278 +1,295 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 2 - Lección 3 - Parte 1</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 2 • Lección 3 • Parte 1 | Inglesco</title>
+
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; background:#eef2ff; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
-.back-btn{
-  display:inline-block;
-  margin-bottom:20px;
-  padding:8px 15px;
-  background:#2563eb;
-  color:#ffffff;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
-}
-.back-btn:hover{ background:#1e40af; }
-
-.progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:15px 0 25px 0;
-}
-.step{
-  width:40px; height:40px;
-  border-radius:50%;
-  background:#d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
-  color:#1f2933;
-}
-.step.active{ background:#2563eb; color:#ffffff; }
-.step:hover{ transform:scale(1.1); }
-
-.exercise-box{
-  max-width:950px;
-  margin:0 auto;
-  background:#ffffff;
-  padding:30px 40px;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  color:#2c3e50;
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
 }
 
-.unit-title{
-  color:#2563eb;
-  font-size:28px;
-  font-weight:700;
-  text-align:center;
-  margin-bottom:10px;
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: #2563eb; color: white; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
 }
 
-.instruction-box{
-  background:#e0e7ff;
-  padding:15px 20px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:600;
-  margin-bottom:18px;
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.step.active { background: #2563eb; color: #fff; }
+
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin-bottom: 16px;
 }
 
-.counter-row{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  margin-bottom:18px;
-  color:#1f2933;
-  font-weight:700;
-}
-.counter-pill{
-  background:#2563eb;
-  color:#fff;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:14px;
+.instruction-box {
+  background: #e0e7ff; color: #111827; font-weight: 600;
+  padding: 14px 18px; border-radius: 12px; text-align: center;
+  font-size: 14px; line-height: 1.6; margin-bottom: 16px;
 }
 
-.dialogue-row{
-  display:flex;
-  justify-content:center;
-  align-items:stretch;
-  gap:14px;
-  flex-wrap:wrap;
+.counter-row {
+  display: flex; justify-content: center; margin-bottom: 18px;
+}
+.counter-pill {
+  background: #2563eb; color: #fff;
+  padding: 5px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 700;
 }
 
-.image-box{
-  background:#f8fafc;
-  border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:14px;
-  width:100%;
-  max-width:360px;
-  text-align:center;
+/* ── DIALOGUE LAYOUT ── */
+.dialogue-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
 }
 
-.image-box img{
-  width:100%;
-  max-width:330px;
-  border-radius:14px;
-  display:block;
-  margin:0 auto;
+.img-left { flex: 0 0 180px; }
+.img-left img {
+  width: 100%; border-radius: 14px; display: block;
+  object-fit: contain; background: #f1f5f9;
 }
 
-.right-stack{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+.play-col {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.play-btn {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #2563eb; color: #fff; border: none;
+  font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .2s, transform .1s;
+}
+.play-btn:hover  { background: #1e40af; }
+.play-btn:active { transform: scale(.93); }
+.play-btn:disabled { opacity: .5; cursor: default; }
+.status-text {
+  font-size: 12px; font-weight: 700; color: #486581; text-align: center;
 }
 
-/* "reduce photo size box right side" */
-.image-box.small{
-  max-width:320px;
-  padding:12px;
+.img-right {
+  flex: 0 0 160px;
+  display: flex; flex-direction: column; gap: 10px;
 }
-.image-box.small img{
-  max-width:280px;
-}
-
-/* bottom right image slightly smaller too */
-.image-box.small.bottom img{
-  max-width:260px;
+.img-right img {
+  width: 100%; border-radius: 12px; display: block;
+  object-fit: contain; background: #f1f5f9;
 }
 
-.play-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+/* ── CONTROLS ── */
+.controls {
+  display: flex; justify-content: center; gap: 10px;
+  flex-wrap: wrap; margin-top: 20px;
+}
+.ctrl-btn {
+  padding: 10px 20px; border: none; border-radius: 12px;
+  font-weight: 900; font-size: 14px; cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .2s;
+}
+.ctrl-btn:disabled { opacity: .4; cursor: default; }
+.ctrl-btn.replay  { background: #6b7280; color: #fff; }
+.ctrl-btn.forward { background: #0ea5e9; color: #fff; }
+
+.next-wrap { display: flex; justify-content: center; margin-top: 16px; }
+.next-btn {
+  display: inline-block; padding: 13px 36px;
+  background: #2563eb; color: #fff; border-radius: 14px;
+  font-weight: 900; font-size: 15px; text-decoration: none;
 }
 
-.play-btn{
-  border:none;
-  cursor:pointer;
-  background:#2563eb;
-  color:#fff;
-  width:54px;
-  height:54px;
-  border-radius:999px;
-  font-weight:900;
-  font-size:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:all .2s;
-}
-.play-btn:hover{ background:#1e40af; }
-.play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+.hidden { display: none !important; }
 
-.small-note{
-  font-weight:700;
-  color:#334155;
-  font-size:13px;
-  text-align:center;
-}
-
-.controls{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.control-btn{
-  border:none;
-  cursor:pointer;
-  background:#2563eb;
-  color:#fff;
-  padding:10px 18px;
-  border-radius:12px;
-  font-weight:800;
-  transition:all 0.2s;
-}
-.control-btn.secondary{ background:#0ea5e9; }
-.control-btn.gray{ background:#6b7280; }
-.control-btn:hover{ filter:brightness(0.95); }
-.control-btn:disabled{ opacity:0.6; cursor:not-allowed; }
-
-.next-lesson-wrap{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-}
-.next-btn{
-  display:inline-block;
-  text-decoration:none;
-  background:#0ea5e9;
-  color:#fff;
-  padding:12px 18px;
-  border-radius:12px;
-  font-weight:900;
-}
-.next-btn:hover{ filter:brightness(0.95); }
-
-.hidden{ display:none !important; }
-
-@media (max-width:768px){
-  .exercise-box{ padding:22px 18px; }
-  .image-box{ max-width:520px; }
-  .image-box.small{ max-width:520px; }
-  .image-box.small img{ max-width:420px; }
-  .image-box.small.bottom img{ max-width:420px; }
+@media (max-width: 480px) {
+  .img-left  { flex: 0 0 120px; }
+  .img-right { flex: 0 0 110px; }
+  .play-btn  { width: 44px; height: 44px; font-size: 17px; }
 }
 </style>
 </head>
 
 <body>
+<div class="wrap">
 
-<a href="../index.html" class="back-btn" id="backBtn">← Volver a Unidad 2</a>
+  <a href="../index.html" class="back-btn">← Unidad 2</a>
 
-<div class="progress-container">
-  <div class="step active" data-page="p1.html">1</div>
-  <div class="step" data-page="p2.html">2</div>
-  <div class="step" data-page="p3.html">3</div>
-  <div class="step" data-page="p4.html">4</div>
-</div>
+  <div class="top-title">Unidad 2 • Lección 3 • Parte 1</div>
+  <div class="subline">Listening: Where are they going?</div>
 
-<div class="exercise-box">
-  <div class="unit-title" id="unitTitle">Unidad 2 – Lección 3 - Parte 1</div>
-
-  <div class="instruction-box" id="instructionBox">
-    Mira las tres imágenes. Toca ▶ para escuchar el diálogo. Puedes repetir el audio. Cuando termine, toca “Siguiente diálogo”.
+  <div class="progress-container">
+    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
   </div>
 
-  <div class="counter-row">
-    <span class="counter-pill" id="dialoguePill">Dialogue 1/4</span>
-  </div>
+  <div class="card">
 
-  <div class="dialogue-row">
-    <!-- LEFT (Question speaker) -->
-    <div class="image-box">
-      <img id="leftImg" src="" alt="Left image" />
+    <div class="instruction-box">
+      Mira las tres imágenes. Toca ▶ para escuchar el diálogo.<br>
+      Puedes repetir el audio. Cuando termine, toca "Siguiente diálogo".
     </div>
 
-    <!-- PLAY -->
-    <div class="play-wrap">
-      <button class="play-btn" id="playBtn" type="button" aria-label="Play">▶</button>
-      <div class="small-note" id="statusText">Play</div>
+    <div class="counter-row">
+      <span class="counter-pill" id="pill">Diálogo 1 / 4</span>
     </div>
 
-    <!-- RIGHT (Two answers stacked) -->
-    <div class="right-stack">
-      <div class="image-box small">
-        <img id="rightTopImg" src="" alt="Right top image" />
+    <div class="dialogue-row">
+      <div class="img-left">
+        <img id="imgLeft" src="" alt="">
       </div>
-      <div class="image-box small bottom">
-        <img id="rightBottomImg" src="" alt="Right bottom image" />
+
+      <div class="play-col">
+        <button class="play-btn" id="playBtn">▶</button>
+        <div class="status-text" id="statusText">Play</div>
+      </div>
+
+      <div class="img-right">
+        <img id="imgTop" src="" alt="">
+        <img id="imgBot" src="" alt="">
       </div>
     </div>
+
+    <div class="controls">
+      <button class="ctrl-btn replay"  id="replayBtn">↺ Repetir</button>
+      <button class="ctrl-btn forward" id="nextDialogueBtn" disabled>Siguiente diálogo ▶</button>
+    </div>
+
+    <div class="next-wrap">
+      <a href="p2.html" class="next-btn hidden" id="nextBtn">Siguiente →</a>
+    </div>
+
   </div>
 
-  <div class="controls">
-    <button class="control-btn gray" id="replayBtn">Repeat ↺</button>
-    <button class="control-btn secondary" id="nextDialogueBtn" disabled>Next dialogue ▶</button>
-  </div>
-
-  <div class="next-lesson-wrap">
-    <a href="p2.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
-  </div>
 </div>
 
-<script src="../../../../js/u2/u2_l3_p1.js"></script>
+<script>
+(() => {
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const IMG   = BASE + 'images/u2/';
+  const AUDIO = BASE + 'audio/u2/';
+
+  const DIALOGUES = [
+    { left:'u2.l3.p1.man1.jpg',   top:'u2.l3.p1.woman.restaurant1.jpg', bot:'u2.l2.p4.supermarket1.jpg',   audio:'u2.l2.p1.dialogue1.mp3' },
+    { left:'u2.l3.p1.man2.jpg',   top:'u2.l3.p1.man.bank1.jpg',          bot:'u2.l3.p1.post.jpg',            audio:'u2.l2.p1.dialogue2.mp3' },
+    { left:'u2.l3.p1.woman1.jpg', top:'u2.l3.p1.woman.library1.jpg',     bot:'u2.l3.p1.man.office1.jpg',    audio:'u2.l2.p1.dialogue3.mp3' },
+    { left:'u2.l3.p1.man3.jpg',   top:'u2.l3.p1.woman.park1.jpg',        bot:'u2.l2.p4.movietheater1.jpg',  audio:'u2.l2.p1.dialogue4.mp3' }
+  ];
+
+  const TOTAL = DIALOGUES.length;
+  let idx = 0, isPlaying = false;
+
+  const imgLeft         = document.getElementById('imgLeft');
+  const imgTop          = document.getElementById('imgTop');
+  const imgBot          = document.getElementById('imgBot');
+  const playBtn         = document.getElementById('playBtn');
+  const replayBtn       = document.getElementById('replayBtn');
+  const nextDialogueBtn = document.getElementById('nextDialogueBtn');
+  const nextBtn         = document.getElementById('nextBtn');
+  const pill            = document.getElementById('pill');
+  const statusText      = document.getElementById('statusText');
+
+  const audio = new Audio();
+  audio.preload = 'auto';
+
+  function setStatus(txt) { statusText.textContent = txt; }
+
+  function stopAudio() {
+    try { audio.pause(); audio.currentTime = 0; } catch(_) {}
+    isPlaying = false;
+    playBtn.disabled = false;
+  }
+
+  function loadDialogue(i) {
+    const d = DIALOGUES[i];
+    stopAudio();
+    imgLeft.src = IMG + d.left;
+    imgTop.src  = IMG + d.top;
+    imgBot.src  = IMG + d.bot;
+    audio.src   = AUDIO + d.audio;
+    pill.textContent = `Diálogo ${i + 1} / ${TOTAL}`;
+    setStatus('Play');
+    nextDialogueBtn.disabled = true;
+    nextBtn.classList.add('hidden');
+  }
+
+  function playFromStart() {
+    if (isPlaying) return;
+    try { audio.pause(); audio.currentTime = 0; } catch(_) {}
+    isPlaying = true;
+    playBtn.disabled = true;
+    setStatus('Reproduciendo…');
+    audio.play().catch(() => {
+      isPlaying = false;
+      playBtn.disabled = false;
+      setStatus('Play');
+    });
+  }
+
+  audio.addEventListener('ended', () => {
+    isPlaying = false;
+    playBtn.disabled = false;
+    setStatus('Terminado ✓');
+    if (idx < TOTAL - 1) {
+      nextDialogueBtn.disabled = false;
+    } else {
+      nextDialogueBtn.disabled = true;
+      nextBtn.classList.remove('hidden');
+    }
+  });
+
+  function onTap(el, fn) {
+    let moved = false, byTouch = false;
+    el.addEventListener('touchstart', () => { moved = false; byTouch = false; }, { passive: true });
+    el.addEventListener('touchmove',  () => { moved = true; }, { passive: true });
+    el.addEventListener('touchend', e => {
+      if (moved) return;
+      e.preventDefault(); byTouch = true; fn();
+    });
+    el.addEventListener('click', () => { if (byTouch) { byTouch = false; return; } fn(); });
+  }
+
+  onTap(playBtn,   playFromStart);
+  onTap(replayBtn, playFromStart);
+  onTap(nextDialogueBtn, () => {
+    if (isPlaying || idx >= TOTAL - 1) return;
+    idx++;
+    loadDialogue(idx);
+  });
+
+  loadDialogue(0);
+})();
+</script>
+
 </body>
 </html>
