@@ -1,336 +1,690 @@
-<!-- p1.html (Unidad 2 - Lección 5 - Parte 1) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unidad 2 - Lección 5 - Parte 1</title>
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Lugares en inglés: restaurant, bank, hospital – Inglesco Unidad 2 Lección 5</title>
+  <meta name="description" content="Escucha y elige el lugar correcto en inglés: restaurant, bank, hospital, park y más. Ejercicio de dictado interactivo gratuito para hispanohablantes." />
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body{ padding:20px; background:#eef2ff; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px; height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:600; cursor:pointer; transition:all .3s;
-      color:#1f2933; user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-
-    /* ===== FOOTER BUTTONS ===== */
-    .footer-actions{
-      display:flex; justify-content:center;
-      margin-top:25px; gap:10px; flex-wrap:wrap;
-    }
-    .next-btn{
-      display:inline-block; padding:10px 18px;
-      background:#2563eb; color:#fff;
-      text-decoration:none; border-radius:12px; font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
-
-    /* ===== PAGE BOX ===== */
-    .exercise-box{
-      max-width:950px; margin:0 auto;
-      background:#fff; padding:30px 40px;
-      border-radius:18px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.08);
-      color:#2c3e50;
-    }
-    .unit-title{
-      color:#2563eb; font-size:28px; font-weight:800;
-      text-align:center; margin-bottom:10px;
-    }
-    .instruction-box{
-      background:#e0e7ff; padding:15px 20px;
-      border-radius:12px; text-align:center;
-      font-weight:700; margin-bottom:16px; color:#0f172a;
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
     }
 
-    .section{
-      background:#f8fafc; border:1px solid #e5e7eb;
-      border-radius:16px; padding:16px; margin-top:14px;
+    /* BACK */
+    .back-btn {
+      position: fixed;
+      top: 14px; left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
     }
-    .section-title{
-      font-weight:900; color:#0f172a;
-      text-align:center; margin-bottom:10px;
+    .back-btn:active { transform: scale(0.96); }
+
+    /* WRAP */
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 56px;
     }
 
-    .counter-row{
-      display:flex; justify-content:center; align-items:center;
-      gap:10px; margin:10px 0 12px 0;
-      color:#1f2933; font-weight:800; flex-wrap:wrap;
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
     }
-    .counter-pill{
-      background:#2563eb; color:#fff;
-      padding:6px 12px; border-radius:999px; font-size:14px;
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      font-weight: 800;
+      margin-bottom: 4px;
     }
-
-    .main-row{
-      display:flex; justify-content:center;
-      align-items:flex-start; gap:14px; flex-wrap:wrap;
-    }
-
-    .play-wrap{
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap:10px; min-width:90px;
-    }
-    .play-btn{
-      border:none; cursor:pointer;
-      background:#2563eb; color:#fff;
-      width:64px; height:64px;
-      border-radius:999px; font-weight:900; font-size:22px;
-      display:flex; align-items:center; justify-content:center;
-      transition:all .2s;
-      box-shadow: 0 4px 12px rgba(37,99,235,.35);
-    }
-    .play-btn:hover{ background:#1e40af; }
-    .play-btn:disabled{ opacity:.5; cursor:not-allowed; box-shadow:none; }
-
-    .panel{
-      background:#fff; border:1px solid #e5e7eb;
-      border-radius:16px; padding:18px;
-      width:100%; max-width:680px;
-    }
-    .panel-title{
-      font-weight:900; color:#1f2933;
-      margin-bottom:12px; text-align:center; font-size:15px;
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
     }
 
-    .small-note{
-      font-weight:700; color:#334155; font-size:13px; text-align:center;
+    /* DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb; color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; }
+    .dot.done { background: #22c55e; color: #fff; border-color: #22c55e; }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+      animation: fadeUp 0.3s ease;
     }
 
-    /* ===== SENTENCE DISPLAY ===== */
-    .sentence-display{
-      text-align:center;
-      font-size:22px; font-weight:900; color:#0f172a;
-      margin:14px 0 6px 0;
-      min-height:36px;
+    /* SECTION LABEL */
+    .section-label {
+      display: inline-block;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
     }
-    .answer-slot{
-      display:inline-block;
-      min-width:140px;
+
+    /* COUNTER */
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
+    }
+    .bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 7px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 999px;
+      transition: width 0.5s;
+    }
+
+    /* INSTRUCTION */
+    .instruction-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1e40af;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    /* PLAY BUTTON */
+    .play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+    }
+    .play-btn:hover  { background: #1d4ed8; }
+    .play-btn:active { transform: scale(0.98); }
+    .play-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .play-btn.playing { background: #6b7280; cursor: default; }
+    .play-btn.repeat  { background: #eff6ff; color: #2563eb; border: 2px solid #2563eb; box-shadow: none; }
+    .play-btn.repeat:hover { background: #dbeafe; }
+    .play-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+    /* SENTENCE */
+    .sentence-wrap {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e2a38;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .answer-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 130px;
+      height: 36px;
+      border-radius: 8px;
       border-bottom: 3px solid #2563eb;
-      padding:2px 8px;
-      color:#2563eb;
-      font-weight:900;
+      color: #2563eb;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 0 8px;
+      transition: all 0.2s;
     }
-    .answer-slot.correct{
-      border-bottom-color:#16a34a;
-      color:#16a34a;
-    }
-
-    /* ===== WORD TILES ===== */
-    .wordbank{
-      display:flex; justify-content:center;
-      gap:12px; flex-wrap:wrap;
-      margin:16px 0 8px 0;
+    .answer-slot.correct {
+      border-bottom-color: #22c55e;
+      color: #15803d;
     }
 
-    /* Part B masking */
-    .masked .tile { filter: blur(6px); pointer-events:none; user-select:none; }
+    /* TILES */
+    .tile-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 10px;
+      min-height: 50px;
+    }
+    .tile {
+      padding: 11px 20px;
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e40af;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      border: 2px solid #bfdbfe;
+      transition: background 0.15s, transform 0.1s, border-color 0.15s;
+      user-select: none;
+    }
+    .tile:hover:not(.locked):not(.correct) { background: #dbeafe; border-color: #93c5fd; transform: translateY(-2px); }
+    .tile:active:not(.locked) { transform: scale(0.96); }
+    .tile.locked  { opacity: 0.45; pointer-events: none; cursor: default; }
+    .tile.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; pointer-events: none; }
+    .tile.wrong   { background: #fee2e2; border-color: #dc2626; color: #dc2626; animation: shake 0.4s ease; }
 
-    .tile{
-      padding:14px 22px;
-      background:#e0e7ff;
-      border:2px solid #c7d2fe;
-      border-radius:16px;
-      font-weight:900; color:#1e3a8a;
-      font-size:16px;
-      cursor:pointer;
-      transition: transform .15s, background .2s, border-color .2s, box-shadow .2s;
-      user-select:none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    /* FEEDBACK */
+    .feedback {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 22px;
+      color: #486581;
     }
-    .tile:hover:not(:disabled){
-      background:#c7d2fe; border-color:#818cf8;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(99,102,241,.25);
-    }
-    .tile:active:not(:disabled){ transform:scale(.96); }
+    .feedback.ok    { color: #15803d; }
+    .feedback.error { color: #dc2626; }
 
-    .tile.correct{
-      background:#dcfce7; border-color:#22c55e; color:#14532d;
-      pointer-events:none;
+    /* CONTINUE BTN */
+    .continue-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 13px;
+      margin-top: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #2563eb;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.25);
     }
-    .tile.wrong{
-      animation: shake .4s ease;
-      background:#fee2e2; border-color:#ef4444; color:#7f1d1d;
-    }
-    .tile.locked{
-      pointer-events:none; opacity:.5; cursor:default;
-    }
+    .continue-btn:hover { background: #1d4ed8; }
 
-    @keyframes shake{
-      0%,100%{ transform:translateX(0); }
-      20%{ transform:translateX(-6px); }
-      40%{ transform:translateX(6px); }
-      60%{ transform:translateX(-4px); }
-      80%{ transform:translateX(4px); }
+    /* END SCREEN */
+    #endScreen {
+      display: none;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
     }
-
-    .status-msg{
-      text-align:center; font-weight:700; font-size:14px;
-      color:#475569; margin-top:8px; min-height:22px;
+    .score-bar {
+      background: #e2e8f0; border-radius: 999px;
+      height: 12px; margin: 12px 0 20px; overflow: hidden;
     }
-
-    .great{
-      background:#dcfce7; border:1px solid #22c55e; color:#14532d;
-      padding:12px 14px; border-radius:14px; font-weight:900;
-      text-align:center; margin-top:14px;
-    }
-
-    .btn{
-      border:none; cursor:pointer;
-      background:#2563eb; color:#fff;
-      padding:10px 18px; border-radius:12px;
-      font-weight:900; transition:all .2s; white-space:nowrap;
-    }
-    .btn:hover{ background:#1e40af; }
-    .btn:disabled{ opacity:.6; cursor:not-allowed; }
-
-    /* Part B reveal */
-    .reveal-wrap{
-      text-align:center; margin-bottom:8px;
+    .score-bar-fill {
+      height: 100%; border-radius: 999px;
+      background: #22c55e; transition: width 1s ease;
     }
 
-    /* ===== MOBILE ===== */
-    @media (max-width:520px){
-      body{ padding:14px; }
-      .exercise-box{ padding:18px 16px; }
-      .unit-title{ font-size:22px; }
-      .play-btn{ width:56px; height:56px; font-size:20px; }
-      .tile{ padding:12px 18px; font-size:15px; }
-      .sentence-display{ font-size:19px; }
+    .hidden { display: none !important; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-6px); }
+      40%     { transform: translateX(6px); }
+      60%     { transform: translateX(-4px); }
+      80%     { transform: translateX(4px); }
     }
   </style>
 </head>
-
 <body>
-  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-  <div class="progress-container">
-    <div class="step active" data-page="p1.html">1</div>
-    <div class="step" data-page="p2.html">2</div>
-    <div class="step" data-page="p3.html">3</div>
-    <div class="step" data-page="p4.html">4</div>
+<a href="../index.html" class="back-btn">← Unidad 2</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidad 2 · Lección 5 · Parte 1</span>
+  <h1>Lugares en inglés</h1>
+  <p class="subtitle">Restaurant, bank, hospital y más</p>
+
+  <div class="progress-dots">
+    <div class="dot active" data-page="p1.html">1</div>
+    <div class="dot" data-page="p2.html">2</div>
+    <div class="dot" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
   </div>
 
-  <div class="exercise-box">
-    <div class="unit-title">Unidad 2 – Lección 5 – Parte 1</div>
+  <!-- ══════════ PART A ══════════ -->
+  <div class="card" id="cardA">
+    <span class="section-label">Parte A</span>
+
+    <div class="counter-row">
+      <span id="counterA">1 / 10</span>
+      <span id="scoreA">✓ 0 &nbsp;✗ 0</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barA"></div></div>
 
     <div class="instruction-box">
-      Dictado corto: escucha (▶) y toca el lugar correcto.
-      <br><span style="font-weight:600;">Escucha primero, luego toca una de las 3 palabras.</span>
+      🎧 Escucha el audio y toca el lugar correcto.
     </div>
 
-    <!-- ===== PART A ===== -->
-    <div class="section" id="partA">
-      <div class="section-title">Parte A</div>
+    <button class="play-btn" id="playA">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar
+    </button>
 
-      <div class="counter-row">
-        <span class="counter-pill" id="counterA">1 / 10</span>
-        <span id="statusA">Pulsa ▶ para escuchar</span>
-      </div>
-
-      <div class="main-row">
-        <div class="play-wrap">
-          <button class="play-btn" id="playA" aria-label="Play A">▶</button>
-          <div class="small-note">Escuchar</div>
-        </div>
-
-        <div class="panel">
-          <div class="sentence-display">
-            <span id="promptA">…</span><span class="answer-slot" id="slotA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          </div>
-
-          <div class="panel-title" style="margin-top:4px;">Elige el lugar:</div>
-          <div class="wordbank" id="bankA"></div>
-
-          <div class="status-msg" id="msgA"></div>
-        </div>
-      </div>
-
-      <div class="great hidden" id="greatA">¡Muy bien! ✅ Parte A completada</div>
-
-      <div class="footer-actions">
-        <button class="btn hidden" id="toPartB" type="button">Continuar a Parte B ▶</button>
-      </div>
+    <div class="sentence-wrap">
+      <span id="promptA">—</span>
+      <span class="answer-slot" id="slotA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     </div>
 
-    <!-- ===== PART B ===== -->
-    <div class="section hidden" id="partB">
-      <div class="section-title">Parte B</div>
-
-      <div class="counter-row">
-        <span class="counter-pill" id="counterB">1 / 10</span>
-        <span id="statusB">Pulsa ▶ para escuchar</span>
-      </div>
-
-      <div class="main-row">
-        <div class="play-wrap">
-          <button class="play-btn" id="playB" aria-label="Play B">▶</button>
-          <div class="small-note">Escuchar</div>
-        </div>
-
-        <div class="panel">
-          <div class="sentence-display">
-            <span id="promptB">…</span><span class="answer-slot" id="slotB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          </div>
-
-          <div class="reveal-wrap">
-            <button class="btn" id="revealBtn" type="button">Mostrar palabras (3s)</button>
-          </div>
-
-          <div class="panel-title" style="margin-top:4px;">Elige el lugar:</div>
-          <div class="wordbank masked" id="bankB"></div>
-
-          <div class="status-msg" id="msgB"></div>
-
-          <div class="small-note" style="margin-top:8px;">
-            En Parte B las palabras están escondidas. Usa "Mostrar" si necesitas.
-          </div>
-        </div>
-      </div>
-
-      <div class="great hidden" id="greatB">¡Excelente! ✅ Lección completada</div>
-    </div>
-
-    <!-- FINAL NEXT BUTTON -->
-    <div class="footer-actions">
-      <a href="p2.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
-    </div>
+    <div class="tile-bank" id="tilesA"></div>
+    <div class="feedback" id="feedbackA"></div>
   </div>
 
-  <script src="../../../../js/u2/u2_l5_p1.js"></script>
+  <!-- ══════════ PART B ══════════ -->
+  <div class="card hidden" id="cardB">
+    <span class="section-label">Parte B — Sin ayuda</span>
+
+    <div class="counter-row">
+      <span id="counterB">1 / 10</span>
+      <span id="scoreB">✓ 0 &nbsp;✗ 0</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barB"></div></div>
+
+    <div class="instruction-box">
+      🎧 Escucha y toca el lugar. ¡Esta vez sin pistas extra!
+    </div>
+
+    <button class="play-btn" id="playB">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar
+    </button>
+
+    <div class="sentence-wrap">
+      <span id="promptB">—</span>
+      <span class="answer-slot" id="slotB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+
+    <div class="tile-bank" id="tilesB"></div>
+    <div class="feedback" id="feedbackB"></div>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="endScreen">
+    <div id="endEmoji"  style="font-size:52px;margin-bottom:16px"></div>
+    <h2 id="endTitle"  style="font-size:22px;font-weight:800;color:#1e40af;margin-bottom:12px"></h2>
+    <p  id="endScore"  style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+    <p  id="endMsg"    style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+    <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;">
+      Continuar → Parte 2
+    </a>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+(() => {
+  "use strict";
+
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_BASE = BASE + "audio/u2/";
+  const sfxCorrect = new Audio(BASE + "sfx/correct.wav");
+  const sfxWrong   = new Audio(BASE + "sfx/incorrect.wav");
+  sfxCorrect.preload = sfxWrong.preload = "auto";
+
+  const ICON_PLAY = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+
+  const LOCATIONS = [
+    "restaurant","bank","hospital","supermarket",
+    "library","park","zoo","post office","movie theater","office"
+  ];
+
+  const PART_A = [
+    { audio:"u2.l5.p1.dial1a.mp3",  subject:"Pam",    location:"restaurant",    iam:false },
+    { audio:"u2.l5.p1.dial2a.mp3",  subject:"Brian",  location:"bank",          iam:false },
+    { audio:"u2.l5.p1.dial3a.mp3",  subject:"Martha", location:"hospital",      iam:false },
+    { audio:"u2.l5.p1.dial4a.mp3",  subject:"Fred",   location:"supermarket",   iam:false },
+    { audio:"u2.l5.p1.dial5a.mp3",  subject:"Maria",  location:"library",       iam:false },
+    { audio:"u2.l5.p1.dial6a.mp3",  subject:"Henry",  location:"park",          iam:false },
+    { audio:"u2.l5.p1.dial7a.mp3",  subject:"Tom",    location:"zoo",           iam:false },
+    { audio:"u2.l5.p1.dial8a.mp3",  subject:"I",      location:"post office",   iam:true  },
+    { audio:"u2.l5.p1.dial9a.mp3",  subject:"I",      location:"movie theater", iam:true  },
+    { audio:"u2.l5.p1.dial10a.mp3", subject:"I",      location:"office",        iam:true  },
+  ];
+
+  const PART_B = [
+    { audio:"u2.l5.p1.dial1b.mp3",  subject:"Michael", location:"restaurant",    iam:false },
+    { audio:"u2.l5.p1.dial2b.mp3",  subject:"Emily",   location:"bank",          iam:false },
+    { audio:"u2.l5.p1.dial3b.mp3",  subject:"Jason",   location:"hospital",      iam:false },
+    { audio:"u2.l5.p1.dial4b.mp3",  subject:"Olivia",  location:"supermarket",   iam:false },
+    { audio:"u2.l5.p1.dial5b.mp3",  subject:"Jim",     location:"library",       iam:false },
+    { audio:"u2.l5.p1.dial6b.mp3",  subject:"Jane",    location:"park",          iam:false },
+    { audio:"u2.l5.p1.dial7b.mp3",  subject:"Tim",     location:"zoo",           iam:false },
+    { audio:"u2.l5.p1.dial8b.mp3",  subject:"I",       location:"post office",   iam:true  },
+    { audio:"u2.l5.p1.dial9b.mp3",  subject:"I",       location:"movie theater", iam:true  },
+    { audio:"u2.l5.p1.dial10b.mp3", subject:"Greg",    location:"office",        iam:false },
+  ];
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function playSfx(sfx) {
+    try { sfx.currentTime = 0; sfx.play().catch(() => {}); } catch(_) {}
+  }
+
+  function sentencePrompt(item) {
+    return item.iam ? "I am at the" : `${item.subject} is at the`;
+  }
+
+  // 3 tiles: correct + 2 random distractors
+  function pickTiles(correct) {
+    const others = shuffle(LOCATIONS.filter(l => l !== correct));
+    return shuffle([correct, ...others.slice(0, 2)]);
+  }
+
+  // ── Dot navigation ────────────────────────────────────────────────────────
+
+  document.querySelectorAll(".dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const page = dot.dataset.page;
+      if (page) window.location.href = page;
+    });
+  });
+
+  // ── Part engine ───────────────────────────────────────────────────────────
+
+  function createPart({ items, ids, onComplete }) {
+    const { counter, score: scoreEl, bar,
+            playBtn, prompt: promptEl, slot,
+            tiles: tileBank, feedback: feedbackEl } = ids;
+
+    const audio = new Audio();
+    audio.preload = "auto";
+
+    let list    = shuffle(items);
+    let idx     = 0;
+    let correct = 0;
+    let wrong   = 0;
+    let canTap  = false;
+    const TOTAL = list.length;
+
+    function updateHUD() {
+      counter.textContent  = `${idx + 1} / ${TOTAL}`;
+      scoreEl.innerHTML    = `✓ ${correct} &nbsp;✗ ${wrong}`;
+      bar.style.width      = `${(idx / TOTAL) * 100}%`;
+    }
+
+    function setPlay(state) {
+      playBtn.className = "play-btn " + state;
+      if (state === "ready")   { playBtn.innerHTML = ICON_PLAY + " Escuchar";    playBtn.disabled = false; }
+      if (state === "playing") { playBtn.innerHTML = ICON_PLAY + " Escuchando…"; playBtn.disabled = true;  }
+      if (state === "repeat")  { playBtn.innerHTML = ICON_PLAY + " Repetir";     playBtn.disabled = false; }
+    }
+
+    function buildTiles(item) {
+      tileBank.innerHTML = "";
+      pickTiles(item.location).forEach(loc => {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        tile.className = "tile locked";
+        tile.textContent = loc;
+
+        tile.addEventListener("click", () => {
+          if (!canTap || tile.classList.contains("locked")) return;
+
+          if (loc === item.location) {
+            // Correct
+            canTap = false;
+            tile.classList.add("correct");
+            tile.classList.remove("locked");
+            // lock others
+            tileBank.querySelectorAll(".tile:not(.correct)").forEach(t => t.classList.add("locked"));
+            slot.textContent = item.location;
+            slot.classList.add("correct");
+            feedbackEl.textContent = "✓ ¡Correcto!";
+            feedbackEl.className   = "feedback ok";
+            correct++;
+            updateHUD();
+            playSfx(sfxCorrect);
+
+            setTimeout(() => {
+              idx++;
+              if (idx >= TOTAL) {
+                onComplete({ correct, wrong });
+              } else {
+                renderItem();
+              }
+            }, 850);
+
+          } else {
+            // Wrong
+            wrong++;
+            updateHUD();
+            playSfx(sfxWrong);
+            tile.classList.add("wrong");
+            feedbackEl.textContent = "✗ Intenta de nuevo.";
+            feedbackEl.className   = "feedback error";
+            setTimeout(() => {
+              tile.classList.remove("wrong");
+              feedbackEl.textContent = "";
+              feedbackEl.className   = "feedback";
+            }, 600);
+          }
+        });
+
+        tileBank.appendChild(tile);
+      });
+    }
+
+    function renderItem() {
+      canTap = false;
+      feedbackEl.textContent = "";
+      feedbackEl.className   = "feedback";
+
+      const item = list[idx];
+      audio.src = AUDIO_BASE + item.audio;
+
+      updateHUD();
+      promptEl.textContent = sentencePrompt(item);
+      slot.innerHTML       = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      slot.className       = "answer-slot";
+
+      buildTiles(item);
+      setPlay("ready");
+    }
+
+    playBtn.addEventListener("click", async () => {
+      if (playBtn.classList.contains("playing")) return;
+      setPlay("playing");
+      audio.currentTime = 0;
+      try { await audio.play(); } catch(_) { setPlay("ready"); }
+    });
+
+    audio.addEventListener("ended", () => {
+      canTap = true;
+      // unlock tiles
+      tileBank.querySelectorAll(".tile").forEach(t => t.classList.remove("locked"));
+      setPlay("repeat");
+    });
+
+    renderItem();
+  }
+
+  // ── End screen ────────────────────────────────────────────────────────────
+
+  function showEndScreen(totalCorrect, totalWrong) {
+    document.getElementById("cardB").classList.add("hidden");
+    document.getElementById("endScreen").style.display = "block";
+
+    const total = totalCorrect + totalWrong;
+    const pct   = total > 0 ? Math.round((totalCorrect / total) * 100) : 0;
+
+    let emoji, title, msg;
+    if      (pct === 100) { emoji = "🏆"; title = "¡Perfecto!";          msg = "Sin errores. ¡Increíble trabajo!"; }
+    else if (pct >= 75)   { emoji = "🌟"; title = "¡Muy bien!";          msg = `${totalWrong} error${totalWrong !== 1 ? "es" : ""}. ¡Sigue así!`; }
+    else if (pct >= 50)   { emoji = "👍"; title = "¡Buen intento!";      msg = "Sigue practicando, ya casi lo tienes."; }
+    else                  { emoji = "💪"; title = "¡Sigue practicando!"; msg = "Escucha los audios de nuevo e inténtalo otra vez."; }
+
+    document.getElementById("endEmoji").textContent = emoji;
+    document.getElementById("endTitle").textContent = title;
+    document.getElementById("endScore").textContent =
+      `${totalCorrect} de ${total} correctas (${pct}%)`;
+    document.getElementById("endMsg").textContent = msg;
+    setTimeout(() => {
+      document.getElementById("scoreBarFill").style.width = pct + "%";
+    }, 100);
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+
+  let scoreA = { correct: 0, wrong: 0 };
+
+  createPart({
+    items: PART_A,
+    ids: {
+      counter:  document.getElementById("counterA"),
+      score:    document.getElementById("scoreA"),
+      bar:      document.getElementById("barA"),
+      playBtn:  document.getElementById("playA"),
+      prompt:   document.getElementById("promptA"),
+      slot:     document.getElementById("slotA"),
+      tiles:    document.getElementById("tilesA"),
+      feedback: document.getElementById("feedbackA"),
+    },
+    onComplete(result) {
+      scoreA = result;
+      const btn = document.createElement("button");
+      btn.className = "continue-btn";
+      btn.textContent = "Continuar → Parte B";
+      btn.addEventListener("click", () => {
+        document.getElementById("cardA").classList.add("hidden");
+        const cardB = document.getElementById("cardB");
+        cardB.classList.remove("hidden");
+        cardB.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      document.getElementById("cardA").appendChild(btn);
+    }
+  });
+
+  createPart({
+    items: PART_B,
+    ids: {
+      counter:  document.getElementById("counterB"),
+      score:    document.getElementById("scoreB"),
+      bar:      document.getElementById("barB"),
+      playBtn:  document.getElementById("playB"),
+      prompt:   document.getElementById("promptB"),
+      slot:     document.getElementById("slotB"),
+      tiles:    document.getElementById("tilesB"),
+      feedback: document.getElementById("feedbackB"),
+    },
+    onComplete(result) {
+      showEndScreen(scoreA.correct + result.correct, scoreA.wrong + result.wrong);
+    }
+  });
+
+})();
+</script>
 </body>
 </html>

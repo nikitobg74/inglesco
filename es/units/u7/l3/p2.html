@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 • Lección 3 • Parte 2 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+  const UNIT   = 7;
+  const LESSON = 3;
+  const PART   = 2;
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #1e40af; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,0.7);
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step.done   { background: #059669; color: #fff; }
+
+/* VOCAB TABLE */
+.vocab-card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin-bottom: 20px;
+}
+.vocab-card-title {
+  font-size: 12px; font-weight: 700; color: #9333ea;
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 14px;
+}
+.vocab-section-head {
+  font-size: 11px; font-weight: 700; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .06em;
+  background: #f1f5f9; border-radius: 8px;
+  padding: 4px 10px; display: inline-block; margin-bottom: 8px;
+}
+.vocab-row {
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid #e2e8f0; padding: 10px 4px;
+}
+.vocab-row:last-child { border-bottom: none; }
+.vocab-en  { font-size: 14px; font-weight: 700; color: #1e40af; flex: 1; }
+.vocab-es  { font-size: 14px; font-weight: 600; color: #374151; flex: 1; }
+.vocab-pill {
+  font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 999px; white-space: nowrap;
+  background: #dbeafe; color: #1e40af;
+}
+.vocab-pill.phrase {
+  background: #ede9fe; color: #6b21a8;
+}
+
+/* COUNTER */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 14px; font-size: 13px; font-weight: 700; color: #486581;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.card-num {
+  font-size: 12px; font-weight: 700; color: #9333ea;
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 12px;
+}
+
+/* IMAGE */
+.img-wrap {
+  width: 100%; max-height: 240px;
+  border-radius: 14px; overflow: hidden;
+  background: #f1f5f9; margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.img-wrap img { width: 100%; max-height: 240px; object-fit: contain; }
+
+/* PLAY BUTTON */
+.play-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px;
+  font-weight: 900; font-size: 15px;
+  cursor: pointer; margin-bottom: 20px;
+  transition: opacity .2s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.play-btn:active  { transform: scale(.97); }
+.play-btn.playing { background: #7c3aed; }
+.play-btn.done    { background: #059669; }
+
+.play-icon { font-size: 20px; line-height: 1; }
+
+/* DIALOGUE */
+.dialogue { display: none; flex-direction: column; gap: 12px; }
+.dialogue.visible { display: flex; }
+
+.bubble-wrap {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.speaker {
+  font-size: 10px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: 0 4px;
+}
+.bubble {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 15px; font-weight: 600; line-height: 1.5;
+  max-width: 90%;
+}
+.bubble.q {
+  background: #dbeafe; color: #1e40af;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+.bubble.a {
+  background: #d1fae5; color: #065f46;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+.bubble-wrap.right { align-items: flex-end; }
+
+/* NEXT */
+.next-btn {
+  width: 100%; padding: 13px; background: #2563eb; color: white;
+  border: none; border-radius: 14px; font-weight: 900; font-size: 15px;
+  margin-top: 16px; cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.next-btn:hover   { opacity: .9; }
+.next-btn:disabled { opacity: .4; cursor: default; }
+
+/* COMPLETE */
+.complete-screen { text-align: center; padding: 30px 10px; }
+.complete-screen .emoji { font-size: 56px; margin-bottom: 12px; }
+.complete-screen h2 { font-size: 22px; font-weight: 900; color: #1e3a5f; margin-bottom: 8px; }
+.complete-screen p  { font-size: 15px; color: #374151; margin-bottom: 24px; }
+.unit-btn {
+  display: inline-block; padding: 13px 28px;
+  background: #059669; color: white; border-radius: 14px;
+  font-weight: 900; font-size: 15px; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 7</a>
+
+  <div class="top-title">Unidad 7 • Lección 3 • Parte 2</div>
+  <div class="subline">Is there any milk? ¿Hay leche?</div>
+
+  <div class="progress-container">
+    <a class="step done"   href="p1.html">1</a>
+    <a class="step active" href="p2.html">2</a>
+    <a class="step"        href="p3.html">3</a>
+    <a class="step"        href="p4.html">4</a>
+    <a class="step"        href="p5.html">5</a>
+  </div>
+
+  <!-- VOCAB TABLE -->
+  <div class="vocab-card">
+    <div class="vocab-card-title">📚 Vocabulario</div>
+
+    <div class="vocab-section-head">Comida / Food</div>
+    <div class="vocab-row">
+      <span class="vocab-en">milk</span>
+      <span class="vocab-es">leche</span>
+      <span class="vocab-pill">noun</span>
+    </div>
+    <div class="vocab-row">
+      <span class="vocab-en">bread</span>
+      <span class="vocab-es">pan</span>
+      <span class="vocab-pill">noun</span>
+    </div>
+    <div class="vocab-row">
+      <span class="vocab-en">cheese</span>
+      <span class="vocab-es">queso</span>
+      <span class="vocab-pill">noun</span>
+    </div>
+    <div class="vocab-row">
+      <span class="vocab-en">cake</span>
+      <span class="vocab-es">pastel</span>
+      <span class="vocab-pill">noun</span>
+    </div>
+
+    <br>
+    <div class="vocab-section-head">Frases clave / Key phrases</div>
+    <div class="vocab-row">
+      <span class="vocab-en">Is there any milk?</span>
+      <span class="vocab-es">¿Hay leche?</span>
+      <span class="vocab-pill phrase">phrase</span>
+    </div>
+    <div class="vocab-row">
+      <span class="vocab-en">Is there any…?</span>
+      <span class="vocab-es">¿Hay…?</span>
+      <span class="vocab-pill phrase">phrase</span>
+    </div>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="counter-row">
+    <span id="counter">Diálogo 1 de 4</span>
+    <span id="pct">0%</span>
+  </div>
+
+  <!-- CARD -->
+  <div class="card" id="card"></div>
+
+  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+
+</div>
+
+<script>
+(() => {
+
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IMG   = BASE + 'images/u7/';
+const AUDIO = BASE + 'audio/u7/';
+
+const ITEMS = [
+  {
+    img:   'u7.bread.soda.jpg',
+    audio: 'u7.bread.soda.mp3',
+    q: 'Excuse me, is there any bread?',
+    a: 'Yes, there is bread. It is next to the soda.'
+  },
+  {
+    img:   'u7.milk.jpg',
+    audio: 'u7.milk.mp3',
+    q: 'Excuse me, is there any milk?',
+    a: 'Yes, there is milk. It is next to the yoghurt.'
+  },
+  {
+    img:   'u7.cheese.jpg',
+    audio: 'u7.cheese.mp3',
+    q: 'Excuse me, is there any cheese?',
+    a: 'Yes, there is cheese. It is next to the eggs.'
+  },
+  {
+    img:   'u7.cake.fridge.jpg',
+    audio: 'u7.cake.fridge.mp3',
+    q: 'Excuse me, is there any cake?',
+    a: 'Yes, there is cake. It is in the fridge.'
+  }
+];
+
+const TOTAL   = ITEMS.length;
+let current   = 0;
+let audioObj  = null;
+
+const cardEl  = document.getElementById('card');
+const nextBtn = document.getElementById('nextBtn');
+const counter = document.getElementById('counter');
+const pct     = document.getElementById('pct');
+
+function render(i) {
+  if (audioObj) { audioObj.pause(); audioObj = null; }
+  nextBtn.disabled = true;
+  counter.textContent = `Diálogo ${i + 1} de ${TOTAL}`;
+  pct.textContent     = Math.round((i / TOTAL) * 100) + '%';
+  nextBtn.textContent = i === TOTAL - 1 ? 'Finalizar →' : 'Siguiente →';
+
+  const item = ITEMS[i];
+  cardEl.innerHTML = '';
+
+  // Card number
+  const numEl = document.createElement('div');
+  numEl.className = 'card-num';
+  numEl.textContent = `Diálogo ${i + 1}`;
+  cardEl.appendChild(numEl);
+
+  // Image
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'img-wrap';
+  const img = document.createElement('img');
+  img.src = IMG + item.img;
+  img.alt = '';
+  imgWrap.appendChild(img);
+  cardEl.appendChild(imgWrap);
+
+  // Play button
+  const playBtn = document.createElement('button');
+  playBtn.className = 'play-btn';
+  playBtn.innerHTML = '<span class="play-icon">▶</span><span class="play-label">Toca para escuchar</span>';
+  cardEl.appendChild(playBtn);
+
+  // Dialogue (hidden until audio played)
+  const dialogue = document.createElement('div');
+  dialogue.className = 'dialogue';
+
+  // Question bubble (left)
+  const qWrap = document.createElement('div');
+  qWrap.className = 'bubble-wrap';
+  const qSpeaker = document.createElement('div');
+  qSpeaker.className = 'speaker';
+  qSpeaker.textContent = 'Customer';
+  const qBubble = document.createElement('div');
+  qBubble.className = 'bubble q';
+  qBubble.textContent = item.q;
+  qWrap.appendChild(qSpeaker);
+  qWrap.appendChild(qBubble);
+  dialogue.appendChild(qWrap);
+
+  // Answer bubble (right)
+  const aWrap = document.createElement('div');
+  aWrap.className = 'bubble-wrap right';
+  const aSpeaker = document.createElement('div');
+  aSpeaker.className = 'speaker';
+  aSpeaker.textContent = 'Store clerk';
+  const aBubble = document.createElement('div');
+  aBubble.className = 'bubble a';
+  aBubble.textContent = item.a;
+  aWrap.appendChild(aSpeaker);
+  aWrap.appendChild(aBubble);
+  dialogue.appendChild(aWrap);
+
+  cardEl.appendChild(dialogue);
+
+  // Play logic
+  // Text visible immediately — student can read and listen
+  dialogue.classList.add('visible');
+  nextBtn.disabled = false;
+
+  function playAudio() {
+    if (audioObj) { audioObj.pause(); audioObj.currentTime = 0; }
+    audioObj = new Audio(AUDIO + item.audio);
+    playBtn.className = 'play-btn playing';
+    playBtn.querySelector('.play-label').textContent = 'Reproduciendo…';
+    playBtn.querySelector('.play-icon').textContent = '⏸';
+    audioObj.play().catch(resetPlayBtn);
+    audioObj.addEventListener('ended', resetPlayBtn);
+    audioObj.addEventListener('error', resetPlayBtn);
+  }
+
+  function resetPlayBtn() {
+    playBtn.className = 'play-btn done';
+    playBtn.querySelector('.play-label').textContent = 'Reproducir de nuevo';
+    playBtn.querySelector('.play-icon').textContent = '▶';
+  }
+
+  playBtn.addEventListener('click', playAudio);
+  playBtn.addEventListener('touchstart', () => {}, { passive: true });
+  playBtn.addEventListener('touchend', e => { e.preventDefault(); playAudio(); });
+}
+
+nextBtn.addEventListener('click', () => {
+  if (audioObj) { audioObj.pause(); audioObj = null; }
+
+  if (current < TOTAL - 1) {
+    current++;
+    render(current);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    // Save progress
+    const key = 'inglesco_progress_u7';
+    try {
+      const raw  = localStorage.getItem(key);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l3) data.l3 = { partsCompleted: 0, partsTotal: 5 };
+      if (data.l3.partsCompleted < 2) data.l3.partsCompleted = 2;
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    pct.textContent = '100%';
+    counter.textContent = '';
+    nextBtn.style.display = 'none';
+
+    cardEl.innerHTML = `
+      <div class="complete-screen">
+        <div class="emoji">🎉</div>
+        <h2>¡Parte completada!</h2>
+        <p>Escuchaste y leíste los 4 diálogos.<br>¡Excelente trabajo!</p>
+        <a href="p3.html" class="unit-btn">Siguiente parte →</a>
+      </div>
+    `;
+  }
+});
+
+render(0);
+
+})();
+</script>
+
+</body>
+</html>

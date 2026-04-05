@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unidad 7 • Lección 2 • Parte 1 | Inglesco</title>
+<title>Unidad 7 • Lección 2 • Parte 3 | Inglesco</title>
 
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -91,17 +91,13 @@ body {
 .img-wrap {
   width: 100%; aspect-ratio: 16/9;
   border-radius: 14px; overflow: hidden;
-  background: #e2e8f0;
+  background: #f1f5f9;
   margin-bottom: 14px;
 }
 .img-wrap img {
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  object-fit: contain;
 }
-
-/* fix card 1: contain so full image shows without cropping */
-.img-wrap img.pos-right { object-fit: contain; background: #f1f5f9; }
 
 .listen-row {
   display: flex; align-items: center; gap: 12px;
@@ -169,13 +165,13 @@ body {
 
   <a href="../index.html" class="back-btn">← Unidad 7</a>
 
-  <div class="top-title">Unidad 7 • Lección 2 • Parte 1</div>
+  <div class="top-title">Unidad 7 • Lección 2 • Parte 3</div>
   <div class="subline">Where is the Supermarket?</div>
 
   <div class="progress-container">
-    <a class="step active" href="p1.html">1</a>
+    <a class="step" href="p1.html">1</a>
     <a class="step" href="p2.html">2</a>
-    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
   </div>
@@ -213,40 +209,40 @@ const AUDIO = BASE + 'audio/u7/';
 
 const ITEMS = [
   {
-    img: 'u7.restaurant.bank2.jpg', imgClass: 'pos-right',
-    audio: 'u7.restaurant.bank.mp3',
-    question: 'Where is the restaurant?',
-    answer: 'It is', highlight: 'next to', rest: 'the bank.'
+    img: 'u7.bank.next.jpg',
+    audio: 'u7.bank.next.mp3',
+    question: 'Excuse me, Is there a bank nearby?',
+    answer: 'Yes, there is a bank', highlight: 'next to', rest: 'the hotel.'
   },
   {
-    img: 'u7.school.library.jpg',
-    audio: 'u7.school.library.mp3',
-    question: 'Where is the school?',
-    answer: 'It is', highlight: 'between', rest: 'the library and the post office.'
+    img: 'u7.restaurant.bank2.jpg',
+    audio: 'u7.restaurant.bank2.mp3',
+    question: 'Excuse me, Is there a restaurant nearby?',
+    answer: 'Yes, there is a restaurant', highlight: 'next to', rest: 'the bank.'
   },
   {
     img: 'u7.across.from.jpg',
-    audio: 'u7.clinic.hotel.mp3',
-    question: 'Where is the clinic?',
-    answer: 'It is', highlight: 'across from', rest: 'the hotel.'
+    audio: 'u7.across.from.mp3',
+    question: 'Excuse me, Is there a clinic nearby?',
+    answer: 'Yes, there is a clinic', highlight: 'across from', rest: 'the hotel.'
   },
   {
     img: 'u7.drug.store.across.mall.jpg',
-    audio: 'u7.mall.around.corner.mp3',
-    question: 'Where is the mall?',
-    answer: 'It is', highlight: 'around the corner from', rest: 'the bank.'
-  },
-  {
-    img: 'u7.drug.store.across.mall.jpg',
-    audio: 'u7.drug.across.mp3',
-    question: 'Where is the drug store?',
-    answer: 'It is', highlight: 'across from', rest: 'the mall.'
+    audio: 'u7.drug.store.across.mall.mp3',
+    question: 'Excuse me, Is there a mall nearby?',
+    answer: 'Yes, there is a big mall', highlight: 'around the corner from', rest: 'the bank.'
   },
   {
     img: 'u7.school.library.jpg',
-    audio: 'u7.library.next.mp3',
-    question: 'Where is the library?',
-    answer: 'It is', highlight: 'next to', rest: 'the school.'
+    audio: 'u7.school.library.between.mp3',
+    question: 'Excuse me, Is there a school nearby?',
+    answer: 'Yes, there is a school', highlight: 'between', rest: 'the library and the post office.'
+  },
+  {
+    img: 'u7.bakery.next.jpg',
+    audio: 'u7.bakery.next.mp3',
+    question: 'Excuse me, Is there a bakery nearby?',
+    answer: 'Yes, there is a bakery', highlight: 'next to', rest: 'the hair salon.'
   }
 ];
 
@@ -275,14 +271,12 @@ function render(i) {
   counter.textContent = `Ejemplo ${i + 1} de ${TOTAL}`;
   pct.textContent     = Math.round((i / TOTAL) * 100) + '%';
 
-  nextBtn.textContent = i === TOTAL - 1 ? 'Ir a la Parte 2 →' : 'Siguiente →';
-
-  const imgClass = item.imgClass ? ` ${item.imgClass}` : '';
+  nextBtn.textContent = i === TOTAL - 1 ? 'Ir a la Parte 4 →' : 'Siguiente →';
 
   cardEl.innerHTML = `
     <div class="card-num">Ejemplo ${i + 1}</div>
     <div class="img-wrap">
-      <img src="${IMG}${item.img}" alt="" class="${imgClass.trim()}">
+      <img src="${IMG}${item.img}" alt="">
     </div>
     <div class="listen-row">
       <button class="listen-btn" id="listenBtn">🔊 Escuchar</button>
@@ -291,7 +285,6 @@ function render(i) {
     <div class="card-answer">${item.answer} <span class="highlight">${item.highlight}</span> ${item.rest}</div>
   `;
 
-  // stop previous audio
   player.pause();
   resetBtn(activeBtn);
   activeBtn = null;
@@ -331,7 +324,7 @@ nextBtn.addEventListener('click', () => {
     render(current);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
-    window.location.href = 'p2.html';
+    window.location.href = 'p4.html';
   }
 });
 

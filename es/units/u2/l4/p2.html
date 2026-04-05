@@ -3,300 +3,709 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unidad 2 - Lección 4 - Parte 2</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Aprende inglés gratis: ¿Dónde está? Diálogos en inglés – Inglesco Unidad 2 Lección 4</title>
+  <meta name="description" content="Escucha diálogos en inglés y practica preguntas con Where is…? Ejercicio interactivo gratuito para hispanohablantes. Inglesco Unidad 2." />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body{ padding:20px; background:#eef2ff; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px; height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-
-    .exercise-box{
-      max-width:950px;
-      margin:0 auto;
-      background:#fff;
-      padding:30px 40px;
-      border-radius:18px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.08);
-      color:#2c3e50;
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
     }
 
-    .unit-title{
-      color:#2563eb;
-      font-size:28px;
-      font-weight:700;
-      text-align:center;
-      margin-bottom:10px;
+    /* BACK BUTTON */
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+    /* WRAP */
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 56px;
     }
 
-    .instruction-box{
-      background:#e0e7ff;
-      padding:15px 20px;
-      border-radius:12px;
-      text-align:center;
-      font-weight:600;
-      margin-bottom:18px;
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
     }
 
-    .counter-row{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      margin-bottom:18px;
-      color:#1f2933;
-      font-weight:700;
-      flex-wrap:wrap;
-    }
-    .counter-pill{
-      background:#2563eb;
-      color:#fff;
-      padding:6px 12px;
-      border-radius:999px;
-      font-size:14px;
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.2rem, 5vw, 1.6rem);
+      font-weight: 800;
+      margin-bottom: 4px;
     }
 
-    .main-row{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      gap:14px;
-      flex-wrap:wrap;
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
     }
 
-    .play-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-width:90px;
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
     }
-    .play-btn{
-      border:none;
-      cursor:pointer;
-      background:#2563eb;
-      color:#fff;
-      width:54px;
-      height:54px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:all .2s;
+    .dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .play-btn:hover{ background:#1e40af; }
-    .play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; }
 
-    .small-note{
-      font-weight:700;
-      color:#334155;
-      font-size:13px;
-      text-align:center;
-    }
-
-    .panel{
-      background:#f8fafc;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:14px;
-      width:100%;
-      max-width:620px;
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
     }
 
-    .panel-title{
-      font-weight:800;
-      color:#1f2933;
-      margin-bottom:10px;
-      text-align:center;
+    /* COUNTER ROW */
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
     }
 
-    .question-text{
-      font-weight:800;
-      text-align:center;
-      color:#0f172a;
-      margin-bottom:12px;
-      font-size:18px;
+    /* PROGRESS BAR */
+    .bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 7px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 999px;
+      transition: width 0.5s;
     }
 
-    .answers{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+    /* INSTRUCTION */
+    .instruction-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1e40af;
+      margin-bottom: 18px;
     }
 
-    .ans-btn{
-      width:100%;
-      text-align:left;
-      border:1px solid #cbd5e1;
-      background:#fff;
-      padding:12px 14px;
-      border-radius:14px;
-      cursor:pointer;
-      font-weight:700;
-      color:#0f172a;
-      transition:transform .08s, background .2s, border-color .2s, opacity .2s;
+    /* PHOTOS */
+    .photo-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
     }
-    .ans-btn:hover{ transform:scale(1.01); border-color:#94a3b8; }
-    .ans-btn:disabled{ cursor:not-allowed; opacity:.85; }
-
-    .ans-btn.correct{
-      background:#dcfce7;
-      border-color:#22c55e;
-      color:#14532d;
-    }
-    .ans-btn.wrong{
-      background:#fee2e2;
-      border-color:#ef4444;
-      color:#7f1d1d;
-    }
-
-    .hidden{ display:none !important; }
-
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:18px;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-
-    /* ✅ Photos row (same as p1) */
-    .photo-row{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:12px;
-      margin-top:18px;
-      flex-wrap:wrap;
-    }
-    .photo{
-      width:160px;
-      max-width:40vw;
+    .img-wrap {
+      width: 140px;
+      max-width: 42vw;
       aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius:16px;
-      border:1px solid #e5e7eb;
-      box-shadow:0 8px 18px rgba(0,0,0,0.08);
-      background:#fff;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      background: #f1f5f9;
+    }
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
-    @media (max-width: 520px){
-      body{ padding:14px; }
-      .exercise-box{ padding:18px 16px; }
-      .unit-title{ font-size:22px; }
-      .play-wrap{ min-width:72px; }
-      .play-btn{ width:50px; height:50px; }
-      .question-text{ font-size:16px; }
-      .photo{ width:140px; max-width:44vw; }
+    /* PLAY BUTTON */
+    .play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 18px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+    }
+    .play-btn:hover { background: #1d4ed8; }
+    .play-btn:active { transform: scale(0.98); }
+    .play-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .play-btn.playing { background: #6b7280; cursor: default; }
+    .play-btn.repeat  { background: #eff6ff; color: #2563eb; border: 2px solid #2563eb; box-shadow: none; }
+    .play-btn.repeat:hover { background: #dbeafe; }
+    .play-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+    /* Q&A PANEL */
+    .qa-panel {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      animation: fadeUp 0.3s ease;
+    }
+    .qa-panel.visible { display: flex; }
+
+    .hint-wrap {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      padding: 8px 0;
+    }
+
+    .question-text {
+      font-weight: 800;
+      text-align: center;
+      color: #1e2a38;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .ans-btn {
+      width: 100%;
+      text-align: left;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      color: #1e2a38;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .ans-btn:hover  { border-color: #93c5fd; background: #eff6ff; }
+    .ans-btn:active { transform: scale(0.98); }
+    .ans-btn:disabled { cursor: not-allowed; opacity: 0.8; }
+    .ans-btn.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .ans-btn.wrong   { background: #fee2e2; border-color: #dc2626; color: #dc2626; animation: shake 0.35s ease; }
+
+    .replay-note {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* END SCREEN */
+    #endScreen {
+      display: none;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+    }
+    .score-bar {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 12px;
+      margin: 12px 0 20px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: #22c55e;
+      transition: width 1s ease;
+    }
+
+    .hidden { display: none !important; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25%       { transform: translateX(-5px); }
+      75%       { transform: translateX(5px); }
     }
   </style>
 </head>
-
 <body>
-  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-  <div class="progress-container">
-    <div class="step" data-page="p1.html">1</div>
-    <div class="step active" data-page="p2.html">2</div>
-    <div class="step" data-page="p3.html">3</div>
-    <div class="step" data-page="p4.html">4</div>
+<a href="../index.html" class="back-btn">← Unidad 2</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidad 2 · Lección 4 · Parte 2</span>
+  <h1>¿Dónde está? / Where is…?</h1>
+  <p class="subtitle">Diálogos más largos</p>
+
+  <div class="progress-dots">
+    <div class="dot" data-page="p1.html">1</div>
+    <div class="dot active" data-page="p2.html">2</div>
+    <div class="dot" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
   </div>
 
-  <div class="exercise-box">
-    <div class="unit-title">Unidad 2 – Lección 4 – Parte 2</div>
-
-    <div class="instruction-box">
-      Escucha el diálogo completo. Luego responde: <b>Where is ...?</b>
-    </div>
+  <div class="card" id="mainCard">
 
     <div class="counter-row">
-      <span class="counter-pill" id="counterPill">1 / 10</span>
-      <span id="statusText">Toca ▶ para escuchar.</span>
+      <span id="counterEl">1 / 10</span>
+      <span id="scoreEl">✓ 0</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barEl"></div></div>
+
+    <div class="instruction-box">
+      🎧 Escucha el diálogo completo y elige la respuesta correcta.
     </div>
 
-    <div class="main-row">
-      <div class="play-wrap">
-        <button class="play-btn" id="playBtn" aria-label="Play">▶</button>
-        <div class="small-note">Audio</div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title">Pregunta</div>
-
-        <div id="qaWrap" class="hidden">
-          <div class="question-text" id="questionText">Where is ...?</div>
-          <div class="answers" id="answersWrap"></div>
-          <div class="small-note" style="margin-top:10px;">
-            Si te equivocas, escucha otra vez y vuelve a intentar.
-          </div>
-        </div>
-
-        <div id="hintWrap">
-          <div class="small-note" style="text-align:center;">
-            Primero escucha el diálogo (▶). Después aparecerá la pregunta.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-actions">
-      <a href="../p3.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
-    </div>
-
-    <!-- ✅ Photos show on initial load -->
     <div class="photo-row" id="photoRow">
-      <img class="photo" src="../../../../assets/images/u2/u2.l4.p1.woman.jpg" alt="Woman">
-      <img class="photo" src="../../../../assets/images/u2/u2.l4.p1.man.jpg" alt="Man">
+      <div class="img-wrap">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u2/u2.l4.p1.woman.jpg" alt="Mujer">
+      </div>
+      <div class="img-wrap">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u2/u2.l4.p1.man.jpg" alt="Hombre">
+      </div>
     </div>
+
+    <button class="play-btn" id="playBtn">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar
+    </button>
+
+    <!-- Hint before audio played -->
+    <div class="hint-wrap" id="hintWrap">
+      Primero escucha el diálogo (▶). Después aparecerá la pregunta.
+    </div>
+
+    <!-- Q&A revealed after audio -->
+    <div class="qa-panel" id="qaPanel">
+      <div class="question-text" id="questionText"></div>
+      <div id="answersWrap"></div>
+      <div class="replay-note">Si te equivocas, el audio se repite automáticamente.</div>
+    </div>
+
+  </div><!-- /card -->
+
+  <!-- END SCREEN -->
+  <div id="endScreen">
+    <div id="endEmoji" style="font-size:52px;margin-bottom:16px"></div>
+    <h2 id="endTitle" style="font-size:22px;font-weight:800;color:#1e40af;margin-bottom:12px"></h2>
+    <p id="endScore" style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+    <p id="endMsg" style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+    <a href="p3.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;">
+      Continuar → Parte 3
+    </a>
   </div>
 
-  <script src="../../../../js/u2/u2_l4_p2.js"></script>
+</div><!-- /wrap -->
+
+<script>
+(() => {
+  "use strict";
+
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_BASE = BASE + "audio/u2/";
+  const SFX_CORRECT = BASE + "sfx/correct.wav";
+
+  const CONFIG = {
+    revealDelayMs:       250,
+    afterCorrectDelayMs: 700,
+    autoReplayOnWrong:   true,
+    wrongReplayDelayMs:  500,
+    preventSpamReplayMs: 250
+  };
+
+  const EXERCISES = [
+    {
+      dialogue:   "u2.l4.p2.dial1.mp3",
+      correction: "u2.l4.p2.laura.mp3",
+      question:   "Where is Laura?",
+      answers: [
+        { text: "She is at the hospital.",     correct: false },
+        { text: "She is at the movie theater.", correct: false },
+        { text: "She is at the bank.",          correct: true  }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial2.mp3",
+      correction: "u2.l4.p2.daniel.mp3",
+      question:   "Where is Daniel?",
+      answers: [
+        { text: "He is at the hospital.",      correct: false },
+        { text: "He is at the library.",        correct: false },
+        { text: "He is at the movie theater.", correct: true  }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial3.mp3",
+      correction: "u2.l4.p2.sofia.mp3",
+      question:   "Where is Sofia?",
+      answers: [
+        { text: "She is at the hospital.", correct: false },
+        { text: "She is at the bank.",     correct: false },
+        { text: "She is at the library.",  correct: true  }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial4.mp3",
+      correction: "u2.l4.p2.carlos.mp3",
+      question:   "Where is Carlos?",
+      answers: [
+        { text: "He is at the hospital.",    correct: false },
+        { text: "He is at the supermarket.", correct: true  },
+        { text: "He is at the movie theater.", correct: false }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial5.mp3",
+      correction: "u2.l4.p2.maria.mp3",
+      question:   "Where is Maria?",
+      answers: [
+        { text: "She is at the hospital.",   correct: true  },
+        { text: "She is at the library.",    correct: false },
+        { text: "She is at the post office.", correct: false }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial6.mp3",
+      correction: "u2.l4.p2.michael.mp3",
+      question:   "Where is Michael?",
+      answers: [
+        { text: "He is at the bank.",        correct: false },
+        { text: "He is at the library.",     correct: true  },
+        { text: "He is at the supermarket.", correct: false }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial7.mp3",
+      correction: "u2.l4.p2.emma.mp3",
+      question:   "Where is Emma?",
+      answers: [
+        { text: "She is at the hospital.",   correct: false },
+        { text: "She is at the post office.", correct: true  },
+        { text: "She is at the library.",    correct: false }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial8.mp3",
+      correction: "u2.l4.p2.mario.mp3",
+      question:   "Where is Mario?",
+      answers: [
+        { text: "He is at the park.",     correct: false },
+        { text: "He is at the hospital.", correct: false },
+        { text: "He is at the bank.",     correct: true  }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial9.mp3",
+      correction: "u2.l4.p2.jane.mp3",
+      question:   "Where is Jane?",
+      answers: [
+        { text: "She is at the hospital.",     correct: true  },
+        { text: "She is at the library.",      correct: false },
+        { text: "She is at the movie theater.", correct: false }
+      ]
+    },
+    {
+      dialogue:   "u2.l4.p2.dial10.mp3",
+      correction: "u2.l4.p2.david.mp3",
+      question:   "Where is David?",
+      answers: [
+        { text: "He is at the bank.",        correct: false },
+        { text: "He is at the post office.", correct: false },
+        { text: "He is at the library.",     correct: true  }
+      ]
+    }
+  ];
+
+  // DOM
+  const playBtn     = document.getElementById("playBtn");
+  const counterEl   = document.getElementById("counterEl");
+  const scoreEl     = document.getElementById("scoreEl");
+  const barEl       = document.getElementById("barEl");
+  const hintWrap    = document.getElementById("hintWrap");
+  const qaPanel     = document.getElementById("qaPanel");
+  const questionText= document.getElementById("questionText");
+  const answersWrap = document.getElementById("answersWrap");
+  const photoRow    = document.getElementById("photoRow");
+  const mainCard    = document.getElementById("mainCard");
+  const endScreen   = document.getElementById("endScreen");
+
+  // Progress dot navigation
+  document.querySelectorAll(".dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const page = dot.dataset.page;
+      if (page) { stopAllAudio(); window.location.href = page; }
+    });
+  });
+
+  // Audio
+  const dialogueAudio   = new Audio();
+  const correctionAudio = new Audio();
+  const correctSfx      = new Audio(SFX_CORRECT);
+  dialogueAudio.preload = correctionAudio.preload = correctSfx.preload = "auto";
+
+  // State
+  let idx = 0, score = 0;
+  let dialoguePlayed = false, locked = false;
+  let isReplaying = false, lastReplayAt = 0;
+  let exerciseToken = 0;
+  let pendingTimers = [];
+  const TOTAL = EXERCISES.length;
+
+  function clearPendingTimers() {
+    pendingTimers.forEach(t => clearTimeout(t));
+    pendingTimers = [];
+  }
+
+  function stopAllAudio() {
+    [dialogueAudio, correctionAudio, correctSfx].forEach(a => { a.pause(); a.currentTime = 0; });
+  }
+
+  function playAudio(el) {
+    return new Promise(resolve => {
+      el.onended = () => resolve();
+      el.onerror = () => resolve();
+      el.currentTime = 0;
+      const p = el.play();
+      if (p && typeof p.catch === "function") p.catch(() => resolve());
+    });
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function updateHUD() {
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
+    scoreEl.textContent   = `✓ ${score}`;
+    barEl.style.width     = `${(idx / TOTAL) * 100}%`;
+  }
+
+  function setPlayBtn(state) {
+    const ICON = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+    playBtn.className = "play-btn " + state;
+    if (state === "ready")   { playBtn.innerHTML = ICON + " Escuchar";     playBtn.disabled = false; }
+    if (state === "playing") { playBtn.innerHTML = ICON + " Escuchando…"; playBtn.disabled = true; }
+    if (state === "repeat")  { playBtn.innerHTML = ICON + " Repetir";     playBtn.disabled = false; }
+  }
+
+  function showQA(show) {
+    if (show) {
+      qaPanel.classList.add("visible");
+      hintWrap.classList.add("hidden");
+      photoRow.classList.add("hidden");
+    } else {
+      qaPanel.classList.remove("visible");
+      hintWrap.classList.remove("hidden");
+      photoRow.classList.remove("hidden");
+    }
+  }
+
+  function maybeAutoReplay(myToken) {
+    if (!CONFIG.autoReplayOnWrong || locked) return;
+    if (exerciseToken !== myToken) return;
+    const now = Date.now();
+    if (isReplaying || now - lastReplayAt < CONFIG.preventSpamReplayMs) return;
+    isReplaying = true;
+    lastReplayAt = now;
+    playBtn.disabled = true;
+    pendingTimers.push(setTimeout(() => {
+      if (locked || exerciseToken !== myToken) { isReplaying = false; playBtn.disabled = false; return; }
+      stopAllAudio();
+      setPlayBtn("playing");
+      playAudio(dialogueAudio).finally(() => {
+        isReplaying = false;
+        setPlayBtn("repeat");
+      });
+    }, CONFIG.wrongReplayDelayMs));
+  }
+
+  function showEndScreen() {
+    mainCard.style.display = "none";
+    endScreen.style.display = "block";
+
+    const pct = Math.round((score / TOTAL) * 100);
+    let emoji, title, msg;
+    if      (pct === 100) { emoji = "🏆"; title = "¡Perfecto!";          msg = "No cometiste ningún error. ¡Increíble!"; }
+    else if (pct >= 75)   { emoji = "🌟"; title = "¡Muy buen trabajo!";  msg = `${TOTAL - score} error${TOTAL - score !== 1 ? "es" : ""}. ¡Sigue así!`; }
+    else if (pct >= 50)   { emoji = "👍"; title = "¡Buen intento!";      msg = "Sigue practicando, ya casi lo tienes."; }
+    else                  { emoji = "💪"; title = "¡Sigue practicando!"; msg = "Repasa los diálogos e inténtalo de nuevo."; }
+
+    document.getElementById("endEmoji").textContent = emoji;
+    document.getElementById("endTitle").textContent = title;
+    document.getElementById("endScore").textContent = `${score} de ${TOTAL} correctas (${pct}%)`;
+    document.getElementById("endMsg").textContent   = msg;
+    setTimeout(() => { document.getElementById("scoreBarFill").style.width = pct + "%"; }, 100);
+  }
+
+  function renderExercise() {
+    stopAllAudio();
+    clearPendingTimers();
+    exerciseToken++;
+
+    locked = false;
+    dialoguePlayed = false;
+    isReplaying = false;
+
+    updateHUD();
+    showQA(false);
+    setPlayBtn("ready");
+
+    const ex = EXERCISES[idx];
+    dialogueAudio.src   = AUDIO_BASE + ex.dialogue;
+    correctionAudio.src = AUDIO_BASE + ex.correction;
+
+    questionText.textContent = ex.question;
+    answersWrap.innerHTML = "";
+
+    shuffle(ex.answers).forEach(ans => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ans-btn";
+      btn.textContent = ans.text;
+
+      btn.addEventListener("click", async () => {
+        if (!dialoguePlayed || locked) return;
+        const myToken = exerciseToken;
+
+        if (ans.correct) {
+          locked = true;
+          clearPendingTimers();
+          [...answersWrap.querySelectorAll(".ans-btn")].forEach(b => b.disabled = true);
+          btn.classList.add("correct");
+          score++;
+          updateHUD();
+
+          playBtn.disabled = true;
+          stopAllAudio();
+          await playAudio(correctSfx);
+          await playAudio(correctionAudio);
+          playBtn.disabled = false;
+
+          pendingTimers.push(setTimeout(() => {
+            if (idx < TOTAL - 1) {
+              idx++;
+              renderExercise();
+            } else {
+              showEndScreen();
+            }
+          }, CONFIG.afterCorrectDelayMs));
+
+        } else {
+          btn.classList.add("wrong");
+          btn.disabled = true;
+          pendingTimers.push(setTimeout(() => {
+            if (exerciseToken !== myToken || locked) return;
+            btn.classList.remove("wrong");
+            btn.disabled = false;
+          }, CONFIG.wrongReplayDelayMs));
+          maybeAutoReplay(myToken);
+        }
+      });
+
+      answersWrap.appendChild(btn);
+    });
+  }
+
+  playBtn.addEventListener("click", async () => {
+    if (locked || playBtn.classList.contains("playing")) return;
+    stopAllAudio();
+    setPlayBtn("playing");
+    await playAudio(dialogueAudio);
+    pendingTimers.push(setTimeout(() => {
+      dialoguePlayed = true;
+      showQA(true);
+      setPlayBtn("repeat");
+    }, CONFIG.revealDelayMs));
+  });
+
+  // Init
+  (function init() {
+    const shuffled = shuffle(EXERCISES);
+    EXERCISES.length = 0;
+    EXERCISES.push(...shuffled);
+    idx = 0; score = 0;
+    renderExercise();
+  })();
+
+})();
+</script>
 </body>
 </html>

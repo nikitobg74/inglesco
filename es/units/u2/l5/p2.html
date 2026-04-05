@@ -1,379 +1,629 @@
-<!-- p2.html (Unidad 2 - Lección 5 - Parte 2) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unidad 2 - Lección 5 - Parte 2</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Comprensión auditiva en inglés: lugares en la casa – Inglesco Unidad 2 Lección 5</title>
+  <meta name="description" content="Escucha un texto en inglés sobre la familia Baker y responde preguntas de comprensión. Practica bedroom, kitchen, yard y más. Ejercicio gratuito para hispanohablantes." />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body{ padding:20px; background:#f5f3ff; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-
-    /* ===== FOOTER BUTTONS ===== */
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:22px;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
-
-    /* ===== PAGE BOX ===== */
-    .exercise-box{
-      max-width:950px;
-      margin:0 auto;
-      background:#fff;
-      padding:30px 40px;
-      border-radius:18px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.08);
-      color:#2c3e50;
-    }
-    .unit-title{
-      color:#2563eb;
-      font-size:28px;
-      font-weight:800;
-      text-align:center;
-      margin-bottom:10px;
-    }
-    .instruction-box{
-      background:#ede9fe;
-      padding:15px 20px;
-      border-radius:12px;
-      text-align:center;
-      font-weight:700;
-      margin-bottom:16px;
-      color:#0f172a;
-      line-height:1.35;
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
     }
 
-    .section{
-      background:#f8fafc;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:16px;
-      margin-top:14px;
+    /* BACK */
+    .back-btn {
+      position: fixed;
+      top: 14px; left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
     }
-    .section-title{
-      font-weight:900;
-      color:#0f172a;
-      text-align:center;
-      margin-bottom:10px;
+    .back-btn:active { transform: scale(0.96); }
+
+    /* WRAP */
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 56px;
     }
 
-    .main-row{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      gap:14px;
-      flex-wrap:wrap;
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
     }
 
-    .play-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-width:110px;
+    /* DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
     }
-    .play-btn{
-      border:none;
-      cursor:pointer;
-      background:#2563eb;
-      color:#fff;
-      width:60px;
-      height:60px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:all .2s;
+    .dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .play-btn:hover{ background:#1e40af; }
-    .play-btn:disabled{ opacity:.6; cursor:not-allowed; }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb; color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; }
 
-    .panel{
-      background:#fff;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:14px;
-      width:100%;
-      max-width:720px;
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+      animation: fadeUp 0.3s ease;
     }
 
-    .status{
-      text-align:center;
-      font-weight:900;
-      color:#0f172a;
-      margin-bottom:10px;
+    /* SECTION LABEL */
+    .section-label {
+      display: inline-block;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
     }
-    .substatus{
-      text-align:center;
-      font-weight:700;
-      color:#334155;
-      font-size:13px;
-      margin-top:6px;
+
+    /* INSTRUCTION */
+    .instruction-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1e40af;
+      margin-bottom: 18px;
+      line-height: 1.6;
     }
+
+    /* PLAY BUTTON */
+    .play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+    }
+    .play-btn:hover  { background: #1d4ed8; }
+    .play-btn:active { transform: scale(0.98); }
+    .play-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .play-btn.playing { background: #6b7280; }
+    .play-btn.paused  { background: #f59e0b; color: #1e3a8a; box-shadow: none; }
+    .play-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
 
     /* STORY BOX */
-    .story{
-      background:#f1f5f9;
-      border:1px solid #cbd5e1;
-      border-radius:14px;
-      padding:14px;
-      margin-top:10px;
-      white-space:pre-line;
-      font-weight:800;
-      color:#0f172a;
+    .story-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e2a38;
+      line-height: 1.8;
+      white-space: pre-line;
+      transition: filter 0.4s, opacity 0.4s;
     }
-    .story.hidden-text{
-      filter: blur(9px);
-      opacity:.85;
-      user-select:none;
-      pointer-events:none;
+    
+
+    .listen-hint {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 4px;
     }
 
-    /* QUESTIONS (one by one) */
-    .counter-row{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      margin:10px 0 12px 0;
-      flex-wrap:wrap;
+    /* COUNTER */
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
     }
-    .counter-pill{
-      background:#2563eb;
-      color:#fff;
-      padding:6px 12px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:900;
+    .bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 7px;
+      margin-bottom: 18px;
+      overflow: hidden;
     }
-
-    .q{
-      border:1px solid #e5e7eb;
-      background:#fff;
-      border-radius:16px;
-      padding:14px;
-      margin-top:10px;
-    }
-    .q-title{
-      font-weight:900;
-      color:#0f172a;
-      margin-bottom:10px;
-    }
-    .opt{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:10px;
-      border-radius:12px;
-      border:1px solid #e5e7eb;
-      background:#f8fafc;
-      margin-bottom:8px;
-    }
-    .opt input{ transform: translateY(2px); }
-    .opt label{
-      font-weight:800;
-      color:#0f172a;
-      line-height:1.25;
-      cursor:pointer;
-      width:100%;
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 999px;
+      transition: width 0.5s;
     }
 
-    .btn{
-      border:none;
-      cursor:pointer;
-      background:#2563eb;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:900;
-      transition:all .2s;
-      white-space:nowrap;
-    }
-    .btn:hover{ background:#1e40af; }
-    .btn:disabled{ opacity:.6; cursor:not-allowed; }
-
-    .result-row{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      margin-top:12px;
-      flex-wrap:wrap;
-    }
-    .mark{
-      font-weight:900;
-      font-size:18px;
-      min-width:20px;
-      text-align:center;
-    }
-    .ok{ color:#0a7a2f; }
-    .bad{ color:#b00020; }
-
-    .great{
-      background:#dcfce7;
-      border:1px solid #22c55e;
-      color:#14532d;
-      padding:12px 14px;
-      border-radius:14px;
-      font-weight:900;
-      text-align:center;
-      margin-top:14px;
+    /* QUESTION */
+    .question-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1e2a38;
+      margin-bottom: 14px;
+      text-align: center;
     }
 
-    .disabled-area{
-      opacity:.65;
-      pointer-events:none;
-      user-select:none;
+    /* OPTIONS — tap tiles like other pages */
+    .options-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      color: #1e2a38;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .opt-btn:hover:not(:disabled)  { border-color: #93c5fd; background: #eff6ff; }
+    .opt-btn:active:not(:disabled) { transform: scale(0.98); }
+    .opt-btn:disabled { cursor: not-allowed; opacity: 0.75; }
+    .opt-btn.correct  { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .opt-btn.wrong    { background: #fee2e2; border-color: #dc2626; color: #dc2626; animation: shake 0.4s ease; }
+
+    /* FEEDBACK */
+    .feedback {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 22px;
+      color: #486581;
+    }
+    .feedback.ok    { color: #15803d; }
+    .feedback.error { color: #dc2626; }
+
+    /* LOCKED OVERLAY */
+    .locked-area {
+      opacity: 0.45;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity 0.4s;
+    }
+    .locked-area.unlocked {
+      opacity: 1;
+      pointer-events: auto;
+      user-select: auto;
     }
 
-    /* ===== MOBILE ===== */
-    @media (max-width: 520px){
-      body{ padding:14px; }
-      .exercise-box{ padding:18px 16px; }
-      .unit-title{ font-size:22px; }
-      .play-wrap{ min-width:92px; }
-      .play-btn{ width:56px; height:56px; }
+    /* END SCREEN */
+    #endScreen {
+      display: none;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+    .score-bar {
+      background: #e2e8f0; border-radius: 999px;
+      height: 12px; margin: 12px 0 20px; overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%; border-radius: 999px;
+      background: #22c55e; transition: width 1s ease;
+    }
+
+    .hidden { display: none !important; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-5px); }
+      40%     { transform: translateX(5px); }
+      60%     { transform: translateX(-3px); }
+      80%     { transform: translateX(3px); }
     }
   </style>
 </head>
-
 <body>
-  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-  <div class="progress-container">
-    <div class="step" data-page="p1.html">1</div>
-    <div class="step active" data-page="p2.html">2</div>
-    <div class="step" data-page="p3.html">3</div>
-    <div class="step" data-page="p4.html">4</div>
+<a href="../index.html" class="back-btn">← Unidad 2</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidad 2 · Lección 5 · Parte 2</span>
+  <h1>The Baker Family</h1>
+  <p class="subtitle">Comprensión auditiva en inglés</p>
+
+  <div class="progress-dots">
+    <div class="dot" data-page="p1.html">1</div>
+    <div class="dot active" data-page="p2.html">2</div>
+    <div class="dot" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
   </div>
 
-  <div class="exercise-box">
-    <div class="unit-title">Unidad 2 – Lección 5 – Parte 2</div>
+  <!-- ══════════ LISTENING CARD ══════════ -->
+  <div class="card" id="listenCard">
+    <span class="section-label">Escucha</span>
 
     <div class="instruction-box">
-      Escucha el texto. (1ª vez: el texto está escondido).
-      <br>
-      <span style="font-weight:600;">
-        Después escucha <b>otra vez</b> y sigue el texto.
-        Luego responde las preguntas (una por una).
-      </span>
+🎧 Escucha el texto y sigue la lectura. Luego responde las preguntas.
     </div>
 
-    <!-- LISTEN SECTION -->
-    <div class="section">
-      <div class="section-title">Listening</div>
+    <button class="play-btn" id="playBtn">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      Escuchar
+    </button>
 
-      <div class="main-row">
-        <div class="play-wrap">
-          <button class="play-btn" id="playBtn" aria-label="Play">▶</button>
-          <div class="substatus" id="playLabel">Escuchar</div>
-        </div>
-
-        <div class="panel">
-          <div class="status" id="status">1ª escucha: texto escondido.</div>
-          <div class="story hidden-text" id="story">
-The Baker family is at home today.
+    <div class="story-box" id="storyBox">The Baker family is at home today.
 Anna is in the living room.
 Daniel is in the kitchen.
 Lily is in the bedroom.
 Ben is in the bathroom.
 Emma is in the yard.
 The car is in the garage.
-Everyone is at home today.
-          </div>
-          <div class="substatus" id="hint">
-Pulsa ▶ para escuchar. Cuando termine, escucha otra vez para ver el texto.
-          </div>
-        </div>
-      </div>
+Everyone is at home today.</div>
+
+    <div class="listen-hint" id="listenHint">Pulsa ▶ para escuchar. Las preguntas se activarán al terminar.</div>
+  </div>
+
+  <!-- ══════════ QUESTIONS CARD ══════════ -->
+  <div class="card" id="qaCard">
+    <span class="section-label">Preguntas</span>
+
+    <div class="counter-row">
+      <span id="counterEl">1 / 6</span>
+      <span id="scoreEl">✓ 0 &nbsp;✗ 0</span>
     </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barEl"></div></div>
 
-    <!-- QUESTIONS -->
-    <div class="section" id="qaSection">
-      <div class="section-title">Preguntas</div>
-
-      <div id="qaWrap" class="disabled-area">
-        <div class="counter-row">
-          <span class="counter-pill" id="qCounter">1 / 6</span>
-          <span id="qStatus" style="font-weight:900; color:#0f172a;">Selecciona la respuesta.</span>
-        </div>
-
-        <div class="q" id="qBox">
-          <!-- JS renders question here -->
-        </div>
-
-        <div class="result-row">
-          <button class="btn" id="checkBtn" type="button" disabled>Revisar</button>
-          <span class="mark" id="mark"></span>
-        </div>
-
-        <div class="great hidden" id="great">Great job!! ✅</div>
-      </div>
-    </div>
-
-    <!-- NEXT -->
-    <div class="footer-actions">
-      <a href="p3.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+    <div class="locked-area" id="qaArea">
+      <div class="question-title" id="questionEl"></div>
+      <div class="options-wrap" id="optionsEl"></div>
+      <div class="feedback" id="feedbackEl"></div>
     </div>
   </div>
 
-  <script src="../../../../js/u2/u2_l5_p2.js"></script>
+  <!-- END SCREEN -->
+  <div id="endScreen">
+    <div id="endEmoji"  style="font-size:52px;margin-bottom:16px"></div>
+    <h2 id="endTitle"  style="font-size:22px;font-weight:800;color:#1e40af;margin-bottom:12px"></h2>
+    <p  id="endScore"  style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+    <p  id="endMsg"    style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+    <a href="p3.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;">
+      Continuar → Parte 3
+    </a>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+(() => {
+  "use strict";
+
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_BASE = BASE + "audio/u2/";
+  const sfxCorrect = new Audio(BASE + "sfx/correct.wav");
+  const sfxWrong   = new Audio(BASE + "sfx/incorrect.wav");
+  sfxCorrect.preload = sfxWrong.preload = "auto";
+
+  const ICON_PLAY  = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>`;
+  const ICON_PAUSE = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
+  const QUESTIONS = [
+    {
+      q: "Where is Anna?",
+      correct: 1,
+      options: ["She is in the kitchen.", "She is in the living room.", "She is in the bathroom."]
+    },
+    {
+      q: "Where is Daniel?",
+      correct: 1,
+      options: ["He is in the bedroom.", "He is in the kitchen.", "He is in the yard."]
+    },
+    {
+      q: "Where is Lily?",
+      correct: 0,
+      options: ["She is in the bedroom.", "She is in the living room.", "She is in the garage."]
+    },
+    {
+      q: "Where is Ben?",
+      correct: 1,
+      options: ["He is in the yard.", "He is in the bathroom.", "He is in the kitchen."]
+    },
+    {
+      q: "Where is Emma?",
+      correct: 0,
+      options: ["She is in the yard.", "She is in the bathroom.", "She is in the kitchen."]
+    },
+    {
+      q: "Where is the car?",
+      correct: 0,
+      options: ["The car is in the garage.", "The car is in the living room.", "The car is in the yard."]
+    },
+  ];
+
+  const TOTAL = QUESTIONS.length;
+
+  // DOM
+  const playBtn    = document.getElementById("playBtn");
+  const storyBox   = document.getElementById("storyBox");
+  const listenHint = document.getElementById("listenHint");
+  const qaArea     = document.getElementById("qaArea");
+  const counterEl  = document.getElementById("counterEl");
+  const scoreEl    = document.getElementById("scoreEl");
+  const barEl      = document.getElementById("barEl");
+  const questionEl = document.getElementById("questionEl");
+  const optionsEl  = document.getElementById("optionsEl");
+  const feedbackEl = document.getElementById("feedbackEl");
+  const qaCard     = document.getElementById("qaCard");
+  const endScreen  = document.getElementById("endScreen");
+
+  // Dot navigation
+  document.querySelectorAll(".dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const page = dot.dataset.page;
+      if (page) { audio.pause(); window.location.href = page; }
+    });
+  });
+
+  // ── Audio ─────────────────────────────────────────────────────────────────
+
+  const audio = new Audio(AUDIO_BASE + "u2.l5.p2.baker.mp3");
+  audio.preload = "auto";
+
+  let playCount = 0;
+  let isPlaying = false;
+
+  function setPlayBtn(state) {
+    if (state === "ready") {
+      playBtn.className = "play-btn";
+      playBtn.innerHTML = ICON_PLAY + " Escuchar";
+      playBtn.disabled  = false;
+    } else if (state === "playing") {
+      playBtn.className = "play-btn playing";
+      playBtn.innerHTML = ICON_PAUSE + " Pausar";
+      playBtn.disabled  = false;
+    } else if (state === "paused") {
+      playBtn.className = "play-btn paused";
+      playBtn.innerHTML = ICON_PLAY + " Reanudar";
+      playBtn.disabled  = false;
+    } else if (state === "repeat") {
+      playBtn.className = "play-btn";
+      playBtn.innerHTML = ICON_PLAY + " Repetir";
+      playBtn.disabled  = false;
+    }
+  }
+
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      setPlayBtn("paused");
+      return;
+    }
+    isPlaying = true;
+    setPlayBtn("playing");
+
+    audio.currentTime = 0;
+    audio.play().catch(() => { isPlaying = false; setPlayBtn("ready"); });
+  });
+
+  audio.addEventListener("ended", () => {
+    isPlaying = false;
+    playCount++;
+    listenHint.textContent = "Puedes repetir el audio cuando quieras.";
+    setPlayBtn("repeat");
+    unlockQuestions();
+  });
+
+  // ── Questions ─────────────────────────────────────────────────────────────
+
+  let idx     = 0;
+  let correct = 0;
+  let wrong   = 0;
+  let questionsUnlocked = false;
+
+  function updateHUD() {
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
+    scoreEl.innerHTML     = `✓ ${correct} &nbsp;✗ ${wrong}`;
+    barEl.style.width     = `${(idx / TOTAL) * 100}%`;
+  }
+
+  function renderQuestion() {
+    updateHUD();
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+
+    const q = QUESTIONS[idx];
+    questionEl.textContent = `${idx + 1}. ${q.q}`;
+    optionsEl.innerHTML = "";
+
+    q.options.forEach((text, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "opt-btn";
+      btn.textContent = text;
+
+      btn.addEventListener("click", () => {
+        if (!questionsUnlocked) return;
+
+        // Disable all while processing
+        optionsEl.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+
+        if (i === q.correct) {
+          btn.classList.add("correct");
+          feedbackEl.textContent = "✓ ¡Correcto!";
+          feedbackEl.className   = "feedback ok";
+          correct++;
+          updateHUD();
+          playSfx(sfxCorrect);
+
+          setTimeout(() => {
+            idx++;
+            if (idx >= TOTAL) {
+              showEndScreen();
+            } else {
+              renderQuestion();
+            }
+          }, 850);
+
+        } else {
+          btn.classList.add("wrong");
+          feedbackEl.textContent = "✗ Intenta de nuevo.";
+          feedbackEl.className   = "feedback error";
+          wrong++;
+          updateHUD();
+          playSfx(sfxWrong);
+
+          setTimeout(() => {
+            btn.classList.remove("wrong");
+            btn.disabled = false;
+            // Re-enable others
+            optionsEl.querySelectorAll(".opt-btn").forEach(b => b.disabled = false);
+            feedbackEl.textContent = "";
+            feedbackEl.className   = "feedback";
+          }, 700);
+        }
+      });
+
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function unlockQuestions() {
+    if (questionsUnlocked) return;
+    questionsUnlocked = true;
+    qaArea.classList.add("unlocked");
+    setTimeout(() => {
+      qaCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 200);
+  }
+
+  // ── End screen ────────────────────────────────────────────────────────────
+
+  function showEndScreen() {
+    document.getElementById("qaCard").classList.add("hidden");
+    endScreen.style.display = "block";
+
+    const total = correct + wrong;
+    const pct   = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+    let emoji, title, msg;
+    if      (pct === 100) { emoji = "🏆"; title = "¡Perfecto!";          msg = "Respondiste todo correctamente. ¡Increíble!"; }
+    else if (pct >= 70)   { emoji = "🌟"; title = "¡Muy bien!";          msg = `${wrong} error${wrong !== 1 ? "es" : ""}. ¡Sigue así!`; }
+    else if (pct >= 50)   { emoji = "👍"; title = "¡Buen intento!";      msg = "Escucha el audio de nuevo y repasa el texto."; }
+    else                  { emoji = "💪"; title = "¡Sigue practicando!"; msg = "Lee el texto con calma y vuelve a intentarlo."; }
+
+    document.getElementById("endEmoji").textContent = emoji;
+    document.getElementById("endTitle").textContent = title;
+    document.getElementById("endScore").textContent =
+      `${correct} de ${TOTAL} correctas (${pct}%)`;
+    document.getElementById("endMsg").textContent = msg;
+    setTimeout(() => {
+      document.getElementById("scoreBarFill").style.width = pct + "%";
+    }, 100);
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function playSfx(sfx) {
+    try { sfx.currentTime = 0; sfx.play().catch(() => {}); } catch(_) {}
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+
+  setPlayBtn("ready");
+  renderQuestion();
+
+})();
+</script>
 </body>
 </html>

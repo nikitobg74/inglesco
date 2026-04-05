@@ -3,450 +3,621 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unidad 2 - Lección 4 - Parte 3</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Completa la frase en inglés: He is / She is / Where is – Inglesco Unidad 2 Lección 4</title>
+  <meta name="description" content="Practica he is, she is, where is en inglés. Toca la respuesta correcta para completar cada frase. Ejercicio interactivo gratuito para hispanohablantes." />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body{ padding:20px; background:#eef2ff; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px; height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-
-    /* ===== BOX ===== */
-    .exercise-box{
-      max-width:950px;
-      margin:0 auto;
-      background:#fff;
-      padding:30px 40px;
-      border-radius:18px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.08);
-      color:#2c3e50;
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
     }
 
-    .unit-title{
-      color:#2563eb;
-      font-size:28px;
-      font-weight:800;
-      text-align:center;
-      margin-bottom:10px;
+    /* BACK */
+    .back-btn {
+      position: fixed;
+      top: 14px; left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); }
+
+    /* WRAP */
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 56px;
     }
 
-    .instruction-box{
-      background:#e0e7ff;
-      padding:15px 20px;
-      border-radius:12px;
-      text-align:center;
-      font-weight:700;
-      margin-bottom:16px;
-      color:#0f172a;
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
     }
 
-    .top-actions{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:14px;
+    /* DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; }
+    .dot.done { background: #22c55e; color: #fff; border-color: #22c55e; }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
     }
 
-    .btn{
-      border:none;
-      cursor:pointer;
-      background:#2563eb;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:800;
-      transition:all .2s;
+    /* COUNTER */
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
     }
-    .btn:hover{ background:#1e40af; }
-
-    .wordbank{
-      display:flex;
-      justify-content:center;
-      gap:8px;
-      flex-wrap:wrap;
-      margin:10px 0 16px 0;
+    .bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 7px;
+      margin-bottom: 20px;
+      overflow: hidden;
     }
-    .pill{
-      padding:8px 10px;
-      background:#e0e7ff;
-      border:1px solid #c7d2fe;
-      border-radius:999px;
-      font-weight:800;
-      color:#1f2933;
-      font-size:14px;
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 999px;
+      transition: width 0.5s;
     }
 
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+    /* INSTRUCTION */
+    .instruction-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1e40af;
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
 
-    .item{
-      background:#f8fafc;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:14px;
+    /* SENTENCE */
+    .sentence-wrap {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px 16px 14px;
+      margin-bottom: 18px;
+      min-height: 64px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e2a38;
+      line-height: 1.6;
+      text-align: center;
     }
 
-    .line{
-      font-weight:750;
-      color:#0f172a;
-      line-height:1.4;
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      align-items:center;
+    /* BLANK SLOT */
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      height: 38px;
+      border-radius: 10px;
+      border: 2px dashed #93c5fd;
+      background: #eff6ff;
+      color: #1e40af;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 0 10px;
+      transition: background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .blank-slot.filled {
+      border-style: solid;
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+    .blank-slot.correct {
+      border-color: #22c55e;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .blank-slot.wrong {
+      border-color: #dc2626;
+      background: #fee2e2;
+      color: #dc2626;
+      animation: shake 0.35s ease;
     }
 
-    .qnum{
-      font-weight:900;
-      margin-right:6px;
-      color:#0f172a;
+    /* TILE BANK */
+    .tile-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 6px;
+      min-height: 48px;
+    }
+    .tile {
+      padding: 10px 18px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.15s, transform 0.1s, opacity 0.15s;
+      user-select: none;
+    }
+    .tile:hover  { background: #1d4ed8; transform: translateY(-2px); }
+    .tile:active { transform: scale(0.95); }
+    .tile.used   { opacity: 0; pointer-events: none; }
+
+    /* FEEDBACK LINE */
+    .feedback {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 22px;
+      margin-top: 8px;
+      color: #486581;
+    }
+    .feedback.ok    { color: #15803d; }
+    .feedback.error { color: #dc2626; }
+
+    /* END SCREEN */
+    #endScreen {
+      display: none;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+    }
+    .score-bar {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 12px;
+      margin: 12px 0 20px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: #22c55e;
+      transition: width 1s ease;
     }
 
-    input.word{
-      width:160px;
-      max-width:60vw;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid #cbd5e1;
-      font-size:14px;
-      font-weight:800;
-      outline:none;
-      background:#fff;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    input.word:focus{
-      border-color:#2563eb;
-      box-shadow:0 0 0 3px rgba(37,99,235,.15);
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-5px); }
+      75%      { transform: translateX(5px); }
     }
-
-    .mark{
-      margin-left:8px;
-      font-weight:900;
-    }
-    .ok{ color:#0a7a2f; }
-    .bad{ color:#b00020; }
-
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:18px;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:900;
-    }
-    .next-btn:hover{ background:#1e40af; }
-
-    @media (max-width: 520px){
-      body{ padding:14px; }
-      .exercise-box{ padding:18px 16px; }
-      .unit-title{ font-size:22px; }
-      .step{ width:34px; height:34px; font-size:14px; }
-      input.word{ width:150px; }
-    }
+    .card-anim { animation: fadeUp 0.3s ease; }
   </style>
 </head>
-
 <body>
-  <!-- BACK BUTTON -->
-  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-  <!-- PROGRESS BAR -->
-  <div class="progress-container">
-    <div class="step" data-page="p1.html">1</div>
-    <div class="step" data-page="p2.html">2</div>
-    <div class="step active" data-page="p3.html">3</div>
-    <div class="step" data-page="p4.html">4</div>
+<a href="../index.html" class="back-btn">← Unidad 2</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidad 2 · Lección 4 · Parte 3</span>
+  <h1>Completa la frase</h1>
+  <p class="subtitle">He is / She is / Where is / I am</p>
+
+  <div class="progress-dots">
+    <div class="dot" data-page="p1.html">1</div>
+    <div class="dot" data-page="p2.html">2</div>
+    <div class="dot active" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
   </div>
 
-  <div class="exercise-box">
-    <div class="unit-title">Unidad 2 – Lección 4 – Parte 3</div>
+  <div class="card card-anim" id="mainCard">
+    <div class="counter-row">
+      <span id="counterEl">1 / 10</span>
+      <span id="scoreEl">✓ 0</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barEl"></div></div>
 
     <div class="instruction-box">
-      Ejercicio A: Mira el <b>Word bank</b> y <b>escribe</b> la palabra que falta en cada frase.
-      <br>✅ Usa solo estas opciones: <b>where is</b>, <b>he is</b>, <b>she is</b>, <b>i am</b>.
+      Toca la palabra correcta para completar la frase. 👇
     </div>
 
-    <div class="top-actions">
-      <button class="btn" id="checkBtn" type="button">Revisar</button>
-    </div>
+    <!-- Sentence display -->
+    <div class="sentence-wrap" id="sentenceWrap"></div>
 
-    <!-- WORD BANK -->
-    <div class="wordbank" id="wordBank"></div>
+    <!-- Tile bank -->
+    <div class="tile-bank" id="tileBank"></div>
 
-    <!-- EXERCISE A LIST -->
-    <div class="list" id="exerciseList"></div>
-
-    <!-- NEXT BUTTON -->
-    <div class="footer-actions">
-      <a href="p4.html" class="next-btn">Next ▶</a>
-    </div>
+    <!-- Feedback -->
+    <div class="feedback" id="feedback"></div>
   </div>
 
-  <script>
-    // ===== Progress navigation (click steps) =====
-    document.querySelectorAll(".step").forEach(step => {
-      step.addEventListener("click", () => {
-        const page = step.getAttribute("data-page");
-        if (page) window.location.href = page;
-      });
+  <!-- END SCREEN -->
+  <div id="endScreen">
+    <div id="endEmoji" style="font-size:52px;margin-bottom:16px"></div>
+    <h2 id="endTitle" style="font-size:22px;font-weight:800;color:#1e40af;margin-bottom:12px"></h2>
+    <p id="endScore" style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+    <p id="endMsg" style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+    <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;">
+      Continuar → Parte 4
+    </a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const sfxCorrect   = new Audio(BASE + "sfx/correct.wav");
+  const sfxWrong     = new Audio(BASE + "sfx/incorrect.wav");
+  sfxCorrect.preload = sfxWrong.preload = "auto";
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+
+  const MALE_NAMES   = ["George","Pedro","Luis","Carlos","Mateo","Bruno","David","Javier","Hector","Ruben"];
+  const FEMALE_NAMES = ["Karen","Maria","Ana","Lucia","Paula","Elena","Carmen","Valeria","Diana","Marta"];
+  const ROOMS        = ["bedroom","garage","living room","basement","bathroom","kitchen","yard","attic"];
+
+  // All possible answer tokens (what appears on tiles)
+  const ALL_ANSWERS  = ["he is", "she is", "where is", "i am"];
+
+  // Distractor pool — pick from answers that are NOT the correct one(s)
+  function distractors(correct, count) {
+    const pool = ALL_ANSWERS.filter(a => !correct.includes(a));
+    return shuffle(pool).slice(0, count);
+  }
+
+  // ── Exercise generator ────────────────────────────────────────────────────
+  // Each exercise returns: { parts, blanks }
+  // parts: array of { type:'text'|'blank', text?, answer? }
+  // blanks: filled sequentially as tiles are tapped
+
+  function pickName() {
+    const male = Math.random() < 0.5;
+    return { name: pick(male ? MALE_NAMES : FEMALE_NAMES), male };
+  }
+
+  // Pattern A: "Where is NAME? ___ in the ROOM."  (one blank: he is / she is)
+  function patternA() {
+    const { name, male } = pickName();
+    const ans = male ? "he is" : "she is";
+    const room = pick(ROOMS);
+    return {
+      parts: [
+        { type: "text", text: `Where is ${name}?` },
+        { type: "blank", answer: ans },
+        { type: "text", text: `in the ${room}.` }
+      ],
+      correctAnswers: [ans],
+      tiles: shuffle([ans, ...distractors([ans], 2)])
+    };
+  }
+
+  // Pattern B: "___ NAME? ___ in the ROOM."  (two blanks: where is + he/she is)
+  function patternB() {
+    const { name, male } = pickName();
+    const ans2 = male ? "he is" : "she is";
+    const room = pick(ROOMS);
+    return {
+      parts: [
+        { type: "blank", answer: "where is" },
+        { type: "text", text: `${name}?` },
+        { type: "blank", answer: ans2 },
+        { type: "text", text: `in the ${room}.` }
+      ],
+      correctAnswers: ["where is", ans2],
+      tiles: shuffle(["where is", ans2, ...distractors(["where is", ans2], 1)])
+    };
+  }
+
+  // Pattern C: "Where are you? ___ in the ROOM."  (one blank: i am)
+  function patternC() {
+    const room = pick(ROOMS);
+    return {
+      parts: [
+        { type: "text", text: "Where are you?" },
+        { type: "blank", answer: "i am" },
+        { type: "text", text: `in the ${room}.` }
+      ],
+      correctAnswers: ["i am"],
+      tiles: shuffle(["i am", ...distractors(["i am"], 2)])
+    };
+  }
+
+  // Pattern D: "NAME is not at PLACE1. ___ is at PLACE2." (one blank: he is / she is)
+  const PLACES = ["the office","the supermarket","the park","the bank","the library","the hospital","the movie theater","the post office","the restaurant"];
+  function patternD() {
+    const { name, male } = pickName();
+    const ans = male ? "he is" : "she is";
+    const shuffledPlaces = shuffle(PLACES);
+    const place1 = shuffledPlaces[0];
+    const place2 = shuffledPlaces[1];
+    return {
+      parts: [
+        { type: "text", text: `${name} is not at ${place1}.` },
+        { type: "blank", answer: ans },
+        { type: "text", text: `at ${place2}.` }
+      ],
+      correctAnswers: [ans],
+      tiles: shuffle([ans, ...distractors([ans], 2)])
+    };
+  }
+
+  // Build 10 exercises: mix of patterns, shuffled
+  function buildExercises() {
+    const pool = [
+      patternA, patternA, patternA,   // 3× type A
+      patternB, patternB,             // 2× type B (two-blank, harder)
+      patternC, patternC, patternC,   // 3× type C
+      patternD, patternD              // 2× type D
+    ];
+    return shuffle(pool).map(fn => fn());
+  }
+
+  // ── State ─────────────────────────────────────────────────────────────────
+
+  const exercises = buildExercises();
+  const TOTAL     = exercises.length;
+  let idx         = 0;
+  let score       = 0;
+  let errors      = 0;
+
+  // DOM
+  const counterEl    = document.getElementById("counterEl");
+  const scoreEl      = document.getElementById("scoreEl");
+  const barEl        = document.getElementById("barEl");
+  const sentenceWrap = document.getElementById("sentenceWrap");
+  const tileBankEl   = document.getElementById("tileBank");
+  const feedbackEl   = document.getElementById("feedback");
+  const mainCard     = document.getElementById("mainCard");
+  const endScreen    = document.getElementById("endScreen");
+
+  // Dot navigation
+  document.querySelectorAll(".dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const page = dot.dataset.page;
+      if (page) window.location.href = page;
+    });
+  });
+
+  // ── Render exercise ───────────────────────────────────────────────────────
+
+  function updateHUD() {
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
+    scoreEl.textContent   = `✓ ${score}`;
+    barEl.style.width     = `${(idx / TOTAL) * 100}%`;
+  }
+
+  function renderExercise() {
+    updateHUD();
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+    sentenceWrap.innerHTML = "";
+    tileBankEl.innerHTML   = "";
+
+    const ex = exercises[idx];
+    const blankEls = []; // references to blank slot elements, in order
+    let   blankIdx = 0;  // which blank we're filling next
+
+    // Build sentence
+    // Capitalize a blank if it starts a sentence: first position, or after ? or .
+    let prevEndsWithPunctuation = true;
+    ex.parts.forEach(part => {
+      if (part.type === "text") {
+        const span = document.createElement("span");
+        span.textContent = part.text;
+        sentenceWrap.appendChild(span);
+        const trimmed = part.text.trimEnd();
+        prevEndsWithPunctuation = trimmed.endsWith("?") || trimmed.endsWith(".");
+      } else {
+        const slot = document.createElement("div");
+        slot.className = "blank-slot";
+        slot.dataset.answer = part.answer;
+        slot.textContent = "___";
+        slot.dataset.filled = "false";
+        if (prevEndsWithPunctuation) slot.dataset.capitalize = "true";
+        prevEndsWithPunctuation = false;
+        blankEls.push(slot);
+        sentenceWrap.appendChild(slot);
+      }
     });
 
-    // ===== DATA =====
-    const WORD_BANK = ["where is", "she is", "he is", "i am"];
-    const ROOMS = ["bedroom","garage","living room","basement","bathroom","kitchen","yard","attic"];
+    // Build tiles
+    ex.tiles.forEach(word => {
+      const tile = document.createElement("button");
+      tile.type = "button";
+      tile.className = "tile";
+      tile.textContent = word;
 
-    const MALE_NAMES = ["George","Pedro","Luis","Carlos","Mateo","Bruno","David","Javier","Hector","Ruben"];
-    const FEMALE_NAMES = ["Karen","Maria","Ana","Lucia","Paula","Elena","Carmen","Valeria","Diana","Marta"];
+      tile.addEventListener("click", () => {
+        if (blankIdx >= blankEls.length) return; // all filled
 
-    // ===== HELPERS =====
-    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    const shuffle = (arr) => {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    };
+        const slot    = blankEls[blankIdx];
+        const correct = slot.dataset.answer;
 
-    // Normalize: ignore caps, spaces, punctuation (so "whereis" == "where is")
-    function norm(s){
-      return (s || "")
-        .toLowerCase()
-        .replace(/[^a-z]/g, "");
-    }
+        if (word === correct) {
+          // Correct — capitalize if this is the sentence-opening blank
+          const display = slot.dataset.capitalize === "true"
+            ? word.charAt(0).toUpperCase() + word.slice(1)
+            : word;
+          slot.textContent = display;
+          slot.classList.add("filled", "correct");
+          tile.classList.add("used");
+          blankIdx++;
+          feedbackEl.textContent = "";
+          playSfx(sfxCorrect);
 
-    // ===== RENDER WORD BANK =====
-    function renderWordBank(){
-      const wb = document.getElementById("wordBank");
-      wb.innerHTML = "";
-      WORD_BANK.forEach(w => {
-        const d = document.createElement("div");
-        d.className = "pill";
-        d.textContent = w;
-        wb.appendChild(d);
-      });
-    }
+          if (blankIdx === blankEls.length) {
+            // All blanks filled correctly
+            score++;
+            updateHUD();
+            feedbackEl.textContent = "✓ ¡Correcto!";
+            feedbackEl.className   = "feedback ok";
 
-    // ===== BUILD ONE LINE =====
-    function buildLine(number, parts){
-      const item = document.createElement("div");
-      item.className = "item";
+            setTimeout(() => {
+              if (idx < TOTAL - 1) {
+                idx++;
+                renderExercise();
+              } else {
+                showEndScreen();
+              }
+            }, 900);
+          }
 
-      const line = document.createElement("div");
-      line.className = "line";
-
-      const qnum = document.createElement("span");
-      qnum.className = "qnum";
-      qnum.textContent = number + ".";
-      line.appendChild(qnum);
-
-      parts.forEach((p, idx) => {
-        if (typeof p === "string"){
-          const span = document.createElement("span");
-          span.textContent = p;
-          line.appendChild(span);
         } else {
-          const input = document.createElement("input");
-          input.type = "text";
-          input.className = "word";
-          input.setAttribute("data-answer", p.answer);
-          input.placeholder = "escribe aquí";
-          input.autocomplete = "off";
-          input.autocapitalize = "none";
-          input.spellcheck = false;
-
-          const mark = document.createElement("span");
-          mark.className = "mark";
-          mark.id = "mark_" + number + "_" + idx;
-
-          input.setAttribute("data-mark-id", mark.id);
-
-          line.appendChild(input);
-          line.appendChild(mark);
+          // Wrong
+          errors++;
+          slot.classList.add("wrong");
+          playSfx(sfxWrong);
+          feedbackEl.textContent = "✗ Intenta de nuevo.";
+          feedbackEl.className   = "feedback error";
+          setTimeout(() => {
+            slot.classList.remove("wrong");
+            feedbackEl.textContent = "";
+            feedbackEl.className   = "feedback";
+          }, 600);
         }
       });
 
-      item.appendChild(line);
-      return item;
+      tileBankEl.appendChild(tile);
+    });
+  }
+
+  // ── End screen ────────────────────────────────────────────────────────────
+
+  function showEndScreen() {
+    mainCard.style.display = "none";
+    endScreen.style.display = "block";
+
+    const pct = Math.round((score / TOTAL) * 100);
+    let emoji, title, msg;
+    if      (pct === 100) { emoji = "🏆"; title = "¡Perfecto!";          msg = "Sin errores. ¡Excelente trabajo!"; }
+    else if (pct >= 70)   { emoji = "🌟"; title = "¡Muy bien!";          msg = `${errors} error${errors !== 1 ? "es" : ""}. ¡Sigue así!`; }
+    else if (pct >= 50)   { emoji = "👍"; title = "¡Buen intento!";      msg = "Sigue practicando, ya casi lo tienes."; }
+    else                  { emoji = "💪"; title = "¡Sigue practicando!"; msg = "Repasa las frases e inténtalo de nuevo."; }
+
+    document.getElementById("endEmoji").textContent = emoji;
+    document.getElementById("endTitle").textContent = title;
+    document.getElementById("endScore").textContent = `${score} de ${TOTAL} correctas (${pct}%)`;
+    document.getElementById("endMsg").textContent   = msg;
+    setTimeout(() => {
+      document.getElementById("scoreBarFill").style.width = pct + "%";
+    }, 100);
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function playSfx(sfx) {
+    try { sfx.currentTime = 0; sfx.play().catch(() => {}); } catch (_) {}
+  }
+
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
     }
+    return a;
+  }
 
-    // ===== MAKE 10 SHUFFLED ITEMS (ALL GENERATED) =====
-    function generateExercise(){
-      const list = document.getElementById("exerciseList");
-      list.innerHTML = "";
+  // ── Init ──────────────────────────────────────────────────────────────────
+  renderExercise();
 
-      // We keep 10 “patterns” (similar to what you wrote), but everything inside is randomized.
-      // Patterns only use the word bank answers:
-      // - where is / he is / she is / i am
-
-      const patterns = [
-        // 1) Where is NAME? ___ in the ROOM.
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return ["Where is " + name + "?", {answer: pron}, "in the", room + "."];
-        },
-
-        // 2) ___ is NAME? ___ in the ROOM.
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
-        },
-
-        // 3) Where are you? ___ in the ROOM.
-        () => {
-          const room = pick(ROOMS);
-          return ["Where are you?", {answer:"i am"}, "in the", room + "."];
-        },
-
-        // 4) ___ NAME? ___ in the ROOM. (still becomes "Where is NAME?")
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
-        },
-
-        // 5) Where are you? ___ in the ROOM. (same as #3 but different room)
-        () => {
-          const room = pick(ROOMS);
-          return ["Where are you?", {answer:"i am"}, "in the", room + "."];
-        },
-
-        // 6) Where is NAME? ___ in the ROOM.
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return ["Where is " + name + "?", {answer: pron}, "in the", room + "."];
-        },
-
-        // 7) ___ is NAME? ___ in the ROOM.
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
-        },
-
-        // 8) Where are you? ___ in the ROOM.
-        () => {
-          const room = pick(ROOMS);
-          return ["Where are you?", {answer:"i am"}, "in the", room + "."];
-        },
-
-        // 9) Where is NAME? ___ in the ROOM.
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return ["Where is " + name + "?", {answer: pron}, "in the", room + "."];
-        },
-
-        // 10) ___ is NAME? ___ in the ROOM.
-        () => {
-          const male = Math.random() < 0.5;
-          const name = male ? pick(MALE_NAMES) : pick(FEMALE_NAMES);
-          const pron = male ? "he is" : "she is";
-          const room = pick(ROOMS);
-          return [{answer:"where is"}, name + "?", {answer: pron}, "in the", room + "."];
-        },
-      ];
-
-      // Generate 10 items and render
-      patterns.forEach((makeParts, i) => {
-        const parts = makeParts();
-        list.appendChild(buildLine(i + 1, parts));
-      });
-    }
-
-    // ===== CHECK =====
-    function checkAnswers(){
-      const inputs = document.querySelectorAll('input.word');
-      inputs.forEach(input => {
-        const expected = input.getAttribute("data-answer") || "";
-        const got = input.value || "";
-
-        const markId = input.getAttribute("data-mark-id");
-        const mark = document.getElementById(markId);
-        if (!mark) return;
-
-        if (norm(got) === norm(expected)) {
-          mark.textContent = "✓";
-          mark.classList.remove("bad");
-          mark.classList.add("ok");
-        } else {
-          mark.textContent = "✗";
-          mark.classList.remove("ok");
-          mark.classList.add("bad");
-        }
-      });
-    }
-
-    // ===== INIT =====
-    renderWordBank();
-    generateExercise();
-
-    document.getElementById("checkBtn").addEventListener("click", checkAnswers);
-    document.addEventListener("keydown", (e) => { if (e.key === "Enter") checkAnswers(); });
-  </script>
+})();
+</script>
 </body>
 </html>

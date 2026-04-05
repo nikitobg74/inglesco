@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 • Lección 2 • Parte 5 | Inglesco</title>
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- UNIT / LESSON / PART constants for forward-compatible tracking -->
+<script>
+  const UNIT   = 7;
+  const LESSON = 2;
+  const PART   = 5;
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #1e40af; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,0.7);
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step.done   { background: #059669; color: #fff; }
+
+/* COUNTER ROW */
+.counter-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 13px; font-weight: 700; color: #486581;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.card-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9333ea;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.img-wrap {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; overflow: hidden;
+  background: #f1f5f9;
+  margin-bottom: 16px;
+}
+.img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9333ea;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+}
+
+/* ANSWER SLOT — the bar where tiles are placed */
+.slot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 42px;
+  background: #eff6ff;
+  border: 2px dashed #93c5fd;
+  border-radius: 12px;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  align-items: center;
+  transition: border-color .2s, background .2s;
+}
+.slot-row.correct {
+  border-color: #059669;
+  background: #d1fae5;
+  border-style: solid;
+}
+.slot-row.wrong {
+  border-color: #dc2626;
+  background: #fee2e2;
+  border-style: solid;
+}
+.slot-row.locked {
+  border-style: solid;
+  border-color: #059669;
+  background: #d1fae5;
+}
+
+/* Placed tile inside slot */
+.placed {
+  padding: 7px 13px;
+  border-radius: 8px;
+  background: #dbeafe;
+  border: 2px solid #2563eb;
+  font-size: 13px;
+  font-weight: 900;
+  color: #1e40af;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .1s;
+}
+.placed:active { transform: scale(.95); }
+.slot-row.locked .placed,
+.slot-row.correct .placed {
+  background: #a7f3d0;
+  border-color: #059669;
+  color: #065f46;
+  cursor: default;
+}
+.slot-row.wrong .placed {
+  background: #fecaca;
+  border-color: #dc2626;
+  color: #991b1b;
+}
+
+/* TILES BANK */
+.tiles-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  min-height: 38px;
+}
+.tile {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 2px solid #2563eb;
+  background: white;
+  font-size: 13px;
+  font-weight: 900;
+  color: #1e40af;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .15s, transform .1s;
+}
+.tile:active { transform: scale(.95); }
+.tile.used { opacity: 0; pointer-events: none; }
+
+/* divider between Q and A sections */
+.divider {
+  border: none;
+  border-top: 1.5px solid #e2e8f0;
+  margin: 14px 0;
+}
+
+/* FEEDBACK */
+.feedback {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  min-height: 20px;
+  color: #059669;
+}
+.feedback.wrong { color: #dc2626; }
+
+/* CHECK BUTTON */
+.check-btn {
+  width: 100%;
+  padding: 12px;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 14px;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.check-btn:hover { opacity: .9; }
+.check-btn:disabled { opacity: .35; cursor: default; }
+
+/* NEXT BUTTON */
+.next-btn {
+  width: 100%;
+  padding: 13px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 15px;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.next-btn:hover { opacity: .9; }
+.next-btn:disabled { opacity: .4; cursor: default; }
+
+/* COMPLETE SCREEN */
+.complete-screen {
+  text-align: center;
+  padding: 30px 10px;
+}
+.complete-screen .emoji { font-size: 56px; margin-bottom: 12px; }
+.complete-screen h2 { font-size: 22px; font-weight: 900; color: #1e3a5f; margin-bottom: 8px; }
+.complete-screen p { font-size: 15px; color: #374151; margin-bottom: 24px; }
+.unit-btn {
+  display: inline-block;
+  padding: 13px 28px;
+  background: #059669;
+  color: white;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 15px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Unidad 7</a>
+
+  <div class="top-title">Unidad 7 • Lección 2 • Parte 5</div>
+  <div class="subline">Where is the Supermarket?</div>
+
+  <div class="progress-container">
+    <a class="step done" href="p1.html">1</a>
+    <a class="step done" href="p2.html">2</a>
+    <a class="step done" href="p3.html">3</a>
+    <a class="step done" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="counter-row">
+    <span id="counter">Pregunta 1 de 6</span>
+    <span id="pct">0%</span>
+  </div>
+
+  <!-- CARD -->
+  <div class="card" id="card"></div>
+
+  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+
+</div>
+
+<!-- SFX -->
+<audio id="sfxCorrect"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/correct.wav"   preload="auto"></audio>
+<audio id="sfxIncorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/incorrect.wav" preload="auto"></audio>
+
+<script>
+(() => {
+
+const BASE = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IMG  = BASE + 'images/u7/';
+
+// Each item: image + two sentences broken into phrase chunks.
+// q_parts = correct order for the question
+// a_parts = correct order for the answer
+// Extra distractor tiles can be added via q_extra / a_extra.
+const ITEMS = [
+  {
+    img: 'u7.bank.next.jpg',
+    q_parts: ['Is there', 'a bank', 'nearby?'],
+    a_parts: ['There is', 'a bank', 'next to', 'the hotel.']
+  },
+  {
+    img: 'u7.restaurant.bank2.jpg',
+    q_parts: ['Is there', 'a restaurant', 'nearby?'],
+    a_parts: ['There is', 'a restaurant', 'next to', 'the bank.']
+  },
+  {
+    img: 'u7.across.from.jpg',
+    q_parts: ['Is there', 'a clinic', 'nearby?'],
+    a_parts: ['There is', 'a clinic', 'across from', 'the hotel.']
+  },
+  {
+    img: 'u7.drug.store.across.mall.jpg',
+    q_parts: ['Is there', 'a big mall', 'nearby?'],
+    a_parts: ['There is', 'a big mall', 'around the corner from', 'the bank.']
+  },
+  {
+    img: 'u7.school.library.jpg',
+    q_parts: ['Is there', 'a school', 'nearby?'],
+    a_parts: ['There is', 'a school', 'between', 'the library', 'and the post office.']
+  },
+  {
+    img: 'u7.bakery.next.jpg',
+    q_parts: ['Is there', 'a bakery', 'nearby?'],
+    a_parts: ['There is', 'a bakery', 'next to', 'the hair salon.']
+  }
+];
+
+const TOTAL  = ITEMS.length;
+let current  = 0;
+let answered = false;
+
+const cardEl  = document.getElementById('card');
+const nextBtn = document.getElementById('nextBtn');
+const counter = document.getElementById('counter');
+const pct     = document.getElementById('pct');
+const sfxOk   = document.getElementById('sfxCorrect');
+const sfxBad  = document.getElementById('sfxIncorrect');
+
+function playSfx(audio) {
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ---- Tile-arrangement widget ----
+// Returns { el, isComplete } where isComplete() returns true when both rows correct.
+function makeArrangeWidget(item) {
+  const qCorrect = item.q_parts;
+  const aCorrect = item.a_parts;
+
+  // combine all tiles, shuffle once for each row
+  const qTiles = shuffle(qCorrect);
+  const aTiles = shuffle(aCorrect);
+
+  // State
+  let qPlaced  = [];   // phrase strings placed in slot
+  let aPlaced  = [];
+  let qLocked  = false;
+  let aLocked  = false;
+
+  const container = document.createElement('div');
+
+  // ---- Question section ----
+  const qLabel = document.createElement('div');
+  qLabel.className = 'section-label';
+  qLabel.textContent = 'Pregunta';
+  container.appendChild(qLabel);
+
+  const qSlot = document.createElement('div');
+  qSlot.className = 'slot-row';
+  qSlot.id = 'qSlot';
+  container.appendChild(qSlot);
+
+  const qBank = document.createElement('div');
+  qBank.className = 'tiles-bank';
+  qBank.id = 'qBank';
+  qTiles.forEach(phrase => {
+    const t = makeTile(phrase);
+    qBank.appendChild(t);
+  });
+  container.appendChild(qBank);
+
+  // ---- Divider ----
+  const hr = document.createElement('hr');
+  hr.className = 'divider';
+  container.appendChild(hr);
+
+  // ---- Answer section ----
+  const aLabel = document.createElement('div');
+  aLabel.className = 'section-label';
+  aLabel.style.color = '#2563eb';
+  aLabel.textContent = 'Respuesta';
+  container.appendChild(aLabel);
+
+  const aSlot = document.createElement('div');
+  aSlot.className = 'slot-row';
+  aSlot.id = 'aSlot';
+  container.appendChild(aSlot);
+
+  const aBank = document.createElement('div');
+  aBank.className = 'tiles-bank';
+  aBank.id = 'aBank';
+  aTiles.forEach(phrase => {
+    const t = makeTile(phrase);
+    aBank.appendChild(t);
+  });
+  container.appendChild(aBank);
+
+  // ---- Check button ----
+  const checkBtn = document.createElement('button');
+  checkBtn.className = 'check-btn';
+  checkBtn.textContent = 'Comprobar ✓';
+  checkBtn.disabled = true;
+  container.appendChild(checkBtn);
+
+  // ---- Feedback ----
+  const fb = document.createElement('div');
+  fb.className = 'feedback';
+  container.appendChild(fb);
+
+  // ---- Helpers ----
+  function makeTile(phrase) {
+    const t = document.createElement('button');
+    t.className = 'tile';
+    t.textContent = phrase;
+    t.dataset.phrase = phrase;
+    t.addEventListener('click', () => onTileClick(t));
+    t.addEventListener('touchstart', () => {}, { passive: true });
+    t.addEventListener('touchend', e => { e.preventDefault(); onTileClick(t); });
+    return t;
+  }
+
+  function renderSlot(slot, placed, locked) {
+    slot.innerHTML = '';
+    placed.forEach((phrase, idx) => {
+      const p = document.createElement('button');
+      p.className = 'placed';
+      p.textContent = phrase;
+      if (!locked) {
+        p.addEventListener('click', () => onPlacedClick(phrase, idx, slot));
+        p.addEventListener('touchend', e => { e.preventDefault(); onPlacedClick(phrase, idx, slot); });
+      }
+      slot.appendChild(p);
+    });
+  }
+
+  function onTileClick(tile) {
+    const phrase = tile.dataset.phrase;
+    const inQ = qBank.contains(tile);
+    const inA = aBank.contains(tile);
+
+    if (inQ && !qLocked) {
+      tile.classList.add('used');
+      qPlaced.push(phrase);
+      renderSlot(qSlot, qPlaced, qLocked);
+      updateCheck();
+    } else if (inA && !aLocked) {
+      tile.classList.add('used');
+      aPlaced.push(phrase);
+      renderSlot(aSlot, aPlaced, aLocked);
+      updateCheck();
+    }
+  }
+
+  function onPlacedClick(phrase, idx, slot) {
+    if (slot === qSlot && !qLocked) {
+      qPlaced.splice(idx, 1);
+      renderSlot(qSlot, qPlaced, qLocked);
+      // return tile to bank
+      const tile = [...qBank.querySelectorAll('.tile')].find(t => t.dataset.phrase === phrase && t.classList.contains('used'));
+      if (tile) tile.classList.remove('used');
+      updateCheck();
+    } else if (slot === aSlot && !aLocked) {
+      aPlaced.splice(idx, 1);
+      renderSlot(aSlot, aPlaced, aLocked);
+      const tile = [...aBank.querySelectorAll('.tile')].find(t => t.dataset.phrase === phrase && t.classList.contains('used'));
+      if (tile) tile.classList.remove('used');
+      updateCheck();
+    }
+  }
+
+  function arraysEqual(a, b) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+
+  function updateCheck() {
+    const qFull = qPlaced.length === qCorrect.length;
+    const aFull = aPlaced.length === aCorrect.length;
+    checkBtn.disabled = !(qFull && aFull);
+  }
+
+  function isComplete() {
+    return qLocked && aLocked;
+  }
+
+  checkBtn.addEventListener('click', () => {
+    const qOk = arraysEqual(qPlaced, qCorrect);
+    const aOk = arraysEqual(aPlaced, aCorrect);
+
+    if (qOk && aOk) {
+      qLocked = true;
+      aLocked = true;
+      qSlot.classList.add('locked');
+      aSlot.classList.add('locked');
+      renderSlot(qSlot, qPlaced, true);
+      renderSlot(aSlot, aPlaced, true);
+      // hide banks
+      qBank.style.display = 'none';
+      aBank.style.display = 'none';
+      checkBtn.style.display = 'none';
+      fb.textContent = '✅ ¡Perfecto!';
+      fb.className = 'feedback';
+      playSfx(sfxOk);
+      nextBtn.disabled = false;
+    } else {
+      // show which row is wrong
+      if (!qOk) {
+        qSlot.classList.add('wrong');
+        renderSlot(qSlot, qPlaced, false);
+        setTimeout(() => {
+          qSlot.classList.remove('wrong');
+          // return all placed tiles to bank
+          qPlaced = [];
+          renderSlot(qSlot, qPlaced, false);
+          qBank.querySelectorAll('.tile').forEach(t => t.classList.remove('used'));
+        }, 900);
+      }
+      if (!aOk) {
+        aSlot.classList.add('wrong');
+        renderSlot(aSlot, aPlaced, false);
+        setTimeout(() => {
+          aSlot.classList.remove('wrong');
+          aPlaced = [];
+          renderSlot(aSlot, aPlaced, false);
+          aBank.querySelectorAll('.tile').forEach(t => t.classList.remove('used'));
+        }, 900);
+      }
+      fb.textContent = '❌ Intenta de nuevo.';
+      fb.className = 'feedback wrong';
+      playSfx(sfxBad);
+      setTimeout(() => { fb.textContent = ''; }, 1200);
+      checkBtn.disabled = true;
+      updateCheck();
+    }
+  });
+
+  return { el: container, isComplete };
+}
+
+// ---- Render question ----
+function render(i) {
+  const item = ITEMS[i];
+  answered = false;
+  nextBtn.disabled = true;
+
+  counter.textContent = `Pregunta ${i + 1} de ${TOTAL}`;
+  pct.textContent     = Math.round((i / TOTAL) * 100) + '%';
+  nextBtn.textContent = i === TOTAL - 1 ? 'Finalizar lección →' : 'Siguiente →';
+
+  cardEl.innerHTML = '';
+
+  const numEl = document.createElement('div');
+  numEl.className = 'card-num';
+  numEl.textContent = `Pregunta ${i + 1}`;
+  cardEl.appendChild(numEl);
+
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'img-wrap';
+  const img = document.createElement('img');
+  img.src = IMG + item.img;
+  img.alt = '';
+  imgWrap.appendChild(img);
+  cardEl.appendChild(imgWrap);
+
+  const instrEl = document.createElement('div');
+  instrEl.style.cssText = 'font-size:13px;color:#486581;font-weight:600;margin-bottom:12px;';
+  instrEl.textContent = 'Ordena las palabras para formar las frases correctas.';
+  cardEl.appendChild(instrEl);
+
+  const widget = makeArrangeWidget(item);
+  cardEl.appendChild(widget.el);
+}
+
+// ---- Next ----
+nextBtn.addEventListener('click', () => {
+  if (current < TOTAL - 1) {
+    current++;
+    render(current);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    // Save progress
+    const key = 'inglesco_progress_u7';
+    try {
+      const raw  = localStorage.getItem(key);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l2) data.l2 = { partsCompleted: 0, partsTotal: 5 };
+      if (data.l2.partsCompleted < 5) data.l2.partsCompleted = 5;
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    // Show complete screen
+    pct.textContent = '100%';
+    counter.textContent = '';
+    nextBtn.style.display = 'none';
+    cardEl.innerHTML = `
+      <div class="complete-screen">
+        <div class="emoji">🎉</div>
+        <h2>¡Lección completada!</h2>
+        <p>Terminaste todas las partes de la Lección 2.<br>¡Excelente trabajo!</p>
+        <a href="../index.html" class="unit-btn">← Volver a Unidad 7</a>
+      </div>
+    `;
+  }
+});
+
+render(0);
+
+})();
+</script>
+
+</body>
+</html>

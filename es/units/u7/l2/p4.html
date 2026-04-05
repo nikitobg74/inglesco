@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unidad 7 • Lección 2 • Parte 2 | Inglesco</title>
+<title>Unidad 7 • Lección 2 • Parte 4 | Inglesco</title>
 
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -92,13 +92,31 @@ body {
 }
 .listen-btn.playing { background: #7c3aed; }
 
-/* SENTENCE ROW */
+/* ANSWER (shown) */
+.card-answer {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+  background: #f0fdf4;
+  border-left: 3px solid #059669;
+  border-radius: 0 8px 8px 0;
+  padding: 6px 10px;
+  margin-bottom: 14px;
+}
+.card-answer .highlight {
+  color: #059669;
+  font-weight: 900;
+}
+
+/* QUESTION with blank */
 .sentence-row {
   font-size: 15px;
   font-weight: 700;
   color: #1e3a5f;
   margin-bottom: 14px;
-  line-height: 1.8;
+  padding-left: 10px;
+  border-left: 3px solid #93c5fd;
+  line-height: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -108,20 +126,19 @@ body {
 /* BLANK */
 .blank {
   display: inline-block;
-  min-width: 110px;
+  min-width: 100px;
   height: 34px;
   border-radius: 8px;
   border: 2px dashed #2563eb;
   background: #eff6ff;
   vertical-align: middle;
   transition: border-color .2s, background .2s;
-  position: relative;
 }
 .blank.filled {
   border-style: solid;
   border-color: #2563eb;
   background: #dbeafe;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
@@ -146,7 +163,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 4px;
 }
 .tile {
   padding: 9px 16px;
@@ -199,14 +216,14 @@ body {
 
   <a href="../index.html" class="back-btn">← Unidad 7</a>
 
-  <div class="top-title">Unidad 7 • Lección 2 • Parte 2</div>
+  <div class="top-title">Unidad 7 • Lección 2 • Parte 4</div>
   <div class="subline">Where is the Supermarket?</div>
 
   <div class="progress-container">
     <a class="step" href="p1.html">1</a>
-    <a class="step active" href="p2.html">2</a>
+    <a class="step" href="p2.html">2</a>
     <a class="step" href="p3.html">3</a>
-    <a class="step" href="p4.html">4</a>
+    <a class="step active" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
   </div>
 
@@ -224,8 +241,8 @@ body {
 </div>
 
 <!-- SFX -->
-<audio id="sfxCorrect"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/correct.wav"   preload="auto"></audio>
-<audio id="sfxIncorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u6/incorrect.wav" preload="auto"></audio>
+<audio id="sfxCorrect"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/correct.wav"   preload="auto"></audio>
+<audio id="sfxIncorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/incorrect.wav" preload="auto"></audio>
 
 <script>
 (() => {
@@ -234,61 +251,48 @@ const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public
 const IMG   = BASE + 'images/u7/';
 const AUDIO = BASE + 'audio/u7/';
 
-// Each item: answer = correct highlight, distractor = wrong tile
 const ITEMS = [
   {
-    img: 'u7.restaurant.bank2.jpg',
-    audio: 'u7.restaurant.bank.mp3',
-    question: 'Where is the restaurant?',
-    before: 'It is',
-    answer: 'next to',
-    after: 'the bank.',
-    distractor: 'between'
+    img: 'u7.bank.next.jpg',
+    audio: 'u7.bank.next.mp3',
+    q_word: 'bank',       q_distractor: 'clinic',
+    a_before: 'Yes, there is a bank', a_prep: 'next to', a_after: 'the hotel.',
+    a_distractor: 'across from'
   },
   {
-    img: 'u7.school.library.jpg',
-    audio: 'u7.school.library.mp3',
-    question: 'Where is the school?',
-    before: 'It is',
-    answer: 'between',
-    after: 'the library and the post office.',
-    distractor: 'across from'
+    img: 'u7.restaurant.bank2.jpg',
+    audio: 'u7.restaurant.bank2.mp3',
+    q_word: 'restaurant', q_distractor: 'school',
+    a_before: 'Yes, there is a restaurant', a_prep: 'next to', a_after: 'the bank.',
+    a_distractor: 'between'
   },
   {
     img: 'u7.across.from.jpg',
-    audio: 'u7.clinic.hotel.mp3',
-    question: 'Where is the clinic?',
-    before: 'It is',
-    answer: 'across from',
-    after: 'the hotel.',
-    distractor: 'next to'
+    audio: 'u7.across.from.mp3',
+    q_word: 'clinic',     q_distractor: 'bakery',
+    a_before: 'Yes, there is a clinic', a_prep: 'across from', a_after: 'the hotel.',
+    a_distractor: 'next to'
   },
   {
     img: 'u7.drug.store.across.mall.jpg',
-    audio: 'u7.mall.around.corner.mp3',
-    question: 'Where is the mall?',
-    before: 'It is',
-    answer: 'around the corner from',
-    after: 'the bank.',
-    distractor: 'across from'
-  },
-  {
-    img: 'u7.drug.store.across.mall.jpg',
-    audio: 'u7.drug.across.mp3',
-    question: 'Where is the drug store?',
-    before: 'It is',
-    answer: 'across from',
-    after: 'the mall.',
-    distractor: 'around the corner from'
+    audio: 'u7.drug.store.across.mall.mp3',
+    q_word: 'mall',       q_distractor: 'drug store',
+    a_before: 'Yes, there is a big mall', a_prep: 'around the corner from', a_after: 'the bank.',
+    a_distractor: 'across from'
   },
   {
     img: 'u7.school.library.jpg',
-    audio: 'u7.library.next.mp3',
-    question: 'Where is the library?',
-    before: 'It is',
-    answer: 'next to',
-    after: 'the school.',
-    distractor: 'between'
+    audio: 'u7.school.library.between.mp3',
+    q_word: 'school',     q_distractor: 'library',
+    a_before: 'Yes, there is a school', a_prep: 'between', a_after: 'the library and the post office.',
+    a_distractor: 'next to'
+  },
+  {
+    img: 'u7.bakery.next.jpg',
+    audio: 'u7.bakery.next.mp3',
+    q_word: 'bakery',     q_distractor: 'restaurant',
+    a_before: 'Yes, there is a bakery', a_prep: 'next to', a_after: 'the hair salon.',
+    a_distractor: 'between'
   }
 ];
 
@@ -333,9 +337,10 @@ function render(i) {
 
   counter.textContent = `Pregunta ${i + 1} de ${TOTAL}`;
   pct.textContent     = Math.round((i / TOTAL) * 100) + '%';
-  nextBtn.textContent = i === TOTAL - 1 ? 'Ir a la Parte 3 →' : 'Siguiente →';
+  nextBtn.textContent = i === TOTAL - 1 ? 'Ir a la Parte 5 →' : 'Siguiente →';
 
-  const tiles = shuffle([item.answer, item.distractor]);
+  const qTiles = shuffle([item.q_word, item.q_distractor]);
+  const aTiles = shuffle([item.a_prep, item.a_distractor]);
 
   cardEl.innerHTML = `
     <div class="card-num">Pregunta ${i + 1}</div>
@@ -345,19 +350,29 @@ function render(i) {
     <div class="listen-row">
       <button class="listen-btn" id="listenBtn">🔊 Escuchar</button>
     </div>
-    <div style="font-size:13px;font-weight:700;color:#6b7280;margin-bottom:8px;padding-left:10px;border-left:3px solid #93c5fd;">${item.question}</div>
+
     <div class="sentence-row">
-      <span>${item.before}</span>
-      <span class="blank" id="blank"></span>
-      <span>${item.after}</span>
+      <span>Excuse me, is there a</span>
+      <span class="blank" id="blankQ"></span>
+      <span>nearby?</span>
     </div>
-    <div class="tiles-row" id="tilesRow">
-      ${tiles.map((t, idx) => `<button class="tile" data-idx="${idx}" data-val="${t}">${t}</button>`).join('')}
+    <div class="tiles-row" id="tilesQ">
+      ${qTiles.map(t => `<button class="tile" data-val="${t}">${t}</button>`).join('')}
     </div>
+
+    <div style="margin: 14px 0 6px; font-size:12px; font-weight:700; color:#9333ea; text-transform:uppercase; letter-spacing:.05em;">Respuesta</div>
+    <div class="sentence-row" id="answerRow" style="opacity:.35; pointer-events:none;">
+      <span>${item.a_before}</span>
+      <span class="blank" id="blankA"></span>
+      <span>${item.a_after}</span>
+    </div>
+    <div class="tiles-row" id="tilesA" style="opacity:.35; pointer-events:none;">
+      ${aTiles.map(t => `<button class="tile" data-val="${t}">${t}</button>`).join('')}
+    </div>
+
     <div class="feedback" id="feedback"></div>
   `;
 
-  // audio
   player.pause();
   resetListenBtn(activeBtn);
   activeBtn = null;
@@ -384,53 +399,75 @@ function render(i) {
   listenBtn.addEventListener('touchend', e => { if (!touchMoved) { e.preventDefault(); handlePlay(); } });
   listenBtn.addEventListener('click', handlePlay);
 
-  // tiles
-  const tilesRow = document.getElementById('tilesRow');
-  const blank    = document.getElementById('blank');
+  const blankQ   = document.getElementById('blankQ');
+  const blankA   = document.getElementById('blankA');
+  const tilesQ   = document.getElementById('tilesQ');
+  const tilesA   = document.getElementById('tilesA');
+  const answerRow = document.getElementById('answerRow');
   const feedback = document.getElementById('feedback');
 
-  tilesRow.addEventListener('click', e => {
-    const tile = e.target.closest('.tile');
-    if (!tile || answered) return;
-    handleTile(tile, item.answer, blank, feedback, tilesRow);
-  });
-  tilesRow.addEventListener('touchstart', () => {}, { passive: true });
-  tilesRow.addEventListener('touchend', e => {
-    const tile = e.target.closest('.tile');
-    if (!tile || answered) return;
-    e.preventDefault();
-    handleTile(tile, item.answer, blank, feedback, tilesRow);
-  });
-}
+  let stageQ = true; // true = question stage, false = answer stage
 
-function handleTile(tile, correct, blank, feedback, tilesRow) {
-  const chosen = tile.dataset.val;
-  tile.classList.add('used');
+  function handleTap(tile, stage) {
+    const chosen = tile.dataset.val;
+    const correct = stage === 'q' ? item.q_word : item.a_prep;
+    const blank   = stage === 'q' ? blankQ : blankA;
 
-  blank.textContent = chosen;
-  blank.classList.add('filled');
+    tile.classList.add('used');
+    blank.textContent = chosen;
+    blank.classList.add('filled');
 
-  if (chosen === correct) {
-    blank.classList.add('correct');
-    feedback.textContent = '✅ ¡Correcto!';
-    feedback.className = 'feedback';
-    playSfx(sfxOk);
-    answered = true;
-    nextBtn.disabled = false;
-  } else {
-    blank.classList.add('wrong');
-    feedback.textContent = '❌ Intenta de nuevo.';
-    feedback.className = 'feedback wrong';
-    playSfx(sfxBad);
-
-    // shake and reset after delay
-    setTimeout(() => {
-      blank.textContent = '';
-      blank.className = 'blank';
+    if (chosen.toLowerCase() === correct.toLowerCase()) {
+      blank.classList.add('correct');
+      playSfx(sfxOk);
       feedback.textContent = '';
-      tile.classList.remove('used');
-    }, 900);
+
+      if (stage === 'q') {
+        // unlock answer stage
+        stageQ = false;
+        answerRow.style.opacity = '1';
+        answerRow.style.pointerEvents = 'auto';
+        tilesA.style.opacity = '1';
+        tilesA.style.pointerEvents = 'auto';
+      } else {
+        feedback.textContent = '✅ ¡Muy bien!';
+        feedback.className = 'feedback';
+        answered = true;
+        nextBtn.disabled = false;
+      }
+    } else {
+      blank.classList.add('wrong');
+      feedback.textContent = '❌ Intenta de nuevo.';
+      feedback.className = 'feedback wrong';
+      playSfx(sfxBad);
+      setTimeout(() => {
+        blank.textContent = '';
+        blank.className = 'blank';
+        feedback.textContent = '';
+        tile.classList.remove('used');
+      }, 900);
+    }
   }
+
+  function addTileListeners(row, stage) {
+    row.addEventListener('click', e => {
+      const tile = e.target.closest('.tile');
+      if (!tile || tile.classList.contains('used')) return;
+      if (stage === 'a' && stageQ) return;
+      handleTap(tile, stage);
+    });
+    row.addEventListener('touchstart', () => {}, { passive: true });
+    row.addEventListener('touchend', e => {
+      const tile = e.target.closest('.tile');
+      if (!tile || tile.classList.contains('used')) return;
+      if (stage === 'a' && stageQ) return;
+      e.preventDefault();
+      handleTap(tile, stage);
+    });
+  }
+
+  addTileListeners(tilesQ, 'q');
+  addTileListeners(tilesA, 'a');
 }
 
 nextBtn.addEventListener('click', () => {
@@ -439,18 +476,15 @@ nextBtn.addEventListener('click', () => {
     render(current);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
-
-    // save progress
     const key = 'inglesco_progress_u7';
     try {
       const raw = localStorage.getItem(key);
       const data = raw ? JSON.parse(raw) : {};
       if (!data.l2) data.l2 = { partsCompleted: 0, partsTotal: 5 };
-      if (data.l2.partsCompleted < 2) data.l2.partsCompleted = 2;
+      if (data.l2.partsCompleted < 4) data.l2.partsCompleted = 4;
       localStorage.setItem(key, JSON.stringify(data));
     } catch(e) {}
-
-    window.location.href = 'p3.html';
+    window.location.href = 'p5.html';
   }
 });
 
