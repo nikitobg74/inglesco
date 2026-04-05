@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lição 2, Parte 2: Ouça e escolha | Inglesco</title>
+  <meta name="description" content="Ouça a frase e selecione o personagem correto. Unidade 1, Lição 2, Parte 2.">
+
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
+    }
+
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
+
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+    /* PLAY BUTTON */
+    .play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+    }
+    .play-btn:hover { background: #1e40af; transform: translateY(-1px); }
+    .play-btn:active { transform: scale(0.98); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn:disabled { background: #d1d5db; cursor: default; transform: none; box-shadow: none; }
+
+    .play-btn svg { width: 16px; height: 16px; fill: white; margin-left: 2px; }
+
+    /* ROUND COUNTER */
+    .round-counter {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
+      margin-bottom: 14px;
+    }
+
+    /* CHARACTER GRID — 2 columns on mobile */
+    .char-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .char-card {
+      background: white;
+      border: 2px solid rgba(37,99,235,0.15);
+      border-radius: 14px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .char-card:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+      transform: translateY(-2px);
+    }
+
+    .char-card:active { transform: scale(0.97); }
+
+    .char-card img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 3px solid rgba(0,0,0,0.06);
+    }
+
+    .char-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1e2a38;
+    }
+
+    .char-card.correct {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      cursor: default;
+    }
+    .char-card.correct:hover { transform: none; }
+    .char-card.correct .char-name { color: #16a34a; }
+
+    .char-card.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+      animation: shake 0.35s ease;
+    }
+
+    .char-card.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+
+    /* FEEDBACK */
+    .feedback {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      min-height: 22px;
+      margin-bottom: 14px;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 14px;
+      background: #f0fdf4;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      font-size: 15px;
+      color: #16a34a;
+      margin-bottom: 14px;
+    }
+
+    /* CONTINUE BUTTON */
+    .continue-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: #d1d5db;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: not-allowed;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .continue-btn.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      animation: pulse-in 0.4s ease;
+    }
+    .continue-btn.enabled:hover  { background: #1e40af; transform: translateY(-2px); }
+    .continue-btn.enabled:active { transform: scale(0.98); }
+
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="back-btn" href="../index.html">← Lição 2</a>
+
+  <div class="wrap">
+
+    <span class="lesson-tag">Unidade 1 · Lição 2 · Parte 2</span>
+    <h1>Ouça e escolha</h1>
+    <p class="subtitle">Ouça a frase e toque no personagem correto</p>
+
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot" data-part="1">1</div>
+      <div class="dot active" data-part="2">2</div>
+      <div class="dot" data-part="3">3</div>
+      <div class="dot" data-part="4">4</div>
+    </div>
+
+    <!-- PLAY BUTTON -->
+    <button class="play-btn" id="playBtn">
+      <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+      Ouvir
+    </button>
+
+    <div class="round-counter" id="roundCounter"></div>
+
+    <!-- CHARACTER GRID -->
+    <div class="char-grid" id="charGrid"></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <!-- SUCCESS + CONTINUE -->
+    <div class="success-msg" id="successMsg">
+      🎉 Muito bem! Você reconheceu todos.
+    </div>
+
+    <button class="continue-btn" id="continueBtn" disabled>
+      Continuar →
+    </button>
+
+  </div>
+
+  <!-- SFX -->
+  <audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+  <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT           = 'u1';
+    const LESSON         = 'l2';
+    const PARTS_TOTAL    = 4;
+    const CURRENT_PART_NUM = 2;
+    const NEXT_PAGE      = 'p3.html';
+    const PART_PAGES     = ['p1.html','p2.html','p3.html','p4.html'];
+    const BASE           = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+
+    // ─── DATA ────────────────────────────────────────────────
+    const characters = [
+      { key: 'maria',  name: 'Maria',  img: BASE + 'images/u1/maria.jpg'  },
+      { key: 'carlos', name: 'Carlos', img: BASE + 'images/u1/carlos.jpg' },
+      { key: 'pedro',  name: 'Pedro',  img: BASE + 'images/u1/pedro.jpg'  },
+      { key: 'george', name: 'George', img: BASE + 'images/u1/george.jpg' },
+      { key: 'julie',  name: 'Julie',  img: BASE + 'images/u1/julie.jpg'  }
+    ];
+
+    const rounds = [
+      { audio: BASE + 'audio/u1/maria_1_2_1.mp3',  answer: 'maria'  },
+      { audio: BASE + 'audio/u1/carlos_1_2_1.mp3', answer: 'carlos' },
+      { audio: BASE + 'audio/u1/pedro_1_2_1.mp3',  answer: 'pedro'  },
+      { audio: BASE + 'audio/u1/george_1_2_1.mp3', answer: 'george' },
+      { audio: BASE + 'audio/u1/julie_1_2_1.mp3',  answer: 'julie'  }
+    ];
+
+    // ─── STATE ───────────────────────────────────────────────
+    let currentRound = 0;
+    let currentAudio = null;
+    let answered     = false;
+
+    // ─── AUDIO ───────────────────────────────────────────────
+    function stopAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
+      document.getElementById('playBtn').classList.remove('playing');
+    }
+
+    function playRoundAudio() {
+      if (currentRound >= rounds.length) return;
+      stopAudio();
+      const a = new Audio(rounds[currentRound].audio);
+      currentAudio = a;
+      const btn = document.getElementById('playBtn');
+      btn.classList.add('playing');
+      a.play().catch(() => {});
+      a.onended = () => {
+        if (currentAudio === a) currentAudio = null;
+        btn.classList.remove('playing');
+      };
+    }
+
+    function playSFX(id) {
+      const a = document.getElementById(id);
+      if (!a) return;
+      a.currentTime = 0;
+      a.play().catch(() => {});
+    }
+
+    window.addEventListener('beforeunload', stopAudio);
+
+    // ─── BUILD CHARACTER CARDS ───────────────────────────────
+    const charGrid = document.getElementById('charGrid');
+    const cardMap  = {};
+
+    characters.forEach(ch => {
+      const card = document.createElement('div');
+      card.className = 'char-card';
+      card.dataset.key = ch.key;
+
+      const img = document.createElement('img');
+      img.src = ch.img;
+      img.alt = ch.name;
+
+      const name = document.createElement('div');
+      name.className = 'char-name';
+      name.textContent = ch.name;
+
+      card.appendChild(img);
+      card.appendChild(name);
+      charGrid.appendChild(card);
+      cardMap[ch.key] = card;
+
+      card.addEventListener('click', () => handlePick(ch.key));
+    });
+
+    // ─── ROUND LOGIC ─────────────────────────────────────────
+    function loadRound() {
+      answered = false;
+      document.getElementById('feedback').textContent = '';
+
+      Object.values(cardMap).forEach(c => {
+        c.classList.remove('correct', 'wrong', 'disabled');
+      });
+
+      if (currentRound >= rounds.length) {
+        showComplete();
+        return;
+      }
+
+      document.getElementById('roundCounter').textContent =
+        `Rodada ${currentRound + 1} de ${rounds.length}`;
+
+      // Auto-play audio for each round
+      playRoundAudio();
+    }
+
+    function handlePick(key) {
+      if (answered) return;
+      const correct = rounds[currentRound].answer;
+      const fb      = document.getElementById('feedback');
+
+      if (key === correct) {
+        answered = true;
+        playSFX('sfx-correct');
+        cardMap[key].classList.add('correct');
+        Object.entries(cardMap).forEach(([k, c]) => {
+          if (k !== key) c.classList.add('disabled');
+        });
+        fb.textContent = '✅ Correto!';
+        fb.style.color = '#22c55e';
+        currentRound++;
+        setTimeout(() => {
+          fb.textContent = '';
+          loadRound();
+        }, 900);
+      } else {
+        playSFX('sfx-incorrect');
+        cardMap[key].classList.add('wrong');
+        fb.textContent = '❌ Tente novamente';
+        fb.style.color = '#ef4444';
+        setTimeout(() => {
+          cardMap[key].classList.remove('wrong');
+          fb.textContent = '';
+        }, 700);
+      }
+    }
+
+    function showComplete() {
+      stopAudio();
+      document.getElementById('roundCounter').textContent = '';
+      document.getElementById('playBtn').disabled = true;
+      document.getElementById('successMsg').style.display = 'block';
+
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.onclick = () => {
+        saveProgress();
+        updateFurthest(CURRENT_PART_NUM + 1);
+        window.location.href = NEXT_PAGE;
+      };
+    }
+
+    // ─── PLAY BUTTON ─────────────────────────────────────────
+    document.getElementById('playBtn').addEventListener('click', () => {
+      playRoundAudio();
+    });
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    function saveProgress() {
+      try {
+        const lp = JSON.parse(localStorage.getItem('inglesco_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        if (lp[LESSON].partsCompleted < CURRENT_PART_NUM) {
+          lp[LESSON].partsCompleted = CURRENT_PART_NUM;
+        }
+        localStorage.setItem('inglesco_progress_' + UNIT, JSON.stringify(lp));
+      } catch(e) {}
+    }
+
+    // ─── DOT NAVIGATION ──────────────────────────────────────
+    const FURTHEST_KEY = `inglesco_furthest_${UNIT}_${LESSON}`;
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || String(CURRENT_PART_NUM), 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART_NUM) {
+          dot.classList.add('active');
+        } else if (part < CURRENT_PART_NUM) {
+          dot.classList.add('done');
+          dot.addEventListener('click', () => { stopAudio(); window.location.href = PART_PAGES[part - 1]; });
+        } else {
+          dot.addEventListener('click', () => { stopAudio(); window.location.href = PART_PAGES[part - 1]; });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART_NUM);
+    initDots();
+
+    // ─── INIT ────────────────────────────────────────────────
+    loadRound();
+  </script>
+
+</body>
+</html>
