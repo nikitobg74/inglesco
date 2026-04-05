@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lição 1, Parte 5: Complete a frase | Inglesco</title>
+  <meta name="description" content="Complete as frases em inglês escolhendo a palavra correta. Unidade 1, Lição 1, Parte 5.">
+
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
+    }
+
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
+
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+    .ex-counter {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: none;
+      margin-bottom: 14px;
+    }
+    .card.active { display: block; }
+
+    .char-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #f8faff;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .char-card:hover { background: #eff6ff; }
+    .char-card.playing { background: #dbeafe; }
+
+    .char-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #f1f5f9;
+      flex-shrink: 0;
+      border: 3px solid rgba(37,99,235,0.15);
+    }
+
+    .char-info { flex: 1; }
+
+    .char-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e2a38;
+    }
+
+    .char-tap {
+      font-size: 12px;
+      color: #486581;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    .char-play {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .char-card:hover .char-play { background: #1e40af; }
+    .char-card.playing .char-play { background: #1e40af; }
+
+    .char-play svg {
+      width: 13px;
+      height: 13px;
+      fill: white;
+      margin-left: 2px;
+    }
+
+    .card-body {
+      padding: 18px 16px 20px;
+    }
+
+    .phrase {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e2a38;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 80px;
+      border-bottom: 3px solid #2563eb;
+      color: #2563eb;
+      font-weight: 800;
+      padding: 0 4px;
+      transition: all 0.3s;
+    }
+
+    .blank.correct {
+      border-bottom-color: #22c55e;
+      color: #22c55e;
+    }
+
+    .blank.wrong {
+      border-bottom-color: #ef4444;
+      color: #ef4444;
+    }
+
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .choice {
+      padding: 13px 16px;
+      background: white;
+      border: 2px solid rgba(37,99,235,0.2);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e2a38;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .choice:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+      transform: translateY(-1px);
+    }
+
+    .choice:active { transform: scale(0.98); }
+
+    .choice.correct {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      color: #15803d;
+      cursor: default;
+    }
+
+    .choice.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+      color: #b91c1c;
+      animation: shake 0.35s ease;
+      cursor: default;
+    }
+
+    .choice.disabled {
+      opacity: 0.4;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+
+    .feedback {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 20px;
+      margin-top: 14px;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .nav-btn {
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .nav-btn.prev {
+      background: rgba(255,255,255,0.7);
+      color: #486581;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .nav-btn.prev:hover  { background: rgba(255,255,255,0.95); }
+    .nav-btn.prev:disabled { opacity: 0.3; cursor: default; }
+
+    .nav-btn.next {
+      background: #d1d5db;
+      color: white;
+      cursor: not-allowed;
+      flex: 1;
+    }
+    .nav-btn.next.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+    }
+    .nav-btn.next.enabled:hover  { background: #1e40af; transform: translateY(-1px); }
+    .nav-btn.next.enabled:active { transform: scale(0.98); }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      margin-top: 16px;
+      padding: 16px;
+      background: #f0fdf4;
+      border-radius: 14px;
+      border: 1px solid #bbf7d0;
+      font-weight: 800;
+      font-size: 16px;
+      color: #16a34a;
+    }
+
+    .finish-btn {
+      display: none;
+      width: 100%;
+      margin-top: 12px;
+      padding: 16px;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+      animation: pulse-in 0.4s ease;
+      transition: all 0.2s;
+    }
+    .finish-btn:hover  { background: #16a34a; transform: translateY(-2px); }
+    .finish-btn:active { transform: scale(0.98); }
+
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="back-btn" href="../index.html">← Lição 1</a>
+
+  <div class="wrap">
+
+    <span class="lesson-tag">Unidade 1 · Lição 1 · Parte 5</span>
+    <h1>Complete a frase</h1>
+    <p class="subtitle">Toque na imagem, ouça, e escolha a palavra correta</p>
+
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot" data-part="1">1</div>
+      <div class="dot" data-part="2">2</div>
+      <div class="dot" data-part="3">3</div>
+      <div class="dot" data-part="4">4</div>
+      <div class="dot active" data-part="5">5</div>
+    </div>
+
+    <div class="ex-counter" id="exCounter">Exercício 1 / 4</div>
+
+    <!-- CARDS injected by JS -->
+    <div id="cardsContainer"></div>
+
+    <!-- NAV -->
+    <div class="nav-row">
+      <button class="nav-btn prev" id="prevBtn" disabled>← Voltar</button>
+      <button class="nav-btn next" id="nextBtn" disabled>Próximo →</button>
+    </div>
+
+    <!-- SUCCESS + FINISH -->
+    <div class="success-msg" id="successMsg">
+      🎉 Lição concluída! Excelente trabalho.
+    </div>
+
+    <button class="finish-btn" id="finishBtn">
+      Finalizar lição ✓
+    </button>
+
+  </div>
+
+  <!-- SFX -->
+  <audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+  <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT             = 'u1';
+    const LESSON           = 'l1';
+    const PARTS_TOTAL      = 5;
+    const CURRENT_PART_NUM = 5;
+    const NEXT_URL         = '../index.html';
+    const PART_PAGES       = ['p1.html','p2.html','p3.html','p4.html','p5.html'];
+    const BASE             = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+
+    // ─── EXERCISE DATA ───────────────────────────────────────
+    const exercises = [
+      {
+        image:   BASE + 'images/u1/ana.jpg',
+        audio:   BASE + 'audio/u1/ana.mp3',
+        before:  '',
+        answer:  'Hello.',
+        after:   'My name is Ana.',
+        choices: ['Hello.', 'Goodbye.', 'Sorry.']
+      },
+      {
+        image:   BASE + 'images/u1/pedro.jpg',
+        audio:   BASE + 'audio/u1/pedro.mp3',
+        before:  'Hello.',
+        answer:  'My name is',
+        after:   'Pedro.',
+        choices: ['My name is', 'I am from', 'Nice to meet']
+      },
+      {
+        image:   BASE + 'images/u1/george.jpg',
+        audio:   BASE + 'audio/u1/george.mp3',
+        before:  'Hello. My name',
+        answer:  'is',
+        after:   'George.',
+        choices: ['is', 'are', 'am']
+      },
+      {
+        image:   BASE + 'images/u1/julie.jpg',
+        audio:   BASE + 'audio/u1/julie.mp3',
+        before:  'Hello. My name is',
+        answer:  'Julie.',
+        after:   '',
+        choices: ['Julie.', 'Ana.', 'Maria.']
+      }
+    ];
+
+    // ─── STATE ───────────────────────────────────────────────
+    let currentIndex = 0;
+    const solved = exercises.map(() => false);
+
+    // ─── HELPERS ─────────────────────────────────────────────
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function playSFX(id) {
+      const a = document.getElementById(id);
+      if (!a) return;
+      a.currentTime = 0;
+      a.play().catch(() => {});
+    }
+
+    // ─── BUILD CARDS ─────────────────────────────────────────
+    const container = document.getElementById('cardsContainer');
+    const cardEls   = [];
+
+    exercises.forEach((ex, idx) => {
+      const card = document.createElement('div');
+      card.className = 'card' + (idx === 0 ? ' active' : '');
+
+      // Character card
+      const charCard = document.createElement('div');
+      charCard.className = 'char-card';
+
+      const avatar = document.createElement('img');
+      avatar.src = ex.image;
+      avatar.alt = ex.answer;
+      avatar.className = 'char-avatar';
+
+      const charInfo = document.createElement('div');
+      charInfo.className = 'char-info';
+
+      const charName = document.createElement('div');
+      charName.className = 'char-name';
+      const namePart = ex.image.split('/').pop().replace(/\.[^.]+$/, '');
+      charName.textContent = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+
+      const charTap = document.createElement('div');
+      charTap.className = 'char-tap';
+      charTap.textContent = 'Toque para ouvir';
+
+      charInfo.appendChild(charName);
+      charInfo.appendChild(charTap);
+
+      const charPlay = document.createElement('div');
+      charPlay.className = 'char-play';
+      charPlay.innerHTML = '<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>';
+
+      const audio = new Audio(ex.audio);
+
+      charCard.appendChild(avatar);
+      charCard.appendChild(charInfo);
+      charCard.appendChild(charPlay);
+
+      charCard.addEventListener('click', () => {
+        charCard.classList.add('playing');
+        charTap.textContent = 'Ouvindo...';
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.onended = () => {
+          charCard.classList.remove('playing');
+          charTap.textContent = 'Toque para ouvir';
+        };
+      });
+
+      // Body
+      const body = document.createElement('div');
+      body.className = 'card-body';
+
+      const phrase = document.createElement('div');
+      phrase.className = 'phrase';
+
+      const blankEl = document.createElement('span');
+      blankEl.className = 'blank';
+      blankEl.textContent = '_____';
+
+      if (ex.before) {
+        phrase.appendChild(document.createTextNode(ex.before + ' '));
+      }
+      phrase.appendChild(blankEl);
+      if (ex.after) {
+        phrase.appendChild(document.createTextNode(' ' + ex.after));
+      }
+
+      const feedback = document.createElement('div');
+      feedback.className = 'feedback';
+
+      const choicesWrap = document.createElement('div');
+      choicesWrap.className = 'choices';
+
+      const shuffledChoices = shuffle(ex.choices);
+
+      shuffledChoices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = choice;
+
+        btn.addEventListener('click', () => {
+          if (solved[idx]) return;
+
+          const allBtns = choicesWrap.querySelectorAll('.choice');
+
+          if (choice === ex.answer) {
+            playSFX('sfx-correct');
+            btn.classList.add('correct');
+            blankEl.textContent = ex.answer;
+            blankEl.classList.add('correct');
+            feedback.textContent = '✅ Correto!';
+            feedback.style.color = '#22c55e';
+            solved[idx] = true;
+
+            allBtns.forEach(b => {
+              if (b !== btn) b.classList.add('disabled');
+            });
+
+            updateNav();
+            checkAllSolved();
+
+          } else {
+            playSFX('sfx-incorrect');
+            btn.classList.add('wrong');
+            blankEl.classList.add('wrong');
+            feedback.textContent = '❌ Tente outra vez';
+            feedback.style.color = '#ef4444';
+
+            setTimeout(() => {
+              btn.classList.remove('wrong');
+              btn.classList.add('disabled');
+              blankEl.classList.remove('wrong');
+              feedback.textContent = '';
+            }, 600);
+          }
+        });
+
+        choicesWrap.appendChild(btn);
+      });
+
+      body.appendChild(phrase);
+      body.appendChild(choicesWrap);
+      body.appendChild(feedback);
+      card.appendChild(charCard);
+      card.appendChild(body);
+      container.appendChild(card);
+      cardEls.push(card);
+    });
+
+    // ─── NAVIGATION ──────────────────────────────────────────
+    const prevBtn   = document.getElementById('prevBtn');
+    const nextBtn   = document.getElementById('nextBtn');
+    const exCounter = document.getElementById('exCounter');
+
+    function showCard(idx) {
+      cardEls.forEach((c, i) => c.classList.toggle('active', i === idx));
+      currentIndex = idx;
+      updateNav();
+    }
+
+    function updateNav() {
+      exCounter.textContent = `Exercício ${currentIndex + 1} / ${exercises.length}`;
+      prevBtn.disabled = currentIndex === 0;
+
+      const isLast    = currentIndex === exercises.length - 1;
+      const canGoNext = solved[currentIndex];
+
+      if (isLast) {
+        nextBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'block';
+        nextBtn.textContent   = 'Próximo →';
+        nextBtn.classList.toggle('enabled', canGoNext);
+        nextBtn.disabled = !canGoNext;
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) showCard(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (!nextBtn.classList.contains('enabled')) return;
+      if (currentIndex < exercises.length - 1) showCard(currentIndex + 1);
+    });
+
+    // ─── ALL SOLVED → FINISH ─────────────────────────────────
+    function checkAllSolved() {
+      if (!solved.every(s => s)) return;
+
+      document.getElementById('successMsg').style.display = 'block';
+      const finishBtn = document.getElementById('finishBtn');
+      finishBtn.style.display = 'block';
+      finishBtn.onclick = () => {
+        saveProgress();
+        window.location.href = NEXT_URL;
+      };
+    }
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    // p5 is the last part — also updates unit-level summary
+    function saveProgress() {
+      try {
+        // Per-lesson
+        const lp = JSON.parse(localStorage.getItem('inglesco_pt_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        lp[LESSON].partsCompleted = PARTS_TOTAL;
+        localStorage.setItem('inglesco_pt_progress_' + UNIT, JSON.stringify(lp));
+
+        // Unit-level summary (read by pt/index.html)
+        const p = JSON.parse(localStorage.getItem('inglesco_pt_progress') || '{}');
+        if (!p[UNIT]) p[UNIT] = { lessonsTotal: 4, lessonsCompleted: 0 };
+        const completedLessons = Object.values(lp)
+          .filter(l => l.partsCompleted >= l.partsTotal).length;
+        p[UNIT].lessonsCompleted = completedLessons;
+        localStorage.setItem('inglesco_pt_progress', JSON.stringify(p));
+      } catch(e) {}
+    }
+
+    // ─── DOT NAVIGATION ──────────────────────────────────────
+    const FURTHEST_KEY = `inglesco_pt_furthest_${UNIT}_${LESSON}`;
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || String(CURRENT_PART_NUM), 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART_NUM) {
+          dot.classList.add('active');
+        } else if (part < CURRENT_PART_NUM) {
+          dot.classList.add('done');
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        } else {
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART_NUM);
+    initDots();
+    updateNav();
+  </script>
+
+</body>
+</html>

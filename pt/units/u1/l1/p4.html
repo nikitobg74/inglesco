@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lição 1, Parte 4: Ordene a frase | Inglesco</title>
+  <meta name="description" content="Pratique ordenar frases em inglês. Arraste as palavras na ordem correta. Unidade 1, Lição 1.">
+
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
+    }
+
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
+
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+    /* EXERCISE CARD */
+    .exercise-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      margin-bottom: 14px;
+    }
+
+    .ex-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .ex-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e2a38;
+    }
+
+    .ex-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: #486581;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .play-audio-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #eff6ff;
+      border: 1.5px solid #2563eb;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #2563eb;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+      width: 100%;
+      justify-content: center;
+    }
+    .play-audio-btn:hover { background: #dbeafe; }
+    .play-audio-btn:active { transform: scale(0.98); }
+    .play-audio-btn svg { width: 14px; height: 14px; fill: #2563eb; margin-left: 1px; }
+
+    .zone-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+
+    .drop-zone {
+      min-height: 58px;
+      padding: 10px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      background: #f8faff;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .drop-zone.has-words {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .drop-zone-placeholder {
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .word-bank {
+      min-height: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .tile {
+      padding: 8px 14px;
+      background: #2563eb;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+    }
+    .tile:hover  { background: #1e40af; transform: translateY(-2px); }
+    .tile:active { transform: scale(0.95); }
+    .tile.in-zone { background: #7c3aed; }
+    .tile.in-zone:hover { background: #6d28d9; }
+
+    .feedback {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      min-height: 22px;
+      margin-bottom: 6px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .check-btn {
+      flex: 1;
+      padding: 13px;
+      font-size: 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #22c55e;
+      color: white;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+    }
+    .check-btn:hover  { background: #16a34a; }
+    .check-btn:active { transform: scale(0.98); }
+
+    .clear-btn {
+      padding: 13px 16px;
+      font-size: 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #f1f5f9;
+      color: #486581;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+      display: none;
+    }
+    .clear-btn:hover { background: #e2e8f0; }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      margin-top: 16px;
+      padding: 14px;
+      background: #f0fdf4;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      font-size: 15px;
+      color: #16a34a;
+    }
+
+    .continue-btn {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 16px;
+      background: #d1d5db;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: not-allowed;
+      transition: all 0.3s ease;
+    }
+
+    .continue-btn.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      animation: pulse-in 0.4s ease;
+    }
+    .continue-btn.enabled:hover  { background: #1e40af; transform: translateY(-2px); }
+    .continue-btn.enabled:active { transform: scale(0.98); }
+
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="back-btn" href="../index.html">← Lição 1</a>
+
+  <div class="wrap">
+
+    <span class="lesson-tag">Unidade 1 · Lição 1 · Parte 4</span>
+    <h1>Ordene a frase</h1>
+    <p class="subtitle">Ouça e coloque as frases na ordem correta</p>
+
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot" data-part="1">1</div>
+      <div class="dot" data-part="2">2</div>
+      <div class="dot" data-part="3">3</div>
+      <div class="dot active" data-part="4">4</div>
+      <div class="dot" data-part="5">5</div>
+    </div>
+
+    <!-- EXERCISE -->
+    <div id="exercise1">
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-title">Ordene as frases</span>
+          <span class="ex-counter" id="roundCounter">1 / 4</span>
+        </div>
+
+        <button class="play-audio-btn" id="playAudio">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+          Ouvir
+        </button>
+
+        <div class="zone-label">Sua resposta</div>
+        <div class="drop-zone" id="dropZone">
+          <span class="drop-zone-placeholder" id="placeholder">Toque nas frases abaixo ↓</span>
+        </div>
+
+        <div class="zone-label">Frases</div>
+        <div class="word-bank" id="wordBank"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="btn-row">
+          <button class="check-btn" id="checkBtn">Verificar ✓</button>
+          <button class="clear-btn" id="clearBtn">Limpar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS + CONTINUE -->
+    <div class="success-msg" id="successMsg">
+      ✅ Excelente! Você completou todos os exercícios.
+    </div>
+
+    <button class="continue-btn" id="continueBtn" disabled>
+      Continuar →
+    </button>
+
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="audio-ana"    src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/ana.mp3"    preload="auto"></audio>
+  <audio id="audio-pedro"  src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/pedro.mp3"  preload="auto"></audio>
+  <audio id="audio-george" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/george.mp3" preload="auto"></audio>
+  <audio id="audio-julie"  src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/julie.mp3"  preload="auto"></audio>
+  <audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+  <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT             = 'u1';
+    const LESSON           = 'l1';
+    const PARTS_TOTAL      = 5;
+    const CURRENT_PART_NUM = 4;
+    const NEXT_PAGE        = 'p5.html';
+    const PART_PAGES       = ['p1.html','p2.html','p3.html','p4.html','p5.html'];
+
+    // ─── SENTENCES ───────────────────────────────────────────
+    const sentences = [
+      { chunks: ['Hello.', 'My name is', 'Ana.'],    answer: 'Hello. My name is Ana.',    audioId: 'audio-ana'    },
+      { chunks: ['Hello.', 'My name is', 'Pedro.'],  answer: 'Hello. My name is Pedro.',  audioId: 'audio-pedro'  },
+      { chunks: ['Hello.', 'My name is', 'George.'], answer: 'Hello. My name is George.', audioId: 'audio-george' },
+      { chunks: ['Hello.', 'My name is', 'Julie.'],  answer: 'Hello. My name is Julie.',  audioId: 'audio-julie'  }
+    ];
+
+    let round         = 0;
+    const ARRANGE_ROUNDS = sentences.length;
+    let current       = null;
+
+    // ─── HELPERS ─────────────────────────────────────────────
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function playSFX(id) {
+      const a = document.getElementById(id);
+      if (!a) return;
+      a.currentTime = 0;
+      a.play().catch(() => {});
+    }
+
+    function playCurrentAudio() {
+      if (!current) return;
+      const a = document.getElementById(current.audioId);
+      if (!a) return;
+      a.currentTime = 0;
+      a.play().catch(() => {});
+    }
+
+    // ─── TILE CREATION ───────────────────────────────────────
+    const wordBank    = document.getElementById('wordBank');
+    const dropZone    = document.getElementById('dropZone');
+    const placeholder = document.getElementById('placeholder');
+
+    function updatePlaceholder() {
+      placeholder.style.display = dropZone.children.length <= 1 ? 'block' : 'none';
+      dropZone.classList.toggle('has-words', dropZone.querySelectorAll('.tile').length > 0);
+    }
+
+    function createTile(chunk) {
+      const div = document.createElement('div');
+      div.textContent = chunk;
+      div.className = 'tile';
+
+      div.addEventListener('click', () => {
+        const inZone = div.classList.contains('in-zone');
+        if (!inZone) {
+          dropZone.appendChild(div);
+          div.classList.add('in-zone');
+        } else {
+          wordBank.appendChild(div);
+          div.classList.remove('in-zone');
+        }
+        document.getElementById('feedback').textContent = '';
+        document.getElementById('clearBtn').style.display = 'none';
+        updatePlaceholder();
+      });
+
+      return div;
+    }
+
+    // ─── LOAD ROUND ──────────────────────────────────────────
+    function loadRound() {
+      current = sentences[round];
+      wordBank.innerHTML = '';
+      Array.from(dropZone.querySelectorAll('.tile')).forEach(t => t.remove());
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('clearBtn').style.display = 'none';
+      updatePlaceholder();
+
+      const shuffled    = shuffle(current.chunks);
+      const isOrdered   = shuffled.join('') === current.chunks.join('');
+      const finalChunks = isOrdered ? [...shuffled.slice(1), shuffled[0]] : shuffled;
+
+      finalChunks.forEach(chunk => wordBank.appendChild(createTile(chunk)));
+      document.getElementById('roundCounter').textContent = (round + 1) + ' / 4';
+    }
+
+    // ─── CLEAR ───────────────────────────────────────────────
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      Array.from(dropZone.querySelectorAll('.tile')).forEach(tile => {
+        tile.classList.remove('in-zone');
+        wordBank.appendChild(tile);
+      });
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('clearBtn').style.display = 'none';
+      updatePlaceholder();
+    });
+
+    // ─── CHECK ───────────────────────────────────────────────
+    document.getElementById('checkBtn').addEventListener('click', () => {
+      const formed = Array.from(dropZone.querySelectorAll('.tile'))
+        .map(el => el.textContent).join(' ');
+      const fb = document.getElementById('feedback');
+
+      if (formed === current.answer) {
+        playSFX('sfx-correct');
+        fb.textContent = '✅ Correto!';
+        fb.style.color = '#22c55e';
+        document.getElementById('clearBtn').style.display = 'none';
+        round++;
+
+        setTimeout(() => {
+          if (round < ARRANGE_ROUNDS) {
+            loadRound();
+            fb.textContent = '';
+          } else {
+            document.getElementById('successMsg').style.display = 'block';
+            unlockContinue();
+          }
+        }, 800);
+      } else {
+        playSFX('sfx-incorrect');
+        fb.textContent = '❌ Tente outra vez';
+        fb.style.color = '#ef4444';
+        document.getElementById('clearBtn').style.display = 'inline-block';
+      }
+    });
+
+    // ─── AUDIO BUTTON ────────────────────────────────────────
+    document.getElementById('playAudio').addEventListener('click', () => {
+      playCurrentAudio();
+      document.getElementById('feedback').textContent = '';
+    });
+
+    // ─── UNLOCK CONTINUE ─────────────────────────────────────
+    function unlockContinue() {
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.onclick = () => {
+        saveProgress();
+        updateFurthest(CURRENT_PART_NUM + 1);
+        window.location.href = NEXT_PAGE;
+      };
+    }
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    function saveProgress() {
+      try {
+        const lp = JSON.parse(localStorage.getItem('inglesco_pt_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        if (lp[LESSON].partsCompleted < CURRENT_PART_NUM) {
+          lp[LESSON].partsCompleted = CURRENT_PART_NUM;
+        }
+        localStorage.setItem('inglesco_pt_progress_' + UNIT, JSON.stringify(lp));
+      } catch(e) {}
+    }
+
+    // ─── DOT NAVIGATION ──────────────────────────────────────
+    const FURTHEST_KEY = `inglesco_pt_furthest_${UNIT}_${LESSON}`;
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || String(CURRENT_PART_NUM), 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART_NUM) {
+          dot.classList.add('active');
+        } else if (part < CURRENT_PART_NUM) {
+          dot.classList.add('done');
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        } else {
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART_NUM);
+    initDots();
+    loadRound();
+  </script>
+
+</body>
+</html>

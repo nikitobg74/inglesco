@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Aprender inglês do zero | Inglesco</title>
+
+  <meta name="description" content="Comece a aprender inglês do zero com lições simples e práticas. Curso gratuito criado para falantes de português.">
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .back-btn:active {
+      transform: scale(0.96);
+      background: rgba(255,255,255,1);
+    }
+
+    /* LOGO */
+    .logo {
+      text-align: center;
+      font-size: clamp(36px, 10vw, 64px);
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      line-height: 1;
+      padding-top: 20px;
+    }
+
+    .logo span:nth-child(1) { color: #ff4d4d; }
+    .logo span:nth-child(2) { color: #ff9900; }
+    .logo span:nth-child(3) { color: #22c55e; }
+    .logo span:nth-child(4) { color: #3b82f6; }
+    .logo span:nth-child(5) { color: #a855f7; }
+    .logo span:nth-child(6) { color: #ec4899; }
+    .logo span:nth-child(7) { color: #06b6d4; }
+    .logo span:nth-child(8) { color: #f97316; }
+
+    /* HERO TEXT */
+    .hero {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #1e40af;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      color: #486581;
+    }
+
+    /* LEVEL GROUP */
+    .level-group {
+      margin-bottom: 10px;
+    }
+
+    .level-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 10px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .level-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(72,101,129,0.25);
+    }
+
+    /* OVERALL PROGRESS BAR */
+    .overall-progress {
+      background: rgba(255,255,255,0.6);
+      border-radius: 30px;
+      padding: 10px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: #486581;
+    }
+
+    .overall-progress .bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .overall-progress .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      border-radius: 30px;
+      transition: width 0.5s ease;
+    }
+
+    .overall-progress .pct {
+      font-weight: 700;
+      color: #1e2a38;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* UNITS */
+    .units {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .unit {
+      color: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+      transition: all 0.2s ease;
+      display: block;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .unit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      filter: brightness(1.08);
+    }
+
+    .unit:active {
+      transform: scale(0.98);
+    }
+
+    /* Per-unit colors */
+    .unit[data-unit="1"] { background: #2563eb; }
+    .unit[data-unit="2"] { background: #059669; }
+    .unit[data-unit="3"] { background: #7c3aed; }
+    .unit[data-unit="4"] { background: #d97706; }
+    .unit[data-unit="5"] { background: #db2777; }
+    .unit[data-unit="6"] { background: #0891b2; }
+    .unit[data-unit="7"] { background: #92400e; }
+
+    .unit small {
+      display: block;
+      font-weight: 400;
+      font-size: 13px;
+      margin-top: 3px;
+      opacity: 0.9;
+    }
+
+    .start-label {
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+      opacity: 0.9;
+    }
+
+    /* UNIT STATUS ROW */
+    .unit-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .unit-title-block {
+      flex: 1;
+    }
+
+    /* STATUS BADGE */
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .badge-done {
+      background: rgba(255,255,255,0.3);
+      color: white;
+    }
+
+    .badge-done::before {
+      content: '✓ ';
+    }
+
+    .badge-progress {
+      background: rgba(255,255,255,0.25);
+      color: white;
+    }
+
+    .badge-progress::before {
+      content: '▶ ';
+    }
+
+    /* UNIT MINI PROGRESS BAR */
+    .unit-bar-wrap {
+      margin-top: 8px;
+      height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .unit-bar-fill {
+      height: 100%;
+      background: rgba(255,255,255,0.85);
+      border-radius: 30px;
+      transition: width 0.4s ease;
+    }
+
+    /* COMPLETED overlay effect */
+    .unit.is-completed {
+      opacity: 0.82;
+    }
+
+    .unit.is-completed::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+
+    /* COMING */
+    .coming {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #486581;
+    }
+
+    /* RESET BUTTON */
+    .reset-wrap {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .reset-btn {
+      background: none;
+      border: 1px solid rgba(72,101,129,0.35);
+      border-radius: 30px;
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #486581;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: rgba(255,255,255,0.6);
+      border-color: rgba(72,101,129,0.6);
+      color: #1e2a38;
+    }
+
+    /* CONFIRM MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 18px;
+      padding: 28px 24px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+
+    .modal h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #1e2a38;
+      margin-bottom: 10px;
+    }
+
+    .modal p {
+      font-size: 0.9rem;
+      color: #486581;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .modal-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-btns button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      border: none;
+      transition: all 0.15s;
+    }
+
+    .btn-cancel {
+      background: #f1f5f9;
+      color: #486581;
+    }
+
+    .btn-cancel:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-confirm {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-confirm:hover {
+      background: #dc2626;
+    }
+
+    /* SEO TEXT */
+    .seo {
+      margin-top: 30px;
+      font-size: 12px;
+      color: rgba(0,0,0,0.3);
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACK BUTTON -->
+  <a class="back-btn" href="../index.html">← Início</a>
+
+  <!-- RESET CONFIRM MODAL -->
+  <div class="modal-overlay" id="resetModal">
+    <div class="modal">
+      <h3>Apagar progresso?</h3>
+      <p>Todo o seu progresso será apagado. Esta ação não pode ser desfeita.</p>
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeModal()">Não, cancelar</button>
+        <button class="btn-confirm" onclick="confirmReset()">Sim, apagar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- LOGO -->
+    <div class="logo">
+      <span>I</span><span>N</span><span>G</span><span>L</span>
+      <span>E</span><span>S</span><span>C</span><span>O</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Aprender inglês do zero (curso grátis para falantes de português)</h1>
+      <p>Do zero. Passo a passo.</p>
+    </div>
+
+    <!-- OVERALL PROGRESS -->
+    <div class="overall-progress" id="overallProgress" style="display:none;">
+      <span>Progresso</span>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="overallBar" style="width:0%"></div>
+      </div>
+      <span class="pct" id="overallPct">0%</span>
+    </div>
+
+    <!-- LEVEL GROUP: INICIANTE A -->
+    <div class="level-group">
+      <div class="level-label">Iniciante A</div>
+
+      <div class="units" id="unitList">
+
+        <a href="units/u1/index.html" class="unit" data-unit="1" id="unit-1">
+          <span class="start-label" id="startLabel">👉 Comece aqui</span>
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 1 — Hello, my name is...
+              <small>Saudações e apresentações básicas</small>
+            </div>
+            <span class="status-badge" id="badge-1" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-1" style="display:none">
+            <div class="unit-bar-fill" id="bar-1" style="width:0%"></div>
+          </div>
+        </a>
+
+        <a href="units/u2/index.html" class="unit" data-unit="2" id="unit-2">
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 2 — Where is...?
+              <small>Perguntar e entender localizações</small>
+            </div>
+            <span class="status-badge" id="badge-2" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-2" style="display:none">
+            <div class="unit-bar-fill" id="bar-2" style="width:0%"></div>
+          </div>
+        </a>
+
+        <a href="units/u3/index.html" class="unit" data-unit="3" id="unit-3">
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 3 — What are you doing?
+              <small>Ações em andamento (presente contínuo)</small>
+            </div>
+            <span class="status-badge" id="badge-3" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-3" style="display:none">
+            <div class="unit-bar-fill" id="bar-3" style="width:0%"></div>
+          </div>
+        </a>
+
+        <a href="units/u4/index.html" class="unit" data-unit="4" id="unit-4">
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 4 — Tall, short, married...
+              <small>Descrever pessoas</small>
+            </div>
+            <span class="status-badge" id="badge-4" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-4" style="display:none">
+            <div class="unit-bar-fill" id="bar-4" style="width:0%"></div>
+          </div>
+        </a>
+
+        <a href="units/u5/index.html" class="unit" data-unit="5" id="unit-5">
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 5 — My family
+              <small>Vocabulário de família</small>
+            </div>
+            <span class="status-badge" id="badge-5" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-5" style="display:none">
+            <div class="unit-bar-fill" id="bar-5" style="width:0%"></div>
+          </div>
+        </a>
+
+        <a href="units/u6/index.html" class="unit" data-unit="6" id="unit-6">
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 6 — How is the weather?
+              <small>Falar sobre o clima</small>
+            </div>
+            <span class="status-badge" id="badge-6" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-6" style="display:none">
+            <div class="unit-bar-fill" id="bar-6" style="width:0%"></div>
+          </div>
+        </a>
+
+        <a href="units/u7/index.html" class="unit" data-unit="7" id="unit-7">
+          <div class="unit-header">
+            <div class="unit-title-block">
+              Unidade 7 — Renting an Apartment
+              <small>Alugando um apartamento</small>
+            </div>
+            <span class="status-badge" id="badge-7" style="display:none"></span>
+          </div>
+          <div class="unit-bar-wrap" id="bar-wrap-7" style="display:none">
+            <div class="unit-bar-fill" id="bar-7" style="width:0%"></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- COMING -->
+    <div class="coming">Mais unidades em breve</div>
+
+    <!-- RESET BUTTON -->
+    <div class="reset-wrap">
+      <button class="reset-btn" onclick="openModal()">🔄 Reiniciar progresso</button>
+    </div>
+
+    <!-- SEO TEXT -->
+    <div class="seo">
+      <h2>Como começar a aprender inglês do zero?</h2>
+      <p>
+        Comece com lições simples de vocabulário, frases básicas e estruturas como "Hello, my name is...".
+        Inglesco é um curso de inglês grátis para iniciantes, criado especialmente para falantes de português
+        que querem aprender inglês básico passo a passo.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const TOTAL_UNITS = 6;
+
+    function loadProgress() {
+      try {
+        return JSON.parse(localStorage.getItem('inglesco_pt_progress') || '{}');
+      } catch(e) {
+        return {};
+      }
+    }
+
+    function renderProgress() {
+      const progress = loadProgress();
+      let completedUnits = 0;
+      let hasAnyProgress = false;
+
+      for (let u = 1; u <= TOTAL_UNITS; u++) {
+        const key = 'u' + u;
+        const data = progress[key];
+        const unitEl = document.getElementById('unit-' + u);
+        const badgeEl = document.getElementById('badge-' + u);
+        const barWrap = document.getElementById('bar-wrap-' + u);
+        const barFill = document.getElementById('bar-' + u);
+
+        if (!data || data.lessonsCompleted === 0) continue;
+
+        hasAnyProgress = true;
+        const pct = Math.round((data.lessonsCompleted / data.lessonsTotal) * 100);
+        const isDone = data.lessonsCompleted >= data.lessonsTotal;
+
+        barWrap.style.display = 'block';
+        barFill.style.width = pct + '%';
+
+        badgeEl.style.display = 'inline-block';
+
+        if (isDone) {
+          badgeEl.className = 'status-badge badge-done';
+          badgeEl.textContent = 'Concluída';
+          unitEl.classList.add('is-completed');
+          completedUnits++;
+        } else {
+          badgeEl.className = 'status-badge badge-progress';
+          badgeEl.textContent = 'Em andamento';
+        }
+      }
+
+      const startLabel = document.getElementById('startLabel');
+      if (hasAnyProgress && startLabel) {
+        startLabel.style.display = 'none';
+      }
+
+      if (hasAnyProgress) {
+        const overallPct = Math.round((completedUnits / TOTAL_UNITS) * 100);
+        document.getElementById('overallProgress').style.display = 'flex';
+        document.getElementById('overallBar').style.width = overallPct + '%';
+        document.getElementById('overallPct').textContent = overallPct + '%';
+      }
+    }
+
+    function openModal() {
+      document.getElementById('resetModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('resetModal').classList.remove('active');
+    }
+
+    function confirmReset() {
+      localStorage.removeItem('inglesco_pt_progress');
+      closeModal();
+      renderProgress();
+      const startLabel = document.getElementById('startLabel');
+      if (startLabel) startLabel.style.display = 'block';
+      document.getElementById('overallProgress').style.display = 'none';
+    }
+
+    document.getElementById('resetModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    renderProgress();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lição 1, Parte 3: Quem está falando? | Inglesco</title>
+  <meta name="description" content="Ouça e adivinhe quem está falando. Unidade 1, Lição 1, Parte 3.">
+
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 20px;
+    }
+
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
+
+    /* PROGRESS DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+    .step-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 18px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 8px;
+      padding-left: 2px;
+    }
+
+    /* AUDIO GRID */
+    .audio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .audio-btn {
+      background: white;
+      border: 2px solid rgba(37,99,235,0.2);
+      border-radius: 14px;
+      padding: 16px 10px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .audio-btn:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(37,99,235,0.15);
+    }
+
+    .audio-btn:active { transform: scale(0.97); }
+
+    .audio-btn.selected {
+      border-color: #2563eb;
+      background: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+    }
+
+    .audio-btn.playing {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    .audio-btn.solved {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      cursor: default;
+      opacity: 0.7;
+    }
+    .audio-btn.solved:hover { transform: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+    .audio-btn .play-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .audio-btn.solved .play-circle { background: #22c55e; }
+    .audio-btn.playing .play-circle { background: #1e40af; }
+
+    .play-circle svg {
+      width: 14px;
+      height: 14px;
+      fill: white;
+      margin-left: 2px;
+    }
+
+    .audio-btn .btn-num {
+      font-size: 13px;
+      font-weight: 800;
+      color: #486581;
+    }
+
+    .audio-btn.selected .btn-num,
+    .audio-btn.playing .btn-num { color: #2563eb; }
+    .audio-btn.solved .btn-num  { color: #22c55e; }
+
+    .audio-btn .btn-hint {
+      font-size: 10px;
+      color: #9ca3af;
+      font-weight: 600;
+    }
+
+    .audio-btn.selected .btn-hint { color: #2563eb; }
+
+    /* CHARACTER CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      border-color: rgba(37,99,235,0.3);
+    }
+
+    .card:active { transform: scale(0.98); }
+
+    .card.inactive {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .card.inactive:hover { transform: none; box-shadow: 0 4px 14px rgba(0,0,0,0.08); border-color: transparent; }
+
+    .card.correct {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      cursor: default;
+    }
+    .card.correct:hover { transform: none; }
+
+    .card.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+      animation: shake 0.35s ease;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+
+    .card img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #f1f5f9;
+      flex-shrink: 0;
+      border: 3px solid rgba(0,0,0,0.06);
+    }
+
+    .card-text { flex: 1; }
+
+    .card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e2a38;
+    }
+
+    .card-phrase {
+      font-size: 12px;
+      color: #486581;
+      margin-top: 2px;
+    }
+
+    .card-status {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      padding: 14px;
+      background: #f0fdf4;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      font-size: 15px;
+      color: #16a34a;
+    }
+
+    /* CONTINUE BUTTON */
+    .continue-btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 16px;
+      background: #d1d5db;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: not-allowed;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .continue-btn.enabled {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      animation: pulse-in 0.4s ease;
+    }
+
+    .continue-btn.enabled:hover { background: #1e40af; transform: translateY(-2px); }
+    .continue-btn.enabled:active { transform: scale(0.98); }
+
+    @keyframes pulse-in {
+      0%   { transform: scale(0.97); }
+      60%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="back-btn" href="../index.html">← Lição 1</a>
+
+  <div class="wrap">
+
+    <span class="lesson-tag">Unidade 1 · Lição 1 · Parte 3</span>
+    <h1>Quem está falando?</h1>
+    <p class="subtitle">Ouça o áudio e selecione a pessoa correta</p>
+
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots">
+      <div class="dot" data-part="1">1</div>
+      <div class="dot" data-part="2">2</div>
+      <div class="dot active" data-part="3">3</div>
+      <div class="dot" data-part="4">4</div>
+      <div class="dot" data-part="5">5</div>
+    </div>
+
+    <div class="step-label" id="stepLabel">Passo 1 de 4 — Toque em um áudio para começar</div>
+
+    <!-- AUDIO BUTTONS -->
+    <div class="section-label">👂 Ouça</div>
+    <div class="audio-grid">
+      <div class="audio-btn" id="box1" data-box="box1">
+        <div class="play-circle">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <div class="btn-num">Áudio 1</div>
+        <div class="btn-hint">toque para ouvir</div>
+      </div>
+      <div class="audio-btn" id="box2" data-box="box2">
+        <div class="play-circle">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <div class="btn-num">Áudio 2</div>
+        <div class="btn-hint">toque para ouvir</div>
+      </div>
+      <div class="audio-btn" id="box3" data-box="box3">
+        <div class="play-circle">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <div class="btn-num">Áudio 3</div>
+        <div class="btn-hint">toque para ouvir</div>
+      </div>
+      <div class="audio-btn" id="box4" data-box="box4">
+        <div class="play-circle">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <div class="btn-num">Áudio 4</div>
+        <div class="btn-hint">toque para ouvir</div>
+      </div>
+    </div>
+
+    <!-- CHARACTER CARDS -->
+    <div class="section-label">👤 Quem é?</div>
+    <div class="cards">
+
+      <div class="card inactive" data-char="ana" id="card-ana">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/ana.jpg" alt="Ana">
+        <div class="card-text">
+          <div class="card-name">Ana</div>
+          <div class="card-phrase">Hello. My name is Ana.</div>
+        </div>
+        <div class="card-status" id="status-ana"></div>
+      </div>
+
+      <div class="card inactive" data-char="pedro" id="card-pedro">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/pedro.jpg" alt="Pedro">
+        <div class="card-text">
+          <div class="card-name">Pedro</div>
+          <div class="card-phrase">Hello. My name is Pedro.</div>
+        </div>
+        <div class="card-status" id="status-pedro"></div>
+      </div>
+
+      <div class="card inactive" data-char="george" id="card-george">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/george.jpg" alt="George">
+        <div class="card-text">
+          <div class="card-name">George</div>
+          <div class="card-phrase">Hello. My name is George.</div>
+        </div>
+        <div class="card-status" id="status-george"></div>
+      </div>
+
+      <div class="card inactive" data-char="julie" id="card-julie">
+        <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u1/julie.jpg" alt="Julie">
+        <div class="card-text">
+          <div class="card-name">Julie</div>
+          <div class="card-phrase">Hello. My name is Julie.</div>
+        </div>
+        <div class="card-status" id="status-julie"></div>
+      </div>
+
+    </div>
+
+    <!-- HIDDEN AUDIO -->
+    <audio id="audio-ana"    src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/ana.mp3"    preload="auto"></audio>
+    <audio id="audio-pedro"  src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/pedro.mp3"  preload="auto"></audio>
+    <audio id="audio-george" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/george.mp3" preload="auto"></audio>
+    <audio id="audio-julie"  src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/julie.mp3"  preload="auto"></audio>
+    <audio id="sfx-correct"   src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav"   preload="auto"></audio>
+    <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+    <!-- SUCCESS + CONTINUE -->
+    <div class="success-msg" id="successMsg">
+      ✅ Excelente! Você reconheceu todas as vozes.
+    </div>
+
+    <button class="continue-btn" id="continueBtn" disabled>
+      Continuar →
+    </button>
+
+  </div>
+
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    const UNIT             = 'u1';
+    const LESSON           = 'l1';
+    const PART             = 'p3';
+    const PARTS_TOTAL      = 5;
+    const CURRENT_PART_NUM = 3;
+    const NEXT_PAGE        = 'p4.html';
+    const PART_PAGES       = ['p1.html','p2.html','p3.html','p4.html','p5.html'];
+    const CHARS            = ['ana','pedro','george','julie'];
+
+    // ─── SHUFFLE ─────────────────────────────────────────────
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const shuffled  = shuffle([...CHARS]);
+    const boxIds    = ['box1','box2','box3','box4'];
+    const boxAssign = {};
+    boxIds.forEach((id, i) => { boxAssign[id] = shuffled[i]; });
+
+    // ─── STATE ───────────────────────────────────────────────
+    let currentBox  = null;
+    let solvedCount = 0;
+    const solved    = {};
+    CHARS.forEach(c => { solved[c] = false; });
+
+    // ─── AUDIO HELPER ────────────────────────────────────────
+    function stopAll() {
+      CHARS.forEach(c => {
+        const a = document.getElementById('audio-' + c);
+        if (a && !a.paused) { a.pause(); a.currentTime = 0; }
+      });
+    }
+
+    function playAudio(el) {
+      return new Promise(resolve => {
+        if (!el) return resolve();
+        stopAll();
+        el.currentTime = 0;
+        el.play().catch(() => {});
+        el.onended = resolve;
+      });
+    }
+
+    // ─── UPDATE STEP LABEL ───────────────────────────────────
+    function updateStepLabel() {
+      const remaining = CHARS.length - solvedCount;
+      const el = document.getElementById('stepLabel');
+      if (solvedCount === 0) {
+        el.textContent = 'Passo 1 de 4 — Toque em um áudio para começar';
+      } else if (remaining > 0) {
+        el.textContent = `${solvedCount} de 4 corretos — continue assim`;
+      }
+    }
+
+    // ─── AUDIO BUTTON CLICKS ─────────────────────────────────
+    boxIds.forEach(boxId => {
+      const btn = document.getElementById(boxId);
+      if (!btn) return;
+
+      btn.addEventListener('click', async () => {
+        if (btn.classList.contains('solved')) return;
+
+        boxIds.forEach(id => {
+          const b = document.getElementById(id);
+          if (b && !b.classList.contains('solved')) b.classList.remove('selected');
+        });
+
+        btn.classList.add('selected', 'playing');
+        const charName = boxAssign[boxId];
+        currentBox = boxId;
+
+        document.querySelectorAll('.card').forEach(c => {
+          if (!c.classList.contains('correct')) c.classList.remove('inactive');
+        });
+
+        await playAudio(document.getElementById('audio-' + charName));
+        btn.classList.remove('playing');
+      });
+    });
+
+    // ─── CHARACTER CARD CLICKS ───────────────────────────────
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        if (!currentBox) return;
+        if (card.classList.contains('correct')) return;
+        if (card.classList.contains('inactive')) return;
+
+        const charName    = card.dataset.char;
+        const correctChar = boxAssign[currentBox];
+        const statusEl    = document.getElementById('status-' + charName);
+
+        if (charName === correctChar) {
+          document.getElementById('sfx-correct').play().catch(() => {});
+          card.classList.add('correct');
+          card.classList.remove('inactive');
+          if (statusEl) statusEl.textContent = '✓';
+
+          const boxEl = document.getElementById(currentBox);
+          if (boxEl) {
+            boxEl.classList.remove('selected');
+            boxEl.classList.add('solved');
+            const circle = boxEl.querySelector('.play-circle');
+            if (circle) circle.innerHTML = '<svg viewBox="0 0 16 16" style="width:14px;height:14px;fill:white"><path d="M2 8l4 4L14 4"/></svg>';
+            const hint = boxEl.querySelector('.btn-hint');
+            if (hint) hint.textContent = charName;
+          }
+
+          solved[charName] = true;
+          solvedCount++;
+          currentBox = null;
+
+          document.querySelectorAll('.card:not(.correct)').forEach(c => {
+            c.classList.add('inactive');
+          });
+
+          updateStepLabel();
+          checkCompletion();
+
+        } else {
+          document.getElementById('sfx-incorrect').play().catch(() => {});
+          card.classList.add('wrong');
+          if (statusEl) {
+            statusEl.textContent = '✗';
+            statusEl.style.color = '#ef4444';
+            setTimeout(() => {
+              statusEl.textContent = '';
+              statusEl.style.color = '';
+            }, 700);
+          }
+          setTimeout(() => card.classList.remove('wrong'), 350);
+        }
+      });
+    });
+
+    // ─── COMPLETION ──────────────────────────────────────────
+    function checkCompletion() {
+      if (solvedCount < CHARS.length) return;
+
+      document.getElementById('successMsg').style.display = 'block';
+
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.onclick = () => {
+        saveProgress();
+        updateFurthest(CURRENT_PART_NUM + 1);
+        window.location.href = NEXT_PAGE;
+      };
+    }
+
+    // ─── PROGRESS WRITE ──────────────────────────────────────
+    function saveProgress() {
+      try {
+        const lp = JSON.parse(localStorage.getItem('inglesco_pt_progress_' + UNIT) || '{}');
+        if (!lp[LESSON]) lp[LESSON] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+        if (lp[LESSON].partsCompleted < CURRENT_PART_NUM) {
+          lp[LESSON].partsCompleted = CURRENT_PART_NUM;
+        }
+        localStorage.setItem('inglesco_pt_progress_' + UNIT, JSON.stringify(lp));
+      } catch(e) {}
+    }
+
+    // ─── DOT NAVIGATION ──────────────────────────────────────
+    const FURTHEST_KEY = `inglesco_pt_furthest_${UNIT}_${LESSON}`;
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || String(CURRENT_PART_NUM), 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function initDots() {
+      document.querySelectorAll('.dot[data-part]').forEach(dot => {
+        const part = parseInt(dot.dataset.part, 10);
+        if (part === CURRENT_PART_NUM) {
+          dot.classList.add('active');
+        } else if (part < CURRENT_PART_NUM) {
+          dot.classList.add('done');
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        } else {
+          dot.addEventListener('click', () => { window.location.href = PART_PAGES[part - 1]; });
+        }
+      });
+    }
+
+    updateFurthest(CURRENT_PART_NUM);
+    initDots();
+  </script>
+
+</body>
+</html>
