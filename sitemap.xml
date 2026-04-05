@@ -1,5 +1,259 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Root & language indexes -->
   <url><loc>https://inglesco.co/</loc></url>
   <url><loc>https://inglesco.co/es/</loc></url>
+  <url><loc>https://inglesco.co/pt/</loc></url>
+
+  <!-- ES Unit indexes -->
+  <url><loc>https://inglesco.co/es/units/u1/</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/</loc></url>
+
+  <!-- ES U1 – 4 lessons -->
+  <url><loc>https://inglesco.co/es/units/u1/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u1/l4/p5.html</loc></url>
+
+  <!-- ES U2 – 7 lessons -->
+  <url><loc>https://inglesco.co/es/units/u2/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l4/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l5/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l5/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l5/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l5/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l5/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l6/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l6/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l6/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l6/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l6/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l7/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l7/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l7/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l7/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u2/l7/p5.html</loc></url>
+
+  <!-- ES U3 – 7 lessons -->
+  <url><loc>https://inglesco.co/es/units/u3/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l4/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l5/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l5/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l5/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l5/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l5/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l6/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l6/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l6/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l6/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l6/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l7/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l7/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l7/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l7/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u3/l7/p5.html</loc></url>
+
+  <!-- ES U4 – 7 lessons -->
+  <url><loc>https://inglesco.co/es/units/u4/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l4/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l5/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l5/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l5/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l5/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l5/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l6/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l6/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l6/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l6/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l6/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l7/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l7/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l7/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l7/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u4/l7/p5.html</loc></url>
+
+  <!-- ES U5 – 7 lessons -->
+  <url><loc>https://inglesco.co/es/units/u5/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l4/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l5/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l5/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l5/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l5/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l5/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l6/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l6/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l6/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l6/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l6/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l7/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l7/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l7/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l7/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u5/l7/p5.html</loc></url>
+
+  <!-- ES U6 – 6 lessons -->
+  <url><loc>https://inglesco.co/es/units/u6/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l4/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l5/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l5/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l5/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l5/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l5/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l6/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l6/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l6/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l6/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u6/l6/p5.html</loc></url>
+
+  <!-- ES U7 – 6 lessons -->
+  <url><loc>https://inglesco.co/es/units/u7/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l1/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l2/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l2/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l2/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l2/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l2/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l3/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l3/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l3/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l3/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l3/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l4/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l4/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l4/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l4/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l4/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l5/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l5/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l5/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l5/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l5/p5.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l6/p1.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l6/p2.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l6/p3.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l6/p4.html</loc></url>
+  <url><loc>https://inglesco.co/es/units/u7/l6/p5.html</loc></url>
+
+  <!-- PT U1 L1 – 5 parts -->
+  <url><loc>https://inglesco.co/pt/units/u1/l1/p1.html</loc></url>
+  <url><loc>https://inglesco.co/pt/units/u1/l1/p2.html</loc></url>
+  <url><loc>https://inglesco.co/pt/units/u1/l1/p3.html</loc></url>
+  <url><loc>https://inglesco.co/pt/units/u1/l1/p4.html</loc></url>
+  <url><loc>https://inglesco.co/pt/units/u1/l1/p5.html</loc></url>
+
 </urlset>
