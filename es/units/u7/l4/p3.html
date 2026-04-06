@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 &bull; Lecci&oacute;n 4 &bull; Parte 3 | Inglesco</title>
+<meta name="description" content="Practica there is y there are en inglés con imágenes. Ejercicios interactivos para hispanohablantes.">
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+  const UNIT   = 7;
+  const LESSON = 4;
+  const PART   = 3;
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  color: #1e40af; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,0.7);
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step.done   { background: #059669; color: #fff; }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── GRAMMAR ── */
+.grammar-card {
+  background: rgba(255,255,255,.92);
+  border-radius: 18px; padding: 22px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin-bottom: 16px;
+}
+.grammar-card h2 {
+  font-size: 16px; font-weight: 900; color: #1e3a5f; margin-bottom: 14px;
+}
+.rule-block {
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+}
+.rule-block.blue  { background: #dbeafe; border-left: 4px solid #2563eb; }
+.rule-block.green { background: #d1fae5; border-left: 4px solid #059669; }
+.rule-title {
+  font-size: 12px; font-weight: 900; text-transform: uppercase;
+  letter-spacing: .05em; margin-bottom: 10px;
+}
+.rule-block.blue  .rule-title { color: #1e40af; }
+.rule-block.green .rule-title { color: #065f46; }
+.example-en {
+  font-size: 15px; font-weight: 900; color: #1e40af;
+  background: #fff; border-radius: 10px;
+  padding: 8px 12px; margin-bottom: 4px; display: block;
+}
+.example-es {
+  font-size: 13px; font-weight: 600; color: #374151;
+  padding: 0 2px; margin-bottom: 10px; display: block;
+}
+.example-es:last-child { margin-bottom: 0; }
+
+.tap-btn {
+  width: 100%; padding: 14px; margin-top: 4px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px; font-weight: 900; font-size: 15px;
+  cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tap-btn:active { opacity: .85; }
+
+/* ── EXERCISE SCREEN ── */
+.img-wrap {
+  width: 100%; max-height: 300px;
+  border-radius: 18px; overflow: hidden; background: #f1f5f9;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+.img-wrap img { width: 100%; max-height: 300px; object-fit: contain; }
+
+.counter-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px; font-size: 13px; font-weight: 700; color: #486581;
+}
+.score-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,.7); border-radius: 999px;
+  padding: 3px 12px; font-size: 13px; font-weight: 700; color: #374151;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px; padding: 20px 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.card-num {
+  font-size: 11px; font-weight: 700; color: #9333ea;
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 14px;
+}
+
+/* PHASE LABEL */
+.phase-label {
+  font-size: 11px; font-weight: 700; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .05em;
+  background: #f1f5f9; border-radius: 8px;
+  padding: 3px 10px; display: inline-block; margin-bottom: 8px;
+}
+
+/* TILE BANK */
+.tile-bank { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; margin-bottom: 6px; }
+
+/* TILES */
+.tile {
+  padding: 8px 14px;
+  background: #fff; border: 2px solid #bfdbfe;
+  border-radius: 10px; font-size: 14px; font-weight: 700; color: #1e40af;
+  cursor: pointer; user-select: none;
+  transition: transform .1s, background .15s, border-color .15s, color .15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.tile:active { transform: scale(.94); }
+.tile.in-zone { background: #dbeafe; border-color: #60a5fa; }
+.drop-zone.correct .tile { background: #d1fae5; border-color: #6ee7b7; color: #065f46; }
+.tile.disabled { opacity: .45; cursor: default; pointer-events: none; }
+.tile.wrong-flash { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+
+/* FEEDBACK */
+.result-feedback {
+  display: none; text-align: center;
+  font-size: 14px; font-weight: 900;
+  padding: 8px 12px; border-radius: 10px; margin-top: 6px;
+}
+.result-feedback.visible { display: block; }
+.result-feedback.correct { background: #d1fae5; color: #065f46; }
+.result-feedback.wrong   { background: #fee2e2; color: #991b1b; }
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+.drop-zone.shake { animation: shake .35s ease; border-color: #fca5a5; background: #fee2e2; }
+
+/* TRANSLATION HINT */
+.translation-hint {
+  font-size: 13px; font-weight: 700; color: #6b7280;
+  text-align: center; margin-bottom: 14px;
+  background: rgba(255,255,255,.6); border-radius: 10px;
+  padding: 6px 12px;
+}
+
+/* SENTENCE DISPLAY */
+.sentence-display {
+  font-size: 16px; font-weight: 900; color: #1e3a5f;
+  text-align: center; margin-bottom: 10px;
+  background: rgba(255,255,255,.7); border-radius: 12px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
+/* NEXT */
+.next-btn {
+  width: 100%; padding: 13px; background: #2563eb; color: white;
+  border: none; border-radius: 14px; font-weight: 900; font-size: 15px;
+  margin-top: 14px; cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.next-btn:hover    { opacity: .9; }
+.next-btn:disabled { opacity: .4; cursor: default; }
+
+/* COMPLETE */
+.complete-screen { text-align: center; padding: 30px 10px; }
+.complete-screen .emoji { font-size: 56px; margin-bottom: 12px; }
+.complete-screen h2 { font-size: 22px; font-weight: 900; color: #1e3a5f; margin-bottom: 8px; }
+.complete-screen p  { font-size: 15px; color: #374151; margin-bottom: 10px; }
+.score-final { font-size: 28px; font-weight: 900; color: #2563eb; margin: 12px 0 20px; }
+.unit-btn {
+  display: inline-block; padding: 13px 28px;
+  background: #059669; color: white; border-radius: 14px;
+  font-weight: 900; font-size: 15px; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">&larr; Unidad 7</a>
+
+  <div class="top-title">Unidad 7 &bull; Lecci&oacute;n 4 &bull; Parte 3</div>
+  <div class="subline"><em>There is</em> / <em>There are</em> &mdash; Singular y plural</div>
+
+  <div class="progress-container">
+    <a class="step done"   href="p1.html">1</a>
+    <a class="step done"   href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step"        href="p4.html">4</a>
+    <a class="step"        href="p5.html">5</a>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- SCREEN 1: GRAMMAR                 -->
+  <!-- ══════════════════════════════════ -->
+  <div class="screen active" id="screen-grammar">
+
+    <div class="grammar-card">
+      <h2>&#x1F9E0; GRAM&Aacute;TICA: <em>There is</em> y <em>There are</em></h2>
+
+      <p style="font-size:13px; font-weight:700; color:#374151; margin-bottom:14px;">
+        Usamos <strong>there are</strong> para objetos en plural.
+      </p>
+
+      <div class="rule-block blue">
+        <div class="rule-title">&#x1F535; Singular &mdash; un objeto</div>
+        <span class="example-en">There is a dog.</span>
+        <span class="example-es">&#x1F449; Hay un perro.</span>
+        <span class="example-en">There is a book.</span>
+        <span class="example-es">&#x1F449; Hay un libro.</span>
+      </div>
+
+      <div class="rule-block green">
+        <div class="rule-title">&#x1F7E2; Plural &mdash; m&aacute;s de un objeto</div>
+        <span class="example-en">There are two dogs.</span>
+        <span class="example-es">&#x1F449; Hay dos perros.</span>
+        <span class="example-en">There are two books.</span>
+        <span class="example-es">&#x1F449; Hay dos libros.</span>
+      </div>
+    </div>
+
+    <button class="tap-btn" id="grammarContinueBtn">
+      Entendido &mdash; &#161;practicar! &#8594;
+    </button>
+
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- SCREEN 2: EXERCISES               -->
+  <!-- ══════════════════════════════════ -->
+  <div class="screen" id="screen-exercises">
+
+    <div class="counter-row">
+      <span id="counter">Pregunta 1 de 6</span>
+      <span class="score-badge">&#11088; <span id="scoreTxt">0 / 0</span></span>
+    </div>
+
+    <div class="img-wrap" id="imgWrap">
+      <img id="exerciseImg" src="" alt="">
+    </div>
+
+    <div class="translation-hint" id="translationHint"></div>
+
+    <div class="card" id="card"></div>
+    <button class="next-btn" id="nextBtn" disabled>Siguiente &rarr;</button>
+
+  </div>
+
+</div>
+
+<script>
+(function() {
+
+var BASE        = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+var IMG_BASE    = BASE + 'images/u7/';
+var SFX_CORRECT = BASE + 'sfx/correct.wav';
+var SFX_WRONG   = BASE + 'sfx/incorrect.wav';
+
+var sfxCorrect = new Audio(SFX_CORRECT); sfxCorrect.preload = 'auto';
+var sfxWrong   = new Audio(SFX_WRONG);   sfxWrong.preload   = 'auto';
+
+function playSfx(ok) {
+  var a = ok ? sfxCorrect : sfxWrong;
+  a.currentTime = 0; a.play().catch(function(){});
+}
+
+/* ── Grammar → Exercises ── */
+function showExercises() {
+  document.getElementById('screen-grammar').classList.remove('active');
+  document.getElementById('screen-exercises').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+var gb = document.getElementById('grammarContinueBtn');
+gb.addEventListener('click', showExercises);
+gb.addEventListener('touchstart', function(){}, { passive: true });
+gb.addEventListener('touchend', function(e){ e.preventDefault(); showExercises(); });
+
+/* ── Data ── */
+var ITEMS = [
+  {
+    img: 'u7.kitchen.chair.jpg',
+    alt: 'Una silla en la cocina',
+    hint: 'Hay una silla en la cocina.',
+    rest: 'a chair in the kitchen.',
+    correct: 'There is'
+  },
+  {
+    img: 'u7.four.chairs.jpg',
+    alt: 'Cuatro sillas en la sala',
+    hint: 'Hay cuatro sillas en la sala.',
+    rest: 'four chairs in the living room.',
+    correct: 'There are'
+  },
+  {
+    img: 'u7.one.car.jpg',
+    alt: 'Un carro en la calle',
+    hint: 'Hay un carro en la calle.',
+    rest: 'a car on the street.',
+    correct: 'There is'
+  },
+  {
+    img: 'u7.three.cars.jpg',
+    alt: 'Tres carros en el estacionamiento',
+    hint: 'Hay tres carros en el estacionamiento.',
+    rest: 'three cars in the parking lot.',
+    correct: 'There are'
+  },
+  {
+    img: 'u7.six.eggs.jpg',
+    alt: 'Seis huevos en la nevera',
+    hint: 'Hay seis huevos en la nevera.',
+    rest: 'six eggs in the fridge.',
+    correct: 'There are'
+  },
+  {
+    img: 'u7.fridge.2.jpg',
+    alt: 'Leche en la nevera',
+    hint: 'Hay leche en la nevera.',
+    rest: 'milk in the fridge.',
+    correct: 'There is'
+  }
+];
+
+var TOTAL    = ITEMS.length;
+var current  = 0;
+var score    = 0;
+var answered = 0;
+
+var cardEl    = document.getElementById('card');
+var nextBtn   = document.getElementById('nextBtn');
+var counter   = document.getElementById('counter');
+var scoreTxt  = document.getElementById('scoreTxt');
+var imgEl     = document.getElementById('exerciseImg');
+var hintEl    = document.getElementById('translationHint');
+
+function updateScore() { scoreTxt.textContent = score + ' / ' + answered; }
+
+/* ── Two-tile chooser ── */
+function makeTwoTiles(correct, onDone) {
+  var wrap = document.createElement('div');
+
+  var pl = document.createElement('div');
+  pl.className = 'phase-label';
+  pl.textContent = '\uD83D\uDC47 Selecciona la opci\u00F3n correcta';
+  wrap.appendChild(pl);
+
+  var bank = document.createElement('div');
+  bank.className = 'tile-bank';
+  bank.style.justifyContent = 'center';
+  bank.style.marginBottom = '10px';
+  wrap.appendChild(bank);
+
+  var feedback = document.createElement('div');
+  feedback.className = 'result-feedback';
+  wrap.appendChild(feedback);
+
+  var done = false;
+  var OPTIONS = ['There is', 'There are'];
+
+  OPTIONS.forEach(function(opt) {
+    var tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.textContent = opt;
+    tile.style.fontSize = '16px';
+    tile.style.padding = '10px 22px';
+
+    function handleTap() {
+      if (done) return;
+      if (opt === correct) {
+        done = true;
+        tile.classList.add('in-zone');
+        tile.style.pointerEvents = 'none';
+        // disable the other tile
+        bank.querySelectorAll('.tile').forEach(function(t) {
+          t.style.pointerEvents = 'none';
+          if (t !== tile) t.classList.add('disabled');
+        });
+        feedback.className = 'result-feedback visible correct';
+        feedback.textContent = '\u2705 \u00A1Correcto!';
+        playSfx(true);
+        setTimeout(onDone, 400);
+      } else {
+        tile.classList.add('wrong-flash');
+        feedback.className = 'result-feedback visible wrong';
+        feedback.textContent = '\u274C Casi\u2026 sigue intentando';
+        playSfx(false);
+        setTimeout(function() {
+          tile.classList.remove('wrong-flash');
+          feedback.className = 'result-feedback';
+        }, 700);
+      }
+    }
+
+    tile.addEventListener('click', handleTap);
+    tile.addEventListener('touchstart', function(){}, { passive: true });
+    tile.addEventListener('touchend', function(e){ e.preventDefault(); handleTap(); });
+    bank.appendChild(tile);
+  });
+
+  return wrap;
+}
+
+/* ── Render one question ── */
+function render(i) {
+  nextBtn.disabled = true;
+  counter.textContent = 'Pregunta ' + (i + 1) + ' de ' + TOTAL;
+  nextBtn.innerHTML = (i === TOTAL - 1) ? 'Finalizar &rarr;' : 'Siguiente &rarr;';
+
+  var item = ITEMS[i];
+
+  imgEl.src = IMG_BASE + item.img;
+  imgEl.alt = item.alt;
+  hintEl.textContent = '\uD83D\uDC49 ' + item.hint;
+
+  cardEl.innerHTML = '';
+
+  var numEl = document.createElement('div');
+  numEl.className = 'card-num';
+  numEl.textContent = 'Pregunta ' + (i + 1);
+  cardEl.appendChild(numEl);
+
+  // Static rest of sentence
+  var sentEl = document.createElement('div');
+  sentEl.className = 'sentence-display';
+  sentEl.innerHTML = '<span style="color:#9ca3af;">___</span> ' + item.rest;
+  cardEl.appendChild(sentEl);
+
+  var tileZone = makeTwoTiles(item.correct, function() {
+    // Show complete sentence
+    sentEl.innerHTML = '<span style="color:#059669;">' + item.correct + '</span> ' + item.rest;
+    answered++;
+    score++;
+    updateScore();
+    nextBtn.disabled = false;
+    setTimeout(function() {
+      nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 200);
+  });
+  cardEl.appendChild(tileZone);
+}
+
+/* ── Next button ── */
+nextBtn.addEventListener('click', function() {
+  if (current < TOTAL - 1) {
+    current++;
+    render(current);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    var key = 'inglesco_progress_u7';
+    try {
+      var raw  = localStorage.getItem(key);
+      var data = raw ? JSON.parse(raw) : {};
+      if (!data.l4) data.l4 = { partsCompleted: 0, partsTotal: 5 };
+      if (data.l4.partsCompleted < 3) data.l4.partsCompleted = 3;
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    counter.textContent = '';
+    scoreTxt.textContent = score + ' / ' + TOTAL;
+    nextBtn.style.display = 'none';
+
+    var pct   = Math.round((score / TOTAL) * 100);
+    var emoji = pct === 100 ? '\uD83C\uDFC6' : pct >= 66 ? '\uD83C\uDF89' : '\uD83D\uDCAA';
+
+    cardEl.innerHTML =
+      '<div class="complete-screen">' +
+        '<div class="emoji">' + emoji + '</div>' +
+        '<h2>\u00A1Parte completada!</h2>' +
+        '<p>Respondiste correctamente:</p>' +
+        '<div class="score-final">' + score + ' / ' + TOTAL + '</div>' +
+        '<p style="margin-bottom:24px">\u00A1Sigue as\u00ED!</p>' +
+        '<a href="p4.html" class="unit-btn">Siguiente parte &rarr;</a>' +
+      '</div>';
+  }
+});
+
+render(0);
+updateScore();
+
+}());
+</script>
+
+</body>
+</html>
