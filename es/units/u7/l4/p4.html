@@ -325,9 +325,11 @@ introPlayBtn.addEventListener('touchend', function(e){ e.preventDefault(); playI
 
 /* ── Intro → Exercises ── */
 function showExercises() {
+  introAudio.pause(); introAudio.currentTime = 0;
   document.getElementById('screen-intro').classList.remove('active');
   document.getElementById('screen-exercises').classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  autoPlayTimer = setTimeout(function() { playExerciseAudio(ITEMS[0].audio); }, 300);
 }
 var cb = document.getElementById('introContinueBtn');
 cb.addEventListener('click', showExercises);
@@ -401,12 +403,18 @@ var counter  = document.getElementById('counter');
 var scoreTxt = document.getElementById('scoreTxt');
 var imgEl    = document.getElementById('exerciseImg');
 
-var currentAudio = null;
+var currentAudio  = null;
+var autoPlayTimer = null;
+
+function stopAudio() {
+  if (autoPlayTimer) { clearTimeout(autoPlayTimer); autoPlayTimer = null; }
+  if (currentAudio)  { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+}
 
 function updateScore() { scoreTxt.textContent = score + ' / ' + answered; }
 
 function playExerciseAudio(src) {
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+  stopAudio();
   currentAudio = new Audio(AUD_BASE + src);
   currentAudio.play().catch(function(){});
 }
@@ -441,9 +449,6 @@ function render(i) {
   playBtn.addEventListener('touchend', function(e){ e.preventDefault(); doPlay(); });
   cardEl.appendChild(playBtn);
 
-  // Auto-play when question loads
-  setTimeout(function() { playExerciseAudio(item.audio); }, 300);
-
   /* Transcript */
   var tbox = document.createElement('div');
   tbox.className = 'transcript-box';
@@ -455,7 +460,7 @@ function render(i) {
   });
   cardEl.appendChild(tbox);
 
-  /* Phase label */
+  /* Phase label (auto-play handled by caller, not here) */
   var pl = document.createElement('div');
   pl.className = 'phase-label';
   pl.textContent = 'Tap para seleccionar';
@@ -531,11 +536,12 @@ function render(i) {
 
 /* ── Next button ── */
 nextBtn.addEventListener('click', function() {
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+  stopAudio();
 
   if (current < TOTAL - 1) {
     current++;
     render(current);
+    autoPlayTimer = setTimeout(function() { playExerciseAudio(ITEMS[current].audio); }, 300);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
     var key = 'inglesco_progress_u7';
