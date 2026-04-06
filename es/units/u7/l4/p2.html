@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 • Lección 4 • Parte 2 | Inglesco</title>
+<meta name="description" content="Aprende a hacer preguntas con Is there any y responder en inglés. Ejercicios interactivos para hispanohablantes.">
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+  const UNIT   = 7;
+  const LESSON = 4;
+  const PART   = 2;
+</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  color: #1e40af; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,0.7);
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step.done   { background: #059669; color: #fff; }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── GRAMMAR ── */
+.grammar-card {
+  background: rgba(255,255,255,.92);
+  border-radius: 18px; padding: 22px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin-bottom: 16px;
+}
+.grammar-card h2 {
+  font-size: 16px; font-weight: 900; color: #1e3a5f; margin-bottom: 14px;
+}
+.rule-block {
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+}
+.rule-block.blue  { background: #dbeafe; border-left: 4px solid #2563eb; }
+.rule-block.green { background: #d1fae5; border-left: 4px solid #059669; }
+.rule-block.red   { background: #fee2e2; border-left: 4px solid #ef4444; }
+.rule-title {
+  font-size: 12px; font-weight: 900; text-transform: uppercase;
+  letter-spacing: .05em; margin-bottom: 10px;
+}
+.rule-block.blue  .rule-title { color: #1e40af; }
+.rule-block.green .rule-title { color: #065f46; }
+.rule-block.red   .rule-title { color: #991b1b; }
+.example-en {
+  font-size: 15px; font-weight: 900; color: #1e40af;
+  background: #fff; border-radius: 10px;
+  padding: 8px 12px; margin-bottom: 4px; display: block;
+}
+.example-es {
+  font-size: 13px; font-weight: 600; color: #374151;
+  padding: 0 2px; margin-bottom: 10px; display: block;
+}
+.example-es:last-child { margin-bottom: 0; }
+.answer-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+.answer-row:last-child { margin-bottom: 0; }
+.answer-badge {
+  font-size: 11px; font-weight: 900; padding: 3px 9px;
+  border-radius: 999px; white-space: nowrap; margin-top: 2px;
+}
+.answer-badge.yes { background: #d1fae5; color: #065f46; }
+.answer-badge.no  { background: #fee2e2; color: #991b1b; }
+.answer-text { flex: 1; }
+.tap-btn {
+  width: 100%; padding: 14px; margin-top: 4px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 14px; font-weight: 900; font-size: 15px;
+  cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tap-btn:active { opacity: .85; }
+
+/* ── EXERCISE SCREEN ── */
+.img-wrap {
+  width: 100%; max-height: 300px;
+  border-radius: 18px; overflow: hidden; background: #f1f5f9;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+.img-wrap img { width: 100%; max-height: 300px; object-fit: contain; }
+
+.ingredient-lists {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 18px;
+}
+.ing-card { border-radius: 14px; padding: 10px 12px; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+.ing-card.yes { background: #d1fae5; border: 1.5px solid #6ee7b7; }
+.ing-card.no  { background: #fee2e2; border: 1.5px solid #fca5a5; }
+.ing-card-title {
+  font-size: 11px; font-weight: 900; text-transform: uppercase;
+  letter-spacing: .05em; margin-bottom: 6px;
+}
+.ing-card.yes .ing-card-title { color: #065f46; }
+.ing-card.no  .ing-card-title { color: #991b1b; }
+.ing-item { font-size: 13px; font-weight: 700; padding: 2px 0; display: flex; align-items: center; gap: 5px; }
+.ing-card.yes .ing-item { color: #065f46; }
+.ing-card.no  .ing-item { color: #991b1b; }
+
+.counter-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px; font-size: 13px; font-weight: 700; color: #486581;
+}
+.score-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,.7); border-radius: 999px;
+  padding: 3px 12px; font-size: 13px; font-weight: 700; color: #374151;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,.88);
+  border-radius: 18px; padding: 20px 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.card-num {
+  font-size: 11px; font-weight: 700; color: #9333ea;
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 14px;
+}
+
+/* PHASE LABEL */
+.phase-label {
+  font-size: 11px; font-weight: 700; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .05em;
+  background: #f1f5f9; border-radius: 8px;
+  padding: 3px 10px; display: inline-block; margin-bottom: 8px;
+}
+
+/* ANSWER SECTION — locked until Q done */
+.answer-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  opacity: .35;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.answer-section.unlocked { opacity: 1; pointer-events: auto; }
+
+/* DROP ZONE */
+.drop-zone {
+  min-height: 52px;
+  border: 2px dashed #93c5fd; border-radius: 12px;
+  background: #eff6ff;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 8px 10px; margin-bottom: 10px;
+  transition: border-color .2s, background .2s;
+}
+.drop-zone.correct { border-color: #6ee7b7; background: #d1fae5; }
+.drop-zone-label {
+  font-size: 10px; font-weight: 700; color: #93c5fd;
+  text-transform: uppercase; letter-spacing: .05em;
+  width: 100%; margin-bottom: 2px;
+}
+.drop-zone.correct .drop-zone-label { color: #6ee7b7; }
+
+/* TILE BANK */
+.tile-bank { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; margin-bottom: 6px; }
+
+/* TILES */
+.tile {
+  padding: 8px 14px;
+  background: #fff; border: 2px solid #bfdbfe;
+  border-radius: 10px; font-size: 14px; font-weight: 700; color: #1e40af;
+  cursor: pointer; user-select: none;
+  transition: transform .1s, background .15s, border-color .15s, color .15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.tile:active { transform: scale(.94); }
+.tile.in-zone { background: #dbeafe; border-color: #60a5fa; }
+.drop-zone.correct .tile { background: #d1fae5; border-color: #6ee7b7; color: #065f46; }
+.tile.disabled { opacity: .45; cursor: default; pointer-events: none; }
+.tile.wrong-flash { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+
+/* FEEDBACK */
+.result-feedback {
+  display: none; text-align: center;
+  font-size: 14px; font-weight: 900;
+  padding: 8px 12px; border-radius: 10px; margin-top: 6px;
+}
+.result-feedback.visible { display: block; }
+.result-feedback.correct { background: #d1fae5; color: #065f46; }
+.result-feedback.wrong   { background: #fee2e2; color: #991b1b; }
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+.drop-zone.shake { animation: shake .35s ease; border-color: #fca5a5; background: #fee2e2; }
+
+/* NEXT */
+.next-btn {
+  width: 100%; padding: 13px; background: #2563eb; color: white;
+  border: none; border-radius: 14px; font-weight: 900; font-size: 15px;
+  margin-top: 14px; cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.next-btn:hover    { opacity: .9; }
+.next-btn:disabled { opacity: .4; cursor: default; }
+
+/* COMPLETE */
+.complete-screen { text-align: center; padding: 30px 10px; }
+.complete-screen .emoji { font-size: 56px; margin-bottom: 12px; }
+.complete-screen h2 { font-size: 22px; font-weight: 900; color: #1e3a5f; margin-bottom: 8px; }
+.complete-screen p  { font-size: 15px; color: #374151; margin-bottom: 10px; }
+.score-final { font-size: 28px; font-weight: 900; color: #2563eb; margin: 12px 0 20px; }
+.unit-btn {
+  display: inline-block; padding: 13px 28px;
+  background: #059669; color: white; border-radius: 14px;
+  font-weight: 900; font-size: 15px; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">&larr; Unidad 7</a>
+
+  <div class="top-title">Unidad 7 &bull; Lecci&oacute;n 4 &bull; Parte 2</div>
+  <div class="subline">Is there any&hellip;? &mdash; Preguntas y respuestas</div>
+
+  <div class="progress-container">
+    <a class="step done"   href="p1.html">1</a>
+    <a class="step active" href="p2.html">2</a>
+    <a class="step"        href="p3.html">3</a>
+    <a class="step"        href="p4.html">4</a>
+    <a class="step"        href="p5.html">5</a>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- SCREEN 1: GRAMMAR                 -->
+  <!-- ══════════════════════════════════ -->
+  <div class="screen active" id="screen-grammar">
+
+    <div class="grammar-card">
+      <h2>&#x1F9E0; C&oacute;mo hacer preguntas con <em>Is there any</em></h2>
+
+      <div class="rule-block blue">
+        <div class="rule-title">&#x1F7E6; Formamos preguntas as&iacute;</div>
+        <span class="example-en">Is there any milk in the fridge?</span>
+        <span class="example-es">&#x1F449; &iquest;Hay leche en la nevera?</span>
+        <span class="example-en">Is there any sugar?</span>
+        <span class="example-es">&#x1F449; &iquest;Hay az&uacute;car?</span>
+      </div>
+
+      <div class="rule-block green">
+        <div class="rule-title">&#x2705; Respuesta positiva</div>
+        <div class="answer-row">
+          <span class="answer-badge yes">Yes</span>
+          <div class="answer-text">
+            <span class="example-en" style="margin-bottom:4px;">Yes, there is some milk.</span>
+            <span class="example-es">S&iacute;, hay leche.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule-block red">
+        <div class="rule-title">&#x274C; Respuesta negativa</div>
+        <div class="answer-row">
+          <span class="answer-badge no">No</span>
+          <div class="answer-text">
+            <span class="example-en" style="margin-bottom:4px;">No, there is not any milk.</span>
+            <span class="example-es">No, no hay leche.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="tap-btn" id="grammarContinueBtn">
+      Entendido &mdash; &#161;practicar! &#8594;
+    </button>
+
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- SCREEN 2: EXERCISES               -->
+  <!-- ══════════════════════════════════ -->
+  <div class="screen" id="screen-exercises">
+
+    <div style="background:rgba(255,255,255,.88); border-radius:14px; padding:12px 16px; margin-bottom:14px; box-shadow:0 4px 12px rgba(0,0,0,.07); text-align:center;">
+      <div style="font-size:17px; font-weight:900; color:#1e3a5f; margin-bottom:3px;">I am preparing pancakes.</div>
+      <div style="font-size:14px; font-weight:700; color:#6b7280;">Estoy preparando panqueques.</div>
+    </div>
+
+    <div class="img-wrap">
+      <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u7/u7.pancakes.jpg" alt="Ingredientes para panqueques">
+    </div>
+
+    <div class="ingredient-lists">
+      <div class="ing-card yes">
+        <div class="ing-card-title">&#10003; S&iacute; hay</div>
+        <div class="ing-item">&#x1F9C2; flour <span style="font-weight:600;opacity:.7;font-size:11px;">&mdash; harina</span></div>
+        <div class="ing-item">&#x1F9C8; butter <span style="font-weight:600;opacity:.7;font-size:11px;">&mdash; mantequilla</span></div>
+        <div class="ing-item">&#x1F9C2; salt <span style="font-weight:600;opacity:.7;font-size:11px;">&mdash; sal</span></div>
+      </div>
+      <div class="ing-card no">
+        <div class="ing-card-title">&#10007; No hay</div>
+        <div class="ing-item">&#x1F33F; sugar <span style="font-weight:600;opacity:.7;font-size:11px;">&mdash; az&uacute;car</span></div>
+        <div class="ing-item">&#x1F36F; honey <span style="font-weight:600;opacity:.7;font-size:11px;">&mdash; miel</span></div>
+        <div class="ing-item">&#x1F95B; milk <span style="font-weight:600;opacity:.7;font-size:11px;">&mdash; leche</span></div>
+      </div>
+    </div>
+
+    <div class="counter-row">
+      <span id="counter">Pregunta 1 de 6</span>
+      <span class="score-badge">&#11088; <span id="scoreTxt">0 / 0</span></span>
+    </div>
+
+    <div class="card" id="card"></div>
+    <button class="next-btn" id="nextBtn" disabled>Siguiente &rarr;</button>
+
+  </div>
+
+</div>
+
+<script>
+(function() {
+
+var BASE        = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+var SFX_CORRECT = BASE + 'sfx/correct.wav';
+var SFX_WRONG   = BASE + 'sfx/incorrect.wav';
+
+var sfxCorrect = new Audio(SFX_CORRECT); sfxCorrect.preload = 'auto';
+var sfxWrong   = new Audio(SFX_WRONG);   sfxWrong.preload   = 'auto';
+
+function playSfx(ok) {
+  var a = ok ? sfxCorrect : sfxWrong;
+  a.currentTime = 0; a.play().catch(function(){});
+}
+
+/* ── Grammar → Exercises ── */
+function showExercises() {
+  document.getElementById('screen-grammar').classList.remove('active');
+  document.getElementById('screen-exercises').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+var gb = document.getElementById('grammarContinueBtn');
+gb.addEventListener('click', showExercises);
+gb.addEventListener('touchstart', function(){}, { passive: true });
+gb.addEventListener('touchend', function(e){ e.preventDefault(); showExercises(); });
+
+/* ── Data ── */
+var BASE_ITEMS = [
+  { ingredient: 'flour',  answer: true  },
+  { ingredient: 'sugar',  answer: false },
+  { ingredient: 'butter', answer: true  },
+  { ingredient: 'honey',  answer: false },
+  { ingredient: 'salt',   answer: true  },
+  { ingredient: 'milk',   answer: false }
+];
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+// Shuffle order of questions on page load
+var ITEMS = shuffle(BASE_ITEMS);
+var TOTAL    = ITEMS.length;
+var current  = 0;
+var score    = 0;
+var answered = 0;
+
+var cardEl   = document.getElementById('card');
+var nextBtn  = document.getElementById('nextBtn');
+var counter  = document.getElementById('counter');
+var scoreTxt = document.getElementById('scoreTxt');
+
+function updateScore() { scoreTxt.textContent = score + ' / ' + answered; }
+
+/* ── Tile exercise builder ── */
+function makeTileZone(correct, zoneHint, onDone) {
+  /*
+    Builds one drop-zone + tile bank.
+    Calls onDone() after correct answer is locked.
+  */
+  var wrap = document.createElement('div');
+
+  var pl = document.createElement('div');
+  pl.className = 'phase-label';
+  pl.textContent = zoneHint;
+  wrap.appendChild(pl);
+
+  var zone = document.createElement('div');
+  zone.className = 'drop-zone';
+  var zLabel = document.createElement('div');
+  zLabel.className = 'drop-zone-label';
+  zLabel.textContent = 'Ordena la frase';
+  zone.appendChild(zLabel);
+  wrap.appendChild(zone);
+
+  var bank = document.createElement('div');
+  bank.className = 'tile-bank';
+  wrap.appendChild(bank);
+
+  var feedback = document.createElement('div');
+  feedback.className = 'result-feedback';
+  wrap.appendChild(feedback);
+
+  var zoneTiles = [];
+  var tileEls   = {};
+  var checked   = false;
+  var shaking   = false;
+
+  function tryAutoCheck() {
+    if (checked || shaking) return;
+    if (zoneTiles.length !== correct.length) return;
+
+    if (zoneTiles.join('|') === correct.join('|')) {
+      checked = true;
+      // Grey out only tiles still in the bank, keep zone tiles fully visible
+      Object.keys(tileEls).forEach(function(t) {
+        if (!tileEls[t].inZone) tileEls[t].tileEl.classList.add('disabled');
+        tileEls[t].tileEl.style.pointerEvents = 'none';
+      });
+      zone.classList.add('correct');
+      feedback.className = 'result-feedback visible correct';
+      feedback.textContent = '\u2705 \u00A1Correcto!';
+      playSfx(true);
+      setTimeout(onDone, 400);
+
+    } else {
+      shaking = true;
+      Object.keys(tileEls).forEach(function(t) {
+        if (tileEls[t].inZone) tileEls[t].tileEl.classList.add('wrong-flash');
+      });
+      zone.classList.add('shake');
+      feedback.className = 'result-feedback visible wrong';
+      feedback.textContent = '\u274C Casi\u2026 sigue intentando';
+      playSfx(false);
+
+      setTimeout(function() {
+        zoneTiles.slice().forEach(function(t) {
+          tileEls[t].inZone = false;
+          tileEls[t].tileEl.classList.remove('in-zone', 'wrong-flash');
+          bank.appendChild(tileEls[t].tileEl);
+        });
+        zoneTiles = [];
+        zone.classList.remove('shake');
+        feedback.className = 'result-feedback';
+        shaking = false;
+      }, 800);
+    }
+  }
+
+  function addToZone(text) {
+    if (checked || shaking) return;
+    zoneTiles.push(text);
+    tileEls[text].inZone = true;
+    tileEls[text].tileEl.classList.add('in-zone');
+    zone.appendChild(tileEls[text].tileEl);
+    tryAutoCheck();
+  }
+
+  function removeFromZone(text) {
+    if (checked || shaking) return;
+    var idx = zoneTiles.indexOf(text);
+    if (idx === -1) return;
+    zoneTiles.splice(idx, 1);
+    tileEls[text].inZone = false;
+    tileEls[text].tileEl.classList.remove('in-zone');
+    bank.appendChild(tileEls[text].tileEl);
+  }
+
+  shuffle(correct).forEach(function(text) {
+    var tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.textContent = text;
+    tileEls[text] = { tileEl: tile, inZone: false };
+
+    function handleTap() {
+      if (checked || shaking) return;
+      if (tileEls[text].inZone) { removeFromZone(text); }
+      else { addToZone(text); }
+    }
+
+    tile.addEventListener('click', handleTap);
+    tile.addEventListener('touchstart', function(){}, { passive: true });
+    tile.addEventListener('touchend', function(e){ e.preventDefault(); handleTap(); });
+    bank.appendChild(tile);
+  });
+
+  return wrap;
+}
+
+/* ── Render one question (Q + locked A) ── */
+function render(i) {
+  nextBtn.disabled = true;
+  counter.textContent = 'Pregunta ' + (i + 1) + ' de ' + TOTAL;
+  nextBtn.innerHTML = (i === TOTAL - 1) ? 'Finalizar &rarr;' : 'Siguiente &rarr;';
+
+  var item = ITEMS[i];
+  cardEl.innerHTML = '';
+
+  // Card label
+  var numEl = document.createElement('div');
+  numEl.className = 'card-num';
+  numEl.textContent = 'Pregunta ' + (i + 1);
+  cardEl.appendChild(numEl);
+
+  // ── QUESTION tile zone ──
+  var qCorrect = ['Is there', 'any', item.ingredient + '?'];
+  var qZone = makeTileZone(
+    qCorrect,
+    '\u2753 Forma la pregunta',
+    function() {
+      // Unlock answer section after Q is correct
+      answerSection.classList.add('unlocked');
+      answerSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  );
+  cardEl.appendChild(qZone);
+
+  // ── ANSWER tile zone (locked until Q done) ──
+  var answerSection = document.createElement('div');
+  answerSection.className = 'answer-section';
+
+  var aCorrect = item.answer
+    ? ['There is', 'some', item.ingredient + '.']
+    : ['There is not', 'any', item.ingredient + '.'];
+
+  var aHint = item.answer
+    ? '\u2705 Respuesta \u2014 s\u00ED hay'
+    : '\u274C Respuesta \u2014 no hay';
+
+  var aZone = makeTileZone(aCorrect, aHint, function() {
+    answered++;
+    score++;
+    updateScore();
+    nextBtn.disabled = false;
+    setTimeout(function() {
+      nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 200);
+  });
+  answerSection.appendChild(aZone);
+  cardEl.appendChild(answerSection);
+}
+
+/* ── Next button ── */
+nextBtn.addEventListener('click', function() {
+  if (current < TOTAL - 1) {
+    current++;
+    render(current);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    var key = 'inglesco_progress_u7';
+    try {
+      var raw  = localStorage.getItem(key);
+      var data = raw ? JSON.parse(raw) : {};
+      if (!data.l4) data.l4 = { partsCompleted: 0, partsTotal: 5 };
+      if (data.l4.partsCompleted < 2) data.l4.partsCompleted = 2;
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    counter.textContent = '';
+    scoreTxt.textContent = score + ' / ' + TOTAL;
+    nextBtn.style.display = 'none';
+
+    var pct   = Math.round((score / TOTAL) * 100);
+    var emoji = pct === 100 ? '\uD83C\uDFC6' : pct >= 66 ? '\uD83C\uDF89' : '\uD83D\uDCAA';
+
+    cardEl.innerHTML =
+      '<div class="complete-screen">' +
+        '<div class="emoji">' + emoji + '</div>' +
+        '<h2>\u00A1Parte completada!</h2>' +
+        '<p>Respondiste correctamente:</p>' +
+        '<div class="score-final">' + score + ' / ' + TOTAL + '</div>' +
+        '<p style="margin-bottom:24px">\u00A1Sigue as\u00ED!</p>' +
+        '<a href="p3.html" class="unit-btn">Siguiente parte &rarr;</a>' +
+      '</div>';
+  }
+});
+
+render(0);
+updateScore();
+
+}());
+</script>
+
+</body>
+</html>
