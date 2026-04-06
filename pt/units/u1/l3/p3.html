@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<title>Unidad 1 - Lección 3 - Parte 3</title>
+<title>Unidade 1 - Lição 3 - Parte 3 | Inglesco</title>
+<meta name="description" content="Exercício de ordenação de palavras em inglês. Ouça o diálogo e monte as frases na ordem correta. Aula gratuita para falantes de português.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://inglesco.co/pt/units/u1/l3/p3.html">
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link rel="manifest" href="../../../../manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+
+<!-- Vercel Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
 
 <style>
@@ -384,13 +388,13 @@ a[href^="tel"], a[x-apple-data-detectors] {
 
 <body data-unit="1" data-lesson="3" data-part="3">
 
-<a href="../index.html" class="back-btn">← Lección 3</a>
+<a href="../index.html" class="back-btn">← Lição 3</a>
 
 <div class="wrap">
 
-  <span class="lesson-tag">Unidad 1 · Lección 3 · Parte 3</span>
+  <span class="lesson-tag">Unidade 1 · Lição 3 · Parte 3</span>
   <h1>Where are you from?</h1>
-  <p class="subtitle">Ordena las palabras del diálogo</p>
+  <p class="subtitle">Ordene as palavras do diálogo</p>
 
   <!-- PROGRESS DOTS -->
   <div class="progress-dots">
@@ -407,7 +411,7 @@ a[href^="tel"], a[x-apple-data-detectors] {
       <img src="../../../../assets/images/u1/ana.png" alt="Ana">
       <div>
         <div class="char-name">Ana</div>
-        <div class="char-label">Colombia</div>
+        <div class="char-label">Colômbia</div>
       </div>
     </div>
     <div class="vs">↔</div>
@@ -424,14 +428,14 @@ a[href^="tel"], a[x-apple-data-detectors] {
   <div class="exercise-box">
 
     <div class="instruction-banner">
-      🎧 Escucha cada línea del diálogo y ordena las palabras en el orden correcto. Toca ▶ para escuchar, luego toca las palabras para armarlas.
+      🎧 Ouça cada linha do diálogo e ordene as palavras na sequência correta. Toque em ▶ para ouvir, depois toque nas palavras para montar a frase.
     </div>
 
     <div class="dialogue-container" id="dialogueContainer"></div>
 
   </div>
 
-  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+  <button class="next-btn" id="nextBtn" disabled>Próximo →</button>
 
 </div>
 
@@ -594,7 +598,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const row = document.createElement("div");
     row.classList.add("dialogue-row");
-    // Lock if: not first row AND previous not done (unless already done itself)
     if (index !== 0 && !alreadyDone && !completedRows.has(index - 1)) {
       row.classList.add("locked");
     }
@@ -628,7 +631,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkBtn.classList.add("check-btn");
 
     const hintBtn = document.createElement("button");
-    hintBtn.textContent = "💡 Ayuda";
+    hintBtn.textContent = "💡 Dica";
     hintBtn.classList.add("hint-btn");
 
     const feedback = document.createElement("span");
@@ -650,7 +653,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (userOrder.length === 0) {
         const placeholder = document.createElement("span");
         placeholder.classList.add("answer-placeholder");
-        placeholder.textContent = "Toca las fichas para armar la oración...";
+        placeholder.textContent = "Toque nas fichas para montar a frase...";
         answerContainer.appendChild(placeholder);
       }
 
@@ -658,11 +661,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const span = document.createElement("span");
         span.textContent = chunk;
         span.classList.add("word");
-        span.title = "Toca para quitar";
+        span.title = "Toque para remover";
 
         (function(capturedIndex) {
           onTap(span, () => {
-            if (alreadyDone) return; // guard completed rows
+            if (alreadyDone) return;
             bankChunks.push(userOrder[capturedIndex]);
             userOrder.splice(capturedIndex, 1);
             renderBank();
@@ -673,7 +676,6 @@ document.addEventListener("DOMContentLoaded", function () {
         answerContainer.appendChild(span);
       });
 
-      // Disable hint if bank empty
       hintBtn.disabled = bankChunks.length === 0;
 
       if (allPlaced) {
@@ -708,7 +710,6 @@ document.addEventListener("DOMContentLoaded", function () {
       hintBtn.disabled = true;
       wordContainer.style.display = "none";
 
-      // Pulse + green tiles
       answerContainer.querySelectorAll(".word").forEach(w => {
         w.classList.add("correct-pulse");
         w.style.background = "#bbf7d0";
@@ -721,7 +722,6 @@ document.addEventListener("DOMContentLoaded", function () {
       saveProgress();
       checkAllComplete();
 
-      // Unlock next row
       const nextRow = container.children[index + 1];
       if (nextRow) {
         nextRow.classList.remove("locked");
@@ -797,7 +797,6 @@ document.addEventListener("DOMContentLoaded", function () {
       hintBtn.disabled = true;
       feedback.textContent = "✅";
       feedback.style.color = "green";
-      // Show completed answer tiles
       userOrder = [...item.chunks];
       renderAnswer();
       answerContainer.querySelectorAll(".word").forEach(w => {
@@ -813,7 +812,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Unlock rows that should be open based on restored progress
+  // Unlock rows based on restored progress
   dialogues.forEach((_, index) => {
     const row = container.children[index];
     if (row && (index === 0 || completedRows.has(index - 1) || completedRows.has(index))) {

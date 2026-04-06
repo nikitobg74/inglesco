@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<title>Unidad 1 - Lección 3 - Parte 4</title>
+<title>Unidade 1 - Lição 3 - Parte 4 | Inglesco</title>
+<meta name="description" content="Exercício de números em inglês. Ouça o áudio e selecione o número correto. Aula gratuita de inglês para falantes de português.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://inglesco.co/pt/units/u1/l3/p4.html">
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link rel="manifest" href="../../../../manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -122,7 +125,7 @@ h1 {
 
 .exercise-text { text-align:center; margin-bottom: 20px; }
 .exercise-text .en { font-size:17px; color:#1e40af; font-weight:700; }
-.exercise-text .es { font-size:13px; color:#486581; display:block; margin-top:4px; }
+.exercise-text .pt { font-size:13px; color:#486581; display:block; margin-top:4px; }
 
 .matching-container {
   display: flex;
@@ -283,13 +286,13 @@ h1 {
 
 <body data-unit="1" data-lesson="3" data-part="4">
 
-<a href="../index.html" class="back-btn">← Lección 3</a>
+<a href="../index.html" class="back-btn">← Lição 3</a>
 
 <div class="wrap">
 
-  <span class="lesson-tag">Unidad 1 · Lección 3 · Parte 4</span>
+  <span class="lesson-tag">Unidade 1 · Lição 3 · Parte 4</span>
   <h1>Numbers</h1>
-  <p class="subtitle">Escucha y selecciona el número correcto</p>
+  <p class="subtitle">Ouça e selecione o número correto</p>
 
   <!-- PROGRESS DOTS -->
   <div class="progress-dots">
@@ -305,7 +308,7 @@ h1 {
 
     <p class="exercise-text">
       <span class="en">Listen to the audio and click the correct number.</span>
-      <span class="es">Escucha el audio y selecciona el número correcto.</span>
+      <span class="pt">Ouça o áudio e selecione o número correto.</span>
     </p>
 
     <div class="matching-container">
@@ -318,7 +321,7 @@ h1 {
 
   </div>
 
-  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+  <button class="next-btn" id="nextBtn" disabled>Próximo →</button>
 
 </div>
 
@@ -403,7 +406,7 @@ const AUDIO_BASE  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/
   shuffled.forEach(item => {
     const box = document.createElement("div");
     box.className = "audio-box";
-    box.textContent = "🔊 Listen";
+    box.textContent = "🔊 Ouvir";
     box.dataset.num = item.num;
 
     if (completedNums.has(item.num)) {
@@ -443,7 +446,7 @@ const AUDIO_BASE  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/
         const activeBox = document.querySelector(".audio-box.active");
         if (activeBox) { activeBox.classList.remove("active"); activeBox.classList.add("answered"); }
         feedback.style.color = "#16a34a";
-        feedback.textContent = Math.random() > 0.5 ? "¡Excelente!" : "¡Muy bien!";
+        feedback.textContent = Math.random() > 0.5 ? "Excelente!" : "Muito bem!";
         completedNums.add(currentTarget.num);
         saveProgress();
         currentTarget = null;
@@ -452,7 +455,7 @@ const AUDIO_BASE  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/
       } else {
         card.classList.add("wrong");
         feedback.style.color = "#dc2626";
-        feedback.textContent = "❌ Intentar otra vez";
+        feedback.textContent = "❌ Tente novamente";
         setTimeout(() => { card.classList.remove("wrong"); feedback.textContent = ""; }, 800);
       }
     });
