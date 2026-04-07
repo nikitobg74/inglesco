@@ -5,300 +5,832 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unidad 3 – Lección 1 – P1</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    body{
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      margin: 0;
     }
 
-    .wrap{
-      max-width: 980px;
+    .wrap {
+      max-width: 680px;
       margin: 0 auto;
     }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
     }
-    .back-btn:hover{ background:#1e40af; }
+    .back-btn:hover { background: #1e40af; }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px 0;
     }
-    .step{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+      color: #1f2933;
+      user-select: none;
     }
-    .step.active{
-      background:#2563eb;
-      color:#fff;
-    }
-    .step:hover{ transform:scale(1.1); }
-    .step.locked{
-      opacity:.55;
-      cursor:not-allowed;
-      transform:none !important;
-    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover:not(.locked) { transform: scale(1.1); }
+    .step.locked { opacity: .5; cursor: not-allowed; }
 
-    /* ===== NEXT BUTTON (BOTTOM) ===== */
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:25px;
-      padding-bottom: 10px;
-    }
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
-
-    /* ===== CARDS / SECTIONS ===== */
-    h1{
-      font-size: 22px;
-      margin: 0 0 8px 0;
-    }
-    .subtitle{
-      margin: 0 0 18px 0;
-      font-size: 16px;
-      line-height: 1.35;
-    }
-
-    .section{
-      background: rgba(255,255,255,.85);
-      border: 1px solid rgba(15,23,42,.08);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    /* ── SCORE BADGE ── */
+    .score-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 18px;
     }
-
-    .section-title{
-      font-size: 18px;
-      margin: 0 0 10px 0;
-      font-weight: 900;
+    .score-badge {
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2563eb;
+      letter-spacing: .3px;
+    }
+    .score-label {
+      font-size: 13px;
+      color: #475569;
+      font-weight: 600;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* ── PAGE HEADING ── */
+    h1 { font-size: 20px; margin: 0 0 6px 0; font-weight: 900; }
+    .subtitle {
+      margin: 0 0 18px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 900;
+      margin: 0 0 12px 0;
+      color: #0f172a;
+    }
+
+    /* ── VOCAB GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
-    .card{
-      background:#fff;
+    .card {
+      background: #fff;
       border-radius: 16px;
       border: 1px solid rgba(15,23,42,.08);
       padding: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.06);
-      display:flex;
-      flex-direction:column;
+      box-shadow: 0 3px 10px rgba(0,0,0,.06);
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
 
-    .imgbox{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: rgba(219,234,254,.55);
-      border-radius: 14px;
-      padding: 10px;
-      overflow:hidden;
-    }
-    .imgbox img{
-      max-width: 100%;
-      height: auto;
-      display:block;
+    /* ── IMAGE BOX ── */
+    .imgbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f1f5f9;
       border-radius: 12px;
+      padding: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .imgbox img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 10px;
     }
 
-    .play-row{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap: wrap;
-    }
-
-    .btn{
+    /* ── PLAY BTN ── */
+    .btn {
       border: 0;
-      background:#2563eb;
-      color:#fff;
-      font-weight: 900;
+      background: #2563eb;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 14px;
       padding: 10px 12px;
       border-radius: 12px;
-      cursor:pointer;
-      min-width: 150px;
-      text-align:center;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: background .15s, transform .1s;
     }
-    .btn:hover{ background:#1e40af; }
-    .btn:disabled{
-      opacity:.6;
-      cursor:not-allowed;
-    }
-
-    .lines{
-      display:flex;
-      flex-direction:column;
-      gap: 4px;
-      font-size: 15px;
-      line-height: 1.25;
-    }
-    .en{
-      font-weight: 900;
-      font-size: 16px;
-    }
-    .es{
-      font-weight: 700;
-      color:#334155;
-    }
-    .mini{
-      font-size: 13px;
-      color:#475569;
+    .btn:hover:not(:disabled) { background: #1e40af; }
+    .btn:active:not(:disabled) { transform: scale(.97); }
+    .btn:disabled { opacity: .55; cursor: not-allowed; }
+    .btn.played {
+      background: #16a34a;
     }
 
-    .ing{
-      color: #dc2626;
-      font-weight: 900;
+    /* ── VOCAB TEXT LINES ── */
+    .lines { display: flex; flex-direction: column; gap: 3px; font-size: 14px; }
+    .en { font-weight: 900; font-size: 15px; }
+    .es { font-weight: 700; color: #334155; }
+    .ing { color: #dc2626; font-weight: 900; }
+
+    /* ── DRILL CARDS ── */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-7px); }
+      40%      { transform: translateX(7px); }
+      60%      { transform: translateX(-5px); }
+      80%      { transform: translateX(5px); }
     }
 
-    /* ===== PART 2 ===== */
-    .drill{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
+    .drill-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid rgba(15,23,42,.08);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+      transition: border-color .25s;
     }
+    .drill-card.correct-card { border-color: rgba(34,197,94,.55); }
+    .drill-card.fade-in { animation: fadeSlideIn .35s ease both; }
+    .drill-card:last-child { margin-bottom: 0; }
 
-    .drill .phrase{
-      font-size: 16px;
-      font-weight: 900;
-      line-height: 1.25;
+    /* ── DRILL TOP ROW: thumbnail + controls ── */
+    .drill-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-
-    .drill .hint{
-      font-size: 14px;
-      color:#334155;
-      margin-top: -2px;
+    .drill-thumb {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+      background: #f1f5f9;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
-    .input-row{
-      display:flex;
-      gap: 10px;
-      align-items:center;
+    .drill-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .drill-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .drill-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       flex-wrap: wrap;
     }
-
-    .word-input{
-      flex: 1 1 220px;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border: 2px solid rgba(15,23,42,.18);
-      font-size: 16px;
-      outline: none;
-      background: #fff;
-    }
-    .word-input:disabled{
-      background: rgba(241,245,249,.9);
-      cursor:not-allowed;
-    }
-
-    .status{
+    .drill-num {
+      background: #dbeafe;
+      color: #1e40af;
       font-weight: 900;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(241,245,249,.9);
-      border: 1px solid rgba(15,23,42,.12);
-      min-width: 120px;
-      text-align:center;
+      font-size: 12px;
+      border-radius: 8px;
+      padding: 3px 9px;
+      flex-shrink: 0;
     }
-    .ok{
-      background: rgba(34,197,94,.12);
-      border-color: rgba(34,197,94,.35);
+    .drill-play {
+      flex: 1 1 auto;
+    }
+    .status-badge {
+      font-weight: 900;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      border: 1px solid rgba(15,23,42,.1);
+      min-width: 44px;
+      text-align: center;
+      transition: background .2s, color .2s;
+      flex-shrink: 0;
+    }
+    .status-badge.ok {
+      background: rgba(34,197,94,.14);
+      border-color: rgba(34,197,94,.4);
       color: #166534;
     }
 
-    .collapsed{ display:none; }
+    .phrase {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
 
-    /* ===== MOBILE SAFE ===== */
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-      .grid{ grid-template-columns: 1fr; }
-      .btn{ width: 100%; min-width: unset; }
-      h1{ font-size: 20px; }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .word-input {
+      flex: 1;
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: 2px solid rgba(15,23,42,.15);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      background: #fff;
+      transition: border-color .2s;
+    }
+    .word-input:focus { border-color: #2563eb; }
+    .word-input.correct-input { border-color: rgba(34,197,94,.65); background: rgba(240,253,244,.7); }
+    .word-input.wrong-input {
+      border-color: #ef4444;
+      animation: shake .4s ease;
+    }
+    .word-input:disabled { background: rgba(241,245,249,.9); cursor: not-allowed; }
+
+    .submit-btn {
+      border: 0;
+      background: #2563eb;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .15s;
+      flex-shrink: 0;
+    }
+    .submit-btn:hover:not(:disabled) { background: #1e40af; }
+    .submit-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+    .near-miss-hint {
+      font-size: 12px;
+      color: #b45309;
+      font-weight: 700;
+      min-height: 16px;
+    }
+
+    .hint-text {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* ── LISTEN PROMPT ── */
+    .listen-prompt {
+      font-size: 13px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    /* ── VOCAB GATE NOTICE ── */
+    .gate-notice {
+      font-size: 13px;
+      color: #92400e;
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    /* ── NEXT BTN ── */
+    .footer-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      padding-bottom: 12px;
+    }
+    .next-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 16px;
+      transition: background .15s, transform .1s;
+    }
+    .next-btn:hover { background: #1e40af; }
+    .next-btn:active { transform: scale(.97); }
+
+    /* ── COMPLETION BANNER ── */
+    .completion-banner {
+      display: none;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 2px solid rgba(34,197,94,.4);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .completion-banner.visible { display: block; }
+    .completion-banner h2 { margin: 0 0 4px; font-size: 20px; font-weight: 900; color: #166534; }
+    .completion-banner p { margin: 0; font-size: 14px; color: #166534; font-weight: 600; }
+
+    .hidden { display: none !important; }
+    .collapsed { display: none !important; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 18px; }
+      .step { width: 34px; height: 34px; font-size: 14px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+<div class="wrap">
 
-    <!-- Progress 1-4 -->
-    <div class="progress-container" aria-label="Progreso de la lección">
-      <div class="step active" data-go="p1.html" aria-current="page">1</div>
-      <div class="step" data-go="p2.html">2</div>
-<div class="step" data-go="p3.html">3</div>
-<div class="step" data-go="p4.html">4</div>
-    </div>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
 
-    <h1>Lección 1 – What are you doing?</h1>
-    <p class="subtitle">
-      <b>Parte 1:</b> Mira la imagen, toca <b>Escuchar</b> y repite.<br/>
-      <b>Parte 2:</b> Escucha el diálogo y <b>escribe la palabra</b>.
-    </p>
-
-    <!-- PART 1 -->
-    <section class="section" aria-label="Parte 1">
-      <div class="section-title">Parte 1 · Verbos</div>
-      <div id="vocabGrid" class="grid"></div>
-    </section>
-
-    <!-- PART 2 -->
-    <section class="section" aria-label="Parte 2">
-      <div class="section-title">Parte 2 · Escucha y escribe</div>
-      <p class="mini" style="margin-top:-4px;">
-        Primero escucha el audio. Después escribe la palabra correcta (termina en <span class="ing">-ing</span>).
-      </p>
-
-      <div id="drillList" class="drill"></div>
-    </section>
-
-    <!-- Next button -->
-    <div class="footer-actions">
-      <a id="nextBtn" class="next-btn hidden" href="p2.html">Continuar</a>
-    </div>
+  <!-- Progress dots -->
+  <div class="progress-container" aria-label="Progreso de la lección">
+    <div class="step active" data-go="p1.html" aria-current="page">1</div>
+    <div class="step" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
   </div>
 
-  <script src="../../../../js/u3/u3_l1_p1.js"></script>
+  <!-- Score bar -->
+  <div class="score-bar">
+    <span class="score-label">Puntaje:</span>
+    <span class="score-badge" id="scoreBadge">0 / 8</span>
+  </div>
+
+  <h1>Lección 1 – What are you doing?</h1>
+  <p class="subtitle">
+    <b>Parte 1:</b> Mira la imagen, toca <b>Escuchar</b> y repite.<br>
+    <b>Parte 2:</b> Escucha el diálogo y <b>escribe la palabra</b> que falta.
+  </p>
+
+  <!-- PART 1: Vocab -->
+  <section class="section" aria-label="Parte 1">
+    <div class="section-title">Parte 1 · Verbos</div>
+    <div id="vocabGrid" class="grid"></div>
+  </section>
+
+  <!-- PART 2: Drills -->
+  <section class="section" aria-label="Parte 2">
+    <div class="section-title">Parte 2 · Escucha y escribe</div>
+    <p class="hint-text" style="margin: -6px 0 10px">
+      Escucha el audio, luego escribe la palabra correcta (termina en <span class="ing">-ing</span>).
+    </p>
+    <div class="gate-notice" id="gateNotice">
+      🔒 Escucha todos los verbos de la Parte 1 primero.
+    </div>
+    <div id="drillList"></div>
+  </section>
+
+  <!-- Completion banner -->
+  <div class="completion-banner" id="completionBanner">
+    <h2>🎉 ¡Excelente!</h2>
+    <p id="completionMsg">Completaste la Parte 1.</p>
+  </div>
+
+  <!-- Next -->
+  <div class="footer-actions">
+    <a id="nextBtn" class="next-btn hidden" href="p2.html">Continuar →</a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  /* ── CONFIG ── */
+  const SB = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG  = SB + "images/u3/";
+  const AUD  = SB + "audio/u3/";
+  const SFX_CORRECT = SB + "audio/u3/correct.wav";
+
+  /* ── VOCAB DATA ── */
+  const VOCAB = [
+    { img:"u3.l1.p1.woman.eating.jpg",    audio:"u3.l1.p1.eating.mp3",    baseEn:"eat",             baseEs:"comer",           ingEn:"eating",           ingEs:"comiendo" },
+    { img:"u3.l1.p1.woman.drinking.jpg",  audio:"u3.l1.p1.drinking.mp3",  baseEn:"drink",           baseEs:"beber",           ingEn:"drinking",         ingEs:"bebiendo" },
+    { img:"u3.l1.p1.woman.cooking.jpg",   audio:"u3.l1.p1.cooking.mp3",   baseEn:"cook",            baseEs:"cocinar",         ingEn:"cooking",          ingEs:"cocinando" },
+    { img:"u3.l1.p1.woman.reading.jpg",   audio:"u3.l1.p1.reading.mp3",   baseEn:"read",            baseEs:"leer",            ingEn:"reading",          ingEs:"leyendo" },
+    { img:"u3.l1.p1.man.watching.jpg",    audio:"u3.l1.p1.watching.mp3",  baseEn:"watch TV",        baseEs:"ver TV",          ingEn:"watching TV",      ingEs:"viendo TV" },
+    { img:"u3.l1.p1.man.playing.jpg",     audio:"u3.l1.p1.playing.mp3",   baseEn:"play football",   baseEs:"jugar al fútbol", ingEn:"playing football", ingEs:"jugando al fútbol" },
+    { img:"u3.l1.p1.woman.singing.jpg",   audio:"u3.l1.p1.singing.mp3",   baseEn:"sing",            baseEs:"cantar",          ingEn:"singing",          ingEs:"cantando" },
+    { img:"u3.l1.p1.woman.listening.jpg", audio:"u3.l1.p1.listening.mp3", baseEn:"listen to music", baseEs:"escuchar música", ingEn:"listening to music",ingEs:"escuchando música" },
+  ];
+
+  /* ── DRILL DATA ── */
+  const DRILLS = [
+    { img:"u3.l1.p1.woman.eating.jpg",   audio:"u3.l1.p1.emma.mp3",   phrase:"Emma is at home. She is eating.",               answer:"eating" },
+    { img:"u3.l1.p1.man.drinking.jpg",   audio:"u3.l1.p1.john.mp3",   phrase:"John is in the bedroom. He is drinking.",        answer:"drinking" },
+    { img:"u3.l1.p1.woman.cooking2.jpg", audio:"u3.l1.p1.martha.mp3", phrase:"Martha is in the kitchen. She is cooking.",      answer:"cooking" },
+    { img:"u3.l1.p1.woman.reading2.jpg", audio:"u3.l1.p1.jane.mp3",   phrase:"Jane is in the bedroom. She is reading a book.", answer:"reading" },
+    { img:"u3.l1.p1.man.watching.jpg",   audio:"u3.l1.p1.mateo.mp3",  phrase:"Mateo is in the living room. He is watching TV.",answer:"watching" },
+    { img:"u3.l1.p1.man.playing.jpg",    audio:"u3.l1.p1.henry.mp3",  phrase:"Henry is at the park. He is playing football.",  answer:"playing" },
+    { img:"u3.l1.p1.woman.singing2.jpg", audio:"u3.l1.p1.sherri.mp3", phrase:"Sherri is at the theater. She is singing.",      answer:"singing" },
+    { img:"u3.l1.p1.man.listening.jpg",  audio:"u3.l1.p1.iam.mp3",    phrase:"I am at home. I am listening to music.",         answer:"listening" },
+  ];
+
+  /* ── HELPERS ── */
+  const $ = id => document.getElementById(id);
+  const sfxCorrect = new Audio(SFX_CORRECT);
+
+  function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function hlIng(w) {
+    const s = String(w??'');
+    if (s.toLowerCase().endsWith('ing') && s.length > 3) {
+      return esc(s.slice(0,-3)) + '<span class="ing">' + esc(s.slice(-3)) + '</span>';
+    }
+    return esc(s);
+  }
+
+  function makeAudio(){ const a = new Audio(); a.preload='auto'; return a; }
+
+  function setBusy(btn, busy){
+    btn.disabled = busy;
+    btn.dataset.busy = busy ? '1' : '0';
+  }
+
+  /* ── SCORE STATE ── */
+  const state = {
+    correctCount: 0,
+    drillListened: new Array(DRILLS.length).fill(false),
+    drillCorrect:  new Array(DRILLS.length).fill(false),
+  };
+
+  function updateScore(){
+    $('scoreBadge').textContent = state.correctCount + ' / ' + DRILLS.length;
+  }
+
+  /* ── PROGRESS NAV ── */
+  function lockSteps(locked){
+    document.querySelectorAll('.step').forEach(s => {
+      if (!s.dataset.go || s.dataset.go === 'p1.html') return;
+      s.classList.toggle('locked', locked);
+      locked ? s.setAttribute('aria-disabled','true') : s.removeAttribute('aria-disabled');
+    });
+  }
+
+  document.querySelectorAll('.step').forEach(s => {
+    s.addEventListener('click', () => {
+      if (s.classList.contains('locked')) return;
+      const go = s.dataset.go;
+      if (go) window.location.href = go;
+    });
+  });
+
+  /* ── COMPLETION ── */
+  function checkCompletion(){
+    const allDone = state.drillListened.every(Boolean) && state.drillCorrect.every(Boolean);
+    if (!allDone) return;
+
+    // Save progress
+    try {
+      const saved = JSON.parse(localStorage.getItem('inglesco_progress_u3') || '{}');
+      if (!saved.l1) saved.l1 = {};
+      const prev = saved.l1.partsCompleted || 0;
+      if (prev < 1) {
+        saved.l1.partsCompleted = 1;
+        saved.l1.partsTotal = saved.l1.partsTotal || 4;
+      }
+      localStorage.setItem('inglesco_progress_u3', JSON.stringify(saved));
+
+      // furthest
+      const fk = 'inglesco_furthest_u3_l1';
+      const prevFurthest = parseInt(localStorage.getItem(fk)||'0',10);
+      if (prevFurthest < 1) localStorage.setItem(fk,'1');
+    } catch(e){}
+
+    lockSteps(false);
+    const banner = $('completionBanner');
+    banner.classList.add('visible');
+    $('completionMsg').textContent = '¡Puntaje: ' + state.correctCount + ' de ' + DRILLS.length + '! Continúa a la Parte 2.';
+    $('nextBtn').classList.remove('hidden');
+    $('nextBtn').scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+
+  /* ── LEVENSHTEIN (typo tolerance) ── */
+  function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array.from({length: m+1}, (_,i) => [i, ...Array(n).fill(0)]);
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+    for (let i = 1; i <= m; i++)
+      for (let j = 1; j <= n; j++)
+        dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1]
+          : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    return dp[m][n];
+  }
+
+  /* ── VOCAB GATE ── */
+  // tracks how many vocab audios have been played at least once
+  const vocabPlayed = new Array(VOCAB.length).fill(false);
+  let drillsUnlocked = false;
+
+  function checkVocabGate() {
+    const allPlayed = vocabPlayed.every(Boolean);
+    if (allPlayed && !drillsUnlocked) {
+      drillsUnlocked = true;
+      $('gateNotice').style.display = 'none';
+      // reveal first drill
+      const first = $('drillList').querySelector('.drill-card[data-drill="0"]');
+      if (first) {
+        first.classList.remove('collapsed');
+        first.classList.add('fade-in');
+      }
+    }
+  }
+
+  /* ── RENDER VOCAB ── */
+  function renderVocab(){
+    const grid = $('vocabGrid');
+    const aud  = makeAudio();
+
+    grid.innerHTML = VOCAB.map((v,i) => `
+      <div class="card">
+        <div class="imgbox">
+          <img src="${IMG + v.img}" alt="${esc(v.ingEn)}" loading="lazy">
+        </div>
+        <button class="btn vocab-play" type="button" data-audio="${v.audio}" data-idx="${i}" data-busy="0">
+          🔊 Escuchar
+        </button>
+        <div class="lines">
+          <div class="en">${esc(v.baseEn)} → ${hlIng(v.ingEn)}</div>
+          <div class="es">${esc(v.baseEs)} → ${esc(v.ingEs)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    grid.addEventListener('click', async e => {
+      const btn = e.target.closest('.vocab-play');
+      if (!btn || btn.dataset.busy === '1') return;
+      setBusy(btn, true);
+      const idx = Number(btn.dataset.idx);
+      try {
+        aud.pause(); aud.currentTime = 0;
+        aud.src = AUD + btn.dataset.audio;
+        await aud.play();
+        // Mark played immediately once audio starts — never wait for onended
+        if (isFinite(idx) && !vocabPlayed[idx]) {
+          vocabPlayed[idx] = true;
+          checkVocabGate();
+        }
+        btn.classList.add('played');
+        btn.textContent = '✓ Escuchado';
+        aud.onended = () => setBusy(btn, false);
+        // Safety fallback: unblock if onended never fires
+        setTimeout(() => { if (btn.dataset.busy === '1') setBusy(btn, false); },
+          ((isFinite(aud.duration) ? aud.duration : 4) * 1000) + 800);
+      } catch {
+        // Even on error, mark played so gate never gets permanently stuck
+        if (isFinite(idx) && !vocabPlayed[idx]) {
+          vocabPlayed[idx] = true;
+          checkVocabGate();
+        }
+        btn.classList.add('played');
+        btn.textContent = '✓ Escuchado';
+        setBusy(btn, false);
+      }
+    });
+  }
+
+  /* ── SUBMIT DRILL ── */
+  function submitDrill(idx) {
+    const list   = $('drillList');
+    const card   = list.querySelector(`.drill-card[data-drill="${idx}"]`);
+    const inp    = $('input' + idx);
+    const badge  = $('status' + idx);
+    const hint   = $('hint' + idx);
+    if (!inp || state.drillCorrect[idx]) return;
+
+    const answer = (inp.dataset.answer||'').trim().toLowerCase();
+    const typed  = (inp.value||'').trim().toLowerCase();
+    if (!typed) return;
+
+    if (typed === answer) {
+      // Exact correct
+      state.drillCorrect[idx] = true;
+      state.correctCount++;
+      updateScore();
+      inp.disabled = true;
+      inp.classList.remove('wrong-input');
+      inp.classList.add('correct-input');
+      card.classList.add('correct-card');
+      badge.textContent = '✓';
+      badge.classList.add('ok');
+      $('prompt' + idx).textContent = '¡Correcto!';
+      if (hint) hint.textContent = '';
+      try { sfxCorrect.currentTime = 0; sfxCorrect.play(); } catch(e){}
+      setTimeout(() => {
+        const next = list.querySelector(`.drill-card[data-drill="${idx+1}"]`);
+        if (next) {
+          next.classList.remove('collapsed');
+          next.classList.add('fade-in');
+          next.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+        checkCompletion();
+      }, 900);
+
+    } else if (levenshtein(typed, answer) === 1) {
+      // Near miss — nudge, don't count as wrong
+      if (hint) hint.textContent = '¡Casi! Revisa la ortografía.';
+      inp.classList.remove('wrong-input');
+      void inp.offsetWidth; // reflow to re-trigger animation if needed
+      inp.classList.add('wrong-input');
+      setTimeout(() => inp.classList.remove('wrong-input'), 450);
+
+    } else {
+      // Wrong
+      if (hint) hint.textContent = '';
+      inp.classList.remove('wrong-input');
+      void inp.offsetWidth;
+      inp.classList.add('wrong-input');
+      setTimeout(() => inp.classList.remove('wrong-input'), 450);
+      badge.textContent = '—';
+      badge.classList.remove('ok');
+    }
+  }
+
+  /* ── RENDER DRILLS ── */
+  function renderDrills(){
+    const list  = $('drillList');
+    const aud   = makeAudio();
+
+    // All cards start collapsed; first one revealed only after vocab gate
+    list.innerHTML = DRILLS.map((d,i) => {
+      const phraseHtml = esc(d.phrase).replace(
+        new RegExp(`\\b${d.answer}\\b`,'i'),
+        hlIng(d.answer)
+      );
+      return `
+        <div class="drill-card collapsed" data-drill="${i}">
+          <div class="drill-top">
+            <div class="drill-thumb">
+              <img src="${IMG + d.img}" alt="" loading="lazy">
+            </div>
+            <div class="drill-controls">
+              <div class="drill-header">
+                <span class="drill-num">${i+1} / ${DRILLS.length}</span>
+                <button class="btn drill-play" type="button" data-audio="${d.audio}" data-busy="0">
+                  🔊 Escuchar
+                </button>
+                <span class="status-badge" id="status${i}">—</span>
+              </div>
+            </div>
+          </div>
+          <div class="phrase">${phraseHtml}</div>
+          <p class="listen-prompt" id="prompt${i}">Primero escucha el audio.</p>
+          <div class="input-row">
+            <input class="word-input" id="input${i}" type="text" inputmode="latin"
+              autocomplete="off" spellcheck="false"
+              placeholder="Escribe la palabra -ing…"
+              data-answer="${esc(d.answer)}" disabled>
+            <button class="submit-btn" id="submitBtn${i}" type="button" disabled>OK</button>
+          </div>
+          <div class="near-miss-hint" id="hint${i}"></div>
+        </div>
+      `;
+    }).join('');
+
+    // Show gate notice until all vocab played
+    $('gateNotice').style.display = 'block';
+
+    /* play button */
+    list.addEventListener('click', async e => {
+      const btn = e.target.closest('.drill-play');
+      if (!btn || btn.dataset.busy === '1') return;
+      const card = btn.closest('.drill-card');
+      const idx  = Number(card?.dataset.drill);
+      if (!isFinite(idx)) return;
+
+      setBusy(btn, true);
+
+      function unlockDrillInput(idx, btn) {
+        if (state.drillListened[idx]) return; // already unlocked
+        state.drillListened[idx] = true;
+        btn.classList.add('played');
+        btn.textContent = '✓ Escuchado';
+        const inp = $('input' + idx);
+        const sub = $('submitBtn' + idx);
+        if (inp && !state.drillCorrect[idx]) {
+          inp.disabled = false;
+          if (sub) sub.disabled = false;
+          inp.focus();
+          $('prompt' + idx).textContent = 'Escribe la palabra que falta.';
+        }
+      }
+
+      try {
+        aud.pause(); aud.currentTime = 0;
+        aud.src = AUD + btn.dataset.audio;
+        await aud.play();
+        // Unlock input immediately after play() resolves — never wait for onended
+        unlockDrillInput(idx, btn);
+        aud.onended = () => setBusy(btn, false);
+        // Safety fallback: unblock button if onended never fires
+        setTimeout(() => { if (btn.dataset.busy === '1') setBusy(btn, false); },
+          ((isFinite(aud.duration) ? aud.duration : 4) * 1000) + 800);
+      } catch {
+        // Even on play() error, unlock input so user is never permanently stuck
+        unlockDrillInput(idx, btn);
+        setBusy(btn, false);
+      }
+    });
+
+    /* submit button click */
+    list.addEventListener('click', e => {
+      const btn = e.target.closest('.submit-btn');
+      if (!btn) return;
+      const card = btn.closest('.drill-card');
+      const idx  = Number(card?.dataset.drill);
+      if (isFinite(idx)) submitDrill(idx);
+    });
+
+    /* Enter key in input */
+    list.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const inp = e.target.closest('.word-input');
+      if (!inp) return;
+      const card = inp.closest('.drill-card');
+      const idx  = Number(card?.dataset.drill);
+      if (isFinite(idx)) { e.preventDefault(); submitDrill(idx); }
+    });
+  }
+
+  /* ── INIT ── */
+  function init(){
+    renderVocab();
+    renderDrills();
+    updateScore();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
 </body>
 </html>

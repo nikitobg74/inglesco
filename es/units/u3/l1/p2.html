@@ -6,234 +6,802 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unidad 3 – Lección 1 – P2</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    body{
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
-    }
-    .wrap{ max-width: 680px; margin: 0 auto; }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      margin: 0;
     }
-    .back-btn:hover{ background:#1e40af; }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
     }
-    .step{
-      width:40px; height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:600; cursor:pointer; transition:all .3s;
-      color:#1f2933; user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
 
-    /* ===== FOOTER ===== */
-    .footer-actions{
-      display:flex; justify-content:center;
-      margin-top:25px; padding-bottom:10px;
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
     }
-    .next-btn{
-      display:inline-block; padding:10px 28px;
-      background:#2563eb; color:#fff;
-      text-decoration:none; border-radius:12px; font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
+    .back-btn:hover { background: #1e40af; }
 
-    /* ===== CARD ===== */
-    .section{
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px 0;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+      color: #1f2933;
+      user-select: none;
+    }
+    .step.active  { background: #2563eb; color: #fff; }
+    .step.done    { background: #16a34a; color: #fff; }
+    .step:hover   { transform: scale(1.1); }
+
+    /* ── SCORE BAR ── */
+    .score-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .score-badge {
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2563eb;
+    }
+    .score-label {
+      font-size: 13px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* ── HEADING ── */
+    h1 {
+      font-size: 20px;
+      margin: 0 0 4px 0;
+      font-weight: 900;
+      text-align: center;
+    }
+    .subtitle {
+      margin: 0 0 16px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+      color: #334155;
+    }
+
+    /* ── MAIN CARD ── */
+    .section {
       background: rgba(255,255,255,.88);
       border: 1px solid rgba(15,23,42,.08);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.07);
     }
 
-    h1{ font-size: 22px; margin: 0 0 6px 0; text-align:center; }
-    .subtitle{
-      margin: 0 0 16px 0; font-size: 15px;
-      line-height: 1.5; text-align:center; color:#334155;
-    }
-    .counter{
-      font-weight:800; text-align:center;
-      font-size:14px; color:#1e3a8a; margin-bottom:14px;
+    .counter {
+      font-weight: 800;
+      text-align: center;
+      font-size: 13px;
+      color: #1e3a8a;
+      margin-bottom: 12px;
+      letter-spacing: .3px;
     }
 
-    .imgbox{
-      display:flex; justify-content:center; align-items:center;
-      background: rgba(219,234,254,.55);
-      border-radius: 14px; padding: 10px;
+    /* ── IMAGE ── */
+    .imgbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 8px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .imgbox img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* ── PLAY BUTTON ── */
+    .play-btn {
+      border: 0;
+      background: #2563eb;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 13px;
+      border-radius: 13px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: background .15s, transform .1s;
       margin-bottom: 16px;
     }
-    .imgbox img{
-      max-width:100%; max-height:260px;
-      object-fit:contain; border-radius:12px; display:block;
+    .play-btn:hover:not(:disabled) { background: #1e40af; }
+    .play-btn:active:not(:disabled) { transform: scale(.98); }
+    .play-btn:disabled { opacity: .55; cursor: not-allowed; }
+    .play-btn.replaying { background: #0369a1; }
+
+    /* ── ANSWER SLOTS ── */
+    .answer-section {
+      margin-bottom: 14px;
+    }
+    .answer-label {
+      font-weight: 800;
+      font-size: 13px;
+      color: #334155;
+      margin-bottom: 8px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 10px;
+      border-radius: 14px;
+      background: rgba(241,245,249,.9);
+      border: 1.5px dashed rgba(15,23,42,.18);
+      min-height: 58px;
+    }
+    .slot {
+      min-width: 52px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(15,23,42,.16);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+      padding: 0 12px;
+      user-select: none;
+      transition: border-color .2s, background .2s;
+    }
+    .slot.filled {
+      border-color: rgba(37,99,235,.5);
+      background: rgba(219,234,254,.55);
+      cursor: pointer;
+    }
+    .slot.filled:hover { border-color: #2563eb; }
+    .slot.correct-slot {
+      border-color: rgba(34,197,94,.7) !important;
+      background: rgba(34,197,94,.1) !important;
     }
 
-    .btn{
-      border:0; background:#2563eb; color:#fff;
-      font-weight:900; padding:12px; border-radius:12px;
-      cursor:pointer; width:100%; font-size:15px;
+    /* ── WORD BANK ── */
+    .bank-section {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.08);
+      padding: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.05);
     }
-    .btn:hover{ background:#1e40af; }
-    .btn:disabled{ opacity:.6; cursor:not-allowed; }
-
-    /* ===== ANSWER SLOTS ===== */
-    .answer-wrap{
-      margin-top:18px;
+    .bank-title {
+      font-weight: 800;
+      font-size: 13px;
+      color: #334155;
+      margin-bottom: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .5px;
     }
-    .answer-label{
-      font-weight:900; font-size:14px; color:#334155;
-      margin-bottom:8px; text-align:center;
-    }
-    .slots{
-      display:flex; flex-wrap:wrap; gap:8px;
-      align-items:center; justify-content:center;
-      padding:12px;
-      border-radius:14px;
-      background:rgba(241,245,249,.9);
-      border:1px dashed rgba(15,23,42,.2);
-      min-height:60px;
-    }
-    .slot{
-      min-width:56px; height:40px;
-      border-radius:12px;
-      border:2px solid rgba(15,23,42,.18);
-      background:#fff;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:900; padding:0 12px;
-      user-select:none; font-size:15px;
-    }
-    .slot.filled{
-      border-color:rgba(37,99,235,.5);
-      background:rgba(219,234,254,.6);
-      cursor:pointer;
+    .words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
 
-    /* ===== WORD BANK ===== */
-    .bank{
-      margin-top:16px;
-      background:#fff;
-      border-radius:16px;
-      border:1px solid rgba(15,23,42,.08);
-      padding:14px;
-      box-shadow:0 4px 12px rgba(0,0,0,.05);
+    /* ── WORD TILES ── */
+    @keyframes wrongShake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
     }
-    .bank-title{
-      font-weight:900; font-size:14px; color:#334155;
-      margin-bottom:10px; text-align:center;
-    }
-    .words{
-      display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
-    }
-    .word{
-      border:2px solid rgba(15,23,42,.18);
-      background:#fff; border-radius:999px;
-      padding:10px 16px; font-weight:900; font-size:15px;
-      cursor:pointer; user-select:none; transition:transform .08s;
-    }
-    .word:active{ transform:scale(.97); }
-    .word:hover:not(.disabled){ border-color:#2563eb; background:#dbeafe; }
-    .word.disabled{ opacity:.45; cursor:not-allowed; }
 
-    .actions-row{
-      display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;
+    .word {
+      border: 2px solid rgba(15,23,42,.16);
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .08s, border-color .15s, background .15s;
     }
-    .small-btn{
-      flex:1 1 140px; border:0;
-      background:rgba(15,23,42,.07); color:#0f172a;
-      font-weight:900; padding:10px 12px;
-      border-radius:12px; cursor:pointer; font-size:14px;
-    }
-    .small-btn:hover{ background:rgba(15,23,42,.12); }
-    .small-btn:disabled{ opacity:.5; cursor:not-allowed; }
+    .word:active:not(.disabled) { transform: scale(.96); }
+    .word:hover:not(.disabled)  { border-color: #2563eb; background: #dbeafe; }
+    .word.disabled { opacity: .38; cursor: not-allowed; pointer-events: none; }
 
-    .status{
-      margin-top:12px; font-weight:900; text-align:center;
-      padding:10px 12px; border-radius:12px;
-      background:rgba(241,245,249,.9);
-      border:1px solid rgba(15,23,42,.12);
-      font-size:18px;
+    /* ── ACTIONS ROW ── */
+    .actions-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
     }
-    .good{ background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.4); color:#166534; }
-    .bad{  background:rgba(239,68,68,.10); border-color:rgba(239,68,68,.3); color:#991b1b; }
+    .small-btn {
+      flex: 1 1 120px;
+      border: 0;
+      background: rgba(15,23,42,.07);
+      color: #0f172a;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .small-btn:hover:not(:disabled) { background: rgba(15,23,42,.13); }
+    .small-btn:disabled { opacity: .4; cursor: not-allowed; }
 
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-      h1{ font-size:19px; }
+    /* ── STATUS BOX ── */
+    .status-box {
+      margin-top: 12px;
+      font-weight: 900;
+      text-align: center;
+      padding: 11px 14px;
+      border-radius: 13px;
+      background: rgba(241,245,249,.9);
+      border: 1px solid rgba(15,23,42,.1);
+      font-size: 17px;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .status-box.good {
+      background: rgba(34,197,94,.12);
+      border-color: rgba(34,197,94,.4);
+      color: #166534;
+    }
+    .status-box.bad {
+      background: rgba(239,68,68,.09);
+      border-color: rgba(239,68,68,.3);
+      color: #991b1b;
+      animation: wrongShake .35s ease;
+    }
+
+    /* ── COMPLETION BANNER ── */
+    .completion-banner {
+      display: none;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 2px solid rgba(34,197,94,.4);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 18px;
+    }
+    .completion-banner.visible { display: block; }
+    .completion-banner h2 { margin: 0 0 4px; font-size: 20px; font-weight: 900; color: #166534; }
+    .completion-banner p  { margin: 0; font-size: 14px; color: #166534; font-weight: 600; }
+
+    /* ── NEXT BTN ── */
+    .footer-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      padding-bottom: 12px;
+    }
+    .next-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 16px;
+      transition: background .15s, transform .1s;
+    }
+    .next-btn:hover  { background: #1e40af; }
+    .next-btn:active { transform: scale(.97); }
+
+    .hidden { display: none !important; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      h1   { font-size: 18px; }
+      .step { width: 34px; height: 34px; font-size: 14px; }
+      .word { padding: 9px 14px; font-size: 14px; }
+      .slot { font-size: 14px; height: 40px; }
+      .imgbox img { max-height: 180px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+<div class="wrap">
 
-    <div class="progress-container" aria-label="Progreso de la lección">
-      <div class="step" data-go="p1.html">1</div>
-      <div class="step active" data-go="p2.html" aria-current="page">2</div>
-      <div class="step" data-go="p3.html">3</div>
-      <div class="step" data-go="p4.html">4</div>
-    </div>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
 
-    <h1>Lección 1 – P2</h1>
-    <p class="subtitle">
-      Escucha el audio y ordena las palabras para formar la respuesta.
-    </p>
-
-    <section class="section">
-      <div id="counter" class="counter">1 / 8</div>
-
-      <div class="imgbox">
-        <img id="sceneImg" alt="">
-      </div>
-
-      <button id="playBtn" class="btn" type="button">🔊 Escuchar</button>
-
-      <!-- Answer slots only -->
-      <div class="answer-wrap">
-        <div class="answer-label">Respuesta</div>
-        <div id="aSlots" class="slots" aria-label="Respuesta"></div>
-      </div>
-
-      <!-- Word bank -->
-      <div class="bank">
-        <div class="bank-title">Palabras</div>
-        <div id="wordBank" class="words"></div>
-
-        <div class="actions-row">
-          <button id="undoBtn"  class="small-btn" type="button" disabled>↩︎ Deshacer</button>
-          <button id="resetBtn" class="small-btn" type="button" disabled>⟲ Reiniciar</button>
-        </div>
-
-        <div id="statusBox" class="status">—</div>
-      </div>
-    </section>
-
-    <div class="footer-actions">
-      <a id="nextBtn" class="next-btn hidden" href="p3.html">Continuar ▶</a>
-    </div>
+  <!-- Progress dots -->
+  <div class="progress-container" aria-label="Progreso de la lección">
+    <div class="step done"   data-go="p1.html">1</div>
+    <div class="step active" data-go="p2.html" aria-current="page">2</div>
+    <div class="step"        data-go="p3.html">3</div>
+    <div class="step"        data-go="p4.html">4</div>
   </div>
 
-  <script src="../../../../js/u3/u3_l1_p2.js"></script>
+  <!-- Score -->
+  <div class="score-bar">
+    <span class="score-label">Puntaje:</span>
+    <span class="score-badge" id="scoreBadge">0 / 8</span>
+  </div>
+
+  <h1>Lección 1 – What are you doing?</h1>
+  <p class="subtitle">Escucha el audio y ordena las palabras para formar la oración correcta.</p>
+
+  <section class="section">
+    <div id="counter" class="counter">Ejercicio 1 de 8</div>
+
+    <div class="imgbox">
+      <img id="sceneImg" alt="" loading="eager">
+    </div>
+
+    <button id="playBtn" class="play-btn" type="button">🔊 Escuchar</button>
+
+    <!-- Answer slots -->
+    <div class="answer-section">
+      <div class="answer-label">Respuesta</div>
+      <div id="aSlots" class="slots" aria-label="Respuesta"></div>
+    </div>
+
+    <!-- Word bank -->
+    <div class="bank-section">
+      <div class="bank-title">Palabras</div>
+      <div id="wordBank" class="words"></div>
+
+      <div class="actions-row">
+        <button id="undoBtn"  class="small-btn" type="button" disabled>↩︎ Deshacer</button>
+        <button id="resetBtn" class="small-btn" type="button" disabled>⟲ Reiniciar</button>
+      </div>
+
+      <div id="statusBox" class="status-box">—</div>
+    </div>
+  </section>
+
+  <!-- Completion banner -->
+  <div class="completion-banner" id="completionBanner">
+    <h2>🎉 ¡Muy bien!</h2>
+    <p id="completionMsg">Completaste la Parte 2.</p>
+  </div>
+
+  <!-- Next -->
+  <div class="footer-actions">
+    <a id="nextBtn" class="next-btn hidden" href="p3.html">Continuar →</a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  /* ── ASSETS ── */
+  const SB  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const IMG = SB + 'images/u3/';
+  const AUD = SB + 'audio/u3/';
+  const SFX_CORRECT = SB + 'audio/u3/correct.wav';
+
+  /* ── ROUNDS ── */
+  const ROUNDS = [
+    { img:'u3.l1.p1.woman.eating2.jpg',  audio:'u3.l1.p2.eating.mp3',        a:['She','is','eating.'],          distractor:'He' },
+    { img:'u3.l1.p1.man.drinking.jpg',   audio:'u3.l1.p2.drinking.mp3',       a:['He','is','drinking.'],         distractor:'She' },
+    { img:'u3.l1.p1.woman.cooking2.jpg', audio:'u3.l1.p2.cooking.mp3',        a:['She','is','cooking.'],         distractor:'They' },
+    { img:'u3.l1.p1.woman.reading2.jpg', audio:'u3.l1.p2.reading.mp3',        a:['She','is','reading a book.'],  distractor:'He' },
+    { img:'u3.l1.p1.man.watching.jpg',   audio:'u3.l1.p2.watching.mp3',       a:['He','is','watching TV.'],      distractor:'They' },
+    { img:'u3.l1.p1.man.playing.jpg',    audio:'u3.l1.p2.playing.mp3',        a:['He','is','playing football.'], distractor:'She' },
+    { img:'u3.l1.p1.woman.singing2.jpg', audio:'u3.l1.p2.singing.mp3',        a:['She','is','singing.'],         distractor:'They' },
+    { img:'u3.l1.p1.man.listening.jpg',  audio:'u3.l1.p2.iam.listening.mp3',  a:['I','am','listening to music.'],distractor:'He' },
+  ];
+
+  /* ── DOM ── */
+  const $id  = id => document.getElementById(id);
+  const sceneImg  = $id('sceneImg');
+  const playBtn   = $id('playBtn');
+  const aSlots    = $id('aSlots');
+  const wordBank  = $id('wordBank');
+  const undoBtn   = $id('undoBtn');
+  const resetBtn  = $id('resetBtn');
+  const statusBox = $id('statusBox');
+  const nextBtn   = $id('nextBtn');
+  const counter   = $id('counter');
+
+  /* ── SFX ── */
+  const sfxCorrect = new Audio(SFX_CORRECT);
+
+  /* ── STATE ── */
+  const audio = new Audio();
+  audio.preload = 'auto';
+  let playPromise  = null;
+  let roundIndex   = 0;
+  let listened     = false;
+  let placedStack  = [];
+  let scoreCount   = 0;
+
+  /* ── SCORE ── */
+  function updateScore() {
+    $id('scoreBadge').textContent = scoreCount + ' / ' + ROUNDS.length;
+  }
+
+  /* ── PROGRESS NAV ── */
+  document.querySelectorAll('.step').forEach(s => {
+    s.addEventListener('click', () => {
+      const go = s.dataset.go;
+      if (go) window.location.href = go;
+    });
+  });
+
+  /* ── HELPERS ── */
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function clearEl(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
+  function normalizeToken(t) {
+    return String(t || '').trim().toLowerCase().replace(/[.,!?]$/, '');
+  }
+
+  /* ── STATUS ── */
+  function setStatus(type) {
+    statusBox.classList.remove('good', 'bad');
+    if (type === 'good') {
+      statusBox.classList.add('good');
+      statusBox.textContent = '✓ ¡Correcto!';
+    } else if (type === 'bad') {
+      // re-trigger animation
+      void statusBox.offsetWidth;
+      statusBox.classList.add('bad');
+      statusBox.textContent = '✗ Inténtalo de nuevo';
+    } else {
+      statusBox.textContent = '—';
+    }
+  }
+
+  /* ── BANK ENABLE/DISABLE ── */
+  function setBankEnabled(enabled) {
+    wordBank.querySelectorAll('.word').forEach(w => {
+      w.classList.toggle('disabled', !enabled);
+    });
+    undoBtn.disabled = !enabled;
+    resetBtn.disabled = !enabled;
+  }
+
+  /* ── BUILD SLOTS ── */
+  function buildSlots(n) {
+    clearEl(aSlots);
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement('div');
+      s.className = 'slot';
+      s.dataset.slot = String(i);
+      s.dataset.word = '';
+      aSlots.appendChild(s);
+    }
+  }
+
+  /* ── BUILD BANK ── */
+  function buildBank(words) {
+    clearEl(wordBank);
+    shuffle(words).forEach(w => {
+      const el = document.createElement('div');
+      el.className = 'word';
+      el.textContent = w;
+      el.dataset.word = w;
+      wordBank.appendChild(el);
+    });
+  }
+
+  /* ── PLACE WORD ── */
+  function getNextEmptySlot() {
+    return [...aSlots.querySelectorAll('.slot')].find(s => !s.dataset.word);
+  }
+
+  function placeWord(wordEl) {
+    if (!listened) return;
+    if (wordEl.classList.contains('disabled')) return;
+    const target = getNextEmptySlot();
+    if (!target) return;
+
+    const word = wordEl.dataset.word || wordEl.textContent;
+    target.dataset.word = word;
+    target.textContent  = word;
+    target.classList.add('filled');
+    wordEl.classList.add('disabled');
+
+    placedStack.push({ slotIndex: Number(target.dataset.slot), word });
+    checkIfComplete();
+  }
+
+  /* ── REMOVE FROM SLOT ── */
+  function removeFromSlot(slotEl) {
+    if (!listened) return;
+    const word = slotEl.dataset.word;
+    if (!word) return;
+
+    const wordEl = [...wordBank.querySelectorAll('.word')]
+      .find(w => w.dataset.word === word);
+    if (wordEl) wordEl.classList.remove('disabled');
+
+    slotEl.dataset.word = '';
+    slotEl.textContent  = '';
+    slotEl.classList.remove('filled');
+
+    for (let i = placedStack.length - 1; i >= 0; i--) {
+      if (placedStack[i].word === word) { placedStack.splice(i, 1); break; }
+    }
+    setStatus('idle');
+  }
+
+  /* ── UNDO ── */
+  function undoLast() {
+    if (!placedStack.length) return;
+    const last   = placedStack.pop();
+    const slotEl = aSlots.querySelector(`.slot[data-slot="${last.slotIndex}"]`);
+    if (!slotEl) return;
+
+    const wordEl = [...wordBank.querySelectorAll('.word')]
+      .find(w => w.dataset.word === last.word);
+    if (wordEl) wordEl.classList.remove('disabled');
+
+    slotEl.dataset.word = '';
+    slotEl.textContent  = '';
+    slotEl.classList.remove('filled');
+    setStatus('idle');
+  }
+
+  /* ── RESET ── */
+  function resetRound() {
+    const r = ROUNDS[roundIndex];
+    placedStack = [];
+    buildSlots(r.a.length);
+    buildBank([...r.a, r.distractor]);
+    setStatus('idle');
+    if (listened) setBankEnabled(true);
+  }
+
+  /* ── CHECK COMPLETE ── */
+  function checkIfComplete() {
+    const r   = ROUNDS[roundIndex];
+    const now = [...aSlots.querySelectorAll('.slot')].map(s => s.dataset.word || '');
+
+    // Not all filled yet
+    if (now.includes('')) { setStatus('idle'); return; }
+
+    const ok = now.length === r.a.length &&
+      now.every((w, i) => normalizeToken(w) === normalizeToken(r.a[i]));
+
+    if (ok) {
+      setStatus('good');
+      aSlots.querySelectorAll('.slot').forEach(s => s.classList.add('correct-slot'));
+      lockAll(true);
+      scoreCount++;
+      updateScore();
+      try { sfxCorrect.currentTime = 0; sfxCorrect.play(); } catch(e) {}
+
+      setTimeout(() => {
+        roundIndex++;
+        if (roundIndex >= ROUNDS.length) {
+          showCompletion();
+          return;
+        }
+        loadRound(roundIndex);
+      }, 1200);
+
+    } else {
+      setStatus('bad');
+    }
+  }
+
+  /* ── LOCK ALL ── */
+  function lockAll(lock) {
+    playBtn.disabled = lock;
+    setBankEnabled(!lock && listened);
+    aSlots.querySelectorAll('.slot').forEach(s => {
+      s.style.pointerEvents = lock ? 'none' : 'auto';
+    });
+  }
+
+  /* ── COMPLETION ── */
+  function showCompletion() {
+    // Save progress
+    try {
+      const saved = JSON.parse(localStorage.getItem('inglesco_progress_u3') || '{}');
+      if (!saved.l1) saved.l1 = {};
+      const prev = saved.l1.partsCompleted || 0;
+      if (prev < 2) {
+        saved.l1.partsCompleted = 2;
+        saved.l1.partsTotal = saved.l1.partsTotal || 4;
+      }
+      localStorage.setItem('inglesco_progress_u3', JSON.stringify(saved));
+
+      const fk = 'inglesco_furthest_u3_l1';
+      const prevF = parseInt(localStorage.getItem(fk) || '0', 10);
+      if (prevF < 2) localStorage.setItem(fk, '2');
+    } catch(e) {}
+
+    const banner = $id('completionBanner');
+    banner.classList.add('visible');
+    $id('completionMsg').textContent =
+      '¡Puntaje: ' + scoreCount + ' de ' + ROUNDS.length + '! Continúa a la Parte 3.';
+    nextBtn.classList.remove('hidden');
+    nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── AUDIO ── */
+  function stopAudio() {
+    if (playPromise) {
+      playPromise.then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {});
+      playPromise = null;
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+
+  function playRoundAudio() {
+    const r = ROUNDS[roundIndex];
+    stopAudio();
+
+    playBtn.disabled    = true;
+    playBtn.textContent = '🔊 Reproduciendo…';
+    playBtn.classList.remove('replaying');
+
+    audio.src = AUD + r.audio;
+    audio.load();
+
+    function onEnded() {
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onErr);
+      // Mark listened immediately — same pattern as P1 fix
+      listened            = true;
+      playBtn.disabled    = false;
+      playBtn.textContent = '🔁 Escuchar otra vez';
+      playBtn.classList.add('replaying');
+      setBankEnabled(true);
+    }
+    function onErr() {
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onErr);
+      // Unlock on error so user is never stuck
+      listened            = true;
+      playBtn.disabled    = false;
+      playBtn.textContent = '🔊 Escuchar';
+      setBankEnabled(true);
+      playPromise = null;
+    }
+
+    audio.addEventListener('ended', onEnded);
+    audio.addEventListener('error', onErr);
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise
+        .then(() => {
+          // Unlock word bank immediately after play() starts (not waiting for onended)
+          listened = true;
+          setBankEnabled(true);
+          playPromise = null;
+        })
+        .catch(err => {
+          if (err.name !== 'AbortError') onErr();
+          else {
+            listened            = true;
+            playBtn.disabled    = false;
+            playBtn.textContent = '🔊 Escuchar';
+            setBankEnabled(true);
+          }
+          playPromise = null;
+        });
+    }
+  }
+
+  /* ── LOAD ROUND ── */
+  function loadRound(idx) {
+    const r = ROUNDS[idx];
+    counter.textContent = 'Ejercicio ' + (idx + 1) + ' de ' + ROUNDS.length;
+
+    listened    = false;
+    placedStack = [];
+
+    playBtn.disabled    = false;
+    playBtn.textContent = '🔊 Escuchar';
+    playBtn.classList.remove('replaying');
+    setStatus('idle');
+    nextBtn.classList.add('hidden');
+
+    sceneImg.src = IMG + r.img;
+    sceneImg.alt = '';
+
+    buildSlots(r.a.length);
+    buildBank([...r.a, r.distractor]);
+    setBankEnabled(false);
+
+    aSlots.querySelectorAll('.slot').forEach(s => {
+      s.classList.remove('correct-slot');
+      s.style.pointerEvents = 'auto';
+    });
+  }
+
+  /* ── WIRE EVENTS ── */
+  playBtn.addEventListener('click', playRoundAudio);
+
+  wordBank.addEventListener('click', e => {
+    const w = e.target.closest('.word');
+    if (w) placeWord(w);
+  });
+
+  aSlots.addEventListener('click', e => {
+    const slot = e.target.closest('.slot');
+    if (slot && slot.dataset.word) removeFromSlot(slot);
+  });
+
+  undoBtn.addEventListener('click', undoLast);
+  resetBtn.addEventListener('click', resetRound);
+
+  /* ── INIT ── */
+  updateScore();
+  loadRound(0);
+})();
+</script>
 </body>
 </html>

@@ -5,211 +5,643 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unidad 3 – Lección 1 – P3</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    body{
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
-    }
-    .wrap{ max-width: 980px; margin: 0 auto; }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px; height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-
-    /* ===== NEXT BUTTON (BOTTOM) ===== */
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:25px;
-      padding-bottom: 10px;
-    }
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
-
-    /* ===== SECTIONS ===== */
-    .section{
-      background: rgba(255,255,255,.85);
-      border: 1px solid rgba(15,23,42,.08);
-      border-radius: 16px;
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
       padding: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px 0;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+      color: #1f2933;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step.done   { background: #16a34a; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── SCORE BAR ── */
+    .score-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 18px;
     }
-    h1{ font-size: 22px; margin: 0 0 8px 0; }
-    .subtitle{ margin: 0 0 14px 0; font-size: 16px; line-height: 1.35; }
-    .mini{ font-size: 13px; color:#475569; margin: 0 0 10px 0; }
+    .score-badge {
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2563eb;
+    }
+    .score-label {
+      font-size: 13px;
+      color: #475569;
+      font-weight: 600;
+    }
 
-    .imgbox{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: rgba(219,234,254,.55);
-      border-radius: 14px;
-      padding: 10px;
-      overflow:hidden;
+    /* ── HEADING ── */
+    h1 {
+      font-size: 20px;
+      margin: 0 0 4px 0;
+      font-weight: 900;
+    }
+    .subtitle {
+      margin: 0 0 16px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    /* ── MAIN CARD ── */
+    .section {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+
+    .counter {
+      font-weight: 800;
+      text-align: center;
+      font-size: 13px;
+      color: #1e3a8a;
       margin-bottom: 12px;
-    }
-    .imgbox img{
-      max-width: 100%;
-      height: auto;
-      display:block;
-      border-radius: 12px;
+      letter-spacing: .3px;
     }
 
-    .btn{
-      border: 0;
-      background:#2563eb;
-      color:#fff;
-      font-weight: 900;
-      padding: 10px 12px;
-      border-radius: 12px;
-      cursor:pointer;
+    /* ── IMAGE ── */
+    .imgbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 8px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .imgbox img {
       width: 100%;
-    }
-    .btn:hover{ background:#1e40af; }
-    .btn:disabled{ opacity:.6; cursor:not-allowed; }
-
-    /* ===== OPTIONS ===== */
-    .options{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .opt{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      padding: 12px;
-      background:#fff;
-      border-radius: 16px;
-      border: 2px solid rgba(15,23,42,.12);
-      box-shadow: 0 4px 12px rgba(0,0,0,.06);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .08s, border-color .15s, background .15s;
-    }
-    .opt:active{ transform: scale(.99); }
-    .badge{
-      width: 34px;
-      height: 34px;
+      max-height: 220px;
+      object-fit: contain;
       border-radius: 10px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display: block;
+    }
+
+    /* ── PLAY BUTTON ── */
+    .play-btn {
+      border: 0;
+      background: #2563eb;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 13px;
+      border-radius: 13px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: background .15s, transform .1s;
+      margin-bottom: 10px;
+    }
+    .play-btn:hover:not(:disabled) { background: #1e40af; }
+    .play-btn:active:not(:disabled) { transform: scale(.98); }
+    .play-btn:disabled { opacity: .55; cursor: not-allowed; }
+    .play-btn.replaying { background: #0369a1; }
+
+    .listen-hint {
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+
+    /* ── OPTIONS ── */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wrongPulse {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+      animation: fadeSlideIn .3s ease both;
+    }
+
+    .opt {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 14px;
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid rgba(15,23,42,.1);
+      box-shadow: 0 3px 10px rgba(0,0,0,.05);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color .15s, background .15s, transform .08s;
+    }
+    .opt:active:not(.disabled) { transform: scale(.99); }
+    .opt:hover:not(.disabled):not(.correct):not(.wrong) {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 900;
+      font-size: 14px;
       background: rgba(15,23,42,.07);
-      flex: 0 0 auto;
+      flex-shrink: 0;
+      text-transform: uppercase;
     }
-    .opt-text{
+
+    .opt-text {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .opt.correct {
+      border-color: rgba(34,197,94,.6);
+      background: rgba(34,197,94,.1);
+    }
+    .opt.correct .badge { background: rgba(34,197,94,.25); color: #166534; }
+
+    .opt.wrong {
+      border-color: rgba(239,68,68,.5);
+      background: rgba(239,68,68,.08);
+      animation: wrongPulse .35s ease;
+    }
+    .opt.wrong .badge { background: rgba(239,68,68,.2); color: #991b1b; }
+
+    .opt.disabled { cursor: not-allowed; }
+    .opt.dimmed   { opacity: .45; }
+
+    /* ── FEEDBACK STRIP ── */
+    .feedback-strip {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+    .feedback-strip.good {
+      display: block;
+      background: rgba(34,197,94,.12);
+      border: 1px solid rgba(34,197,94,.35);
+      color: #166534;
+    }
+    .feedback-strip.bad {
+      display: block;
+      background: rgba(239,68,68,.09);
+      border: 1px solid rgba(239,68,68,.3);
+      color: #991b1b;
+    }
+
+    /* ── COMPLETION BANNER ── */
+    .completion-banner {
+      display: none;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 2px solid rgba(34,197,94,.4);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .completion-banner.visible { display: block; }
+    .completion-banner h2 { margin: 0 0 4px; font-size: 20px; font-weight: 900; color: #166534; }
+    .completion-banner p  { margin: 0; font-size: 14px; color: #166534; font-weight: 600; }
+
+    /* ── NEXT BTN ── */
+    .footer-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      padding-bottom: 12px;
+    }
+    .next-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
       font-weight: 900;
-      line-height: 1.2;
       font-size: 16px;
+      transition: background .15s, transform .1s;
     }
+    .next-btn:hover  { background: #1e40af; }
+    .next-btn:active { transform: scale(.97); }
 
-    .opt.correct{
-      border-color: rgba(34,197,94,.55);
-      background: rgba(34,197,94,.10);
-    }
-    .opt.wrong{
-      border-color: rgba(239,68,68,.45);
-      background: rgba(239,68,68,.10);
-    }
-    .opt.disabled{
-      opacity: .8;
-      cursor: not-allowed;
-    }
+    .hidden { display: none !important; }
 
-    /* ===== MOBILE SAFE ===== */
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-      h1{ font-size: 20px; }
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      h1   { font-size: 18px; }
+      .step { width: 34px; height: 34px; font-size: 14px; }
+      .opt-text { font-size: 14px; }
+      .imgbox img { max-height: 180px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+<div class="wrap">
 
-    <!-- Progress 1-4 -->
-    <div class="progress-container" aria-label="Progreso de la lección">
-      <div class="step" data-go="p1.html">1</div>
-      <div class="step" data-go="p2.html">2</div>
-      <div class="step active" data-go="p3.html" aria-current="page">3</div>
-      <div class="step" data-go="p4.html">4</div>
-    </div>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
 
-    <h1>Lección 1 – P3</h1>
-    <p class="subtitle">
-      1) Mira la imagen y toca <b>Escuchar</b>.<br/>
-      2) Después elige la opción correcta.
-    </p>
-
-    <section class="section">
-      <div id="counter" class="mini" style="font-weight:900; text-align:center; margin-bottom:10px;">1/8</div>
-
-      <div class="imgbox">
-        <img id="sceneImg" alt="">
-      </div>
-
-      <button id="playBtn" class="btn" type="button">🔊 Escuchar</button>
-      <p class="mini" style="margin-top:10px;">
-        (Primero escucha el audio. Después aparecerán las opciones.)
-      </p>
-
-      <div id="options" class="options" aria-label="Opciones" style="display:none;"></div>
-    </section>
-
-    <div class="footer-actions">
-      <a id="nextBtn" class="next-btn hidden" href="p4.html">Continuar → P4</a>
-    </div>
+  <!-- Progress dots -->
+  <div class="progress-container" aria-label="Progreso de la lección">
+    <div class="step done"   data-go="p1.html">1</div>
+    <div class="step done"   data-go="p2.html">2</div>
+    <div class="step active" data-go="p3.html" aria-current="page">3</div>
+    <div class="step"        data-go="p4.html">4</div>
   </div>
 
-  <script src="../../../../js/u3/u3_l1_p3.js"></script>
+  <!-- Score -->
+  <div class="score-bar">
+    <span class="score-label">Puntaje:</span>
+    <span class="score-badge" id="scoreBadge">0 / 8</span>
+  </div>
+
+  <h1>Lección 1 – What are you doing?</h1>
+  <p class="subtitle">
+    Escucha el audio y elige la oración correcta.
+  </p>
+
+  <section class="section">
+    <div id="counter" class="counter">Ejercicio 1 de 8</div>
+
+    <div class="imgbox">
+      <img id="sceneImg" alt="" loading="eager">
+    </div>
+
+    <button id="playBtn" class="play-btn" type="button">🔊 Escuchar</button>
+    <p class="listen-hint" id="listenHint">Escucha el audio para ver las opciones.</p>
+
+    <div id="optionsBox" class="options hidden" aria-label="Opciones"></div>
+    <div id="feedbackStrip" class="feedback-strip"></div>
+  </section>
+
+  <!-- Completion banner -->
+  <div class="completion-banner" id="completionBanner">
+    <h2>🎉 ¡Excelente!</h2>
+    <p id="completionMsg">Completaste la Parte 3.</p>
+  </div>
+
+  <!-- Next -->
+  <div class="footer-actions">
+    <a id="nextBtn" class="next-btn hidden" href="p4.html">Continuar →</a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  /* ── ASSETS ── */
+  const SB  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const IMG = SB + 'images/u3/';
+  const AUD = SB + 'audio/u3/';
+  const SFX_CORRECT = SB + 'audio/u3/correct.wav';
+
+  /* ── ROUNDS ── */
+  const ROUNDS = [
+    { img:'u3.l1.p1.woman.eating.jpg',    audio:'u3.l1.p1.emma.mp3',   correct:'She is eating.',           wrong:['He is eating.', 'She is reading a book.'] },
+    { img:'u3.l1.p1.man.drinking2.jpg',   audio:'u3.l1.p1.john.mp3',   correct:'He is drinking.',          wrong:['She is cooking.', 'He is watching TV.'] },
+    { img:'u3.l1.p1.woman.cooking2.jpg',  audio:'u3.l1.p1.martha.mp3', correct:'She is cooking.',          wrong:['She is drinking.', 'He is sleeping.'] },
+    { img:'u3.l1.p1.woman.reading2.jpg',  audio:'u3.l1.p1.jane.mp3',   correct:'She is reading a book.',   wrong:['He is reading a book.', 'She is watching TV.'] },
+    { img:'u3.l1.p1.man.watching.jpg',    audio:'u3.l1.p1.mateo.mp3',  correct:'He is watching TV.',       wrong:['He is playing football.', 'She is watching TV.'] },
+    { img:'u3.l1.p1.man.playing.jpg',     audio:'u3.l1.p1.henry.mp3',  correct:'He is playing football.',  wrong:['She is watching TV.', 'He is reading a book.'] },
+    { img:'u3.l1.p1.woman.singing2.jpg',  audio:'u3.l1.p1.sherri.mp3', correct:'She is singing.',          wrong:['He is singing.', 'She is drinking.'] },
+    { img:'u3.l1.p1.man.listening.jpg',   audio:'u3.l1.p1.iam.mp3',    correct:'I am listening to music.', wrong:['I am watching TV.', 'He is reading a book.'] },
+  ];
+
+  /* ── DOM ── */
+  const $id = id => document.getElementById(id);
+  const sceneImg     = $id('sceneImg');
+  const playBtn      = $id('playBtn');
+  const counter      = $id('counter');
+  const optionsBox   = $id('optionsBox');
+  const feedbackStrip= $id('feedbackStrip');
+  const nextBtn      = $id('nextBtn');
+  const listenHint   = $id('listenHint');
+
+  /* ── SFX ── */
+  const sfxCorrect = new Audio(SFX_CORRECT);
+
+  /* ── STATE ── */
+  const audio = new Audio();
+  audio.preload = 'auto';
+  let idx        = 0;
+  let listened   = false;
+  let locked     = false;
+  let scoreCount = 0;
+  let wrongCount = 0; // wrong attempts on current round
+
+  /* ── SCORE ── */
+  function updateScore() {
+    $id('scoreBadge').textContent = scoreCount + ' / ' + ROUNDS.length;
+  }
+
+  /* ── PROGRESS NAV ── */
+  document.querySelectorAll('.step').forEach(s => {
+    s.addEventListener('click', () => {
+      const go = s.dataset.go;
+      if (go) window.location.href = go;
+    });
+  });
+
+  /* ── HELPERS ── */
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function esc(s) {
+    return String(s ?? '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── FEEDBACK ── */
+  function showFeedback(type, msg) {
+    feedbackStrip.className = 'feedback-strip ' + type;
+    feedbackStrip.textContent = msg;
+  }
+  function hideFeedback() {
+    feedbackStrip.className = 'feedback-strip';
+    feedbackStrip.textContent = '';
+  }
+
+  /* ── OPTIONS ── */
+  function disableOptions(disabled) {
+    optionsBox.querySelectorAll('.opt').forEach(o => {
+      o.classList.toggle('disabled', disabled);
+    });
+  }
+
+  function renderOptions() {
+    const r = ROUNDS[idx];
+    const choices = shuffle([r.correct, ...r.wrong]);
+    const labels  = ['A', 'B', 'C'];
+
+    optionsBox.innerHTML = choices.map((txt, i) => `
+      <div class="opt" data-correct="${txt === r.correct ? '1' : '0'}" role="button" tabindex="0">
+        <div class="badge">${labels[i]}</div>
+        <div class="opt-text">${esc(txt)}</div>
+      </div>
+    `).join('');
+
+    optionsBox.classList.remove('hidden');
+    listenHint.textContent = '🔁 Puedes escuchar otra vez.';
+  }
+
+  /* ── CHOICE HANDLER ── */
+  function handleChoice(opt) {
+    if (!listened) return;
+    if (opt.classList.contains('disabled')) return;
+    if (locked) return;
+
+    const isCorrect = opt.dataset.correct === '1';
+
+    if (isCorrect) {
+      locked = true;
+      opt.classList.add('correct');
+      // dim wrong options
+      optionsBox.querySelectorAll('.opt:not(.correct)').forEach(o => o.classList.add('dimmed'));
+      disableOptions(true);
+
+      // only award point if no wrong attempts on this round
+      if (wrongCount === 0) {
+        scoreCount++;
+        updateScore();
+      }
+      try { sfxCorrect.currentTime = 0; sfxCorrect.play(); } catch(e) {}
+      showFeedback('good', wrongCount === 0 ? '✓ ¡Correcto!' : '✓ Correcto — ¡sigue practicando!');
+
+      setTimeout(() => {
+        idx++;
+        if (idx >= ROUNDS.length) {
+          showCompletion();
+          return;
+        }
+        loadRound(idx);
+      }, 1800);
+
+    } else {
+      wrongCount++;
+      opt.classList.add('wrong');
+      showFeedback('bad', '✗ Inténtalo de nuevo.');
+      // re-enable after shake
+      setTimeout(() => {
+        opt.classList.remove('wrong');
+        hideFeedback();
+      }, 700);
+    }
+  }
+
+  /* ── AUDIO ── */
+  function playAudio() {
+    if (locked) return;
+
+    playBtn.disabled    = true;
+    playBtn.textContent = '🔊 Reproduciendo…';
+    playBtn.classList.remove('replaying');
+
+    audio.pause();
+    audio.currentTime = 0;
+    audio.src = AUD + ROUNDS[idx].audio;
+
+    const onEnded = () => {
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onErr);
+      listened            = true;
+      playBtn.disabled    = false;
+      playBtn.textContent = '🔁 Escuchar otra vez';
+      playBtn.classList.add('replaying');
+      if (optionsBox.classList.contains('hidden')) renderOptions();
+    };
+    const onErr = () => {
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onErr);
+      // unlock on error — never leave user stuck
+      listened            = true;
+      playBtn.disabled    = false;
+      playBtn.textContent = '🔊 Escuchar';
+      if (optionsBox.classList.contains('hidden')) renderOptions();
+    };
+
+    audio.addEventListener('ended', onEnded);
+    audio.addEventListener('error', onErr);
+
+    audio.play()
+      .then(() => {
+        // show options as soon as play starts — same fix as P1/P2
+        listened = true;
+        if (optionsBox.classList.contains('hidden')) renderOptions();
+      })
+      .catch(err => {
+        if (err.name !== 'AbortError') onErr();
+        else {
+          listened            = true;
+          playBtn.disabled    = false;
+          playBtn.textContent = '🔊 Escuchar';
+          if (optionsBox.classList.contains('hidden')) renderOptions();
+        }
+      });
+  }
+
+  /* ── LOAD ROUND ── */
+  function loadRound(i) {
+    idx        = i;
+    listened   = false;
+    locked     = false;
+    wrongCount = 0;
+
+    counter.textContent = 'Ejercicio ' + (i + 1) + ' de ' + ROUNDS.length;
+    sceneImg.src        = IMG + ROUNDS[i].img;
+    sceneImg.alt        = '';
+
+    playBtn.disabled    = false;
+    playBtn.textContent = '🔊 Escuchar';
+    playBtn.classList.remove('replaying');
+    listenHint.textContent = 'Escucha el audio para ver las opciones.';
+
+    optionsBox.innerHTML = '';
+    optionsBox.classList.add('hidden');
+    hideFeedback();
+    nextBtn.classList.add('hidden');
+  }
+
+  /* ── COMPLETION ── */
+  function showCompletion() {
+    // Save progress
+    try {
+      const saved = JSON.parse(localStorage.getItem('inglesco_progress_u3') || '{}');
+      if (!saved.l1) saved.l1 = {};
+      const prev = saved.l1.partsCompleted || 0;
+      if (prev < 3) {
+        saved.l1.partsCompleted = 3;
+        saved.l1.partsTotal = saved.l1.partsTotal || 4;
+      }
+      localStorage.setItem('inglesco_progress_u3', JSON.stringify(saved));
+
+      const fk = 'inglesco_furthest_u3_l1';
+      const prevF = parseInt(localStorage.getItem(fk) || '0', 10);
+      if (prevF < 3) localStorage.setItem(fk, '3');
+    } catch(e) {}
+
+    const banner = $id('completionBanner');
+    banner.classList.add('visible');
+    $id('completionMsg').textContent =
+      '¡Puntaje: ' + scoreCount + ' de ' + ROUNDS.length + '! Continúa a la Parte 4.';
+    nextBtn.classList.remove('hidden');
+    nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── EVENTS ── */
+  playBtn.addEventListener('click', playAudio);
+
+  optionsBox.addEventListener('click', e => {
+    const opt = e.target.closest('.opt');
+    if (opt) handleChoice(opt);
+  });
+
+  // Keyboard support
+  optionsBox.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const opt = e.target.closest('.opt');
+      if (opt) { e.preventDefault(); handleChoice(opt); }
+    }
+  });
+
+  /* ── INIT ── */
+  updateScore();
+  loadRound(0);
+})();
+</script>
 </body>
 </html>
