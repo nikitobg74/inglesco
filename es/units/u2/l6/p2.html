@@ -2,259 +2,493 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unidad 2 - Lección 6 - Parte 2</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classroom Objects – YES or NO Game | Inglesco Unidad 2 Lección 6</title>
+  <meta name="description" content="Practica vocabulario del salón de clases en inglés: pen, book, desk, laptop y más. Juego de escuchar y responder YES o NO. Inglesco Unidad 2 Lección 6 Parte 2." />
+  <meta name="keywords" content="vocabulario salón de clases inglés, objetos del aula inglés, aprender inglés gratis, inglés para hispanohablantes, Inglesco" />
+  <link rel="canonical" href="https://inglesco.co/es/units/u2/l6/p2.html" />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
-    }
-    .wrap{ max-width: 900px; margin: 0 auto; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#f0fdf4; color:#1e293b; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
       margin-bottom:20px;
-      padding:8px 15px;
+      padding:8px 16px;
       background:#2563eb;
       color:#fff;
       border-radius:10px;
       text-decoration:none;
       font-weight:700;
+      font-size:14px;
+      transition:background .2s;
     }
-    .back-btn:hover{ background:#1e40af; }
+    .back-btn:hover { background:#1e40af; }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
       display:flex;
       justify-content:center;
       gap:10px;
-      margin:15px 0 25px 0;
+      margin:0 0 24px 0;
     }
-    .step{
+    .step {
       width:40px; height:40px;
       border-radius:50%;
       background:#d1d5db;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700;
+      cursor:pointer;
+      transition:all .25s;
+      color:#1f2937;
+      user-select:none;
+      font-size:15px;
+    }
+    .step.active { background:#2563eb; color:#fff; box-shadow:0 0 0 3px #bfdbfe; }
+    .step:hover { transform:scale(1.1); }
+
+    /* ── SCORE BADGE ── */
+    .score-badge {
+      display:flex;
+      justify-content:center;
+      margin-bottom:14px;
+    }
+    .score-inner {
+      background:#fff;
+      border:2px solid #2563eb;
+      border-radius:999px;
+      padding:5px 18px;
+      font-weight:800;
+      font-size:14px;
+      color:#1e40af;
       display:flex;
       align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
+      gap:6px;
     }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
+    .score-inner span { font-size:18px; }
 
-    /* ===== NEXT BUTTON ===== */
-    .footer-actions{
+    /* ── PAGE BOX ── */
+    .exercise-box {
+      max-width:820px;
+      margin:0 auto;
+      background:#fff;
+      padding:28px 32px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(139,92,246,0.12);
+    }
+    .unit-title {
+      color:#2563eb;
+      font-size:26px;
+      font-weight:900;
+      text-align:center;
+      margin-bottom:4px;
+    }
+    .lesson-sub {
+      text-align:center;
+      font-weight:700;
+      color:#475569;
+      font-size:14px;
+      margin-bottom:20px;
+    }
+
+    /* ── INSTRUCTION BOX ── */
+    .instruction-box {
+      background:#d1fae5;
+      border-radius:14px;
+      padding:14px 18px;
+      margin-bottom:20px;
+      font-weight:700;
+      color:#0f172a;
+      font-size:14px;
+      line-height:1.55;
+    }
+    .instruction-box b { color:#065f46; }
+
+    /* ── GAME AREA ── */
+    .game-section {
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:16px;
+    }
+
+    /* top row: progress pill + play button */
+    .top-row {
+      width:100%;
+      max-width:420px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .progress-pill {
+      background:#fff;
+      border:2px solid #e2e8f0;
+      border-radius:999px;
+      padding:7px 16px;
+      font-weight:900;
+      font-size:14px;
+      color:#1e293b;
+    }
+    .play-audio-btn {
+      border:none;
+      cursor:pointer;
+      background:#2563eb;
+      color:#fff;
+      padding:10px 20px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:15px;
+      transition:background .2s, transform .1s;
+      box-shadow:0 4px 12px rgba(37,99,235,0.28);
+    }
+    .play-audio-btn:hover { background:#1e40af; transform:scale(1.04); }
+    .play-audio-btn:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+
+    /* ── MAIN IMAGE ── */
+    .img-wrap {
+      width:100%;
+      max-width:420px;
+      background:#f1f5f9;
+      border-radius:16px;
+      overflow:hidden;
       display:flex;
       justify-content:center;
-      margin-top:25px;
-      padding-bottom: 30px;
+      align-items:center;
+      min-height:200px;
     }
-    .next-btn{
+    .img-wrap img {
+      width:100%;
+      max-height:260px;
+      object-fit:contain;
+      background:#f1f5f9;
+      display:block;
+    }
+
+    /* ── YES / NO BUTTONS ── */
+    .controls {
+      width:100%;
+      max-width:420px;
+      display:flex;
+      gap:14px;
+    }
+    .yn-btn {
+      flex:1;
+      border:none;
+      cursor:pointer;
+      padding:16px 12px;
+      border-radius:16px;
+      font-weight:900;
+      font-size:20px;
+      transition:opacity .15s, transform .1s;
+    }
+    .yn-btn:active { transform:scale(.97); }
+    .yn-btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+    .yes-btn { background:#16a34a; color:#fff; box-shadow:0 4px 14px rgba(22,163,74,0.28); }
+    .no-btn  { background:#dc2626; color:#fff; box-shadow:0 4px 14px rgba(220,38,38,0.28); }
+
+    /* ── STATUS ── */
+    .status-pill {
+      width:100%;
+      max-width:420px;
+      text-align:center;
+      font-weight:900;
+      font-size:15px;
+      padding:12px 16px;
+      border-radius:14px;
+      background:#fff;
+      border:2px solid #e2e8f0;
+      color:#0f172a;
+      transition:border-color .2s, background .2s;
+    }
+    .status-pill.ok  { border-color:#16a34a; background:#dcfce7; color:#14532d; }
+    .status-pill.bad { border-color:#dc2626; background:#fee2e2; color:#7f1d1d; }
+    .status-pill.done { border-color:#2563eb; background:#eff6ff; color:#1e40af; }
+
+    /* ── FOOTER ── */
+    .footer-actions {
+      display:flex;
+      justify-content:center;
+      margin-top:22px;
+    }
+    .next-btn {
       display:inline-block;
-      padding:10px 18px;
+      padding:11px 24px;
       background:#2563eb;
       color:#fff;
       text-decoration:none;
       border-radius:12px;
-      font-weight:800;
+      font-weight:900;
+      font-size:15px;
+      transition:background .2s;
     }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
+    .next-btn:hover { background:#1e40af; }
 
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-    }
+    .hidden { display:none !important; }
 
-    .card{
-      background: rgba(255,255,255,.88);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
-      margin-bottom: 14px;
-    }
-
-    /* ===== BIG BLUE TITLE ===== */
-    .sub{
-      font-size: 28px;
-      font-weight: 900;
-      color: #2563eb;
-      text-align:center;
-      margin: 6px 0 16px 0;
-    }
-
-    /* ES Instructions */
-    .es-instructions{
-      background: rgba(255,255,255,.92);
-      border-radius: 16px;
-      padding: 12px;
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
-      margin-bottom: 14px;
-      font-weight: 800;
-      line-height: 1.3;
-    }
-    .es-instructions ul{
-      margin: 0;
-      padding-left: 18px;
-    }
-    .es-instructions li{
-      margin: 6px 0;
-    }
-
-    .game{
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      align-items:center;
-    }
-
-    .img{
-      width: 100%;
-      max-width: 360px;
-      max-height: 240px;
-      border-radius: 16px;
-      object-fit: cover;
-      background:#e5e7eb;
-      box-shadow: 0 6px 18px rgba(15,23,42,.10);
-    }
-
-    .toprow{
-      width:100%;
-      max-width:360px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-weight: 900;
-    }
-
-    .pill{
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
-    }
-
-    .play-audio{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background:#2563eb;
-      color:#fff;
-      font-weight: 900;
-    }
-    .play-audio:hover{ background:#1e40af; }
-
-    .controls{
-      width:100%;
-      max-width:360px;
-      display:flex;
-      gap: 12px;
-    }
-
-    .btn{
-      flex:1;
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 14px 12px;
-      border-radius: 16px;
-      font-weight: 900;
-      font-size: 18px;
-    }
-
-    .yes{ background:#16a34a; color:#fff; }
-    .no{ background:#dc2626; color:#fff; }
-
-    .status{
-      width:100%;
-      max-width:360px;
-      text-align:center;
-      font-weight: 900;
-      font-size: 16px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    /* ── MOBILE ── */
+    @media (max-width:540px) {
+      body { padding:12px; }
+      .exercise-box { padding:18px 14px; }
+      .unit-title { font-size:21px; }
+      .yn-btn { font-size:18px; padding:14px 10px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-    <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+  <div class="progress-container">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step active" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
+  </div>
 
-    <div class="progress-container">
-      <div class="step" data-go="p1.html">1</div>
-      <div class="step active" data-go="p2.html">2</div>
-      <div class="step" data-go="p3.html">3</div>
-      <div class="step" data-go="p4.html">4</div>
+  <!-- SCORE BADGE -->
+  <div class="score-badge">
+    <div class="score-inner"><span>⭐</span> Score: <b id="scoreBadge">0 / 8</b></div>
+  </div>
+
+  <div class="exercise-box">
+    <h1 class="unit-title">Classroom Objects</h1>
+    <div class="lesson-sub">Unidad 2 · Lección 6 · Parte 2</div>
+
+    <div class="instruction-box">
+      <b>1.</b> Pulsa <b>▶ Play</b> para escuchar el nombre de un objeto.<br>
+      <b>2.</b> Mira la imagen. ¿Coincide con lo que escuchaste?<br>
+      <b>3.</b> Presiona <b style="color:#16a34a;">YES</b> si coincide, o <b style="color:#dc2626;">NO</b> si no coincide.
     </div>
 
-    <div class="card">
-
-      <div class="sub">Unidad 2 · Lección 6 · Parte 2</div>
-
-      <div class="es-instructions">
-        <ul>
-          <li>▶ Play audio</li>
-          <li>Correcto → YES</li>
-          <li>Incorrecto → NO</li>
-        </ul>
+    <div class="game-section">
+      <div class="top-row">
+        <div class="progress-pill">Pregunta <span id="progNow">1</span> de <span id="progTotal">8</span></div>
+        <button id="playBtn" class="play-audio-btn" type="button">▶ Play</button>
       </div>
 
-      <div class="game">
-
-        <div class="toprow">
-          <div class="pill">Progreso: <span id="progNow">1</span>/<span id="progTotal">8</span></div>
-          <button id="playBtn" class="play-audio" type="button">▶ Play</button>
-        </div>
-
-        <img id="mainImg" class="img" alt="Object" />
-
-        <div class="controls">
-          <button id="yesBtn" class="btn yes" type="button">YES</button>
-          <button id="noBtn" class="btn no" type="button">NO</button>
-        </div>
-
-        <div id="status" class="status">Presiona ▶ Play y luego YES / NO.</div>
+      <div class="img-wrap">
+        <img id="mainImg" alt="Classroom object" />
       </div>
 
+      <div class="controls">
+        <button id="yesBtn" class="yn-btn yes-btn" type="button" disabled>YES ✓</button>
+        <button id="noBtn"  class="yn-btn no-btn"  type="button" disabled>NO ✗</button>
+      </div>
+
+      <div id="statusPill" class="status-pill">Presiona ▶ Play y luego YES o NO.</div>
     </div>
 
     <div class="footer-actions">
       <a href="p3.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
     </div>
-
   </div>
 
-  <!-- ✅ UI TEXT SOURCE (Spanish for this page). JS reads from here. -->
-  <div id="uiText" hidden
-    data-status-ready="Presiona ▶ Play y luego YES / NO."
-    data-status-playing="Reproduciendo..."
-    data-status-answer="Ahora responde: YES o NO."
-    data-status-play-first="Primero presiona ▶ Play 🙂"
-    data-status-blocked="Si no se escucha, intenta otra vez o responde."
-    data-status-correct="✅ Correcto!"
-    data-status-wrong="❌ Intenta otra vez. Presiona ▶ Replay."
-    data-status-done="✅ Excellent!"
-    data-play-label="▶ Play"
-    data-replay-label="▶ Replay"
-  ></div>
+<script>
+(() => {
+  /* ── SUPABASE ── */
+  const SB         = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = SB + "images/u2/";
+  const AUDIO_BASE = SB + "audio/u2/";
+  const SFX_OK_URL = SB + "sfx/correct.wav";
+  const SFX_BAD_URL= SB + "sfx/incorrect.wav";
 
-  <script src="../../../../js/u2/u2_l6_p2.js"></script>
+  function playOK()  { try { new Audio(SFX_OK_URL).play();  } catch(e){} }
+  function playBad() { try { new Audio(SFX_BAD_URL).play(); } catch(e){} }
+
+  /* ── ITEMS ── */
+  const ITEMS = [
+    { key:"pen",        img:"u2.l6.p1.pen.jpg",        audio:"u2.l6.p1.pen.mp3"        },
+    { key:"book",       img:"u2.l6.p1.book.jpg",       audio:"u2.l6.p1.book.mp3"       },
+    { key:"desk",       img:"u2.l6.p1.desk.jpg",       audio:"u2.l6.p1.desk.mp3"       },
+    { key:"laptop",     img:"u2.l6.p1.laptop.jpg",     audio:"u2.l6.p1.laptop.mp3"     },
+    { key:"chair",      img:"u2.l6.p1.chair.jpg",      audio:"u2.l6.p1.chair.mp3"      },
+    { key:"bag",        img:"u2.l6.p1.bag.jpg",        audio:"u2.l6.p1.bag.mp3"        },
+    { key:"dictionary", img:"u2.l6.p1.dictionary.jpg", audio:"u2.l6.p1.dictionary.mp3" },
+    { key:"globe",      img:"u2.l6.p1.globe.jpg",      audio:"u2.l6.p1.globe.mp3"      },
+  ];
+
+  const TOTAL_ROUNDS = 8;
+  const FEEDBACK_MS  = 700;
+  const LS_KEY       = "inglesco_progress_u2";
+
+  /* ── STATE ── */
+  let round    = 1;
+  let score    = 0;
+  let current  = null;
+  let hasPlayed= false;
+  let busy     = false;
+  let pageComplete = false;
+
+  /* ── DOM ── */
+  const $ = id => document.getElementById(id);
+  const mainImg    = $("mainImg");
+  const playBtn    = $("playBtn");
+  const yesBtn     = $("yesBtn");
+  const noBtn      = $("noBtn");
+  const statusPill = $("statusPill");
+  const progNow    = $("progNow");
+  const nextBtn    = $("nextBtn");
+
+  /* ── SCORE ── */
+  function updateScore() {
+    $("scoreBadge").textContent = `${score} / ${TOTAL_ROUNDS}`;
+  }
+
+  function setStatus(msg, cls) {
+    statusPill.textContent = msg;
+    statusPill.className   = "status-pill" + (cls ? " " + cls : "");
+  }
+
+  /* ── PROGRESS ── */
+  function saveProgress() {
+    try {
+      const raw  = localStorage.getItem(LS_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l6) data.l6 = { partsCompleted:0, partsTotal:4 };
+      if (!pageComplete) {
+        pageComplete = true;
+        data.l6.partsCompleted = Math.max(data.l6.partsCompleted || 0, 2);
+        data.l6.partsTotal = 4;
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+      }
+    } catch(e) {}
+  }
+
+  /* ── STEP NAV ── */
+  document.querySelectorAll(".step").forEach(s => {
+    s.addEventListener("click", () => {
+      const go = s.getAttribute("data-go");
+      if (go) window.location.href = go;
+    });
+  });
+
+  /* ── AUDIO ── */
+  const audio = new Audio();
+  audio.preload = "none";
+
+  const randInt = max => Math.floor(Math.random() * max);
+
+  /* ── ROUND LOGIC ── */
+  function pickRound() {
+    const imgItem   = ITEMS[randInt(ITEMS.length)];
+    const wantMatch = Math.random() < 0.5;
+    let audioItem   = imgItem;
+    if (!wantMatch) {
+      do { audioItem = ITEMS[randInt(ITEMS.length)]; }
+      while (audioItem.key === imgItem.key);
+    }
+    return { imgItem, audioItem, isMatch: audioItem.key === imgItem.key };
+  }
+
+  function lockAnswers(on) {
+    yesBtn.disabled = on;
+    noBtn.disabled  = on;
+  }
+
+  function renderRound() {
+    progNow.textContent = String(round);
+    current   = pickRound();
+    hasPlayed = false;
+    busy      = false;
+
+    mainImg.src = IMG_BASE + current.imgItem.img;
+    mainImg.alt = current.imgItem.key;
+    audio.src   = AUDIO_BASE + current.audioItem.audio;
+
+    playBtn.textContent = "▶ Play";
+    playBtn.disabled    = false;
+    lockAnswers(true);
+    setStatus("Presiona ▶ Play y luego YES o NO.");
+  }
+
+  function finish() {
+    setStatus("¡Excelente trabajo! ✅", "done");
+    lockAnswers(true);
+    playBtn.disabled = true;
+    nextBtn.classList.remove("hidden");
+    saveProgress();
+  }
+
+  /* ── PLAY BUTTON ── */
+  playBtn.addEventListener("click", async () => {
+    if (!current || busy) return;
+    playBtn.disabled = true;
+    setStatus("Reproduciendo…");
+    audio.currentTime = 0;
+
+    try {
+      await audio.play();
+      playBtn.textContent = "▶ Replay";
+      audio.onended = () => {
+        hasPlayed = true;
+        playBtn.disabled = false;
+        setStatus("Ahora responde: ¿YES o NO?");
+        lockAnswers(false);
+      };
+    } catch(e) {
+      hasPlayed = true;
+      playBtn.disabled  = false;
+      playBtn.textContent = "▶ Replay";
+      setStatus("Si no se escucha, intenta otra vez o responde.");
+      lockAnswers(false);
+    }
+  });
+
+  /* ── ANSWER HANDLER ── */
+  function handleAnswer(userYes) {
+    if (!current || !hasPlayed || busy) {
+      if (!hasPlayed) setStatus("Primero presiona ▶ Play 🙂");
+      return;
+    }
+    busy = true;
+    lockAnswers(true);
+    playBtn.disabled = true;
+
+    const correct = (userYes === current.isMatch);
+
+    if (correct) {
+      playOK();
+      score++;
+      updateScore();
+      setStatus("✅ ¡Correcto!", "ok");
+      setTimeout(() => {
+        if (round >= TOTAL_ROUNDS) finish();
+        else { round++; renderRound(); }
+      }, FEEDBACK_MS);
+    } else {
+      playBad();
+      setStatus("❌ Intenta otra vez. Escucha de nuevo.", "bad");
+      setTimeout(() => {
+        busy = false;
+        playBtn.disabled = false;
+        hasPlayed = false;
+        playBtn.textContent = "▶ Replay";
+        setStatus("Escucha otra vez y responde.");
+        // keep answers locked until replay
+      }, FEEDBACK_MS);
+    }
+  }
+
+  yesBtn.addEventListener("click", () => handleAnswer(true));
+  noBtn.addEventListener("click",  () => handleAnswer(false));
+
+  /* ── INIT ── */
+  updateScore();
+  renderRound();
+})();
+</script>
 </body>
 </html>

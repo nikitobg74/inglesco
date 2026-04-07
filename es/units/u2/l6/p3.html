@@ -2,420 +2,471 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unidad 2 - Lección 6 - Parte 3</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ON – Preposición en inglés | Inglesco Unidad 2 Lección 6</title>
+  <meta name="description" content="Aprende la preposición ON en inglés: the book is on the desk. Ejemplos con audio y práctica interactiva. Inglesco Unidad 2 Lección 6 Parte 3." />
+  <meta name="keywords" content="preposición on inglés, the book is on the desk, aprender inglés gratis, inglés para hispanohablantes, Inglesco" />
+  <link rel="canonical" href="https://inglesco.co/es/units/u2/l6/p3.html" />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
-    }
-    .wrap{ max-width: 900px; margin: 0 auto; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#f0fdf4; color:#1e293b; }
 
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
+    /* ── BACK ── */
+    .back-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      margin-bottom:20px; padding:8px 16px;
+      background:#2563eb; color:#fff; border-radius:10px;
+      text-decoration:none; font-weight:700; font-size:14px;
+      transition:background .2s;
     }
-    .back-btn:hover{ background:#1e40af; }
+    .back-btn:hover { background:#1e40af; }
 
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
+    /* ── PROGRESS ── */
+    .progress-container { display:flex; justify-content:center; gap:10px; margin:0 0 24px 0; }
+    .step {
+      width:40px; height:40px; border-radius:50%; background:#d1d5db;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; cursor:pointer; transition:all .25s;
+      color:#1f2937; user-select:none; font-size:15px;
     }
-    .step{
-      width:40px; height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
+    .step.active { background:#2563eb; color:#fff; box-shadow:0 0 0 3px #bfdbfe; }
+    .step:hover { transform:scale(1.1); }
 
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
+    /* ── SCORE BADGE ── */
+    .score-badge { display:flex; justify-content:center; margin-bottom:14px; }
+    .score-inner {
+      background:#fff; border:2px solid #2563eb; border-radius:999px;
+      padding:5px 18px; font-weight:800; font-size:14px; color:#1e40af;
+      display:flex; align-items:center; gap:6px;
     }
+    .score-inner span { font-size:18px; }
 
-    .card{
-      background: rgba(255,255,255,.88);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
-      margin-bottom: 14px;
+    /* ── PAGE BOX ── */
+    .exercise-box {
+      max-width:820px; margin:0 auto; background:#fff;
+      padding:28px 32px; border-radius:20px;
+      box-shadow:0 10px 30px rgba(139,92,246,0.12);
+    }
+    .unit-title { color:#2563eb; font-size:26px; font-weight:900; text-align:center; margin-bottom:4px; }
+    .lesson-sub { text-align:center; font-weight:700; color:#475569; font-size:14px; margin-bottom:20px; }
+
+    /* ── INSTRUCTION BOX ── */
+    .instruction-box {
+      background:#d1fae5; border-radius:14px; padding:14px 18px;
+      margin-bottom:20px; font-weight:700; color:#0f172a;
+      font-size:14px; line-height:1.55;
     }
 
-    .sub{
-      font-size: 28px;
-      font-weight: 900;
-      color: #2563eb;
-      text-align:center;
-      margin: 6px 0 10px 0;
+    /* ── SECTION ── */
+    .section {
+      background:#f8fafc; border:1px solid #e2e8f0;
+      border-radius:16px; padding:18px; margin-top:18px;
+    }
+    .section-title {
+      font-weight:900; color:#0f172a; text-align:center;
+      margin-bottom:14px; font-size:15px;
+      text-transform:uppercase; letter-spacing:.04em;
     }
 
-    .es-instructions{
-      background: rgba(255,255,255,.92);
-      border-radius: 16px;
-      padding: 12px;
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
-      margin-bottom: 14px;
-      font-weight: 800;
-      line-height: 1.3;
-    }
-    .es-instructions ul{ margin:0; padding-left:18px; }
-    .es-instructions li{ margin:6px 0; }
+    /* ── TWO-COL ── */
+    .two-col { display:grid; grid-template-columns:1fr; gap:16px; align-items:start; }
+    @media (min-width:680px) { .two-col { grid-template-columns:1fr 1fr; } }
 
-    .two-col{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      align-items:start;
-    }
-    @media (min-width:820px){
-      .two-col{ grid-template-columns: 1fr 1fr; }
-    }
-
-.img{
-  width:100%;
-  max-width: 340px;
-  height: auto;          /* let image keep ratio */
-  max-height: 220px;
-  border-radius: 16px;
-  object-fit: contain;   /* ✅ no cropping */
-  background:#fff;
-}
-/* ON image: smaller and never cropped */
-.img-on{
-  width: 100%;
-  max-width: 320px;     /* smaller */
-  max-height: 170px;    /* smaller */
-  object-fit: contain;  /* IMPORTANT: no cropping */
-  background: #fff;
-}
-    .fixed-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 10px;
-    }
-
-    .ex-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 10px;
-    }
-
-    .toprow{
+    /* ── IMAGE WRAPPERS ── */
+    .img-wrap {
+      background:#f1f5f9; border-radius:14px; overflow:hidden;
+      display:flex; justify-content:center; align-items:center;
       width:100%;
-      max-width:420px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      font-weight:900;
     }
+    .img-wrap img { width:100%; object-fit:contain; background:#f1f5f9; display:block; }
+    .img-wrap.on-h   { max-height:180px; } .img-wrap.on-h img   { max-height:180px; }
+    .img-wrap.ex-h   { max-height:220px; } .img-wrap.ex-h img   { max-height:220px; }
+    .img-wrap.quiz-h { max-height:220px; } .img-wrap.quiz-h img { max-height:220px; }
 
-    .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
-    }
+    /* ── ON COLUMN ── */
+    .on-col { display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .on-label { font-size:22px; font-weight:900; color:#dc2626; }
 
-    .play-btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding:10px 12px;
-      border-radius:999px;
-      background:#2563eb;
-      color:#fff;
-      font-weight:900;
-    }
-    .play-btn:hover{ background:#1e40af; }
-    .play-btn:disabled{ opacity:.65; cursor:not-allowed; }
+    /* ── EXAMPLE COLUMN ── */
+    .ex-col { display:flex; flex-direction:column; align-items:center; gap:12px; }
 
-    .sentence{
-      width:100%;
-      max-width:420px;
-      text-align:center;
-      font-weight:900;
-      font-size: 18px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
-      line-height: 1.25;
+    .top-row {
+      width:100%; display:flex; justify-content:space-between;
+      align-items:center; gap:10px; flex-wrap:wrap;
     }
-    .onword{ color:#dc2626; } /* red */
+    .counter-pill {
+      background:#2563eb; color:#fff; padding:5px 14px;
+      border-radius:999px; font-size:13px; font-weight:900;
+    }
+    .play-btn {
+      border:none; cursor:pointer; background:#2563eb; color:#fff;
+      padding:10px 18px; border-radius:999px; font-weight:900; font-size:14px;
+      transition:background .2s, transform .1s;
+      box-shadow:0 4px 10px rgba(37,99,235,0.28);
+    }
+    .play-btn:hover { background:#1e40af; transform:scale(1.03); }
+    .play-btn:disabled { opacity:.55; cursor:not-allowed; transform:none; }
 
-    .status{
-      width:100%;
-      max-width:420px;
-      text-align:center;
-      font-weight:900;
-      font-size: 16px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 6px 18px rgba(15,23,42,.08);
+    /* ── SENTENCE ── */
+    .sentence-box {
+      width:100%; background:#fff; border:1px solid #e2e8f0;
+      border-radius:14px; padding:14px 16px; text-align:center;
+      font-weight:900; font-size:17px; line-height:1.4; color:#0f172a;
     }
+    .onword { color:#dc2626; }
 
-    .actions{
-      width:100%;
-      max-width:420px;
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top: 6px;
+    /* ── STATUS ── */
+    .status-pill {
+      width:100%; text-align:center; font-weight:800; font-size:14px;
+      padding:10px 14px; border-radius:999px; background:#fff;
+      border:2px solid #e2e8f0; color:#0f172a;
+      transition:border-color .2s, background .2s;
     }
+    .status-pill.ok   { border-color:#16a34a; background:#dcfce7; color:#14532d; }
+    .status-pill.bad  { border-color:#dc2626; background:#fee2e2; color:#7f1d1d; }
+    .status-pill.info { border-color:#2563eb; background:#eff6ff; color:#1e40af; }
 
-    .btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-weight: 900;
-      background:#2563eb;
-      color:#fff;
+    /* ── ACTION BUTTONS ── */
+    .actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .btn {
+      border:none; cursor:pointer; padding:11px 20px; border-radius:12px;
+      font-weight:900; font-size:14px; background:#2563eb; color:#fff;
+      transition:background .2s;
     }
-    .btn:hover{ background:#1e40af; }
-    .btn.secondary{
-      background:#0f172a;
-    }
-    .btn.secondary:hover{ background:#111827; }
-    .hidden{ display:none !important; }
+    .btn:hover { background:#1e40af; }
+    .btn:disabled { opacity:.5; cursor:not-allowed; }
+    .btn.dark { background:#0f172a; }
+    .btn.dark:hover { background:#1e293b; }
 
-    /* Quiz */
-    .quiz-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 12px;
+    /* ── QUIZ OPTIONS ── */
+    .options { display:flex; flex-direction:column; gap:10px; width:100%; max-width:480px; }
+    .opt {
+      width:100%; text-align:left; background:#f8fafc;
+      border:2px solid #e2e8f0; border-radius:14px;
+      padding:13px 14px; cursor:pointer; font-weight:800;
+      font-size:14px; line-height:1.3; color:#0f172a;
+      transition:border-color .15s, background .15s;
     }
-    .options{
-      width:100%;
-      max-width:420px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .opt{
-      width:100%;
-      text-align:left;
-      background: rgba(255,255,255,.92);
-      border: 2px solid rgba(15,23,42,.10);
-      border-radius: 14px;
-      padding: 12px 12px;
-      cursor:pointer;
-      font-weight: 900;
-      line-height:1.2;
-      box-shadow: 0 6px 18px rgba(15,23,42,.06);
-    }
-    .opt.selected{
-      border-color:#2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,.18);
-    }
-    .opt .label{
-      display:inline-block;
-      min-width: 28px;
-      color:#2563eb;
-    }
+    .opt:hover:not(:disabled) { border-color:#c7d2fe; }
+    .opt.correct { border-color:#16a34a; background:#dcfce7; color:#14532d; }
+    .opt.wrong   { border-color:#dc2626; background:#fee2e2; color:#7f1d1d; }
+    .opt:disabled { cursor:not-allowed; }
+    .opt .lbl { color:#2563eb; font-weight:900; margin-right:6px; }
 
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:25px;
-      padding-bottom: 30px;
+    /* ── FOOTER ── */
+    .footer-actions { display:flex; justify-content:center; margin-top:22px; }
+    .next-btn {
+      display:inline-block; padding:11px 24px; background:#2563eb;
+      color:#fff; text-decoration:none; border-radius:12px;
+      font-weight:900; font-size:15px; transition:background .2s;
     }
-    .next-link{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
+    .next-btn:hover { background:#1e40af; }
+
+    .hidden { display:none !important; }
+
+    @media (max-width:540px) {
+      body { padding:12px; }
+      .exercise-box { padding:18px 14px; }
+      .unit-title { font-size:21px; }
+      .sentence-box { font-size:15px; }
     }
-    .next-link:hover{ background:#1e40af; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-    <a href="../index.html" class="back-btn">Volver a Unidad 2</a>
+  <div class="progress-container">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step" data-go="p2.html">2</div>
+    <div class="step active" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
+  </div>
 
-    <div class="progress-container">
-      <div class="step" data-go="p1.html">1</div>
-      <div class="step" data-go="p2.html">2</div>
-      <div class="step active" data-go="p3.html">3</div>
-      <div class="step" data-go="p4.html">4</div>
+  <div class="score-badge">
+    <div class="score-inner"><span>⭐</span> Score: <b id="scoreBadge">0 / 4</b></div>
+  </div>
+
+  <div class="exercise-box">
+    <h1 class="unit-title">The Preposition ON</h1>
+    <div class="lesson-sub">Unidad 2 · Lección 6 · Parte 3</div>
+
+    <div class="instruction-box">
+      <b>ON</b> = sobre una superficie.<br>
+      Presiona <b>▶ Play</b> para escuchar cada ejemplo.<br>
+      La palabra <span class="onword">on</span> aparece en rojo para identificarla fácilmente.
     </div>
 
-    <div class="card">
-      <div class="sub">Unidad 2 · Lección 6 · Parte 3</div>
+    <!-- ═══ PART 1: EXAMPLES ═══ -->
+    <div class="section" id="part1">
+      <div class="section-title">📖 Ejemplos</div>
+      <div class="two-col">
 
-      <div class="es-instructions">
-        <ul>
-          <li>ON = sobre una superficie.</li>
-          <li>Presiona ▶ Play para escuchar.</li>
-          <li>Lee la oración (la palabra <span style="color:#dc2626;font-weight:900;">on</span> está en rojo).</li>
-        </ul>
-      </div>
-
-      <!-- ===== PART 1: EXAMPLES ===== -->
-      <section id="part1">
-        <div class="two-col">
-
-          <!-- Fixed ON image (must stay) -->
-          <div class="fixed-wrap">
-           <img id="onImg" class="img img-on" alt="ON" />
+        <!-- Fixed ON image -->
+        <div class="on-col">
+          <div class="on-label">ON</div>
+          <div class="img-wrap on-h">
+            <img id="onImg" alt="Diagrama de la preposición ON — sobre una superficie" />
           </div>
-
-          <!-- Example image + sentence -->
-          <div class="ex-wrap">
-            <div class="toprow">
-              <div class="pill">Ejemplo: <span id="exNow">1</span>/<span id="exTotal">6</span></div>
-              <button id="playBtn" class="play-btn" type="button">▶ Play</button>
-            </div>
-
-            <img id="exImg" class="img" alt="Example" />
-
-            <div id="sentence" class="sentence"></div>
-
-            <div id="status1" class="status">Presiona ▶ Play.</div>
-
-            <div class="actions">
-              <button id="nextExBtn" class="btn" type="button">Next ▶</button>
-              <button id="startQuizBtn" class="btn secondary hidden" type="button">Start Practice ▶</button>
-            </div>
-          </div>
-
         </div>
-      </section>
 
-      <!-- ===== PART 2: QUIZ ===== -->
-      <section id="part2" class="hidden">
-        <div class="quiz-wrap">
-          <div class="toprow" style="max-width:420px;">
-            <div class="pill">Practice: <span id="qNow">1</span>/<span id="qTotal">4</span></div>
-            <button id="qPlayBtn" class="play-btn" type="button">▶ Play</button>
+        <!-- Example image + controls -->
+        <div class="ex-col">
+          <div class="top-row">
+            <span class="counter-pill">Ejemplo <span id="exNow">1</span> / <span id="exTotal">6</span></span>
+            <button id="playBtn" class="play-btn" type="button">▶ Play</button>
           </div>
-
-          <img id="qImg" class="img" alt="Question" />
-
-          <div id="qStatus" class="status">Elige A, B o C.</div>
-
-          <div id="options" class="options"></div>
-
+          <div class="img-wrap ex-h">
+            <img id="exImg" alt="Ejemplo de ON en inglés" />
+          </div>
+          <div id="sentence" class="sentence-box"></div>
+          <div id="status1" class="status-pill">Presiona ▶ Play.</div>
           <div class="actions">
-            <button id="checkBtn" class="btn" type="button">Check</button>
+            <button id="nextExBtn" class="btn" type="button" disabled>Siguiente ▶</button>
+            <button id="startQuizBtn" class="btn dark hidden" type="button">Practicar ▶</button>
           </div>
         </div>
-      </section>
+
+      </div>
+    </div>
+
+    <!-- ═══ PART 2: QUIZ ═══ -->
+    <div class="section hidden" id="part2">
+      <div class="section-title">❓ Práctica</div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <div class="top-row" style="max-width:480px;">
+          <span class="counter-pill">Pregunta <span id="qNow">1</span> / <span id="qTotal">4</span></span>
+          <button id="qPlayBtn" class="play-btn" type="button">▶ Play</button>
+        </div>
+        <div class="img-wrap quiz-h" style="max-width:480px;">
+          <img id="qImg" alt="Imagen de práctica" />
+        </div>
+        <div id="qStatus" class="status-pill" style="max-width:480px;">Escucha ▶ y elige la oración correcta.</div>
+        <div id="options" class="options"></div>
+      </div>
     </div>
 
     <div class="footer-actions">
-      <a href="p4.html" class="next-link hidden" id="nextPageBtn">Next ▶</a>
+      <a href="p4.html" class="next-btn hidden" id="nextPageBtn">Next ▶</a>
     </div>
-
   </div>
 
-  <!-- UI TEXT (page language lives here; JS stays neutral) -->
-  <div id="uiText" hidden
-    data-status1-ready="Presiona ▶ Play."
-    data-status1-afterplay="Ahora presiona Next ▶"
-    data-status1-done="✅ Muy bien. Ahora práctica."
-    data-playing="Reproduciendo..."
-    data-audio-blocked="Audio bloqueado. Intenta otra vez."
-    data-play="▶ Play"
-    data-replay="▶ Replay"
-    data-quiz-pick="Elige A, B o C."
-    data-quiz-select="Selecciona una opción primero."
-    data-quiz-correct="✅ Correcto!"
-    data-quiz-wrong="❌ No. Intenta otra vez."
-    data-check="Check"
-  ></div>
+<script>
+(() => {
+  const SB         = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = SB + "images/u2/";
+  const AUDIO_BASE = SB + "audio/u2/";
+  const SFX_OK_URL = SB + "sfx/correct.wav";
+  const SFX_BAD_URL= SB + "sfx/incorrect.wav";
 
-  <!-- Lesson content (sentences/options) live in HTML so JS is language-neutral -->
-  <script id="lessonData" type="application/json">
-  {
-    "fixedOnImage": "u2.l6.p3.on.jpg",
-    "examples": [
-      { "img": "u2.l6.p3.book.jpg", "audio": "u2.l6.p3.book.mp3", "sentence": "The book is on the desk." },
-      { "img": "u2.l6.p3.laptop.jpg", "audio": "u2.l6.p3.laptop.mp3", "sentence": "The laptop is on the desk." },
-      { "img": "u2.l6.p3.globe.jpg", "audio": "u2.l6.p3.globe.mp3", "sentence": "The globe is on the desk." },
-      { "img": "u2.l6.p3.laptop.globe.jpg", "audio": "u2.l6.p3.laptop.globe.mp3", "sentence": "The laptop and the globe are on the desk." },
-      { "img": "u2.l6.p3.bag.jpg", "audio": "u2.l6.p3.bag.mp3", "sentence": "The bag is on the chair." },
-      { "img": "u2.l6.p3.dog.jpg", "audio": "u2.l6.p3.dog.mp3", "sentence": "The dog is on the chair." }
-    ],
-    "quiz": [
-      {
-        "img": "u2.l6.p3.book.jpg",
-        "audio": "u2.l6.p3.book.mp3",
-        "correctIndex": 0,
-        "options": [
-          "The book is on the desk.",
-          "The pen is on the desk.",
-          "The globe is on the desk."
-        ]
-      },
-      {
-        "img": "u2.l6.p3.laptop.jpg",
-        "audio": "u2.l6.p3.laptop.mp3",
-        "correctIndex": 2,
-        "options": [
-          "The book is on the desk.",
-          "The pen is on the desk.",
-          "The laptop is on the desk."
-        ]
-      },
-      {
-        "img": "u2.l6.p3.globe.jpg",
-        "audio": "u2.l6.p3.globe.mp3",
-        "correctIndex": 2,
-        "options": [
-          "The laptop is on the desk.",
-          "The book is on the desk.",
-          "The globe is on the desk."
-        ]
-      },
-      {
-        "img": "u2.l6.p3.bagpack.jpg",
-        "audio": "u2.l6.p3.bagpack.mp3",
-        "correctIndex": 2,
-        "options": [
-          "The laptop is on the chair.",
-          "The book is on the chair.",
-          "The bag pack is on the chair."
-        ]
+  function playOK()  { try { new Audio(SFX_OK_URL).play();  } catch(e){} }
+  function playBad() { try { new Audio(SFX_BAD_URL).play(); } catch(e){} }
+
+  /* ── DATA ── */
+  const EXAMPLES = [
+    { img:"u2.l6.p3.book.jpg",        audio:"u2.l6.p3.book.mp3",        sentence:"The book is on the desk."                  },
+    { img:"u2.l6.p3.laptop.jpg",      audio:"u2.l6.p3.laptop.mp3",      sentence:"The laptop is on the desk."                },
+    { img:"u2.l6.p3.globe.jpg",       audio:"u2.l6.p3.globe.mp3",       sentence:"The globe is on the desk."                 },
+    { img:"u2.l6.p3.laptop.globe.jpg",audio:"u2.l6.p3.laptop.globe.mp3",sentence:"The laptop and the globe are on the desk." },
+    { img:"u2.l6.p3.bag.jpg",         audio:"u2.l6.p3.bag.mp3",         sentence:"The bag is on the chair."                  },
+    { img:"u2.l6.p3.dog.jpg",         audio:"u2.l6.p3.dog.mp3",         sentence:"The dog is on the chair."                  },
+  ];
+
+  const QUIZ = [
+    { img:"u2.l6.p3.book.jpg",   audio:"u2.l6.p3.book.mp3",   correctIndex:0,
+      options:["The book is on the desk.","The pen is on the desk.","The globe is on the desk."] },
+    { img:"u2.l6.p3.laptop.jpg", audio:"u2.l6.p3.laptop.mp3", correctIndex:2,
+      options:["The book is on the desk.","The pen is on the desk.","The laptop is on the desk."] },
+    { img:"u2.l6.p3.globe.jpg",  audio:"u2.l6.p3.globe.mp3",  correctIndex:2,
+      options:["The laptop is on the desk.","The book is on the desk.","The globe is on the desk."] },
+    { img:"u2.l6.p3.bag.jpg",    audio:"u2.l6.p3.bag.mp3",    correctIndex:2,
+      options:["The laptop is on the chair.","The book is on the chair.","The bag is on the chair."] },
+  ];
+
+  /* ── STATE ── */
+  const LS_KEY = "inglesco_progress_u2";
+  let score = 0, pageComplete = false;
+
+  function updateScore() { document.getElementById("scoreBadge").textContent = `${score} / ${QUIZ.length}`; }
+  function saveProgress() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l6) data.l6 = { partsCompleted:0, partsTotal:4 };
+      if (!pageComplete) {
+        pageComplete = true;
+        data.l6.partsCompleted = Math.max(data.l6.partsCompleted || 0, 3);
+        data.l6.partsTotal = 4;
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
       }
-    ]
+    } catch(e) {}
   }
-  </script>
 
-  <script src="../../../../js/u2/u2_l6_p3.js"></script>
+  const $ = id => document.getElementById(id);
+
+  document.querySelectorAll(".step").forEach(s => {
+    s.addEventListener("click", () => { const go = s.getAttribute("data-go"); if (go) window.location.href = go; });
+  });
+
+  function markOn(t) { return t.replace(/\bon\b/gi, m => `<span class="onword">${m}</span>`); }
+  function setStatus(el, msg, cls) { el.textContent = msg; el.className = "status-pill" + (cls ? " "+cls : ""); }
+
+  /* ── SHARED AUDIO ── */
+  const audio = new Audio();
+  audio.preload = "none";
+
+  /* ══ PART 1 — EXAMPLES ══ */
+  let exIdx = 0, exPlayed = false;
+
+  $("onImg").src = IMG_BASE + "u2.l6.p3.on.jpg";
+  $("exTotal").textContent = String(EXAMPLES.length);
+
+  function loadExample() {
+    const item = EXAMPLES[exIdx];
+    $("exNow").textContent = String(exIdx + 1);
+    exPlayed = false;
+    $("exImg").src = IMG_BASE + item.img;
+    $("sentence").innerHTML = markOn(item.sentence);
+    audio.src = AUDIO_BASE + item.audio;
+    audio.onended = null;
+    $("playBtn").textContent = "▶ Play";
+    $("playBtn").disabled = false;
+    $("nextExBtn").disabled = true;
+    $("startQuizBtn").classList.add("hidden");
+    setStatus($("status1"), "Presiona ▶ Play.");
+  }
+
+  $("playBtn").addEventListener("click", async () => {
+    setStatus($("status1"), "Reproduciendo…");
+    $("playBtn").disabled = true;
+    $("nextExBtn").disabled = true;
+    audio.currentTime = 0; audio.onended = null;
+    try {
+      await audio.play();
+      audio.onended = () => {
+        exPlayed = true;
+        $("playBtn").textContent = "▶ Replay";
+        $("playBtn").disabled = false;
+        $("nextExBtn").disabled = false;
+        setStatus($("status1"), "Presiona Siguiente ▶");
+      };
+    } catch(e) {
+      $("playBtn").disabled = false;
+      setStatus($("status1"), "Audio bloqueado. Intenta otra vez.");
+    }
+  });
+
+  $("nextExBtn").addEventListener("click", () => {
+    if (!exPlayed) return;
+    if (exIdx >= EXAMPLES.length - 1) {
+      setStatus($("status1"), "✅ Muy bien. Ahora practica.", "ok");
+      $("nextExBtn").disabled = true;
+      $("playBtn").disabled = true;
+      $("startQuizBtn").classList.remove("hidden");
+      return;
+    }
+    exIdx++;
+    loadExample();
+  });
+
+  $("startQuizBtn").addEventListener("click", () => {
+    $("part1").classList.add("hidden");
+    $("part2").classList.remove("hidden");
+    initQuiz();
+  });
+
+  loadExample();
+
+  /* ══ PART 2 — QUIZ ══ */
+  let qIdx = 0, qBusy = false;
+  $("qTotal").textContent = String(QUIZ.length);
+
+  function loadQuestion() {
+    const q = QUIZ[qIdx];
+    qBusy = false;
+    $("qNow").textContent = String(qIdx + 1);
+    $("qImg").src = IMG_BASE + q.img;
+    audio.src = AUDIO_BASE + q.audio;
+    audio.onended = null;
+    $("qPlayBtn").textContent = "▶ Play";
+    $("qPlayBtn").disabled = false;
+    setStatus($("qStatus"), "Escucha ▶ y elige la oración correcta.");
+    renderOptions(q);
+  }
+
+  $("qPlayBtn").addEventListener("click", async () => {
+    if (qBusy) return;
+    setStatus($("qStatus"), "Reproduciendo…");
+    $("qPlayBtn").disabled = true;
+    audio.currentTime = 0; audio.onended = null;
+    try {
+      await audio.play();
+      audio.onended = () => {
+        $("qPlayBtn").textContent = "▶ Replay";
+        $("qPlayBtn").disabled = false;
+        setStatus($("qStatus"), "Elige A, B o C.");
+      };
+    } catch(e) {
+      $("qPlayBtn").disabled = false;
+      setStatus($("qStatus"), "Audio bloqueado. Intenta otra vez.");
+    }
+  });
+
+  function renderOptions(q) {
+    const box = $("options");
+    box.innerHTML = "";
+    ["A","B","C"].forEach((lbl, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "opt";
+      btn.innerHTML = `<span class="lbl">${lbl}.</span>${markOn(q.options[i])}`;
+      btn.addEventListener("click", () => { if (!qBusy) handleAnswer(i, q, btn); });
+      box.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(chosen, q, btn) {
+    qBusy = true;
+    const allOpts = $("options").querySelectorAll(".opt");
+    allOpts.forEach(b => b.disabled = true);
+
+    if (chosen === q.correctIndex) {
+      btn.classList.add("correct");
+      playOK();
+      score++; updateScore();
+      setStatus($("qStatus"), "✅ ¡Correcto!", "ok");
+      setTimeout(() => {
+        qIdx++;
+        if (qIdx >= QUIZ.length) {
+          setStatus($("qStatus"), "¡Excelente! ✅", "ok");
+          $("nextPageBtn").classList.remove("hidden");
+          $("qPlayBtn").disabled = true;
+          saveProgress();
+        } else {
+          loadQuestion();
+        }
+      }, 700);
+    } else {
+      btn.classList.add("wrong");
+      allOpts[q.correctIndex].classList.add("correct");
+      playBad();
+      setStatus($("qStatus"), "❌ Intenta otra vez.", "bad");
+      setTimeout(() => {
+        qBusy = false;
+        allOpts.forEach(b => { b.disabled = false; b.classList.remove("wrong","correct"); });
+        setStatus($("qStatus"), "Elige A, B o C.");
+      }, 900);
+    }
+  }
+
+  function initQuiz() { qIdx = 0; loadQuestion(); }
+
+  updateScore();
+})();
+</script>
 </body>
 </html>

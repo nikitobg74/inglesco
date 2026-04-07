@@ -2,336 +2,597 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unidad 2 - Lección 6 - Parte 1</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>We Are at School – Inglés para hispanohablantes | Inglesco U2 L6</title>
+  <meta name="description" content="Aprende inglés gratis: we are, they are, vocabulario del salón de clases. Lección interactiva con audio, mini quiz y objetos del aula. Inglesco Unidad 2 Lección 6." />
+  <meta name="keywords" content="aprender inglés gratis, we are at school inglés, vocabulario salón de clases inglés, inglés para hispanohablantes, Inglesco" />
+  <link rel="canonical" href="https://inglesco.co/es/units/u2/l6/p1.html" />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
-    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#f0fdf4; color:#1e293b; }
 
-    .wrap{
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
       margin-bottom:20px;
-      padding:8px 15px;
+      padding:8px 16px;
       background:#2563eb;
       color:#fff;
       border-radius:10px;
       text-decoration:none;
       font-weight:700;
+      font-size:14px;
+      transition:background .2s;
     }
-    .back-btn:hover{ background:#1e40af; }
+    .back-btn:hover { background:#1e40af; }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
       display:flex;
       justify-content:center;
       gap:10px;
-      margin:15px 0 25px 0;
+      margin:0 0 24px 0;
     }
-    .step{
-      width:40px;
-      height:40px;
+    .step {
+      width:40px; height:40px;
       border-radius:50%;
       background:#d1d5db;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700;
+      cursor:pointer;
+      transition:all .25s;
+      color:#1f2937;
+      user-select:none;
+      font-size:15px;
+    }
+    .step.active { background:#2563eb; color:#fff; box-shadow:0 0 0 3px #bfdbfe; }
+    .step:hover { transform:scale(1.1); }
+
+    /* ── SCORE BADGE ── */
+    .score-badge {
+      display:flex;
+      justify-content:center;
+      margin-bottom:14px;
+    }
+    .score-inner {
+      background:#fff;
+      border:2px solid #2563eb;
+      border-radius:999px;
+      padding:5px 18px;
+      font-weight:800;
+      font-size:14px;
+      color:#1e40af;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .score-inner span { font-size:18px; }
+
+    /* ── PAGE BOX ── */
+    .exercise-box {
+      max-width:820px;
+      margin:0 auto;
+      background:#fff;
+      padding:28px 32px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(139,92,246,0.12);
+    }
+    .unit-title {
+      color:#2563eb;
+      font-size:26px;
+      font-weight:900;
+      text-align:center;
+      margin-bottom:4px;
+    }
+    .lesson-sub {
+      text-align:center;
+      font-weight:700;
+      color:#475569;
+      font-size:14px;
+      margin-bottom:20px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:18px;
+      margin-top:18px;
+    }
+    .section-title {
+      font-weight:900;
+      color:#0f172a;
+      text-align:center;
+      margin-bottom:14px;
+      font-size:15px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    /* ── STORY IMAGE ── */
+    .story-img-wrap {
+      background:#f1f5f9;
+      border-radius:14px;
+      overflow:hidden;
+      margin-bottom:14px;
+      display:flex;
+      justify-content:center;
+    }
+    .story-img-wrap img {
+      width:100%;
+      max-height:280px;
+      object-fit:contain;
+      background:#f1f5f9;
+      display:block;
+    }
+
+    /* ── STORY TEXT ── */
+    .story-text {
+      background:#f1f5f9;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      padding:14px 16px;
+      font-weight:800;
+      color:#0f172a;
+      line-height:1.8;
+      white-space:pre-line;
+      font-size:15px;
+      margin-bottom:14px;
+    }
+
+    /* ── AUDIO ROW ── */
+    .audio-row {
+      display:flex;
+      justify-content:center;
+      margin-bottom:10px;
+    }
+    .play-btn {
+      border:none;
+      cursor:pointer;
+      background:#16a34a;
+      color:#fff;
+      padding:12px 24px;
+      border-radius:14px;
+      font-weight:900;
+      font-size:15px;
+      transition:background .2s, transform .1s;
+      box-shadow:0 4px 12px rgba(22,163,74,0.28);
+      min-width:160px;
+    }
+    .play-btn:hover { background:#15803d; transform:scale(1.02); }
+    .play-btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+    .hint {
+      text-align:center;
+      font-weight:600;
+      color:#475569;
+      font-size:13px;
+      margin-top:8px;
+    }
+
+    /* ── QUIZ ── */
+    .quiz-stack { display:flex; flex-direction:column; gap:12px; }
+
+    .q-card {
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:16px;
+    }
+    .q-text {
+      font-weight:900;
+      color:#0f172a;
+      margin-bottom:12px;
+      font-size:15px;
+      line-height:1.35;
+    }
+    .choices { display:flex; flex-direction:column; gap:10px; }
+
+    .choice-btn {
+      border:2px solid #e2e8f0;
+      background:#f8fafc;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+      text-align:left;
+      transition:border-color .15s, background .15s, transform .08s;
+      color:#0f172a;
+    }
+    .choice-btn:active { transform:scale(.99); }
+    .choice-btn.correct { border-color:#16a34a; background:#dcfce7; color:#14532d; }
+    .choice-btn.wrong   { border-color:#dc2626; background:#fee2e2; color:#7f1d1d; }
+    .choice-btn:disabled { opacity:.9; cursor:not-allowed; }
+
+    /* ── DONE BADGE ── */
+    .done-badge {
+      background:#dcfce7;
+      border:1px solid #22c55e;
+      color:#14532d;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:900;
+      text-align:center;
+      margin-top:14px;
+      font-size:15px;
+    }
+
+    /* ── OBJECTS GRID ── */
+    .objects-grid { display:flex; flex-direction:column; gap:12px; }
+
+    .obj-item {
+      display:flex;
+      gap:14px;
+      align-items:center;
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:12px 14px;
+    }
+    .obj-img-wrap {
+      width:88px; height:88px;
+      flex-shrink:0;
+      border-radius:12px;
+      background:#f1f5f9;
+      overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
     }
-    .step.active{
+    .obj-img-wrap img {
+      width:100%; height:100%;
+      object-fit:contain;
+    }
+    .obj-main { flex:1; min-width:0; }
+    .obj-word {
+      font-size:18px;
+      font-weight:900;
+      color:#0f172a;
+      margin-bottom:8px;
+    }
+    .obj-play {
+      border:none;
+      cursor:pointer;
       background:#2563eb;
       color:#fff;
+      padding:9px 14px;
+      border-radius:12px;
+      font-weight:900;
+      font-size:13px;
+      width:100%;
+      max-width:200px;
+      transition:background .2s;
     }
-    .step:hover{
-      transform:scale(1.1);
-    }
+    .obj-play:hover { background:#1e40af; }
+    .obj-play:disabled { opacity:.6; cursor:not-allowed; }
 
-    /* ===== NEXT BUTTON (BOTTOM) ===== */
-    .footer-actions{
+    /* ── FOOTER ── */
+    .footer-actions {
       display:flex;
       justify-content:center;
-      margin-top:25px;
-      padding-bottom: 30px;
+      margin-top:22px;
+      gap:10px;
+      flex-wrap:wrap;
     }
-    .next-btn{
+    .next-btn {
       display:inline-block;
-      padding:10px 18px;
+      padding:11px 24px;
       background:#2563eb;
       color:#fff;
       text-decoration:none;
       border-radius:12px;
-      font-weight:800;
+      font-weight:900;
+      font-size:15px;
+      transition:background .2s;
     }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
+    .next-btn:hover { background:#1e40af; }
 
-    /* ===== MOBILE SAFE ===== */
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-    }
+    .hidden { display:none !important; }
 
-    /* ===== PAGE UI ===== */
-    .card{
-      background: rgba(255,255,255,.88);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
-      margin-bottom: 14px;
+    /* ── MOBILE ── */
+    @media (max-width:540px) {
+      body { padding:12px; }
+      .exercise-box { padding:18px 14px; }
+      .unit-title { font-size:21px; }
+      .story-text { font-size:14px; }
+      .obj-img-wrap { width:72px; height:72px; }
+      .obj-word { font-size:16px; }
     }
-
-    .title{
-      font-size: 26px;
-      font-weight: 900;
-      margin: 6px 0 10px 0;
-      letter-spacing: .2px;
-      text-align:center;
-    }
-
-    .lesson-subtitle{
-      text-align:center;
-      font-weight: 800;
-      margin: 0 0 10px 0;
-      opacity: .85;
-    }
-
-    .hero{
-      display:flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .hero-img{
-      width:100%;
-      border-radius: 14px;
-      object-fit: cover;
-      max-height: 320px;
-    }
-
-    /* tighter lines */
-    .text-block{
-      line-height: 1;
-      font-size: 18px;
-      font-weight: 800;
-      white-space: pre-line;
-    }
-
-    .audio-row{
-      display:flex;
-      align-items:center;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-
-    .play-btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 12px 16px;
-      border-radius: 14px;
-      background: #16a34a;
-      color: #fff;
-      font-weight: 900;
-      font-size: 16px;
-      box-shadow: 0 8px 18px rgba(22,163,74,.25);
-      min-width: 180px;
-    }
-    .play-btn:hover{ filter: brightness(.95); }
-    .play-btn:disabled{ opacity: .65; cursor:not-allowed; }
-
-    .hint{
-      text-align:center;
-      font-weight: 700;
-      opacity: .75;
-      margin: 6px 0 0 0;
-      font-size: 14px;
-    }
-
-    .section-title{
-      font-size: 20px;
-      font-weight: 900;
-      margin: 0 0 10px 0;
-      text-align:center;
-    }
-
-    /* ===== QUIZ ===== */
-    .quiz{
-      display:flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .q-card{
-      background: rgba(255,255,255,.92);
-      border-radius: 16px;
-      padding: 12px;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-    }
-    .q-text{
-      font-size: 17px;
-      font-weight: 900;
-      margin: 0 0 10px 0;
-      line-height: 1.25;
-    }
-    .choices{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    .choice-btn{
-      appearance:none;
-      border: 2px solid #cbd5e1;
-      background:#fff;
-      padding: 12px 12px;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 16px;
-      cursor:pointer;
-      text-align:left;
-      transition: transform .08s, border-color .2s, background .2s;
-    }
-    .choice-btn:active{ transform: scale(.99); }
-    .choice-btn.correct{
-      border-color:#16a34a;
-      background:#dcfce7;
-    }
-    .choice-btn.wrong{
-      border-color:#dc2626;
-      background:#fee2e2;
-    }
-    .choice-btn:disabled{
-      opacity:.9;
-      cursor:not-allowed;
-    }
-
-    .done-badge{
-      display:inline-block;
-      margin: 8px auto 0 auto;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background:#dcfce7;
-      color:#166534;
-      font-weight: 900;
-      text-align:center;
-    }
-
-    /* ===== OBJECTS ===== */
-    .items{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .item{
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-    }
-    .item img{
-      width: 92px;
-      height: 92px;
-      border-radius: 14px;
-      object-fit: cover;
-      flex: 0 0 auto;
-      background:#e5e7eb;
-    }
-    .item-main{
-      flex:1;
-      min-width: 0;
-    }
-    .word{
-      font-size: 18px;
-      font-weight: 900;
-      margin: 0 0 8px 0;
-    }
-    .small-play{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background:#2563eb;
-      color:#fff;
-      font-weight: 900;
-      font-size: 14px;
-      width: 100%;
-      max-width: 220px;
-    }
-    .small-play:hover{ background:#1e40af; }
-    .small-play:disabled{ opacity:.65; cursor:not-allowed; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-    <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
+  <div class="progress-container">
+    <div class="step active" data-go="p1.html">1</div>
+    <div class="step" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
+  </div>
 
-    <!-- Progress 1-4 -->
-    <div class="progress-container" aria-label="Progreso de la lección">
-      <div class="step active" data-go="p1.html" aria-current="page">1</div>
-      <div class="step" data-go="p2.html">2</div>
-      <div class="step" data-go="p3.html">3</div>
-      <div class="step" data-go="p4.html">4</div>
-    </div>
+  <!-- SCORE BADGE -->
+  <div class="score-badge">
+    <div class="score-inner"><span>⭐</span> Score: <b id="scoreBadge">0 / 4</b></div>
+  </div>
+
+  <div class="exercise-box">
+    <h1 class="unit-title">We Are at School</h1>
+    <div class="lesson-sub">Unidad 2 · Lección 6 · Parte 1</div>
 
     <!-- STORY -->
-    <div class="card hero">
-      <div class="lesson-subtitle">Unidad 2 · Lección 6 · Parte 1</div>
-      <div class="title">We Are at School</div>
+    <div class="section">
+      <div class="section-title">📖 Reading &amp; Listening</div>
 
-      <img id="storyImg" class="hero-img" alt="Classroom" />
+      <div class="story-img-wrap">
+        <img id="storyImg" alt="Students in a classroom — We are at school" />
+      </div>
 
-      <div id="storyText" class="text-block"></div>
+      <div class="story-text" id="storyText"></div>
 
       <div class="audio-row">
         <button id="playStoryBtn" class="play-btn" type="button">▶ Play Text</button>
-        <audio id="storyAudio" preload="auto"></audio>
       </div>
-
-      <div class="hint">Listen, then answer the questions below.</div>
+      <div class="hint">Escucha el texto y sigue la lectura. Luego responde las preguntas.</div>
     </div>
 
     <!-- MINI QUIZ -->
-    <div class="card">
-      <div class="section-title">Mini Quiz</div>
-      <div id="quizWrap" class="quiz"></div>
-
-      <div id="doneBadge" class="done-badge hidden">✅ Great job! You can continue.</div>
+    <div class="section">
+      <div class="section-title">❓ Mini Quiz</div>
+      <div id="quizWrap" class="quiz-stack"></div>
+      <div id="doneBadge" class="done-badge hidden">¡Excelente trabajo! ✅ Puedes continuar.</div>
     </div>
 
-    <!-- OBJECTS -->
-    <div class="card">
-      <div class="section-title">Classroom Objects</div>
-      <div class="items" id="itemsGrid"></div>
+    <!-- CLASSROOM OBJECTS -->
+    <div class="section">
+      <div class="section-title">🎒 Classroom Objects</div>
+      <div id="itemsGrid" class="objects-grid"></div>
     </div>
 
-    <!-- Next button at bottom -->
     <div class="footer-actions">
       <a href="p2.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
     </div>
-
   </div>
 
-  <script src="../../../../js/u2/u2_l6_p1.js"></script>
+<script>
+(() => {
+  /* ── SUPABASE BASE ── */
+  const SB         = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = SB + "images/u2/";
+  const AUDIO_BASE = SB + "audio/u2/";
+  const SFX_OK_URL = SB + "sfx/correct.wav";
+  const SFX_BAD_URL= SB + "sfx/incorrect.wav";
+
+  function playOK()  { try { new Audio(SFX_OK_URL).play();  } catch(e){} }
+  function playBad() { try { new Audio(SFX_BAD_URL).play(); } catch(e){} }
+
+  /* ── STORY ── */
+  const STORY = {
+    img:   "u2.l6.p1.Iam.classroom.jpg",
+    audio: "u2.l6.p1.atschool.mp3",
+    text:
+`I am not at home. I am at school.
+
+Mateo is not at home. He is at school.
+
+Emma is not at home. She is at school.
+
+Jane and Linda are not at home. They are at school too.
+
+Where is Mateo? He is in the classroom.
+
+Where is Emma? She is in the classroom.
+
+Where are Jane and Linda? They are in the classroom.
+
+We are at school today.
+
+All the students are in the classroom today.`
+  };
+
+  /* ── QUIZ ── */
+  const QUIZ = [
+    { prompt:"Mateo is not at home. He is _____.        ", choices:["at school","at home"],    correct:0 },
+    { prompt:"Emma is not at home. She is _____.        ", choices:["at school","at the bank"], correct:0 },
+    { prompt:"Where is Mateo? He is in the _____.       ", choices:["classroom","garage"],      correct:0 },
+    { prompt:"Jane and Linda are not at home. They are at _____ too.", choices:["school","the park"], correct:0 },
+  ];
+
+  /* ── OBJECTS ── */
+  const OBJECTS = [
+    { word:"Pen",        img:"u2.l6.p1.pen.jpg",        audio:"u2.l6.p1.pen.mp3"        },
+    { word:"Book",       img:"u2.l6.p1.book.jpg",       audio:"u2.l6.p1.book.mp3"       },
+    { word:"Desk",       img:"u2.l6.p1.desk.jpg",       audio:"u2.l6.p1.desk.mp3"       },
+    { word:"Laptop",     img:"u2.l6.p1.laptop.jpg",     audio:"u2.l6.p1.laptop.mp3"     },
+    { word:"Chair",      img:"u2.l6.p1.chair.jpg",      audio:"u2.l6.p1.chair.mp3"      },
+    { word:"Bag",        img:"u2.l6.p1.bag.jpg",        audio:"u2.l6.p1.bag.mp3"        },
+    { word:"Dictionary", img:"u2.l6.p1.dictionary.jpg", audio:"u2.l6.p1.dictionary.mp3" },
+    { word:"Globe",      img:"u2.l6.p1.globe.jpg",      audio:"u2.l6.p1.globe.mp3"      },
+  ];
+
+  /* ── SCORE / PROGRESS ── */
+  const LS_KEY = "inglesco_progress_u2";
+  let score = 0;
+  let pageComplete = false;
+
+  function updateScore() {
+    document.getElementById("scoreBadge").textContent = `${score} / ${QUIZ.length}`;
+  }
+
+  function saveProgress() {
+    try {
+      const raw  = localStorage.getItem(LS_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l6) data.l6 = { partsCompleted:0, partsTotal:4 };
+      if (!pageComplete) {
+        pageComplete = true;
+        data.l6.partsCompleted = Math.max(data.l6.partsCompleted || 0, 1);
+        data.l6.partsTotal = 4;
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+      }
+    } catch(e) {}
+  }
+
+  const $ = id => document.getElementById(id);
+
+  /* ── STEP NAV ── */
+  document.querySelectorAll(".step").forEach(s => {
+    s.addEventListener("click", () => {
+      const go = s.getAttribute("data-go");
+      if (go) window.location.href = go;
+    });
+  });
+
+  /* ── STORY SETUP ── */
+  $("storyImg").src    = IMG_BASE + STORY.img;
+  $("storyText").textContent = STORY.text;
+
+  const storyAudio = new Audio(AUDIO_BASE + STORY.audio);
+  storyAudio.preload = "auto";
+  const playBtn = $("playStoryBtn");
+
+  playBtn.addEventListener("click", async () => {
+    if (!storyAudio.paused && !storyAudio.ended) {
+      storyAudio.pause();
+      playBtn.textContent = "▶ Reanudar";
+      return;
+    }
+    if (storyAudio.ended) storyAudio.currentTime = 0;
+    try {
+      playBtn.textContent = "⏸ Pausar";
+      await storyAudio.play();
+    } catch(e) {
+      playBtn.textContent = "▶ Play Text";
+    }
+  });
+  storyAudio.addEventListener("pause",  () => { if (!storyAudio.ended) playBtn.textContent = "▶ Reanudar"; });
+  storyAudio.addEventListener("ended",  () => { playBtn.textContent = "▶ Play Text"; });
+
+  /* ── QUIZ ── */
+  const answered = new Array(QUIZ.length).fill(false);
+  let correctCount = 0;
+
+  function renderQuiz() {
+    const wrap = $("quizWrap");
+    wrap.innerHTML = "";
+
+    QUIZ.forEach((q, qi) => {
+      const card = document.createElement("div");
+      card.className = "q-card";
+
+      const qText = document.createElement("div");
+      qText.className = "q-text";
+      qText.textContent = `${qi + 1}. ${q.prompt.trim()}`;
+
+      const choices = document.createElement("div");
+      choices.className = "choices";
+
+      q.choices.forEach((text, ci) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "choice-btn";
+        btn.textContent = (ci === 0 ? "A) " : "B) ") + text;
+
+        btn.addEventListener("click", () => {
+          if (answered[qi]) return;
+          answered[qi] = true;
+
+          const allBtns = choices.querySelectorAll("button");
+          allBtns.forEach(b => b.disabled = true);
+
+          if (ci === q.correct) {
+            btn.classList.add("correct");
+            playOK();
+            score++;
+            updateScore();
+            correctCount++;
+            if (correctCount === QUIZ.length) {
+              $("doneBadge").classList.remove("hidden");
+              $("nextBtn").classList.remove("hidden");
+              saveProgress();
+            }
+          } else {
+            btn.classList.add("wrong");
+            playBad();
+            allBtns[q.correct].classList.add("correct");
+          }
+        });
+
+        choices.appendChild(btn);
+      });
+
+      card.appendChild(qText);
+      card.appendChild(choices);
+      wrap.appendChild(card);
+    });
+  }
+
+  /* ── OBJECTS ── */
+  function renderObjects() {
+    const grid = $("itemsGrid");
+    grid.innerHTML = "";
+
+    OBJECTS.forEach(obj => {
+      const item = document.createElement("div");
+      item.className = "obj-item";
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "obj-img-wrap";
+      const img = document.createElement("img");
+      img.src = IMG_BASE + obj.img;
+      img.alt = obj.word;
+      img.loading = "lazy";
+      imgWrap.appendChild(img);
+
+      const main = document.createElement("div");
+      main.className = "obj-main";
+
+      const word = document.createElement("div");
+      word.className = "obj-word";
+      word.textContent = obj.word;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "obj-play";
+      btn.textContent = "▶ Play";
+
+      btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        btn.textContent = "⏸ Playing…";
+        try {
+          const a = new Audio(AUDIO_BASE + obj.audio);
+          await a.play();
+          a.addEventListener("ended", () => {
+            btn.disabled = false;
+            btn.textContent = "▶ Play";
+          }, { once:true });
+        } catch(e) {
+          btn.disabled = false;
+          btn.textContent = "▶ Play";
+        }
+      });
+
+      main.appendChild(word);
+      main.appendChild(btn);
+      item.appendChild(imgWrap);
+      item.appendChild(main);
+      grid.appendChild(item);
+    });
+  }
+
+  /* ── INIT ── */
+  updateScore();
+  renderQuiz();
+  renderObjects();
+})();
+</script>
 </body>
 </html>

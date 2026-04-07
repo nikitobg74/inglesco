@@ -2,277 +2,388 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unidad 2 - Lección 7 - Parte 2</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escribe las Palabras – Vocabulario del Aula | Inglesco Unidad 2 Lección 7</title>
+  <meta name="description" content="Practica el vocabulario del aula en inglés: mira la imagen y escribe la palabra. Inglesco Unidad 2 Lección 7 Parte 2." />
+  <meta name="keywords" content="vocabulario aula inglés, escribir en inglés, aprender inglés gratis, Inglesco" />
+  <link rel="canonical" href="https://inglesco.co/es/units/u2/l7/p2.html" />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      color:#0f172a;
-    }
-    .wrap{ max-width: 900px; margin: 0 auto; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { padding:20px; background:#f0fdf4; color:#1e293b; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
+    /* ── BACK ── */
+    .back-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      margin-bottom:20px; padding:8px 16px;
+      background:#2563eb; color:#fff; border-radius:10px;
+      text-decoration:none; font-weight:700; font-size:14px;
+      transition:background .2s;
     }
-    .back-btn:hover{ background:#1e40af; }
+    .back-btn:hover { background:#1e40af; }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
+    /* ── PROGRESS DOTS ── */
+    .progress-container { display:flex; justify-content:center; gap:10px; margin:0 0 24px 0; }
+    .step {
+      width:40px; height:40px; border-radius:50%; background:#d1d5db;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; cursor:pointer; transition:all .25s;
+      color:#1f2937; user-select:none; font-size:15px;
     }
-    .step{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-    }
+    .step.active { background:#2563eb; color:#fff; box-shadow:0 0 0 3px #bfdbfe; }
+    .step:hover { transform:scale(1.1); }
 
-    /* ===== CARD ===== */
-    .card{
-      background: rgba(255,255,255,.88);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
-      margin-bottom: 14px;
+    /* ── SCORE BADGE ── */
+    .score-badge { display:flex; justify-content:center; margin-bottom:14px; }
+    .score-inner {
+      background:#fff; border:2px solid #2563eb; border-radius:999px;
+      padding:5px 18px; font-weight:800; font-size:14px; color:#1e40af;
+      display:flex; align-items:center; gap:6px;
     }
+    .score-inner span { font-size:18px; }
 
-    .lesson-subtitle{
-      text-align:center;
-      font-weight: 800;
-      margin: 0 0 10px 0;
-      opacity: .85;
+    /* ── PAGE BOX ── */
+    .exercise-box {
+      max-width:560px; margin:0 auto; background:#fff;
+      padding:26px 28px; border-radius:20px;
+      box-shadow:0 10px 30px rgba(139,92,246,0.12);
     }
-    .title{
-      font-size: 26px;
-      font-weight: 900;
-      margin: 6px 0 10px 0;
-      letter-spacing: .2px;
-      text-align:center;
+    .unit-title { color:#2563eb; font-size:24px; font-weight:900; text-align:center; margin-bottom:4px; }
+    .lesson-sub { text-align:center; font-weight:700; color:#475569; font-size:13px; margin-bottom:20px; }
+
+    /* ── TOP ROW ── */
+    .top-row {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:14px; gap:10px; flex-wrap:wrap;
+    }
+    .counter-pill {
+      background:#2563eb; color:#fff; padding:5px 14px;
+      border-radius:999px; font-size:13px; font-weight:900;
+    }
+    .status-pill {
+      font-weight:800; font-size:13px; padding:6px 14px;
+      border-radius:999px; background:#f1f5f9; border:2px solid #e2e8f0;
+      color:#0f172a; transition:all .2s;
+    }
+    .status-pill.ok   { background:#dcfce7; border-color:#16a34a; color:#14532d; }
+    .status-pill.bad  { background:#fee2e2; border-color:#dc2626; color:#7f1d1d; }
+
+    /* ── IMAGE ── */
+    .img-wrap {
+      background:#f1f5f9; border-radius:16px; overflow:hidden;
+      display:flex; justify-content:center; align-items:center;
+      min-height:200px; margin-bottom:18px;
+    }
+    .img-wrap img {
+      width:100%; max-height:260px; object-fit:contain;
+      background:#f1f5f9; display:block;
     }
 
-    .hint-es{
-      text-align:center;
-      font-weight: 900;
-      margin: 6px 0 0 0;
-      font-size: 15px;
-      opacity:.9;
+    /* ── PATTERN HINT ── */
+    .pattern-row {
+      display:flex; align-items:center; gap:10px;
+      flex-wrap:wrap; margin-bottom:14px; justify-content:center;
     }
-    .hint{
-      text-align:center;
-      font-weight: 700;
-      opacity: .75;
-      margin: 6px 0 0 0;
-      font-size: 14px;
+    .pattern-box {
+      font-family: ui-monospace, 'Courier New', monospace;
+      font-weight:900; font-size:16px; color:#475569;
+      background:#f1f5f9; border:2px dashed #94a3b8;
+      border-radius:12px; padding:8px 14px;
+      letter-spacing:.12em; transition:color .2s;
     }
+    .pattern-box.revealed { color:#2563eb; border-color:#2563eb; border-style:solid; }
 
-    /* ===== LIST ===== */
-    .items{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
+    .hint-btn {
+      border:none; cursor:pointer; background:#2563eb; color:#fff;
+      padding:9px 14px; border-radius:12px; font-weight:900;
+      font-size:13px; transition:background .2s;
+      white-space:nowrap;
     }
-    .item{
-      display:flex;
-      gap: 12px;
-      align-items:flex-start;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-    }
-    .item img{
-      width: 84px;
-      height: 84px;
-      border-radius: 14px;
-      object-fit: contain;   /* keep true image */
-      background:#e5e7eb;
-      flex: 0 0 auto;
-    }
-    .item-main{
-      flex:1;
-      min-width: 0;
-    }
-    .row-top{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .label{
-      font-weight: 900;
-      font-size: 15px;
-      opacity:.85;
-    }
+    .hint-btn:hover { background:#1e40af; }
+    .hint-btn:disabled { opacity:.55; cursor:not-allowed; }
 
-    .mask-line{
-      margin-top: 8px;
-      font-weight: 900;
-      font-size: 14px;
-      opacity: .9;
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex-wrap: wrap;
+    /* ── INPUT ── */
+    .word-input {
+      width:100%; padding:14px 16px;
+      border:2px solid #e2e8f0; border-radius:14px;
+      font-size:18px; font-weight:900; color:#0f172a;
+      outline:none; margin-bottom:16px;
+      transition:border-color .2s, background .2s;
     }
-    .mask{
-      display:inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background:#f1f5f9;
-      border: 2px dashed #94a3b8;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-    .hint-btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background:#2563eb;
-      color:#fff;
-      font-weight: 900;
-      font-size: 13px;
-    }
-    .hint-btn:hover{ background:#1e40af; }
-    .hint-btn:disabled{ opacity:.6; cursor:not-allowed; }
+    .word-input:focus { border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.15); }
+    .word-input.ok  { border-color:#16a34a; background:#dcfce7; color:#14532d; }
+    .word-input.bad { border-color:#dc2626; background:#fee2e2; color:#7f1d1d; }
 
-    .input{
-      width: 100%;
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 2px solid #cbd5e1;
-      font-size: 16px;
-      font-weight: 900;
-      outline: none;
+    /* ── CHECK BUTTON ── */
+    .check-btn {
+      width:100%; border:none; cursor:pointer;
+      background:#16a34a; color:#fff;
+      padding:14px 20px; border-radius:14px;
+      font-weight:900; font-size:17px;
+      transition:background .2s;
+      box-shadow:0 4px 14px rgba(22,163,74,0.28);
     }
-    .input:focus{
-      border-color:#2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
-    }
-    .input.correct{
-      border-color:#16a34a;
-      background:#dcfce7;
-    }
-    .input.wrong{
-      border-color:#dc2626;
-      background:#fee2e2;
-    }
+    .check-btn:hover { background:#15803d; }
+    .check-btn:disabled { opacity:.5; cursor:not-allowed; box-shadow:none; }
 
-    /* ===== ACTIONS ===== */
-    .actions{
-      display:flex;
-      justify-content:center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-      padding-bottom: 22px;
+    /* ── DONE / FOOTER ── */
+    .done-box {
+      background:#dcfce7; border:1px solid #22c55e; color:#14532d;
+      padding:14px 18px; border-radius:14px; font-weight:900;
+      text-align:center; margin-top:18px; font-size:16px;
     }
-    .check-btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding: 12px 18px;
-      border-radius: 14px;
-      background:#16a34a;
-      color:#fff;
-      font-weight: 900;
-      font-size: 16px;
-      min-width: 220px;
-      box-shadow: 0 8px 18px rgba(22,163,74,.22);
+    .footer-actions { display:flex; justify-content:center; margin-top:18px; }
+    .next-btn {
+      display:inline-block; padding:12px 28px; background:#2563eb;
+      color:#fff; text-decoration:none; border-radius:12px;
+      font-weight:900; font-size:15px; transition:background .2s;
     }
-    .check-btn:hover{ filter: brightness(.96); }
-    .check-btn:disabled{ opacity:.55; cursor:not-allowed; }
+    .next-btn:hover { background:#1e40af; }
 
-    .finish-btn{
-      display:inline-block;
-      padding: 12px 18px;
-      border-radius: 14px;
-      background:#2563eb;
-      color:#fff;
-      font-weight: 900;
-      text-decoration:none;
-      min-width: 220px;
-      text-align:center;
-    }
-    .finish-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
+    .hidden { display:none !important; }
 
-    .done-badge{
-      display:inline-block;
-      margin: 10px auto 0 auto;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background:#dcfce7;
-      color:#166534;
-      font-weight: 900;
-      text-align:center;
+    @media (max-width:480px) {
+      body { padding:12px; }
+      .exercise-box { padding:18px 14px; }
+      .unit-title { font-size:20px; }
+      .word-input { font-size:16px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
 
-    <a href="../index.html" class="back-btn">← Volver a Unidad 2</a>
-
-    
-<div class="progress-container" aria-label="Progreso de la lección">
-  <div class="step" data-go="p1.html">1</div>
-  <div class="step active" data-go="p2.html" aria-current="page">2</div>
-  <div class="step" data-go="p3.html">3</div>
-<div class="step" data-go="p4.html">4</div>
-</div>
-
-    <div class="card">
-      <div class="lesson-subtitle">Unidad 2 · Lección 7 · Parte 2</div>
-      <div class="title">Escribe las palabras</div>
-
-      <div class="hint-es">Mira la imagen y escribe la palabra completa debajo.</div>
-      <div class="hint">Complete all words, then press CHECK.</div>
-
-      <div id="itemsGrid" class="items"></div>
-
-      <div class="actions">
-        <button id="checkBtn" class="check-btn" type="button" disabled>✔ CHECK</button>
-        <a id="finishBtn" class="finish-btn hidden" href="../index.html">Finalizar ▶</a>
-      </div>
-
-      <div id="doneBadge" class="done-badge hidden">🎉 Buen trabajo, felicitaciones..</div> 
-    </div>
-
+  <div class="progress-container">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step active" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
   </div>
 
-  <script src="../../../../js/u2/u2_l7_p2.js"></script>
+  <div class="score-badge">
+    <div class="score-inner"><span>⭐</span> Score: <b id="scoreBadge">0 / 15</b></div>
+  </div>
+
+  <div class="exercise-box">
+    <h1 class="unit-title">Escribe las Palabras</h1>
+    <div class="lesson-sub">Unidad 2 · Lección 7 · Parte 2</div>
+
+    <div class="top-row">
+      <span class="counter-pill" id="counter">1 / 15</span>
+      <span class="status-pill" id="statusPill">Escribe la palabra.</span>
+    </div>
+
+    <div class="img-wrap">
+      <img id="qImg" alt="Classroom object" />
+    </div>
+
+    <div class="pattern-row">
+      <div class="pattern-box" id="patternBox"></div>
+      <button class="hint-btn" id="hintBtn" type="button">👁 Hint</button>
+    </div>
+
+    <input
+      class="word-input" id="wordInput"
+      type="text" autocomplete="off" spellcheck="false"
+      inputmode="text" placeholder="Type the word here…"
+    />
+
+    <button class="check-btn" id="checkBtn" type="button" disabled>✔ Check</button>
+
+    <div class="done-box hidden" id="doneBox">🎉 ¡Felicitaciones! Has terminado la lección. ✅</div>
+    <div class="footer-actions">
+      <a href="p3.html" class="next-btn hidden" id="nextBtn">Next ▶</a>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const SB       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE = SB + "images/u2/";
+  const SFX_OK   = SB + "sfx/correct.wav";
+  const SFX_BAD  = SB + "sfx/incorrect.wav";
+
+  function playOK()  { try { new Audio(SFX_OK).play();  } catch(e){} }
+  function playBad() { try { new Audio(SFX_BAD).play(); } catch(e){} }
+
+  /* ── ITEMS ── (bagpack → bag, confirmed in Supabase) */
+  const ITEMS = [
+    { answer:"pen",            img:"u2.l6.p1.pen.jpg",            pattern:"p _ n"                    },
+    { answer:"book",           img:"u2.l6.p1.book.jpg",           pattern:"b _ _ k"                  },
+    { answer:"desk",           img:"u2.l6.p1.desk.jpg",           pattern:"d _ s k"                  },
+    { answer:"chair",          img:"u2.l6.p1.chair.jpg",          pattern:"ch _ _ r"                 },
+    { answer:"map",            img:"u2.l6.p4.map.jpg",            pattern:"m _ p"                    },
+    { answer:"clock",          img:"u2.l6.p4.clock.jpg",          pattern:"cl _ _ k"                 },
+    { answer:"table",          img:"u2.l6.p4.table.jpg",          pattern:"t _ b l e"                },
+    { answer:"board",          img:"u2.l6.p4.board.jpg",          pattern:"b _ a r d"                },
+    { answer:"laptop",         img:"u2.l6.p1.laptop.jpg",         pattern:"l _ p t _ p"              },
+    { answer:"globe",          img:"u2.l6.p1.globe.jpg",          pattern:"gl _ b e"                 },
+    { answer:"pencil",         img:"u2.l6.p4.pencil.jpg",         pattern:"p e n c _ l"              },
+    { answer:"bag",            img:"u2.l6.p1.bag.jpg",            pattern:"b _ g"                    },
+    { answer:"dictionary",     img:"u2.l6.p1.dictionary.jpg",     pattern:"d i c t i _ n a r y"      },
+    { answer:"bookshelf",      img:"u2.l6.p4.bookshelf.jpg",      pattern:"b _ _ k s h e l f"        },
+    { answer:"bulletin board", img:"u2.l6.p4.bulletin.board.jpg", pattern:"b u l l e t i n  b _ a r d" },
+  ];
+
+  /* ── STATE ── */
+  const LS_KEY = "inglesco_progress_u2";
+  let idx = 0, score = 0, pageComplete = false;
+  let hintLock = false, hintTimer = null;
+
+  const $ = id => document.getElementById(id);
+  const counter    = $("counter");
+  const statusPill = $("statusPill");
+  const qImg       = $("qImg");
+  const patternBox = $("patternBox");
+  const hintBtn    = $("hintBtn");
+  const wordInput  = $("wordInput");
+  const checkBtn   = $("checkBtn");
+  const doneBox    = $("doneBox");
+  const nextBtn    = $("nextBtn");
+
+  function normalize(s) {
+    return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  function updateScore() {
+    $("scoreBadge").textContent = `${score} / ${ITEMS.length}`;
+  }
+
+  function setStatus(msg, cls) {
+    statusPill.textContent = msg;
+    statusPill.className   = "status-pill" + (cls ? " " + cls : "");
+  }
+
+  function saveProgress() {
+    try {
+      const raw  = localStorage.getItem(LS_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l7) data.l7 = { partsCompleted:0, partsTotal:4 };
+      if (!pageComplete) {
+        pageComplete = true;
+        data.l7.partsCompleted = Math.max(data.l7.partsCompleted || 0, 2);
+        data.l7.partsTotal = 4;
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+      }
+    } catch(e) {}
+  }
+
+  document.querySelectorAll(".step").forEach(s => {
+    s.addEventListener("click", () => { const go = s.getAttribute("data-go"); if (go) window.location.href = go; });
+  });
+
+  /* ── LOAD ITEM ── */
+  function loadItem() {
+    const item = ITEMS[idx];
+    hintLock = false;
+    clearTimeout(hintTimer);
+
+    counter.textContent      = `${idx + 1} / ${ITEMS.length}`;
+    qImg.src                 = IMG_BASE + item.img;
+    qImg.alt                 = item.answer;
+    patternBox.textContent   = item.pattern;
+    patternBox.classList.remove("revealed");
+    hintBtn.disabled         = false;
+    hintBtn.textContent      = "👁 Hint";
+    wordInput.value          = "";
+    wordInput.className      = "word-input";
+    wordInput.disabled       = false;
+    wordInput.focus();
+    checkBtn.disabled        = true;
+    setStatus("Escribe la palabra.");
+  }
+
+  /* ── INPUT LISTENER ── */
+  wordInput.addEventListener("input", () => {
+    wordInput.classList.remove("ok", "bad");
+    checkBtn.disabled = normalize(wordInput.value).length === 0;
+  });
+
+  /* Allow Enter key to trigger check */
+  wordInput.addEventListener("keydown", e => {
+    if (e.key === "Enter" && !checkBtn.disabled) checkBtn.click();
+  });
+
+  /* ── HINT ── */
+  hintBtn.addEventListener("click", () => {
+    if (hintLock) return;
+    hintLock = true;
+    hintBtn.disabled = true;
+    hintBtn.textContent = "⏳";
+
+    patternBox.textContent = ITEMS[idx].answer;
+    patternBox.classList.add("revealed");
+
+    hintTimer = setTimeout(() => {
+      patternBox.textContent = ITEMS[idx].pattern;
+      patternBox.classList.remove("revealed");
+      hintLock = false;
+      hintBtn.disabled = false;
+      hintBtn.textContent = "👁 Hint";
+    }, 2000);
+  });
+
+  /* ── CHECK ── */
+  checkBtn.addEventListener("click", () => {
+    const typed    = normalize(wordInput.value);
+    const expected = normalize(ITEMS[idx].answer);
+
+    if (typed === expected) {
+      playOK();
+      wordInput.className = "word-input ok";
+      wordInput.disabled  = true;
+      checkBtn.disabled   = true;
+      hintBtn.disabled    = true;
+      clearTimeout(hintTimer);
+      patternBox.textContent = ITEMS[idx].answer;
+      patternBox.classList.add("revealed");
+      setStatus("✅ ¡Correcto!", "ok");
+      score++;
+      updateScore();
+
+      setTimeout(() => {
+        idx++;
+        if (idx >= ITEMS.length) {
+          finish();
+        } else {
+          loadItem();
+        }
+      }, 900);
+
+    } else {
+      playBad();
+      wordInput.className = "word-input bad";
+      setStatus("❌ Intenta otra vez.", "bad");
+      setTimeout(() => {
+        wordInput.className = "word-input";
+        setStatus("Escribe la palabra.");
+        wordInput.select();
+      }, 800);
+    }
+  });
+
+  /* ── FINISH ── */
+  function finish() {
+    setStatus("✅ ¡Completado!", "ok");
+    qImg.src = "";
+    patternBox.textContent = "";
+    hintBtn.classList.add("hidden");
+    wordInput.classList.add("hidden");
+    checkBtn.classList.add("hidden");
+    counter.textContent = `${ITEMS.length} / ${ITEMS.length}`;
+    doneBox.classList.remove("hidden");
+    nextBtn.classList.remove("hidden");
+    saveProgress();
+  }
+
+  /* ── INIT ── */
+  updateScore();
+  loadItem();
+})();
+</script>
 </body>
 </html>
