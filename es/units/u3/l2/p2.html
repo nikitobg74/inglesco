@@ -1,295 +1,615 @@
+<!-- u3/l2/p2.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>U3 L2 P2</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 3 – Lección 2 – P2</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    body{
-      padding: 20px;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:#111827;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      user-select:none;
-    }
-    .step.active{
-      background:#2563eb;
-      color:#fff;
-    }
-    .step:hover{ transform:scale(1.1); }
-
-    /* ===== NEXT BUTTON (BOTTOM) ===== */
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:25px;
-    }
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-    .hidden{ display:none !important; }
-
-    /* ===== MOBILE SAFE ===== */
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-    }
-
-    /* ===== PAGE UI ===== */
-    .card{
-      max-width: 820px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.85);
-      border-radius: 16px;
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
       padding: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      margin: 0;
     }
 
-    .title{
-      font-size: 20px;
-      font-weight: 900;
-      margin: 0 0 6px 0;
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
     }
-    .subtitle{
-      margin: 0 0 14px 0;
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px 0;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
       font-size: 15px;
-      color:#374151;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+      color: #1f2933;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── SCORE BADGE ── */
+    .score-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .score-badge {
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2563eb;
+    }
+    .score-label {
+      font-size: 13px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* ── PAGE HEADING ── */
+    h1 { font-size: 20px; margin: 0 0 6px 0; font-weight: 900; }
+    .subtitle {
+      margin: 0 0 18px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    /* ── HINT BOX ── */
+    .hint-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e40af;
+      line-height: 1.7;
+    }
+    .hint-box strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 13px;
+    }
+
+    /* ── SECTION CARD ── */
+    .section {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+
+    /* ── ROUND + STEP STATUS ── */
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+
+    /* ── IMAGE BOX ── */
+    .imgbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 8px;
+      margin-bottom: 14px;
+    }
+    .imgbox img {
+      max-height: 200px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 10px;
+    }
+
+    /* ── QUESTION ROW ── */
+    .question-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .question-text {
+      font-weight: 900;
+      font-size: 15px;
+      color: #0f172a;
+      flex: 1;
+    }
+    .play-btn {
+      border: 0;
+      background: #2563eb;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background .15s, transform .1s;
+    }
+    .play-btn:hover:not(:disabled)  { background: #1e40af; }
+    .play-btn:active:not(:disabled) { transform: scale(.97); }
+    .play-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* ── PROMPT ── */
+    .prompt {
+      font-weight: 900;
+      font-size: 16px;
+      margin: 0 0 12px 0;
       line-height: 1.35;
     }
 
-    .hint-box{
-      background:#eff6ff;
-      border:1px solid #bfdbfe;
-      border-radius:14px;
-      padding:12px;
-      margin: 12px 0 16px 0;
+    /* ── CHOICES ── */
+    .choices {
+      display: grid;
+      gap: 9px;
     }
-    .hint-box strong{ display:block; margin-bottom:6px; }
-    .hint-box .mini{ color:#374151; margin:0; }
-
-    .scene{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
-    }
-
-    .img-wrap{
-      width:100%;
-      display:flex;
-      justify-content:center;
-    }
-    .scene-img{
-      width:100%;
-      max-width: 520px;
-      height:auto;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-      border: 1px solid rgba(17,24,39,0.08);
-    }
-
-    .row{
-      width:100%;
-      max-width: 520px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-
-    .qtext{
-      font-weight: 900;
-      font-size: 16px;
-      margin: 0;
-      color:#111827;
-    }
-
-    .play-btn{
-      padding:10px 14px;
+    .choice-btn {
+      width: 100%;
+      text-align: left;
+      border: 2px solid rgba(15,23,42,.12);
+      background: #fff;
       border-radius: 12px;
-      border:none;
-      background:#111827;
-      color:#fff;
-      font-weight:900;
-      cursor:pointer;
-      flex: 0 0 auto;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s, transform .1s;
     }
-    .play-btn:disabled{
-      opacity:0.55;
-      cursor:not-allowed;
+    .choice-btn:hover:not(:disabled)  { border-color: rgba(37,99,235,.5); }
+    .choice-btn:active:not(:disabled) { transform: scale(.98); }
+    .choice-btn:disabled { opacity: .85; cursor: not-allowed; }
+    .choice-btn.correct {
+      border-color: #16a34a;
+      background: rgba(22,163,74,.1);
     }
-
-    .exercise{
-      width:100%;
-      max-width: 520px;
-      background:#ffffff;
-      border-radius: 16px;
-      padding: 14px;
-      border:1px solid rgba(17,24,39,0.10);
-    }
-
-    .prompt{
-      margin:0 0 12px 0;
-      font-size: 16px;
-      font-weight: 800;
+    .choice-btn.wrong {
+      border-color: #ef4444;
+      background: rgba(239,68,68,.08);
+      animation: shake .35s ease;
     }
 
-    .choices{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-    }
-    .choice-btn{
-      width:100%;
-      text-align:left;
-      border-radius: 14px;
-      padding: 12px 12px;
-      border:2px solid rgba(17,24,39,0.10);
-      background:#f9fafb;
-      font-weight: 900;
-      cursor:pointer;
-    }
-    .choice-btn:active{ transform: scale(0.99); }
-    .choice-btn:disabled{
-      opacity:0.6;
-      cursor:not-allowed;
-    }
-
-    .choice-btn.correct{
-      border-color: rgba(16,185,129,0.9);
-      background: rgba(16,185,129,0.12);
-    }
-    .choice-btn.wrong{
-      border-color: rgba(239,68,68,0.95);
-      background: rgba(239,68,68,0.10);
-    }
-
-    .feedback{
-      margin-top: 12px;
-      font-weight: 1000;
-      font-size: 16px;
+    /* ── FEEDBACK ── */
+    .feedback {
       min-height: 22px;
-    }
-    .feedback.ok{ color:#047857; }
-    .feedback.no{ color:#b91c1c; }
-
-    .mini-status{
-      width:100%;
-      max-width: 520px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      color:#374151;
-      font-weight: 800;
+      margin-top: 10px;
       font-size: 14px;
-      margin-top: 6px;
+      font-weight: 800;
+      text-align: center;
+    }
+    .feedback.ok  { color: #16a34a; }
+    .feedback.bad { color: #dc2626; }
+
+    /* ── COMPLETION BANNER ── */
+    .completion-banner {
+      display: none;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 2px solid rgba(34,197,94,.4);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .completion-banner.visible { display: block; }
+    .completion-banner h2 { margin: 0 0 4px; font-size: 20px; font-weight: 900; color: #166534; }
+    .completion-banner p  { margin: 0; font-size: 14px; color: #166534; font-weight: 600; }
+
+    /* ── NEXT BTN ── */
+    .footer-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      padding-bottom: 12px;
+    }
+    .next-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 16px;
+      transition: background .15s, transform .1s;
+    }
+    .next-btn:hover  { background: #1e40af; }
+    .next-btn:active { transform: scale(.97); }
+
+    .hidden { display: none !important; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      body  { padding: 12px; }
+      h1    { font-size: 18px; }
+      .step { width: 34px; height: 34px; font-size: 14px; }
+      .imgbox img { max-height: 160px; }
+      .choice-btn { font-size: 14px; padding: 10px 12px; }
+      .question-row { flex-direction: column; align-items: flex-start; }
+      .play-btn { width: 100%; }
     }
   </style>
 </head>
 
 <body>
+<div class="wrap">
+
   <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
 
-  <!-- Progress bar -->
-  <div class="progress-container" aria-label="Progreso">
-    <div class="step" onclick="location.href='p1.html'">1</div>
-    <div class="step active" onclick="location.href='p2.html'">2</div>
-    <div class="step" onclick="location.href='p3.html'">3</div>
-    <div class="step" onclick="location.href='p4.html'">4</div>
+  <!-- Progress dots -->
+  <div class="progress-container" aria-label="Progreso de la lección">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step active" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
   </div>
 
-  <div class="card"
-       id="app"
-       data-correct-text="¡Correcto!"
-       data-wrong-text="✘"
-       data-q1-text="🔊 Where are you?"
-       data-q2-text="🔊 What are you doing?">
-
-    <h1 class="title">Unidad 3 · Lección 2 · Parte 2</h1>
-    <p class="subtitle">
-      Escucha la pregunta y elige la respuesta correcta.
-      <br><strong>We are</strong> = nosotros estamos
-    </p>
-
-    <div class="hint-box">
-      <strong>Preguntas</strong>
-      <p class="mini">Where are you? = ¿Dónde están?</p>
-      <p class="mini">What are you doing? = ¿Qué están haciendo?</p>
-    </div>
-
-    <div class="scene">
-      <div class="img-wrap">
-        <img id="sceneImg" class="scene-img" alt="Escena" />
-      </div>
-
-      <div class="row">
-        <p id="questionText" class="qtext">🔊 Where are you?</p>
-        <button id="playBtn" class="play-btn" type="button">▶ Play</button>
-      </div>
-
-      <div class="exercise" aria-live="polite">
-        <p id="prompt" class="prompt">We are in the ______.</p>
-
-        <div id="choices" class="choices"></div>
-
-        <div id="feedback" class="feedback"></div>
-
-        <div class="mini-status">
-          <div id="roundStatus">1/5</div>
-          <div id="stepStatus">Q1/2</div>
-        </div>
-      </div>
-
-      <audio id="audioEl" preload="auto"></audio>
-    </div>
-
-    <div class="footer-actions">
-      <a id="nextBtn" class="next-btn hidden" href="p3.html">Next → P3</a>
-    </div>
+  <!-- Score bar -->
+  <div class="score-bar">
+    <span class="score-label">Puntaje:</span>
+    <span class="score-badge" id="scoreBadge">0 / 10</span>
   </div>
 
-  <script src="../../../../js/u3/u3_l2_p2.js"></script>
+  <h1>Lección 2 – We are…</h1>
+  <p class="subtitle">
+    Escucha la pregunta y elige la respuesta correcta.
+  </p>
+
+  <div class="hint-box">
+    <strong>Preguntas clave</strong>
+    Where are you? = ¿Dónde están?<br>
+    What are you doing? = ¿Qué están haciendo?
+  </div>
+
+  <section class="section">
+    <!-- Round + step counter -->
+    <div class="status-row">
+      <span id="roundStatus">1 / 5</span>
+      <span id="stepStatus">Pregunta 1 de 2</span>
+    </div>
+
+    <!-- Image -->
+    <div class="imgbox">
+      <img id="sceneImg" src="" alt="Escena">
+    </div>
+
+    <!-- Question + play -->
+    <div class="question-row">
+      <span class="question-text" id="questionText"></span>
+      <button class="play-btn" id="playBtn" type="button">▶ Escuchar</button>
+    </div>
+
+    <!-- Prompt + choices -->
+    <p class="prompt" id="prompt"></p>
+    <div class="choices" id="choices"></div>
+    <div class="feedback" id="feedback"></div>
+  </section>
+
+  <!-- Completion banner -->
+  <div class="completion-banner" id="completionBanner">
+    <h2>🎉 ¡Excelente!</h2>
+    <p id="completionMsg">Completaste la Parte 2.</p>
+  </div>
+
+  <!-- Next button -->
+  <div class="footer-actions">
+    <a id="nextBtn" class="next-btn hidden" href="p3.html">Continuar → Parte 3</a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  /* ── CONFIG ── */
+  const SB  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG = SB + "images/u3/";
+  const AUD = SB + "audio/u3/";
+  const SFX_CORRECT = SB + "sfx/correct.wav";
+
+  const WAIT_AFTER_CORRECT = 1600;
+
+  /* ── QUESTION AUDIO ── */
+  const Q_AUDIO = {
+    where: "u3.l2.p2.whereareyou.mp3",
+    doing: "u3.l2.p2.whatareyoudoing.mp3"
+  };
+
+  /* ── SCENES ── (5 scenes × 2 questions = 10 points) ── */
+  const SCENES = [
+    {
+      img: "u3.l2.p1.jones.jpg",
+      location: { prep:"in",  correct:"kitchen",      options:["park","kitchen","bedroom"]              },
+      activity:  { correct:"cooking",  options:["eating","cooking","watching"],  object:"dinner"        }
+    },
+    {
+      img: "u3.l2.p1.miller.jpg",
+      location: { prep:"in",  correct:"dining room",  options:["dining room","bedroom","kitchen"]       },
+      activity:  { correct:"eating",   options:["cooking","eating","watching"],   object:"dinner"       }
+    },
+    {
+      img: "u3.l2.p1.davis.jpg",
+      location: { prep:"in",  correct:"living room",  options:["living room","bathroom","bedroom"]      },
+      activity:  { correct:"playing",  options:["watching","cooking","playing"],  object:"cards"        }
+    },
+    {
+      img: "u3.l2.p1.martinez.jpg",
+      location: { prep:"at",  correct:"beach",        options:["yard","beach","park"]                   },
+      activity:  { correct:"playing",  options:["watching","playing","cooking"],  object:"ball"         }
+    },
+    {
+      img: "u3.l2.p1.barns.jpg",
+      location: { prep:"at",  correct:"movie theater",options:["beach","movie theater","dining room"]   },
+      activity:  { correct:"watching", options:["cooking","eating","watching"],   object:"a movie"      }
+    }
+  ];
+
+  const TOTAL_POINTS = SCENES.length * 2; // 10
+
+  /* ── DOM ── */
+  const $id = id => document.getElementById(id);
+  const sceneImg    = $id('sceneImg');
+  const roundStatus = $id('roundStatus');
+  const stepStatus  = $id('stepStatus');
+  const questionText= $id('questionText');
+  const playBtn     = $id('playBtn');
+  const promptEl    = $id('prompt');
+  const choicesEl   = $id('choices');
+  const feedbackEl  = $id('feedback');
+  const scoreBadge  = $id('scoreBadge');
+  const banner      = $id('completionBanner');
+  const compMsg     = $id('completionMsg');
+  const nextBtn     = $id('nextBtn');
+
+  /* ── AUDIO ── */
+  const audioEl    = new Audio();
+  const sfxCorrect = new Audio(SFX_CORRECT);
+  let autoplayAllowed = false;
+
+  /* ── STATE ── */
+  let sceneIndex   = 0;
+  let phase        = 0;   // 0 = location, 1 = activity
+  let locked       = false;
+  let correctCount = 0;
+
+  /* ── HELPERS ── */
+  function updateScore() {
+    scoreBadge.textContent = correctCount + ' / ' + TOTAL_POINTS;
+  }
+
+  function safePlay() {
+    audioEl.currentTime = 0;
+    const p = audioEl.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+    else autoplayAllowed = true;
+  }
+
+  function setFeedback(type, text) {
+    feedbackEl.textContent = text || '';
+    feedbackEl.className = 'feedback' + (type ? ' ' + type : '');
+  }
+
+  function lockAllChoices(correct) {
+    [...choicesEl.querySelectorAll('.choice-btn')].forEach(b => {
+      if (b.textContent === correct) b.classList.add('correct');
+      b.disabled = true;
+    });
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  /* ── RENDER ROUND ── */
+  function render() {
+    locked = false;
+    setFeedback(null);
+
+    const s = SCENES[sceneIndex];
+    sceneImg.src = IMG + s.img;
+    roundStatus.textContent = (sceneIndex + 1) + ' / ' + SCENES.length;
+    playBtn.disabled = false;
+
+    if (phase === 0) {
+      // Location question
+      stepStatus.textContent  = 'Pregunta 1 de 2';
+      questionText.textContent = '🔊 Where are you?';
+      promptEl.textContent    = 'We are ' + s.location.prep + ' the ___.';
+      audioEl.src = AUD + Q_AUDIO.where;
+      renderChoices(shuffle(s.location.options), s.location.correct);
+    } else {
+      // Activity question
+      stepStatus.textContent  = 'Pregunta 2 de 2';
+      questionText.textContent = '🔊 What are you doing?';
+      promptEl.textContent    = 'We are ___ ' + s.activity.object + '.';
+      audioEl.src = AUD + Q_AUDIO.doing;
+      renderChoices(shuffle(s.activity.options), s.activity.correct);
+    }
+
+    if (autoplayAllowed) {
+      setTimeout(safePlay, 250);
+    }
+  }
+
+  /* ── RENDER CHOICES ── */
+  function renderChoices(options, correct) {
+    choicesEl.innerHTML = '';
+    options.forEach(opt => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'choice-btn';
+      b.textContent = opt;
+
+      const handler = () => {
+        if (locked) return;
+
+        if (opt !== correct) {
+          // Wrong — shake, brief lock, then allow retry
+          b.classList.add('wrong');
+          setFeedback('bad', '✘ Intenta de nuevo.');
+          locked = true;
+          setTimeout(() => {
+            b.classList.remove('wrong');
+            setFeedback(null);
+            locked = false;
+          }, 700);
+          return;
+        }
+
+        // Correct
+        locked = true;
+        correctCount++;
+        updateScore();
+        lockAllChoices(correct);
+        setFeedback('ok', '¡Correcto! ✓');
+        try { sfxCorrect.currentTime = 0; sfxCorrect.play(); } catch(e){}
+
+        setTimeout(() => advance(), WAIT_AFTER_CORRECT);
+      };
+
+      b.addEventListener('click', handler);
+      b.addEventListener('touchend', e => { e.preventDefault(); handler(); });
+      choicesEl.appendChild(b);
+    });
+  }
+
+  /* ── ADVANCE ── */
+  function advance() {
+    if (phase === 0) {
+      phase = 1;
+      render();
+      return;
+    }
+    phase = 0;
+    sceneIndex++;
+    if (sceneIndex >= SCENES.length) {
+      finishLesson();
+    } else {
+      render();
+    }
+  }
+
+  /* ── FINISH ── */
+  function finishLesson() {
+    // Save progress
+    try {
+      const saved = JSON.parse(localStorage.getItem('inglesco_progress_u3') || '{}');
+      if (!saved.l2) saved.l2 = {};
+      const prev = saved.l2.partsCompleted || 0;
+      if (prev < 2) {
+        saved.l2.partsCompleted = 2;
+        saved.l2.partsTotal = saved.l2.partsTotal || 4;
+      }
+      localStorage.setItem('inglesco_progress_u3', JSON.stringify(saved));
+
+      const fk = 'inglesco_furthest_u3_l2';
+      const prevF = parseInt(localStorage.getItem(fk) || '0', 10);
+      if (prevF < 2) localStorage.setItem(fk, '2');
+    } catch(e){}
+
+    banner.classList.add('visible');
+    compMsg.textContent = '¡Puntaje: ' + correctCount + ' de ' + TOTAL_POINTS + '! Continúa a la Parte 3.';
+    nextBtn.classList.remove('hidden');
+    playBtn.disabled = true;
+    nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── PLAY BUTTON ── */
+  playBtn.addEventListener('click', () => {
+    autoplayAllowed = true;
+    safePlay();
+  });
+  playBtn.addEventListener('touchend', e => {
+    e.preventDefault();
+    autoplayAllowed = true;
+    safePlay();
+  });
+
+  /* ── PROGRESS DOT NAV ── */
+  document.querySelectorAll('.step').forEach(s => {
+    s.addEventListener('click', () => {
+      if (s.dataset.go) window.location.href = s.dataset.go;
+    });
+  });
+
+  /* ── INIT ── */
+  updateScore();
+  render();
+})();
+</script>
 </body>
 </html>

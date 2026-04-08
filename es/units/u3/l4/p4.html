@@ -1,270 +1,707 @@
-<!-- u3/l4/p4.html (Mobile-first) -->
+<!-- u3/l4/p4.html (Mobile-first · merged) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unidad 3 • Lección 4 • Parte 4</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    body{
-      font-family: Arial, sans-serif;
-      padding:20px;
-      margin:0;
-      color:#111827;
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-    }
-    .wrap{ max-width:820px; margin:0 auto; }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    .back-btn{
-      display:inline-block;
-      margin-bottom:20px;
-      padding:8px 15px;
-      background:#2563eb;
-      color:#fff;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-    }
-    .back-btn:hover{ background:#1e40af; }
-
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:15px 0 25px 0;
-    }
-    .step{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      color:#1f2933;
-      text-decoration:none;
-      user-select:none;
-    }
-    .step.active{ background:#2563eb; color:#fff; }
-    .step:hover{ transform:scale(1.1); }
-
-    .top-title{
-      text-align:center;
-      margin:0 0 8px 0;
-      font-size:20px;
-      font-weight:900;
-    }
-    .subline{
-      text-align:center;
-      margin:0 0 18px 0;
-      font-size:16px;
-      font-weight:800;
-    }
-    .subline span{
-      background: rgba(255,255,255,.7);
-      padding:6px 10px;
-      border-radius:10px;
-      display:inline-block;
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      margin: 0;
+      color: #111827;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      min-height: 100vh;
     }
 
-    .card{
-      background: rgba(255,255,255,.85);
-      border-radius:18px;
-      padding:14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+    .wrap { max-width: 640px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Header ── */
+    .top-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      margin: 0 0 6px;
+    }
+    .topic-badge {
+      text-align: center;
+      margin: 0 0 6px;
+    }
+    .topic-badge span {
+      background: rgba(255,255,255,.75);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 14px;
+      display: inline-block;
+    }
+    .subline {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin: 0 0 14px;
     }
 
-    .round{
-      text-align:center;
-      font-weight:900;
-      margin: 4px 0 14px 0;
-      opacity:.85;
+    /* ── Score bar ── */
+    .score-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+    .score-pill {
+      background: rgba(255,255,255,.8);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .score-pill .icon { font-size: 16px; }
+    .score-pill.green { color: #16a34a; }
+    .score-pill.blue  { color: #2563eb; }
+
+    /* ── Step dots ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all .25s;
+      color: #1f2933;
+      text-decoration: none;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
     }
 
-    .exercise{
-      max-width:620px;
-      margin:0 auto;
-      display:grid;
-      gap:16px;
+    /* ── Round label ── */
+    .round-label {
+      text-align: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 10px;
     }
 
-    .block{
-      background: rgba(255,255,255,.78);
-      border-radius:16px;
-      padding:14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    /* ── Progress track ── */
+    .progress-track {
+      background: #e5e7eb;
+      border-radius: 99px;
+      height: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 99px;
+      transition: width .35s ease;
+      width: 0%;
     }
 
-    .block-title{
-      font-size:16px;
-      font-weight:1000;
-      text-align:center;
-      margin-bottom:12px;
+    /* ── Exercise ── */
+    .exercise { display: grid; gap: 14px; }
+    .exercise.hidden { display: none !important; }
+
+    /* ── Block ── */
+    .block {
+      background: rgba(241,245,249,.9);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .block.hidden { display: none !important; }
+
+    .block-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 12px;
     }
 
-    .sentence-box{
-      min-height:54px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-      justify-content:center;
-      border:2px dashed #cbd5e1;
-      border-radius:14px;
-      padding:10px;
-      background:#fff;
+    /* ── Sentence drop zone ── */
+    .sentence-box {
+      min-height: 52px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 10px;
+      background: #fff;
+      margin-bottom: 12px;
+      transition: border-color .2s;
     }
 
-    .word-chip{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:36px;
-      padding:6px 10px;
-      border-radius:10px;
-      background:#eff6ff;
-      border:2px solid #93c5fd;
-      font-weight:900;
-      font-size:18px;
-      line-height:1.1;
+    .word-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 5px 11px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 2px solid #93c5fd;
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1.1;
+      transition: background .2s, border-color .2s;
     }
-
-    .word-chip.correct{
+    .word-chip.correct {
       background: rgba(22,163,74,.12);
-      border-color:#16a34a;
-      color:#166534;
+      border-color: #16a34a;
+      color: #166534;
+    }
+    /* Revealed answer chips (shown after 2 failed attempts) */
+    .word-chip.revealed {
+      background: rgba(234,179,8,.15);
+      border-color: #ca8a04;
+      color: #78350f;
     }
 
-    .tiles{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:center;
-      margin-top:12px;
+    /* ── Tiles ── */
+    .tiles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
 
-    .tile{
-      border:0;
-      border-radius:12px;
-      padding:10px 14px;
-      font-weight:900;
-      cursor:pointer;
-      box-shadow: 0 6px 14px rgba(0,0,0,.10);
-      background:#2563eb;
-      color:#fff;
-      font-size:15px;
+    .tile {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(37,99,235,.25);
+      transition: background .15s, transform .1s, opacity .15s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .tile:hover{ background:#1e40af; }
-    .tile:disabled{
-      opacity:.7;
-      cursor:not-allowed;
-    }
-    .tile.correct{
-      background:#16a34a !important;
-      color:#fff;
-    }
-    .tile.wrong{
-      background:#dc2626 !important;
-      color:#fff;
-    }
+    .tile:hover   { background: #1e40af; }
+    .tile:active  { transform: translateY(1px); }
+    .tile:disabled { opacity: .55; cursor: not-allowed; }
+    .tile.used    { opacity: .35; }
 
-    .status-line{
-      text-align:center;
-      min-height:24px;
-      font-weight:1000;
-      font-size:18px;
+    /* ── Status line ── */
+    .status-line {
+      text-align: center;
+      min-height: 28px;
+      font-weight: 900;
+      font-size: 20px;
     }
-    .status-line.ok{ color:#16a34a; }
-    .status-line.bad{ color:#dc2626; }
+    .status-line.ok  { color: #16a34a; }
+    .status-line.bad { color: #dc2626; }
+    .status-line.reveal { color: #ca8a04; font-size: 14px; font-weight: 700; }
 
-    .hidden{ display:none !important; }
+    /* ── End screen ── */
+    .end-screen {
+      text-align: center;
+      padding: 10px 0 4px;
+    }
+    .end-screen.hidden { display: none !important; }
+    .end-screen h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 8px 0 6px;
+    }
+    .end-score {
+      font-size: 15px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+    .end-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .end-btn {
+      display: inline-block;
+      padding: 11px 22px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 6px 14px rgba(37,99,235,.25);
+    }
+    .end-btn:hover { background: #1e40af; }
+    .end-btn.secondary {
+      background: rgba(37,99,235,.1);
+      color: #2563eb;
+      box-shadow: none;
+    }
+    .end-btn.secondary:hover { background: rgba(37,99,235,.18); }
 
-    .end{
-      text-align:center;
-      padding: 16px 10px 4px;
-    }
-    .end h2{
-      margin:8px 0;
-      font-size:24px;
-      font-weight:1000;
-    }
-    .end p{
-      margin:6px 0;
-      font-weight:900;
-    }
+    .hidden { display: none !important; }
 
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:20px;
-    }
-    .next-btn{
-      display:inline-block;
-      padding:10px 18px;
-      background:#2563eb;
-      color:#fff;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:800;
-    }
-    .next-btn:hover{ background:#1e40af; }
-
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-      .top-title{ font-size:18px; }
-      .subline{ font-size:15px; }
-      .word-chip{ font-size:17px; }
-      .tile{ font-size:14px; }
+    @media (max-width: 420px) {
+      body { padding: 12px; }
+      .top-title { font-size: 16px; }
+      .step { width: 34px; height: 34px; font-size: 13px; }
+      .word-chip { font-size: 15px; padding: 5px 9px; }
+      .tile { font-size: 14px; padding: 9px 13px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
+<div class="wrap">
 
-    <div class="top-title">Unidad 3 • Lección 4 • Parte 4</div>
-    <div class="subline">
-      <span><b>Instrucción:</b> construye la pregunta y la respuesta con las palabras correctas.</span>
-    </div>
+  <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
 
-    <div class="progress-container">
-      <a class="step" href="p1.html" aria-label="Parte 1">1</a>
-      <a class="step" href="p2.html" aria-label="Parte 2">2</a>
-      <a class="step" href="p3.html" aria-label="Parte 3">3</a>
-      <a class="step active" href="p4.html" aria-label="Parte 4">4</a>
-    </div>
+  <div class="top-title">Unidad 3 • Lección 4 • Parte 4</div>
+  <div class="topic-badge"><span>Construye la oración</span></div>
+  <div class="subline">Ordena las palabras para formar la pregunta y la respuesta.</div>
 
-    <div class="card">
-      <div class="round" id="roundLabel">1 / 11</div>
-
-      <div class="exercise" id="exerciseBox">
-        <div class="block">
-          <div class="block-title">Construye la pregunta</div>
-          <div class="sentence-box" id="questionBox"></div>
-          <div class="tiles" id="questionTiles"></div>
-        </div>
-
-        <div class="block hidden" id="answerBlock">
-          <div class="block-title">Construye la respuesta</div>
-          <div class="sentence-box" id="answerBox"></div>
-          <div class="tiles" id="answerTiles"></div>
-        </div>
-
-        <div class="status-line" id="statusLine" aria-live="polite"></div>
-      </div>
-
-      <div class="end hidden" id="endScreen">
-        <h2>¡Buen trabajo!</h2>
-        <p>Felicitaciones.</p>
-        <p>Terminaste la lección.</p>
-      </div>
-    </div>
+  <!-- Score bar -->
+  <div class="score-bar">
+    <div class="score-pill green"><span class="icon">✓</span><span id="scoreCorrect">0</span> correctas</div>
+    <div class="score-pill blue"><span class="icon">📝</span><span id="scoreTotal">0 / 22</span></div>
   </div>
 
-  <script src="../../../../js/u3/u3_l4_p4.js"></script>
+  <!-- Part step dots -->
+  <div class="progress-container">
+    <a class="step"        href="p1.html" aria-label="Parte 1">1</a>
+    <a class="step"        href="p2.html" aria-label="Parte 2">2</a>
+    <a class="step"        href="p3.html" aria-label="Parte 3">3</a>
+    <a class="step active" href="p4.html" aria-label="Parte 4">4</a>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+
+    <div class="round-label" id="roundLabel">1 / 11</div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Exercise -->
+    <div class="exercise" id="exerciseBox">
+
+      <!-- Question block -->
+      <div class="block" id="questionBlock">
+        <div class="block-title">Construye la pregunta</div>
+        <div class="sentence-box" id="questionBox"></div>
+        <div class="tiles" id="questionTiles"></div>
+      </div>
+
+      <!-- Answer block (hidden until question done) -->
+      <div class="block hidden" id="answerBlock">
+        <div class="block-title">Construye la respuesta</div>
+        <div class="sentence-box" id="answerBox"></div>
+        <div class="tiles" id="answerTiles"></div>
+      </div>
+
+      <div class="status-line" id="statusLine" aria-live="polite"></div>
+
+    </div>
+
+    <!-- End screen -->
+    <div class="end-screen hidden" id="endScreen">
+      <h2>¡Lección completa! 🎉</h2>
+      <div class="end-score" id="endScore"></div>
+      <div class="end-links">
+        <a class="end-btn secondary" href="../index.html">← Volver a la unidad</a>
+      </div>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /wrap -->
+
+<script>
+(() => {
+  "use strict";
+
+  const SUPABASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_BASE = SUPABASE + "audio/u3/";
+
+  // ── DOM ──
+  const roundLabel   = document.getElementById("roundLabel");
+  const progressFill = document.getElementById("progressFill");
+  const exerciseBox  = document.getElementById("exerciseBox");
+  const endScreen    = document.getElementById("endScreen");
+  const endScore     = document.getElementById("endScore");
+
+  const questionBlock = document.getElementById("questionBlock");
+  const questionBox   = document.getElementById("questionBox");
+  const questionTiles = document.getElementById("questionTiles");
+
+  const answerBlock = document.getElementById("answerBlock");
+  const answerBox   = document.getElementById("answerBox");
+  const answerTiles = document.getElementById("answerTiles");
+
+  const statusLine     = document.getElementById("statusLine");
+  const scoreCorrectEl = document.getElementById("scoreCorrect");
+  const scoreTotalEl   = document.getElementById("scoreTotal");
+
+  // ── DATA ──
+  // Each tile entry is a string; multi-word strings become single tiles.
+  // q entries: plain words, last gets "?" appended in display.
+  // a entries: merged phrases where sensible.
+  const ROUNDS = [
+    { q: ["Where","are","you"],         a: ["I","am","in the garage"],            audio: "u3.l4.p4.garage.mp3"   },
+    { q: ["What","is","he","doing"],    a: ["He","is","cooking dinner"],           audio: "u3.l4.p4.cooking.mp3"  },
+    { q: ["Where","are","they"],        a: ["They","are","in the park"],           audio: "u3.l4.p4.park.mp3"     },
+    { q: ["What","are","you","doing"],  a: ["We","are","playing with the dog"],    audio: "u3.l4.p4.dog.mp3"      },
+    { q: ["Where","is","he"],           a: ["He","is","in the attic"],             audio: "u3.l4.p4.attic.mp3"    },
+    { q: ["What","is","she","doing"],   a: ["She","is","listening to the radio"],  audio: "u3.l4.p4.radio.mp3"    },
+    { q: ["Where","is","she"],          a: ["She","is","in the yard"],             audio: "u3.l4.p4.yard.mp3"     },
+    { q: ["Where","are","you"],         a: ["We","are","at the beach"],            audio: "u3.l4.p4.beach.mp3"    },
+    { q: ["What","is","he","doing"],    a: ["He","is","sleeping"],                 audio: "u3.l4.p4.sleeping.mp3" },
+    { q: ["What","are","they","doing"], a: ["They","are","eating dinner"],         audio: "u3.l4.p4.dinner.mp3"   },
+    { q: ["Where","are","you"],         a: ["I","am","at the hospital"],           audio: "u3.l4.p4.hospital.mp3" }
+  ];
+
+  const TOTAL        = ROUNDS.length;
+  const TOTAL_STAGES = TOTAL * 2; // question + answer per round
+  const MAX_ATTEMPTS = 2;         // reveal answer after this many wrong tries
+
+  // ── STATE ──
+  let idx       = 0;
+  let isLocked  = false;
+  let qAnswered = false;
+  let aAnswered = false;
+  let tapsCorrect = 0;
+  let tapsTotal   = 0;
+  let audio       = null;
+
+  // ── SFX ──
+  let sfxCorrect   = null;
+  let sfxIncorrect = null;
+  try { sfxCorrect   = new Audio(SUPABASE + "sfx/correct.wav");   sfxCorrect.load();   } catch {}
+  try { sfxIncorrect = new Audio(SUPABASE + "sfx/incorrect.wav"); sfxIncorrect.load(); } catch {}
+
+  function playCorrect()   { try { if (sfxCorrect)   { sfxCorrect.currentTime   = 0; sfxCorrect.play();   } } catch {} }
+  function playIncorrect() { try { if (sfxIncorrect) { sfxIncorrect.currentTime = 0; sfxIncorrect.play(); } } catch {} }
+
+  // ── UTILS ──
+  const show = el => el.classList.remove("hidden");
+  const hide = el => el.classList.add("hidden");
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function clearEl(el) { el.innerHTML = ""; }
+
+  function setStatus(type, text) {
+    statusLine.textContent = text || "";
+    statusLine.className = "status-line" + (type ? " " + type : "");
+  }
+
+  function updateScoreDisplay() {
+    scoreCorrectEl.textContent = tapsCorrect;
+    scoreTotalEl.textContent   = tapsTotal + " / " + TOTAL_STAGES;
+  }
+
+  function updateProgress() {
+    progressFill.style.width = (idx / TOTAL * 100) + "%";
+  }
+
+  function saveProgress() {
+    try {
+      const key  = "inglesco_progress_u3";
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data.l4) data.l4 = {};
+      data.l4.p4 = { done: true, correct: tapsCorrect, total: TOTAL_STAGES };
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch {}
+  }
+
+  // ── AUDIO ──
+  function stopAudio() {
+    if (!audio) return;
+    try { audio.pause(); audio.currentTime = 0; } catch {}
+  }
+
+  function playRoundAudio(round) {
+    stopAudio();
+    audio = new Audio(AUDIO_BASE + round.audio);
+    const advance = () => {
+      setTimeout(() => {
+        if (idx < TOTAL - 1) loadRound(idx + 1);
+        else finish();
+      }, 400);
+    };
+    audio.onended = advance;
+    audio.onerror = advance;
+    audio.play().catch(advance);
+  }
+
+  // ── WORD CHIPS ──
+  function getWords(box) {
+    return Array.from(box.children).map(el => el.dataset.value);
+  }
+
+  function arraysEqual(a, b) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+
+  function paintCorrect(box) {
+    Array.from(box.children).forEach(el => el.classList.add("correct"));
+  }
+
+  // isQuestion = true → append "?" to the last chip's display text
+  function addChip(box, word, isQuestion) {
+    const chip = document.createElement("span");
+    chip.className      = "word-chip";
+    chip.dataset.value  = word; // raw value for comparison
+    const chips = box.children;
+    const isLast = false; // we'll update last chip label after append
+    chip.textContent = word;
+    box.appendChild(chip);
+
+    // If building a question, refresh the last chip to show "?"
+    if (isQuestion) {
+      Array.from(box.children).forEach((c, i, arr) => {
+        c.textContent = i === arr.length - 1
+          ? c.dataset.value + "?"
+          : c.dataset.value;
+      });
+    }
+  }
+
+  // Reveal the correct answer in yellow chips, then advance after a pause
+  function revealAnswer(tilesEl, boxEl, targetWords, isQuestion, onCorrect) {
+    isLocked = true;
+    clearEl(boxEl);
+    tilesEl.querySelectorAll(".tile").forEach(b => { b.disabled = true; });
+
+    targetWords.forEach((word, i) => {
+      const chip = document.createElement("span");
+      chip.className     = "word-chip revealed";
+      chip.dataset.value = word;
+      if (isQuestion) {
+        chip.textContent = i === targetWords.length - 1 ? word + "?" : word;
+      } else {
+        chip.textContent = word;
+      }
+      boxEl.appendChild(chip);
+    });
+
+    setStatus("reveal", "Respuesta correcta: " + targetWords.join(" ") + (isQuestion ? "?" : ""));
+
+    setTimeout(() => {
+      setStatus("", "");
+      isLocked = false;
+      onCorrect();
+    }, 2200);
+  }
+
+  // ── TILE BUILD ──
+  function buildStage(tilesEl, boxEl, targetWords, isQuestion, onCorrect) {
+    clearEl(tilesEl);
+    clearEl(boxEl);
+
+    let attempts = 0; // wrong attempt counter for this stage
+
+    shuffle(targetWords).forEach(word => {
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.type        = "button";
+      btn.textContent = word;
+
+      let moved = false;
+      btn.addEventListener("touchstart", () => { moved = false; }, { passive: true });
+      btn.addEventListener("touchmove",  () => { moved = true;  }, { passive: true });
+      btn.addEventListener("touchend", e => {
+        if (!moved) { e.preventDefault(); onTileTap(btn, word, tilesEl, boxEl, targetWords, isQuestion, onCorrect, () => attempts, v => { attempts = v; }); }
+      }, { passive: false });
+      btn.addEventListener("click", () => onTileTap(btn, word, tilesEl, boxEl, targetWords, isQuestion, onCorrect, () => attempts, v => { attempts = v; }));
+
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  function onTileTap(btn, word, tilesEl, boxEl, targetWords, isQuestion, onCorrect, getAttempts, setAttempts) {
+    if (isLocked || btn.disabled) return;
+
+    btn.disabled = true;
+    addChip(boxEl, word, isQuestion);
+
+    const current = getWords(boxEl);
+    if (current.length < targetWords.length) return; // not full yet
+
+    // Sentence complete — register first attempt
+    isLocked = true;
+    const answeredFlag = isQuestion ? qAnswered : aAnswered;
+
+    if (!answeredFlag) {
+      tapsTotal++;
+      if (isQuestion) qAnswered = true;
+      else            aAnswered = true;
+    }
+
+    if (arraysEqual(current, targetWords)) {
+      // ✓ Correct
+      if (!answeredFlag) tapsCorrect++;
+      updateScoreDisplay();
+      paintCorrect(boxEl);
+      setStatus("ok", "✓");
+      playCorrect();
+
+      setTimeout(() => {
+        setStatus("", "");
+        isLocked = false;
+        onCorrect();
+      }, 900);
+
+    } else {
+      // ✗ Wrong
+      updateScoreDisplay();
+      const newAttempts = getAttempts() + 1;
+      setAttempts(newAttempts);
+      playIncorrect();
+
+      tilesEl.querySelectorAll(".tile").forEach(b => { b.disabled = true; });
+
+      if (newAttempts >= MAX_ATTEMPTS) {
+        // Show correct answer after delay
+        setTimeout(() => {
+          revealAnswer(tilesEl, boxEl, targetWords, isQuestion, onCorrect);
+        }, 500);
+      } else {
+        setStatus("bad", "✗  Intenta de nuevo");
+        setTimeout(() => {
+          setStatus("", "");
+          buildStageKeepAttempts(tilesEl, boxEl, targetWords, isQuestion, onCorrect, newAttempts);
+          isLocked = false;
+        }, 700);
+      }
+    }
+  }
+
+  // Rebuild tiles while preserving the attempt counter
+  function buildStageKeepAttempts(tilesEl, boxEl, targetWords, isQuestion, onCorrect, currentAttempts) {
+    clearEl(tilesEl);
+    clearEl(boxEl);
+
+    let attempts = currentAttempts;
+
+    shuffle(targetWords).forEach(word => {
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.type        = "button";
+      btn.textContent = word;
+
+      let moved = false;
+      btn.addEventListener("touchstart", () => { moved = false; }, { passive: true });
+      btn.addEventListener("touchmove",  () => { moved = true;  }, { passive: true });
+      btn.addEventListener("touchend", e => {
+        if (!moved) { e.preventDefault(); onTileTap(btn, word, tilesEl, boxEl, targetWords, isQuestion, onCorrect, () => attempts, v => { attempts = v; }); }
+      }, { passive: false });
+      btn.addEventListener("click", () => onTileTap(btn, word, tilesEl, boxEl, targetWords, isQuestion, onCorrect, () => attempts, v => { attempts = v; }));
+
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  // ── ROUND FLOW ──
+  function loadRound(i) {
+    idx       = i;
+    isLocked  = false;
+    qAnswered = false;
+    aAnswered = false;
+
+    const round = ROUNDS[idx];
+    roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
+    updateProgress();
+    setStatus("", "");
+
+    hide(answerBlock);
+    show(exerciseBox);
+    hide(endScreen);
+
+    buildStage(questionTiles, questionBox, round.q, true, () => {
+      show(answerBlock);
+      buildStage(answerTiles, answerBox, round.a, false, () => {
+        playRoundAudio(round);
+      });
+    });
+  }
+
+  function finish() {
+    progressFill.style.width = "100%";
+    stopAudio();
+    hide(exerciseBox);
+    saveProgress();
+    endScore.textContent = `Correctas: ${tapsCorrect} / ${TOTAL_STAGES}`;
+    show(endScreen);
+  }
+
+  // ── INIT ──
+  loadRound(0);
+})();
+</script>
 </body>
 </html>

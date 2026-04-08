@@ -1,437 +1,641 @@
+<!-- u3/l2/p4.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>U3 L2 P4</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidad 3 – Lección 2 – P4</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    :root{
-      --blue:#2563eb;
-      --blueDark:#1e40af;
-      --text:#111827;
-      --muted:#374151;
-      --card: rgba(255,255,255,0.88);
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      margin: 0;
     }
 
-    /* ===== GLOBAL FIXES (prevents "broken boxes") ===== */
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
-    body{
-      margin:0;
-      padding: clamp(14px, 3.5vw, 20px);
-      padding-bottom: calc(clamp(14px, 3.5vw, 20px) + env(safe-area-inset-bottom));
-      background: linear-gradient(135deg, #dbeafe, #fef9c3);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      overflow-x:hidden;
-    }
-    img{ max-width:100%; height:auto; display:block; }
-    button{ font-family: inherit; }
+    .wrap { max-width: 680px; margin: 0 auto; }
 
-    /* ===== BACK BUTTON ===== */
-    .back-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin: 0 0 18px 0;
-      padding: 10px 14px;
-      background: var(--blue);
-      color:#fff;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:900;
-      box-shadow: 0 8px 18px rgba(37,99,235,0.22);
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
     }
-    .back-btn:hover{ background: var(--blueDark); }
+    .back-btn:hover { background: #1e40af; }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-container{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin: 10px 0 18px 0;
-      flex-wrap:wrap;
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px 0;
     }
-    .step{
-      width:40px;
-      height:40px;
-      border-radius:999px;
-      background:#d1d5db;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
-      cursor:pointer;
-      transition:transform .2s ease, background .2s ease;
-      color:#1f2933;
-      user-select:none;
-      flex: 0 0 auto;
+    .step {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+      color: #1f2933;
+      user-select: none;
     }
-    .step.active{
-      background: var(--blue);
-      color:#fff;
-    }
-    .step:hover{ transform:scale(1.06); }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
 
-    /* ===== CARD UI ===== */
-    .card{
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--card);
+    /* ── SCORE BADGE ── */
+    .score-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 18px;
+    }
+    .score-badge {
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800; font-size: 15px; color: #2563eb;
+    }
+    .score-label { font-size: 13px; color: #475569; font-weight: 600; }
+
+    /* ── HEADINGS ── */
+    h1 { font-size: 20px; margin: 0 0 6px 0; font-weight: 900; }
+    .subtitle { margin: 0 0 14px 0; font-size: 14px; line-height: 1.5; color: #334155; }
+
+    /* ── GRAMMAR BOX ── */
+    .grammar-box {
+      background: #fff;
+      border-left: 5px solid #2563eb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    }
+    .grammar-title { font-weight: 900; font-size: 14px; color: #1e40af; margin-bottom: 6px; }
+    .grammar-text  { font-size: 14px; font-weight: 700; line-height: 1.6; color: #0f172a; }
+    .grammar-text span { color: #2563eb; font-weight: 900; }
+
+    /* ── SECTION CARD ── */
+    .section {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(15,23,42,.08);
       border-radius: 18px;
-      padding: clamp(14px, 3.5vw, 18px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.10);
-      border: 1px solid rgba(17,24,39,0.08);
-    }
-    .title{
-      font-size: 20px;
-      font-weight: 1000;
-      margin: 0 0 6px 0;
-      line-height:1.15;
-    }
-    .subtitle{
-      margin: 0 0 14px 0;
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.35;
-      font-weight:800;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.07);
+      margin-bottom: 18px;
     }
 
-    /* ===== GRAMMAR BOX ===== */
-    .grammar-box{
-      max-width:520px;
-      width:100%;
-      margin: 10px auto 16px auto;
-      background:#ffffff;
-      border-left:6px solid var(--blue);
-      border-radius:14px;
-      padding:12px 14px;
-      box-shadow:0 8px 18px rgba(0,0,0,0.08);
-      overflow:hidden;
-    }
-    .grammar-title{
-      font-weight:1000;
-      font-size:16px;
-      color: var(--blueDark);
-      margin-bottom:6px;
-    }
-    .grammar-text{
-      font-size:15px;
-      line-height:1.42;
-      font-weight:800;
-      color: var(--text);
-      word-break:break-word;
-    }
-    .grammar-text span{
-      color: var(--blue);
-      font-weight:1000;
+    /* ── STATUS ROW ── */
+    .status-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; font-weight: 900; color: #475569;
+      margin-bottom: 12px;
     }
 
-    /* ===== SCENE ===== */
-    .scene{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
+    /* ── IMAGE BOX ── */
+    .imgbox {
+      display: flex; justify-content: center; align-items: center;
+      background: #f1f5f9;
+      border-radius: 14px; padding: 8px; margin-bottom: 14px;
     }
-    .img-wrap{
-      width:100%;
-      display:flex;
-      justify-content:center;
-    }
-    .scene-img{
-      width:100%;
-      max-width:520px;
-      border-radius: 16px;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
-      border: 1px solid rgba(17,24,39,0.08);
-      background:#fff;
+    .imgbox img {
+      max-height: 200px; width: auto; max-width: 100%;
+      object-fit: contain; display: block; border-radius: 10px;
     }
 
-    .row{
-      width:100%;
-      max-width:520px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
+    /* ── QUESTION ROW ── */
+    .question-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
     }
-    .qtext{
-      margin:0;
-      font-weight:1000;
-      font-size:16px;
-      color: var(--text);
-      line-height:1.2;
-      flex: 1 1 220px;
-      min-width: 200px;
+    .question-text { font-weight: 900; font-size: 15px; color: #0f172a; flex: 1; }
+    .play-btn {
+      border: 0; background: #2563eb; color: #fff;
+      font-family: inherit; font-weight: 800; font-size: 14px;
+      padding: 10px 16px; border-radius: 12px;
+      cursor: pointer; flex-shrink: 0;
+      transition: background .15s, transform .1s;
     }
-    .play-btn{
-      padding:12px 14px;
-      border-radius:14px;
-      border:none;
-      background:#111827;
-      color:#fff;
-      font-weight:1000;
-      cursor:pointer;
-      flex: 0 0 auto;
-      min-width: 120px;
-      touch-action: manipulation;
-    }
-    .play-btn:disabled{ opacity:0.55; cursor:not-allowed; }
+    .play-btn:hover:not(:disabled)  { background: #1e40af; }
+    .play-btn:active:not(:disabled) { transform: scale(.97); }
+    .play-btn:disabled { opacity: .5; cursor: not-allowed; }
 
-    .exercise{
-      width:100%;
-      max-width:520px;
-      background:#ffffff;
-      border-radius: 16px;
-      padding: 14px;
-      border:1px solid rgba(17,24,39,0.10);
-      overflow:hidden;
-    }
+    /* ── PROMPT ── */
+    .prompt { font-weight: 800; font-size: 14px; color: #475569; margin: 0 0 10px 0; }
 
-    .prompt{
-      margin:0 0 10px 0;
-      font-size: 15px;
-      font-weight: 1000;
-      color: var(--text);
-      line-height:1.3;
-      word-break:break-word;
-    }
-
-    /* Slots */
-    .slots{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
+    /* ── SLOTS ── */
+    .slots {
+      display: flex; flex-wrap: wrap; gap: 8px;
       padding: 10px;
       border-radius: 14px;
-      border:2px dashed rgba(17,24,39,0.20);
-      background:#f9fafb;
+      border: 2px dashed rgba(15,23,42,.2);
+      background: #f8fafc;
       min-height: 56px;
-      align-content:flex-start;
+      margin-bottom: 12px;
+      align-content: flex-start;
     }
-    .slot{
-      min-width: 84px;
-      height: 40px;
+    .slot {
+      min-width: 64px; height: 40px;
       padding: 0 10px;
-      border-radius: 12px;
-      background:#ffffff;
-      border:1px solid rgba(17,24,39,0.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight: 1000;
-      color:#9ca3af;
-      user-select:none;
-      max-width: 100%;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid rgba(15,23,42,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+      color: #94a3b8;
+      user-select: none;
+      white-space: nowrap;
+      transition: border-color .2s, background .2s, color .2s;
     }
-    .slot.filled{
-      color: var(--text);
-      border:2px solid rgba(17,24,39,0.15);
-      cursor:pointer;
+    .slot.filled {
+      color: #0f172a;
+      border: 2px solid rgba(15,23,42,.15);
+      cursor: pointer;
     }
-    .slot.ok{
-      border:2px solid rgba(16,185,129,0.95) !important;
-      background: rgba(16,185,129,0.12) !important;
-      color:#065f46 !important;
-    }
-    .slot.no{
-      border:2px solid rgba(239,68,68,0.95) !important;
-      background: rgba(239,68,68,0.10) !important;
-      color:#991b1b !important;
-    }
+    .slot.filled:hover { border-color: #2563eb; }
+    .slot.ok  { border: 2px solid #16a34a !important; background: rgba(22,163,74,.10)  !important; color: #166534 !important; }
+    .slot.bad { border: 2px solid #ef4444 !important; background: rgba(239,68,68,.08)  !important; color: #991b1b !important; }
 
-    /* Tiles */
-    .tiles{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 12px;
+    /* ── TILES ── */
+    .tiles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .tile {
+      border: 0; border-radius: 12px;
+      padding: 10px 14px;
+      background: #1e293b; color: #fff;
+      font-family: inherit; font-weight: 800; font-size: 14px;
+      cursor: pointer; user-select: none; white-space: nowrap;
+      transition: background .15s, transform .1s, opacity .15s;
     }
-    .tile{
-      border:none;
-      border-radius: 14px;
+    .tile:hover:not(:disabled)  { background: #334155; }
+    .tile:active:not(:disabled) { transform: scale(.96); }
+    .tile:disabled { opacity: .3; cursor: not-allowed; }
+
+    /* ── ACTIONS ── */
+    .actions { display: flex; gap: 10px; margin-bottom: 10px; }
+    .reset-btn {
+      border: 0; background: #e2e8f0; color: #334155;
+      font-family: inherit; font-weight: 800; font-size: 14px;
+      padding: 10px 16px; border-radius: 12px; cursor: pointer;
+      transition: background .15s;
+    }
+    .reset-btn:hover { background: #cbd5e1; }
+
+    /* ── LISTEN NOTICE ── */
+    .listen-notice {
+      background: rgba(219,234,254,.5);
+      border-radius: 12px;
       padding: 12px 14px;
-      background:#111827;
-      color:#fff;
-      font-weight: 1000;
-      cursor:pointer;
-      user-select:none;
-      max-width:100%;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-      touch-action: manipulation;
-    }
-    .tile:disabled{ opacity:0.45; cursor:not-allowed; }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      margin-top: 12px;
-      justify-content:flex-start;
-      flex-wrap:wrap;
-    }
-    .btn{
-      border:none;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-weight: 1000;
-      cursor:pointer;
-      touch-action: manipulation;
-    }
-    .btn.secondary{
-      background:#e5e7eb;
-      color:#111827;
+      font-size: 14px; font-weight: 700; color: #1e40af;
+      text-align: center;
     }
 
-    .feedback{
-      margin-top: 10px;
-      font-weight: 1000;
-      font-size: 16px;
-      min-height: 22px;
-      word-break:break-word;
-    }
-    .feedback.ok{ color:#047857; }
-    .feedback.no{ color:#b91c1c; }
+    /* ── FEEDBACK ── */
+    .feedback { min-height: 22px; font-size: 14px; font-weight: 800; text-align: center; }
+    .feedback.ok  { color: #16a34a; }
+    .feedback.bad { color: #dc2626; }
 
-    .mini-status{
-      width:100%;
-      max-width: 520px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      color: var(--muted);
-      font-weight: 1000;
-      font-size: 14px;
-      margin-top: 10px;
-      gap:10px;
-      flex-wrap:wrap;
+    /* ── COMPLETION BANNER ── */
+    .completion-banner {
+      display: none;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 2px solid rgba(34,197,94,.4);
+      border-radius: 16px; padding: 16px;
+      text-align: center; margin-bottom: 14px;
     }
+    .completion-banner.visible { display: block; }
+    .completion-banner h2 { margin: 0 0 4px; font-size: 20px; font-weight: 900; color: #166534; }
+    .completion-banner p  { margin: 0; font-size: 14px; color: #166534; font-weight: 600; }
 
-    .finish{
-      width:100%;
-      max-width:520px;
-      background:#ecfeff;
-      border:1px solid #a5f3fc;
-      border-radius:16px;
-      padding:14px;
-      margin-top:12px;
+    /* ── NEXT BTN ── */
+    .footer-actions { display: flex; justify-content: center; margin-top: 20px; padding-bottom: 12px; }
+    .next-btn {
+      display: inline-block; padding: 12px 32px;
+      background: #2563eb; color: #fff; text-decoration: none;
+      border-radius: 14px; font-weight: 900; font-size: 16px;
+      transition: background .15s, transform .1s;
     }
-    .finish h3{ margin:0 0 6px 0; font-size:18px; font-weight:1000; }
-    .finish p{ margin:0; color:#0f172a; font-weight:900; line-height:1.35; }
+    .next-btn:hover  { background: #1e40af; }
+    .next-btn:active { transform: scale(.97); }
 
-    /* ===== NEXT BUTTON (BOTTOM) ===== */
-    .footer-actions{
-      display:flex;
-      justify-content:center;
-      margin-top:18px;
-    }
-    .next-btn{
-      display:inline-block;
-      padding:12px 18px;
-      background: var(--blue);
-      color:#fff;
-      text-decoration:none;
-      border-radius:14px;
-      font-weight:1000;
-      box-shadow: 0 10px 22px rgba(37,99,235,0.22);
-    }
-    .next-btn:hover{ background: var(--blueDark); }
+    .hidden { display: none !important; }
 
-    .hidden{ display:none !important; }
-
-    /* ===== MOBILE TUNING ===== */
-    @media (max-width:520px){
-      .step{ width:34px; height:34px; font-size:14px; }
-      .qtext{ min-width: 0; flex-basis: 100%; }
-      .play-btn{ width:100%; }
-      .slot{ min-width: 76px; }
-      .tile{ flex: 1 1 auto; }
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      body  { padding: 12px; }
+      h1    { font-size: 18px; }
+      .step { width: 34px; height: 34px; font-size: 14px; }
+      .imgbox img { max-height: 160px; }
+      .question-row { flex-direction: column; align-items: flex-start; }
+      .play-btn { width: 100%; }
+      .tile { font-size: 13px; padding: 9px 12px; }
     }
   </style>
 </head>
 
 <body>
+<div class="wrap">
+
   <a href="../index.html" class="back-btn">← Volver a Unidad 3</a>
 
-  <div class="progress-container" aria-label="Progreso">
-    <div class="step" onclick="location.href='p1.html'">1</div>
-    <div class="step" onclick="location.href='p2.html'">2</div>
-    <div class="step" onclick="location.href='p3.html'">3</div>
-    <div class="step active" onclick="location.href='p4.html'">4</div>
+  <!-- Progress dots -->
+  <div class="progress-container" aria-label="Progreso de la lección">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step active" data-go="p4.html">4</div>
   </div>
 
-  <div class="card"
-       id="app"
-       data-correct="¡Correcto!"
-       data-wrong="✘"
-       data-instr="Escucha el diálogo. Luego ordena las palabras."
-       data-reset="Borrar"
-       data-step-label="Paso"
-       data-finish-title="🎉 ¡Excelente!"
-       data-finish-body="Terminaste la Lección 2. Ahora sabes usar: We are / They are.">
+  <!-- Score bar -->
+  <div class="score-bar">
+    <span class="score-label">Puntaje:</span>
+    <span class="score-badge" id="scoreBadge">0 / 10</span>
+  </div>
 
-    <h1 class="title">Unidad 3 · Lección 2 · Parte 4</h1>
-    <p class="subtitle" id="instrText">Escucha el diálogo. Luego ordena las palabras.</p>
+  <h1>Lección 2 – They are…</h1>
+  <p class="subtitle">Escucha el diálogo. Luego ordena las palabras.</p>
 
-    <div class="grammar-box">
-      <div class="grammar-title">Nueva expresión</div>
-      <div class="grammar-text">
-        <span>They are</span> = Ellos están / Ellas están.<br><br>
-        Usamos <span>They are</span> cuando hablamos de varias personas.<br><br>
-        Ejemplo:<br>
-        They are in the kitchen.<br>
-        Ellos están en la cocina.
-      </div>
-    </div>
-
-    <div class="scene">
-      <div class="img-wrap">
-        <img id="sceneImg" class="scene-img" alt="Escena" />
-      </div>
-
-      <div class="row">
-        <p id="questionText" class="qtext">▶ Escucha primero</p>
-        <button id="playBtn" class="play-btn" type="button">▶ Play</button>
-      </div>
-
-      <div class="exercise">
-        <p id="prompt" class="prompt">Pulsa Play para escuchar.</p>
-
-        <div id="slots" class="slots"></div>
-        <div id="tiles" class="tiles"></div>
-
-        <div class="actions">
-          <button id="resetBtn" class="btn secondary" type="button">Borrar</button>
-        </div>
-
-        <div id="feedback" class="feedback"></div>
-
-        <div class="mini-status">
-          <div id="roundStatus">1/5</div>
-          <div id="stepStatus">Paso 1/10</div>
-        </div>
-
-        <div id="finishBox" class="finish hidden">
-          <h3 id="finishTitle">🎉 ¡Excelente!</h3>
-          <p id="finishBody">Terminaste la Lección 2. Ahora sabes usar: We are / They are.</p>
-        </div>
-      </div>
-
-      <audio id="audioEl" preload="auto"></audio>
-    </div>
-
-    <div class="footer-actions">
-      <a id="nextBtn" class="next-btn hidden" href="../index.html">Continuar → Unidad 3</a>
+  <!-- Grammar box -->
+  <div class="grammar-box">
+    <div class="grammar-title">Nueva expresión</div>
+    <div class="grammar-text">
+      <span>They are</span> = Ellos están / Ellas están.<br>
+      Usamos <span>They are</span> cuando hablamos de varias personas.<br><br>
+      Ejemplo: They are in the kitchen. = Ellos están en la cocina.
     </div>
   </div>
 
-  <script src="../../../../js/u3/u3_l2_p4.js"></script>
+  <section class="section">
+    <!-- Status -->
+    <div class="status-row">
+      <span id="roundStatus">1 / 5</span>
+      <span id="stepStatus">Paso 1 / 10</span>
+    </div>
+
+    <!-- Image -->
+    <div class="imgbox">
+      <img id="sceneImg" src="" alt="Escena">
+    </div>
+
+    <!-- Question + play -->
+    <div class="question-row">
+      <span class="question-text" id="questionText">▶ Escucha primero</span>
+      <button class="play-btn" id="playBtn" type="button">▶ Escuchar</button>
+    </div>
+
+    <!-- Listen notice (shown before audio plays) -->
+    <div class="listen-notice" id="listenNotice">
+      Pulsa Escuchar para oír el diálogo, luego ordena las palabras.
+    </div>
+
+    <!-- Exercise area (hidden until audio played) -->
+    <div id="exerciseArea" class="hidden">
+      <p class="prompt" id="prompt"></p>
+      <div class="slots" id="slots"></div>
+      <div class="tiles" id="tiles"></div>
+      <div class="actions">
+        <button class="reset-btn" id="resetBtn" type="button">↺ Borrar</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </section>
+
+  <!-- Completion banner -->
+  <div class="completion-banner" id="completionBanner">
+    <h2>🎉 ¡Excelente!</h2>
+    <p id="completionMsg">Completaste la Lección 2.</p>
+  </div>
+
+  <!-- Next button -->
+  <div class="footer-actions">
+    <a id="nextBtn" class="next-btn hidden" href="../index.html">Continuar → Unidad 3</a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  /* ── CONFIG ── */
+  const SB  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG = SB + "images/u3/";
+  const AUD = SB + "audio/u3/";
+  const SFX_CORRECT = SB + "sfx/correct.wav";
+
+  const WAIT_AFTER_CORRECT = 1500;
+  const TOTAL_POINTS = 10; // 5 scenes × 2 questions
+
+  /* ── SCENES ── */
+  const SCENES = [
+    {
+      img:      "u3.l2.p4.brown.jpg",
+      dialogue: "u3.l2.p4.brown.mp3",
+      q1: { text: "Where is the Brown family?",   tiles: ["They","are","at","home."]                },
+      q2: { text: "What are they doing?",          tiles: ["They","are","cooking","dinner."]         }
+    },
+    {
+      img:      "u3.l2.p4.wilson.jpg",
+      dialogue: "u3.l2.p4.wilson.mp3",
+      q1: { text: "Where is the Wilson family?",  tiles: ["They","are","at","the","restaurant."]    },
+      q2: { text: "What are they doing?",          tiles: ["They","are","eating","dinner."]          }
+    },
+    {
+      img:      "u3.l2.p4.taylor.jpg",
+      dialogue: "u3.l2.p4.taylor.mp3",
+      q1: { text: "Where is the Taylor family?",  tiles: ["They","are","at","the","park."]          },
+      q2: { text: "What are they doing?",          tiles: ["They","are","playing","soccer."]         }
+    },
+    {
+      img:      "u3.l2.p4.tim.sally.jpg",
+      dialogue: "u3.l2.p4.tim.sally.mp3",
+      q1: { text: "Where are Tim and Sally?",     tiles: ["They","are","in","the","living","room."] },
+      q2: { text: "What are they doing?",          tiles: ["They","are","watching","a","movie."]     }
+    },
+    {
+      img:      "u3.l2.p4.walker.jpg",
+      dialogue: "u3.l2.p4.walker.mp3",
+      q1: { text: "Where is the Walker family?",  tiles: ["They","are","in","the","bedroom."]       },
+      q2: { text: "What are they doing?",          tiles: ["They","are","reading","a","book."]       }
+    }
+  ];
+
+  /* ── DOM ── */
+  const $id = id => document.getElementById(id);
+  const sceneImg      = $id('sceneImg');
+  const roundStatus   = $id('roundStatus');
+  const stepStatus    = $id('stepStatus');
+  const questionText  = $id('questionText');
+  const playBtn       = $id('playBtn');
+  const listenNotice  = $id('listenNotice');
+  const exerciseArea  = $id('exerciseArea');
+  const promptEl      = $id('prompt');
+  const slotsEl       = $id('slots');
+  const tilesEl       = $id('tiles');
+  const resetBtn      = $id('resetBtn');
+  const feedbackEl    = $id('feedback');
+  const scoreBadge    = $id('scoreBadge');
+  const banner        = $id('completionBanner');
+  const compMsg       = $id('completionMsg');
+  const nextBtn       = $id('nextBtn');
+
+  /* ── AUDIO ── */
+  const audioEl    = new Audio();
+  const sfxCorrect = new Audio(SFX_CORRECT);
+
+  /* ── STATE ── */
+  let sceneIndex   = 0;
+  let stage        = 0;   // 0=listen, 1=q1, 2=q2
+  let target       = [];
+  let pool         = [];
+  let chosen       = [];
+  let locked       = false;
+  let correctCount = 0;
+
+  /* ── HELPERS ── */
+  function updateScore() {
+    scoreBadge.textContent = correctCount + ' / ' + TOTAL_POINTS;
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function setFeedback(type, text) {
+    feedbackEl.textContent = text || '';
+    feedbackEl.className = 'feedback' + (type ? ' ' + type : '');
+  }
+
+  /* ── PER-SLOT GRADING (green correct, red wrong) ── */
+  function setSlotsState(state) {
+    const slots = [...slotsEl.querySelectorAll('.slot')];
+    slots.forEach((s, i) => {
+      s.classList.remove('ok', 'bad');
+      if (state === 'ok')      { s.classList.add('ok'); }
+      if (state === 'bad')     { s.classList.add('bad'); }
+      if (state === 'perword') {
+        s.classList.add(chosen[i] === target[i] ? 'ok' : 'bad');
+      }
+    });
+  }
+
+  /* ── RENDER SLOTS ── */
+  function renderSlots() {
+    slotsEl.innerHTML = '';
+    for (let i = 0; i < target.length; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      if (chosen[i] !== undefined) {
+        slot.textContent = chosen[i];
+        slot.classList.add('filled');
+        const idx = i;
+        const handler = () => { if (!locked) removeAt(idx); };
+        slot.addEventListener('click', handler);
+        slot.addEventListener('touchend', e => { e.preventDefault(); handler(); });
+      } else {
+        slot.textContent = '___';
+      }
+      slotsEl.appendChild(slot);
+    }
+  }
+
+  /* ── RENDER TILES ── */
+  function renderTiles() {
+    tilesEl.innerHTML = '';
+    pool.forEach(word => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tile';
+      btn.textContent = word;
+      const usedCount = chosen.filter(c => c === word).length;
+      const poolCount = pool.filter(p => p === word).length;
+      btn.disabled = locked || usedCount >= poolCount;
+      const handler = () => { if (!locked && !btn.disabled) addTile(word); };
+      btn.addEventListener('click', handler);
+      btn.addEventListener('touchend', e => { e.preventDefault(); handler(); });
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  /* ── ADD / REMOVE ── */
+  function addTile(word) {
+    if (chosen.length >= target.length || locked) return;
+    chosen.push(word);
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+    if (chosen.length === target.length) gradeNow();
+  }
+
+  function removeAt(i) {
+    chosen.splice(i, 1);
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+  }
+
+  function resetBuild() {
+    if (locked) return;
+    chosen = [];
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+  }
+
+  /* ── GRADE ── */
+  function isCorrect() { return target.every((t, i) => chosen[i] === t); }
+
+  function gradeNow() {
+    locked = true;
+    renderTiles();
+
+    if (isCorrect()) {
+      setSlotsState('ok');
+      setFeedback('ok', '¡Correcto! ✓');
+      correctCount++;
+      updateScore();
+      try { sfxCorrect.currentTime = 0; sfxCorrect.play(); } catch(e){}
+      setTimeout(() => { locked = false; advance(); }, WAIT_AFTER_CORRECT);
+    } else {
+      // Per-slot: green = correct position, red = wrong
+      setSlotsState('perword');
+      setFeedback('bad', 'Revisa las palabras en rojo.');
+      setTimeout(() => { locked = false; renderTiles(); }, 900);
+    }
+  }
+
+  /* ── LOAD QUESTION ── */
+  function startQ(num) {
+    stage = num;
+    const q = num === 1 ? SCENES[sceneIndex].q1 : SCENES[sceneIndex].q2;
+
+    listenNotice.classList.add('hidden');
+    exerciseArea.classList.remove('hidden');
+
+    questionText.textContent = q.text;
+    promptEl.textContent = 'Ordena las palabras:';
+    playBtn.disabled = true;
+
+    target = q.tiles.slice();
+    pool   = shuffle(q.tiles.slice());
+    chosen = [];
+
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+
+    roundStatus.textContent = (sceneIndex + 1) + ' / ' + SCENES.length;
+    stepStatus.textContent  = 'Paso ' + (correctCount + 1) + ' / ' + TOTAL_POINTS;
+  }
+
+  /* ── LISTEN PHASE ── */
+  function startListen() {
+    stage = 0;
+    locked = false;
+    chosen = []; target = []; pool = [];
+
+    sceneImg.src = IMG + SCENES[sceneIndex].img;
+    audioEl.src  = AUD + SCENES[sceneIndex].dialogue;
+
+    questionText.textContent = '▶ Escucha primero';
+    listenNotice.classList.remove('hidden');
+    exerciseArea.classList.add('hidden');
+    playBtn.disabled = false;
+
+    setFeedback(null);
+    roundStatus.textContent = (sceneIndex + 1) + ' / ' + SCENES.length;
+    stepStatus.textContent  = 'Paso ' + (correctCount + 1) + ' / ' + TOTAL_POINTS;
+  }
+
+  /* ── ADVANCE ── */
+  function advance() {
+    if (stage === 1) { startQ(2); return; }
+    sceneIndex++;
+    if (sceneIndex >= SCENES.length) { finishLesson(); return; }
+    startListen();
+  }
+
+  /* ── FINISH ── */
+  function finishLesson() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('inglesco_progress_u3') || '{}');
+      if (!saved.l2) saved.l2 = {};
+      if ((saved.l2.partsCompleted || 0) < 4) {
+        saved.l2.partsCompleted = 4;
+        saved.l2.partsTotal = 4;
+      }
+      localStorage.setItem('inglesco_progress_u3', JSON.stringify(saved));
+      const fk = 'inglesco_furthest_u3_l2';
+      if (parseInt(localStorage.getItem(fk) || '0', 10) < 4) localStorage.setItem(fk, '4');
+    } catch(e){}
+
+    playBtn.disabled = true;
+    exerciseArea.classList.add('hidden');
+    listenNotice.classList.add('hidden');
+    banner.classList.add('visible');
+    compMsg.textContent = '¡Puntaje: ' + correctCount + ' de ' + TOTAL_POINTS + '! Terminaste la Lección 2. Ahora sabes usar: We are / They are.';
+    nextBtn.classList.remove('hidden');
+    nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── PLAY BUTTON ── */
+  playBtn.addEventListener('click', () => {
+    playBtn.disabled = true;
+    audioEl.currentTime = 0;
+    audioEl.play().catch(() => { playBtn.disabled = false; });
+  });
+  playBtn.addEventListener('touchend', e => {
+    e.preventDefault();
+    playBtn.disabled = true;
+    audioEl.currentTime = 0;
+    audioEl.play().catch(() => { playBtn.disabled = false; });
+  });
+
+  /* ── AUDIO ENDED → show q1 ── */
+  audioEl.addEventListener('ended', () => {
+    if (stage === 0) startQ(1);
+  });
+
+  /* ── RESET ── */
+  resetBtn.addEventListener('click', resetBuild);
+  resetBtn.addEventListener('touchend', e => { e.preventDefault(); resetBuild(); });
+
+  /* ── PROGRESS DOT NAV ── */
+  document.querySelectorAll('.step').forEach(s => {
+    s.addEventListener('click', () => { if (s.dataset.go) window.location.href = s.dataset.go; });
+  });
+
+  /* ── INIT ── */
+  updateScore();
+  startListen();
+})();
+</script>
 </body>
 </html>
