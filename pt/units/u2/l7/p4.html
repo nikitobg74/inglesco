@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidade 2 - Lição 7 - Parte 4</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 20px 16px 40px;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Progress dots ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 22px 0;
+      flex-wrap: wrap;
+    }
+    .step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .25s;
+      color: #1f2933;
+      user-select: none;
+      font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover { transform: scale(1.1); }
+    @media (max-width: 400px) {
+      .step { width: 34px; height: 34px; font-size: 13px; }
+    }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.9);
+      border-radius: 20px;
+      padding: 20px 18px 24px;
+      box-shadow: 0 6px 24px rgba(15,23,42,.11);
+    }
+
+    .lesson-subtitle {
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      opacity: .7;
+      margin: 0 0 6px 0;
+      letter-spacing: .3px;
+    }
+    .title {
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: 900;
+      margin: 0 0 8px 0;
+      text-align: center;
+    }
+    .hint-es {
+      text-align: center;
+      font-weight: 800;
+      font-size: 15px;
+      margin: 0 0 2px 0;
+    }
+    .hint {
+      text-align: center;
+      font-weight: 600;
+      font-size: 13px;
+      opacity: .7;
+      margin: 0 0 12px 0;
+    }
+
+    /* ── Score + Round bar ── */
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 14px 0;
+      gap: 8px;
+    }
+    .round-box {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1e3a8a;
+    }
+    .score-box {
+      font-weight: 900;
+      font-size: 15px;
+      color: #166534;
+      background: #dcfce7;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    /* ── Audio button ── */
+    .audio-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .audio-btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      padding: 15px 20px;
+      border-radius: 14px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 900;
+      font-size: clamp(15px, 4vw, 17px);
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 18px rgba(37,99,235,.22);
+      transition: background .2s;
+    }
+    .audio-btn:hover { background: #1e40af; }
+    .audio-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+    /* ── Choices ── */
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .choice {
+      appearance: none;
+      border: 3px solid #cbd5e1;
+      background: #fff;
+      color: #0f172a;
+      border-radius: 16px;
+      padding: 16px 14px;
+      font-size: clamp(18px, 5vw, 22px);
+      font-weight: 900;
+      text-align: center;
+      cursor: pointer;
+      transition: all .18s ease;
+      box-shadow: 0 4px 14px rgba(15,23,42,.07);
+      width: 100%;
+      line-height: 1.2;
+    }
+    .choice:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+    .choice.correct {
+      border-color: #16a34a;
+      background: #dcfce7;
+      color: #166534;
+    }
+    .choice.wrong {
+      border-color: #dc2626;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .choice:disabled { cursor: not-allowed; }
+
+    /* ── Feedback ── */
+    .feedback {
+      min-height: 28px;
+      margin: 12px 0 6px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 15px;
+    }
+    .feedback.ok  { color: #166534; }
+    .feedback.bad { color: #b91c1c; }
+
+    /* ── Finish / Done ── */
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .finish-btn {
+      display: inline-block;
+      padding: 14px 20px;
+      border-radius: 14px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      text-decoration: none;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      transition: background .2s;
+    }
+    .finish-btn:hover { background: #1e40af; }
+
+    .done-badge {
+      display: block;
+      margin: 14px auto 0;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 900;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Voltar à Unidade 2</a>
+
+  <div class="progress-container" aria-label="Progreso de la lección">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step" data-go="p2.html">2</div>
+    <div class="step" data-go="p3.html">3</div>
+    <div class="step active" data-go="p4.html" aria-current="page">4</div>
+  </div>
+
+  <div class="card">
+    <div class="lesson-subtitle">Unidade 2 · Lição 7 · Parte 4</div>
+    <div class="title">Escucha y selecciona la palabra</div>
+    <div class="hint-es">Escucha el audio y toca la palabra correcta.</div>
+    <div class="hint">Listen and choose the correct word.</div>
+
+    <div class="meta-row">
+      <div id="roundBox" class="round-box">1 / 15</div>
+      <div id="scoreBox" class="score-box">✅ 0 / 15</div>
+    </div>
+
+    <div class="audio-box">
+      <button id="audioBtn" class="audio-btn" type="button">🔊 Ouvir audio</button>
+    </div>
+
+    <div id="choices" class="choices hidden"></div>
+
+    <div id="feedback" class="feedback"></div>
+
+    <div class="actions">
+      <a id="finishBtn" class="finish-btn hidden" href="../index.html">Finalizar ▶</a>
+    </div>
+
+    <div id="doneBadge" class="done-badge hidden">🎉 ¡Buen trabajo, felicitaciones!</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  const SUPABASE_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_BASE    = SUPABASE_BASE + "audio/u2/";
+  const SFX_CORRECT   = SUPABASE_BASE + "sfx/correct.wav";
+
+  const LS_KEY        = "inglesco_progress_u2";
+  const LESSON_KEY    = "l7";
+  const PART_NUMBER   = 4;
+  const TOTAL_PARTS   = 4;
+  const TOTAL_ROUNDS  = 15;
+  const AUTO_NEXT_MS  = 1000;
+  const WRONG_FLASH   = 500;
+
+  const ITEMS = [
+    { text: "pen",            audio: "u2.l6.p1.pen.mp3" },
+    { text: "book",           audio: "u2.l6.p1.book.mp3" },
+    { text: "desk",           audio: "u2.l6.p1.desk.mp3" },
+    { text: "laptop",         audio: "u2.l6.p1.laptop.mp3" },
+    { text: "chair",          audio: "u2.l6.p1.chair.mp3" },
+    { text: "bag",            audio: "u2.l6.p1.bag.mp3" },
+    { text: "dictionary",     audio: "u2.l6.p1.dictionary.mp3" },
+    { text: "globe",          audio: "u2.l6.p1.globe.mp3" },
+    { text: "bookshelf",      audio: "u2.l6.p4.bookshelf.mp3" },
+    { text: "pencil",         audio: "u2.l6.p4.pencil.mp3" },
+    { text: "map",            audio: "u2.l6.p4.map.mp3" },
+    { text: "board",          audio: "u2.l6.p4.board.mp3" },
+    { text: "clock",          audio: "u2.l6.p4.clock.mp3" },
+    { text: "bulletin board", audio: "u2.l6.p4.bulletin.mp3" },
+    { text: "table",          audio: "u2.l6.p4.table.mp3" }
+  ];
+
+  // ── DOM ──
+  const audioBtn    = document.getElementById("audioBtn");
+  const choicesEl   = document.getElementById("choices");
+  const finishBtn   = document.getElementById("finishBtn");
+  const feedbackEl  = document.getElementById("feedback");
+  const roundBox    = document.getElementById("roundBox");
+  const scoreBox    = document.getElementById("scoreBox");
+  const doneBadge   = document.getElementById("doneBadge");
+  const stepBtns    = document.querySelectorAll(".step");
+
+  // ── State ──
+  let rounds           = [];
+  let currentRound     = 0;
+  let score            = 0;
+  let currentAudio     = null;
+  let roundLocked      = false;
+  let audioHasPlayed   = false;
+  let autoNextTimer    = null;
+
+  // ── Utilities ──
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function playSfx(url) {
+    try { new Audio(url).play(); } catch(_) {}
+  }
+
+  // ── Progress (localStorage) ──
+  function loadProgress() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch(_) { return {}; }
+  }
+  function saveProgress() {
+    try {
+      const data = loadProgress();
+      if (!data[LESSON_KEY]) data[LESSON_KEY] = { partsCompleted: 0, partsTotal: TOTAL_PARTS };
+      if (data[LESSON_KEY].partsCompleted < PART_NUMBER) {
+        data[LESSON_KEY].partsCompleted = PART_NUMBER;
+      }
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    } catch(_) {}
+  }
+
+  // ── Build rounds ──
+  function buildRounds() {
+    const shuffled = shuffle(ITEMS);
+    rounds = shuffled.map(correct => {
+      const distractors = shuffle(ITEMS.filter(i => i.text !== correct.text)).slice(0, 2);
+      return { correct, options: shuffle([correct, ...distractors]) };
+    });
+  }
+
+  // ── Navigation ──
+  function bindProgress() {
+    stepBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const go = btn.getAttribute("data-go");
+        if (go) window.location.href = go;
+      });
+    });
+  }
+
+  // ── Audio ──
+  function stopAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
+  }
+  function clearTimers() {
+    if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
+  }
+
+  function playWord() {
+    const round = rounds[currentRound];
+    clearTimers();
+    stopAudio();
+
+    audioBtn.disabled = true;
+    audioBtn.textContent = "🔊 Reproduciendo...";
+
+    currentAudio = new Audio(AUDIO_BASE + round.correct.audio);
+
+    currentAudio.addEventListener("ended", () => {
+      audioHasPlayed = true;
+      audioBtn.disabled = false;
+      audioBtn.textContent = "🔁 Ouvir otra vez";
+      renderChoices();
+    });
+    currentAudio.addEventListener("error", () => {
+      audioBtn.disabled = false;
+      audioBtn.textContent = "🔊 Ouvir audio";
+      feedbackEl.textContent = "Error al cargar el audio.";
+      feedbackEl.className = "feedback bad";
+    });
+    currentAudio.play().catch(() => {
+      audioBtn.disabled = false;
+      audioBtn.textContent = "🔊 Ouvir audio";
+      feedbackEl.textContent = "No se pudo reproducir el audio.";
+      feedbackEl.className = "feedback bad";
+    });
+  }
+
+  // ── Choices ──
+  function renderChoices() {
+    const round = rounds[currentRound];
+    choicesEl.innerHTML = "";
+    round.options.forEach((opt, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.textContent = opt.text;
+      btn.setAttribute("aria-label", opt.text);
+      btn.addEventListener("click", () => handleChoice(btn, idx));
+      choicesEl.appendChild(btn);
+    });
+    choicesEl.classList.remove("hidden");
+  }
+
+  function clearChoiceStates() {
+    choicesEl.querySelectorAll(".choice").forEach(b => b.classList.remove("wrong","correct"));
+  }
+
+  function handleChoice(btn, idx) {
+    if (roundLocked || !audioHasPlayed) return;
+    const round = rounds[currentRound];
+    const chosen = round.options[idx];
+    const isCorrect = chosen.text === round.correct.text;
+
+    if (isCorrect) {
+      roundLocked = true;
+      clearChoiceStates();
+      btn.classList.add("correct");
+      feedbackEl.textContent = "✅ Correcto";
+      feedbackEl.className = "feedback ok";
+      score++;
+      updateScore();
+      playSfx(SFX_CORRECT);
+
+      autoNextTimer = setTimeout(() => {
+        if (currentRound === rounds.length - 1) {
+          finishLesson();
+        } else {
+          currentRound++;
+          loadRound();
+        }
+      }, AUTO_NEXT_MS);
+
+    } else {
+      btn.classList.add("wrong");
+      feedbackEl.textContent = "❌ Tente novamente.";
+      feedbackEl.className = "feedback bad";
+      setTimeout(() => {
+        if (!roundLocked) btn.classList.remove("wrong");
+      }, WRONG_FLASH);
+    }
+  }
+
+  // ── UI updates ──
+  function updateScore() {
+    scoreBox.textContent = `✅ ${score} / ${TOTAL_ROUNDS}`;
+  }
+
+  function resetRoundUI() {
+    clearTimers();
+    stopAudio();
+    roundLocked    = false;
+    audioHasPlayed = false;
+    choicesEl.innerHTML = "";
+    choicesEl.classList.add("hidden");
+    feedbackEl.textContent = "";
+    feedbackEl.className = "feedback";
+    audioBtn.disabled = false;
+    audioBtn.textContent = "🔊 Ouvir audio";
+    finishBtn.classList.add("hidden");
+    doneBadge.classList.add("hidden");
+  }
+
+  function loadRound() {
+    resetRoundUI();
+    roundBox.textContent = `${currentRound + 1} / ${TOTAL_ROUNDS}`;
+  }
+
+  function finishLesson() {
+    stopAudio();
+    clearTimers();
+    saveProgress();
+
+    choicesEl.classList.add("hidden");
+    audioBtn.disabled = true;
+    audioBtn.textContent = "✅ Completado";
+    feedbackEl.textContent = "";
+    feedbackEl.className = "feedback";
+    finishBtn.classList.remove("hidden");
+    doneBadge.classList.remove("hidden");
+    roundBox.textContent = `${TOTAL_ROUNDS} / ${TOTAL_ROUNDS}`;
+  }
+
+  // ── Init ──
+  audioBtn.addEventListener("click", playWord);
+  buildRounds();
+  bindProgress();
+  updateScore();
+  loadRound();
+})();
+</script>
+</body>
+</html>

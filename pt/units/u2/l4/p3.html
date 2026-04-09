@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Complete a frase em inglês: He is / She is / Where is – Inglesco Unidade 2 Lição 4</title>
+  <meta name="description" content="Pratique he is, she is, where is em inglês. Toque na resposta correta para completar cada frase. Exercício interativo gratuito para falantes de português." />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      color: #1e2a38;
+      padding: 20px 14px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* BACK */
+    .back-btn {
+      position: fixed;
+      top: 14px; left: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:active { transform: scale(0.96); }
+
+    /* WRAP */
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding-top: 56px;
+    }
+
+    /* HEADER */
+    .lesson-tag {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #486581;
+      margin-bottom: 6px;
+    }
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #486581;
+      margin-bottom: 20px;
+    }
+
+    /* DOTS */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(37,99,235,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #486581;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+      cursor: default;
+    }
+    .dot.active:hover { transform: none; }
+    .dot.done { background: #22c55e; color: #fff; border-color: #22c55e; }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+    }
+
+    /* COUNTER */
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
+    }
+    .bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 7px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      border-radius: 999px;
+      transition: width 0.5s;
+    }
+
+    /* INSTRUCTION */
+    .instruction-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1e40af;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* SENTENCE */
+    .sentence-wrap {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px 16px 14px;
+      margin-bottom: 18px;
+      min-height: 64px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e2a38;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* BLANK SLOT */
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      height: 38px;
+      border-radius: 10px;
+      border: 2px dashed #93c5fd;
+      background: #eff6ff;
+      color: #1e40af;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 0 10px;
+      transition: background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .blank-slot.filled {
+      border-style: solid;
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+    .blank-slot.correct {
+      border-color: #22c55e;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .blank-slot.wrong {
+      border-color: #dc2626;
+      background: #fee2e2;
+      color: #dc2626;
+      animation: shake 0.35s ease;
+    }
+
+    /* TILE BANK */
+    .tile-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 6px;
+      min-height: 48px;
+    }
+    .tile {
+      padding: 10px 18px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.15s, transform 0.1s, opacity 0.15s;
+      user-select: none;
+    }
+    .tile:hover  { background: #1d4ed8; transform: translateY(-2px); }
+    .tile:active { transform: scale(0.95); }
+    .tile.used   { opacity: 0; pointer-events: none; }
+
+    /* FEEDBACK LINE */
+    .feedback {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 22px;
+      margin-top: 8px;
+      color: #486581;
+    }
+    .feedback.ok    { color: #15803d; }
+    .feedback.error { color: #dc2626; }
+
+    /* END SCREEN */
+    #endScreen {
+      display: none;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+    }
+    .score-bar {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 12px;
+      margin: 12px 0 20px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: #22c55e;
+      transition: width 1s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-5px); }
+      75%      { transform: translateX(5px); }
+    }
+    .card-anim { animation: fadeUp 0.3s ease; }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Unidade 2</a>
+
+<div class="wrap">
+
+  <span class="lesson-tag">Unidade 2 · Lição 4 · Parte 3</span>
+  <h1>Complete a frase</h1>
+  <p class="subtitle">He is / She is / Where is / I am</p>
+
+  <div class="progress-dots">
+    <div class="dot" data-page="p1.html">1</div>
+    <div class="dot" data-page="p2.html">2</div>
+    <div class="dot active" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
+  </div>
+
+  <div class="card card-anim" id="mainCard">
+    <div class="counter-row">
+      <span id="counterEl">1 / 10</span>
+      <span id="scoreEl">✓ 0</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barEl"></div></div>
+
+    <div class="instruction-box">
+      Toque na palavra correta para completar a frase. 👇
+    </div>
+
+    <!-- Sentence display -->
+    <div class="sentence-wrap" id="sentenceWrap"></div>
+
+    <!-- Tile bank -->
+    <div class="tile-bank" id="tileBank"></div>
+
+    <!-- Feedback -->
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="endScreen">
+    <div id="endEmoji" style="font-size:52px;margin-bottom:16px"></div>
+    <h2 id="endTitle" style="font-size:22px;font-weight:800;color:#1e40af;margin-bottom:12px"></h2>
+    <p id="endScore" style="font-size:16px;font-weight:700;color:#374151;margin-bottom:8px"></p>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+    <p id="endMsg" style="font-size:13px;color:#64748b;margin-bottom:28px"></p>
+    <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;">
+      Continuar → Parte 4
+    </a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const sfxCorrect   = new Audio(BASE + "sfx/correct.wav");
+  const sfxWrong     = new Audio(BASE + "sfx/incorrect.wav");
+  sfxCorrect.preload = sfxWrong.preload = "auto";
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+
+  const MALE_NAMES   = ["George","Pedro","Luis","Carlos","Mateo","Bruno","David","Javier","Hector","Ruben"];
+  const FEMALE_NAMES = ["Karen","Maria","Ana","Lucia","Paula","Elena","Carmen","Valeria","Diana","Marta"];
+  const ROOMS        = ["bedroom","garage","living room","basement","bathroom","kitchen","yard","attic"];
+
+  // All possible answer tokens (what appears on tiles)
+  const ALL_ANSWERS  = ["he is", "she is", "where is", "i am"];
+
+  // Distractor pool — pick from answers that are NOT the correct one(s)
+  function distractors(correct, count) {
+    const pool = ALL_ANSWERS.filter(a => !correct.includes(a));
+    return shuffle(pool).slice(0, count);
+  }
+
+  // ── Exercise generator ────────────────────────────────────────────────────
+  // Each exercise returns: { parts, blanks }
+  // parts: array of { type:'text'|'blank', text?, answer? }
+  // blanks: filled sequentially as tiles are tapped
+
+  function pickName() {
+    const male = Math.random() < 0.5;
+    return { name: pick(male ? MALE_NAMES : FEMALE_NAMES), male };
+  }
+
+  // Pattern A: "Where is NAME? ___ in the ROOM."  (one blank: he is / she is)
+  function patternA() {
+    const { name, male } = pickName();
+    const ans = male ? "he is" : "she is";
+    const room = pick(ROOMS);
+    return {
+      parts: [
+        { type: "text", text: `Where is ${name}?` },
+        { type: "blank", answer: ans },
+        { type: "text", text: `in the ${room}.` }
+      ],
+      correctAnswers: [ans],
+      tiles: shuffle([ans, ...distractors([ans], 2)])
+    };
+  }
+
+  // Pattern B: "___ NAME? ___ in the ROOM."  (two blanks: where is + he/she is)
+  function patternB() {
+    const { name, male } = pickName();
+    const ans2 = male ? "he is" : "she is";
+    const room = pick(ROOMS);
+    return {
+      parts: [
+        { type: "blank", answer: "where is" },
+        { type: "text", text: `${name}?` },
+        { type: "blank", answer: ans2 },
+        { type: "text", text: `in the ${room}.` }
+      ],
+      correctAnswers: ["where is", ans2],
+      tiles: shuffle(["where is", ans2, ...distractors(["where is", ans2], 1)])
+    };
+  }
+
+  // Pattern C: "Where are you? ___ in the ROOM."  (one blank: i am)
+  function patternC() {
+    const room = pick(ROOMS);
+    return {
+      parts: [
+        { type: "text", text: "Where are you?" },
+        { type: "blank", answer: "i am" },
+        { type: "text", text: `in the ${room}.` }
+      ],
+      correctAnswers: ["i am"],
+      tiles: shuffle(["i am", ...distractors(["i am"], 2)])
+    };
+  }
+
+  // Pattern D: "NAME is not at PLACE1. ___ is at PLACE2." (one blank: he is / she is)
+  const PLACES = ["the office","the supermarket","the park","the bank","the library","the hospital","the movie theater","the post office","the restaurant"];
+  function patternD() {
+    const { name, male } = pickName();
+    const ans = male ? "he is" : "she is";
+    const shuffledPlaces = shuffle(PLACES);
+    const place1 = shuffledPlaces[0];
+    const place2 = shuffledPlaces[1];
+    return {
+      parts: [
+        { type: "text", text: `${name} is not at ${place1}.` },
+        { type: "blank", answer: ans },
+        { type: "text", text: `at ${place2}.` }
+      ],
+      correctAnswers: [ans],
+      tiles: shuffle([ans, ...distractors([ans], 2)])
+    };
+  }
+
+  // Build 10 exercises: mix of patterns, shuffled
+  function buildExercises() {
+    const pool = [
+      patternA, patternA, patternA,   // 3× type A
+      patternB, patternB,             // 2× type B (two-blank, harder)
+      patternC, patternC, patternC,   // 3× type C
+      patternD, patternD              // 2× type D
+    ];
+    return shuffle(pool).map(fn => fn());
+  }
+
+  // ── State ─────────────────────────────────────────────────────────────────
+
+  const exercises = buildExercises();
+  const TOTAL     = exercises.length;
+  let idx         = 0;
+  let score       = 0;
+  let errors      = 0;
+
+  // DOM
+  const counterEl    = document.getElementById("counterEl");
+  const scoreEl      = document.getElementById("scoreEl");
+  const barEl        = document.getElementById("barEl");
+  const sentenceWrap = document.getElementById("sentenceWrap");
+  const tileBankEl   = document.getElementById("tileBank");
+  const feedbackEl   = document.getElementById("feedback");
+  const mainCard     = document.getElementById("mainCard");
+  const endScreen    = document.getElementById("endScreen");
+
+  // Dot navigation
+  document.querySelectorAll(".dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const page = dot.dataset.page;
+      if (page) window.location.href = page;
+    });
+  });
+
+  // ── Render exercise ───────────────────────────────────────────────────────
+
+  function updateHUD() {
+    counterEl.textContent = `${idx + 1} / ${TOTAL}`;
+    scoreEl.textContent   = `✓ ${score}`;
+    barEl.style.width     = `${(idx / TOTAL) * 100}%`;
+  }
+
+  function renderExercise() {
+    updateHUD();
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+    sentenceWrap.innerHTML = "";
+    tileBankEl.innerHTML   = "";
+
+    const ex = exercises[idx];
+    const blankEls = []; // references to blank slot elements, in order
+    let   blankIdx = 0;  // which blank we're filling next
+
+    // Build sentence
+    // Capitalize a blank if it starts a sentence: first position, or after ? or .
+    let prevEndsWithPunctuation = true;
+    ex.parts.forEach(part => {
+      if (part.type === "text") {
+        const span = document.createElement("span");
+        span.textContent = part.text;
+        sentenceWrap.appendChild(span);
+        const trimmed = part.text.trimEnd();
+        prevEndsWithPunctuation = trimmed.endsWith("?") || trimmed.endsWith(".");
+      } else {
+        const slot = document.createElement("div");
+        slot.className = "blank-slot";
+        slot.dataset.answer = part.answer;
+        slot.textContent = "___";
+        slot.dataset.filled = "false";
+        if (prevEndsWithPunctuation) slot.dataset.capitalize = "true";
+        prevEndsWithPunctuation = false;
+        blankEls.push(slot);
+        sentenceWrap.appendChild(slot);
+      }
+    });
+
+    // Build tiles
+    ex.tiles.forEach(word => {
+      const tile = document.createElement("button");
+      tile.type = "button";
+      tile.className = "tile";
+      tile.textContent = word;
+
+      tile.addEventListener("click", () => {
+        if (blankIdx >= blankEls.length) return; // all filled
+
+        const slot    = blankEls[blankIdx];
+        const correct = slot.dataset.answer;
+
+        if (word === correct) {
+          // Correct — capitalize if this is the sentence-opening blank
+          const display = slot.dataset.capitalize === "true"
+            ? word.charAt(0).toUpperCase() + word.slice(1)
+            : word;
+          slot.textContent = display;
+          slot.classList.add("filled", "correct");
+          tile.classList.add("used");
+          blankIdx++;
+          feedbackEl.textContent = "";
+          playSfx(sfxCorrect);
+
+          if (blankIdx === blankEls.length) {
+            // All blanks filled correctly
+            score++;
+            updateHUD();
+            feedbackEl.textContent = "✓ Correto!";
+            feedbackEl.className   = "feedback ok";
+
+            setTimeout(() => {
+              if (idx < TOTAL - 1) {
+                idx++;
+                renderExercise();
+              } else {
+                showEndScreen();
+              }
+            }, 900);
+          }
+
+        } else {
+          // Wrong
+          errors++;
+          slot.classList.add("wrong");
+          playSfx(sfxWrong);
+          feedbackEl.textContent = "✗ Tente novamente.";
+          feedbackEl.className   = "feedback error";
+          setTimeout(() => {
+            slot.classList.remove("wrong");
+            feedbackEl.textContent = "";
+            feedbackEl.className   = "feedback";
+          }, 600);
+        }
+      });
+
+      tileBankEl.appendChild(tile);
+    });
+  }
+
+  // ── End screen ────────────────────────────────────────────────────────────
+
+  function showEndScreen() {
+    mainCard.style.display = "none";
+    endScreen.style.display = "block";
+
+    const pct = Math.round((score / TOTAL) * 100);
+    let emoji, title, msg;
+    if      (pct === 100) { emoji = "🏆"; title = "Perfeito!";          msg = "Sem erros. Excelente trabalho!"; }
+    else if (pct >= 70)   { emoji = "🌟"; title = "Muito bem!";          msg = `${errors} error${errors !== 1 ? "es" : ""}. Continue assim!`; }
+    else if (pct >= 50)   { emoji = "👍"; title = "Boa tentativa!";      msg = "Continue praticando, você está quase lá."; }
+    else                  { emoji = "💪"; title = "Continue praticando!"; msg = "Revise as frases e tente de novo."; }
+
+    document.getElementById("endEmoji").textContent = emoji;
+    document.getElementById("endTitle").textContent = title;
+    document.getElementById("endScore").textContent = `${score} de ${TOTAL} correctas (${pct}%)`;
+    document.getElementById("endMsg").textContent   = msg;
+    setTimeout(() => {
+      document.getElementById("scoreBarFill").style.width = pct + "%";
+    }, 100);
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function playSfx(sfx) {
+    try { sfx.currentTime = 0; sfx.play().catch(() => {}); } catch (_) {}
+  }
+
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  renderExercise();
+
+})();
+</script>
+</body>
+</html>
