@@ -1,0 +1,635 @@
+<!-- u3/l2/p3.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidade 3 – Lição 2 – P3</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .wrap { max-width: 680px; margin: 0 auto; }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── PROGRESS DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px 0;
+    }
+    .step {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+      color: #1f2933;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── SCORE BADGE ── */
+    .score-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 18px;
+    }
+    .score-badge {
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800; font-size: 15px; color: #2563eb;
+    }
+    .score-label { font-size: 13px; color: #475569; font-weight: 600; }
+
+    /* ── HEADINGS ── */
+    h1 { font-size: 20px; margin: 0 0 6px 0; font-weight: 900; }
+    .subtitle { margin: 0 0 14px 0; font-size: 14px; line-height: 1.5; color: #334155; }
+
+    /* ── HINT BOX ── */
+    .hint-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 13px; font-weight: 700; color: #1e40af; line-height: 1.7;
+    }
+    .hint-box strong { display: block; margin-bottom: 2px; font-size: 13px; }
+
+    /* ── SECTION CARD ── */
+    .section {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+
+    /* ── STATUS ROW ── */
+    .status-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; font-weight: 900; color: #475569;
+      margin-bottom: 12px;
+    }
+
+    /* ── IMAGE BOX ── */
+    .imgbox {
+      display: flex; justify-content: center; align-items: center;
+      background: #f1f5f9;
+      border-radius: 14px; padding: 8px; margin-bottom: 14px;
+    }
+    .imgbox img {
+      max-height: 200px; width: auto; max-width: 100%;
+      object-fit: contain; display: block; border-radius: 10px;
+    }
+
+    /* ── QUESTION ROW ── */
+    .question-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .question-text { font-weight: 900; font-size: 15px; color: #0f172a; flex: 1; }
+    .play-btn {
+      border: 0; background: #2563eb; color: #fff;
+      font-family: inherit; font-weight: 800; font-size: 14px;
+      padding: 10px 16px; border-radius: 12px;
+      cursor: pointer; flex-shrink: 0;
+      transition: background .15s, transform .1s;
+    }
+    .play-btn:hover:not(:disabled)  { background: #1e40af; }
+    .play-btn:active:not(:disabled) { transform: scale(.97); }
+    .play-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* ── PROMPT ── */
+    .prompt {
+      font-weight: 800; font-size: 14px;
+      color: #475569; margin: 0 0 10px 0;
+    }
+
+    /* ── SLOTS ── */
+    .slots {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 2px dashed rgba(15,23,42,.2);
+      background: #f8fafc;
+      min-height: 56px;
+      margin-bottom: 12px;
+    }
+    .slot {
+      min-width: 72px; height: 40px;
+      padding: 0 10px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid rgba(15,23,42,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+      color: #94a3b8;
+      user-select: none;
+      transition: border-color .2s, background .2s, color .2s;
+    }
+    .slot.filled {
+      color: #0f172a;
+      border: 2px solid rgba(15,23,42,.15);
+      cursor: pointer;
+    }
+    .slot.filled:hover { border-color: #2563eb; }
+    .slot.ok  { border: 2px solid #16a34a !important; background: rgba(22,163,74,.10) !important; color: #166534 !important; }
+    .slot.bad { border: 2px solid #ef4444 !important; background: rgba(239,68,68,.08) !important; color: #991b1b !important; }
+
+    /* ── TILES ── */
+    .tiles {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 12px;
+    }
+    .tile {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: #1e293b;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800; font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s, transform .1s, opacity .15s;
+    }
+    .tile:hover:not(:disabled)  { background: #334155; }
+    .tile:active:not(:disabled) { transform: scale(.96); }
+    .tile:disabled { opacity: .35; cursor: not-allowed; }
+    .tile.used { opacity: .3; cursor: not-allowed; pointer-events: none; }
+
+    /* ── ACTIONS ── */
+    .actions { display: flex; gap: 10px; margin-bottom: 10px; }
+    .reset-btn {
+      border: 0; background: #e2e8f0; color: #334155;
+      font-family: inherit; font-weight: 800; font-size: 14px;
+      padding: 10px 16px; border-radius: 12px; cursor: pointer;
+      transition: background .15s;
+    }
+    .reset-btn:hover { background: #cbd5e1; }
+
+    /* ── FEEDBACK ── */
+    .feedback {
+      min-height: 22px; font-size: 14px; font-weight: 800;
+      text-align: center;
+    }
+    .feedback.ok  { color: #16a34a; }
+    .feedback.bad { color: #dc2626; }
+
+    /* ── COMPLETION BANNER ── */
+    .completion-banner {
+      display: none;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 2px solid rgba(34,197,94,.4);
+      border-radius: 16px; padding: 16px;
+      text-align: center; margin-bottom: 14px;
+    }
+    .completion-banner.visible { display: block; }
+    .completion-banner h2 { margin: 0 0 4px; font-size: 20px; font-weight: 900; color: #166534; }
+    .completion-banner p  { margin: 0; font-size: 14px; color: #166534; font-weight: 600; }
+
+    /* ── NEXT BTN ── */
+    .footer-actions { display: flex; justify-content: center; margin-top: 20px; padding-bottom: 12px; }
+    .next-btn {
+      display: inline-block; padding: 12px 32px;
+      background: #2563eb; color: #fff; text-decoration: none;
+      border-radius: 14px; font-weight: 900; font-size: 16px;
+      transition: background .15s, transform .1s;
+    }
+    .next-btn:hover  { background: #1e40af; }
+    .next-btn:active { transform: scale(.97); }
+
+    .hidden { display: none !important; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      body  { padding: 12px; }
+      h1    { font-size: 18px; }
+      .step { width: 34px; height: 34px; font-size: 14px; }
+      .imgbox img { max-height: 160px; }
+      .question-row { flex-direction: column; align-items: flex-start; }
+      .play-btn { width: 100%; }
+      .tile { font-size: 13px; padding: 9px 12px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Voltar à Unidade 3</a>
+
+  <!-- Progress dots -->
+  <div class="progress-container" aria-label="Progresso da lição">
+    <div class="step" data-go="p1.html">1</div>
+    <div class="step" data-go="p2.html">2</div>
+    <div class="step active" data-go="p3.html">3</div>
+    <div class="step" data-go="p4.html">4</div>
+  </div>
+
+  <!-- Score bar -->
+  <div class="score-bar">
+    <span class="score-label">Pontuação:</span>
+    <span class="score-badge" id="scoreBadge">0 / 10</span>
+  </div>
+
+  <h1>Lição 2 – We are…</h1>
+  <p class="subtitle">Toque nas palavras para formar a frase correta.</p>
+
+  <div class="hint-box">
+    <strong>Lembre-se</strong>
+    Where are you? = Onde vocês estão?<br>
+    What are you doing? = O que vocês estão fazendo?
+  </div>
+
+  <section class="section">
+    <!-- Round / step counter -->
+    <div class="status-row">
+      <span id="roundStatus">1 / 5</span>
+      <span id="stepStatus">Pergunta 1 de 2</span>
+    </div>
+
+    <!-- Image -->
+    <div class="imgbox">
+      <img id="sceneImg" src="" alt="Cena">
+    </div>
+
+    <!-- Question + play -->
+    <div class="question-row">
+      <span class="question-text" id="questionText"></span>
+      <button class="play-btn" id="playBtn" type="button">▶ Ouvir</button>
+    </div>
+
+    <p class="prompt" id="prompt"></p>
+
+    <!-- Answer slots -->
+    <div class="slots" id="slots" aria-label="Sua resposta"></div>
+
+    <!-- Tile pool -->
+    <div class="tiles" id="tiles" aria-label="Palavras disponíveis"></div>
+
+    <!-- Reset + feedback -->
+    <div class="actions">
+      <button class="reset-btn" id="resetBtn" type="button">↺ Apagar</button>
+    </div>
+    <div class="feedback" id="feedback"></div>
+  </section>
+
+  <!-- Completion banner -->
+  <div class="completion-banner" id="completionBanner">
+    <h2>🎉 Excelente!</h2>
+    <p id="completionMsg">Você completou a Parte 3.</p>
+  </div>
+
+  <!-- Next button -->
+  <div class="footer-actions">
+    <a id="nextBtn" class="next-btn hidden" href="p4.html">Continuar → Parte 4</a>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  /* ── CONFIG ── */
+  const SB  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG = SB + "images/u3/";
+  const AUD = SB + "audio/u3/";
+  const SFX_CORRECT = SB + "sfx/correct.wav";
+
+  const WAIT_AFTER_CORRECT = 1500;
+
+  /* ── QUESTION AUDIO ── */
+  const Q_AUDIO = {
+    where: "u3.l2.p2.whereareyou.mp3",
+    doing: "u3.l2.p2.whatareyoudoing.mp3"
+  };
+
+  /* ── SCENES (5 × 2 = 10 points) ── */
+  const SCENES = [
+    {
+      img: "u3.l2.p3.kitchen.cooking.jpg",
+      location: { target: ["We are", "in", "the kitchen."],      decoys: ["at", "the park."]       },
+      doing:    { target: ["We are", "cooking", "dinner."],       decoys: ["eating", "a movie."]    }
+    },
+    {
+      img: "u3.l2.p3.dining.eating.jpg",
+      location: { target: ["We are", "in", "the dining room."],  decoys: ["at", "the kitchen."]    },
+      doing:    { target: ["We are", "eating", "dinner."],        decoys: ["cooking", "cards."]     }
+    },
+    {
+      img: "u3.l2.p3.livingroom.cards.jpg",
+      location: { target: ["We are", "in", "the living room."],  decoys: ["at", "the bathroom."]   },
+      doing:    { target: ["We are", "playing", "cards."],        decoys: ["watching", "dinner."]   }
+    },
+    {
+      img: "u3.l2.p3.beach.ball.jpg",
+      location: { target: ["We are", "at", "the beach."],        decoys: ["in", "the yard."]       },
+      doing:    { target: ["We are", "playing", "ball."],         decoys: ["watching", "a movie."]  }
+    },
+    {
+      img: "u3.l2.p3.movie.watch.jpg",
+      location: { target: ["We are", "at", "the movie theater."],decoys: ["in", "the dining room."]},
+      doing:    { target: ["We are", "watching", "a movie."],     decoys: ["playing", "cards."]     }
+    }
+  ];
+
+  const TOTAL_POINTS = SCENES.length * 2; // 10
+
+  /* ── DOM ── */
+  const $id = id => document.getElementById(id);
+  const sceneImg    = $id('sceneImg');
+  const roundStatus = $id('roundStatus');
+  const stepStatus  = $id('stepStatus');
+  const questionText= $id('questionText');
+  const playBtn     = $id('playBtn');
+  const promptEl    = $id('prompt');
+  const slotsEl     = $id('slots');
+  const tilesEl     = $id('tiles');
+  const resetBtn    = $id('resetBtn');
+  const feedbackEl  = $id('feedback');
+  const scoreBadge  = $id('scoreBadge');
+  const banner      = $id('completionBanner');
+  const compMsg     = $id('completionMsg');
+  const nextBtn     = $id('nextBtn');
+
+  /* ── AUDIO ── */
+  const audioEl    = new Audio();
+  const sfxCorrect = new Audio(SFX_CORRECT);
+  let autoplayAllowed = false;
+
+  /* ── STATE ── */
+  let sceneIndex   = 0;
+  let phase        = 0;   // 0=location, 1=doing
+  let target       = [];
+  let pool         = [];
+  let chosen       = [];
+  let locked       = false;
+  let correctCount = 0;
+
+  /* ── HELPERS ── */
+  function updateScore() {
+    scoreBadge.textContent = correctCount + ' / ' + TOTAL_POINTS;
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function safePlay() {
+    audioEl.currentTime = 0;
+    const p = audioEl.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  }
+
+  function setFeedback(type, text) {
+    feedbackEl.textContent = text || '';
+    feedbackEl.className = 'feedback' + (type ? ' ' + type : '');
+  }
+
+  function setSlotsState(state) {
+    const slots = [...slotsEl.querySelectorAll('.slot')];
+    slots.forEach((s, i) => {
+      s.classList.remove('ok', 'bad');
+      if (state === 'ok')  { s.classList.add('ok'); }
+      if (state === 'bad') { s.classList.add('bad'); }
+      if (state === 'perword') {
+        if (chosen[i] === target[i]) s.classList.add('ok');
+        else s.classList.add('bad');
+      }
+    });
+  }
+
+  /* ── RENDER SLOTS ── */
+  function renderSlots() {
+    slotsEl.innerHTML = '';
+    for (let i = 0; i < target.length; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      if (chosen[i] !== undefined) {
+        slot.textContent = chosen[i];
+        slot.classList.add('filled');
+        const idx = i;
+        const handler = () => { if (!locked) removeAt(idx); };
+        slot.addEventListener('click', handler);
+        slot.addEventListener('touchend', e => { e.preventDefault(); handler(); });
+      } else {
+        slot.textContent = '___';
+      }
+      slotsEl.appendChild(slot);
+    }
+  }
+
+  /* ── RENDER TILES ── */
+  function renderTiles() {
+    tilesEl.innerHTML = '';
+    pool.forEach(text => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tile';
+      btn.textContent = text;
+
+      const usedCount   = chosen.filter(c => c === text).length;
+      const poolCount   = pool.filter(p => p === text).length;
+      btn.disabled = locked || usedCount >= poolCount;
+
+      const handler = () => { if (!locked && !btn.disabled) addTile(text); };
+      btn.addEventListener('click', handler);
+      btn.addEventListener('touchend', e => { e.preventDefault(); handler(); });
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  /* ── ADD / REMOVE TILES ── */
+  function addTile(text) {
+    if (chosen.length >= target.length || locked) return;
+    chosen.push(text);
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+    if (chosen.length === target.length) gradeNow();
+  }
+
+  function removeAt(i) {
+    chosen.splice(i, 1);
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+  }
+
+  function resetBuild() {
+    if (locked) return;
+    chosen = [];
+    setFeedback(null);
+    setSlotsState(null);
+    renderSlots();
+    renderTiles();
+  }
+
+  /* ── GRADE ── */
+  function isCorrect() {
+    return target.every((t, i) => chosen[i] === t);
+  }
+
+  function gradeNow() {
+    locked = true;
+    renderTiles();
+
+    if (isCorrect()) {
+      setSlotsState('ok');
+      setFeedback('ok', 'Correto! ✓');
+      correctCount++;
+      updateScore();
+      try { sfxCorrect.currentTime = 0; sfxCorrect.play(); } catch(e){}
+      setTimeout(() => {
+        locked = false;
+        advance();
+      }, WAIT_AFTER_CORRECT);
+    } else {
+      setSlotsState('perword');
+      setFeedback('bad', 'Confira as palavras em vermelho.');
+      setTimeout(() => {
+        locked = false;
+        renderTiles();
+      }, 900);
+    }
+  }
+
+  /* ── ADVANCE ── */
+  function advance() {
+    if (phase === 0) {
+      phase = 1;
+      startPhase();
+      if (autoplayAllowed) setTimeout(safePlay, 250);
+      return;
+    }
+    phase = 0;
+    sceneIndex++;
+    if (sceneIndex >= SCENES.length) {
+      finishLesson();
+    } else {
+      startPhase();
+      if (autoplayAllowed) setTimeout(safePlay, 250);
+    }
+  }
+
+  /* ── START PHASE ── */
+  function startPhase() {
+    setFeedback(null);
+    setSlotsState(null);
+    locked = false;
+
+    const s = SCENES[sceneIndex];
+    const pack = phase === 0 ? s.location : s.doing;
+
+    sceneImg.src = IMG + s.img;
+    roundStatus.textContent = (sceneIndex + 1) + ' / ' + SCENES.length;
+    stepStatus.textContent  = phase === 0 ? 'Pergunta 1 de 2' : 'Pergunta 2 de 2';
+    playBtn.disabled = false;
+
+    if (phase === 0) {
+      questionText.textContent = '🔊 Where are you?';
+      promptEl.textContent     = 'Forme a frase – lugar:';
+      audioEl.src = AUD + Q_AUDIO.where;
+    } else {
+      questionText.textContent = '🔊 What are you doing?';
+      promptEl.textContent     = 'Forme a frase – ação:';
+      audioEl.src = AUD + Q_AUDIO.doing;
+    }
+
+    target = pack.target.slice();
+    pool   = shuffle([...pack.target, ...pack.decoys]);
+    chosen = [];
+
+    renderSlots();
+    renderTiles();
+  }
+
+  /* ── FINISH ── */
+  function finishLesson() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('inglesco_progress_u3') || '{}');
+      if (!saved.l2) saved.l2 = {};
+      if ((saved.l2.partsCompleted || 0) < 3) {
+        saved.l2.partsCompleted = 3;
+        saved.l2.partsTotal = saved.l2.partsTotal || 4;
+      }
+      localStorage.setItem('inglesco_progress_u3', JSON.stringify(saved));
+
+      const fk = 'inglesco_furthest_u3_l2';
+      if (parseInt(localStorage.getItem(fk) || '0', 10) < 3) localStorage.setItem(fk, '3');
+    } catch(e){}
+
+    playBtn.disabled = true;
+    banner.classList.add('visible');
+    compMsg.textContent = 'Pontuação: ' + correctCount + ' de ' + TOTAL_POINTS + '! Continue para a Parte 4.';
+    nextBtn.classList.remove('hidden');
+    nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── PLAY BUTTON ── */
+  playBtn.addEventListener('click', () => { autoplayAllowed = true; safePlay(); });
+  playBtn.addEventListener('touchend', e => { e.preventDefault(); autoplayAllowed = true; safePlay(); });
+
+  /* ── RESET BUTTON ── */
+  resetBtn.addEventListener('click', resetBuild);
+  resetBtn.addEventListener('touchend', e => { e.preventDefault(); resetBuild(); });
+
+  /* ── PROGRESS DOT NAV ── */
+  document.querySelectorAll('.step').forEach(s => {
+    s.addEventListener('click', () => { if (s.dataset.go) window.location.href = s.dataset.go; });
+  });
+
+  /* ── INIT ── */
+  updateScore();
+  startPhase();
+})();
+</script>
+</body>
+</html>
