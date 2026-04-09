@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+  <title>Unidade 1 • Lição 4 • Parte 2 | Inglesco</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background: linear-gradient(135deg, #dbeafe, #fef9c3); min-height: 100vh; padding: 16px 12px 80px; color: #111827; }
+    .wrap { max-width: 700px; margin: 0 auto; }
+
+    /* ── BACK ── */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 7px 14px;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* ── HEADER ── */
+    .top-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .subline {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #374151;
+    }
+
+    /* ── STEP DOTS ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0 20px;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      color: #1f2933;
+      cursor: pointer;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+
+    /* ── CARD ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px;
+      padding: 20px 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+    }
+
+    /* ── INSTRUCTION ── */
+    .instruction-box {
+      background: #e0e7ff;
+      color: #111827;
+      font-weight: 600;
+      padding: 14px 18px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── STUDENT BADGE ── */
+    .student-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #eff6ff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      border: 2px solid #bfdbfe;
+    }
+    .student-badge.green { background: #f0fdf4; border-color: #bbf7d0; }
+    .badge-avatar { font-size: 34px; line-height: 1; }
+    .badge-name { font-size: 17px; font-weight: 700; color: #1e40af; }
+    .badge-name.green { color: #15803d; }
+    .badge-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #dbeafe;
+    }
+
+    /* ── WORD BANK ── */
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .chip {
+      padding: 10px 16px;
+      background: #e0f2fe;
+      border: 2px solid #bfdbfe;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .15s, border-color .15s, transform .1s;
+    }
+    .chip:active { transform: scale(.96); }
+    .chip.selected {
+      background: #fef08a;
+      border-color: #ca8a04;
+      box-shadow: 0 0 0 3px #fde047;
+    }
+
+    /* ── ID CARD ── */
+    .id-card {
+      background: #f0f9ff;
+      border: 2px solid #2563eb;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin: 0 auto 18px;
+    }
+    .id-card.green { border-color: #16a34a; background: #f0fdf4; }
+    .id-card-header {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #1e40af;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #bfdbfe;
+    }
+    .id-card-header.green { color: #15803d; border-color: #bbf7d0; }
+    .id-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .id-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      min-width: 90px;
+      flex-shrink: 0;
+    }
+    .dropzone {
+      flex: 1;
+      min-height: 38px;
+      border: 2px dashed #c7c7c7;
+      border-radius: 8px;
+      padding: 6px 10px;
+      background: #f9fafb;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color .15s, background .15s;
+    }
+    .dropzone.filled { border: 2px solid #2563eb; background: #e0f2fe; }
+    .dropzone.correct { border: 2px solid #16a34a; background: #dcfce7; pointer-events: none; }
+    .dropzone.wrong { border: 2px solid #dc2626; background: #fee2e2; }
+
+    /* ── CHECK BUTTON ── */
+    .check-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 6px;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity .2s;
+    }
+    .check-btn:disabled { opacity: .45; cursor: default; }
+
+    /* ── FEEDBACK ── */
+    .feedback {
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 20px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .feedback.correct { color: #16a34a; }
+    .feedback.wrong { color: #dc2626; }
+
+    /* ── PHONE SECTION ── */
+    .phone-card {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 4px;
+    }
+    .digit-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      justify-content: center;
+    }
+    .digit-bubble {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      border: 2px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 17px;
+      color: #9ca3af;
+      transition: all .25s;
+    }
+    .digit-bubble.active {
+      background: #dbeafe;
+      border-color: #2563eb;
+      color: #1e40af;
+      transform: scale(1.15);
+      box-shadow: 0 0 0 4px #bfdbfe;
+    }
+    .digit-bubble.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #15803d;
+    }
+    .digit-bubble.revealed {
+      background: #fef9c3;
+      border-color: #ca8a04;
+      color: #92400e;
+    }
+    .digit-input-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .digit-input {
+      width: 70px;
+      height: 70px;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      color: #111827;
+      border: 3px solid #2563eb;
+      border-radius: 14px;
+      background: white;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color .2s, background .2s;
+    }
+    .digit-input:focus { border-color: #1d4ed8; box-shadow: 0 0 0 4px #bfdbfe; }
+    .digit-input.shake { animation: shake .35s; border-color: #dc2626; background: #fee2e2; }
+    .digit-input.flash-correct { border-color: #16a34a; background: #dcfce7; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .digit-hint {
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 20px;
+      text-align: center;
+    }
+    .digit-hint.wrong { color: #dc2626; }
+    .digit-hint.reveal { color: #b45309; }
+    .digit-hint.correct { color: #16a34a; }
+    .replay-btn {
+      padding: 8px 16px;
+      background: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .replay-btn:hover { background: #6d28d9; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 3px dashed #bfdbfe;
+      margin: 28px 0;
+    }
+
+    /* ── FINISH ── */
+    .finish-card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px;
+      padding: 30px 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      text-align: center;
+    }
+    .finish-card h2 {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .finish-card p {
+      font-size: 14px;
+      color: #374151;
+      margin-bottom: 20px;
+    }
+    .next-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: #2563eb;
+      color: white;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 15px;
+      text-decoration: none;
+    }
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .id-field { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .id-label { min-width: unset; }
+      .dropzone { width: 100%; }
+      .digit-input { width: 64px; height: 64px; font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back-btn" href="../index.html">← Unidade 1</a>
+
+    <div class="top-title">Unidade 1 • Lição 4 • Parte 2</div>
+    <div class="subline">Informações pessoais</div>
+
+    <div class="progress-container">
+      <a class="step" href="p1.html">1</a>
+      <a class="step active" href="p2.html">2</a>
+      <a class="step" href="p3.html">3</a>
+      <a class="step" href="p4.html">4</a>
+    </div>
+
+    <div class="card" id="s1Card">
+      <div class="instruction-box">
+        📋 Toque em uma ficha e depois toque no campo correto no cartão.<br>
+        Depois, ouça o número de telefone dígito por dígito e escreva cada número.
+      </div>
+
+      <div class="student-badge">
+        <div class="badge-avatar">👩</div>
+        <div>
+          <div class="badge-name">Student 1 of 2</div>
+          <div class="badge-sub">Fill in the ID card, then listen to the phone number.</div>
+        </div>
+      </div>
+
+      <div class="section-label">Word Bank</div>
+      <div class="word-bank" id="wordBank1"></div>
+
+      <div class="section-label">🪪 Student Identification Card</div>
+      <div class="id-card">
+        <div class="id-card-header">Student Identification Card</div>
+
+        <div class="id-field">
+          <div class="id-label">First Name:</div>
+          <div class="dropzone" data-s="1" data-field="firstName"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">Last Name:</div>
+          <div class="dropzone" data-s="1" data-field="lastName"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">Address:</div>
+          <div class="dropzone" data-s="1" data-field="address"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">City:</div>
+          <div class="dropzone" data-s="1" data-field="city"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">State:</div>
+          <div class="dropzone" data-s="1" data-field="state"></div>
+        </div>
+      </div>
+
+      <button class="check-btn" id="check1">✔ Check Card</button>
+      <div class="feedback" id="fb1"></div>
+
+      <div class="phone-card hidden" id="phone1">
+        <div class="section-label">📞 Phone Number</div>
+        <div class="digit-strip" id="strip1"></div>
+
+        <div class="digit-input-wrap">
+          <input id="input1" class="digit-input" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="?" />
+          <button class="replay-btn hidden" id="replay1">▶ Ouvir novamente</button>
+          <div class="digit-hint" id="hint1"></div>
+          <div class="feedback" id="phoneFb1"></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="card hidden" id="s2Card">
+      <div class="student-badge green">
+        <div class="badge-avatar">👨</div>
+        <div>
+          <div class="badge-name green">Student 2 of 2</div>
+          <div class="badge-sub">Fill in the ID card, then listen to the phone number.</div>
+        </div>
+      </div>
+
+      <div class="section-label">Word Bank</div>
+      <div class="word-bank" id="wordBank2"></div>
+
+      <div class="section-label">🪪 Student Identification Card</div>
+      <div class="id-card green">
+        <div class="id-card-header green">Student Identification Card</div>
+
+        <div class="id-field">
+          <div class="id-label">First Name:</div>
+          <div class="dropzone" data-s="2" data-field="firstName"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">Last Name:</div>
+          <div class="dropzone" data-s="2" data-field="lastName"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">Address:</div>
+          <div class="dropzone" data-s="2" data-field="address"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">City:</div>
+          <div class="dropzone" data-s="2" data-field="city"></div>
+        </div>
+
+        <div class="id-field">
+          <div class="id-label">State:</div>
+          <div class="dropzone" data-s="2" data-field="state"></div>
+        </div>
+      </div>
+
+      <button class="check-btn" id="check2">✔ Check Card</button>
+      <div class="feedback" id="fb2"></div>
+
+      <div class="phone-card hidden" id="phone2">
+        <div class="section-label">📞 Phone Number</div>
+        <div class="digit-strip" id="strip2"></div>
+
+        <div class="digit-input-wrap">
+          <input id="input2" class="digit-input" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="?" />
+          <button class="replay-btn hidden" id="replay2">▶ Ouvir novamente</button>
+          <div class="digit-hint" id="hint2"></div>
+          <div class="feedback" id="phoneFb2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finish-card hidden" id="finishCard">
+      <h2>🎉 Excelente!</h2>
+      <p>Você completou a Parte 2.</p>
+      <a class="next-btn" href="p3.html">Próximo →</a>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const BASE = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+      const AUDIO = BASE + 'audio/u1/';
+
+      /* ── SFX ── */
+      const sfxCorrect = new Audio(AUDIO + 'correct.wav');
+      const sfxIncorrect = new Audio(AUDIO + 'incorrect.wav');
+
+      function playSfx(ok) {
+        const s = ok ? sfxCorrect : sfxIncorrect;
+        s.currentTime = 0;
+        s.play().catch(() => {});
+      }
+
+      /* ── AUDIO ENGINE ── */
+      let currentAudio = null;
+      function stopAudio() {
+        if (!currentAudio) return;
+        try { currentAudio.pause(); currentAudio.currentTime = 0; } catch(_) {}
+        currentAudio = null;
+      }
+
+      function playOnce(src) {
+        return new Promise(resolve => {
+          stopAudio();
+          const a = new Audio(src);
+          currentAudio = a;
+          a.addEventListener('ended', () => { currentAudio = null; resolve(); });
+          a.addEventListener('error', () => { currentAudio = null; resolve(); });
+          a.play().catch(() => resolve());
+        });
+      }
+
+      window.addEventListener('beforeunload', stopAudio);
+
+      /* ── DIGIT MAP ── */
+      const DIGIT_MAP = {
+        'zero.mp3':'0','one.mp3':'1','two.mp3':'2','three.mp3':'3','four.mp3':'4',
+        'five.mp3':'5','six.mp3':'6','seven.mp3':'7','eight.mp3':'8','nine.mp3':'9'
+      };
+
+      /* ── STUDENT DATA ── */
+      const STUDENTS = [
+        {
+          id: 1,
+          firstName:'Maria',
+          lastName:'Lopez',
+          address:'45 Palm Avenue',
+          city:'Orlando',
+          state:'Florida',
+          phone: ['three.mp3','two.mp3','seven.mp3','eight.mp3','four.mp3','one.mp3','six.mp3']
+        },
+        {
+          id: 2,
+          firstName:'Carlos',
+          lastName:'Ruiz',
+          address:'18 Oak Street',
+          city:'Houston',
+          state:'Texas',
+          phone: ['seven.mp3','one.mp3','three.mp3','five.mp3','nine.mp3','two.mp3','zero.mp3']
+        }
+      ];
+
+      /* ── HELPERS ── */
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length-1; i > 0; i--) {
+          const j = Math.floor(Math.random()*(i+1));
+          [a[i],a[j]]=[a[j],a[i]];
+        }
+        return a;
+      }
+
+      function onTap(el, fn) {
+        let moved = false, byTouch = false;
+        el.addEventListener('touchstart', () => { moved = false; byTouch = false; }, { passive: true });
+        el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
+        el.addEventListener('touchend', e => {
+          if (moved) return;
+          e.preventDefault();
+          byTouch = true;
+          fn(e);
+        });
+        el.addEventListener('click', e => {
+          if (byTouch) {
+            byTouch = false;
+            return;
+          }
+          fn(e);
+        });
+      }
+
+      /* ══════════════════════════════════════════
+         CARD EXERCISE
+      ══════════════════════════════════════════ */
+      function initCard(student) {
+        const n = student.id;
+        const bankEl = document.getElementById(`wordBank${n}`);
+        const checkBtn = document.getElementById(`check${n}`);
+        const fbEl = document.getElementById(`fb${n}`);
+        const phoneSec = document.getElementById(`phone${n}`);
+        let selectedChip = null;
+
+        const FIELDS = [
+          { field:'firstName', label: student.firstName },
+          { field:'lastName', label: student.lastName },
+          { field:'address', label: student.address },
+          { field:'city', label: student.city },
+          { field:'state', label: student.state },
+        ];
+
+        function makeChip(item) {
+          const c = document.createElement('div');
+          c.className = 'chip';
+          c.textContent = item.label;
+          c.dataset.field = item.field;
+          onTap(c, () => {
+            if (selectedChip === c) {
+              deselect();
+              return;
+            }
+            deselect();
+            selectedChip = c;
+            c.classList.add('selected');
+          });
+          return c;
+        }
+
+        function deselect() {
+          if (selectedChip) {
+            selectedChip.classList.remove('selected');
+            selectedChip = null;
+          }
+        }
+
+        shuffle(FIELDS).forEach(item => bankEl.appendChild(makeChip(item)));
+
+        document.querySelectorAll(`.dropzone[data-s="${n}"]`).forEach(zone => {
+          onTap(zone, () => {
+            if (selectedChip) {
+              if (zone.dataset.placed) {
+                bankEl.appendChild(makeChip({ field: zone.dataset.placed, label: zone.textContent }));
+              }
+              zone.textContent = selectedChip.textContent;
+              zone.dataset.placed = selectedChip.dataset.field;
+              zone.classList.add('filled');
+              zone.classList.remove('wrong');
+              selectedChip.remove();
+              deselect();
+              fbEl.textContent = '';
+              fbEl.className = 'feedback';
+            } else if (zone.dataset.placed) {
+              bankEl.appendChild(makeChip({ field: zone.dataset.placed, label: zone.textContent }));
+              zone.textContent = '';
+              zone.dataset.placed = '';
+              zone.classList.remove('filled', 'wrong');
+            }
+          });
+        });
+
+        onTap(checkBtn, () => {
+          const zones = document.querySelectorAll(`.dropzone[data-s="${n}"]`);
+          let allFilled = true, allCorrect = true;
+
+          zones.forEach(zone => {
+            const placed = zone.dataset.placed || '';
+            const expected = zone.dataset.field;
+            if (!placed) {
+              allFilled = false;
+            } else if (placed !== expected) {
+              allCorrect = false;
+              zone.classList.add('wrong');
+            } else {
+              zone.classList.remove('wrong');
+            }
+          });
+
+          if (!allFilled) {
+            fbEl.textContent = 'Por favor, preencha todos os campos.';
+            fbEl.className = 'feedback wrong';
+            playSfx(false);
+            return;
+          }
+
+          if (!allCorrect) {
+            fbEl.textContent = '❌ Tente novamente.';
+            fbEl.className = 'feedback wrong';
+            playSfx(false);
+            return;
+          }
+
+          playSfx(true);
+          fbEl.textContent = '✅ Cartão correto! Agora ouça o número de telefone.';
+          fbEl.className = 'feedback correct';
+
+          zones.forEach(z => {
+            z.classList.add('correct');
+            z.classList.remove('filled','wrong');
+          });
+
+          checkBtn.disabled = true;
+
+          setTimeout(() => {
+            phoneSec.classList.remove('hidden');
+            phoneSec.scrollIntoView({ behavior:'smooth', block:'start' });
+            initPhone(student);
+          }, 700);
+        });
+      }
+
+      /* ══════════════════════════════════════════
+         PHONE EXERCISE
+      ══════════════════════════════════════════ */
+      function initPhone(student) {
+        const n = student.id;
+        const stripEl = document.getElementById(`strip${n}`);
+        const inputEl = document.getElementById(`input${n}`);
+        const hintEl = document.getElementById(`hint${n}`);
+        const replayEl= document.getElementById(`replay${n}`);
+        const phoneFb = document.getElementById(`phoneFb${n}`);
+        const digits = student.phone;
+
+        let idx = 0, wrongCount = 0, waitInput = false;
+
+        stripEl.innerHTML = '';
+        digits.forEach(() => {
+          const b = document.createElement('div');
+          b.className = 'digit-bubble';
+          b.textContent = '•';
+          stripEl.appendChild(b);
+        });
+
+        const bubbles = stripEl.querySelectorAll('.digit-bubble');
+
+        function setActive(i) {
+          bubbles.forEach(b => b.classList.remove('active'));
+          if (i < digits.length) bubbles[i].classList.add('active');
+        }
+
+        function markCorrect(i) {
+          bubbles[i].classList.remove('active');
+          bubbles[i].classList.add('correct');
+          bubbles[i].textContent = DIGIT_MAP[digits[i]];
+        }
+
+        function markRevealed(i) {
+          bubbles[i].classList.remove('active');
+          bubbles[i].classList.add('revealed');
+          bubbles[i].textContent = DIGIT_MAP[digits[i]];
+        }
+
+        function clearInput() {
+          inputEl.value = '';
+          inputEl.classList.remove('shake','flash-correct');
+        }
+
+        function doShake() {
+          inputEl.classList.remove('shake');
+          void inputEl.offsetWidth;
+          inputEl.classList.add('shake');
+          setTimeout(() => inputEl.classList.remove('shake'), 400);
+        }
+
+        function doFlashCorrect(cb) {
+          inputEl.classList.add('flash-correct');
+          setTimeout(() => {
+            inputEl.classList.remove('flash-correct');
+            clearInput();
+            cb && cb();
+          }, 400);
+        }
+
+        async function playDigit(i) {
+          if (i >= digits.length) {
+            onAllDone();
+            return;
+          }
+          setActive(i);
+          hintEl.textContent = '';
+          hintEl.className = 'digit-hint';
+          waitInput = true;
+          clearInput();
+          inputEl.disabled = false;
+          inputEl.focus();
+          replayEl.classList.remove('hidden');
+          await playOnce(AUDIO + digits[i]);
+        }
+
+        inputEl.addEventListener('input', () => {
+          if (!waitInput) return;
+          const typed = inputEl.value.replace(/\D/g,'');
+          if (!typed) {
+            inputEl.value = '';
+            return;
+          }
+
+          const expected = DIGIT_MAP[digits[idx]];
+
+          if (typed === expected) {
+            waitInput = false;
+            wrongCount = 0;
+            hintEl.textContent = '✅';
+            hintEl.className = 'digit-hint correct';
+            playSfx(true);
+            markCorrect(idx);
+            replayEl.classList.add('hidden');
+            doFlashCorrect(() => {
+              idx++;
+              hintEl.textContent = '';
+              if (idx < digits.length) setTimeout(() => playDigit(idx), 300);
+              else onAllDone();
+            });
+          } else {
+            inputEl.value = '';
+            wrongCount++;
+            doShake();
+            playSfx(false);
+
+            if (wrongCount === 1) {
+              hintEl.textContent = '❌ Incorreto. Ouça de novo.';
+              hintEl.className = 'digit-hint wrong';
+              waitInput = false;
+              setTimeout(async () => {
+                await playOnce(AUDIO + digits[idx]);
+                waitInput = true;
+                inputEl.focus();
+              }, 400);
+            } else {
+              hintEl.textContent = '💡 Aqui está o número. Digite-o para continuar.';
+              hintEl.className = 'digit-hint reveal';
+              markRevealed(idx);
+              waitInput = true;
+              inputEl.focus();
+            }
+          }
+        });
+
+        onTap(replayEl, async () => {
+          if (!waitInput) return;
+          clearInput();
+          hintEl.textContent = '';
+          hintEl.className = 'digit-hint';
+          await playOnce(AUDIO + digits[idx]);
+          inputEl.focus();
+        });
+
+        function onAllDone() {
+          inputEl.disabled = true;
+          replayEl.classList.add('hidden');
+          hintEl.textContent = '';
+          phoneFb.textContent = '✅ Número correto!';
+          phoneFb.className = 'feedback correct';
+          playSfx(true);
+
+          if (student.id === 1) {
+            setTimeout(() => {
+              document.getElementById('s2Card').classList.remove('hidden');
+              document.getElementById('s2Card').scrollIntoView({ behavior:'smooth', block:'start' });
+              initCard(STUDENTS[1]);
+            }, 800);
+          } else {
+            setTimeout(() => {
+              document.getElementById('finishCard').classList.remove('hidden');
+              document.getElementById('finishCard').scrollIntoView({ behavior:'smooth', block:'start' });
+            }, 800);
+          }
+        }
+
+        setTimeout(() => playDigit(0), 400);
+      }
+
+      /* ── INIT ── */
+      initCard(STUDENTS[0]);
+    })();
+  </script>
+</body>
+</html>
