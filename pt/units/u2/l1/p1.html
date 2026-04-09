@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+  <title>Lição 1, Parte 1: Rooms in the House | Inglesco</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      color: #1e2a38;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e2a38;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      padding: 20px 16px 40px;
+    }
+
+    .lesson-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #486581;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      color: #1e40af;
+      font-weight: 800;
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      text-align: center;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #486581;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      border: 2px solid rgba(37,99,235,0.2);
+      background: rgba(255,255,255,0.5);
+      color: #486581;
+      text-decoration: none;
+      transition: transform 0.15s;
+    }
+
+    .dot:hover { transform: scale(1.1); }
+
+    .dot.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.35);
+    }
+
+    .dot.done {
+      background: #22c55e;
+      color: white;
+      border-color: #22c55e;
+    }
+
+    .exercise-box {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 24px 20px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+
+    .instruction {
+      font-size: 13px;
+      font-weight: 700;
+      color: #486581;
+      flex: 1;
+    }
+
+    .counter {
+      font-size: 13px;
+      font-weight: 800;
+      color: #2563eb;
+      background: #eff6ff;
+      border-radius: 20px;
+      padding: 4px 14px;
+      white-space: nowrap;
+    }
+
+    .word-card {
+      background: white;
+      border: 2px solid rgba(37,99,235,0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      animation: card-in 0.3s ease;
+    }
+
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .word-card.heard {
+      border-color: #22c55e;
+      background: #f0fdf4;
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      position: relative;
+      background: #dbeafe;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.4);
+      pointer-events: none;
+      transition: background 0.2s;
+    }
+
+    .word-card.heard .play-btn { background: #22c55e; }
+
+    .play-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .word-en {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1e2a38;
+    }
+
+    .word-card.heard .word-en { color: #16a34a; }
+
+    .word-es {
+      font-size: 13px;
+      font-weight: 400;
+      color: #486581;
+      margin-top: 2px;
+    }
+
+    .tap-hint {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      border-radius: 20px;
+      padding: 4px 12px;
+      white-space: nowrap;
+    }
+
+    .word-card.heard .tap-hint { visibility: hidden; }
+
+    .progress-track {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin: 16px 0;
+    }
+
+    .track-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(37,99,235,0.12);
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    .track-dot.current { background: #2563eb; }
+    .track-dot.heard { background: #22c55e; }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-prev {
+      background: none;
+      border: 2px solid rgba(37,99,235,0.2);
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #486581;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-prev:hover:not(:disabled) {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    .btn-prev:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .btn-next {
+      flex: 1;
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      cursor: not-allowed;
+      transition: all 0.25s;
+      background: #d1d5db;
+      color: white;
+    }
+
+    .btn-next.unlocked {
+      background: #2563eb;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      animation: pulse-in 0.4s ease;
+    }
+
+    .btn-next.unlocked:hover { background: #1e40af; }
+
+    @keyframes pulse-in {
+      0% { transform: scale(0.96); }
+      60% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    .success-msg {
+      display: none;
+      margin-top: 16px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 14px;
+      color: #16a34a;
+      font-weight: 700;
+      font-size: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-btn">← Lição 1</a>
+
+  <div class="wrap">
+    <div class="lesson-tag">Unidade 2 · Lição 1 · Parte 1</div>
+    <h1>Rooms in the House</h1>
+    <div class="subtitle">Cômodos da casa</div>
+
+    <div class="dots">
+      <a class="dot active" href="p1.html">1</a>
+      <a class="dot" href="p2.html">2</a>
+      <a class="dot" href="p3.html">3</a>
+      <a class="dot" href="p4.html">4</a>
+    </div>
+
+    <div class="exercise-box">
+      <div class="meta-row">
+        <div class="instruction">👆 Toque na imagem para escutar</div>
+        <div class="counter" id="counter">1 / 8</div>
+      </div>
+
+      <div id="cardSlot"></div>
+
+      <div class="progress-track" id="track"></div>
+
+      <div class="nav-row">
+        <button class="btn-prev" id="btnPrev" onclick="go(-1)">←</button>
+        <button class="btn-next" id="btnNext" onclick="goNext()">Próximo →</button>
+      </div>
+
+      <div class="success-msg" id="successMsg">✅ Muito bem! Você ouviu todas as palavras.</div>
+    </div>
+  </div>
+
+  <script>
+    const BASE = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+    const IBASE = BASE + 'images/u2/';
+    const ABASE = BASE + 'audio/u2/';
+
+    const WORDS = [
+      { en: "Garage", es: "garaje", file: "u2.l1.p1.garage1.mp3", img: "u2.l1.p1.garage.jpg" },
+      { en: "Bedroom", es: "habitación", file: "u2.l1.p1.bedroom1.mp3", img: "u2.l1.p2.bedroom1.jpg" },
+      { en: "Kitchen", es: "cocina", file: "u2.l1.p1.kitchen1.mp3", img: "u2.l1.p2.kitchen1.jpg" },
+      { en: "Bathroom", es: "baño", file: "u2.l1.p1.bathroom1.mp3", img: "u2.l1.p2.bathroom1.jpg" },
+      { en: "Living room", es: "sala de estar", file: "u2.l1.p1.livingroom1.mp3", img: "u2.l1.p2.livingroom1.jpg" },
+      { en: "Basement", es: "sótano", file: "u2.l1.p1.basement1.mp3", img: "u2.l1.p2.basement1.jpg" },
+      { en: "Yard", es: "jardín", file: "u2.l1.p1.yard1.mp3", img: "u2.l1.p2.yard1.jpg" },
+      { en: "Attic", es: "ático", file: "u2.l1.p1.attic1.mp3", img: "u2.l1.p2.attic1.jpg" }
+    ];
+
+    const TOTAL = WORDS.length;
+    const heard = new Array(TOTAL).fill(false);
+    let current = 0;
+    let activeAudio = null;
+
+    const PLAY_ICON = `<svg viewBox="0 0 14 14" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M3 2l9 5-9 5V2z"/></svg>`;
+    const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5"/></svg>`;
+
+    const audioEls = WORDS.map((w, i) => {
+      const a = new Audio(ABASE + w.file);
+      a.preload = 'auto';
+      a.onended = () => {
+        heard[i] = true;
+        render();
+        if (heard.every(Boolean)) {
+          saveProgress();
+        }
+      };
+      return a;
+    });
+
+    function stopAudio() {
+      if (activeAudio) {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+        activeAudio = null;
+      }
+    }
+
+    function playWord(i) {
+      stopAudio();
+      activeAudio = audioEls[i];
+      activeAudio.currentTime = 0;
+      activeAudio.play().catch(() => {});
+    }
+
+    function render() {
+      const w = WORDS[current];
+      const isHeard = heard[current];
+      const allHeard = heard.every(Boolean);
+
+      document.getElementById('cardSlot').innerHTML = `
+        <div class="word-card${isHeard ? ' heard' : ''}" onclick="playWord(${current})">
+          <div class="card-img-wrap">
+            <img src="${IBASE}${w.img}" alt="${w.en}">
+            <div class="play-btn">${isHeard ? CHECK_ICON : PLAY_ICON}</div>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="word-en">${w.en}</div>
+              <div class="word-es">${w.es}</div>
+            </div>
+            <div class="tap-hint">Toque para escutar</div>
+          </div>
+        </div>`;
+
+      document.getElementById('counter').textContent = `${current + 1} / ${TOTAL}`;
+
+      document.getElementById('track').innerHTML = WORDS.map((_, i) => {
+        let cls = 'track-dot';
+        if (heard[i]) cls += ' heard';
+        else if (i === current) cls += ' current';
+        return `<div class="${cls}" onclick="jumpTo(${i})"></div>`;
+      }).join('');
+
+      document.getElementById('btnPrev').disabled = (current === 0);
+
+      const btn = document.getElementById('btnNext');
+      if (allHeard) {
+        btn.textContent = 'Continuar →';
+        btn.classList.add('unlocked');
+        document.getElementById('successMsg').style.display = 'block';
+      } else if (isHeard && current < TOTAL - 1) {
+        btn.textContent = 'Próximo →';
+        btn.classList.add('unlocked');
+      } else {
+        btn.textContent = current === TOTAL - 1 ? 'Continuar →' : 'Próximo →';
+        btn.classList.remove('unlocked');
+      }
+    }
+
+    function jumpTo(i) {
+      stopAudio();
+      current = i;
+      render();
+    }
+
+    function go(dir) {
+      const n = current + dir;
+      if (n < 0 || n >= TOTAL) return;
+      stopAudio();
+      current = n;
+      render();
+    }
+
+    function goNext() {
+      const allHeard = heard.every(Boolean);
+      if (allHeard) {
+        stopAudio();
+        window.location.href = 'p2.html';
+        return;
+      }
+      if (heard[current] && current < TOTAL - 1) {
+        go(1);
+      }
+    }
+
+    const UNIT = 2, LESSON = 1, PART = 1, PARTS_TOTAL = 4;
+
+    function saveProgress() {
+      const key = `inglesco_progress_u${UNIT}`;
+      const lp = JSON.parse(localStorage.getItem(key) || '{}');
+      const lk = `l${LESSON}`;
+      if (!lp[lk]) lp[lk] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+      if (lp[lk].partsCompleted < PART) lp[lk].partsCompleted = PART;
+      localStorage.setItem(key, JSON.stringify(lp));
+
+      const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(fkey) || '0', 10);
+      if (PART > prev) localStorage.setItem(fkey, String(PART));
+
+      const furthest = parseInt(localStorage.getItem(fkey) || '0', 10);
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        const n = i + 1;
+        d.classList.remove('active', 'done');
+        if (n === PART) d.classList.add('active');
+        else if (n <= furthest) d.classList.add('done');
+      });
+    }
+
+    window.addEventListener('beforeunload', stopAudio);
+
+    render();
+
+    (function() {
+      const furthest = parseInt(localStorage.getItem(`inglesco_furthest_u${UNIT}_l${LESSON}`) || '0', 10);
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        const n = i + 1;
+        d.classList.remove('active', 'done');
+        if (n === PART) d.classList.add('active');
+        else if (n <= furthest) d.classList.add('done');
+      });
+    })();
+  </script>
+</body>
+</html>
