@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+  <title>Lição 4, Parte 1: Formulário | Inglesco</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { background: linear-gradient(135deg, #dbeafe, #fef9c3); color: #1e2a38; padding: 20px 14px 60px; display: flex; justify-content: center; }
+    .back-btn { position: fixed; top: 14px; left: 14px; z-index: 100; display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); border: 1px solid rgba(0,0,0,0.08); border-radius: 30px; font-size: 14px; font-weight: 600; color: #1e2a38; text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: background 0.2s, transform 0.15s; }
+    .back-btn:active { transform: scale(0.96); background: rgba(255,255,255,1); }
+    .wrap { width: 100%; max-width: 720px; padding-top: 20px; }
+    .lesson-tag { display: block; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #486581; margin-bottom: 6px; }
+    h1 { text-align: center; color: #1e40af; font-size: clamp(1.2rem, 5vw, 1.6rem); font-weight: 800; margin-bottom: 4px; }
+    .subtitle { text-align: center; font-size: 14px; color: #486581; margin-bottom: 20px; }
+    .progress-dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 22px; }
+    .dot { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.5); border: 2px solid rgba(37,99,235,0.2); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #486581; transition: all 0.2s; cursor: pointer; }
+    .dot:hover { transform: scale(1.1); background: rgba(255,255,255,0.85); }
+    .dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); cursor: default; }
+    .dot.active:hover { transform: none; background: #2563eb; }
+    .dot.done { background: #22c55e; color: white; border-color: #22c55e; }
+    .exercise-box { background: white; padding: 24px 20px; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); margin-bottom: 16px; }
+    .center { text-align: center; }
+    .hidden { display: none !important; }
+    .scene-img { width: 320px; max-width: 100%; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+    .dialogue-box { max-width: 580px; margin: 20px auto 0 auto; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .dialogue-box p { padding: 14px 18px; border-radius: 16px; font-size: 15px; line-height: 1.6; font-weight: 600; }
+    .dialogue-box p:nth-child(odd) { background: #e0f2fe; color: #1e2a38; }
+    .dialogue-box p:nth-child(even) { background: #f3e8ff; color: #1e2a38; text-align: right; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border: none; border-radius: 12px; background: #2563eb; color: white; font-weight: 700; font-size: 14px; font-family: 'Poppins', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .btn:hover { background: #1e40af; }
+    .btn:active { transform: scale(0.97); }
+    .btn.purple { background: #7c3aed; }
+    .btn.purple:hover { background: #6d28d9; }
+    .btn.green { background: #16a34a; }
+    .btn.green:hover { background: #15803d; }
+    .btn.amber { background: #d97706; }
+    .btn.amber:hover { background: #b45309; }
+    .btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+    .instruction-banner { background: #eff6ff; border-left: 5px solid #2563eb; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 14px; color: #1e3a8a; font-weight: 600; }
+    .section-label { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #486581; margin-bottom: 10px; }
+    .client-title { font-size: 16px; font-weight: 800; color: #1e40af; margin-bottom: 16px; text-align: center; }
+    .flex { display: flex; gap: 24px; align-items: flex-start; }
+    .left { flex: 1.2; min-width: 0; }
+    .right { flex: 1; min-width: 0; }
+    .form-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 14px; margin-bottom: 14px; }
+    .form-box .field-label { font-size: 12px; font-weight: 700; color: #486581; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; margin-top: 12px; }
+    .form-box .field-label:first-child { margin-top: 0; }
+    .dropzone { min-height: 40px; border: 2px dashed #cbd5e1; border-radius: 8px; padding: 8px 10px; background: #f1f5f9; font-size: 14px; font-weight: 600; color: #1e2a38; display: flex; align-items: center; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: border-color 0.15s, background 0.15s; }
+    .dropzone.filled { border: 2px solid #2563eb; background: #dbeafe; }
+    .dropzone.correct-field { border: 2px solid #16a34a; background: #dcfce7; }
+    .dropzone.wrong-field { border: 2px solid #dc2626; background: #fee2e2; }
+    .options-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 14px; }
+    .draggable { padding: 10px 14px; margin: 5px 0; background: #e0f2fe; border-radius: 10px; cursor: pointer; font-size: 14px; border: 2px solid #bae6fd; font-weight: 600; color: #1e2a38; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .draggable:active { transform: scale(0.97); }
+    .draggable.selected { background: #fef08a; border-color: #ca8a04; box-shadow: 0 0 0 3px #fde047; }
+    .audio-controls { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .numbers-section { margin-top: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; }
+    .number-input { padding: 10px 12px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 16px; font-family: 'Poppins', sans-serif; font-weight: 600; color: #1e2a38; background: white; margin-top: 4px; }
+    .number-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+    .feedback { margin-top: 12px; font-weight: 700; font-size: 14px; min-height: 22px; }
+    .feedback.correct { color: #16a34a; }
+    .feedback.wrong { color: #dc2626; }
+    .finish-box { margin-top: 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 18px 20px; text-align: center; }
+    .finish-box p { font-weight: 700; font-size: 15px; color: #16a34a; margin-bottom: 14px; }
+    .next-btn { display: block; width: 100%; padding: 16px; border: none; border-radius: 14px; background: #2563eb; color: white; font-weight: 800; font-size: 16px; font-family: 'Poppins', sans-serif; cursor: pointer; text-decoration: none; text-align: center; box-shadow: 0 6px 20px rgba(37,99,235,0.35); animation: pulse-in 0.4s ease; transition: background 0.2s, transform 0.15s; }
+    .next-btn:hover { background: #1e40af; transform: translateY(-2px); }
+    .next-btn:active { transform: scale(0.98); }
+    @keyframes pulse-in { 0% { transform: scale(0.97); } 60% { transform: scale(1.02); } 100% { transform: scale(1); } }
+    @media (max-width: 600px) { .flex { flex-direction: column; gap: 16px; } .left, .right { width: 100%; } .scene-img { width: 100%; } .number-input { max-width: 100%; } }
+  </style>
+</head>
+<body data-unit="1" data-lesson="4" data-part="1">
+
+<a href="../index.html" class="back-btn nav-link">← Lição 4</a>
+
+<div class="wrap">
+  <span class="lesson-tag">Unidade 1 · Lição 4 · Parte 1</span>
+  <h1>Hotel Check-In</h1>
+  <p class="subtitle">Ouça o diálogo e complete o formulário</p>
+
+  <div class="progress-dots">
+    <div class="dot active" data-page="p1.html">1</div>
+    <div class="dot" data-page="p2.html">2</div>
+    <div class="dot" data-page="p3.html">3</div>
+    <div class="dot" data-page="p4.html">4</div>
+  </div>
+
+  <div class="exercise-box">
+    <section id="sceneSection" class="center">
+      <div class="section-label">Recepção do hotel</div>
+      <button class="btn" id="playScene">▶ Reproduzir diálogo</button>
+
+      <div class="dialogue-box">
+        <p><strong>Recepcionista:</strong> Good morning. What is your name?</p>
+        <p><strong>Gabriela:</strong> Good morning. My name is Gabriela Sanchez.</p>
+        <p><strong>Recepcionista:</strong> Please fill out this form. <br><em>(Por favor, preencha este formulário.)</em></p>
+      </div>
+
+      <button class="btn purple hidden" id="continueBtn" style="margin-top:16px;">Continuar →</button>
+    </section>
+
+    <section id="clientSection" class="hidden">
+      <div class="instruction-banner" id="instructionBox">🎯 Toque em uma opção à direita para selecioná-la e depois toque no campo do formulário correspondente.</div>
+
+      <div class="client-title" id="clientTitle">Formulário de registro do hotel</div>
+
+      <div class="flex">
+        <div class="left">
+          <div class="audio-controls">
+            <button class="btn amber" id="playName">▶ Nome</button>
+            <button class="btn amber" id="playNationality">▶ Nacionalidade</button>
+            <button class="btn amber" id="playAddress">▶ Endereço</button>
+            <button class="btn amber" id="playCityState">▶ Cidade e Estado</button>
+          </div>
+
+          <div class="form-box">
+            <div class="field-label">Name</div>
+            <div class="dropzone" data-field="name"></div>
+
+            <div class="field-label">Nationality</div>
+            <div class="dropzone" data-field="nationality"></div>
+
+            <div class="field-label">Address</div>
+            <div class="dropzone" data-field="address"></div>
+
+            <div class="field-label">City</div>
+            <div class="dropzone" data-field="city"></div>
+
+            <div class="field-label">State</div>
+            <div class="dropzone" data-field="state"></div>
+          </div>
+
+          <button class="btn green" id="checkFormBtn">✔ Verificar formulário</button>
+
+          <div class="numbers-section hidden" id="numbersSection">
+            <div class="section-label">Números</div>
+
+            <div class="audio-controls">
+              <button class="btn amber" id="playZip">▶ Código postal</button>
+              <input type="text" inputmode="numeric" pattern="[0-9]*" id="zipInput" class="number-input" placeholder="Digite o código postal">
+
+              <button class="btn amber" id="playId">▶ Número de ID</button>
+              <input type="text" inputmode="numeric" pattern="[0-9]*" id="idInput" class="number-input" placeholder="Digite o número de ID">
+            </div>
+
+            <button class="btn green" id="checkNumbers">✔ Verificar</button>
+          </div>
+
+          <div class="feedback" id="formFeedback"></div>
+
+          <div class="finish-box hidden" id="finishSection">
+            <p>🎉 Excelente! Você concluiu a lição.</p>
+            <a class="next-btn nav-link" href="p2.html">Próximo →</a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="section-label">Escutar</div>
+          <div class="audio-controls">
+            <button class="btn amber" id="playName2" onclick="document.getElementById('playName').click()">▶ Nome</button>
+            <button class="btn amber" id="playNationality2" onclick="document.getElementById('playNationality').click()">▶ Nacionalidade</button>
+            <button class="btn amber" id="playAddress2" onclick="document.getElementById('playAddress').click()">▶ Endereço</button>
+            <button class="btn amber" id="playCityState2" onclick="document.getElementById('playCityState').click()">▶ Cidade e Estado</button>
+          </div>
+
+          <div class="options-box">
+            <div class="section-label">Opções</div>
+            <div id="optionsContainer"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="i18n" class="hidden">
+    <span data-msg="fill_all">Por favor, preencha todo o formulário antes de verificar.</span>
+    <span data-msg="try_again">❌ Tente novamente.</span>
+    <span data-msg="all_correct">✅ Excelente! Tudo correto.</span>
+  </div>
+
+  <audio id="mainAudio" preload="auto"></audio>
+  <audio id="sfx-correct" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/correct.wav" preload="auto"></audio>
+  <audio id="sfx-incorrect" src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/incorrect.wav" preload="auto"></audio>
+
+  <script>
+    const UNIT = 1;
+    const LESSON = 4;
+    const PART = 1;
+    const STORAGE_KEY = `u${UNIT}_l${LESSON}_p${PART}_done`;
+    const FURTHEST_KEY = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+    const PROGRESS_KEY = `inglesco_progress_u${UNIT}`;
+    const SUPABASE_AUDIO = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u1/";
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+    }
+
+    const mainAudio = document.getElementById("mainAudio");
+    const sfxCorrect = document.getElementById("sfx-correct");
+    const sfxIncorrect = document.getElementById("sfx-incorrect");
+    const playSceneBtn = document.getElementById("playScene");
+    const continueBtn = document.getElementById("continueBtn");
+    const sceneSection = document.getElementById("sceneSection");
+    const clientSection = document.getElementById("clientSection");
+    const clientTitle = document.getElementById("clientTitle");
+    const instructionBox = document.getElementById("instructionBox");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const numbersSection = document.getElementById("numbersSection");
+    const finishSection = document.getElementById("finishSection");
+    const formFeedback = document.getElementById("formFeedback");
+    const checkFormBtn = document.getElementById("checkFormBtn");
+    const checkNumbersBtn = document.getElementById("checkNumbers");
+
+    const M = {};
+    document.querySelectorAll("#i18n [data-msg]").forEach(n => M[n.dataset.msg] = n.textContent);
+
+    function stopAudio() {
+      try {
+        mainAudio.pause();
+        mainAudio.currentTime = 0;
+        mainAudio.removeAttribute("src");
+        mainAudio.load();
+      } catch (_) {}
+    }
+
+    function playAudio(src) {
+      stopAudio();
+      mainAudio.src = src;
+      mainAudio.play().catch(() => {});
+    }
+
+    function playSfx(el) {
+      try { el.currentTime = 0; el.play(); } catch (_) {}
+    }
+
+    window.addEventListener("beforeunload", stopAudio);
+
+    document.querySelectorAll(".dot").forEach(dot => {
+      dot.addEventListener("click", () => {
+        const page = dot.dataset.page;
+        if (!page) return;
+        stopAudio();
+        window.location.href = page;
+      });
+    });
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => stopAudio());
+    });
+
+    function getFurthest() {
+      return parseInt(localStorage.getItem(FURTHEST_KEY) || '1', 10);
+    }
+
+    function updateFurthest(n) {
+      if (n > getFurthest()) localStorage.setItem(FURTHEST_KEY, String(n));
+    }
+
+    function saveProgress() {
+      try {
+        const lp = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+        const lKey = `l${LESSON}`;
+        if (!lp[lKey]) lp[lKey] = { partsTotal: 4, partsCompleted: 0 };
+        if (lp[lKey].partsCompleted < PART) lp[lKey].partsCompleted = PART;
+        localStorage.setItem(PROGRESS_KEY, JSON.stringify(lp));
+      } catch (_) {}
+    }
+
+    updateFurthest(PART);
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const clients = {
+      gabriela: {
+        title: "Cliente: Gabriela Sanchez",
+        answers: {
+          name: "Gabriela Sanchez",
+          nationality: "Cuban",
+          address: "254 Main Street",
+          city: "Miami",
+          state: "Florida",
+          zip: "32104",
+          id: "402971",
+        },
+        audio: {
+          name: SUPABASE_AUDIO + "u1_l3_p3_gabriela1.mp3",
+          nationality: SUPABASE_AUDIO + "u1_l3_p3_gabriela2.mp3",
+          address: SUPABASE_AUDIO + "u1_l3_p3_gabriela3.mp3",
+          citystate: SUPABASE_AUDIO + "u1_l3_p3_gabriela4.mp3",
+          zip: SUPABASE_AUDIO + "u1_l3_p3_gabriela5.mp3",
+          id: SUPABASE_AUDIO + "u1_l3_p3_gabriela6.mp3",
+        },
+      },
+      pedro: {
+        title: "Cliente: Pedro Martinez",
+        answers: {
+          name: "Pedro Martinez",
+          nationality: "Chilean",
+          address: "719 Grand Avenue",
+          city: "Los Angeles",
+          state: "California",
+          zip: "90215",
+          id: "518043",
+        },
+        audio: {
+          name: SUPABASE_AUDIO + "u1_l3_p3_pedro1.mp3",
+          nationality: SUPABASE_AUDIO + "u1_l3_p3_pedro2.mp3",
+          address: SUPABASE_AUDIO + "u1_l3_p3_pedro3.mp3",
+          citystate: SUPABASE_AUDIO + "u1_l3_p3_pedro4.mp3",
+          zip: SUPABASE_AUDIO + "u1_l3_p3_pedro5.mp3",
+          id: SUPABASE_AUDIO + "u1_l3_p3_pedro6.mp3",
+        },
+      },
+    };
+
+    let currentClientKey = "gabriela";
+    let currentClient = null;
+    let selectedOption = null;
+
+    function setFeedback(code, isCorrect) {
+      formFeedback.textContent = M[code] || "";
+      formFeedback.className = "feedback " + (isCorrect ? "correct" : "wrong");
+      if (isCorrect) playSfx(sfxCorrect); else playSfx(sfxIncorrect);
+    }
+
+    function clearFeedback() {
+      formFeedback.textContent = "";
+      formFeedback.className = "feedback";
+    }
+
+    function onTap(el, handler) {
+      let touchMoved = false;
+      let handledByTouch = false;
+      el.addEventListener("touchstart", () => { touchMoved = false; handledByTouch = false; }, { passive: true });
+      el.addEventListener("touchmove", () => { touchMoved = true; }, { passive: true });
+      el.addEventListener("touchend", (e) => {
+        if (touchMoved) return;
+        e.preventDefault();
+        handledByTouch = true;
+        handler(e);
+      });
+      el.addEventListener("click", (e) => {
+        if (handledByTouch) {
+          handledByTouch = false;
+          return;
+        }
+        handler(e);
+      });
+    }
+
+    playSceneBtn.addEventListener("click", () => {
+      playAudio(SUPABASE_AUDIO + "u1_l3_p3_reception.mp3");
+      setTimeout(() => continueBtn.classList.remove("hidden"), 6000);
+    });
+
+    mainAudio.addEventListener("ended", () => continueBtn.classList.remove("hidden"));
+    continueBtn.addEventListener("click", () => startClient("gabriela"));
+
+    function startClient(key) {
+      currentClientKey = key;
+      currentClient = clients[key];
+      sceneSection.classList.add("hidden");
+      clientSection.classList.remove("hidden");
+      clientTitle.textContent = currentClient.title;
+      selectedOption = null;
+      clearFeedback();
+      finishSection.classList.add("hidden");
+      numbersSection.classList.add("hidden");
+      resetForm();
+      loadOptions();
+    }
+
+    function playClientAudio(field) {
+      if (!currentClient) return;
+      playAudio(currentClient.audio[field]);
+    }
+
+    document.getElementById("playName").addEventListener("click", () => playClientAudio("name"));
+    document.getElementById("playNationality").addEventListener("click", () => playClientAudio("nationality"));
+    document.getElementById("playAddress").addEventListener("click", () => playClientAudio("address"));
+    document.getElementById("playCityState").addEventListener("click", () => playClientAudio("citystate"));
+    document.getElementById("playZip").addEventListener("click", () => playClientAudio("zip"));
+    document.getElementById("playId").addEventListener("click", () => playClientAudio("id"));
+
+    function deselectOption() {
+      if (selectedOption) {
+        selectedOption.classList.remove("selected");
+        selectedOption = null;
+      }
+    }
+
+    function makeOptionElement(text) {
+      const div = document.createElement("div");
+      div.className = "draggable";
+      div.textContent = text;
+      onTap(div, () => {
+        if (selectedOption === div) {
+          deselectOption();
+          return;
+        }
+        deselectOption();
+        selectedOption = div;
+        div.classList.add("selected");
+      });
+      return div;
+    }
+
+    function loadOptions() {
+      optionsContainer.innerHTML = "";
+      const items = shuffle([
+        currentClient.answers.name,
+        currentClient.answers.nationality,
+        currentClient.answers.address,
+        currentClient.answers.city,
+        currentClient.answers.state,
+      ]);
+      items.forEach(text => optionsContainer.appendChild(makeOptionElement(text)));
+    }
+
+    document.querySelectorAll(".dropzone").forEach(zone => {
+      onTap(zone, () => {
+        zone.classList.remove("correct-field", "wrong-field");
+        if (selectedOption) {
+          if (zone.dataset.placedText) {
+            optionsContainer.appendChild(makeOptionElement(zone.dataset.placedText));
+          }
+          zone.textContent = selectedOption.textContent;
+          zone.dataset.placedText = selectedOption.textContent;
+          zone.classList.add("filled");
+          selectedOption.remove();
+          deselectOption();
+          clearFeedback();
+        } else if (zone.dataset.placedText) {
+          optionsContainer.appendChild(makeOptionElement(zone.dataset.placedText));
+          zone.textContent = "";
+          zone.dataset.placedText = "";
+          zone.classList.remove("filled");
+          clearFeedback();
+        }
+      });
+    });
+
+    checkFormBtn.addEventListener("click", () => {
+      if (!currentClient) return;
+      let allFilled = true;
+      let allCorrect = true;
+
+      document.querySelectorAll(".dropzone").forEach(zone => {
+        const value = zone.dataset.placedText || "";
+        if (!value) {
+          allFilled = false;
+        } else if (value === currentClient.answers[zone.dataset.field]) {
+          zone.classList.add("correct-field");
+          zone.classList.remove("wrong-field");
+        } else {
+          zone.classList.add("wrong-field");
+          zone.classList.remove("correct-field");
+          allCorrect = false;
+        }
+      });
+
+      if (!allFilled) {
+        setFeedback("fill_all", false);
+        return;
+      }
+
+      if (allCorrect) {
+        setFeedback("all_correct", true);
+        numbersSection.classList.remove("hidden");
+      } else {
+        setFeedback("try_again", false);
+      }
+    });
+
+    checkNumbersBtn.addEventListener("click", () => {
+      if (!currentClient) return;
+      const zip = document.getElementById("zipInput").value.trim();
+      const id = document.getElementById("idInput").value.trim();
+
+      if (zip === currentClient.answers.zip && id === currentClient.answers.id) {
+        setFeedback("all_correct", true);
+        if (currentClientKey === "gabriela") {
+          setTimeout(() => startClient("pedro"), 700);
+        } else {
+          saveProgress();
+          updateFurthest(PART + 1);
+          finishSection.classList.remove("hidden");
+        }
+      } else {
+        setFeedback("try_again", false);
+      }
+    });
+
+    function resetForm() {
+      document.querySelectorAll(".dropzone").forEach(z => {
+        z.textContent = "";
+        z.dataset.placedText = "";
+        z.classList.remove("filled", "correct-field", "wrong-field");
+      });
+      document.getElementById("zipInput").value = "";
+      document.getElementById("idInput").value = "";
+      numbersSection.classList.add("hidden");
+      finishSection.classList.add("hidden");
+    }
+  </script>
+</body>
+</html>

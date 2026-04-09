@@ -298,7 +298,7 @@ body {
           <input id="input1" class="digit-input" type="tel" inputmode="numeric"
                  maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="?">
           <div class="digit-hint" id="hint1"></div>
-          <button class="replay-btn hidden" id="replay1">▶ Replay</button>
+          <button class="replay-btn hidden" id="replay1">▶ Escuchar de nuevo</button>
         </div>
       </div>
       <div class="feedback" id="phoneFb1"></div>
@@ -344,7 +344,7 @@ body {
           <input id="input2" class="digit-input" type="tel" inputmode="numeric"
                  maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="?">
           <div class="digit-hint" id="hint2"></div>
-          <button class="replay-btn hidden" id="replay2">▶ Replay</button>
+          <button class="replay-btn hidden" id="replay2">▶ Escuchar de nuevo</button>
         </div>
       </div>
       <div class="feedback" id="phoneFb2"></div>
@@ -597,7 +597,8 @@ body {
       clearInput();
       inputEl.disabled = false;
       inputEl.focus();
-      replayEl.classList.add('hidden');
+      // Show replay button as soon as phone exercise begins
+      replayEl.classList.remove('hidden');
       await playOnce(AUDIO + digits[i]);
     }
 
@@ -612,6 +613,8 @@ body {
         hintEl.textContent = '✅'; hintEl.className = 'digit-hint correct';
         playSfx(true);
         markCorrect(idx);
+        // Hide replay while animating the correct answer
+        replayEl.classList.add('hidden');
         doFlashCorrect(() => {
           idx++;
           hintEl.textContent = '';
@@ -636,14 +639,15 @@ body {
           hintEl.textContent = '💡 Aquí está el número. Escríbelo para continuar.';
           hintEl.className   = 'digit-hint reveal';
           markRevealed(idx);
-          replayEl.classList.remove('hidden');
           waitInput = true; inputEl.focus();
         }
       }
     });
 
     onTap(replayEl, async () => {
+      if (!waitInput) return;
       clearInput();
+      hintEl.textContent = ''; hintEl.className = 'digit-hint';
       await playOnce(AUDIO + digits[idx]);
       inputEl.focus();
     });

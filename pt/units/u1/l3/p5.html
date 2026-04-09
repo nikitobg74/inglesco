@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<title>Unidad 1 - Lección 3 - Parte 5</title>
+<title>Unidade 1 - Lição 3 - Parte 5</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link rel="manifest" href="../../../../manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -271,13 +271,13 @@ h1 {
 
 <body data-unit="1" data-lesson="3" data-part="5">
 
-<a href="../index.html" class="back-btn">← Lección 3</a>
+<a href="../index.html" class="back-btn">← Lição 3</a>
 
 <div class="wrap">
 
-  <span class="lesson-tag">Unidad 1 · Lección 3 · Parte 5</span>
-  <h1>Numbers</h1>
-  <p class="subtitle">Escucha y selecciona la palabra correcta</p>
+  <span class="lesson-tag">Unidade 1 · Lição 3 · Parte 5</span>
+  <h1>Números</h1>
+  <p class="subtitle">Ouça e selecione a palavra correta</p>
 
   <!-- PROGRESS DOTS -->
   <div class="progress-dots">
@@ -292,8 +292,8 @@ h1 {
   <div class="exercise-box">
 
     <p class="exercise-text">
-      <span class="en">Listen to the audio and click the correct word.</span>
-      <span class="es">Escucha el audio y selecciona la palabra correcta.</span>
+      <span class="en">Ouça o áudio e clique na palavra correta.</span>
+      <span class="es">Escute o áudio e selecione a palavra correta.</span>
     </p>
 
     <div class="matching-container">
@@ -306,7 +306,7 @@ h1 {
 
   </div>
 
-  <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
+  <button class="next-btn" id="nextBtn" disabled>Próximo →</button>
 
 </div>
 
@@ -379,7 +379,7 @@ document.querySelectorAll(".dot").forEach(dot => {
 shuffledAudio.forEach(item => {
   const box = document.createElement("div");
   box.className = "audio-box";
-  box.textContent = "🔊 Listen";
+  box.textContent = "🔊 Ouvir";
   box.dataset.num = item.num;
 
   box.addEventListener("click", () => {
@@ -415,7 +415,7 @@ shuffledWords.forEach(item => {
       if (activeBox) { activeBox.classList.remove("active"); activeBox.classList.add("answered"); }
       playSfx(sfxCorrect);
       feedback.style.color = "#16a34a";
-      feedback.textContent = Math.random() > 0.5 ? "¡Excelente!" : "¡Muy bien!";
+      feedback.textContent = Math.random() > 0.5 ? "Excelente!" : "Muito bem!";
       currentTarget = null;
       answeredCount++;
       if (answeredCount === lessonData.length) {
@@ -426,7 +426,7 @@ shuffledWords.forEach(item => {
       card.classList.add("wrong");
       playSfx(sfxIncorrect);
       feedback.style.color = "#dc2626";
-      feedback.textContent = "❌ Intentar otra vez";
+      feedback.textContent = "❌ Tente novamente";
       setTimeout(() => { card.classList.remove("wrong"); feedback.textContent = ""; }, 800);
     }
   });
