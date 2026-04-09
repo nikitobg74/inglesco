@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>Lição 2, Parte 4: Lugares públicos | Inglesco</title>
+<meta name="description" content="Ouça o áudio e escolha a imagem correta do lugar público em inglês.">
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: #1e2a38;
+}
+
+.back-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 30px;
+  padding: 10px 14px; font-size: 14px; font-weight: 700;
+  color: #1e2a38; text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrap { width: 100%; max-width: 520px; padding: 20px 16px 40px; }
+
+.lesson-tag {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #486581; text-align: center; margin-bottom: 6px;
+}
+h1 {
+  color: #1e40af; font-weight: 800; font-size: clamp(1.3rem, 5vw, 1.7rem);
+  text-align: center; line-height: 1.25; margin-bottom: 6px;
+}
+.subtitle { font-size: 14px; color: #486581; text-align: center; margin-bottom: 20px; }
+
+.dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; cursor: pointer;
+  border: 2px solid rgba(37,99,235,0.2);
+  background: rgba(255,255,255,0.5); color: #486581;
+  text-decoration: none; transition: transform 0.15s;
+}
+.dot:hover { transform: scale(1.1); }
+.dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); }
+.dot.done   { background: #22c55e; color: white; border-color: #22c55e; }
+
+.exercise-box {
+  background: white; border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08); padding: 24px 20px;
+}
+
+.play-row { display: flex; justify-content: center; margin-bottom: 20px; }
+
+.play-btn {
+  position: relative; cursor: pointer; border: none;
+  background: #2563eb; border-radius: 20px;
+  padding: 18px 36px; display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  transition: transform 0.15s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'Poppins', sans-serif;
+}
+.play-btn:active { transform: scale(0.95); }
+.play-btn:hover  { background: #1e40af; }
+
+.play-btn svg { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
+.play-btn-label { font-size: 15px; font-weight: 800; color: white; }
+
+.counter-badge {
+  position: absolute; top: -10px; right: -10px;
+  background: #1e40af; color: white;
+  font-size: 11px; font-weight: 800;
+  border-radius: 12px; padding: 3px 8px;
+  border: 2px solid white; white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
+}
+
+.feedback {
+  text-align: center; font-weight: 800; font-size: 14px;
+  min-height: 20px; margin-bottom: 16px;
+}
+.feedback.correct { color: #16a34a; }
+.feedback.wrong   { color: #dc2626; }
+
+.choices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.choice-card {
+  border: 2px solid rgba(37,99,235,0.1);
+  border-radius: 14px; overflow: hidden; cursor: pointer;
+  background: #f8faff; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s, border-color 0.2s, background 0.2s;
+}
+.choice-card:active { transform: scale(0.95); }
+.choice-card img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+}
+.choice-card.correct-pick {
+  border-color: #22c55e; background: #f0fdf4;
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
+}
+.choice-card.wrong-pick {
+  border-color: #dc2626; background: #fef2f2;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+  animation: shake 0.3s ease;
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-5px); }
+  75%      { transform: translateX(5px); }
+}
+
+.continue-btn {
+  width: 100%; border: none; border-radius: 14px; padding: 16px;
+  font-size: 16px; font-weight: 800; font-family: 'Poppins', sans-serif;
+  cursor: not-allowed; transition: all 0.25s;
+  background: #d1d5db; color: white;
+}
+.continue-btn.unlocked {
+  background: #2563eb; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+}
+.continue-btn.unlocked:hover { background: #1e40af; }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.success-msg {
+  display: none; margin-bottom: 16px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 14px; color: #16a34a;
+  font-weight: 700; font-size: 15px; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Lição 2</a>
+
+<div class="wrap">
+  <div class="lesson-tag">Unidade 2 · Lição 2 · Parte 4</div>
+  <h1>Lugares públicos</h1>
+  <p class="subtitle">Ouça e escolha a imagem correta</p>
+
+  <div class="dots">
+    <a class="dot done" href="p1.html">1</a>
+    <a class="dot done" href="p2.html">2</a>
+    <a class="dot done" href="p3.html">3</a>
+    <a class="dot active" href="p4.html">4</a>
+  </div>
+
+  <div class="exercise-box">
+
+    <div class="play-row">
+      <button class="play-btn" id="playBtn" onclick="playRoundAudio()">
+        <div class="counter-badge" id="counterBadge">1 / 10</div>
+        <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M3 2l9 5-9 5V2z"/></svg>
+        <span class="play-btn-label">Ouvir</span>
+      </button>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="choices-grid" id="choicesGrid"></div>
+
+    <div class="success-msg" id="successMsg">🎉 Lição concluída! Muito bem.</div>
+    <button class="continue-btn" id="continueBtn" onclick="doContinue()">Continuar →</button>
+
+  </div>
+</div>
+
+<script>
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IBASE = BASE + 'images/u2/';
+const ABASE = BASE + 'audio/u2/';
+
+const UNIT = 2, LESSON = 2, PART = 4, PARTS_TOTAL = 4;
+
+const sfxCorrect = new Audio(BASE + 'audio/u2/correct.wav');
+sfxCorrect.preload = 'auto';
+
+const ROUNDS = [
+  { audio: 'u2.l2.p4.restaurant.mp3',    correctImg: 'u2.l2.p3.restaurant.jpg' },
+  { audio: 'u2.l2.p4.park1.mp3',         correctImg: 'u2.l2.p4.park1.jpg' },
+  { audio: 'u2.l2.p4.library.mp3',       correctImg: 'u2.l2.p3.library.jpg' },
+  { audio: 'u2.l2.p4.hospital1.mp3',     correctImg: 'u2.l2.p4.hospital1.jpg' },
+  { audio: 'u2.l2.p4.office1.mp3',       correctImg: 'u2.l2.p4.office1.jpg' },
+  { audio: 'u2.l2.p4.supermarket1.mp3',  correctImg: 'u2.l2.p4.supermarket1.jpg' },
+  { audio: 'u2.l2.p4.hospital2.mp3',     correctImg: 'u2.l2.p3.hospital.jpg' },
+  { audio: 'u2.l2.p4.bank1.mp3',         correctImg: 'u2.l2.p3.bank.jpg' },
+  { audio: 'u2.l2.p4.movietheatre1.mp3', correctImg: 'u2.l2.p4.movietheater1.jpg' },
+  { audio: 'u2.l2.p4.library1.mp3',      correctImg: 'u2.l2.p4.library1.jpg' }
+];
+
+const DISTRACTOR_POOL = [
+  'u2.l2.p3.restaurant.jpg', 'u2.l2.p3.bank.jpg', 'u2.l2.p3.hospital.jpg',
+  'u2.l2.p3.supermarket.jpg', 'u2.l2.p3.library.jpg', 'u2.l2.p3.park.jpg',
+  'u2.l2.p3.zoo.jpg', 'u2.l2.p3.postoffice.jpg', 'u2.l2.p3.movietheater.jpg',
+  'u2.l2.p3.office.jpg', 'u2.l2.p4.park1.jpg', 'u2.l2.p4.hospital1.jpg',
+  'u2.l2.p4.office1.jpg', 'u2.l2.p4.supermarket1.jpg',
+  'u2.l2.p4.movietheater1.jpg', 'u2.l2.p4.library1.jpg'
+];
+
+let roundIndex = 0;
+let locked = false;
+let activeAudio = null;
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function stopAudio() {
+  if (activeAudio) { activeAudio.pause(); activeAudio.currentTime = 0; activeAudio = null; }
+}
+
+function playRoundAudio() {
+  stopAudio();
+  const a = new Audio(ABASE + ROUNDS[roundIndex].audio);
+  activeAudio = a;
+  a.onended = () => { activeAudio = null; };
+  a.play().catch(() => {});
+}
+
+function setFeedback(text, type) {
+  const el = document.getElementById('feedback');
+  el.textContent = text;
+  el.className = 'feedback ' + (type || '');
+}
+function clearFeedback() { setFeedback('', ''); }
+
+function pickDistractors(correctImg) {
+  const pool = [...new Set(DISTRACTOR_POOL)].filter(x => x !== correctImg);
+  return shuffle(pool).slice(0, 2);
+}
+
+function renderChoices() {
+  const { correctImg } = ROUNDS[roundIndex];
+  const distractors = pickDistractors(correctImg);
+  const images = shuffle([correctImg, distractors[0], distractors[1]]);
+
+  const grid = document.getElementById('choicesGrid');
+  grid.innerHTML = '';
+
+  images.forEach(img => {
+    const card = document.createElement('div');
+    card.className = 'choice-card';
+    card.dataset.img = img;
+    card.innerHTML = `<img src="${IBASE}${img}" alt="" loading="lazy">`;
+
+    card.addEventListener('click', () => {
+      if (locked) return;
+
+      if (img === correctImg) {
+        card.classList.add('correct-pick');
+        sfxCorrect.currentTime = 0;
+        sfxCorrect.play().catch(() => {});
+        setFeedback('Correto! ✅', 'correct');
+        locked = true;
+
+        roundIndex++;
+        if (roundIndex >= ROUNDS.length) {
+          document.getElementById('counterBadge').textContent = `10 / 10`;
+          setTimeout(() => {
+            clearFeedback();
+            document.getElementById('successMsg').style.display = 'block';
+            document.getElementById('continueBtn').classList.add('unlocked');
+            saveProgress();
+          }, 700);
+        } else {
+          setTimeout(() => {
+            clearFeedback();
+            startRound();
+          }, 700);
+        }
+
+      } else {
+        card.classList.add('wrong-pick');
+        setFeedback('Tente novamente 🔄', 'wrong');
+        setTimeout(() => {
+          card.classList.remove('wrong-pick');
+          clearFeedback();
+        }, 600);
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function startRound() {
+  locked = false;
+  document.getElementById('counterBadge').textContent = `${roundIndex + 1} / 10`;
+  renderChoices();
+  playRoundAudio();
+}
+
+function doContinue() {
+  if (!document.getElementById('continueBtn').classList.contains('unlocked')) return;
+  stopAudio();
+  window.location.href = '../index.html';
+}
+
+function saveProgress() {
+  const key = `inglesco_progress_u${UNIT}`;
+  const lp = JSON.parse(localStorage.getItem(key) || '{}');
+  const lk = `l${LESSON}`;
+  if (!lp[lk]) lp[lk] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+  if (lp[lk].partsCompleted < PART) lp[lk].partsCompleted = PART;
+  localStorage.setItem(key, JSON.stringify(lp));
+
+  const up = JSON.parse(localStorage.getItem('inglesco_progress') || '{}');
+  if (!up[`u${UNIT}`]) up[`u${UNIT}`] = { lessonsTotal: 4, lessonsCompleted: 0 };
+  const completedLessons = Object.values(lp).filter(l => l.partsCompleted >= l.partsTotal).length;
+  up[`u${UNIT}`].lessonsCompleted = completedLessons;
+  localStorage.setItem('inglesco_progress', JSON.stringify(up));
+
+  const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+  const prev = parseInt(localStorage.getItem(fkey) || '0', 10);
+  if (PART > prev) localStorage.setItem(fkey, String(PART));
+  updateDotStyles();
+}
+
+function updateDotStyles() {
+  const furthest = parseInt(localStorage.getItem(`inglesco_furthest_u${UNIT}_l${LESSON}`) || '0', 10);
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    const n = i + 1;
+    d.classList.remove('active', 'done');
+    if (n === PART) d.classList.add('active');
+    else if (n <= furthest) d.classList.add('done');
+  });
+}
+
+window.addEventListener('beforeunload', stopAudio);
+updateDotStyles();
+startRound();
+</script>
+</body>
+</html>

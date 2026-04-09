@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>Lição 2, Parte 2: Where is he? Where is she? | Inglesco</title>
+<meta name="description" content="Aprenda a perguntar e responder onde ele e ela estão em inglês. Where is he? Where is she?">
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: #1e2a38;
+}
+
+.back-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 30px;
+  padding: 10px 14px; font-size: 14px; font-weight: 700;
+  color: #1e2a38; text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrap { width: 100%; max-width: 520px; padding: 20px 16px 40px; }
+
+.lesson-tag {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #486581; text-align: center; margin-bottom: 6px;
+}
+h1 {
+  color: #1e40af; font-weight: 800; font-size: clamp(1.3rem, 5vw, 1.7rem);
+  text-align: center; line-height: 1.25; margin-bottom: 6px;
+}
+.subtitle { font-size: 14px; color: #486581; text-align: center; margin-bottom: 20px; }
+
+.dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; cursor: pointer;
+  border: 2px solid rgba(37,99,235,0.2);
+  background: rgba(255,255,255,0.5); color: #486581;
+  text-decoration: none; transition: transform 0.15s;
+}
+.dot:hover { transform: scale(1.1); }
+.dot.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.35); }
+.dot.done   { background: #22c55e; color: white; border-color: #22c55e; }
+
+.exercise-box {
+  background: white; border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08); padding: 24px 20px;
+}
+
+.ref-table {
+  width: 100%; border-collapse: collapse;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(37,99,235,0.15);
+  margin-bottom: 20px; font-size: 14px;
+}
+.ref-table th {
+  background: #eff6ff; padding: 10px 12px;
+  font-weight: 800; color: #1e40af; text-align: left;
+}
+.ref-table td {
+  padding: 10px 12px; border-top: 1px solid rgba(37,99,235,0.08);
+  font-weight: 700; vertical-align: top; line-height: 1.6;
+}
+.hl-he  { color: #2563eb; font-weight: 800; }
+.hl-she { color: #e11d48; font-weight: 800; }
+.hl-is  { color: #16a34a; font-weight: 800; }
+
+.round-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin-bottom: 18px;
+}
+.round-pill {
+  font-size: 13px; font-weight: 800; color: #2563eb;
+  background: #eff6ff; border-radius: 20px; padding: 5px 14px;
+}
+
+.cards-col {
+  display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;
+}
+
+.person-card {
+  border: 2px solid rgba(37,99,235,0.12);
+  border-radius: 16px; overflow: hidden; background: #f8faff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.person-card.played {
+  border-color: #22c55e; background: #f0fdf4;
+}
+
+.person-card img {
+  width: 100%; height: auto; display: block;
+  width: 100%; height: 180px; object-fit: contain; background: #f1f5f9;
+}
+
+.card-footer {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+}
+.card-qa { flex: 1; font-size: 14px; line-height: 1.5; }
+.card-qa .q { font-weight: 800; color: #1e2a38; }
+.card-qa .a { font-weight: 700; color: #486581; margin-top: 2px; }
+
+.play-btn {
+  flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%;
+  border: none; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+  transition: transform 0.15s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.play-btn:active { transform: scale(0.92); }
+.play-btn.he-btn  { background: #2563eb; }
+.play-btn.she-btn { background: #e11d48; }
+.play-btn.he-btn:hover  { background: #1e40af; }
+.play-btn.she-btn:hover { background: #be123c; }
+.play-btn svg { width: 16px; height: 16px; fill: white; }
+
+.next-round-btn {
+  width: 100%; border: 2px solid rgba(37,99,235,0.2); border-radius: 14px;
+  padding: 14px; font-size: 15px; font-weight: 800;
+  font-family: 'Poppins', sans-serif; background: white; color: #486581;
+  cursor: not-allowed; transition: all 0.2s; margin-bottom: 12px;
+}
+.next-round-btn.ready {
+  border-color: #2563eb; color: #2563eb; cursor: pointer;
+}
+.next-round-btn.ready:hover { background: #eff6ff; }
+
+.continue-btn {
+  width: 100%; border: none; border-radius: 14px; padding: 16px;
+  font-size: 16px; font-weight: 800; font-family: 'Poppins', sans-serif;
+  cursor: not-allowed; transition: all 0.25s;
+  background: #d1d5db; color: white;
+}
+.continue-btn.unlocked {
+  background: #2563eb; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+  animation: pulse-in 0.4s ease;
+}
+.continue-btn.unlocked:hover { background: #1e40af; }
+
+@keyframes pulse-in {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.success-msg {
+  display: none; margin-bottom: 16px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 14px; color: #16a34a;
+  font-weight: 700; font-size: 15px; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Lição 2</a>
+
+<div class="wrap">
+  <div class="lesson-tag">Unidade 2 · Lição 2 · Parte 2</div>
+  <h1>Where is he? Where is she?</h1>
+  <p class="subtitle">Ouça e repita</p>
+
+  <div class="dots">
+    <a class="dot done" href="p1.html">1</a>
+    <a class="dot active" href="p2.html">2</a>
+    <a class="dot" href="p3.html">3</a>
+    <a class="dot" href="p4.html">4</a>
+  </div>
+
+  <div class="exercise-box">
+
+    <table class="ref-table">
+      <tr>
+        <th>Pergunta</th>
+        <th>Resposta</th>
+      </tr>
+      <tr>
+        <td>Where is <span class="hl-he">he</span>?</td>
+        <td><span class="hl-he">He</span> <span class="hl-is">is</span> in the bedroom.</td>
+      </tr>
+      <tr>
+        <td>Where is <span class="hl-she">she</span>?</td>
+        <td><span class="hl-she">She</span> <span class="hl-is">is</span> in the kitchen.</td>
+      </tr>
+    </table>
+
+    <div class="round-row">
+      <div class="round-pill">Rodada <span id="roundNow">1</span> / 4</div>
+    </div>
+
+    <div class="cards-col">
+
+      <div class="person-card" id="heBox">
+        <img id="heImg" src="" alt="He">
+        <div class="card-footer">
+          <div class="card-qa" id="heQA">
+            <div class="q">Where is <span class="hl-he">he</span>?</div>
+            <div class="a"><span class="hl-he">He</span> <span class="hl-is">is</span> in the <span id="hePlace">—</span>.</div>
+          </div>
+          <button class="play-btn he-btn" id="hePlayBtn" aria-label="Reproduzir áudio HE">
+            <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M3 2l9 5-9 5V2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="person-card" id="sheBox">
+        <img id="sheImg" src="" alt="She">
+        <div class="card-footer">
+          <div class="card-qa" id="sheQA">
+            <div class="q">Where is <span class="hl-she">she</span>?</div>
+            <div class="a"><span class="hl-she">She</span> <span class="hl-is">is</span> in the <span id="shePlace">—</span>.</div>
+          </div>
+          <button class="play-btn she-btn" id="shePlayBtn" aria-label="Reproduzir áudio SHE">
+            <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M3 2l9 5-9 5V2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="next-round-btn" id="roundNextBtn" disabled>Próxima rodada ▶</button>
+
+    <div class="success-msg" id="successMsg">🎉 Excelente! Você ouviu todos os exemplos.</div>
+    <button class="continue-btn" id="continueBtn" onclick="doContinue()">Continuar →</button>
+
+  </div>
+</div>
+
+<script>
+const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+const IBASE = BASE + 'images/u2/';
+const ABASE = BASE + 'audio/u2/';
+
+const UNIT = 2, LESSON = 2, PART = 2, PARTS_TOTAL = 4;
+const TOTAL_ROUNDS = 4;
+const GAP_MS = 650;
+
+const HE = [
+  { img: 'u2.l2.p2.man.bedroom.jpg',  audio1: 'u2.l2.p2.he.mp3',  audio2: 'u2.l2.p2.bedroom.mp3',  place: 'bedroom'  },
+  { img: 'u2.l2.p2.man.garage.jpg',   audio1: 'u2.l2.p2.he1.mp3', audio2: 'u2.l2.p2.garage.mp3',   place: 'garage'   },
+  { img: 'u2.l2.p2.man.bathroom.jpg', audio1: 'u2.l2.p2.he.mp3',  audio2: 'u2.l2.p2.bathroom.mp3', place: 'bathroom' },
+  { img: 'u2.l2.p2.man.attic.jpg',    audio1: 'u2.l2.p2.he1.mp3', audio2: 'u2.l2.p2.attic.mp3',    place: 'attic'    }
+];
+
+const SHE = [
+  { img: 'u2.l2.p2.woman.kitchen.jpg',    audio1: 'u2.l2.p2.she.mp3',  audio2: 'u2.l2.p2.kitchen.mp3',    place: 'kitchen'     },
+  { img: 'u2.l2.p2.woman.yard.jpg',       audio1: 'u2.l2.p2.she1.mp3', audio2: 'u2.l2.p2.yard.mp3',       place: 'yard'        },
+  { img: 'u2.l2.p2.woman.livingroom.jpg', audio1: 'u2.l2.p2.she1.mp3', audio2: 'u2.l2.p2.livingroom.mp3', place: 'living room' },
+  { img: 'u2.l2.p2.woman.basement.jpg',   audio1: 'u2.l2.p2.she.mp3',  audio2: 'u2.l2.p2.basement.mp3',   place: 'basement'    }
+];
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function playSequence(file1, file2) {
+  const a1 = new Audio(ABASE + file1);
+  await a1.play().catch(() => {});
+  await new Promise(r => { a1.onended = r; a1.onerror = r; });
+  await sleep(GAP_MS);
+  const a2 = new Audio(ABASE + file2);
+  await a2.play().catch(() => {});
+  await new Promise(r => { a2.onended = r; a2.onerror = r; });
+}
+
+let round    = 0;
+let playedHe = false;
+let playedShe = false;
+let lock     = false;
+const heOrder  = shuffle(HE);
+const sheOrder = shuffle(SHE);
+
+function updateRoundUI() {
+  document.getElementById('roundNow').textContent = round + 1;
+
+  const hi = heOrder[round];
+  const si = sheOrder[round];
+
+  document.getElementById('heImg').src = IBASE + hi.img;
+  document.getElementById('sheImg').src = IBASE + si.img;
+  document.getElementById('hePlace').textContent = hi.place;
+  document.getElementById('shePlace').textContent = si.place;
+
+  document.getElementById('heBox').classList.remove('played');
+  document.getElementById('sheBox').classList.remove('played');
+
+  playedHe = false;
+  playedShe = false;
+
+  const nrb = document.getElementById('roundNextBtn');
+  nrb.disabled = true;
+  nrb.classList.remove('ready');
+  nrb.style.display = '';
+}
+
+function checkBothPlayed() {
+  if (!(playedHe && playedShe)) return;
+
+  if (round === TOTAL_ROUNDS - 1) {
+    document.getElementById('roundNextBtn').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('continueBtn').classList.add('unlocked');
+    saveProgress();
+  } else {
+    const nrb = document.getElementById('roundNextBtn');
+    nrb.disabled = false;
+    nrb.classList.add('ready');
+  }
+}
+
+async function onPlayHe() {
+  if (lock) return;
+  lock = true;
+  try {
+    const item = heOrder[round];
+    await playSequence(item.audio1, item.audio2);
+    playedHe = true;
+    document.getElementById('heBox').classList.add('played');
+    checkBothPlayed();
+  } finally { lock = false; }
+}
+
+async function onPlayShe() {
+  if (lock) return;
+  lock = true;
+  try {
+    const item = sheOrder[round];
+    await playSequence(item.audio1, item.audio2);
+    playedShe = true;
+    document.getElementById('sheBox').classList.add('played');
+    checkBothPlayed();
+  } finally { lock = false; }
+}
+
+document.getElementById('hePlayBtn').addEventListener('click', onPlayHe);
+document.getElementById('heImg').addEventListener('click', onPlayHe);
+document.getElementById('shePlayBtn').addEventListener('click', onPlayShe);
+document.getElementById('sheImg').addEventListener('click', onPlayShe);
+
+document.getElementById('roundNextBtn').addEventListener('click', () => {
+  if (!(playedHe && playedShe)) return;
+  if (round >= TOTAL_ROUNDS - 1) return;
+  round++;
+  updateRoundUI();
+});
+
+function doContinue() {
+  if (!document.getElementById('continueBtn').classList.contains('unlocked')) return;
+  window.location.href = 'p3.html';
+}
+
+function saveProgress() {
+  const key = `inglesco_progress_u${UNIT}`;
+  const lp = JSON.parse(localStorage.getItem(key) || '{}');
+  const lk = `l${LESSON}`;
+  if (!lp[lk]) lp[lk] = { partsTotal: PARTS_TOTAL, partsCompleted: 0 };
+  if (lp[lk].partsCompleted < PART) lp[lk].partsCompleted = PART;
+  localStorage.setItem(key, JSON.stringify(lp));
+  const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+  const prev = parseInt(localStorage.getItem(fkey) || '0', 10);
+  if (PART > prev) localStorage.setItem(fkey, String(PART));
+  updateDotStyles();
+}
+
+function updateDotStyles() {
+  const furthest = parseInt(localStorage.getItem(`inglesco_furthest_u${UNIT}_l${LESSON}`) || '0', 10);
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    const n = i + 1;
+    d.classList.remove('active', 'done');
+    if (n === PART) d.classList.add('active');
+    else if (n <= furthest) d.classList.add('done');
+  });
+}
+
+updateDotStyles();
+updateRoundUI();
+</script>
+</body>
+</html>
