@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidade 2 • Lição 3 • Parte 4 | Inglesco</title>
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+body { background: linear-gradient(135deg, #dbeafe, #fef9c3); min-height: 100vh; padding: 16px 12px 80px; color: #111827; }
+.wrap { max-width: 700px; margin: 0 auto; }
+.back-btn { display: inline-block; margin-bottom: 16px; padding: 7px 14px; background: #2563eb; color: white; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; }
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+.progress-container { display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px; }
+.step { width: 38px; height: 38px; border-radius: 50%; background: #d1d5db; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.step.active { background: #2563eb; color: #fff; }
+.card { background: rgba(255,255,255,.88); border-radius: 18px; padding: 20px 18px; box-shadow: 0 8px 20px rgba(0,0,0,.08); margin-bottom: 16px; }
+.instruction-box { background: #e0e7ff; color: #111827; font-weight: 600; padding: 14px 18px; border-radius: 12px; text-align: center; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+.counter-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.counter-pill { background: #2563eb; color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.bar-wrap { flex: 1; margin: 0 12px; background: #e2e8f0; border-radius: 999px; height: 7px; }
+.bar-fill { height: 100%; background: #2563eb; border-radius: 999px; transition: width .35s; width: 0%; }
+.pct-label { font-size: 12px; font-weight: 700; color: #486581; }
+.play-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+.play-btn { width: 52px; height: 52px; border-radius: 50%; background: #2563eb; color: #fff; border: none; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: background .2s, transform .1s; }
+.play-btn:hover  { background: #1e40af; }
+.play-btn:active { transform: scale(.93); }
+.play-btn:disabled { opacity: .5; cursor: default; }
+.status-text { font-size: 13px; font-weight: 700; color: #486581; }
+.ctrl-btn { padding: 9px 16px; border: none; border-radius: 10px; font-weight: 900; font-size: 13px; cursor: pointer; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; transition: opacity .2s; }
+.ctrl-btn:disabled { opacity: .4; cursor: default; }
+.btn-gray  { background: #6b7280; color: #fff; }
+.btn-blue  { background: #2563eb; color: #fff; }
+.btn-green { background: #16a34a; color: #fff; }
+.sentence-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.slot { border: 2px dashed #cbd5e1; background: #f1f5f9; color: #64748b; border-radius: 999px; padding: 10px 16px; font-weight: 900; font-size: 14px; min-width: 130px; text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: border-color .15s, background .15s, transform .1s; }
+.slot:hover:not(:disabled) { transform: scale(1.02); }
+.slot.active  { border-color: #2563eb; background: #dbeafe; color: #1e40af; border-style: solid; }
+.slot.filled  { border-style: solid; border-color: #94a3b8; background: #fff; color: #0f172a; }
+.slot.correct { border-color: #22c55e; background: #dcfce7; color: #15803d; }
+.slot.wrong   { border-color: #ef4444; background: #fee2e2; color: #dc2626; }
+.wordbank-label { font-size: 12px; font-weight: 700; color: #2563eb; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #dbeafe; }
+.tile-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.tile { border: 2px solid #bfdbfe; background: #eff6ff; color: #1e40af; padding: 9px 14px; border-radius: 999px; font-weight: 900; font-size: 13px; cursor: pointer; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; transition: background .15s, border-color .15s, transform .1s; user-select: none; }
+.tile:hover:not(:disabled) { transform: scale(1.03); }
+.tile:disabled { opacity: .5; cursor: default; }
+.tile.selected { border-color: #2563eb; background: #2563eb; color: #fff; }
+.controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.message-row { display: flex; justify-content: center; align-items: center; min-height: 24px; margin-top: 14px; font-size: 14px; font-weight: 800; }
+.msg-correct { color: #16a34a; }
+.msg-wrong   { color: #dc2626; }
+.msg-info    { color: #2563eb; }
+.msg-warn    { color: #d97706; }
+.finish-card { background: rgba(255,255,255,.88); border-radius: 18px; padding: 30px 18px; box-shadow: 0 8px 20px rgba(0,0,0,.08); text-align: center; }
+.finish-card h2 { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+.finish-card p  { font-size: 14px; color: #374151; margin-bottom: 20px; }
+.finish-stats { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.stat-box { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 14px; padding: 14px 20px; min-width: 120px; }
+.stat-num  { font-size: 28px; font-weight: 900; color: #2563eb; }
+.stat-label{ font-size: 12px; font-weight: 700; color: #64748b; margin-top: 2px; }
+.next-btn { display: inline-block; padding: 14px 36px; background: #2563eb; color: #fff; border-radius: 14px; font-weight: 900; font-size: 15px; text-decoration: none; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidade 2</a>
+  <div class="top-title">Unidade 2 • Lição 3 • Parte 4</div>
+  <div class="subline">Build the sentence</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+  </div>
+  <div class="card" id="exerciseCard">
+    <div class="instruction-box">
+      Toque ▶ para ouvir. Toque um espaço e depois escolha uma palavra para preenchê-lo.<br>
+      Quando terminar os 3 espaços, toque <strong>Verificar ✅</strong>.
+    </div>
+    <div class="counter-row">
+      <span class="counter-pill" id="pill">1 / 15</span>
+      <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+      <span class="pct-label" id="pct">0%</span>
+    </div>
+    <div class="play-row">
+      <button class="play-btn" id="playBtn">▶</button>
+      <div class="status-text" id="statusText">Play</div>
+      <button class="ctrl-btn btn-gray" id="replayBtn">↺ Repetir</button>
+    </div>
+    <div class="sentence-row">
+      <button class="slot" id="slot1">[ sujeito ]</button>
+      <button class="slot" id="slot2">[ at the ]</button>
+      <button class="slot" id="slot3">[ lugar ]</button>
+    </div>
+    <div class="wordbank-label">Banco de palavras</div>
+    <div class="tile-row">
+      <button class="tile" id="t1" disabled></button>
+      <button class="tile" id="t2" disabled></button>
+      <button class="tile" id="t3" disabled></button>
+      <button class="tile" id="t4" disabled></button>
+      <button class="tile" id="t5" disabled></button>
+      <button class="tile" id="t6" disabled></button>
+    </div>
+    <div class="message-row">
+      <span id="msgPlayFirst"  class="msg-info  hidden">▶ Toque Play primeiro</span>
+      <span id="msgPickSlot"   class="msg-info  hidden">👆 Toque um espaço primeiro</span>
+      <span id="msgIncomplete" class="msg-warn  hidden">⚠️ Complete os 3 espaços</span>
+      <span id="msgCorrect"    class="msg-correct hidden">✅ Correto</span>
+      <span id="msgWrong"      class="msg-wrong   hidden">❌ Incorreto. Tente novamente</span>
+    </div>
+    <div class="controls">
+      <button class="ctrl-btn btn-gray"  id="clearBtn">✖ Limpar</button>
+      <button class="ctrl-btn btn-green" id="checkBtn" disabled>✅ Verificar</button>
+    </div>
+  </div>
+  <div class="finish-card hidden" id="finishCard">
+    <h2>🎉 Lição concluída!</h2>
+    <p>Você terminou a Lição 3 da Unidade 2.</p>
+    <div class="finish-stats">
+      <div class="stat-box"><div class="stat-num" id="statTotal">15</div><div class="stat-label">Exercícios</div></div>
+      <div class="stat-box"><div class="stat-num" id="statCorrect">—</div><div class="stat-label">Corretos na 1.ª tentativa</div></div>
+      <div class="stat-box"><div class="stat-num" id="statPct">—</div><div class="stat-label">Precisão</div></div>
+    </div>
+    <a href="../index.html" class="next-btn">Voltar à Unidade 2 →</a>
+  </div>
+</div>
+<script>
+(() => {
+  const BASE  = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+  const AUDIO = BASE + 'audio/u2/';
+  const sfxOk  = new Audio(BASE + 'audio/u1/correct.wav');
+  const sfxBad = new Audio(BASE + 'audio/u1/incorrect.wav');
+  function playSfx(ok){const s=ok?sfxOk:sfxBad;s.currentTime=0;s.play().catch(()=>{});}
+  const BASE_EXERCISES = [
+    { audio:'u2.l3.p2.she.supermarket.mp3', subject:'SHE', place:'supermarket'   },
+    { audio:'u2.l3.p2.restaurant.mp3',      subject:'SHE', place:'restaurant'    },
+    { audio:'u2.l3.p2.office.mp3',          subject:'SHE', place:'office'        },
+    { audio:'u2.l3.p2.park.mp3',            subject:'SHE', place:'park'          },
+    { audio:'u2.l3.p2.library2.mp3',        subject:'SHE', place:'library'       },
+    { audio:'u2.l3.p2.He.library3.mp3',     subject:'HE',  place:'library'       },
+    { audio:'u2.l3.p2.movietheatre.mp3',    subject:'HE',  place:'movie theater' },
+    { audio:'u2.l3.p2.supermarket.mp3',     subject:'HE',  place:'supermarket'   },
+    { audio:'u2.l3.p2.office2.mp3',         subject:'HE',  place:'office'        },
+    { audio:'u2.l3.p2.bank.mp3',            subject:'HE',  place:'bank'          },
+    { audio:'u2.l3.p3.Iam.restaurant.mp3',  subject:'I',   place:'restaurant'    },
+    { audio:'u2.l3.p3.Iam.movie.mp3',       subject:'I',   place:'movie theater' },
+    { audio:'u2.l3.p3.Iam.supermarket.mp3', subject:'I',   place:'supermarket'   },
+    { audio:'u2.l3.p3.Iam.office.mp3',      subject:'I',   place:'office'        },
+    { audio:'u2.l3.p3.Iam.library.mp3',     subject:'I',   place:'library'       }
+  ];
+  const ALL_PLACES=['restaurant','office','supermarket','park','library','movie theater','bank'];
+  const SUBJECT_TILES=['I am','He is','She is'];
+  const CONNECTOR='at the';
+  function subjectText(s){if(s==='I')return 'I am';if(s==='HE')return 'He is';return 'She is';}
+  function isValidForSlot(slotNum,text){if(slotNum===1)return SUBJECT_TILES.includes(text);if(slotNum===2)return text===CONNECTOR;if(slotNum===3)return ALL_PLACES.includes(text);return false;}
+  function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function pickDistractor(correct){return shuffle(ALL_PLACES.filter(p=>p!==correct))[0];}
+  const EXERCISES=shuffle(BASE_EXERCISES.map(x=>({...x}))), TOTAL=EXERCISES.length;
+  let idx=0,hasPlayed=false,locked=false,isAdvancing=false,selectedTile=null,sel={s1:'',s2:'',s3:''},firstAttemptCorrect=0;
+  const playBtn=document.getElementById('playBtn'), replayBtn=document.getElementById('replayBtn'), statusEl=document.getElementById('statusText');
+  const pill=document.getElementById('pill'), bar=document.getElementById('bar'), pct=document.getElementById('pct');
+  const clearBtn=document.getElementById('clearBtn'), checkBtn=document.getElementById('checkBtn');
+  const slot1=document.getElementById('slot1'), slot2=document.getElementById('slot2'), slot3=document.getElementById('slot3');
+  const slots=[slot1,slot2,slot3];
+  const tileEls=[1,2,3,4,5,6].map(n=>document.getElementById(`t${n}`));
+  const msgPlayFirst=document.getElementById('msgPlayFirst'),msgPickSlot=document.getElementById('msgPickSlot');
+  const msgIncomplete=document.getElementById('msgIncomplete'),msgCorrect=document.getElementById('msgCorrect'),msgWrong=document.getElementById('msgWrong');
+  const allMsgs=[msgPlayFirst,msgPickSlot,msgIncomplete,msgCorrect,msgWrong];
+  const exerciseCard=document.getElementById('exerciseCard'), finishCard=document.getElementById('finishCard');
+  const statCorrectEl=document.getElementById('statCorrect'), statPctEl=document.getElementById('statPct'), statTotalEl=document.getElementById('statTotal');
+  const audioSentence=new Audio(); audioSentence.preload='auto';
+  function hideMsgs(){allMsgs.forEach(m=>m.classList.add('hidden'));}
+  function updateProgress(){const shown=Math.min(idx+1,TOTAL);pill.textContent=`${shown} / ${TOTAL}`;const p=Math.round(idx/TOTAL*100);bar.style.width=p+'%';pct.textContent=p+'%';}
+  function enableTiles(on){tileEls.forEach(t=>t.disabled=!on);}
+  function clearTileSelect(){selectedTile=null;tileEls.forEach(t=>t.classList.remove('selected'));}
+  function resetSlots(){sel={s1:'',s2:'',s3:''};slots.forEach((s,i)=>{s.innerHTML=['[ sujeito ]','[ at the ]','[ lugar ]'][i];s.classList.remove('filled','active','correct','wrong');});}
+  function buildBank(ex){const d1=pickDistractor(ex.place);const words=shuffle(['I am','He is','She is',CONNECTOR,ex.place,d1]);tileEls.forEach((t,i)=>{t.textContent=words[i];t.classList.remove('selected');t.disabled=true;});}
+  function loadRound(i){hideMsgs();hasPlayed=false;locked=false;isAdvancing=false;selectedTile=null;const ex=EXERCISES[i];audioSentence.src=AUDIO+ex.audio;audioSentence.currentTime=0;buildBank(ex);resetSlots();enableTiles(false);checkBtn.disabled=true;playBtn.disabled=false;statusEl.textContent='Play';updateProgress();}
+  function playSentence(){hideMsgs();try{audioSentence.pause();audioSentence.currentTime=0;}catch(_){}statusEl.textContent='Reproduzindo…';audioSentence.play().catch(()=>{statusEl.textContent='Play';});hasPlayed=true;enableTiles(true);}
+  audioSentence.addEventListener('ended',()=>{statusEl.textContent='Play';});
+  function onTileClick(btn){if(locked||isAdvancing||!hasPlayed){if(!hasPlayed){hideMsgs();msgPlayFirst.classList.remove('hidden');}return;}hideMsgs();if(selectedTile===btn){clearTileSelect();return;}clearTileSelect();btn.classList.add('selected');selectedTile=btn;}
+  let activeSlot=null;
+  function onSlotClick(slotNum){if(locked||isAdvancing)return;hideMsgs();if(!hasPlayed){msgPlayFirst.classList.remove('hidden');return;}const slotEl=slots[slotNum-1];const selKey=`s${slotNum}`;if(!selectedTile){slots.forEach(s=>s.classList.remove('active'));if(activeSlot===slotNum){activeSlot=null;return;}slotEl.classList.add('active');activeSlot=slotNum;msgPickSlot.classList.remove('hidden');return;}const text=selectedTile.textContent;if(!isValidForSlot(slotNum,text)){msgWrong.classList.remove('hidden');setTimeout(()=>msgWrong.classList.add('hidden'),650);return;}sel[selKey]=text;slotEl.textContent=text;slotEl.classList.remove('active');slotEl.classList.add('filled');clearTileSelect();activeSlot=null;const complete=sel.s1&&sel.s2&&sel.s3;checkBtn.disabled=!complete;}
+  function clearAll(){if(locked||isAdvancing)return;hideMsgs();clearTileSelect();resetSlots();checkBtn.disabled=true;activeSlot=null;}
+  function markSlots(ok){slots.forEach(s=>{s.classList.remove('correct','wrong','filled');s.classList.add(ok?'correct':'wrong');});}
+  let attemptedThisRound=false;
+  async function checkAnswer(){if(locked||isAdvancing)return;hideMsgs();if(!hasPlayed){msgPlayFirst.classList.remove('hidden');return;}if(!(sel.s1&&sel.s2&&sel.s3)){msgIncomplete.classList.remove('hidden');return;}const ex=EXERCISES[idx];const ok=sel.s1===subjectText(ex.subject)&&sel.s2===CONNECTOR&&sel.s3===ex.place;if(ok){if(!attemptedThisRound)firstAttemptCorrect++;markSlots(true);playSfx(true);msgCorrect.classList.remove('hidden');locked=true;isAdvancing=true;enableTiles(false);checkBtn.disabled=true;playBtn.disabled=true;await new Promise(r=>setTimeout(r,200));try{audioSentence.currentTime=0;await audioSentence.play();}catch(_){}await new Promise(r=>{audioSentence.addEventListener('ended',r,{once:true});});idx++;attemptedThisRound=false;if(idx>=TOTAL){showFinish();return;}loadRound(idx);}else{if(!attemptedThisRound)attemptedThisRound=true;markSlots(false);playSfx(false);msgWrong.classList.remove('hidden');setTimeout(()=>{slots.forEach(s=>s.classList.remove('wrong'));resetSlots();checkBtn.disabled=true;},700);}}
+  function showFinish(){bar.style.width='100%';pct.textContent='100%';pill.textContent=`${TOTAL} / ${TOTAL}`;try{const saved=JSON.parse(localStorage.getItem('inglesco_progress_u2')||'{}');saved.l3={partsCompleted:4,partsTotal:4,done:true};localStorage.setItem('inglesco_progress_u2',JSON.stringify(saved));}catch(_){}const accuracy=Math.round(firstAttemptCorrect/TOTAL*100);statTotalEl.textContent=TOTAL;statCorrectEl.textContent=firstAttemptCorrect;statPctEl.textContent=accuracy+'%';exerciseCard.classList.add('hidden');finishCard.classList.remove('hidden');}
+  function onTap(el,fn){let moved=false,byTouch=false;el.addEventListener('touchstart',()=>{moved=false;byTouch=false;},{passive:true});el.addEventListener('touchmove',()=>{moved=true;},{passive:true});el.addEventListener('touchend',e=>{if(moved)return;e.preventDefault();byTouch=true;fn();});el.addEventListener('click',()=>{if(byTouch){byTouch=false;return;}fn();});}
+  onTap(playBtn,playSentence); onTap(replayBtn,playSentence); onTap(clearBtn,clearAll); onTap(checkBtn,checkAnswer);
+  tileEls.forEach(t=>onTap(t,()=>onTileClick(t)));
+  slots.forEach((s,i)=>onTap(s,()=>onSlotClick(i+1)));
+  loadRound(0);
+})();
+</script>
+</body>
+</html>
