@@ -1,0 +1,551 @@
+<!-- u3/l4/p2.html (Mobile-first · merged) -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidade 3 • Lição 4 • Parte 2</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      margin: 0;
+      color: #111827;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 640px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Header ── */
+    .top-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      margin: 0 0 6px;
+    }
+    .topic-badge {
+      text-align: center;
+      margin: 0 0 6px;
+    }
+    .topic-badge span {
+      background: rgba(255,255,255,.75);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 15px;
+      display: inline-block;
+    }
+    .subline {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin: 0 0 14px;
+    }
+
+    /* ── Score bar ── */
+    .score-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+    .score-pill {
+      background: rgba(255,255,255,.8);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .score-pill .icon { font-size: 16px; }
+    .score-pill.green { color: #16a34a; }
+    .score-pill.blue  { color: #2563eb; }
+
+    /* ── Step dots ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all .25s;
+      color: #1f2933;
+      text-decoration: none;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
+    }
+
+    /* ── Image ── */
+    .img-wrap {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f1f5f9;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.07);
+    }
+    .img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      max-height: 260px;
+    }
+
+    /* ── Round label ── */
+    .round-label {
+      text-align: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 14px;
+    }
+
+    /* ── Progress track ── */
+    .progress-track {
+      background: #e5e7eb;
+      border-radius: 99px;
+      height: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 99px;
+      transition: width .35s ease;
+      width: 0%;
+    }
+
+    /* ── Question box ── */
+    .qbox {
+      background: rgba(248,250,252,.9);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .qbox.hidden { display: none; }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+    .q-prompt {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1.3;
+      flex: 1;
+    }
+    .q-status {
+      font-size: 22px;
+      font-weight: 900;
+      min-width: 28px;
+      text-align: right;
+    }
+    .q-status.ok  { color: #16a34a; }
+    .q-status.bad { color: #dc2626; }
+
+    .options { display: grid; gap: 10px; }
+    .opt {
+      width: 100%;
+      text-align: left;
+      border: 2px solid rgba(17,24,39,.12);
+      background: #fff;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .opt:hover   { border-color: rgba(37,99,235,.45); }
+    .opt.correct { border-color: #16a34a; background: rgba(22,163,74,.1); }
+    .opt.wrong   { border-color: #dc2626; background: rgba(220,38,38,.08); }
+    .opt:disabled { cursor: not-allowed; opacity: .95; }
+
+    /* ── Feedback toast ── */
+    .feedback-toast {
+      text-align: center;
+      font-weight: 900;
+      font-size: 17px;
+      color: #16a34a;
+      padding: 10px 0 2px;
+    }
+    .feedback-toast.hidden { display: none; }
+
+    /* ── End screen ── */
+    .end-screen {
+      text-align: center;
+      padding: 10px 0 4px;
+    }
+    .end-screen.hidden { display: none; }
+    .end-screen h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 8px 0 6px;
+    }
+    .end-score {
+      font-size: 15px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+    .next-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 0 6px 14px rgba(37,99,235,.25);
+    }
+    .next-btn:hover { background: #1e40af; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 420px) {
+      body { padding: 12px; }
+      .top-title { font-size: 16px; }
+      .step { width: 34px; height: 34px; font-size: 13px; }
+      .opt { font-size: 14px; padding: 12px 12px; }
+      .img-wrap img { max-height: 200px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">← Voltar para a Unidade 3</a>
+
+  <div class="top-title">Unidade 3 • Lição 4 • Parte 2</div>
+  <div class="topic-badge"><span>Escolha a frase correta</span></div>
+  <div class="subline">Olhe a imagem e escolha a resposta correta.</div>
+
+  <!-- Score bar -->
+  <div class="score-bar">
+    <div class="score-pill green"><span class="icon">✓</span><span id="scoreCorrect">0</span> corretas</div>
+    <div class="score-pill blue"><span class="icon">📝</span><span id="scoreTotal">0</span> respondidas</div>
+  </div>
+
+  <!-- Part step dots -->
+  <div class="progress-container">
+    <a class="step"        href="p1.html" aria-label="Parte 1">1</a>
+    <a class="step active" href="p2.html" aria-label="Parte 2">2</a>
+    <a class="step"        href="p3.html" aria-label="Parte 3">3</a>
+    <a class="step"        href="p4.html" aria-label="Parte 4">4</a>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+
+    <!-- Image -->
+    <div class="img-wrap">
+      <img id="sceneImg" src="" alt="Cena" />
+    </div>
+
+    <!-- Round label -->
+    <div class="round-label" id="roundLabel">1 / 10</div>
+
+    <!-- Progress track -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Question -->
+    <div class="qbox" id="qBox">
+      <div class="q-header">
+        <div class="q-prompt" id="qPrompt">O que Tom está fazendo?</div>
+        <div class="q-status" id="qStatus"></div>
+      </div>
+      <div class="options" id="qOptions"></div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback-toast hidden" id="feedbackToast">Correto! ✓</div>
+
+    <!-- End screen -->
+    <div class="end-screen hidden" id="endScreen">
+      <h2>Ótimo trabalho! 🎉</h2>
+      <div class="end-score" id="endScore"></div>
+      <a class="next-btn" href="p3.html">Seguinte → Parte 3</a>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /wrap -->
+
+<script>
+(() => {
+  "use strict";
+
+  const SUPABASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = SUPABASE + "images/u3/";
+  const SFX_CORRECT = SUPABASE + "sfx/correct.wav";
+
+  const sceneImg      = document.getElementById("sceneImg");
+  const roundLabel    = document.getElementById("roundLabel");
+  const progressFill  = document.getElementById("progressFill");
+  const qBox          = document.getElementById("qBox");
+  const qPrompt       = document.getElementById("qPrompt");
+  const qStatus       = document.getElementById("qStatus");
+  const qOptions      = document.getElementById("qOptions");
+  const feedbackToast = document.getElementById("feedbackToast");
+  const endScreen     = document.getElementById("endScreen");
+  const endScore      = document.getElementById("endScore");
+  const scoreCorrectEl = document.getElementById("scoreCorrect");
+  const scoreTotalEl   = document.getElementById("scoreTotal");
+
+  const ROUNDS = [
+    {
+      img: "u3.l4.p2.tom.drinking.jpg",
+      question: "O que Tom está fazendo?",
+      options: ["Ele está bebendo limonada.", "Ele está jantando."],
+      answer: "Ele está bebendo limonada."
+    },
+    {
+      img: "u3.l4.p2.anna.eating.jpg",
+      question: "O que Anna está fazendo?",
+      options: ["Ela está jantando.", "Ela está bebendo."],
+      answer: "Ela está jantando."
+    },
+    {
+      img: "u3.l4.p2.lopez.reading.jpg",
+      question: "O que o Sr. Lopez está fazendo?",
+      options: ["Ele está lendo um livro.", "Ele está plantando flores."],
+      answer: "Ele está lendo um livro."
+    },
+    {
+      img: "u3.l4.p2.lopez.eating.jpg",
+      question: "O que a Sra. Lopez está fazendo?",
+      options: ["Ela está comendo um hambúrguer.", "Ela está jogando cartas."],
+      answer: "Ela está comendo um hambúrguer."
+    },
+    {
+      img: "u3.l4.p2.carlos.playing.jpg",
+      question: "O que Carlos está fazendo?",
+      options: ["Ele está jogando beisebol.", "Ele está lendo um livro."],
+      answer: "Ele está jogando beisebol."
+    },
+    {
+      img: "u3.l4.p2.man.planting.jpg",
+      question: "O que o Sr. Johnson está fazendo?",
+      options: ["Ele está plantando flores.", "Ele está bebendo limonada."],
+      answer: "Ele está plantando flores."
+    },
+    {
+      img: "u3.l4.p2.studying.jpg",
+      question: "O que eles estão fazendo?",
+      options: ["Eles estão estudando inglês.", "Eles estão jogando jogos."],
+      answer: "Eles estão estudando inglês."
+    },
+    {
+      img: "u3.l4.p2.we.cooking.jpg",
+      question: "O que nós estamos fazendo?",
+      options: ["Nós estamos bebendo.", "Nós estamos preparando o jantar."],
+      answer: "Nós estamos preparando o jantar."
+    },
+    {
+      img: "u3.l4.p2.they.singing.jpg",
+      question: "O que eles estão fazendo?",
+      options: ["Eles estão jogando.", "Eles estão cantando."],
+      answer: "Eles estão cantando."
+    },
+    {
+      img: "u3.l4.p2.sleeping.jpg",
+      question: "O que ele está fazendo?",
+      options: ["Ele está dormindo.", "Ele está cantando."],
+      answer: "Ele está dormindo."
+    }
+  ];
+
+  const TOTAL = ROUNDS.length;
+  let idx = 0;
+  let scoreCorrect = 0;
+  let scoreAnswered = 0;
+
+  let sfxCorrect = null;
+  try { sfxCorrect = new Audio(SFX_CORRECT); sfxCorrect.load(); } catch {}
+
+  const show = el => el.classList.remove("hidden");
+  const hide = el => el.classList.add("hidden");
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function updateScoreDisplay() {
+    scoreCorrectEl.textContent = scoreCorrect;
+    scoreTotalEl.textContent   = scoreAnswered;
+  }
+
+  function updateProgress() {
+    progressFill.style.width = (idx / TOTAL * 100) + "%";
+  }
+
+  function saveProgress() {
+    try {
+      const key  = "inglesco_progress_u3";
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data.l4) data.l4 = {};
+      data.l4.p2 = { done: true, correct: scoreCorrect, total: TOTAL };
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch {}
+  }
+
+  function renderRound(i) {
+    idx = i;
+    const r = ROUNDS[idx];
+
+    hide(endScreen);
+    show(qBox);
+    hide(feedbackToast);
+
+    qStatus.textContent = "";
+    qStatus.className = "q-status";
+    qOptions.innerHTML = "";
+
+    roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
+    updateProgress();
+    sceneImg.src = IMG_BASE + r.img;
+    qPrompt.textContent = r.question;
+
+    shuffle(r.options).forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "opt";
+      btn.type = "button";
+      btn.textContent = opt;
+
+      let moved = false;
+      btn.addEventListener("touchstart", () => { moved = false; }, { passive: true });
+      btn.addEventListener("touchmove", () => { moved = true; }, { passive: true });
+      btn.addEventListener("touchend", e => {
+        if (!moved) { e.preventDefault(); onAnswer(r, opt); }
+      }, { passive: false });
+      btn.addEventListener("click", () => onAnswer(r, opt));
+
+      qOptions.appendChild(btn);
+    });
+  }
+
+  function onAnswer(r, chosen) {
+    const btns = qOptions.querySelectorAll(".opt");
+    btns.forEach(b => { b.disabled = true; });
+
+    scoreAnswered++;
+    updateScoreDisplay();
+
+    if (chosen === r.answer) {
+      scoreCorrect++;
+      updateScoreDisplay();
+
+      btns.forEach(b => { if (b.textContent === r.answer) b.classList.add("correct"); });
+      qStatus.textContent = "✓";
+      qStatus.className   = "q-status ok";
+
+      try { if (sfxCorrect) { sfxCorrect.currentTime = 0; sfxCorrect.play(); } } catch {}
+
+      feedbackToast.textContent = "Correto! ✓";
+      feedbackToast.style.color = "#16a34a";
+      show(feedbackToast);
+
+      setTimeout(() => {
+        hide(feedbackToast);
+        if (idx < TOTAL - 1) {
+          renderRound(idx + 1);
+        } else {
+          finish();
+        }
+      }, 800);
+
+    } else {
+      btns.forEach(b => { if (b.textContent === chosen) b.classList.add("wrong"); });
+      qStatus.textContent = "✗";
+      qStatus.className   = "q-status bad";
+
+      setTimeout(() => {
+        qStatus.textContent = "";
+        qStatus.className   = "q-status";
+        btns.forEach(b => {
+          b.classList.remove("wrong");
+          b.disabled = false;
+        });
+      }, 650);
+    }
+  }
+
+  function finish() {
+    progressFill.style.width = "100%";
+    hide(qBox);
+    saveProgress();
+    endScore.textContent = `Respostas corretas: ${scoreCorrect} / ${TOTAL}`;
+    show(endScreen);
+  }
+
+  renderRound(0);
+})();
+</script>
+</body>
+</html>

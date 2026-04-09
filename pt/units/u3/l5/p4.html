@@ -1,0 +1,659 @@
+<!-- u3/l5/p4.html (Mobile-first, self-contained) -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidade 3 • Lição 5 • Parte 4</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      margin: 0;
+      color: #111827;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 680px; margin: 0 auto; }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    /* ── Top title ── */
+    .top-title {
+      text-align: center;
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+    .subline {
+      text-align: center;
+      margin: 0 0 14px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .subline span {
+      background: rgba(255,255,255,.75);
+      padding: 5px 12px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    /* ── Part nav dots ── */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px;
+    }
+    .step {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+      cursor: pointer;
+      transition: all .25s;
+      color: #374151;
+      text-decoration: none;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,.4); }
+    .step:hover:not(.active) { transform: scale(1.1); background: #93c5fd; }
+
+    /* ── Main card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
+    }
+
+    /* ── Story card ── */
+    .story-card {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .story-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #166534;
+      margin: 0 0 10px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .story-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: #1e3a5f;
+    }
+    .story-text p     { margin: 0 0 4px; }
+    .story-text p.gap { margin-bottom: 10px; }
+
+    /* ── Audio section ── */
+    .audio-section {
+      background: #eff6ff;
+      border: 2px solid #93c5fd;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .audio-note {
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 26px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(37,99,235,.28);
+      transition: background .2s;
+      margin-bottom: 10px;
+    }
+    .play-btn:hover { background: #1d4ed8; }
+    .audio-bar-wrap {
+      background: #bfdbfe;
+      border-radius: 99px;
+      height: 5px;
+      margin: 0 auto 10px;
+      max-width: 320px;
+      overflow: hidden;
+    }
+    .audio-bar-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 99px;
+      width: 0%;
+      transition: width .3s linear;
+    }
+    .skip-btn {
+      background: none;
+      border: none;
+      color: #6b7280;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    /* ── Question area (one at a time) ── */
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .q-counter {
+      font-size: 14px;
+      font-weight: 800;
+      opacity: .75;
+    }
+    .score-badges { display: flex; gap: 8px; }
+    .badge {
+      display: flex; align-items: center; gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .badge-ok  { background: #dcfce7; color: #166534; }
+    .badge-bad { background: #fee2e2; color: #991b1b; }
+
+    .q-progress-wrap {
+      background: #e5e7eb;
+      border-radius: 99px;
+      height: 6px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .q-progress-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 99px;
+      width: 0%;
+      transition: width .4s ease;
+    }
+
+    .question-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+      margin-bottom: 12px;
+    }
+    .question-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e3a5f;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    /* ── True / False buttons ── */
+    .tf-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .tf-btn {
+      flex: 1;
+      max-width: 140px;
+      padding: 10px 12px;
+      border: 2px solid #93c5fd;
+      border-radius: 10px;
+      background: #eff6ff;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      text-align: center;
+      color: #1e3a5f;
+      transition: background .15s, border-color .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tf-btn:hover:not(:disabled) {
+      background: #dbeafe;
+      border-color: #3b82f6;
+      transform: scale(1.03);
+    }
+    .tf-btn:disabled   { cursor: not-allowed; }
+    .tf-btn.correct {
+      background: #dcfce7 !important;
+      border-color: #16a34a !important;
+      color: #166534 !important;
+    }
+    .tf-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: #dc2626 !important;
+      color: #991b1b !important;
+    }
+
+    .q-status {
+      text-align: center;
+      min-height: 22px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .q-status.ok  { color: #16a34a; }
+    .q-status.bad { color: #dc2626; }
+
+    /* ── End screen ── */
+    .end { text-align: center; padding: 20px 10px 8px; }
+    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+    .end h2 { margin: 8px 0; font-size: 24px; font-weight: 900; color: #1e3a5f; }
+    .end p  { margin: 6px 0; font-weight: 700; color: #374151; font-size: 14px; }
+    .end .final-score {
+      display: inline-flex;
+      gap: 16px;
+      margin: 14px 0;
+      background: #f0fdf4;
+      border-radius: 14px;
+      padding: 12px 24px;
+    }
+    .end .score-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .end .score-num  { font-size: 28px; font-weight: 900; }
+    .end .score-lbl  { font-size: 11px; font-weight: 700; color: #6b7280; }
+    .end .score-ok   { color: #16a34a; }
+    .end .score-bad  { color: #dc2626; }
+
+    .end-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+    .end-btn {
+      display: inline-block;
+      width: 100%;
+      max-width: 260px;
+      padding: 11px 24px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      box-shadow: 0 5px 14px rgba(37,99,235,.25);
+      transition: background .2s;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+    .end-btn:hover { background: #1d4ed8; }
+    .end-btn.retry { background: #f59e0b; box-shadow: 0 5px 14px rgba(245,158,11,.25); }
+    .end-btn.retry:hover { background: #d97706; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .step { width: 32px; height: 32px; font-size: 13px; }
+      .top-title { font-size: 16px; }
+      .story-text { font-size: 14px; }
+      .question-text { font-size: 15px; }
+      .tf-btn { font-size: 14px; padding: 9px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="../index.html" class="back-btn">← Voltar para a Unidade 3</a>
+
+    <div class="top-title">Unidade 3 • Lição 5 • Parte 4</div>
+    <div class="subline"><span>Listen and answer: True or False?</span></div>
+
+    <div class="progress-container">
+      <a class="step"        href="p1.html" aria-label="Parte 1">1</a>
+      <a class="step"        href="p2.html" aria-label="Parte 2">2</a>
+      <a class="step"        href="p3.html" aria-label="Parte 3">3</a>
+      <a class="step active" href="p4.html" aria-label="Parte 4">4</a>
+    </div>
+
+    <div class="card">
+
+      <!-- ── Story ── -->
+      <div class="story-card">
+        <div class="story-title">The Cooper Family</div>
+        <div class="story-text" id="storyText"></div>
+      </div>
+
+      <!-- ── Audio section ── -->
+      <div class="audio-section" id="audioSection">
+        <p class="audio-note">🔊 Escute a história antes de responder.</p>
+        <button class="play-btn" id="playBtn" type="button">▶ Listen to the story</button>
+        <div class="audio-bar-wrap"><div class="audio-bar-fill" id="audioFill"></div></div>
+        <button class="skip-btn" id="skipBtn" type="button">Pular → ir para as perguntas</button>
+      </div>
+
+      <!-- ── Questions (one at a time) ── -->
+      <div id="questionsArea" class="hidden">
+        <div class="q-header">
+          <div class="q-counter" id="qCounter">1 / 8</div>
+          <div class="score-badges">
+            <div class="badge badge-ok">✓ <span id="scoreOk">0</span></div>
+            <div class="badge badge-bad">✗ <span id="scoreBad">0</span></div>
+          </div>
+        </div>
+        <div class="q-progress-wrap">
+          <div class="q-progress-fill" id="qProgressFill"></div>
+        </div>
+        <div class="question-card">
+          <div class="question-text"  id="questionText"></div>
+          <div class="tf-buttons">
+            <button class="tf-btn" id="btnTrue"  type="button">True</button>
+            <button class="tf-btn" id="btnFalse" type="button">False</button>
+          </div>
+          <div class="q-status" id="qStatus"></div>
+        </div>
+      </div>
+
+      <!-- ── End screen ── -->
+      <div class="end hidden" id="endScreen">
+        <div class="trophy">🏆</div>
+        <h2 id="endTitle"></h2>
+        <p  id="endMsg"></p>
+        <div class="final-score">
+          <div class="score-item">
+            <span class="score-num score-ok"  id="finalOk">0</span>
+            <span class="score-lbl">Corretas</span>
+          </div>
+          <div class="score-item">
+            <span class="score-num score-bad" id="finalBad">0</span>
+            <span class="score-lbl">Erradas</span>
+          </div>
+        </div>
+        <div class="end-actions">
+          <button class="end-btn retry hidden" id="retryBtn" type="button">Tentar novamente</button>
+          <a class="end-btn" href="../index.html">← Voltar para as lições</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    "use strict";
+
+    const SUPABASE  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+    const AUDIO_SRC = SUPABASE + "audio/u3/u3.l5.p4.cooper.mp3";
+    const SFX_OK    = SUPABASE + "audio/u3/correct.wav";
+    const SFX_BAD   = SUPABASE + "audio/u3/incorrect.wav";
+
+    const sfxCorrect = new Audio(SFX_OK);
+    const sfxWrong   = new Audio(SFX_BAD);
+    sfxCorrect.preload = sfxWrong.preload = "auto";
+    function playOk()  { sfxCorrect.currentTime = 0; sfxCorrect.play().catch(() => {}); }
+    function playBad() { sfxWrong.currentTime   = 0; sfxWrong.play().catch(() => {}); }
+
+    const STORY = [
+      { text: "It is a beautiful morning. The Cooper family is at home.", gap: true },
+      { text: "Mr. Cooper is in the kitchen. He is cooking breakfast." },
+      { text: "Mrs. Cooper is in the living room. She is watching TV." },
+      { text: "Tony is in the bedroom. He is listening to music." },
+      { text: "Lisa is in the yard. She is playing with the dog." },
+      { text: "The cat is in the dining room. It is eating fish." },
+      { text: "Grandma Cooper is in the dining room. She is drinking coffee." }
+    ];
+
+    const QUESTIONS = [
+      { text: "The Cooper family is at the park.",  answer: false },
+      { text: "Mr. Cooper is cooking breakfast.",   answer: true  },
+      { text: "Mrs. Cooper is in the kitchen.",     answer: false },
+      { text: "Tony is listening to music.",        answer: true  },
+      { text: "Lisa is playing baseball.",          answer: false },
+      { text: "The dog is in the yard.",            answer: true  },
+      { text: "The cat is eating fish.",            answer: true  },
+      { text: "Grandma Cooper is drinking milk.",   answer: false }
+    ];
+
+    const TOTAL  = QUESTIONS.length;
+    let qIdx     = 0;
+    let scoreOk  = 0;
+    let scoreBad = 0;
+    let locked   = false;
+
+    const storyTextEl   = document.getElementById("storyText");
+    const audioSection  = document.getElementById("audioSection");
+    const playBtn       = document.getElementById("playBtn");
+    const audioFill     = document.getElementById("audioFill");
+    const skipBtn       = document.getElementById("skipBtn");
+    const questionsArea = document.getElementById("questionsArea");
+    const qCounter      = document.getElementById("qCounter");
+    const scoreOkEl     = document.getElementById("scoreOk");
+    const scoreBadEl    = document.getElementById("scoreBad");
+    const qProgressFill = document.getElementById("qProgressFill");
+    const questionText  = document.getElementById("questionText");
+    const btnTrue       = document.getElementById("btnTrue");
+    const btnFalse      = document.getElementById("btnFalse");
+    const qStatus       = document.getElementById("qStatus");
+    const endScreen     = document.getElementById("endScreen");
+    const endTitle      = document.getElementById("endTitle");
+    const endMsg        = document.getElementById("endMsg");
+    const finalOkEl     = document.getElementById("finalOk");
+    const finalBadEl    = document.getElementById("finalBad");
+    const retryBtn      = document.getElementById("retryBtn");
+
+    let storyParas = [];
+    STORY.forEach(item => {
+      const p = document.createElement("p");
+      p.textContent = item.text;
+      if (item.gap) p.classList.add("gap");
+      storyTextEl.appendChild(p);
+      storyParas.push(p);
+    });
+
+    const storyAudio = new Audio(AUDIO_SRC);
+    storyAudio.preload = "auto";
+
+    function clearHighlights() {
+      storyParas.forEach(p => { p.style.background = p.style.borderRadius = p.style.padding = ""; });
+    }
+
+    storyAudio.addEventListener("timeupdate", () => {
+      if (!storyAudio.duration) return;
+      const seg = storyAudio.duration / storyParas.length;
+      const i   = Math.min(Math.floor(storyAudio.currentTime / seg), storyParas.length - 1);
+      storyParas.forEach((p, pi) => {
+        const on = pi === i && !storyAudio.paused;
+        p.style.background   = on ? "rgba(37,99,235,.15)" : "";
+        p.style.borderRadius = on ? "6px" : "";
+        p.style.padding      = on ? "2px 6px" : "";
+        p.style.transition   = "background .2s";
+      });
+      audioFill.style.width = (storyAudio.currentTime / storyAudio.duration * 100) + "%";
+    });
+
+    storyAudio.addEventListener("pause",  clearHighlights);
+    storyAudio.addEventListener("ended",  () => {
+      clearHighlights();
+      playBtn.textContent = "▶ Listen again";
+      playBtn.style.background = "#2563eb";
+      unlockQuestions();
+    });
+    storyAudio.addEventListener("error",  () => {
+      playBtn.textContent = "⚠️ Audio unavailable";
+      playBtn.disabled    = true;
+    });
+
+    playBtn.addEventListener("click", () => {
+      if (storyAudio.paused) {
+        storyAudio.play().then(() => {
+          playBtn.textContent      = "⏸ Pause";
+          playBtn.style.background = "#dc2626";
+        }).catch(() => {});
+      } else {
+        storyAudio.pause();
+        playBtn.textContent      = "▶ Listen to the story";
+        playBtn.style.background = "#2563eb";
+      }
+    });
+
+    skipBtn.addEventListener("click", unlockQuestions);
+
+    function unlockQuestions() {
+      storyAudio.pause();
+      clearHighlights();
+      audioSection.style.transition = "opacity .35s";
+      audioSection.style.opacity    = "0";
+      setTimeout(() => audioSection.classList.add("hidden"), 360);
+      questionsArea.classList.remove("hidden");
+      questionsArea.style.opacity    = "0";
+      questionsArea.style.transition = "opacity .4s";
+      setTimeout(() => { questionsArea.style.opacity = "1"; }, 50);
+      loadQuestion(0);
+    }
+
+    function updateScoreUI() {
+      scoreOkEl.textContent  = scoreOk;
+      scoreBadEl.textContent = scoreBad;
+    }
+
+    function loadQuestion(i) {
+      qIdx   = i;
+      locked = false;
+      qStatus.textContent = "";
+      qStatus.className   = "q-status";
+
+      btnTrue.disabled  = false;
+      btnFalse.disabled = false;
+      btnTrue.className  = "tf-btn";
+      btnFalse.className = "tf-btn";
+
+      const q = QUESTIONS[qIdx];
+      qCounter.textContent        = `${qIdx + 1} / ${TOTAL}`;
+      qProgressFill.style.width   = Math.round((qIdx / TOTAL) * 100) + "%";
+      questionText.textContent    = q.text;
+    }
+
+    function handleAnswer(value) {
+      if (locked) return;
+      locked = true;
+
+      const correct = QUESTIONS[qIdx].answer;
+      btnTrue.disabled  = true;
+      btnFalse.disabled = true;
+
+      if (value === correct) {
+        (value === true ? btnTrue : btnFalse).classList.add("correct");
+        qStatus.textContent = "✓ Correct!";
+        qStatus.className   = "q-status ok";
+        playOk();
+        scoreOk++;
+      } else {
+        (value === true ? btnTrue : btnFalse).classList.add("wrong");
+        (correct === true ? btnTrue : btnFalse).classList.add("correct");
+        qStatus.textContent = "✗ Not quite.";
+        qStatus.className   = "q-status bad";
+        playBad();
+        scoreBad++;
+      }
+
+      updateScoreUI();
+
+      setTimeout(() => {
+        if (qIdx < TOTAL - 1) {
+          loadQuestion(qIdx + 1);
+        } else {
+          finish();
+        }
+      }, 2000);
+    }
+
+    btnTrue.addEventListener("click",  () => handleAnswer(true));
+    btnFalse.addEventListener("click", () => handleAnswer(false));
+    btnTrue.addEventListener("touchend",  e => { e.preventDefault(); handleAnswer(true); });
+    btnFalse.addEventListener("touchend", e => { e.preventDefault(); handleAnswer(false); });
+
+    function saveProgress() {
+      try {
+        const key  = "inglesco_progress_u3";
+        const data = JSON.parse(localStorage.getItem(key) || "{}");
+        if (!data.l5) data.l5 = {};
+        data.l5.partsCompleted = Math.max(data.l5.partsCompleted || 0, 4);
+        data.l5.partsTotal     = 4;
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function finish() {
+      saveProgress();
+      qProgressFill.style.width = "100%";
+      questionsArea.classList.add("hidden");
+
+      const perfect = scoreOk === TOTAL;
+      endTitle.textContent   = perfect ? "Perfeito!" : "Bom trabalho!";
+      endMsg.textContent     = "Você terminou a Lição 5.";
+      finalOkEl.textContent  = scoreOk;
+      finalBadEl.textContent = scoreBad;
+
+      if (!perfect) {
+        retryBtn.classList.remove("hidden");
+      } else {
+        retryBtn.classList.add("hidden");
+      }
+
+      endScreen.classList.remove("hidden");
+    }
+
+    retryBtn.addEventListener("click", () => {
+      scoreOk  = 0;
+      scoreBad = 0;
+      updateScoreUI();
+      endScreen.classList.add("hidden");
+      questionsArea.classList.remove("hidden");
+      questionsArea.style.opacity = "1";
+      loadQuestion(0);
+    });
+
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!-- u3/l6/p2.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidade 3 • Lição 6 • Parte 2</title>
+  /svg+xml" href="../../../../favicon.svg">
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      margin: 0;
+      color: #111827;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 680px; margin: 0 auto; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 18px;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px;
+    }
+    .step {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px;
+      cursor: pointer;
+      transition: all .25s;
+      color: #374151;
+      text-decoration: none;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,.35); }
+    .step:hover:not(.active) { background: #9ca3af; transform: scale(1.08); }
+
+    .top-title {
+      text-align: center;
+      margin: 0 0 6px;
+      font-size: 19px;
+      font-weight: 900;
+      color: #1e3a5f;
+    }
+    .subline {
+      text-align: center;
+      margin: 0 0 16px;
+    }
+    .subline span {
+      background: rgba(255,255,255,.75);
+      padding: 5px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      display: inline-block;
+    }
+
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
+    }
+
+    .score-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+    .score-item {
+      display: flex; align-items: center; gap: 6px;
+      font-weight: 800; font-size: 15px;
+    }
+    .score-item .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .score-item.correct-score .dot { background: #16a34a; }
+    .score-item.wrong-score   .dot { background: #dc2626; }
+    .score-item.correct-score { color: #15803d; }
+    .score-item.wrong-score   { color: #b91c1c; }
+
+    .ref-panel {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .ref-toggle {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      background: none; border: none;
+      cursor: pointer;
+      font-weight: 900; font-size: 14px;
+      color: #166534;
+      font-family: inherit;
+      text-align: left;
+    }
+    .ref-toggle:hover { background: #dcfce7; }
+    .ref-toggle .arrow { font-size: 12px; transition: transform .25s; }
+    .ref-toggle.open .arrow { transform: rotate(180deg); }
+    .ref-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .ref-body.open { max-height: 420px; }
+    .ref-body-inner { padding: 0 14px 14px; }
+
+    .pron-table {
+      width: 100%; border-collapse: collapse; font-size: 15px;
+    }
+    .pron-table thead th {
+      background: #dcfce7; color: #166534; font-weight: 900;
+      padding: 7px 10px; text-align: center; font-size: 12px;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .pron-table thead th:first-child { border-radius: 10px 0 0 0; }
+    .pron-table thead th:last-child  { border-radius: 0 10px 0 0; }
+    .pron-table tbody tr:nth-child(odd)  { background: #fff; }
+    .pron-table tbody tr:nth-child(even) { background: #f0fdf4; }
+    .pron-table td { padding: 9px 14px; vertical-align: middle; }
+    .pron-table td.col-en { font-weight: 900; color: #7c3aed; font-size: 17px; }
+    .pron-table td.col-es { color: #374151; font-style: italic; font-size: 14px; }
+
+    .round {
+      text-align: center;
+      font-weight: 900; font-size: 14px;
+      margin: 0 0 12px;
+      color: #6b7280;
+    }
+
+    .mistake-dots {
+      display: flex; justify-content: center; gap: 6px;
+      min-height: 18px; margin-bottom: 10px;
+    }
+    .m-dot { width: 10px; height: 10px; border-radius: 50%; background: #fca5a5; }
+    .m-dot.filled { background: #dc2626; }
+
+    .exercise { display: grid; gap: 14px; }
+
+    .img-wrapper {
+      background: #f1f5f9;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .item-img {
+      width: 100%; max-width: 100%;
+      height: 210px;
+      object-fit: contain;
+      display: block;
+      background: #f1f5f9;
+    }
+
+    .play-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; width: 100%;
+      padding: 13px;
+      background: #2563eb; color: #fff;
+      border: none; border-radius: 14px;
+      font-weight: 900; font-size: 16px;
+      cursor: pointer; font-family: inherit;
+      box-shadow: 0 5px 14px rgba(37,99,235,.28);
+      transition: background .2s, transform .1s;
+    }
+    .play-btn:hover  { background: #1e40af; }
+    .play-btn:active { transform: scale(.97); }
+    .play-btn svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+
+    .question-card {
+      background: rgba(255,255,255,.8);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+      text-align: center;
+    }
+    .question-label {
+      font-size: 12px; font-weight: 700; color: #6b7280;
+      text-transform: uppercase; letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+    .question-text {
+      font-size: 18px; font-weight: 900; color: #1e3a5f;
+    }
+
+    .build-block {
+      background: rgba(255,255,255,.8);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    }
+    .build-title {
+      font-size: 13px; font-weight: 900; color: #6b7280;
+      text-align: center; margin-bottom: 10px;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+
+    .sentence-box {
+      min-height: 54px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      align-items: center; justify-content: center;
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #fff;
+      margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    .sentence-box.has-chips { border-color: #93c5fd; }
+
+    .word-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 36px;
+      padding: 6px 14px;
+      border-radius: 10px;
+      background: #eff6ff; border: 2px solid #93c5fd;
+      font-weight: 800; font-size: 15px;
+      white-space: nowrap;
+      color: #1e3a5f;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .word-chip:hover { background: #dbeafe; }
+    .word-chip.correct { background: rgba(22,163,74,.12); border-color: #16a34a; color: #166534; cursor: default; }
+    .word-chip.revealed { background: rgba(245,158,11,.15); border-color: #f59e0b; color: #92400e; cursor: default; }
+
+    .tiles {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    }
+    .tile {
+      border: 0; border-radius: 12px;
+      padding: 11px 18px;
+      font-weight: 900; font-size: 15px;
+      cursor: pointer; font-family: inherit;
+      box-shadow: 0 4px 12px rgba(0,0,0,.11);
+      background: #2563eb; color: #fff;
+      white-space: nowrap;
+      transition: background .15s, transform .1s, opacity .2s;
+    }
+    .tile:hover:not(:disabled) { background: #1e40af; }
+    .tile:active { transform: scale(.96); }
+    .tile:disabled { opacity: .4; cursor: not-allowed; }
+    .tile.correct { background: #16a34a !important; }
+    .tile.wrong   { background: #dc2626 !important; }
+    .tile.revealed { background: #f59e0b !important; }
+
+    .status-line {
+      text-align: center; min-height: 26px;
+      font-weight: 900; font-size: 17px;
+    }
+    .status-line.ok   { color: #16a34a; }
+    .status-line.bad  { color: #dc2626; }
+    .status-line.hint { color: #d97706; }
+
+    .end { text-align: center; padding: 20px 10px 8px; }
+    .end .trophy { font-size: 54px; margin-bottom: 6px; }
+    .end h2 { margin: 8px 0 4px; font-size: 24px; font-weight: 900; color: #1e3a5f; }
+    .end .end-score {
+      display: flex; justify-content: center; gap: 24px;
+      margin: 12px 0 16px;
+    }
+    .end .es-item {
+      display: flex; flex-direction: column; align-items: center;
+      font-weight: 900;
+    }
+    .end .es-num { font-size: 28px; }
+    .end .es-label { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; }
+    .end .es-item.correct-score .es-num { color: #16a34a; }
+    .end .es-item.wrong-score   .es-num { color: #dc2626; }
+    .end p { margin: 6px 0; font-weight: 700; color: #374151; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .step { width: 34px; height: 34px; font-size: 13px; }
+      .top-title { font-size: 17px; }
+      .item-img { height: 175px; }
+      .question-text { font-size: 16px; }
+      .tile { font-size: 13px; padding: 10px 14px; }
+      .word-chip { font-size: 14px; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Voltar para a Lição 6</a>
+
+  <div class="top-title">Unidade 3 · Lição 6 · Parte 2</div>
+  <div class="subline"><span id="instrLine"></span></div>
+
+  <div class="progress-container">
+    <a class="step"        href="p1.html" aria-label="Parte 1">1</a>
+    <a class="step active" href="p2.html" aria-label="Parte 2">2</a>
+    <a class="step"        href="p3.html" aria-label="Parte 3">3</a>
+    <a class="step"        href="p4.html" aria-label="Parte 4">4</a>
+  </div>
+
+  <div class="card">
+
+    <div class="score-bar" id="scoreBar">
+      <div class="score-item correct-score">
+        <div class="dot"></div>
+        <span id="correctCount">0</span> corretas
+      </div>
+      <div class="score-item wrong-score">
+        <div class="dot"></div>
+        <span id="wrongCount">0</span> erros
+      </div>
+    </div>
+
+    <div class="ref-panel" id="refPanel">
+      <button class="ref-toggle" id="refToggle">
+        <span id="refToggleLabel"></span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="ref-body" id="refBody">
+        <div class="ref-body-inner">
+          <table class="pron-table">
+            <thead><tr><th id="refThEn"></th><th id="refThEs"></th></tr></thead>
+            <tbody id="refTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="round" id="roundLabel"></div>
+    <div class="mistake-dots" id="mistakeDots"></div>
+
+    <div class="exercise" id="exerciseBox">
+
+      <div class="img-wrapper">
+        <img class="item-img" id="itemImg" src="" alt="" loading="lazy" />
+      </div>
+
+      <button class="play-btn" id="playBtn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span id="playLabel"></span>
+      </button>
+
+      <div class="question-card">
+        <div class="question-label" id="questionLabel"></div>
+        <div class="question-text"  id="questionText"></div>
+      </div>
+
+      <div class="build-block hidden" id="buildBlock">
+        <div class="build-title" id="buildTitle"></div>
+        <div class="sentence-box" id="sentenceBox"></div>
+        <div class="tiles"        id="tilesContainer"></div>
+      </div>
+
+      <div class="status-line" id="statusLine" aria-live="polite"></div>
+    </div>
+
+    <div class="end hidden" id="endScreen">
+      <div class="trophy">🏆</div>
+      <h2 id="endTitle"></h2>
+      <div class="end-score">
+        <div class="es-item correct-score">
+          <span class="es-num" id="endCorrect">0</span>
+          <span class="es-label">Corretas</span>
+        </div>
+        <div class="es-item wrong-score">
+          <span class="es-num" id="endWrong">0</span>
+          <span class="es-label">Erros</span>
+        </div>
+      </div>
+      <p id="endMsg1"></p>
+      <p id="endMsg2"></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const SB      = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG     = SB + "images/u3/";
+  const AUD     = SB + "audio/u3/";
+  const SFX_OK  = new Audio(SB + "audio/u3/correct.wav");
+  const SFX_BAD = new Audio(SB + "audio/u3/incorrect.wav");
+
+  const PROGRESS_KEY = "inglesco_progress_u3";
+  const LESSON_KEY   = "inglesco_furthest_u3_l6";
+
+  function markPageComplete() {
+    try {
+      const prev = parseInt(localStorage.getItem(LESSON_KEY) || "0", 10);
+      if (2 > prev) localStorage.setItem(LESSON_KEY, "2");
+    } catch(e) {}
+    try {
+      const raw  = localStorage.getItem(PROGRESS_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+      if (!data.l6) data.l6 = { partsCompleted: 0, partsTotal: 4 };
+      if (data.l6.partsCompleted < 2) data.l6.partsCompleted = 2;
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  const $ = id => document.getElementById(id);
+  const refPanel       = $("refPanel");
+  const refToggle      = $("refToggle");
+  const refToggleLabel = $("refToggleLabel");
+  const refBody        = $("refBody");
+  const refThEn        = $("refThEn");
+  const refThEs        = $("refThEs");
+  const refTableBody   = $("refTableBody");
+  const roundLabel     = $("roundLabel");
+  const mistakeDots    = $("mistakeDots");
+  const exerciseBox    = $("exerciseBox");
+  const endScreen      = $("endScreen");
+  const instrLine      = $("instrLine");
+  const scoreBar       = $("scoreBar");
+  const correctCountEl = $("correctCount");
+  const wrongCountEl   = $("wrongCount");
+  const itemImg        = $("itemImg");
+  const playBtn        = $("playBtn");
+  const playLabel      = $("playLabel");
+  const questionLabel  = $("questionLabel");
+  const questionText   = $("questionText");
+  const buildBlock     = $("buildBlock");
+  const buildTitle     = $("buildTitle");
+  const sentenceBox    = $("sentenceBox");
+  const tilesContainer = $("tilesContainer");
+  const statusLine     = $("statusLine");
+  const endTitle       = $("endTitle");
+  const endMsg1        = $("endMsg1");
+  const endMsg2        = $("endMsg2");
+  const endCorrectEl   = $("endCorrect");
+  const endWrongEl     = $("endWrong");
+
+  const MAX_MISTAKES = 2;
+
+  const CONFIG = {
+    instr:         "Ouça e construa a resposta correta.",
+    questionLabel: "Pergunta:",
+    buildTitle:    "Construa a resposta:",
+    refLabel:      "📋 Pronomes possessivos",
+    colEn:         "Inglês",
+    colEs:         "Português",
+    pronRows: [
+      { en: "my",    es: "meu / minha / meus / minhas" },
+      { en: "his",   es: "seu / sua (dele)" },
+      { en: "her",   es: "seu / sua (dela)" },
+      { en: "our",   es: "nosso / nossa / nossos / nossas" },
+      { en: "your",  es: "seu / sua / seus / suas" },
+      { en: "their", es: "seu / sua (deles / delas)" }
+    ],
+    play: "Ouvir",
+    end: {
+      title: "Ótimo trabalho!",
+      msg1:  "Parabéns.",
+      msg2:  "Você terminou a Parte 2."
+    }
+  };
+
+  const ROUNDS = [
+    {
+      image:    "u3.l6.p1.fix.car.jpg",
+      audio:    "u3.l6.p1.fix.car.mp3",
+      question: "What are you doing?",
+      answer:   ["I am",     "fixing",   "my car."],
+      wrong:    ["She is"]
+    },
+    {
+      image:    "u3.l6.p1.woman.fix.car.jpg",
+      audio:    "u3.l6.p1.woman.fix.car.mp3",
+      question: "What is she doing?",
+      answer:   ["She is",   "fixing",   "her car."],
+      wrong:    ["washing"]
+    },
+    {
+      image:    "u3.l6.p1.fix.sink.jpg",
+      audio:    "u3.l6.p1.fix.sink.mp3",
+      question: "What is he doing?",
+      answer:   ["He is",    "fixing",   "his sink."],
+      wrong:    ["cleaning"]
+    },
+    {
+      image:    "u3.l6.p1.woman.clean.apartment.jpg",
+      audio:    "u3.l6.p1.woman.clean.apartment.mp3",
+      question: "What is she doing?",
+      answer:   ["She is",   "cleaning", "her apartment."],
+      wrong:    ["his apartment."]
+    },
+    {
+      image:    "u3.l6.p1.man.clean.window.jpg",
+      audio:    "u3.l6.p1.man.clean.window.mp3",
+      question: "What is he doing?",
+      answer:   ["He is",    "cleaning", "his window."],
+      wrong:    ["washing"]
+    },
+    {
+      image:    "u3.l6.p1.feed.cat.jpg",
+      audio:    "u3.l6.p1.feed.cat.mp3",
+      question: "What are you doing?",
+      answer:   ["I am",     "feeding",  "my cat."],
+      wrong:    ["her cat."]
+    },
+    {
+      image:    "u3.l6.p1.doing.homework.jpg",
+      audio:    "u3.l6.p1.doing.homework.mp3",
+      question: "What are they doing?",
+      answer:   ["They are", "doing",    "their homework."],
+      wrong:    ["our homework."]
+    },
+    {
+      image:    "u3.l6.p1.woman.washing.clothes.jpg",
+      audio:    "u3.l6.p1.woman.washing.clothes.mp3",
+      question: "What is she doing?",
+      answer:   ["She is",   "washing",  "her clothes."],
+      wrong:    ["his clothes."]
+    },
+    {
+      image:    "u3.l6.p1.painting.jpg",
+      audio:    "u3.l6.p1.painting.mp3",
+      question: "What are you doing?",
+      answer:   ["We are",   "painting", "our bedroom."],
+      wrong:    ["their bedroom."]
+    },
+    {
+      image:    "u3.l6.p1.girl.brushing.teeth.jpg",
+      audio:    "u3.l6.p1.girl.brushing.teeth.mp3",
+      question: "What are you doing?",
+      answer:   ["I am",     "brushing", "my teeth."],
+      wrong:    ["her teeth."]
+    },
+    {
+      image:    "u3.l6.p1.man.read.email.jpg",
+      audio:    "u3.l6.p1.man.read.email.mp3",
+      question: "What is he doing?",
+      answer:   ["He is",    "reading",  "his emails."],
+      wrong:    ["her emails."]
+    }
+  ];
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const SHUFFLED = shuffle(ROUNDS);
+  const TOTAL    = SHUFFLED.length;
+  let idx          = 0;
+  let audio        = null;
+  let isLocked     = false;
+  let roundMistakes = 0;
+  let totalCorrect  = 0;
+  let totalWrong    = 0;
+
+  function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
+  function stopAudio() {
+    if (!audio) return;
+    try { audio.pause(); audio.currentTime = 0; } catch(e) {}
+  }
+
+  function playSfx(sfx) {
+    try { sfx.currentTime = 0; sfx.play(); } catch(e) {}
+  }
+
+  function setStatus(type, text) {
+    statusLine.textContent = text;
+    statusLine.className   = "status-line" + (type ? " " + type : "");
+  }
+
+  function updateScoreUI() {
+    correctCountEl.textContent = totalCorrect;
+    wrongCountEl.textContent   = totalWrong;
+  }
+
+  function getChunks(box) {
+    return Array.from(box.children).map(el => el.dataset.chunk);
+  }
+
+  function arraysEqual(a, b) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+
+  function disableTiles() {
+    Array.from(tilesContainer.querySelectorAll(".tile")).forEach(b => { b.disabled = true; });
+  }
+
+  function enableTiles() {
+    Array.from(tilesContainer.querySelectorAll(".tile"))
+      .forEach(b => { b.disabled = false; b.classList.remove("wrong", "correct"); });
+  }
+
+  function renderMistakeDots(count) {
+    mistakeDots.innerHTML = "";
+    for (let i = 0; i < MAX_MISTAKES; i++) {
+      const d = document.createElement("div");
+      d.className = "m-dot" + (i < count ? " filled" : "");
+      mistakeDots.appendChild(d);
+    }
+  }
+
+  function addChip(box, text, isRevealed) {
+    const chip = document.createElement("span");
+    chip.className       = "word-chip" + (isRevealed ? " revealed" : "");
+    chip.textContent     = text;
+    chip.dataset.chunk   = text;
+    box.appendChild(chip);
+    box.classList.add("has-chips");
+  }
+
+  function paintAllCorrect(box) {
+    Array.from(box.children).forEach(el => {
+      el.classList.remove("revealed");
+      el.classList.add("correct");
+    });
+  }
+
+  function revealAnswer(round) {
+    isLocked = true;
+    disableTiles();
+    clear(sentenceBox);
+
+    round.answer.forEach(chunk => addChip(sentenceBox, chunk, true));
+    setStatus("hint", "⚠ Resposta: " + round.answer.join(" "));
+
+    setTimeout(() => {
+      setStatus("", "");
+      isLocked = false;
+      advanceOrFinish();
+    }, 2000);
+  }
+
+  function buildTiles(round) {
+    clear(tilesContainer);
+    clear(sentenceBox);
+    sentenceBox.classList.remove("has-chips");
+    isLocked      = false;
+    roundMistakes = 0;
+    renderMistakeDots(0);
+
+    const allTiles = shuffle([...round.answer, ...round.wrong]);
+
+    allTiles.forEach(chunk => {
+      const isCorrect = round.answer.includes(chunk);
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.type        = "button";
+      btn.textContent = chunk;
+
+      const handler = () => {
+        if (isLocked || btn.disabled) return;
+
+        if (!isCorrect) {
+          roundMistakes++;
+          totalWrong++;
+          updateScoreUI();
+          renderMistakeDots(roundMistakes);
+          btn.classList.add("wrong");
+          playSfx(SFX_BAD);
+          setStatus("bad", "✗");
+          isLocked = true;
+
+          if (roundMistakes >= MAX_MISTAKES) {
+            disableTiles();
+            setTimeout(() => revealAnswer(round), 500);
+          } else {
+            setTimeout(() => {
+              btn.classList.remove("wrong");
+              isLocked = false;
+              setStatus("", "");
+            }, 600);
+          }
+          return;
+        }
+
+        addChip(sentenceBox, chunk, false);
+        btn.disabled = true;
+
+        const current = getChunks(sentenceBox);
+        if (current.length < round.answer.length) return;
+
+        if (arraysEqual(current, round.answer)) {
+          isLocked = true;
+          paintAllCorrect(sentenceBox);
+          totalCorrect++;
+          updateScoreUI();
+          playSfx(SFX_OK);
+          setStatus("ok", "✓");
+          disableTiles();
+          setTimeout(() => {
+            setStatus("", "");
+            isLocked = false;
+            advanceOrFinish();
+          }, 1000);
+        } else {
+          roundMistakes++;
+          totalWrong++;
+          updateScoreUI();
+          renderMistakeDots(roundMistakes);
+          isLocked = true;
+          playSfx(SFX_BAD);
+          setStatus("bad", "✗ Ordem incorreta");
+          disableTiles();
+
+          if (roundMistakes >= MAX_MISTAKES) {
+            setTimeout(() => revealAnswer(round), 600);
+          } else {
+            setTimeout(() => {
+              clear(sentenceBox);
+              sentenceBox.classList.remove("has-chips");
+              enableTiles();
+              setStatus("", "");
+              isLocked = false;
+            }, 700);
+          }
+        }
+      };
+
+      btn.addEventListener("click", handler);
+      btn.addEventListener("touchstart", e => { e.preventDefault(); handler(); }, { passive: false });
+      tilesContainer.appendChild(btn);
+    });
+  }
+
+  function loadRound(i) {
+    idx = i;
+    stopAudio();
+    setStatus("", "");
+    isLocked = false;
+
+    const round = SHUFFLED[idx];
+    roundLabel.textContent    = `${idx + 1} / ${TOTAL}`;
+    itemImg.src               = IMG + round.image;
+    itemImg.alt               = "";
+    questionLabel.textContent = CONFIG.questionLabel;
+    questionText.textContent  = round.question;
+    playLabel.textContent     = CONFIG.play;
+
+    buildBlock.classList.add("hidden");
+    clear(sentenceBox);
+    clear(tilesContainer);
+    renderMistakeDots(0);
+  }
+
+  const handlePlay = () => {
+    stopAudio();
+    const round = SHUFFLED[idx];
+    audio = new Audio(AUD + round.audio);
+
+    const showBuild = () => {
+      if (buildBlock.classList.contains("hidden")) {
+        buildTitle.textContent = CONFIG.buildTitle;
+        buildTiles(round);
+        buildBlock.classList.remove("hidden");
+        buildBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    };
+
+    audio.onended = showBuild;
+    audio.play().catch(showBuild);
+  };
+
+  playBtn.addEventListener("click", handlePlay);
+  playBtn.addEventListener("touchstart", e => { e.preventDefault(); handlePlay(); }, { passive: false });
+
+  function advanceOrFinish() {
+    if (idx < TOTAL - 1) loadRound(idx + 1);
+    else finish();
+  }
+
+  function finish() {
+    stopAudio();
+    markPageComplete();
+    exerciseBox.classList.add("hidden");
+    roundLabel.classList.add("hidden");
+    mistakeDots.classList.add("hidden");
+    refPanel.classList.add("hidden");
+    scoreBar.classList.add("hidden");
+
+    endCorrectEl.textContent = totalCorrect;
+    endWrongEl.textContent   = totalWrong;
+    endTitle.textContent     = CONFIG.end.title;
+    endMsg1.textContent      = CONFIG.end.msg1;
+    endMsg2.textContent      = CONFIG.end.msg2;
+    endScreen.classList.remove("hidden");
+  }
+
+  refToggle.addEventListener("click", () => {
+    const open = refBody.classList.contains("open");
+    refBody.classList.toggle("open", !open);
+    refToggle.classList.toggle("open", !open);
+  });
+
+  function buildRefTable() {
+    refThEn.textContent        = CONFIG.colEn;
+    refThEs.textContent        = CONFIG.colEs;
+    refToggleLabel.textContent = CONFIG.refLabel;
+    CONFIG.pronRows.forEach(row => {
+      const tr = document.createElement("tr");
+      const tdEn = document.createElement("td"); tdEn.className = "col-en"; tdEn.textContent = row.en;
+      const tdEs = document.createElement("td"); tdEs.className = "col-es"; tdEs.textContent = row.es;
+      tr.append(tdEn, tdEs);
+      refTableBody.appendChild(tr);
+    });
+  }
+
+  instrLine.textContent = CONFIG.instr;
+  buildRefTable();
+  loadRound(0);
+})();
+</script>
+</body>
+</html>

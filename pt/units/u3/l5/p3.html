@@ -1,0 +1,667 @@
+<!-- u3/l5/p3.html (Mobile-first, self-contained) -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unidade 3 • Lição 5 • Parte 3</title>
+  /svg+xml" href="../../../../favicon.svg">
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
+      margin: 0;
+      color: #111827;
+      background: linear-gradient(135deg, #dbeafe 0%, #fef9c3 100%);
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 680px; margin: 0 auto; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
+
+    .top-title {
+      text-align: center;
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+    .subline {
+      text-align: center;
+      margin: 0 0 14px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .subline span {
+      background: rgba(255,255,255,.75);
+      padding: 5px 12px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 0 20px;
+    }
+    .step {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .25s;
+      color: #374151;
+      text-decoration: none;
+      user-select: none;
+    }
+    .step.active { background: #2563eb; color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,.4); }
+    .step:hover:not(.active) { transform: scale(1.1); background: #93c5fd; }
+
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
+    }
+
+    .round-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .round-label { font-weight: 900; font-size: 15px; opacity: .8; }
+    .score-badges { display: flex; gap: 8px; }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .badge-ok  { background: #dcfce7; color: #166534; }
+    .badge-bad { background: #fee2e2; color: #991b1b; }
+
+    .exercise { display: grid; gap: 14px; }
+
+    .img-block { text-align: center; }
+    .item-img {
+      width: 100%;
+      max-width: 360px;
+      height: 210px;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.10);
+      display: block;
+      margin: 0 auto;
+      background: #f1f5f9;
+    }
+
+    .block {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+    }
+    .block-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .sentence-box {
+      min-height: 52px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 10px;
+      background: #f8fafc;
+      margin-bottom: 12px;
+    }
+
+    .word-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 6px 12px;
+      border-radius: 9px;
+      background: #eff6ff;
+      border: 2px solid #93c5fd;
+      font-weight: 800;
+      font-size: 15px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .word-chip.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #166534;
+    }
+    .word-chip.revealed {
+      background: #fef9c3;
+      border-color: #ca8a04;
+      color: #713f12;
+    }
+
+    .tiles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .tile {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,.12);
+      background: #2563eb;
+      color: #fff;
+      font-size: 15px;
+      white-space: nowrap;
+      transition: background .15s, transform .1s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tile:hover:not(:disabled) { background: #1d4ed8; box-shadow: 0 6px 14px rgba(37,99,235,.35); }
+    .tile:active:not(:disabled) { transform: scale(.96); }
+    .tile:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+    .tile.correct  { background: #16a34a !important; }
+    .tile.wrong    { background: #dc2626 !important; animation: shake .3s; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-4px); }
+      75%      { transform: translateX(4px); }
+    }
+
+    .status-line {
+      text-align: center;
+      min-height: 26px;
+      font-weight: 800;
+      font-size: 16px;
+      margin-top: 4px;
+    }
+    .status-line.ok   { color: #16a34a; }
+    .status-line.bad  { color: #dc2626; }
+    .status-line.hint { color: #b45309; }
+
+    .end { text-align: center; padding: 20px 10px 8px; }
+    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+    .end h2 { margin: 8px 0; font-size: 26px; font-weight: 900; color: #1e3a5f; }
+    .end p  { margin: 6px 0; font-weight: 700; color: #374151; font-size: 15px; }
+    .end .final-score {
+      display: inline-flex;
+      gap: 16px;
+      margin: 14px 0;
+      background: #f0fdf4;
+      border-radius: 14px;
+      padding: 12px 24px;
+    }
+    .end .score-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .end .score-num  { font-size: 28px; font-weight: 900; }
+    .end .score-lbl  { font-size: 12px; font-weight: 700; color: #6b7280; }
+    .end .score-ok   { color: #16a34a; }
+    .end .score-bad  { color: #dc2626; }
+
+    .next-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 28px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 6px 16px rgba(37,99,235,.35);
+    }
+    .next-btn:hover { background: #1d4ed8; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .step      { width: 32px; height: 32px; font-size: 13px; }
+      .top-title { font-size: 16px; }
+      .item-img  { height: 170px; }
+      .tile      { font-size: 13px; padding: 9px 12px; }
+      .word-chip { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="../index.html" class="back-btn">← Voltar para a Unidade 3</a>
+
+    <div class="top-title">Unidade 3 • Lição 5 • Parte 3</div>
+    <div class="subline"><span id="instrLine"></span></div>
+
+    <div class="progress-container">
+      <a class="step"        href="p1.html" aria-label="Parte 1">1</a>
+      <a class="step"        href="p2.html" aria-label="Parte 2">2</a>
+      <a class="step active" href="p3.html" aria-label="Parte 3">3</a>
+      <a class="step"        href="p4.html" aria-label="Parte 4">4</a>
+    </div>
+
+    <div class="card">
+      <div class="round-row">
+        <div class="round-label" id="roundLabel">1 / 13</div>
+        <div class="score-badges">
+          <div class="badge badge-ok">✓ <span id="scoreOk">0</span></div>
+          <div class="badge badge-bad">✗ <span id="scoreBad">0</span></div>
+        </div>
+      </div>
+
+      <div class="exercise" id="exerciseBox">
+
+        <div class="img-block">
+          <img class="item-img" id="itemImg" src="" alt="" />
+        </div>
+
+        <div class="block" id="s1Block">
+          <div class="block-title" id="s1Title"></div>
+          <div class="sentence-box" id="s1Box"></div>
+          <div class="tiles" id="s1Tiles"></div>
+        </div>
+
+        <div class="block hidden" id="s2Block">
+          <div class="block-title" id="s2Title"></div>
+          <div class="sentence-box" id="s2Box"></div>
+          <div class="tiles" id="s2Tiles"></div>
+        </div>
+
+        <div class="status-line" id="statusLine" aria-live="polite"></div>
+      </div>
+
+      <div class="end hidden" id="endScreen">
+        <div class="trophy">🏆</div>
+        <h2 id="endTitle"></h2>
+        <p  id="endMsg1"></p>
+        <div class="final-score">
+          <div class="score-item">
+            <span class="score-num score-ok"  id="finalOk">0</span>
+            <span class="score-lbl">Corretas</span>
+          </div>
+          <div class="score-item">
+            <span class="score-num score-bad" id="finalBad">0</span>
+            <span class="score-lbl">Erros</span>
+          </div>
+        </div>
+        <a class="next-btn" href="p4.html">Próxima parte →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    "use strict";
+
+    const SUPABASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+    const IMG_BASE = SUPABASE + "images/u3/";
+    const AUD_BASE = SUPABASE + "audio/u3/";
+
+    const sfxCorrect = new Audio(AUD_BASE + "correct.wav");
+    const sfxWrong   = new Audio(AUD_BASE + "incorrect.wav");
+    sfxCorrect.preload = "auto";
+    sfxWrong.preload   = "auto";
+    function playCorrect() { sfxCorrect.currentTime = 0; sfxCorrect.play().catch(() => {}); }
+    function playWrong()   { sfxWrong.currentTime   = 0; sfxWrong.play().catch(() => {}); }
+
+    const roundLabel  = document.getElementById("roundLabel");
+    const exerciseBox = document.getElementById("exerciseBox");
+    const endScreen   = document.getElementById("endScreen");
+    const instrLine   = document.getElementById("instrLine");
+    const itemImg     = document.getElementById("itemImg");
+    const s1Block     = document.getElementById("s1Block");
+    const s1Title     = document.getElementById("s1Title");
+    const s1Box       = document.getElementById("s1Box");
+    const s1Tiles     = document.getElementById("s1Tiles");
+    const s2Block     = document.getElementById("s2Block");
+    const s2Title     = document.getElementById("s2Title");
+    const s2Box       = document.getElementById("s2Box");
+    const s2Tiles     = document.getElementById("s2Tiles");
+    const statusLine  = document.getElementById("statusLine");
+    const scoreOkEl   = document.getElementById("scoreOk");
+    const scoreBadEl  = document.getElementById("scoreBad");
+    const endTitle    = document.getElementById("endTitle");
+    const endMsg1     = document.getElementById("endMsg1");
+    const finalOkEl   = document.getElementById("finalOk");
+    const finalBadEl  = document.getElementById("finalBad");
+
+    const MAX_MISTAKES = 3;
+
+    const CONFIG = {
+      instr:   "Escolha as fichas corretas e construa as frases.",
+      s1Title: "Onde está?",
+      s2Title: "O que está fazendo?",
+      end: { title: "Bom trabalho!", msg1: "Você terminou a parte 3." }
+    };
+
+    const ROUNDS = [
+      {
+        image: "u3.l5.p2.woman.park.jpg",
+        s1: { correct: ["She is", "in the park."],       wrong: ["He is", "in the kitchen."] },
+        s2: { correct: ["She is", "eating lunch."],       wrong: ["drinking coffee.", "sleeping."] }
+      },
+      {
+        image: "u3.l5.p2.man.bathroom.jpg",
+        s1: { correct: ["He is", "in the bathroom."],    wrong: ["She is", "in the bedroom."] },
+        s2: { correct: ["He is", "singing."],             wrong: ["watching TV.", "sleeping."] }
+      },
+      {
+        image: "u3.l5.p2.woman.hospital.jpg",
+        s1: { correct: ["She is", "in the hospital."],   wrong: ["He is", "in the park."] },
+        s2: { correct: ["She is", "watching TV."],        wrong: ["sleeping.", "eating lunch."] }
+      },
+      {
+        image: "u3.l5.p2.man.park.jpg",
+        s1: { correct: ["He is", "in the park."],         wrong: ["She is", "in the yard."] },
+        s2: { correct: ["He is", "listening to music."],  wrong: ["singing.", "playing cards."] }
+      },
+      {
+        image: "u3.l5.p2.baseball.jpg",
+        s1: { correct: ["They are", "in the backyard."], wrong: ["He is", "in the park."] },
+        s2: { correct: ["They are", "playing baseball."], wrong: ["eating dinner.", "playing cards."] }
+      },
+      {
+        image: "u3.l5.p2.man.teacher.jpg",
+        s1: { correct: ["He is", "in the classroom."],   wrong: ["She is", "in the library."] },
+        s2: { correct: ["He is", "teaching mathematics."],wrong: ["studying English.", "singing."] }
+      },
+      {
+        image: "u3.l5.p2.couple.jpg",
+        s1: { correct: ["We are", "in the dining room."],wrong: ["They are", "in the kitchen."] },
+        s2: { correct: ["We are", "eating dinner."],      wrong: ["eating lunch.", "drinking coffee."] }
+      },
+      {
+        image: "u3.l5.p2.cards.jpg",
+        s1: { correct: ["We are", "in the living room."],wrong: ["They are", "in the bedroom."] },
+        s2: { correct: ["We are", "playing cards."],      wrong: ["playing baseball.", "singing."] }
+      },
+      {
+        image: "u3.l5.p2.library.jpg",
+        s1: { correct: ["We are", "in the library."],     wrong: ["She is", "in the classroom."] },
+        s2: { correct: ["We are", "studying English."],   wrong: ["teaching mathematics.", "playing cards."] }
+      },
+      {
+        image: "u3.l5.p2.dog.park.jpg",
+        s1: { correct: ["It is", "in the park."],         wrong: ["He is", "in the yard."] },
+        s2: { correct: ["It is", "playing ball."],         wrong: ["eating fish.", "sleeping."] }
+      },
+      {
+        image: "u3.l5.p2.cat.fish.jpg",
+        s1: { correct: ["It is", "in the yard."],          wrong: ["She is", "in the park."] },
+        s2: { correct: ["It is", "eating fish."],           wrong: ["playing ball.", "sleeping."] }
+      },
+      {
+        image: "u3.l5.p2.man.guitar.jpg",
+        s1: { correct: ["He is", "in the bedroom."],       wrong: ["She is", "in the bathroom."] },
+        s2: { correct: ["He is", "playing the guitar."],   wrong: ["singing.", "watching TV."] }
+      },
+      {
+        image: "u3.l5.p2.woman.coffee.jpg",
+        s1: { correct: ["She is", "in the cafeteria."],    wrong: ["He is", "in the kitchen."] },
+        s2: { correct: ["She is", "drinking coffee."],      wrong: ["eating lunch.", "watching TV."] }
+      }
+    ];
+
+    const TOTAL  = ROUNDS.length;
+    let idx      = 0;
+    let isLocked = false;
+    let scoreOk  = 0;
+    let scoreBad = 0;
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
+    function setStatus(type, text) {
+      statusLine.textContent = text;
+      statusLine.className   = "status-line" + (type ? " " + type : "");
+    }
+
+    function getChunks(box) {
+      return Array.from(box.children).map(el => el.textContent);
+    }
+
+    function arraysEqual(a, b) {
+      return a.length === b.length && a.every((v, i) => v === b[i]);
+    }
+
+    function paintAllCorrect(box) {
+      Array.from(box.children).forEach(el => {
+        el.classList.remove("revealed");
+        el.classList.add("correct");
+      });
+    }
+
+    function addChip(box, text, cls = "word-chip") {
+      const chip = document.createElement("span");
+      chip.className   = cls;
+      chip.textContent = text;
+      box.appendChild(chip);
+    }
+
+    function disableTiles(container) {
+      container.querySelectorAll(".tile").forEach(b => { b.disabled = true; });
+    }
+
+    function enableTiles(container) {
+      container.querySelectorAll(".tile").forEach(b => {
+        b.disabled = false;
+        b.classList.remove("wrong", "correct");
+      });
+    }
+
+    function resetStage(container, box) {
+      clear(box);
+      enableTiles(container);
+      setStatus("", "");
+      isLocked = false;
+    }
+
+    function updateScoreUI() {
+      scoreOkEl.textContent  = scoreOk;
+      scoreBadEl.textContent = scoreBad;
+    }
+
+    function revealAnswer(container, correct, box, onDone) {
+      clear(box);
+      disableTiles(container);
+      correct.forEach(chunk => addChip(box, chunk, "word-chip revealed"));
+      setStatus("hint", "💡 Veja a resposta correta.");
+      isLocked = true;
+      setTimeout(() => {
+        setStatus("", "");
+        isLocked = false;
+        onDone();
+      }, 1800);
+    }
+
+    function buildChunkTiles(container, box, correct, wrong, onCorrect) {
+      clear(container);
+      clear(box);
+      const mistakeRef = { count: 0 };
+      const allChunks  = shuffle([...correct, ...wrong]);
+
+      allChunks.forEach(chunk => {
+        const btn = document.createElement("button");
+        btn.className   = "tile";
+        btn.type        = "button";
+        btn.textContent = chunk;
+        const isCorrect = correct.includes(chunk);
+
+        function handleTap() {
+          if (isLocked || btn.disabled) return;
+
+          if (!isCorrect) {
+            isLocked = true;
+            btn.classList.add("wrong");
+            playWrong();
+            scoreBad++;
+            mistakeRef.count++;
+            updateScoreUI();
+            setStatus("bad", "✗ Isso não está correto.");
+
+            if (mistakeRef.count >= MAX_MISTAKES) {
+              setTimeout(() => revealAnswer(container, correct, box, onCorrect), 700);
+            } else {
+              setTimeout(() => {
+                btn.classList.remove("wrong");
+                setStatus("", "");
+                isLocked = false;
+              }, 600);
+            }
+            return;
+          }
+
+          addChip(box, chunk);
+          btn.disabled = true;
+
+          const current = getChunks(box);
+          if (current.length < correct.length) return;
+
+          isLocked = true;
+          disableTiles(container);
+
+          if (arraysEqual(current, correct)) {
+            paintAllCorrect(box);
+            setStatus("ok", "✓ Correto!");
+            playCorrect();
+            scoreOk++;
+            updateScoreUI();
+            setTimeout(() => {
+              setStatus("", "");
+              isLocked = false;
+              onCorrect();
+            }, 900);
+          } else {
+            setStatus("bad", "✗ Verifique a ordem.");
+            playWrong();
+            scoreBad++;
+            mistakeRef.count++;
+            updateScoreUI();
+
+            if (mistakeRef.count >= MAX_MISTAKES) {
+              setTimeout(() => revealAnswer(container, correct, box, onCorrect), 700);
+            } else {
+              setTimeout(() => resetStage(container, box), 800);
+            }
+          }
+        }
+
+        btn.addEventListener("click", handleTap);
+        btn.addEventListener("touchend", e => { e.preventDefault(); handleTap(); });
+        container.appendChild(btn);
+      });
+    }
+
+    function loadRound(i) {
+      idx      = i;
+      isLocked = false;
+      setStatus("", "");
+
+      const round = ROUNDS[idx];
+      roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
+      itemImg.src = IMG_BASE + round.image;
+      itemImg.alt = "";
+
+      s1Title.textContent = CONFIG.s1Title;
+      s2Title.textContent = CONFIG.s2Title;
+
+      s2Block.classList.add("hidden");
+      s1Block.classList.remove("hidden");
+
+      buildChunkTiles(s1Tiles, s1Box, round.s1.correct, round.s1.wrong, () => {
+        s2Block.classList.remove("hidden");
+        s2Block.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        buildChunkTiles(s2Tiles, s2Box, round.s2.correct, round.s2.wrong, () => {
+          advanceOrFinish();
+        });
+      });
+    }
+
+    function advanceOrFinish() {
+      if (idx < TOTAL - 1) {
+        loadRound(idx + 1);
+      } else {
+        finish();
+      }
+    }
+
+    function saveProgress() {
+      try {
+        const key  = "inglesco_progress_u3";
+        const data = JSON.parse(localStorage.getItem(key) || "{}");
+        if (!data.l5) data.l5 = {};
+        data.l5.partsCompleted = Math.max(data.l5.partsCompleted || 0, 3);
+        data.l5.partsTotal     = data.l5.partsTotal || 4;
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function finish() {
+      saveProgress();
+      exerciseBox.classList.add("hidden");
+      endTitle.textContent   = CONFIG.end.title;
+      endMsg1.textContent    = CONFIG.end.msg1;
+      finalOkEl.textContent  = scoreOk;
+      finalBadEl.textContent = scoreBad;
+      endScreen.classList.remove("hidden");
+    }
+
+    instrLine.textContent = CONFIG.instr;
+    loadRound(0);
+  })();
+  </script>
+</body>
+</html>
