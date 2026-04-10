@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 &bull; Lecci&oacute;n 5 &bull; Parte 3 | Inglesco</title>
+<meta name="description" content="Forma oraciones negativas con there is no / there are no en inglés. Ejercicios interactivos para hispanohablantes.">
+
+<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #fef9c3);
+  min-height: 100vh;
+  padding: 16px 12px 80px;
+  color: #111827;
+}
+
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.back-btn {
+  display: inline-block; margin-bottom: 16px; padding: 7px 14px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  color: #1e40af; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,0.7);
+}
+
+.top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+.subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
+
+.progress-container {
+  display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px;
+}
+.step {
+  width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; text-decoration: none; color: #1f2933;
+}
+.step.active { background: #2563eb; color: #fff; }
+.step.done   { background: #059669; color: #fff; }
+
+.counter-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px; font-size: 13px; font-weight: 700; color: #486581;
+}
+.score-pill {
+  background: rgba(255,255,255,.75); border-radius: 999px;
+  padding: 3px 14px; font-size: 13px; font-weight: 700; color: #374151;
+}
+
+.prompt-card {
+  background: rgba(255,255,255,.9);
+  border-radius: 18px; padding: 16px 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.07);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.prompt-label {
+  font-size: 11px; font-weight: 700; color: #9333ea;
+  letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px;
+}
+.prompt-text {
+  font-size: 16px; font-weight: 700; color: #1e40af; line-height: 1.5;
+}
+
+.card {
+  background: rgba(255,255,255,.9);
+  border-radius: 18px; padding: 18px 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.card-label {
+  font-size: 11px; font-weight: 700; color: #9333ea;
+  letter-spacing: .06em; text-transform: uppercase; margin-bottom: 14px;
+}
+
+.slot-zone {
+  min-height: 56px;
+  border: 2px dashed #bfdbfe;
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center;
+  background: #f8fafc;
+  margin-bottom: 14px;
+  transition: border-color .2s, background .2s;
+}
+.slot-zone.active-zone { border-color: #60a5fa; background: #eff6ff; }
+
+.tile-bank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 16px;
+  min-height: 44px;
+}
+
+.tile {
+  padding: 9px 15px;
+  border-radius: 10px;
+  font-weight: 700; font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  border: 2px solid transparent;
+  transition: transform .1s, background .15s, border-color .15s, color .15s;
+}
+.tile:active { transform: scale(.93); }
+.tile.bank   { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+.tile.placed { background: #fff;    color: #1e3a5f; border-color: #93c5fd; }
+.tile.ok     { background: #d1fae5; color: #065f46; border-color: #6ee7b7; pointer-events: none; }
+.tile.wrong  { background: #fee2e2; color: #991b1b; border-color: #fca5a5; pointer-events: none; }
+
+.feedback {
+  font-size: 13px; font-weight: 700;
+  padding: 10px 14px; border-radius: 10px;
+  margin-bottom: 12px; line-height: 1.5;
+  display: none;
+}
+.feedback.ok    { display: block; background: #d1fae5; color: #065f46; }
+.feedback.wrong { display: block; background: #fff3cd; color: #92400e; }
+
+.btn-check {
+  width: 100%; padding: 13px;
+  background: #059669; color: #fff;
+  border: none; border-radius: 14px;
+  font-weight: 900; font-size: 15px;
+  cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-check:active   { opacity: .85; }
+.btn-check:disabled { opacity: .35; cursor: default; }
+
+.btn-next {
+  width: 100%; padding: 13px;
+  background: #2563eb; color: #fff;
+  border: none; border-radius: 14px;
+  font-weight: 900; font-size: 15px;
+  cursor: pointer; transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 10px; display: none;
+}
+.btn-next:active { opacity: .85; }
+.btn-next.show   { display: block; }
+
+.complete-card { text-align: center; padding: 30px 10px; }
+.complete-card .big-emoji { font-size: 58px; margin-bottom: 12px; }
+.complete-card h2 { font-size: 22px; font-weight: 900; color: #1e3a5f; margin-bottom: 8px; }
+.complete-card p  { font-size: 15px; color: #374151; margin-bottom: 8px; }
+.score-big { font-size: 30px; font-weight: 900; color: #2563eb; margin: 10px 0 20px; }
+.next-lesson-btn {
+  display: inline-block; padding: 13px 30px;
+  background: #059669; color: #fff;
+  border-radius: 14px; font-weight: 900; font-size: 15px;
+  text-decoration: none; -webkit-tap-highlight-color: transparent;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <a href="../index.html" class="back-btn">&larr; Unidad 7</a>
+
+  <div class="top-title">Unidad 7 &bull; Lecci&oacute;n 5 &bull; Parte 3</div>
+  <div class="subline">Forma la oraci&oacute;n negativa &mdash; <em>there is no / there are no</em></div>
+
+  <div class="progress-container">
+    <a class="step done"   href="p1.html">1</a>
+    <a class="step done"   href="p2.html">2</a>
+    <a class="step active" href="p3.html">3</a>
+    <a class="step"        href="p4.html">4</a>
+    <a class="step"        href="p5.html">5</a>
+  </div>
+
+  <div class="counter-row">
+    <span id="counter">Ejercicio 1 de 8</span>
+    <span class="score-pill">&#11088; <span id="scoreTxt">0 / 8</span></span>
+  </div>
+
+  <div class="prompt-card" id="promptCard">
+    <div class="prompt-label">Oración positiva &mdash; transfórmala en negativa</div>
+    <div class="prompt-text" id="promptText"></div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="card-label">Ordena las palabras</div>
+    <div class="slot-zone"  id="slotZone"></div>
+    <div class="tile-bank"  id="tileBank"></div>
+    <div class="feedback"   id="feedback"></div>
+    <button class="btn-check" id="checkBtn" disabled>Comprobar</button>
+    <button class="btn-next"  id="nextBtn"></button>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  var BASE = 'https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/';
+
+  function playSfx(ok) {
+    new Audio(BASE + (ok ? 'sfx/correct.wav' : 'sfx/incorrect.wav')).play().catch(function () {});
+  }
+
+  /* ── DATA ── */
+  var EX = [
+    {
+      prompt: 'There is some milk in the fridge.',
+      target: ['There', 'is', 'no', 'milk', 'in the fridge.']
+    },
+    {
+      prompt: 'There is some cheese in the fridge.',
+      target: ['There', 'is', 'no', 'cheese', 'in the fridge.']
+    },
+    {
+      prompt: 'There is some salad in the supermarket.',
+      target: ['There', 'is', 'no', 'salad', 'in the supermarket.']
+    },
+    {
+      prompt: 'There is some cake on the table.',
+      target: ['There', 'is', 'no', 'cake', 'on the table.']
+    },
+    {
+      prompt: 'There are two apples on the table.',
+      target: ['There', 'are', 'no', 'apples', 'on the table.']
+    },
+    {
+      prompt: 'There are three chairs in the kitchen.',
+      target: ['There', 'are', 'no', 'chairs', 'in the kitchen.']
+    },
+    {
+      prompt: 'There are four eggs for breakfast.',
+      target: ['There', 'are', 'no', 'eggs', 'for breakfast.']
+    },
+    {
+      prompt: 'There is some flour for the cake.',
+      target: ['There', 'is', 'no', 'flour', 'for the cake.']
+    }
+  ];
+
+  var TOTAL   = EX.length;
+  var current = 0;
+  var score   = 0;
+  var placed  = [];
+  var locked  = false;
+
+  /* DOM */
+  var counter    = document.getElementById('counter');
+  var scoreTxt   = document.getElementById('scoreTxt');
+  var promptText = document.getElementById('promptText');
+  var slotZone   = document.getElementById('slotZone');
+  var tileBank   = document.getElementById('tileBank');
+  var feedback   = document.getElementById('feedback');
+  var checkBtn   = document.getElementById('checkBtn');
+  var nextBtn    = document.getElementById('nextBtn');
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function refreshCounter() {
+    counter.textContent  = 'Ejercicio ' + (current + 1) + ' de ' + TOTAL;
+    scoreTxt.textContent = score + ' / ' + TOTAL;
+  }
+
+  function makeTile(word) {
+    var t = document.createElement('div');
+    t.className    = 'tile bank';
+    t.textContent  = word;
+    t.dataset.word = word;
+
+    function tap() {
+      if (locked) return;
+      if (t.classList.contains('bank')) {
+        t.classList.replace('bank', 'placed');
+        slotZone.appendChild(t);
+        placed.push(t);
+        slotZone.classList.add('active-zone');
+        checkBtn.disabled = false;
+      } else {
+        var idx = placed.indexOf(t);
+        if (idx > -1) placed.splice(idx, 1);
+        t.classList.replace('placed', 'bank');
+        tileBank.appendChild(t);
+        if (!placed.length) {
+          slotZone.classList.remove('active-zone');
+          checkBtn.disabled = true;
+        }
+      }
+    }
+
+    t.addEventListener('click', tap);
+    t.addEventListener('touchstart', function () {}, { passive: true });
+    t.addEventListener('touchend', function (e) { e.preventDefault(); tap(); });
+    return t;
+  }
+
+  function render(i) {
+    var ex = EX[i];
+    placed = []; locked = false;
+    refreshCounter();
+
+    promptText.textContent = ex.prompt;
+
+    slotZone.innerHTML = '';
+    slotZone.classList.remove('active-zone');
+
+    tileBank.innerHTML = '';
+    shuffle(ex.target).forEach(function (w) { tileBank.appendChild(makeTile(w)); });
+
+    feedback.className   = 'feedback';
+    feedback.textContent = '';
+
+    checkBtn.disabled      = true;
+    checkBtn.style.display = 'block';
+
+    nextBtn.className   = 'btn-next';
+    nextBtn.textContent = (i === TOTAL - 1) ? 'Finalizar \u2192' : 'Siguiente \u2192';
+  }
+
+  function doCheck() {
+    if (locked || !placed.length) return;
+
+    var target = EX[current].target;
+    var allOk  = placed.length === target.length;
+
+    placed.forEach(function (tile, idx) {
+      if (tile.dataset.word === target[idx]) {
+        tile.classList.add('ok');
+      } else {
+        tile.classList.add('wrong');
+        allOk = false;
+      }
+    });
+
+    if (allOk) {
+      locked = true;
+      playSfx(true);
+      score++;
+      refreshCounter();
+      feedback.className   = 'feedback ok';
+      feedback.textContent = '\u2705 \u00A1Correcto!';
+      checkBtn.style.display = 'none';
+      nextBtn.classList.add('show');
+      setTimeout(function () {
+        nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 150);
+
+    } else {
+      playSfx(false);
+      feedback.className   = 'feedback wrong';
+      feedback.textContent = '\u274C Revisa las palabras en rojo. \u00A1Int\u00E9ntalo de nuevo!';
+      checkBtn.disabled = true;
+
+      setTimeout(function () {
+        placed.slice().forEach(function (tile) {
+          tile.classList.remove('placed', 'ok', 'wrong');
+          tile.classList.add('bank');
+          tileBank.appendChild(tile);
+        });
+        placed = [];
+        slotZone.innerHTML = '';
+        slotZone.classList.remove('active-zone');
+        feedback.className   = 'feedback';
+        feedback.textContent = '';
+        checkBtn.disabled = true;
+      }, 2000);
+    }
+  }
+
+  function doNext() {
+    if (current < TOTAL - 1) {
+      current++;
+      render(current);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      try {
+        var data = JSON.parse(localStorage.getItem('inglesco_progress_u7') || '{}');
+        if (!data.l5) data.l5 = { partsCompleted: 0, partsTotal: 5 };
+        if (data.l5.partsCompleted < 3) data.l5.partsCompleted = 3;
+        localStorage.setItem('inglesco_progress_u7', JSON.stringify(data));
+      } catch (e) {}
+
+      var pct   = Math.round((score / TOTAL) * 100);
+      var emoji = pct === 100 ? '\uD83C\uDFC6' : pct >= 66 ? '\uD83C\uDF89' : '\uD83D\uDCAA';
+
+      document.getElementById('promptCard').style.display = 'none';
+      counter.textContent  = '';
+      scoreTxt.textContent = '';
+
+      document.getElementById('card').innerHTML =
+        '<div class="complete-card">' +
+          '<div class="big-emoji">' + emoji + '</div>' +
+          '<h2>\u00A1Parte completada!</h2>' +
+          '<p>Respuestas correctas:</p>' +
+          '<div class="score-big">' + score + ' / ' + TOTAL + '</div>' +
+          '<p style="margin-bottom:24px">\u00A1Sigue as\u00ED!</p>' +
+          '<a href="p4.html" class="next-lesson-btn">Siguiente parte &rarr;</a>' +
+        '</div>';
+    }
+  }
+
+  checkBtn.addEventListener('click', doCheck);
+  checkBtn.addEventListener('touchstart', function () {}, { passive: true });
+  checkBtn.addEventListener('touchend', function (e) { e.preventDefault(); doCheck(); });
+
+  nextBtn.addEventListener('click', doNext);
+  nextBtn.addEventListener('touchstart', function () {}, { passive: true });
+  nextBtn.addEventListener('touchend', function (e) { e.preventDefault(); doNext(); });
+
+  render(0);
+
+}());
+</script>
+</body>
+</html>

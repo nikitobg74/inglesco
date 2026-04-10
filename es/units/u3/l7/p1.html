@@ -1,70 +1,92 @@
-<!-- u3/l7/p1.html (Mobile-first) -->
+<!-- u3/l7/p1.html (Mobile-first, self-contained) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unidad 3 • Lección 7 • Parte 1</title>
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 16px;
       margin: 0;
       color: #111827;
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
     }
-    .wrap { max-width: 820px; margin: 0 auto; }
 
+    .wrap { max-width: 640px; margin: 0 auto; }
+
+    /* ── Back button ── */
     .back-btn {
       display: inline-block;
-      margin-bottom: 20px;
-      padding: 8px 15px;
+      margin-bottom: 18px;
+      padding: 8px 16px;
       background: #2563eb;
       color: #fff;
       border-radius: 10px;
       text-decoration: none;
       font-weight: 700;
+      font-size: 14px;
     }
     .back-btn:hover { background: #1e40af; }
 
+    /* ── Progress dots ── */
     .progress-container {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 15px 0 25px 0;
+      margin: 0 0 22px 0;
     }
     .step {
-      width: 40px; height: 40px;
+      width: 38px; height: 38px;
       border-radius: 50%;
       background: #d1d5db;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 600; cursor: pointer;
+      font-weight: 700; font-size: 15px;
+      cursor: pointer;
       transition: all .3s;
-      color: #1f2933; text-decoration: none;
+      color: #1f2933;
+      text-decoration: none;
       user-select: none;
     }
     .step.active { background: #2563eb; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
+    /* ── Titles ── */
     .top-title {
-      text-align: center; margin: 0 0 8px 0;
-      font-size: 20px; font-weight: 900;
+      text-align: center;
+      margin: 0 0 6px 0;
+      font-size: 19px; font-weight: 900;
+      color: #1e40af;
     }
     .subline {
-      text-align: center; margin: 0 0 18px 0;
-      font-size: 16px; font-weight: 800;
+      text-align: center;
+      margin: 0 0 16px 0;
+      font-size: 15px; font-weight: 700;
     }
     .subline span {
-      background: rgba(255,255,255,.7);
-      padding: 6px 10px; border-radius: 10px;
+      background: rgba(255,255,255,.75);
+      padding: 6px 12px;
+      border-radius: 10px;
       display: inline-block;
     }
 
+    /* ── Card ── */
     .card {
-      background: rgba(255,255,255,.85);
-      border-radius: 18px; padding: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
     }
 
     /* ── Ref panel ── */
@@ -86,57 +108,93 @@
     .ref-toggle .arrow      { font-size: 12px; transition: transform .25s; display: inline-block; }
     .ref-toggle.open .arrow { transform: rotate(180deg); }
     .ref-body               { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-    .ref-body.open          { max-height: 500px; }
+    .ref-body.open          { max-height: 600px; }
     .ref-body-inner         { padding: 0 14px 14px; }
 
-    .pron-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .pron-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .pron-table thead th {
       background: #dcfce7; color: #166534; font-weight: 900;
-      padding: 7px 10px; text-align: center; font-size: 12px;
-      letter-spacing: .04em; text-transform: uppercase;
+      padding: 7px 10px; text-align: center; font-size: 11px;
+      letter-spacing: .05em; text-transform: uppercase;
     }
     .pron-table thead th:first-child { border-radius: 10px 0 0 0; }
     .pron-table thead th:last-child  { border-radius: 0 10px 0 0; }
     .pron-table tbody tr:nth-child(odd)  { background: #fff; }
     .pron-table tbody tr:nth-child(even) { background: #f0fdf4; }
-    .pron-table td        { padding: 9px 14px; vertical-align: middle; }
-    .pron-table td.col-en { font-weight: 900; color: #7c3aed; font-size: 17px; }
-    .pron-table td.col-es { color: #374151; font-style: italic; font-size: 14px; }
+    .pron-table td        { padding: 8px 12px; vertical-align: middle; }
+    .pron-table td.col-en { font-weight: 900; color: #7c3aed; font-size: 16px; }
+    .pron-table td.col-es { color: #374151; font-style: italic; font-size: 13px; }
 
-    .round { text-align: center; font-weight: 900; margin: 4px 0 14px 0; opacity: .85; }
+    /* ── Round + counter ── */
+    .round-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0 14px 0;
+      font-weight: 900;
+      font-size: 14px;
+      opacity: .85;
+    }
+    .counter {
+      display: flex; gap: 10px;
+    }
+    .counter-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 900; font-size: 13px;
+    }
+    .counter-badge.correct { background: #dcfce7; color: #16a34a; }
+    .counter-badge.wrong   { background: #fee2e2; color: #dc2626; }
 
-    .exercise { max-width: 620px; margin: 0 auto; display: grid; gap: 16px; }
+    /* ── Exercise layout ── */
+    .exercise { max-width: 560px; margin: 0 auto; display: grid; gap: 16px; }
 
     /* ── Image ── */
     .img-block { text-align: center; }
+    .img-wrap {
+      display: inline-block;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f1f5f9;
+      box-shadow: 0 6px 18px rgba(0,0,0,.12);
+      width: 100%;
+      max-width: 340px;
+      margin-bottom: 14px;
+    }
     .item-img {
-      width: 100%; max-width: 340px; height: 220px; object-fit: cover;
-      border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,.12);
-      display: block; margin: 0 auto 14px; background: #e5e7eb;
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      display: block;
     }
 
     /* ── Play button ── */
     .play-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 28px; background: #2563eb; color: #fff; border: none;
-      border-radius: 14px; font-weight: 900; font-size: 17px; cursor: pointer;
-      box-shadow: 0 6px 14px rgba(37,99,235,.30);
+      padding: 12px 26px;
+      background: #2563eb; color: #fff; border: none;
+      border-radius: 14px; font-weight: 900; font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(37,99,235,.28);
       transition: background .2s, transform .1s;
     }
     .play-btn:hover  { background: #1e40af; }
     .play-btn:active { transform: scale(.97); }
-    .play-btn svg    { width: 22px; height: 22px; fill: #fff; }
+    .play-btn svg    { width: 20px; height: 20px; fill: #fff; }
 
     /* ── Build block ── */
     .build-block {
-      background: rgba(255,255,255,.78); border-radius: 16px;
-      padding: 16px 14px; box-shadow: 0 6px 16px rgba(0,0,0,.06);
+      background: rgba(255,255,255,.78);
+      border-radius: 16px;
+      padding: 16px 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.06);
     }
 
-    /* ── Sentence display ── */
+    /* ── Sentence ── */
     .sentence-display {
-      font-size: 19px; font-weight: 800; color: #1e3a5f;
-      text-align: center; line-height: 1.7;
+      font-size: 17px; font-weight: 800; color: #1e3a5f;
+      text-align: center; line-height: 1.8;
       margin-bottom: 16px;
       display: flex; flex-wrap: wrap;
       align-items: center; justify-content: center; gap: 3px;
@@ -144,21 +202,18 @@
 
     .verb-blank {
       display: inline-block;
-      min-width: 90px;
+      min-width: 86px;
       padding: 4px 10px;
       border-bottom: 3px solid #2563eb;
       color: #9ca3af;
       font-weight: 900;
-      font-size: 19px;
+      font-size: 17px;
       text-align: center;
       border-radius: 4px 4px 0 0;
       transition: all .3s;
     }
-    .verb-blank.filled {
-      color: #16a34a;
-      border-bottom-color: #16a34a;
-      background: rgba(22,163,74,.08);
-    }
+    .verb-blank.filled  { color: #16a34a; border-bottom-color: #16a34a; background: rgba(22,163,74,.08); }
+    .verb-blank.shown   { color: #d97706; border-bottom-color: #d97706; background: rgba(217,119,6,.08); }
 
     /* ── Tiles ── */
     .tiles {
@@ -167,40 +222,68 @@
     }
     .tile {
       border: 0; border-radius: 12px;
-      padding: 11px 22px; font-weight: 900;
-      cursor: pointer; box-shadow: 0 6px 14px rgba(0,0,0,.10);
-      background: #2563eb; color: #fff; font-size: 16px;
-      transition: background .15s, transform .1s; white-space: nowrap;
+      padding: 11px 20px; font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0,0,0,.10);
+      background: #2563eb; color: #fff; font-size: 15px;
+      transition: background .15s, transform .1s;
+      white-space: nowrap;
     }
     .tile:hover:not(:disabled) { background: #1e40af; }
     .tile:active               { transform: scale(.97); }
-    .tile:disabled             { opacity: .45; cursor: not-allowed; }
+    .tile:disabled             { opacity: .42; cursor: not-allowed; }
     .tile.correct              { background: #16a34a !important; }
     .tile.wrong                { background: #dc2626 !important; }
+    .tile.shown                { background: #d97706 !important; }
 
     /* ── Status ── */
     .status-line {
-      text-align: center; min-height: 24px;
-      font-weight: 900; font-size: 20px; margin-top: 6px;
+      text-align: center; min-height: 26px;
+      font-weight: 900; font-size: 18px; margin-top: 6px;
     }
-    .status-line.ok  { color: #16a34a; }
-    .status-line.bad { color: #dc2626; }
+    .status-line.ok   { color: #16a34a; }
+    .status-line.bad  { color: #dc2626; }
+    .status-line.hint { color: #d97706; }
 
     .hidden { display: none !important; }
 
     /* ── End screen ── */
-    .end { text-align: center; padding: 16px 10px 4px; }
+    .end { text-align: center; padding: 20px 10px 8px; }
     .end .trophy { font-size: 52px; margin-bottom: 8px; }
-    .end h2 { margin: 8px 0; font-size: 24px; font-weight: 900; }
-    .end p  { margin: 6px 0; font-weight: 800; }
+    .end h2 { margin: 8px 0; font-size: 23px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 700; color: #374151; }
+    .end .score-summary {
+      display: flex; gap: 16px; justify-content: center; margin: 14px 0 4px;
+    }
+    .end .score-box {
+      padding: 10px 20px;
+      border-radius: 14px;
+      font-weight: 900; font-size: 18px;
+    }
+    .end .score-box.correct { background: #dcfce7; color: #16a34a; }
+    .end .score-box.wrong   { background: #fee2e2; color: #dc2626; }
 
-    @media (max-width: 520px) {
-      .step      { width: 34px; height: 34px; font-size: 14px; }
-      .top-title { font-size: 18px; }
-      .item-img  { height: 180px; }
-      .sentence-display { font-size: 16px; }
-      .verb-blank { font-size: 16px; min-width: 76px; }
-      .tile      { font-size: 14px; padding: 10px 16px; }
+    .next-btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 13px 32px;
+      background: #2563eb; color: #fff;
+      border-radius: 14px; text-decoration: none;
+      font-weight: 900; font-size: 16px;
+      box-shadow: 0 6px 14px rgba(37,99,235,.28);
+      transition: background .2s;
+    }
+    .next-btn:hover { background: #1e40af; }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .step      { width: 33px; height: 33px; font-size: 13px; }
+      .top-title { font-size: 17px; }
+      .item-img  { height: 170px; }
+      .sentence-display { font-size: 15px; }
+      .verb-blank { font-size: 15px; min-width: 72px; }
+      .tile      { font-size: 14px; padding: 10px 14px; }
+      .play-btn  { font-size: 15px; padding: 11px 20px; }
     }
   </style>
 </head>
@@ -236,12 +319,21 @@
         </div>
       </div>
 
-      <div class="round" id="roundLabel">1 / 6</div>
+      <!-- Round label + score counter -->
+      <div class="round-row">
+        <span id="roundLabel">1 / 6</span>
+        <div class="counter">
+          <span class="counter-badge correct" id="cntCorrect">✓ 0</span>
+          <span class="counter-badge wrong"   id="cntWrong">✗ 0</span>
+        </div>
+      </div>
 
       <div class="exercise" id="exerciseBox">
 
         <div class="img-block">
-          <img class="item-img" id="itemImg" src="" alt="" />
+          <div class="img-wrap">
+            <img class="item-img" id="itemImg" src="" alt="" />
+          </div>
           <button class="play-btn" id="playBtn">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <span id="playLabel"></span>
@@ -260,13 +352,378 @@
       <div class="end hidden" id="endScreen">
         <div class="trophy">🏆</div>
         <h2 id="endTitle"></h2>
-        <p  id="endMsg1"></p>
-        <p  id="endMsg2"></p>
+        <p id="endMsg1"></p>
+        <div class="score-summary">
+          <div class="score-box correct" id="endCorrect"></div>
+          <div class="score-box wrong"   id="endWrong"></div>
+        </div>
+        <a href="p2.html" class="next-btn">Siguiente →</a>
       </div>
 
     </div>
   </div>
 
-  <script src="../../../../js/u3/u3_l7_p1.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  const UNIT   = 3;
+  const LESSON = 7;
+  const PART   = 1;
+
+  const SUPABASE_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMAGE_BASE    = SUPABASE_BASE + "images/u3/";
+  const AUDIO_BASE    = SUPABASE_BASE + "audio/u3/";
+  const SFX_CORRECT   = SUPABASE_BASE + "sfx/correct.wav";
+  const SFX_WRONG     = SUPABASE_BASE + "sfx/incorrect.wav";
+
+  const MAX_MISTAKES_PER_ROUND = 2; // after this, reveal answer
+
+  // ── DOM refs ──
+  const roundLabel     = document.getElementById("roundLabel");
+  const exerciseBox    = document.getElementById("exerciseBox");
+  const endScreen      = document.getElementById("endScreen");
+  const instrLine      = document.getElementById("instrLine");
+
+  const refToggle      = document.getElementById("refToggle");
+  const refToggleLabel = document.getElementById("refToggleLabel");
+  const refBody        = document.getElementById("refBody");
+  const refThEn        = document.getElementById("refThEn");
+  const refThEs        = document.getElementById("refThEs");
+  const refTableBody   = document.getElementById("refTableBody");
+
+  const itemImg        = document.getElementById("itemImg");
+  const playBtn        = document.getElementById("playBtn");
+  const playLabel      = document.getElementById("playLabel");
+
+  const buildBlock     = document.getElementById("buildBlock");
+  const sentenceDisplay = document.getElementById("sentenceDisplay");
+  const tilesContainer = document.getElementById("tilesContainer");
+
+  const statusLine     = document.getElementById("statusLine");
+  const endTitle       = document.getElementById("endTitle");
+  const endMsg1        = document.getElementById("endMsg1");
+  const endCorrect     = document.getElementById("endCorrect");
+  const endWrong       = document.getElementById("endWrong");
+  const cntCorrect     = document.getElementById("cntCorrect");
+  const cntWrong       = document.getElementById("cntWrong");
+
+  // ── Config ──
+  const CONFIG = {
+    instr:    "Escucha y selecciona el verbo correcto.",
+    refLabel: "📋 Palabras nuevas",
+    colEn:    "English",
+    colEs:    "Español",
+    vocabRows: [
+      { en: "busy",      es: "ocupado / ocupada" },
+      { en: "today",     es: "hoy"               },
+      { en: "apartment", es: "apartamento"       },
+      { en: "cat",       es: "gato"              },
+      { en: "TV",        es: "televisión"        },
+      { en: "bedroom",   es: "habitación"        },
+      { en: "homework",  es: "tarea"             },
+      { en: "clothes",   es: "ropa"              },
+      { en: "cleaning",  es: "limpiando"         },
+      { en: "feeding",   es: "alimentando"       },
+      { en: "fixing",    es: "arreglando"        },
+      { en: "painting",  es: "pintando"          },
+      { en: "doing",     es: "haciendo"          },
+      { en: "washing",   es: "lavando"           }
+    ],
+    play:    "Escuchar",
+    end: {
+      title: "¡Muy bien!",
+      msg1:  "Terminaste la Parte 1.",
+    }
+  };
+
+  // ── Rounds ──
+  const ROUNDS = [
+    {
+      image:    "u3.l7.p1.man.clean.apartment.jpg",
+      audio:    "u3.l7.p1.man.clean.apartment.mp3",
+      template: ["Carlos is busy today. He is ", "{0}", " his apartment."],
+      answer:   "cleaning",
+      wrong:    ["fixing", "washing"]
+    },
+    {
+      image:    "u3.l7.p1.she.feed.cat.jpg",
+      audio:    "u3.l7.p1.she.feed.cat.mp3",
+      template: ["Rosa is busy today. She is ", "{0}", " her cat."],
+      answer:   "feeding",
+      wrong:    ["washing", "painting"]
+    },
+    {
+      image:    "u3.l7.p1.fix.tv.jpg",
+      audio:    "u3.l7.p1.fix.tv.mp3",
+      template: ["We are busy today. We are ", "{0}", " our TV."],
+      answer:   "fixing",
+      wrong:    ["cleaning", "doing"]
+    },
+    {
+      image:    "u3.l7.p1.painting.bedroom.jpg",
+      audio:    "u3.l7.p1.painting.bedroom.mp3",
+      template: ["Pedro and Ana are busy today. They are ", "{0}", " their bedroom."],
+      answer:   "painting",
+      wrong:    ["fixing", "cleaning"]
+    },
+    {
+      image:    "u3.l7.p1.do.his.homework.jpg",
+      audio:    "u3.l7.p1.do.his.homework.mp3",
+      template: ["Tim is busy today. He is ", "{0}", " his homework."],
+      answer:   "doing",
+      wrong:    ["washing", "fixing"]
+    },
+    {
+      image:    "u3.l7.p1.she.wash.clothes.jpg",
+      audio:    "u3.l7.p1.she.wash.clothes.mp3",
+      template: ["Tracy is busy today. She is ", "{0}", " her clothes."],
+      answer:   "washing",
+      wrong:    ["feeding", "painting"]
+    }
+  ];
+
+  // ── Shuffle ──
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const SHUFFLED = shuffle(ROUNDS);
+  const TOTAL    = SHUFFLED.length;
+  let idx        = 0;
+  let audioObj   = null;
+  let isLocked   = false;
+  let mistakesThisRound = 0;
+  let scoreCorrect = 0;
+  let scoreWrong   = 0;
+
+  // ── SFX ──
+  function playSfx(url) {
+    new Audio(url).play().catch(() => {});
+  }
+
+  // ── Counter UI ──
+  function updateCounter() {
+    cntCorrect.textContent = `✓ ${scoreCorrect}`;
+    cntWrong.textContent   = `✗ ${scoreWrong}`;
+  }
+
+  // ── Status ──
+  function setStatus(type, text) {
+    statusLine.textContent = text;
+    statusLine.className   = "status-line" + (type ? ` ${type}` : "");
+  }
+
+  // ── Audio stop ──
+  function stopAudio() {
+    if (!audioObj) return;
+    try { audioObj.pause(); audioObj.currentTime = 0; } catch (e) {}
+  }
+
+  // ── Build sentence + tiles ──
+  function buildExercise(round) {
+    mistakesThisRound = 0;
+
+    // sentence display
+    sentenceDisplay.innerHTML = "";
+    round.template.forEach(part => {
+      if (part === "{0}") {
+        const blank = document.createElement("span");
+        blank.className  = "verb-blank";
+        blank.id         = "verbBlank";
+        blank.textContent = "___";
+        sentenceDisplay.appendChild(blank);
+      } else {
+        const span = document.createElement("span");
+        span.textContent = part;
+        sentenceDisplay.appendChild(span);
+      }
+    });
+
+    // tiles
+    tilesContainer.innerHTML = "";
+    isLocked = false;
+
+    const allTiles = shuffle([round.answer, ...round.wrong]);
+    allTiles.forEach(word => {
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.type        = "button";
+      btn.textContent = word;
+
+      btn.addEventListener("click", () => {
+        if (isLocked || btn.disabled) return;
+        handleTileClick(btn, word, round);
+      });
+
+      tilesContainer.appendChild(btn);
+    });
+  }
+
+  function handleTileClick(btn, word, round) {
+    if (word === round.answer) {
+      // Correct
+      isLocked = true;
+      btn.classList.add("correct");
+      playSfx(SFX_CORRECT);
+      scoreCorrect++;
+      updateCounter();
+      const blank = document.getElementById("verbBlank");
+      if (blank) { blank.textContent = word; blank.classList.add("filled"); }
+      setStatus("ok", "✓ ¡Correcto!");
+      tilesContainer.querySelectorAll(".tile").forEach(b => { b.disabled = true; });
+      setTimeout(() => {
+        setStatus("", "");
+        isLocked = false;
+        advanceOrFinish();
+      }, 900);
+    } else {
+      // Wrong
+      btn.classList.add("wrong");
+      playSfx(SFX_WRONG);
+      mistakesThisRound++;
+      scoreWrong++;
+      updateCounter();
+
+      if (mistakesThisRound >= MAX_MISTAKES_PER_ROUND) {
+        // Reveal answer
+        isLocked = true;
+        setStatus("hint", `La respuesta correcta es: "${round.answer}"`);
+        const blank = document.getElementById("verbBlank");
+        if (blank) { blank.textContent = round.answer; blank.classList.add("shown"); }
+        // Highlight correct tile amber
+        tilesContainer.querySelectorAll(".tile").forEach(b => {
+          b.disabled = true;
+          if (b.textContent === round.answer) b.classList.add("shown");
+        });
+        setTimeout(() => {
+          setStatus("", "");
+          isLocked = false;
+          advanceOrFinish();
+        }, 1800);
+      } else {
+        setStatus("bad", "✗ Intenta de nuevo.");
+        isLocked = true;
+        setTimeout(() => {
+          btn.classList.remove("wrong");
+          btn.disabled = true;
+          setStatus("", "");
+          isLocked = false;
+        }, 600);
+      }
+    }
+  }
+
+  // ── Load round ──
+  function loadRound(i) {
+    idx = i;
+    stopAudio();
+    setStatus("", "");
+    isLocked = false;
+    mistakesThisRound = 0;
+
+    const round = SHUFFLED[idx];
+    roundLabel.textContent = `${idx + 1} / ${TOTAL}`;
+    itemImg.src = IMAGE_BASE + round.image;
+    itemImg.alt = "";
+    playLabel.textContent = CONFIG.play;
+
+    buildBlock.classList.add("hidden");
+    sentenceDisplay.innerHTML = "";
+    tilesContainer.innerHTML  = "";
+  }
+
+  // ── Play button ──
+  playBtn.addEventListener("click", () => {
+    stopAudio();
+    const round = SHUFFLED[idx];
+    audioObj = new Audio(AUDIO_BASE + round.audio);
+
+    const showBuild = () => {
+      if (buildBlock.classList.contains("hidden")) {
+        buildExercise(round);
+        buildBlock.classList.remove("hidden");
+        buildBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    };
+
+    audioObj.onended = showBuild;
+    audioObj.play().catch(showBuild);
+  });
+
+  function advanceOrFinish() {
+    if (idx < TOTAL - 1) {
+      loadRound(idx + 1);
+    } else {
+      finish();
+    }
+  }
+
+  // ── Finish + progress tracking ──
+  function finish() {
+    stopAudio();
+    exerciseBox.classList.add("hidden");
+    roundLabel.closest ? null : null;
+
+    // Mark part complete in localStorage
+    try {
+      const KEY = `inglesco_progress_u${UNIT}`;
+      const data = JSON.parse(localStorage.getItem(KEY) || "{}");
+      const lk   = `l${LESSON}`;
+      if (!data[lk]) data[lk] = { partsCompleted: 0, partsTotal: 4 };
+      if (data[lk].partsCompleted < PART) data[lk].partsCompleted = PART;
+      localStorage.setItem(KEY, JSON.stringify(data));
+
+      // Furthest progress
+      const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const cur  = parseInt(localStorage.getItem(fkey) || "0", 10);
+      if (PART > cur) localStorage.setItem(fkey, String(PART));
+    } catch (e) {}
+
+    endTitle.textContent   = CONFIG.end.title;
+    endMsg1.textContent    = CONFIG.end.msg1;
+    endCorrect.textContent = `✓ ${scoreCorrect}`;
+    endWrong.textContent   = `✗ ${scoreWrong}`;
+    endScreen.classList.remove("hidden");
+  }
+
+  // ── Ref panel toggle ──
+  refToggle.addEventListener("click", () => {
+    const isOpen = refBody.classList.contains("open");
+    refBody.classList.toggle("open", !isOpen);
+    refToggle.classList.toggle("open", !isOpen);
+  });
+
+  // ── Build vocab table ──
+  function buildRefTable() {
+    refThEn.textContent        = CONFIG.colEn;
+    refThEs.textContent        = CONFIG.colEs;
+    refToggleLabel.textContent = CONFIG.refLabel;
+    CONFIG.vocabRows.forEach(row => {
+      const tr   = document.createElement("tr");
+      const tdEn = document.createElement("td");
+      const tdEs = document.createElement("td");
+      tdEn.className   = "col-en";
+      tdEs.className   = "col-es";
+      tdEn.textContent = row.en;
+      tdEs.textContent = row.es;
+      tr.appendChild(tdEn);
+      tr.appendChild(tdEs);
+      refTableBody.appendChild(tr);
+    });
+  }
+
+  // ── Init ──
+  instrLine.textContent = CONFIG.instr;
+  buildRefTable();
+  updateCounter();
+  loadRound(0);
+})();
+</script>
 </body>
 </html>
