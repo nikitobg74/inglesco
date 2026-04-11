@@ -5,20 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unidad 4 • Lección 2 • Parte 3</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
     body {
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
       min-height: 100vh;
-      padding: 16px 12px 60px;
+      padding: 16px 12px 80px;
       color: #111827;
     }
 
     .wrap { max-width: 700px; margin: 0 auto; }
 
-    /* ── Back button ── */
     .back-btn {
       display: inline-block; margin-bottom: 16px;
       padding: 7px 14px; background: #2563eb; color: white;
@@ -27,20 +32,19 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    /* ── Page title ── */
     .top-title {
       text-align: center; font-size: 18px; font-weight: 900;
-      margin-bottom: 4px;
+      margin-bottom: 4px; color: #1e40af;
     }
     .subline {
       text-align: center; font-size: 14px; font-weight: 700;
       margin-bottom: 16px; color: #374151;
     }
 
-    /* ── Progress steps ── */
+    /* ── Progress dots ── */
     .progress-container {
       display: flex; justify-content: center;
-      gap: 10px; margin: 12px 0 20px 0;
+      gap: 10px; margin: 12px 0 20px;
     }
     .step {
       width: 38px; height: 38px; border-radius: 50%;
@@ -51,12 +55,13 @@
       font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
+    .step.done   { background: #16a34a; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
     /* ── Card ── */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px; padding: 16px;
+      border-radius: 18px; padding: 16px 14px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
@@ -68,14 +73,12 @@
       margin-bottom: 16px;
     }
 
-    /* ── Counter & bar ── */
     .counter-row {
       display: flex; justify-content: center;
       margin-bottom: 8px;
     }
-    .counter {
-      font-size: 13px; font-weight: 700; color: #486581;
-    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+
     .bar-wrap {
       background: #e2e8f0; border-radius: 999px;
       height: 7px; margin-bottom: 16px; overflow: hidden;
@@ -87,15 +90,14 @@
 
     /* ── Image ── */
     .img-wrap {
-      width: 100%;
-      border-radius: 14px; overflow: hidden;
-      background: #e2e8f0; margin-bottom: 14px;
+      width: 100%; border-radius: 14px; overflow: hidden;
+      background: #f1f5f9; margin-bottom: 14px;
       display: flex; align-items: center; justify-content: center;
-      padding: 8px;
+      padding: 10px; min-height: 160px;
     }
     .img-wrap img {
       max-width: 100%;
-      max-height: 160px;
+      max-height: 200px;
       width: auto; height: auto;
       object-fit: contain;
       display: block;
@@ -103,10 +105,11 @@
       transition: opacity 0.4s ease;
     }
     @media (max-width: 400px) {
-      .img-wrap img { max-height: 130px; }
+      .img-wrap { min-height: 130px; }
+      .img-wrap img { max-height: 150px; }
     }
 
-    /* ── Text labels ── */
+    /* ── Labels ── */
     .label-en {
       text-align: center; font-size: 20px; font-weight: 900;
       color: #1e293b; margin-bottom: 4px;
@@ -115,6 +118,19 @@
       text-align: center; font-size: 15px; font-weight: 600;
       color: #64748b; margin-bottom: 18px;
     }
+    @media (max-width: 400px) {
+      .label-en { font-size: 17px; }
+      .label-es { font-size: 13px; }
+    }
+
+    /* ── Repeat badge ── */
+    .repeat-badge {
+      text-align: center; font-size: 12px; font-weight: 700;
+      color: #0891b2; background: #e0f2fe; border-radius: 8px;
+      padding: 5px 12px; margin-bottom: 14px;
+      display: none;
+    }
+    .repeat-badge.show { display: block; }
 
     /* ── Audio area ── */
     .audio-area {
@@ -133,10 +149,7 @@
     .play-btn:active  { transform: scale(0.96); }
     .play-btn.playing { background: #7c3aed; }
     .play-btn.replay  { background: #0891b2; }
-    .play-label {
-      font-size: 12px; font-weight: 600; color: #486581;
-      text-align: center;
-    }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; text-align: center; }
 
     /* ── Next button ── */
     .next-btn {
@@ -162,7 +175,7 @@
     .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
     .finish-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 28px; background: #16a34a; color: #fff;
+      padding: 13px 28px; background: #16a34a; color: #fff;
       border: none; border-radius: 14px; font-weight: 900;
       font-size: 16px; cursor: pointer;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
@@ -178,12 +191,12 @@
 
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 2 • Parte 3</div>
+  <div class="top-title">Unidad 4 · Lección 2 · Parte 3</div>
   <div class="subline">Escucha y repite — Listen and repeat</div>
 
   <div class="progress-container">
-    <a class="step" href="p1.html">1</a>
-    <a class="step" href="p2.html">2</a>
+    <a class="step done" href="p1.html">1</a>
+    <a class="step done" href="p2.html">2</a>
     <a class="step active" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
@@ -192,7 +205,6 @@
   <div class="card">
 
     <div id="slideArea">
-
       <div class="ex-header">Listen and repeat</div>
 
       <div class="counter-row">
@@ -209,28 +221,195 @@
       <div class="label-en" id="enText"></div>
       <div class="label-es" id="esText"></div>
 
+      <div class="repeat-badge" id="repeatBadge">🔁 Toca para repetir la pronunciación</div>
+
       <div class="audio-area">
         <button class="play-btn" id="playBtn" aria-label="Reproducir audio">▶</button>
         <span class="play-label" id="playLabel">Toca para escuchar</span>
       </div>
 
-      <button class="next-btn" id="nextBtn" disabled>
-        Siguiente →
-      </button>
-
+      <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
     </div>
 
-    <!-- End screen -->
     <div class="end" id="endScreen">
       <div class="trophy">🏆</div>
       <h2>¡Excelente!</h2>
-      <p>You listened to all 8 words.</p>
+      <p>Escuchaste las 8 palabras. ¡Buen trabajo!</p>
       <a href="p4.html" class="finish-btn">Continuar → Parte 4</a>
     </div>
 
   </div>
 </div>
 
-<script src="../../../../js/u4/u4_l2_p3.js"></script>
+<script>
+(() => {
+  const UNIT   = 4;
+  const LESSON = 2;
+  const PART   = 3;
+  const BASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG    = BASE + "images/u4/";
+  const AUD    = BASE + "audio/u4/";
+
+  // All assets verified in Supabase
+  const SLIDES = [
+    { image: IMG + "u4.l2.p1.big.house.jpg",        audio: AUD + "u4.l2.p3.big.house.mp3",       en: "big house",       es: "casa grande" },
+    { image: IMG + "u4.l2.p1.small.house.jpg",       audio: AUD + "u4.l2.p3.small.house.mp3",     en: "small house",     es: "casa pequeña" },
+    { image: IMG + "u4.l2.p1.expensive.watch.jpg",   audio: AUD + "u4.l2.p3.expensive.watch.mp3", en: "expensive watch", es: "reloj caro" },
+    { image: IMG + "u4.l2.p1.cheap.watch.jpg",       audio: AUD + "u4.l2.p3.cheap.watch.mp3",     en: "cheap watch",     es: "reloj barato" },
+    { image: IMG + "u4.l2.p1.fast.car.jpg",          audio: AUD + "u4.l2.p3.fast.car.mp3",        en: "fast car",        es: "carro rápido" },
+    { image: IMG + "u4.l2.p1.cheap.car.jpg",         audio: AUD + "u4.l2.p3.slow.car.mp3",        en: "slow car",        es: "carro lento" },
+    { image: IMG + "u4.l2.p3.modern.phone.jpg",      audio: AUD + "u4.l2.p3.modern.phone.mp3",    en: "modern phone",    es: "teléfono moderno" },
+    { image: IMG + "u4.l2.p3.old.phone.jpg",         audio: AUD + "u4.l2.p3.old.phone.mp3",       en: "old phone",       es: "teléfono viejo" },
+  ];
+
+  const TOTAL = SLIDES.length;
+
+  let current     = 0;
+  let audioPlayed = false;
+  let isPlaying   = false;
+  let playPromise = null;
+  let audio       = new Audio();
+
+  const slideImg    = document.getElementById("slideImg");
+  const enText      = document.getElementById("enText");
+  const esText      = document.getElementById("esText");
+  const playBtn     = document.getElementById("playBtn");
+  const playLabel   = document.getElementById("playLabel");
+  const nextBtn     = document.getElementById("nextBtn");
+  const counterEl   = document.getElementById("counter");
+  const progressBar = document.getElementById("progressBar");
+  const endScreen   = document.getElementById("endScreen");
+  const slideArea   = document.getElementById("slideArea");
+  const repeatBadge = document.getElementById("repeatBadge");
+
+  function loadSlide(idx) {
+    const s = SLIDES[idx];
+    audioPlayed = false;
+    isPlaying   = false;
+
+    slideImg.style.opacity = "0";
+    slideImg.src = s.image;
+    slideImg.onload = () => { slideImg.style.opacity = "1"; };
+
+    enText.textContent = s.en;
+    esText.textContent = s.es;
+    counterEl.textContent   = `${idx + 1} / ${TOTAL}`;
+    progressBar.style.width = ((idx + 1) / TOTAL * 100) + "%";
+
+    setPlayIdle();
+    repeatBadge.classList.remove("show");
+    nextBtn.disabled = true;
+    nextBtn.classList.remove("ready");
+
+    audio.pause();
+    audio = new Audio(s.audio);
+    audio.preload = "auto";
+
+    audio.addEventListener("ended", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      setPlayReady();
+      repeatBadge.classList.add("show");
+      nextBtn.disabled = false;
+      nextBtn.classList.add("ready");
+    });
+
+    audio.addEventListener("error", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      playLabel.textContent = "Audio no disponible";
+      playBtn.classList.remove("playing");
+      playBtn.textContent = "▶";
+      nextBtn.disabled = false;
+      nextBtn.classList.add("ready");
+    });
+  }
+
+  function setPlayIdle() {
+    playBtn.textContent = "▶";
+    playBtn.classList.remove("playing","replay");
+    playLabel.textContent = "Toca para escuchar";
+  }
+
+  function setPlayReady() {
+    playBtn.textContent = "🔁";
+    playBtn.classList.remove("playing");
+    playBtn.classList.add("replay");
+    playLabel.textContent = "Toca para repetir";
+  }
+
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      if (playPromise) {
+        playPromise.then(() => audio.pause()).catch(() => {});
+        playPromise = null;
+      } else {
+        audio.pause();
+      }
+      isPlaying = false;
+      playBtn.textContent = audioPlayed ? "🔁" : "▶";
+      playBtn.classList.remove("playing");
+      playLabel.textContent = "Toca ▶ para continuar";
+      return;
+    }
+
+    if (audioPlayed) audio.currentTime = 0;
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+    playBtn.classList.add("playing");
+    playBtn.classList.remove("replay");
+    playLabel.textContent = "Escuchando...";
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise.then(() => { playPromise = null; }).catch(err => {
+        if (err.name !== "AbortError") {
+          isPlaying = false;
+          playBtn.classList.remove("playing");
+          playBtn.textContent   = "▶";
+          playLabel.textContent = "No se pudo reproducir.";
+        }
+        playPromise = null;
+      });
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (nextBtn.disabled) return;
+    audio.pause();
+    isPlaying = false;
+    current++;
+    if (current >= TOTAL) showEnd();
+    else loadSlide(current);
+  });
+
+  function showEnd() {
+    slideArea.style.display = "none";
+    endScreen.classList.add("show");
+
+    try {
+      const key  = `inglesco_progress_u${UNIT}`;
+      const raw  = localStorage.getItem(key);
+      const prog = raw ? JSON.parse(raw) : {};
+      const lKey = `l${LESSON}`;
+      if (!prog[lKey]) prog[lKey] = { partsCompleted: 0, partsTotal: 5 };
+      if (prog[lKey].partsCompleted < PART) prog[lKey].partsCompleted = PART;
+      prog[lKey].partsTotal = 5;
+      localStorage.setItem(key, JSON.stringify(prog));
+
+      const fKey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(fKey) || "0", 10);
+      if (PART > prev) localStorage.setItem(fKey, String(PART));
+    } catch(e) {}
+  }
+
+  loadSlide(0);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+  }
+})();
+</script>
+
 </body>
 </html>

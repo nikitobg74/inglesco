@@ -1,52 +1,58 @@
+<!-- u4/l1/p3.html (Mobile-first, self-contained) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unidad 4 • Lección 1 • Parte 3</title>
-  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    * { box-sizing: border-box; }
 
     body {
+      font-family: 'Poppins', Arial, sans-serif;
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
       min-height: 100vh;
-      padding: 20px 16px 60px;
+      padding: 16px 16px 60px;
       color: #111827;
+      margin: 0;
     }
 
-    .wrap { max-width: 820px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
+    /* ── Back button ── */
     .back-btn {
       display: inline-block;
-      margin-bottom: 20px;
-      padding: 8px 15px;
+      margin-bottom: 18px;
+      padding: 8px 16px;
       background: #2563eb;
-      color: white;
+      color: #fff;
       border-radius: 10px;
       text-decoration: none;
       font-weight: 700;
+      font-size: 14px;
     }
     .back-btn:hover { background: #1e40af; }
 
+    /* ── Progress dots ── */
     .progress-container {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 15px 0 25px 0;
+      margin: 0 0 22px 0;
     }
-
     .step {
-      width: 40px;
-      height: 40px;
+      width: 38px; height: 38px;
       border-radius: 50%;
       background: #d1d5db;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px;
       cursor: pointer;
       transition: all .3s;
       color: #1f2933;
@@ -54,133 +60,144 @@
       user-select: none;
     }
     .step.active { background: #2563eb; color: #fff; }
-    .step:hover { transform: scale(1.1); }
+    .step:hover  { transform: scale(1.1); }
 
+    /* ── Titles ── */
     .top-title {
       text-align: center;
-      margin: 0 0 8px 0;
-      font-size: 20px;
-      font-weight: 900;
+      margin: 0 0 6px 0;
+      font-size: 19px; font-weight: 900;
+      color: #1e40af;
     }
-
     .subline {
       text-align: center;
-      margin: 0 0 18px 0;
-      font-size: 16px;
-      font-weight: 800;
+      margin: 0 0 16px 0;
+      font-size: 15px; font-weight: 700;
     }
-
     .subline span {
-      background: rgba(255,255,255,.7);
-      padding: 6px 10px;
+      background: rgba(255,255,255,.75);
+      padding: 6px 12px;
       border-radius: 10px;
       display: inline-block;
     }
 
+    /* ── Card ── */
     .card {
-      background: rgba(255,255,255,.85);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.88);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.09);
     }
 
+    /* ── Exercise header ── */
     .ex-header {
       text-align: center;
       background: #2563eb;
-      color: white;
-      border-radius: 16px;
+      color: #fff;
+      border-radius: 14px;
       padding: 10px 20px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: .04em;
       text-transform: uppercase;
-      margin-bottom: 20px;
-      box-shadow: 0 6px 20px rgba(37,99,235,0.25);
+      margin-bottom: 16px;
+      box-shadow: 0 6px 18px rgba(37,99,235,.22);
     }
 
+    /* ── New words ── */
     .new-words {
       background: #eff6ff;
       border: 2px solid #bfdbfe;
       border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
     }
-
     .new-words h3 {
       color: #1e40af;
-      font-size: 15px;
+      font-size: 14px;
+      font-weight: 800;
       margin-bottom: 10px;
       text-align: center;
     }
-
     .new-word-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
     }
-
     .new-word-chip {
-      background: white;
+      background: #fff;
       border: 2px solid #93c5fd;
       color: #1e40af;
-      padding: 7px 14px;
+      padding: 6px 14px;
       border-radius: 999px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
     }
 
+    /* ── Model box ── */
     .model-box {
       background: #fffbeb;
       border: 2px solid #fde68a;
       border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 18px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
     }
-
     .model-title {
       text-align: center;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 800;
       color: #92400e;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
     }
-
     .model-line {
       text-align: center;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: #1f2937;
-      margin: 6px 0;
+      margin: 4px 0;
     }
 
     .mini-note {
       text-align: center;
-      margin: 0 0 16px 0;
-      font-size: 15px;
+      margin: 0 0 14px 0;
+      font-size: 14px;
       font-weight: 700;
       color: #334155;
     }
 
-    .score-bar {
+    /* ── Score + counter row ── */
+    .score-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: #486581;
+      font-size: 13px;
       font-weight: 700;
+      color: #486581;
       margin-bottom: 14px;
       flex-wrap: wrap;
+      gap: 8px;
     }
+    .counter { display: flex; gap: 10px; }
+    .counter-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 900; font-size: 13px;
+    }
+    .counter-badge.correct { background: #dcfce7; color: #16a34a; }
+    .counter-badge.wrong   { background: #fee2e2; color: #dc2626; }
 
+    /* ── Exercise card ── */
     .exercise-card {
-      max-width: 680px;
+      max-width: 580px;
       margin: 0 auto;
-      background: white;
+      background: #fff;
       border-radius: 16px;
-      padding: 18px 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      padding: 18px 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
     }
 
     .prompt {
@@ -188,72 +205,64 @@
       font-size: 20px;
       font-weight: 900;
       color: #1e3a8a;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-
     .details {
       text-align: center;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: #334155;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
+    /* ── Answer block ── */
     .answer-block {
       background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-radius: 14px;
-      padding: 14px 12px;
-      margin-bottom: 14px;
+      padding: 12px 10px;
+      margin-bottom: 12px;
+      transition: opacity .25s;
     }
-
     .answer-label {
       text-align: center;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 800;
       color: #475569;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: .04em;
     }
-
     .sentence-display {
       text-align: center;
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 700;
       color: #1f2937;
       line-height: 1.6;
-      min-height: 38px;
+      min-height: 36px;
     }
 
+    /* ── Blank ── */
     .blank {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 120px;
-      min-height: 42px;
+      min-width: 110px;
+      min-height: 40px;
       padding: 4px 10px;
       border-bottom: 3px solid #93c5fd;
       border-radius: 6px;
-      background: white;
+      background: #fff;
       color: #1e40af;
       font-weight: 800;
-      transition: all 0.25s ease;
+      font-size: 16px;
+      transition: all .25s ease;
     }
+    .blank.correct { background: #dcfce7; border-bottom-color: #16a34a; color: #15803d; }
+    .blank.wrong   { background: #fee2e2; border-bottom-color: #dc2626; color: #dc2626; animation: shake .35s ease; }
+    .blank.shown   { background: rgba(217,119,6,.10); border-bottom-color: #d97706; color: #92400e; }
 
-    .blank.correct {
-      background: #dcfce7;
-      border-bottom-color: #16a34a;
-      color: #15803d;
-    }
-
-    .blank.wrong {
-      background: #fee2e2;
-      border-bottom-color: #dc2626;
-      color: #dc2626;
-      animation: shake 0.35s ease;
-    }
-
+    /* ── Tiles ── */
     .tiles {
       display: flex;
       flex-wrap: wrap;
@@ -261,109 +270,42 @@
       justify-content: center;
       margin-top: 10px;
     }
-
     .tile {
-      background: white;
+      background: #fff;
       border: 2px solid #93c5fd;
       color: #1e40af;
       padding: 9px 16px;
       border-radius: 30px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: all .18s ease;
       user-select: none;
     }
-
-    .tile:hover {
+    .tile:hover:not(.disabled):not(.correct):not(.wrong):not(.shown) {
       background: #2563eb;
-      color: white;
+      color: #fff;
       border-color: #2563eb;
       transform: translateY(-2px);
     }
+    .tile.correct  { background: #dcfce7; color: #15803d; border-color: #16a34a; pointer-events: none; }
+    .tile.wrong    { background: #fee2e2; color: #dc2626; border-color: #dc2626; }
+    .tile.shown    { background: rgba(217,119,6,.12); color: #92400e; border-color: #d97706; pointer-events: none; }
+    .tile.disabled { opacity: .42; pointer-events: none; }
 
-    .tile.correct {
-      background: #dcfce7;
-      color: #15803d;
-      border-color: #16a34a;
-      pointer-events: none;
-    }
+    .stage-sep { height: 1px; background: #e2e8f0; margin: 14px 0; }
 
-    .tile.wrong {
-      background: #fee2e2;
-      color: #dc2626;
-      border-color: #dc2626;
-    }
-
-    .tile.disabled {
-      opacity: 0.45;
-      pointer-events: none;
-      transform: none;
-    }
-
-    .stage-sep {
-      height: 1px;
-      background: #e2e8f0;
-      margin: 16px 0;
-    }
-
+    /* ── Feedback ── */
     .feedback {
       text-align: center;
-      min-height: 24px;
-      font-size: 15px;
+      min-height: 22px;
+      font-size: 14px;
       font-weight: 800;
-      margin-top: 8px;
+      margin-top: 6px;
     }
-
-    .feedback.ok { color: #15803d; }
-    .feedback.bad { color: #dc2626; }
-
-    .end {
-      text-align: center;
-      padding: 16px 10px 4px;
-      display: none;
-    }
-
-    .end.show { display: block; }
-
-    .end .trophy {
-      font-size: 52px;
-      margin-bottom: 8px;
-    }
-
-    .end h2 {
-      margin: 8px 0;
-      font-size: 24px;
-      font-weight: 900;
-      color: #1e40af;
-    }
-
-    .end p {
-      margin: 6px 0;
-      font-weight: 600;
-      color: #486581;
-    }
-
-    .next-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      background: #16a34a;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 17px;
-      cursor: pointer;
-      box-shadow: 0 6px 14px rgba(22,163,74,.30);
-      transition: background .2s, transform .1s;
-      margin-top: 14px;
-      text-decoration: none;
-    }
-
-    .next-btn:hover { background: #15803d; }
-    .next-btn:active { transform: scale(.97); }
+    .feedback.ok   { color: #15803d; }
+    .feedback.bad  { color: #dc2626; }
+    .feedback.hint { color: #d97706; }
 
     @keyframes shake {
       0%   { transform: translateX(0); }
@@ -373,34 +315,64 @@
       100% { transform: translateX(0); }
     }
 
-    @media (max-width: 520px) {
-      .step { width: 34px; height: 34px; font-size: 14px; }
-      .top-title { font-size: 18px; }
-      .prompt { font-size: 18px; }
-      .sentence-display { font-size: 17px; }
-      .tile { font-size: 14px; padding: 8px 13px; }
-      .blank { min-width: 98px; min-height: 38px; font-size: 14px; }
-      .new-word-chip { font-size: 14px; }
+    /* ── End screen ── */
+    .end { text-align: center; padding: 20px 10px 8px; display: none; }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+    .end h2 { margin: 8px 0; font-size: 23px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #486581; }
+    .end .score-summary {
+      display: flex; gap: 16px; justify-content: center; margin: 14px 0 4px;
+    }
+    .end .score-box {
+      padding: 10px 20px;
+      border-radius: 14px;
+      font-weight: 900; font-size: 18px;
+    }
+    .end .score-box.correct { background: #dcfce7; color: #16a34a; }
+    .end .score-box.wrong   { background: #fee2e2; color: #dc2626; }
+
+    .next-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 30px;
+      background: #16a34a; color: #fff;
+      border: none; border-radius: 14px;
+      font-weight: 900; font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(22,163,74,.28);
+      transition: background .2s, transform .1s;
+      margin-top: 16px;
+      text-decoration: none;
+    }
+    .next-btn:hover  { background: #15803d; }
+    .next-btn:active { transform: scale(.97); }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .step          { width: 33px; height: 33px; font-size: 13px; }
+      .top-title     { font-size: 17px; }
+      .prompt        { font-size: 17px; }
+      .sentence-display { font-size: 16px; }
+      .tile          { font-size: 13px; padding: 8px 12px; }
+      .blank         { min-width: 94px; min-height: 36px; font-size: 14px; }
+      .new-word-chip { font-size: 13px; }
     }
   </style>
 </head>
 <body>
-
 <div class="wrap">
 
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
   <div class="top-title">Unidad 4 • Lección 1 • Parte 3</div>
-  <div class="subline">
-    <span>Completa las oraciones usando el modelo.</span>
-  </div>
+  <div class="subline"><span>Completa las oraciones usando el modelo.</span></div>
 
   <div class="progress-container">
-    <a class="step" href="p1.html" aria-label="Parte 1">1</a>
-    <a class="step" href="p2.html" aria-label="Parte 2">2</a>
+    <a class="step"        href="p1.html" aria-label="Parte 1">1</a>
+    <a class="step"        href="p2.html" aria-label="Parte 2">2</a>
     <a class="step active" href="p3.html" aria-label="Parte 3">3</a>
-    <a class="step" href="p4.html" aria-label="Parte 4">4</a>
-    <a class="step" href="p5.html" aria-label="Parte 5">5</a>
+    <a class="step"        href="p4.html" aria-label="Parte 4">4</a>
+    <a class="step"        href="p5.html" aria-label="Parte 5">5</a>
   </div>
 
   <div class="card">
@@ -423,14 +395,18 @@
 
     <div class="mini-note">Basado en el modelo, completa las oraciones.</div>
 
-    <div class="score-bar">
-      <div>✅ <span id="scoreCount">0</span> de 8 correctas</div>
-      <div>Ejercicio <span id="exerciseCount">1</span> / 8</div>
+    <!-- Score + counter row -->
+    <div class="score-row">
+      <div>✅ <span id="scoreCount">0</span> de 8 · Ejercicio <span id="exerciseCount">1</span>/8</div>
+      <div class="counter">
+        <span class="counter-badge correct" id="cntCorrect">✓ 0</span>
+        <span class="counter-badge wrong"   id="cntWrong">✗ 0</span>
+      </div>
     </div>
 
     <div id="exerciseArea" class="exercise-card">
-      <div class="prompt" id="promptName">Walter</div>
-      <div class="details" id="promptPlace">at the laundromat</div>
+      <div class="prompt"  id="promptName"></div>
+      <div class="details" id="promptPlace"></div>
 
       <div class="answer-block" id="stage1Block">
         <div class="answer-label">Oración 1</div>
@@ -438,19 +414,19 @@
           <span id="line1Blank" class="blank">_____</span>
           <span id="line1Tail"></span>
         </div>
-        <div class="tiles" id="line1Tiles"></div>
+        <div class="tiles"    id="line1Tiles"></div>
         <div class="feedback" id="line1Feedback"></div>
       </div>
 
       <div class="stage-sep"></div>
 
-      <div class="answer-block" id="stage2Block" style="opacity:.55; pointer-events:none;">
+      <div class="answer-block" id="stage2Block" style="opacity:.5; pointer-events:none;">
         <div class="answer-label">Oración 2</div>
         <div class="sentence-display">
           <span id="line2Subject"></span>
           <span id="line2Blank" class="blank">_____</span>
         </div>
-        <div class="tiles" id="line2Tiles"></div>
+        <div class="tiles"    id="line2Tiles"></div>
         <div class="feedback" id="line2Feedback"></div>
       </div>
     </div>
@@ -458,237 +434,301 @@
     <div class="end" id="endScreen">
       <div class="trophy">🎉</div>
       <h2>¡Muy bien!</h2>
-      <p>Completaste la parte 3.</p>
-      <p>Ahora puedes continuar.</p>
-      <a href="p4.html" class="next-btn">Siguiente parte →</a>
+      <p>Completaste la Parte 3.</p>
+      <div class="score-summary">
+        <div class="score-box correct" id="endCorrect"></div>
+        <div class="score-box wrong"   id="endWrong"></div>
+      </div>
+      <a href="p4.html" class="next-btn">Siguiente →</a>
     </div>
   </div>
 </div>
 
 <script>
+(() => {
+  "use strict";
+
+  const UNIT   = 4;
+  const LESSON = 1;
+  const PART   = 3;
+
+  const SUPABASE_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const SFX_CORRECT   = SUPABASE_BASE + "sfx/correct.wav";
+  const SFX_WRONG     = SUPABASE_BASE + "sfx/incorrect.wav";
+
+  const MAX_MISTAKES = 2; // reveal after this many wrong taps per line
+
+  // ── Exercises ──
   const EXERCISES = [
-    {
-      name: "Walter",
-      place: "at the laundromat",
-      pronounCorrect: "He is",
-      pronounDistractor: "She is",
-      actionCorrect: "washing clothes",
-      actionDistractor: "reading"
-    },
-    {
-      name: "Mary",
-      place: "at the library",
-      pronounCorrect: "She is",
-      pronounDistractor: "He is",
-      actionCorrect: "reading a book",
-      actionDistractor: "eating dinner"
-    },
-    {
-      name: "John",
-      place: "at the restaurant",
-      pronounCorrect: "He is",
-      pronounDistractor: "She is",
-      actionCorrect: "eating dinner",
-      actionDistractor: "watching TV"
-    },
-    {
-      name: "Jake",
-      place: "in the garage",
-      pronounCorrect: "He is",
-      pronounDistractor: "She is",
-      actionCorrect: "fixing the car",
-      actionDistractor: "reading"
-    },
-    {
-      name: "Diana",
-      place: "at the gym",
-      pronounCorrect: "She is",
-      pronounDistractor: "He is",
-      actionCorrect: "doing exercises",
-      actionDistractor: "studying math"
-    },
-    {
-      name: "Charlie",
-      place: "at school",
-      pronounCorrect: "He is",
-      pronounDistractor: "She is",
-      actionCorrect: "studying math",
-      actionDistractor: "washing clothes"
-    },
-    {
-      name: "Berta",
-      place: "in the kitchen",
-      pronounCorrect: "She is",
-      pronounDistractor: "He is",
-      actionCorrect: "cooking dinner",
-      actionDistractor: "reading"
-    },
-    {
-      name: "Rose",
-      place: "in the living room",
-      pronounCorrect: "She is",
-      pronounDistractor: "He is",
-      actionCorrect: "watching TV",
-      actionDistractor: "studying math"
-    }
+    { name:"Walter",  place:"at the laundromat",  pronounCorrect:"He is",  pronounDistractor:"She is", actionCorrect:"washing clothes", actionDistractor:"reading"       },
+    { name:"Mary",    place:"at the library",      pronounCorrect:"She is", pronounDistractor:"He is",  actionCorrect:"reading a book",  actionDistractor:"eating dinner" },
+    { name:"John",    place:"at the restaurant",   pronounCorrect:"He is",  pronounDistractor:"She is", actionCorrect:"eating dinner",   actionDistractor:"watching TV"   },
+    { name:"Jake",    place:"in the garage",       pronounCorrect:"He is",  pronounDistractor:"She is", actionCorrect:"fixing the car",  actionDistractor:"reading"       },
+    { name:"Diana",   place:"at the gym",          pronounCorrect:"She is", pronounDistractor:"He is",  actionCorrect:"doing exercises", actionDistractor:"studying math" },
+    { name:"Charlie", place:"at school",           pronounCorrect:"He is",  pronounDistractor:"She is", actionCorrect:"studying math",   actionDistractor:"washing clothes"},
+    { name:"Berta",   place:"in the kitchen",      pronounCorrect:"She is", pronounDistractor:"He is",  actionCorrect:"cooking dinner",  actionDistractor:"reading"       },
+    { name:"Rose",    place:"in the living room",  pronounCorrect:"She is", pronounDistractor:"He is",  actionCorrect:"watching TV",     actionDistractor:"studying math" }
   ];
 
-  let current = 0;
-  let score = 0;
-  let lockedLine1 = false;
-  let lockedLine2 = false;
+  // ── DOM refs ──
+  const scoreCountEl  = document.getElementById("scoreCount");
+  const exerciseCountEl = document.getElementById("exerciseCount");
+  const cntCorrect    = document.getElementById("cntCorrect");
+  const cntWrong      = document.getElementById("cntWrong");
+  const exerciseArea  = document.getElementById("exerciseArea");
+  const endScreen     = document.getElementById("endScreen");
+  const endCorrect    = document.getElementById("endCorrect");
+  const endWrong      = document.getElementById("endWrong");
 
-  function shuffle(array) {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+  const promptName    = document.getElementById("promptName");
+  const promptPlace   = document.getElementById("promptPlace");
+  const line1Blank    = document.getElementById("line1Blank");
+  const line1Tail     = document.getElementById("line1Tail");
+  const line1Tiles    = document.getElementById("line1Tiles");
+  const line1Feedback = document.getElementById("line1Feedback");
+  const stage2Block   = document.getElementById("stage2Block");
+  const line2Subject  = document.getElementById("line2Subject");
+  const line2Blank    = document.getElementById("line2Blank");
+  const line2Tiles    = document.getElementById("line2Tiles");
+  const line2Feedback = document.getElementById("line2Feedback");
+
+  // ── State ──
+  let current      = 0;
+  let score        = 0;      // completed exercises (line2 correct)
+  let scoreC       = 0;      // total correct taps
+  let scoreW       = 0;      // total wrong taps
+  let lockedLine1  = false;
+  let lockedLine2  = false;
+  let mistakesL1   = 0;
+  let mistakesL2   = 0;
+
+  function playSfx(url) { new Audio(url).play().catch(() => {}); }
+
+  function updateCounter() {
+    cntCorrect.textContent = `✓ ${scoreC}`;
+    cntWrong.textContent   = `✗ ${scoreW}`;
   }
 
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function setFeedback(el, type, text) {
+    el.textContent = text;
+    el.className   = "feedback" + (type ? ` ${type}` : "");
+  }
+
+  function disableTiles(container) {
+    container.querySelectorAll(".tile").forEach(b => b.classList.add("disabled"));
+  }
+  function enableTiles(container) {
+    container.querySelectorAll(".tile").forEach(b => b.classList.remove("disabled"));
+  }
+
+  // ── Render ──
   function renderExercise() {
     const ex = EXERCISES[current];
-
     lockedLine1 = false;
     lockedLine2 = false;
+    mistakesL1  = 0;
+    mistakesL2  = 0;
 
-    document.getElementById("promptName").textContent = ex.name;
-    document.getElementById("promptPlace").textContent = ex.place;
-    document.getElementById("exerciseCount").textContent = current + 1;
-    document.getElementById("scoreCount").textContent = score;
+    promptName.textContent    = ex.name;
+    promptPlace.textContent   = ex.place;
+    exerciseCountEl.textContent = current + 1;
+    scoreCountEl.textContent  = score;
 
-    document.getElementById("line1Blank").textContent = "_____";
-    document.getElementById("line1Blank").className = "blank";
-    document.getElementById("line1Tail").textContent = " " + ex.place + ".";
-    document.getElementById("line1Feedback").textContent = "";
-    document.getElementById("line1Feedback").className = "feedback";
+    // Line 1
+    line1Blank.textContent = "_____";
+    line1Blank.className   = "blank";
+    line1Tail.textContent  = " " + ex.place + ".";
+    setFeedback(line1Feedback, "", "");
 
-    document.getElementById("line2Subject").textContent = ex.pronounCorrect + " ";
-    document.getElementById("line2Blank").textContent = "_____";
-    document.getElementById("line2Blank").className = "blank";
-    document.getElementById("line2Feedback").textContent = "";
-    document.getElementById("line2Feedback").className = "feedback";
+    // Line 2
+    line2Subject.textContent = ex.pronounCorrect + " ";
+    line2Blank.textContent   = "_____";
+    line2Blank.className     = "blank";
+    setFeedback(line2Feedback, "", "");
 
-    const stage2 = document.getElementById("stage2Block");
-    stage2.style.opacity = ".55";
-    stage2.style.pointerEvents = "none";
+    stage2Block.style.opacity       = ".5";
+    stage2Block.style.pointerEvents = "none";
 
-    const line1Choices = shuffle([ex.pronounCorrect, ex.pronounDistractor]);
-    const line2Choices = shuffle([ex.actionCorrect, ex.actionDistractor]);
-
-    document.getElementById("line1Tiles").innerHTML = line1Choices.map(choice => `
-      <button class="tile" onclick="checkLine1(this, ${current}, '${escapeSingleQuotes(choice)}')">${choice}</button>
-    `).join("");
-
-    document.getElementById("line2Tiles").innerHTML = line2Choices.map(choice => `
-      <button class="tile" onclick="checkLine2(this, ${current}, '${escapeSingleQuotes(choice)}')">${choice}</button>
-    `).join("");
+    // Build tiles
+    buildTiles(line1Tiles, shuffle([ex.pronounCorrect, ex.pronounDistractor]), "line1");
+    buildTiles(line2Tiles, shuffle([ex.actionCorrect, ex.actionDistractor]),   "line2");
   }
 
-  function escapeSingleQuotes(text) {
-    return text.replace(/'/g, "\\'");
-  }
-
-  function disableTiles(containerId) {
-    document.querySelectorAll(`#${containerId} .tile`).forEach(btn => {
-      btn.classList.add("disabled");
+  function buildTiles(container, choices, line) {
+    container.innerHTML = "";
+    choices.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.type        = "button";
+      btn.textContent = choice;
+      btn.addEventListener("click", () => {
+        if (line === "line1") checkLine1(btn, choice);
+        else                  checkLine2(btn, choice);
+      });
+      container.appendChild(btn);
     });
   }
 
-  function enableTiles(containerId) {
-    document.querySelectorAll(`#${containerId} .tile`).forEach(btn => {
-      btn.classList.remove("disabled");
-    });
-  }
-
-  function checkLine1(btn, exerciseIndex, choice) {
-    if (exerciseIndex !== current || lockedLine1) return;
-
+  // ── Line 1 check ──
+  function checkLine1(btn, choice) {
+    if (lockedLine1) return;
     const ex = EXERCISES[current];
-    const blank = document.getElementById("line1Blank");
-    const feedback = document.getElementById("line1Feedback");
 
     if (choice === ex.pronounCorrect) {
       lockedLine1 = true;
-      blank.textContent = choice;
-      blank.className = "blank correct";
+      line1Blank.textContent = choice;
+      line1Blank.className   = "blank correct";
       btn.classList.add("correct");
-      disableTiles("line1Tiles");
-      feedback.textContent = "¡Correcto!";
-      feedback.className = "feedback ok";
+      disableTiles(line1Tiles);
+      setFeedback(line1Feedback, "ok", "✓ ¡Correcto!");
+      playSfx(SFX_CORRECT);
+      scoreC++;
+      updateCounter();
 
-      const stage2 = document.getElementById("stage2Block");
-      stage2.style.opacity = "1";
-      stage2.style.pointerEvents = "auto";
+      stage2Block.style.opacity       = "1";
+      stage2Block.style.pointerEvents = "auto";
     } else {
-      blank.textContent = choice;
-      blank.className = "blank wrong";
-      btn.classList.add("wrong");
-      disableTiles("line1Tiles");
-      feedback.textContent = "Intenta otra vez.";
-      feedback.className = "feedback bad";
+      mistakesL1++;
+      scoreW++;
+      updateCounter();
+      playSfx(SFX_WRONG);
 
-      setTimeout(() => {
-        blank.textContent = "_____";
-        blank.className = "blank";
-        btn.classList.remove("wrong");
-        enableTiles("line1Tiles");
-        feedback.textContent = "";
-        feedback.className = "feedback";
-      }, 700);
+      line1Blank.textContent = choice;
+      line1Blank.className   = "blank wrong";
+      btn.classList.add("wrong");
+      disableTiles(line1Tiles);
+
+      if (mistakesL1 >= MAX_MISTAKES) {
+        setFeedback(line1Feedback, "hint", `Respuesta: "${ex.pronounCorrect}"`);
+        setTimeout(() => {
+          line1Blank.textContent = ex.pronounCorrect;
+          line1Blank.className   = "blank shown";
+          btn.classList.remove("wrong");
+          // Mark correct tile amber
+          line1Tiles.querySelectorAll(".tile").forEach(t => {
+            if (t.textContent === ex.pronounCorrect) t.classList.add("shown");
+          });
+          lockedLine1 = true;
+          stage2Block.style.opacity       = "1";
+          stage2Block.style.pointerEvents = "auto";
+        }, 800);
+      } else {
+        setFeedback(line1Feedback, "bad", "Intenta otra vez.");
+        setTimeout(() => {
+          line1Blank.textContent = "_____";
+          line1Blank.className   = "blank";
+          btn.classList.remove("wrong");
+          enableTiles(line1Tiles);
+          setFeedback(line1Feedback, "", "");
+        }, 700);
+      }
     }
   }
 
-  function checkLine2(btn, exerciseIndex, choice) {
-    if (exerciseIndex !== current || lockedLine2 || !lockedLine1) return;
-
+  // ── Line 2 check ──
+  function checkLine2(btn, choice) {
+    if (lockedLine2 || !lockedLine1) return;
     const ex = EXERCISES[current];
-    const blank = document.getElementById("line2Blank");
-    const feedback = document.getElementById("line2Feedback");
 
     if (choice === ex.actionCorrect) {
       lockedLine2 = true;
-      blank.textContent = choice;
-      blank.className = "blank correct";
+      line2Blank.textContent = choice;
+      line2Blank.className   = "blank correct";
       btn.classList.add("correct");
-      disableTiles("line2Tiles");
-      feedback.textContent = "¡Muy bien!";
-      feedback.className = "feedback ok";
-
+      disableTiles(line2Tiles);
+      setFeedback(line2Feedback, "ok", "✓ ¡Muy bien!");
+      playSfx(SFX_CORRECT);
+      scoreC++;
       score++;
-      document.getElementById("scoreCount").textContent = score;
+      scoreCountEl.textContent = score;
+      updateCounter();
 
       setTimeout(() => {
         current++;
         if (current >= EXERCISES.length) {
-          document.getElementById("exerciseArea").style.display = "none";
-          document.getElementById("endScreen").classList.add("show");
+          finish();
         } else {
           renderExercise();
         }
       }, 1000);
     } else {
-      blank.textContent = choice;
-      blank.className = "blank wrong";
-      btn.classList.add("wrong");
-      disableTiles("line2Tiles");
-      feedback.textContent = "Intenta otra vez.";
-      feedback.className = "feedback bad";
+      mistakesL2++;
+      scoreW++;
+      updateCounter();
+      playSfx(SFX_WRONG);
 
-      setTimeout(() => {
-        blank.textContent = "_____";
-        blank.className = "blank";
-        btn.classList.remove("wrong");
-        enableTiles("line2Tiles");
-        feedback.textContent = "";
-        feedback.className = "feedback";
-      }, 700);
+      line2Blank.textContent = choice;
+      line2Blank.className   = "blank wrong";
+      btn.classList.add("wrong");
+      disableTiles(line2Tiles);
+
+      if (mistakesL2 >= MAX_MISTAKES) {
+        setFeedback(line2Feedback, "hint", `Respuesta: "${ex.actionCorrect}"`);
+        setTimeout(() => {
+          line2Blank.textContent = ex.actionCorrect;
+          line2Blank.className   = "blank shown";
+          btn.classList.remove("wrong");
+          line2Tiles.querySelectorAll(".tile").forEach(t => {
+            if (t.textContent === ex.actionCorrect) t.classList.add("shown");
+          });
+          lockedLine2 = true;
+          // Auto-advance after reveal
+          setTimeout(() => {
+            current++;
+            if (current >= EXERCISES.length) {
+              finish();
+            } else {
+              renderExercise();
+            }
+          }, 1400);
+        }, 800);
+      } else {
+        setFeedback(line2Feedback, "bad", "Intenta otra vez.");
+        setTimeout(() => {
+          line2Blank.textContent = "_____";
+          line2Blank.className   = "blank";
+          btn.classList.remove("wrong");
+          enableTiles(line2Tiles);
+          setFeedback(line2Feedback, "", "");
+        }, 700);
+      }
     }
   }
 
-  renderExercise();
-</script>
+  // ── Finish ──
+  function finish() {
+    exerciseArea.style.display = "none";
 
+    try {
+      const KEY  = `inglesco_progress_u${UNIT}`;
+      const data = JSON.parse(localStorage.getItem(KEY) || "{}");
+      const lk   = `l${LESSON}`;
+      if (!data[lk]) data[lk] = { partsCompleted: 0, partsTotal: 5 };
+      if (data[lk].partsCompleted < PART) data[lk].partsCompleted = PART;
+      localStorage.setItem(KEY, JSON.stringify(data));
+
+      const fkey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const cur  = parseInt(localStorage.getItem(fkey) || "0", 10);
+      if (PART > cur) localStorage.setItem(fkey, String(PART));
+    } catch (e) {}
+
+    endCorrect.textContent = `✓ ${scoreC}`;
+    endWrong.textContent   = `✗ ${scoreW}`;
+    endScreen.classList.add("show");
+  }
+
+  // ── Init ──
+  renderExercise();
+})();
+</script>
 </body>
 </html>

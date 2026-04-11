@@ -1,334 +1,585 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 4 • Lección 2 • Parte 5</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 4 • Lección 2 • Parte 5</title>
+  <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
-<link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
-body{
-background:linear-gradient(135deg,#dbeafe,#fef9c3);
-min-height:100vh;
-padding:16px 12px 60px;
-color:#111827;
-}
+    body {
+      background: linear-gradient(135deg, #dbeafe, #fef9c3);
+      min-height: 100vh;
+      padding: 16px 12px 80px;
+      color: #111827;
+    }
 
-.wrap{max-width:700px;margin:0 auto;}
+    .wrap { max-width: 700px; margin: 0 auto; }
 
-.back-btn{
-display:inline-block;
-margin-bottom:16px;
-padding:7px 14px;
-background:#2563eb;
-color:white;
-border-radius:10px;
-text-decoration:none;
-font-weight:700;
-font-size:14px;
-}
+    .back-btn {
+      display: inline-block; margin-bottom: 16px;
+      padding: 7px 14px; background: #2563eb; color: white;
+      border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px;
+    }
+    .back-btn:hover { background: #1e40af; }
 
-.back-btn:hover{background:#1e40af;}
+    .top-title {
+      text-align: center; font-size: 18px; font-weight: 900;
+      margin-bottom: 4px; color: #1e40af;
+    }
+    .subline {
+      text-align: center; font-size: 14px; font-weight: 700;
+      margin-bottom: 16px; color: #374151;
+    }
 
-.top-title{
-text-align:center;
-font-size:18px;
-font-weight:900;
-margin-bottom:4px;
-}
+    /* ── Progress dots ── */
+    .progress-container {
+      display: flex; justify-content: center;
+      gap: 10px; margin: 12px 0 20px;
+    }
+    .step {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; cursor: pointer; transition: all .3s;
+      color: #1f2933; text-decoration: none; user-select: none; font-size: 15px;
+    }
+    .step.active { background: #2563eb; color: #fff; }
+    .step.done   { background: #16a34a; color: #fff; }
+    .step:hover  { transform: scale(1.1); }
 
-.subline{
-text-align:center;
-font-size:14px;
-font-weight:700;
-margin-bottom:16px;
-color:#374151;
-}
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.88);
+      border-radius: 18px; padding: 16px 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
 
-.progress-container{
-display:flex;
-justify-content:center;
-gap:10px;
-margin:12px 0 20px 0;
-}
+    .ex-header {
+      text-align: center; background: #2563eb; color: white;
+      border-radius: 14px; padding: 9px 20px;
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
 
-.step{
-width:38px;height:38px;border-radius:50%;
-background:#d1d5db;
-display:flex;align-items:center;justify-content:center;
-font-weight:600;cursor:pointer;transition:all .3s;
-color:#1f2933;text-decoration:none;user-select:none;
-font-size:15px;
-}
+    /* ── Counter & score pills ── */
+    .counter-row { display: flex; justify-content: center; margin-bottom: 6px; }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
 
-.step.active{background:#2563eb;color:#fff;}
-.step:hover{transform:scale(1.1);}
+    .score-pills {
+      display: flex; justify-content: center; gap: 14px; margin-bottom: 10px;
+    }
+    .pill {
+      display: flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 30px;
+      font-size: 13px; font-weight: 700;
+    }
+    .pill.correct-pill { background: #dcfce7; color: #15803d; }
+    .pill.wrong-pill   { background: #fee2e2; color: #dc2626; }
 
-.card{
-background:rgba(255,255,255,.88);
-border-radius:18px;
-padding:16px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
+    .bar-wrap {
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 16px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; width: 0%; background: #2563eb;
+      border-radius: 999px; transition: width 0.5s ease;
+    }
 
-.ex-header{
-text-align:center;
-background:#2563eb;
-color:white;
-border-radius:14px;
-padding:9px 20px;
-font-size:14px;
-font-weight:700;
-letter-spacing:0.04em;
-text-transform:uppercase;
-margin-bottom:16px;
-}
+    /* ── Image ── */
+    .img-wrap {
+      width: 100%; border-radius: 14px; overflow: hidden;
+      background: #f1f5f9; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 10px; min-height: 160px;
+    }
+    .img-wrap img {
+      max-width: 100%; max-height: 200px;
+      width: auto; height: auto;
+      object-fit: contain; display: block;
+      border-radius: 10px; transition: opacity 0.4s ease;
+    }
+    @media (max-width: 400px) {
+      .img-wrap { min-height: 130px; }
+      .img-wrap img { max-height: 150px; }
+    }
 
-.counter-row{
-display:flex;
-justify-content:center;
-margin-bottom:8px;
-}
+    /* ── Audio ── */
+    .audio-area {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px; margin-bottom: 16px;
+    }
+    .play-btn {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      transition: background 0.2s, transform 0.1s;
+      color: white; font-size: 26px;
+    }
+    .play-btn:hover   { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn:active  { transform: scale(0.96); }
+    .play-btn.playing { background: #7c3aed; }
+    .play-btn.replay  { background: #0891b2; }
+    .play-btn.pulse   { animation: pulse 0.3s ease 2; }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.2); }
+    }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; text-align: center; }
 
-.counter{
-font-size:13px;
-font-weight:700;
-color:#486581;
-}
+    /* ── Built sentence area ── */
+    .built-wrap {
+      min-height: 52px;
+      background: #f8fafc;
+      border: 2px dashed #93c5fd;
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex; flex-wrap: wrap; gap: 6px;
+      align-items: center; justify-content: center;
+      margin-bottom: 6px;
+      transition: border-color 0.3s;
+    }
+    .built-wrap.complete { border-color: #16a34a; border-style: solid; background: #f0fdf4; }
 
-.bar-wrap{
-background:#e2e8f0;
-border-radius:999px;
-height:7px;
-margin-bottom:16px;
-overflow:hidden;
-}
+    .placeholder { font-size: 18px; font-weight: 700; color: #cbd5e1; letter-spacing: 4px; }
 
-.bar-fill{
-height:100%;
-width:0%;
-background:#2563eb;
-border-radius:999px;
-transition:width 0.5s ease;
-}
+    .chip {
+      background: #2563eb; color: white;
+      padding: 5px 14px; border-radius: 20px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.15s;
+      user-select: none;
+    }
+    .chip:hover   { background: #dc2626; }
+    .chip.done    { background: #16a34a; cursor: default; pointer-events: none; }
 
-.img-wrap{
-width:100%;
-border-radius:14px;
-overflow:hidden;
-background:#e2e8f0;
-margin-bottom:14px;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:8px;
-}
+    .undo-hint {
+      text-align: center; font-size: 11px; color: #94a3b8;
+      font-weight: 600; margin-bottom: 8px; min-height: 16px;
+    }
 
-.img-wrap img{
-max-width:100%;
-max-height:160px;
-width:auto;
-height:auto;
-object-fit:contain;
-display:block;
-border-radius:10px;
-transition:opacity 0.4s ease;
-}
+    /* ── Hint ── */
+    .hint {
+      text-align: center; font-size: 13px; font-weight: 700;
+      color: #64748b; margin-bottom: 14px; min-height: 22px;
+    }
+    .hint.correct { color: #16a34a; }
+    .hint.wrong   { color: #dc2626; }
+    .hint.warn    { color: #d97706; }
 
-.audio-area{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:8px;
-margin-bottom:16px;
-}
+    /* ── Tiles ── */
+    .tiles {
+      display: flex; justify-content: center;
+      gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .tile {
+      background: white; border: 2px solid #93c5fd;
+      color: #1e40af; padding: 9px 18px;
+      border-radius: 30px; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      font-family: 'Poppins', sans-serif; user-select: none;
+    }
+    .tile:hover { background: #2563eb; color: white; border-color: #2563eb; transform: translateY(-2px); }
+    .tile.used  { opacity: .25; pointer-events: none; }
+    .tile.wrong {
+      background: #fee2e2; border-color: #dc2626; color: #dc2626;
+      animation: shake 0.45s ease;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-6px); }
+      40%     { transform: translateX(6px); }
+      60%     { transform: translateX(-4px); }
+      80%     { transform: translateX(4px); }
+    }
 
-.play-btn{
-width:62px;height:62px;border-radius:50%;
-background:#2563eb;border:none;cursor:pointer;
-display:flex;align-items:center;justify-content:center;
-box-shadow:0 5px 16px rgba(37,99,235,0.35);
-color:white;font-size:24px;
-}
-
-.play-label{
-font-size:12px;
-font-weight:600;
-color:#486581;
-text-align:center;
-}
-
-.built-wrap{
-min-height:48px;
-background:#f8fafc;
-border:2px dashed #93c5fd;
-border-radius:14px;
-padding:10px 14px;
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-align-items:center;
-justify-content:center;
-margin-bottom:12px;
-}
-
-.placeholder{
-font-size:18px;
-font-weight:700;
-color:#cbd5e1;
-letter-spacing:4px;
-}
-
-.chip{
-background:#2563eb;
-color:white;
-padding:5px 14px;
-border-radius:20px;
-font-size:15px;
-font-weight:700;
-cursor:pointer;
-}
-
-.chip:hover{background:#dc2626;}
-.chip.done{background:#16a34a;cursor:default;pointer-events:none;}
-
-.hint{
-text-align:center;
-font-size:13px;
-font-weight:700;
-color:#64748b;
-margin-bottom:14px;
-min-height:22px;
-}
-
-.tiles{
-display:flex;
-justify-content:center;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:10px;
-}
-
-.tile{
-background:white;
-border:2px solid #93c5fd;
-color:#1e40af;
-padding:9px 18px;
-border-radius:30px;
-font-size:15px;
-font-weight:700;
-cursor:pointer;
-}
-
-.tile.used{opacity:.25;pointer-events:none;}
-
-.tile.wrong{
-background:#fee2e2;
-border-color:#dc2626;
-color:#dc2626;
-}
-
-.undo-hint{
-text-align:center;
-font-size:11px;
-color:#94a3b8;
-font-weight:600;
-margin-bottom:6px;
-}
-
-.end{
-text-align:center;
-padding:24px 10px 10px;
-display:none;
-}
-
-.end.show{display:block;}
-
-.trophy{font-size:52px;margin-bottom:10px;}
-
-.finish-btn{
-display:inline-flex;
-align-items:center;
-gap:8px;
-padding:12px 28px;
-background:#16a34a;
-color:#fff;
-border-radius:14px;
-font-weight:900;
-font-size:16px;
-text-decoration:none;
-margin-top:16px;
-}
-
-.finish-btn:hover{background:#15803d;}
-
-</style>
+    /* ── End ── */
+    .end { text-align: center; padding: 24px 10px 10px; display: none; }
+    .end.show { display: block; }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .end .final-score {
+      display: inline-block; margin: 10px auto;
+      background: #eff6ff; border: 2px solid #bfdbfe;
+      border-radius: 12px; padding: 8px 20px;
+      font-size: 13px; font-weight: 700; color: #1e40af;
+    }
+    .finish-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; background: #16a34a; color: #fff;
+      border: none; border-radius: 14px; font-weight: 900;
+      font-size: 16px; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(22,163,74,.30);
+      transition: background .2s; margin-top: 16px;
+      text-decoration: none; font-family: 'Poppins', sans-serif;
+    }
+    .finish-btn:hover { background: #15803d; }
+  </style>
 </head>
-
 <body>
 
 <div class="wrap">
 
-<a href="../index.html" class="back-btn">← Unidad 4</a>
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-<div class="top-title">Unidad 4 • Lección 2 • Parte 5</div>
-<div class="subline"></div>
+  <div class="top-title">Unidad 4 · Lección 2 · Parte 5</div>
+  <div class="subline">Escucha y forma la frase correcta</div>
 
-<div class="progress-container">
-<a class="step" href="p1.html">1</a>
-<a class="step" href="p2.html">2</a>
-<a class="step" href="p3.html">3</a>
-<a class="step" href="p4.html">4</a>
-<a class="step active" href="p5.html">5</a>
+  <div class="progress-container">
+    <a class="step done" href="p1.html">1</a>
+    <a class="step done" href="p2.html">2</a>
+    <a class="step done" href="p3.html">3</a>
+    <a class="step done" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
+  </div>
+
+  <div class="card">
+
+    <div id="slideArea">
+      <div class="ex-header">Escucha y forma la frase correcta</div>
+
+      <div class="counter-row">
+        <span class="counter" id="counter">1 / 9</span>
+      </div>
+      <div class="score-pills">
+        <div class="pill correct-pill">✅ <span id="rightCount">0</span></div>
+        <div class="pill wrong-pill">❌ <span id="wrongCount">0</span></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="progressBar"></div>
+      </div>
+
+      <div class="img-wrap">
+        <img id="slideImg" src="" alt="lesson image" />
+      </div>
+
+      <div class="audio-area">
+        <button class="play-btn" id="playBtn" aria-label="Reproducir audio">▶</button>
+        <span class="play-label" id="playLabel">Toca para escuchar</span>
+      </div>
+
+      <div class="built-wrap" id="builtSentence"></div>
+      <p class="undo-hint" id="undoHint"></p>
+      <p class="hint" id="hint"></p>
+
+      <div class="tiles" id="tiles"></div>
+    </div>
+
+    <div class="end" id="endScreen">
+      <div class="trophy">🏆</div>
+      <h2>¡Excelente trabajo!</h2>
+      <p>Completaste todas las oraciones correctamente.</p>
+      <div class="final-score" id="finalScore"></div>
+      <a href="../index.html" class="finish-btn">Finalizar lección →</a>
+    </div>
+
+  </div>
 </div>
 
-<div class="card">
+<script>
+(() => {
+  const UNIT   = 4;
+  const LESSON = 2;
+  const PART   = 5;
+  const BASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG    = BASE + "images/u4/";
+  const AUD    = BASE + "audio/u4/";
+  const SFX_OK    = BASE + "sfx/correct.wav";
+  const SFX_WRONG = BASE + "sfx/incorrect.wav";
 
-<div id="slideArea">
+  // All assets verified in Supabase
+  const SLIDES = [
+    { image: IMG + "u4.l2.p1.new.car.jpg",         audio: AUD + "u4.l2.p4.new.car.mp3",         answer: ["My","new","car."],       distractor1: "old",      distractor2: "cheap" },
+    { image: IMG + "u4.l2.p1.old.car.jpg",         audio: AUD + "u4.l2.p4.old.car.mp3",         answer: ["My","old","car."],       distractor1: "new",      distractor2: "slow" },
+    { image: IMG + "u4.l2.p1.modern.house.jpg",    audio: AUD + "u4.l2.p4.modern.house.mp3",    answer: ["My","modern","house."],  distractor1: "old",      distractor2: "big" },
+    { image: IMG + "u4.l2.p1.expensive.watch.jpg", audio: AUD + "u4.l2.p4.expensive.watch.mp3", answer: ["My","expensive","watch."],distractor1: "cheap",   distractor2: "old" },
+    { image: IMG + "u4.l2.p1.cheap.watch.jpg",     audio: AUD + "u4.l2.p4.cheap.watch.mp3",     answer: ["My","cheap","watch."],   distractor1: "expensive",distractor2: "new" },
+    { image: IMG + "u4.l2.p4.fast.car.jpg",        audio: AUD + "u4.l2.p4.fast.car.mp3",        answer: ["My","fast","car."],      distractor1: "slow",     distractor2: "old" },
+    { image: IMG + "u4.l2.p4.slow.car.jpg",        audio: AUD + "u4.l2.p4.slow.car.mp3",        answer: ["My","slow","car."],      distractor1: "fast",     distractor2: "cheap" },
+    { image: IMG + "u4.l2.p1.big.house.jpg",       audio: AUD + "u4.l2.p4.big.house.mp3",       answer: ["My","big","house."],     distractor1: "small",    distractor2: "modern" },
+    { image: IMG + "u4.l2.p4.small.house.jpg",     audio: AUD + "u4.l2.p4.small.house.mp3",     answer: ["My","small","house."],   distractor1: "big",      distractor2: "old" },
+  ];
 
-<div class="ex-header">Escucha y forma la frase correcta</div>
+  const TOTAL = SLIDES.length;
 
-<div class="counter-row">
-<span class="counter" id="counter">1 / 9</span>
-</div>
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
-<div class="bar-wrap">
-<div class="bar-fill" id="progressBar"></div>
-</div>
+  // ── State ─────────────────────────────────────────────────────────────────
+  let slideOrder  = shuffle([...Array(TOTAL).keys()]);
+  let current     = 0;
+  let audioPlayed = false;
+  let isPlaying   = false;
+  let playPromise = null;
+  let audio       = new Audio();
+  let built       = [];
+  let target      = [];
+  let rightCount  = 0;
+  let wrongCount  = 0;
 
-<div class="img-wrap">
-<img id="slideImg" src="" alt="lesson image"/>
-</div>
+  // ── DOM ───────────────────────────────────────────────────────────────────
+  const slideImg    = document.getElementById("slideImg");
+  const builtEl     = document.getElementById("builtSentence");
+  const undoHint    = document.getElementById("undoHint");
+  const tilesEl     = document.getElementById("tiles");
+  const hintEl      = document.getElementById("hint");
+  const playBtn     = document.getElementById("playBtn");
+  const playLabel   = document.getElementById("playLabel");
+  const counterEl   = document.getElementById("counter");
+  const progressBar = document.getElementById("progressBar");
+  const endScreen   = document.getElementById("endScreen");
+  const slideArea   = document.getElementById("slideArea");
+  const rightEl     = document.getElementById("rightCount");
+  const wrongEl     = document.getElementById("wrongCount");
+  const finalScore  = document.getElementById("finalScore");
 
-<div class="audio-area">
-<button class="play-btn" id="playBtn">▶</button>
-<span class="play-label" id="playLabel">Toca para escuchar</span>
-</div>
+  function playSfx(url) { new Audio(url).play().catch(() => {}); }
 
-<div class="built-wrap" id="builtSentence"></div>
+  // ── Load slide ────────────────────────────────────────────────────────────
+  function loadSlide(pos) {
+    const s = SLIDES[slideOrder[pos]];
+    audioPlayed = false;
+    isPlaying   = false;
+    built       = [];
+    target      = s.answer;
 
+    slideImg.style.opacity = "0";
+    slideImg.src = s.image;
+    slideImg.onload = () => { slideImg.style.opacity = "1"; };
 
-<p class="hint" id="hint"></p>
+    counterEl.textContent   = `${pos + 1} / ${TOTAL}`;
+    progressBar.style.width = ((pos + 1) / TOTAL * 100) + "%";
 
-<div class="tiles" id="tiles"></div>
+    renderBuilt();
+    buildTiles(shuffle([...s.answer, s.distractor1, s.distractor2]));
 
-</div>
+    hintEl.textContent = "";
+    hintEl.className   = "hint";
+    undoHint.textContent = "";
 
-<div class="end" id="endScreen">
-<div class="trophy">🏆</div>
-<h2>¡Excelente trabajo!</h2>
-<p>Completaste todas las oraciones correctamente.</p>
-<a href="../index.html" class="finish-btn">Finalizar lección →</a>
-</div>
+    playBtn.textContent   = "▶";
+    playBtn.className     = "play-btn";
+    playLabel.textContent = "Toca para escuchar";
 
-</div>
-</div>
+    audio.pause();
+    audio = new Audio(s.audio);
+    audio.preload = "auto";
 
-<script src="../../../../js/u4/u4_l2_p5.js"></script>
+    audio.addEventListener("ended", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      playBtn.textContent = "🔁";
+      playBtn.classList.remove("playing");
+      playBtn.classList.add("replay");
+      playLabel.textContent = "Toca para repetir";
+      hintEl.textContent    = "☝️ ¡Forma la frase!";
+      hintEl.className      = "hint";
+      undoHint.textContent  = "Toca una palabra azul para quitarla.";
+    });
+
+    audio.addEventListener("error", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      playBtn.textContent   = "▶";
+      playBtn.classList.remove("playing");
+      playLabel.textContent = "Audio no disponible";
+      hintEl.textContent    = "☝️ ¡Forma la frase!";
+      hintEl.className      = "hint";
+      undoHint.textContent  = "Toca una palabra azul para quitarla.";
+    });
+  }
+
+  // ── Render built sentence ─────────────────────────────────────────────────
+  function renderBuilt() {
+    builtEl.innerHTML = "";
+    builtEl.classList.remove("complete");
+
+    if (built.length === 0) {
+      const ph = document.createElement("span");
+      ph.className   = "placeholder";
+      ph.textContent = "_ _ _";
+      builtEl.appendChild(ph);
+      return;
+    }
+
+    built.forEach((word, idx) => {
+      const chip = document.createElement("span");
+      chip.className   = "chip";
+      chip.textContent = word;
+      chip.addEventListener("click", () => removeWord(idx));
+      builtEl.appendChild(chip);
+    });
+  }
+
+  function removeWord(idx) {
+    const word = built[idx];
+    built.splice(idx, 1);
+    renderBuilt();
+
+    // re-enable matching tile
+    const tiles = tilesEl.querySelectorAll(".tile");
+    for (const t of tiles) {
+      if (t.dataset.word === word && t.classList.contains("used")) {
+        t.classList.remove("used");
+        break;
+      }
+    }
+
+    hintEl.textContent = "☝️ ¡Forma la frase!";
+    hintEl.className   = "hint";
+  }
+
+  // ── Build tiles ───────────────────────────────────────────────────────────
+  function buildTiles(pool) {
+    tilesEl.innerHTML = "";
+    pool.forEach(word => {
+      const tile = document.createElement("button");
+      tile.className    = "tile";
+      tile.textContent  = word;
+      tile.dataset.word = word;
+      tile.addEventListener("click", () => handleTile(tile, word));
+      tilesEl.appendChild(tile);
+    });
+  }
+
+  // ── Tile click ────────────────────────────────────────────────────────────
+  function handleTile(tile, word) {
+    if (tile.classList.contains("used")) return;
+
+    if (!audioPlayed) {
+      hintEl.textContent = "👂 ¡Escucha el audio primero!";
+      hintEl.className   = "hint warn";
+      playBtn.classList.add("pulse");
+      setTimeout(() => playBtn.classList.remove("pulse"), 600);
+      return;
+    }
+
+    const nextExpected = target[built.length];
+
+    if (word === nextExpected) {
+      built.push(word);
+      tile.classList.add("used");
+      renderBuilt();
+      playSfx(SFX_OK);
+      rightCount++;
+      rightEl.textContent = rightCount;
+
+      if (built.length === target.length) {
+        // Sentence complete
+        builtEl.classList.add("complete");
+        builtEl.querySelectorAll(".chip").forEach(c => c.classList.add("done"));
+        hintEl.textContent = "🎉 ¡Frase completa!";
+        hintEl.className   = "hint correct";
+        setTimeout(() => {
+          current++;
+          if (current >= TOTAL) showEnd();
+          else loadSlide(current);
+        }, 900);
+      } else {
+        hintEl.textContent = "✅ ¡Correcto! Sigue...";
+        hintEl.className   = "hint correct";
+      }
+    } else {
+      tile.classList.add("wrong");
+      hintEl.textContent = "❌ ¡Palabra incorrecta! Intenta de nuevo.";
+      hintEl.className   = "hint wrong";
+      playSfx(SFX_WRONG);
+      wrongCount++;
+      wrongEl.textContent = wrongCount;
+      setTimeout(() => {
+        tile.classList.remove("wrong");
+        hintEl.textContent = "☝️ ¡Forma la frase!";
+        hintEl.className   = "hint";
+      }, 700);
+    }
+  }
+
+  // ── Play / Pause ──────────────────────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      if (playPromise) {
+        playPromise.then(() => audio.pause()).catch(() => {});
+        playPromise = null;
+      } else {
+        audio.pause();
+      }
+      isPlaying = false;
+      playBtn.textContent   = audioPlayed ? "🔁" : "▶";
+      playBtn.classList.remove("playing");
+      playLabel.textContent = audioPlayed ? "Toca para repetir" : "Toca para escuchar";
+      return;
+    }
+
+    if (audioPlayed) audio.currentTime = 0;
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+    playBtn.classList.add("playing");
+    playBtn.classList.remove("replay");
+    playLabel.textContent = "Escuchando...";
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise.then(() => { playPromise = null; }).catch(err => {
+        if (err.name !== "AbortError") {
+          isPlaying = false;
+          playBtn.classList.remove("playing");
+          playBtn.textContent   = "▶";
+          playLabel.textContent = "No se pudo reproducir.";
+        }
+        playPromise = null;
+      });
+    }
+  });
+
+  // ── End ───────────────────────────────────────────────────────────────────
+  function showEnd() {
+    slideArea.style.display = "none";
+    const total = rightCount + wrongCount;
+    const pct   = total > 0 ? Math.round(rightCount / total * 100) : 100;
+    finalScore.textContent = `✅ ${rightCount} correctas · ❌ ${wrongCount} errores · ${pct}%`;
+    endScreen.classList.add("show");
+
+    try {
+      const key  = `inglesco_progress_u${UNIT}`;
+      const raw  = localStorage.getItem(key);
+      const prog = raw ? JSON.parse(raw) : {};
+      const lKey = `l${LESSON}`;
+      if (!prog[lKey]) prog[lKey] = { partsCompleted: 0, partsTotal: 5 };
+      if (prog[lKey].partsCompleted < PART) prog[lKey].partsCompleted = PART;
+      prog[lKey].partsTotal = 5;
+      localStorage.setItem(key, JSON.stringify(prog));
+
+      const fKey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(fKey) || "0", 10);
+      if (PART > prev) localStorage.setItem(fKey, String(PART));
+    } catch(e) {}
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  loadSlide(0);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+  }
+})();
+</script>
 
 </body>
 </html>

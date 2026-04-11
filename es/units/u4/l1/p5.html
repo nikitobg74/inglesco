@@ -5,19 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unidad 4 • Lección 1 • Parte 5</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
     body {
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
       min-height: 100vh;
-      padding: 16px 12px 60px;
+      padding: 16px 12px 80px;
       color: #111827;
     }
 
     .wrap { max-width: 700px; margin: 0 auto; }
 
+    /* ── Back button ── */
     .back-btn {
       display: inline-block; margin-bottom: 16px;
       padding: 7px 14px; background: #2563eb; color: white;
@@ -26,9 +33,10 @@
     }
     .back-btn:hover { background: #1e40af; }
 
+    /* ── Progress dots ── */
     .progress-container {
       display: flex; justify-content: center;
-      gap: 10px; margin: 12px 0 20px 0;
+      gap: 10px; margin: 12px 0 20px;
     }
     .step {
       width: 38px; height: 38px; border-radius: 50%;
@@ -39,20 +47,23 @@
       font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
+    .step.done   { background: #16a34a; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
+    /* ── Titles ── */
     .top-title {
       text-align: center; font-size: 18px; font-weight: 900;
-      margin-bottom: 4px;
+      margin-bottom: 4px; color: #1e40af;
     }
     .subline {
       text-align: center; font-size: 14px; font-weight: 700;
       margin-bottom: 16px; color: #374151;
     }
 
+    /* ── Card ── */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px; padding: 16px;
+      border-radius: 18px; padding: 16px 14px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
@@ -64,27 +75,39 @@
       margin-bottom: 16px;
     }
 
-    /* ── PLAY / PAUSE ── */
+    /* ── Score counter ── */
+    .counter-row {
+      display: flex; justify-content: center; gap: 20px;
+      margin-bottom: 14px;
+    }
+    .counter-pill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 14px; border-radius: 30px;
+      font-size: 13px; font-weight: 700;
+    }
+    .counter-pill.correct-pill { background: #dcfce7; color: #15803d; }
+    .counter-pill.wrong-pill   { background: #fee2e2; color: #dc2626; }
+    .counter-icon { font-size: 15px; }
+
+    /* ── Play button ── */
     .audio-area {
       display: flex; flex-direction: column;
       align-items: center; gap: 8px; margin-bottom: 14px;
     }
     .play-btn {
-      width: 62px; height: 62px; border-radius: 50%;
+      width: 66px; height: 66px; border-radius: 50%;
       background: #2563eb; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 5px 16px rgba(37,99,235,0.35);
       transition: background 0.2s, transform 0.1s;
-      color: white; font-size: 26px;
+      color: white; font-size: 28px;
     }
     .play-btn:hover   { background: #1d4ed8; transform: scale(1.05); }
     .play-btn:active  { transform: scale(0.96); }
     .play-btn.playing { background: #7c3aed; }
-    .play-label {
-      font-size: 12px; font-weight: 600; color: #486581;
-    }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; }
 
-    /* ── PROGRESS BAR ── */
+    /* ── Audio progress bar ── */
     .read-progress-wrap {
       background: #e2e8f0; border-radius: 999px;
       height: 7px; margin-bottom: 14px; overflow: hidden;
@@ -95,65 +118,40 @@
       transition: width 0.5s ease;
     }
 
-    /* ── READ-ALONG PARAGRAPH ── */
-    /* Grouped into visual blocks — easier to scan on mobile */
-    .paragraph {
-      font-size: 15px; font-weight: 600;
-      color: #1e293b; line-height: 1.9;
-    }
+    /* ── Read-along paragraph ── */
+    .paragraph { font-size: 15px; font-weight: 600; color: #1e293b; line-height: 1.9; }
     .para-group {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 8px;
+      background: #f8fafc; border-radius: 12px;
+      padding: 10px 14px; margin-bottom: 8px;
       border: 1px solid #e2e8f0;
     }
-    .sentence {
-      display: inline;
-      padding: 1px 3px;
-      border-radius: 5px;
-      transition: background 0.3s, color 0.3s;
-    }
-    .sentence.active {
-      background: #fef08a; color: #713f12;
-    }
-    .sentence.done { color: #94a3b8; }
+    .sentence { display: inline; padding: 1px 3px; border-radius: 5px; transition: background 0.3s, color 0.3s; }
+    .sentence.active { background: #fef08a; color: #713f12; }
+    .sentence.done   { color: #94a3b8; }
 
-    .phase1-hint {
-      text-align: center; font-size: 12px;
-      font-weight: 600; color: #64748b; margin-top: 10px;
-    }
+    .phase1-hint { text-align: center; font-size: 12px; font-weight: 600; color: #64748b; margin-top: 10px; }
 
-    /* ── PHASE 2 ── */
+    /* ── Phase 2 ── */
     #phase2 { display: none; }
 
     .phase2-instruction {
       text-align: center; background: #eff6ff;
       border: 2px solid #bfdbfe; border-radius: 12px;
       padding: 10px 14px; font-weight: 700;
-      font-size: 14px; color: #1e40af; margin-bottom: 16px;
+      font-size: 14px; color: #1e40af; margin-bottom: 14px;
     }
 
-    .score-line {
-      text-align: center; font-size: 13px;
-      font-weight: 700; color: #486581; margin-bottom: 12px;
-    }
-
-    /* cloze paragraph — same grouped layout */
-    .cloze-para {
-      font-size: 15px; font-weight: 600;
-      color: #1e293b; margin-bottom: 16px;
-    }
+    /* ── Cloze paragraph ── */
+    .cloze-para { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 16px; }
     .cloze-group {
       background: #f8fafc; border-radius: 12px;
       padding: 10px 14px; margin-bottom: 8px;
-      border: 1px solid #e2e8f0;
-      line-height: 2.2;
+      border: 1px solid #e2e8f0; line-height: 2.4;
     }
 
     .gap {
       display: inline-flex; align-items: center; justify-content: center;
-      min-width: 82px; height: 32px;
+      min-width: 88px; height: 34px;
       border-radius: 8px; border: 2px dashed #93c5fd;
       background: #eff6ff; color: transparent;
       font-weight: 700; font-size: 14px;
@@ -161,9 +159,10 @@
       vertical-align: middle; padding: 0 8px;
       user-select: none; position: relative; top: -1px;
     }
-    .gap.filled  { border-style: solid; border-color: #2563eb; background: #dbeafe; color: #1e40af; }
-    .gap.correct { border-color: #16a34a; background: #dcfce7; color: #15803d; cursor: default; pointer-events: none; }
-    .gap.wrong   { border-color: #dc2626; background: #fee2e2; color: #dc2626; animation: shake 0.45s ease; }
+    .gap.filled    { border-style: solid; border-color: #2563eb; background: #dbeafe; color: #1e40af; }
+    .gap.correct   { border-color: #16a34a; background: #dcfce7; color: #15803d; cursor: default; pointer-events: none; }
+    .gap.wrong     { border-color: #dc2626; background: #fee2e2; color: #dc2626; animation: shake 0.45s ease; }
+    .gap.revealed  { border-color: #f59e0b; background: #fef3c7; color: #92400e; cursor: default; pointer-events: none; font-style: italic; }
 
     @keyframes shake {
       0%,100% { transform: translateX(0); }
@@ -173,7 +172,7 @@
       80%     { transform: translateX(3px); }
     }
 
-    /* tile bank — compact on mobile */
+    /* ── Tile bank ── */
     .tile-bank {
       display: flex; flex-wrap: wrap; gap: 8px;
       justify-content: center; padding: 12px;
@@ -182,25 +181,38 @@
     }
     .tile {
       background: white; border: 2px solid #93c5fd;
-      color: #1e40af; padding: 7px 14px;
+      color: #1e40af; padding: 7px 16px;
       border-radius: 30px; font-size: 14px; font-weight: 700;
       cursor: pointer; transition: all 0.2s;
       user-select: none; white-space: nowrap;
     }
-    .tile:hover { background: #2563eb; color: white; border-color: #2563eb; transform: translateY(-2px); }
+    .tile:hover    { background: #2563eb; color: white; border-color: #2563eb; transform: translateY(-2px); }
     .tile.selected { background: #2563eb; color: white; border-color: #2563eb; }
-    .tile.used { visibility: hidden; pointer-events: none; }
+    .tile.used     { visibility: hidden; pointer-events: none; }
 
-    /* end screen */
+    /* ── Error hint ── */
+    .error-hint {
+      text-align: center; font-size: 12px; font-weight: 700;
+      color: #dc2626; margin-bottom: 8px; min-height: 18px;
+      transition: opacity 0.3s;
+    }
+
+    /* ── End screen ── */
     .end { text-align: center; padding: 16px 10px 8px; display: none; }
     .end.show { display: block; }
-    .end .trophy { font-size: 48px; margin-bottom: 8px; }
-    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
-    .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .end .trophy { font-size: 52px; margin-bottom: 8px; }
+    .end h2  { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p   { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .end .final-score {
+      display: inline-block; margin: 10px auto;
+      background: #eff6ff; border: 2px solid #bfdbfe;
+      border-radius: 12px; padding: 8px 20px;
+      font-size: 13px; font-weight: 700; color: #1e40af;
+    }
 
     .next-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 26px; background: #16a34a; color: #fff;
+      padding: 13px 28px; background: #16a34a; color: #fff;
       border: none; border-radius: 14px; font-weight: 900;
       font-size: 16px; cursor: pointer;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
@@ -210,8 +222,9 @@
 
     @media (max-width: 400px) {
       .paragraph, .cloze-para { font-size: 14px; }
-      .gap  { min-width: 70px; font-size: 13px; }
+      .gap  { min-width: 72px; height: 30px; font-size: 13px; }
       .tile { font-size: 13px; padding: 6px 12px; }
+      .play-btn { width: 58px; height: 58px; font-size: 24px; }
     }
   </style>
 </head>
@@ -221,14 +234,14 @@
 
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 1 • Parte 5</div>
+  <div class="top-title">Unidad 4 · Lección 1 · Parte 5</div>
   <div class="subline">Escucha, lee y completa.</div>
 
   <div class="progress-container">
-    <a class="step" href="p1.html">1</a>
-    <a class="step" href="p2.html">2</a>
-    <a class="step" href="p3.html">3</a>
-    <a class="step" href="p4.html">4</a>
+    <a class="step done" href="p1.html">1</a>
+    <a class="step done" href="p2.html">2</a>
+    <a class="step done" href="p3.html">3</a>
+    <a class="step done" href="p4.html">4</a>
     <a class="step active" href="p5.html">5</a>
   </div>
 
@@ -247,7 +260,6 @@
         <div class="read-progress-bar" id="readBar"></div>
       </div>
 
-      <!-- Paragraph split into 4 visual groups for mobile readability -->
       <div class="paragraph" id="readPara">
         <div class="para-group" id="pg0"></div>
         <div class="para-group" id="pg1"></div>
@@ -264,14 +276,23 @@
       <div class="ex-header">Parte 2 — Completa los espacios</div>
 
       <div class="phase2-instruction">
-        Toca una palabra, luego toca el espacio correcto.
+        Toca una palabra del banco, luego toca el espacio correcto.
       </div>
 
-      <div class="score-line">
-        Correctas: <span id="scoreNum">0</span> / 9
+      <!-- Live score counter -->
+      <div class="counter-row">
+        <div class="counter-pill correct-pill">
+          <span class="counter-icon">✅</span>
+          <span id="rightCount">0</span> correctas
+        </div>
+        <div class="counter-pill wrong-pill">
+          <span class="counter-icon">❌</span>
+          <span id="wrongCount">0</span> errores
+        </div>
       </div>
 
-      <!-- Same groups, now with gaps -->
+      <div class="error-hint" id="errorHint"></div>
+
       <div class="cloze-para" id="clozePara">
         <div class="cloze-group" id="cg0"></div>
         <div class="cloze-group" id="cg1"></div>
@@ -286,13 +307,458 @@
         <div class="trophy">🏆</div>
         <h2>¡Excelente trabajo!</h2>
         <p>Completaste la lectura correctamente.</p>
+        <div class="final-score" id="finalScore"></div>
         <a href="../index.html" class="next-btn">Finalizar lección →</a>
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /card -->
+</div><!-- /wrap -->
 
-<script src="../../../../js/u4/u4_l1_p5.js"></script>
+<script>
+(() => {
+  // ── Constants ─────────────────────────────────────────────────────────────
+  const UNIT    = 4;
+  const LESSON  = 1;
+  const PART    = 5;
+  const ASSET   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_FILE = ASSET + "audio/u4/u4.l1.p5.dialog.mp3";
+  const SFX_OK     = ASSET + "sfx/correct.wav";
+  const SFX_WRONG  = ASSET + "sfx/incorrect.wav";
+
+  const MAX_WRONG_PER_GAP = 3;   // after this many wrong attempts, reveal answer
+
+  // ── Sentence groups for read-along ───────────────────────────────────────
+  const SENTENCE_GROUPS = [
+    [
+      "Everybody is busy today.",
+      "Mrs. Rivera is at the restaurant.",
+      "She is eating dinner.",
+    ],
+    [
+      "Mr. and Mrs. Chen are at the gym.",
+      "They are exercising.",
+      "Lisa and Tom are at the park.",
+      "She is reading a book.",
+      "He is listening to music.",
+    ],
+    [
+      "Carlos is at the laundromat.",
+      "He is washing his clothes.",
+      "Jenny is at the library.",
+      "She is studying English.",
+    ],
+    [
+      "Mr. and Mrs. Molina are at the zoo.",
+      "They are watching the monkeys.",
+    ],
+    [
+      "James is in the garage.",
+      "He is fixing his car.",
+      "And Sofia is at home.",
+      "She is cleaning her windows.",
+    ],
+  ];
+
+  const SENTENCES = SENTENCE_GROUPS.flat();
+
+  // Timing cues — proportional fractions (17 sentences)
+  const CUE_FRACTIONS = [
+    0.00, 0.06, 0.12,
+    0.18, 0.23, 0.29, 0.34, 0.40,
+    0.46, 0.52, 0.57, 0.63,
+    0.69, 0.75,
+    0.81, 0.87, 0.93,
+  ];
+
+  // ── Cloze groups ─────────────────────────────────────────────────────────
+  const CLOZE_GROUPS = [
+    [
+      "Everybody is busy today. ",
+      "Mrs. Rivera is at the restaurant. She is ", { id: 0, answer: "eating" }, " dinner. ",
+    ],
+    [
+      "Mr. and Mrs. Chen are at the gym. They are ", { id: 1, answer: "exercising" }, ". ",
+      "Lisa and Tom are at the park. She is ", { id: 2, answer: "reading" }, " a book. ",
+      "He is ", { id: 3, answer: "listening" }, " to music. ",
+    ],
+    [
+      "Carlos is at the laundromat. He is ", { id: 4, answer: "washing" }, " his clothes. ",
+      "Jenny is at the library. She is ", { id: 5, answer: "studying" }, " English. ",
+    ],
+    [
+      "Mr. and Mrs. Molina are at the zoo. They are ", { id: 6, answer: "watching" }, " the monkeys. ",
+    ],
+    [
+      "James is in the garage. He is ", { id: 7, answer: "fixing" }, " his car. ",
+      "And Sofia is at home. She is ", { id: 8, answer: "cleaning" }, " her windows.",
+    ],
+  ];
+
+  const ANSWERS    = ["eating","exercising","reading","listening","washing","studying","watching","fixing","cleaning"];
+  const TOTAL_GAPS = ANSWERS.length;
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let selectedTile  = null;
+  let correctCount  = 0;
+  let totalWrong    = 0;
+  const gapEls      = {};
+  const gapErrors   = {};   // id → wrong attempt count
+
+  // ── DOM refs ──────────────────────────────────────────────────────────────
+  const phase1El   = document.getElementById("phase1");
+  const phase2El   = document.getElementById("phase2");
+  const playBtn    = document.getElementById("playBtn");
+  const playLabel  = document.getElementById("playLabel");
+  const readBar    = document.getElementById("readBar");
+  const phase1Hint = document.getElementById("phase1Hint");
+  const tileBank   = document.getElementById("tileBank");
+  const rightCountEl = document.getElementById("rightCount");
+  const wrongCountEl = document.getElementById("wrongCount");
+  const errorHint  = document.getElementById("errorHint");
+  const endScreen  = document.getElementById("endScreen");
+  const finalScore = document.getElementById("finalScore");
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function playSfx(url) { new Audio(url).play().catch(() => {}); }
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function showHint(msg, color = "#dc2626") {
+    errorHint.textContent = msg;
+    errorHint.style.color = color;
+    clearTimeout(showHint._t);
+    showHint._t = setTimeout(() => { errorHint.textContent = ""; }, 2200);
+  }
+
+  // ── PHASE 1: Build read-along ─────────────────────────────────────────────
+  function buildReadPara() {
+    let idx = 0;
+    SENTENCE_GROUPS.forEach((group, gi) => {
+      const container = document.getElementById("pg" + gi);
+      if (!container) return;
+      container.innerHTML = "";
+      group.forEach(text => {
+        const span = document.createElement("span");
+        span.className   = "sentence";
+        span.id          = "s" + idx;
+        span.textContent = text + " ";
+        container.appendChild(span);
+        idx++;
+      });
+    });
+  }
+
+  // ── Audio ─────────────────────────────────────────────────────────────────
+  let isPlaying     = false;
+  let cuePoints     = [];
+  let lastSentIdx   = -1;
+  let audioDuration = 0;
+  let audioFinished = false;
+  let playPromise   = null;
+
+  const audio = new Audio(AUDIO_FILE);
+  audio.preload = "metadata";
+
+  function computeCuePoints(duration) {
+    cuePoints = CUE_FRACTIONS.map(f => f * duration);
+  }
+
+  audio.addEventListener("loadedmetadata", () => {
+    audioDuration = audio.duration;
+    computeCuePoints(audioDuration);
+  });
+
+  function highlightSentence(idx) {
+    SENTENCES.forEach((_, i) => {
+      const el = document.getElementById("s" + i);
+      if (!el) return;
+      el.classList.remove("active","done");
+      if (i < idx)  el.classList.add("done");
+      if (i === idx) el.classList.add("active");
+    });
+    readBar.style.width = ((idx + 1) / SENTENCES.length * 100) + "%";
+  }
+
+  audio.addEventListener("timeupdate", () => {
+    if (!isPlaying || !cuePoints.length) return;
+    const t = audio.currentTime;
+    let idx = -1;
+    for (let i = 0; i < cuePoints.length; i++) {
+      if (t >= cuePoints[i]) idx = i;
+    }
+    if (idx !== lastSentIdx) {
+      lastSentIdx = idx;
+      if (idx >= 0) highlightSentence(idx);
+    }
+  });
+
+  audio.addEventListener("ended", () => {
+    isPlaying = false;
+    audioFinished = true;
+    playBtn.classList.remove("playing");
+    playBtn.textContent   = "▶";
+    playLabel.textContent = "Escuchado ✓";
+    readBar.style.width   = "100%";
+    highlightSentence(SENTENCES.length - 1);
+    setTimeout(startPhase2, 1400);
+  });
+
+  audio.addEventListener("error", () => {
+    isPlaying = false;
+    playBtn.classList.remove("playing");
+    playBtn.textContent   = "▶";
+    playLabel.textContent = "Error de audio";
+  });
+
+  function pauseAudio() {
+    if (playPromise) {
+      playPromise.then(() => { audio.pause(); }).catch(() => {});
+      playPromise = null;
+    } else {
+      audio.pause();
+    }
+    isPlaying = false;
+    playBtn.classList.remove("playing");
+    playBtn.textContent   = "▶";
+    playLabel.textContent = "Toca ▶ para continuar";
+  }
+
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) { pauseAudio(); return; }
+    if (!cuePoints.length) computeCuePoints(audioDuration || 40);
+
+    if (audioFinished) {
+      audio.currentTime = 0;
+      lastSentIdx = -1;
+      audioFinished = false;
+      SENTENCES.forEach((_, i) => {
+        const el = document.getElementById("s" + i);
+        if (el) el.classList.remove("active","done");
+      });
+      readBar.style.width = "0%";
+    }
+
+    isPlaying = true;
+    playBtn.classList.add("playing");
+    playBtn.textContent   = "⏸";
+    playLabel.textContent = "Escuchando...";
+    if (phase1Hint) phase1Hint.textContent = "Sigue el texto mientras escuchas.";
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise
+        .then(() => { playPromise = null; })
+        .catch(err => {
+          if (err.name !== "AbortError") {
+            isPlaying = false;
+            playBtn.classList.remove("playing");
+            playBtn.textContent   = "▶";
+            playLabel.textContent = "No se pudo reproducir.";
+          }
+          playPromise = null;
+        });
+    }
+  });
+
+  // ── PHASE 2 ───────────────────────────────────────────────────────────────
+  function startPhase2() {
+    phase1El.style.display = "none";
+    phase2El.style.display = "block";
+    buildClozePara();
+    buildTileBank();
+  }
+
+  function buildClozePara() {
+    CLOZE_GROUPS.forEach((segments, gi) => {
+      const container = document.getElementById("cg" + gi);
+      if (!container) return;
+      container.innerHTML = "";
+      segments.forEach(seg => {
+        if (typeof seg === "string") {
+          container.appendChild(document.createTextNode(seg));
+        } else {
+          const gap = document.createElement("span");
+          gap.className      = "gap";
+          gap.dataset.id     = seg.id;
+          gap.dataset.answer = seg.answer;
+          gap.textContent    = seg.answer;    // sizes box naturally
+          gap.style.color    = "transparent";
+          gapErrors[seg.id]  = 0;
+          gap.addEventListener("click", () => handleGapClick(gap));
+          gapEls[seg.id] = gap;
+          container.appendChild(gap);
+        }
+      });
+    });
+  }
+
+  function buildTileBank() {
+    tileBank.innerHTML = "";
+    shuffle(ANSWERS).forEach(word => {
+      const tile = document.createElement("div");
+      tile.className    = "tile";
+      tile.textContent  = word;
+      tile.dataset.word = word;
+      tile.addEventListener("click", () => handleTileClick(tile));
+      tileBank.appendChild(tile);
+    });
+  }
+
+  function handleTileClick(tile) {
+    if (tile.classList.contains("used")) return;
+    if (selectedTile === tile) {
+      tile.classList.remove("selected");
+      selectedTile = null;
+      return;
+    }
+    if (selectedTile) selectedTile.classList.remove("selected");
+    selectedTile = tile;
+    tile.classList.add("selected");
+  }
+
+  function handleGapClick(gap) {
+    if (gap.classList.contains("correct") || gap.classList.contains("revealed")) return;
+
+    if (gap.classList.contains("filled")) {
+      clearGap(gap);
+      return;
+    }
+
+    if (!selectedTile) {
+      gap.style.borderColor = "#f59e0b";
+      showHint("Primero selecciona una palabra del banco.", "#f59e0b");
+      setTimeout(() => { gap.style.borderColor = ""; }, 500);
+      return;
+    }
+    placeInGap(gap);
+  }
+
+  function clearGap(gap) {
+    const word = gap.textContent;
+    const tile = [...tileBank.querySelectorAll(".tile")].find(t => t.dataset.word === word);
+    if (tile) tile.classList.remove("used","selected");
+    if (selectedTile && selectedTile.dataset.word === word) {
+      selectedTile.classList.remove("selected");
+      selectedTile = null;
+    }
+    resetGap(gap);
+  }
+
+  function resetGap(gap) {
+    gap.classList.remove("filled","wrong");
+    gap.textContent = gap.dataset.answer;
+    gap.style.color = "transparent";
+  }
+
+  function placeInGap(gap) {
+    const chosen  = selectedTile.dataset.word;
+    const correct = gap.dataset.answer;
+    const id      = Number(gap.dataset.id);
+    gap.textContent = chosen;
+
+    if (chosen === correct) {
+      gap.classList.remove("filled","wrong");
+      gap.classList.add("correct");
+      gap.style.color = "";
+
+      selectedTile.classList.add("used");
+      selectedTile.classList.remove("selected");
+      selectedTile = null;
+
+      correctCount++;
+      rightCountEl.textContent = correctCount;
+      playSfx(SFX_OK);
+      showHint("¡Correcto! 🎉", "#16a34a");
+
+      if (correctCount + Object.values(gapErrors).filter((v,i) => gapEls[i] && (gapEls[i].classList.contains("revealed")?1:0)).reduce((a,b)=>a+b,0) === TOTAL_GAPS - countRevealed() + countRevealed()) {
+        // Check if all gaps resolved (correct + revealed)
+        checkCompletion();
+      }
+
+    } else {
+      gap.classList.add("filled","wrong");
+      gap.style.color = "#dc2626";
+
+      selectedTile.classList.remove("selected");
+      const ret = selectedTile;
+      selectedTile = null;
+
+      totalWrong++;
+      wrongCountEl.textContent = totalWrong;
+      gapErrors[id] = (gapErrors[id] || 0) + 1;
+      playSfx(SFX_WRONG);
+
+      if (gapErrors[id] >= MAX_WRONG_PER_GAP) {
+        // Too many mistakes — reveal answer
+        setTimeout(() => {
+          gap.classList.remove("filled","wrong");
+          gap.classList.add("revealed");
+          gap.style.color = "";
+          gap.textContent = correct;
+          ret.classList.add("used");
+          showHint(`La respuesta correcta era: "${correct}"`, "#92400e");
+          checkCompletion();
+        }, 650);
+      } else {
+        showHint(`Incorrecto. Intentos restantes: ${MAX_WRONG_PER_GAP - gapErrors[id]}`, "#dc2626");
+        setTimeout(() => { ret.classList.remove("used"); resetGap(gap); }, 650);
+      }
+    }
+  }
+
+  function countRevealed() {
+    return Object.values(gapEls).filter(el => el.classList.contains("revealed")).length;
+  }
+
+  function checkCompletion() {
+    const resolved = Object.values(gapEls).filter(el =>
+      el.classList.contains("correct") || el.classList.contains("revealed")
+    ).length;
+    if (resolved === TOTAL_GAPS) setTimeout(showEnd, 800);
+  }
+
+  function showEnd() {
+    tileBank.style.display = "none";
+    const revealed = countRevealed();
+    const pct = Math.round((correctCount / TOTAL_GAPS) * 100);
+    finalScore.textContent = `✅ ${correctCount} correctas · ❌ ${totalWrong} errores · ${pct}%`;
+    endScreen.classList.add("show");
+
+    // ── Save progress ────────────────────────────────────────────────────────
+    try {
+      const key = `inglesco_progress_u${UNIT}`;
+      const raw = localStorage.getItem(key);
+      const prog = raw ? JSON.parse(raw) : {};
+      const lKey = `l${LESSON}`;
+      if (!prog[lKey]) prog[lKey] = { partsCompleted: 0, partsTotal: 5 };
+      if (prog[lKey].partsCompleted < PART) prog[lKey].partsCompleted = PART;
+      prog[lKey].partsTotal = 5;
+      localStorage.setItem(key, JSON.stringify(prog));
+
+      const furthestKey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(furthestKey) || "0", 10);
+      if (PART > prev) localStorage.setItem(furthestKey, String(PART));
+    } catch(e) {}
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  buildReadPara();
+
+  // Register service worker (forward-compat)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+  }
+
+})();
+</script>
+
 </body>
 </html>

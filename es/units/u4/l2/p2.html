@@ -5,20 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unidad 4 • Lección 2 • Parte 2</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
     body {
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
       min-height: 100vh;
-      padding: 16px 12px 60px;
+      padding: 16px 12px 80px;
       color: #111827;
     }
 
     .wrap { max-width: 700px; margin: 0 auto; }
 
-    /* ── Back button ── */
     .back-btn {
       display: inline-block; margin-bottom: 16px;
       padding: 7px 14px; background: #2563eb; color: white;
@@ -27,20 +32,19 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    /* ── Page title ── */
     .top-title {
       text-align: center; font-size: 18px; font-weight: 900;
-      margin-bottom: 4px;
+      margin-bottom: 4px; color: #1e40af;
     }
     .subline {
       text-align: center; font-size: 14px; font-weight: 700;
       margin-bottom: 16px; color: #374151;
     }
 
-    /* ── Progress steps ── */
+    /* ── Progress dots ── */
     .progress-container {
       display: flex; justify-content: center;
-      gap: 10px; margin: 12px 0 20px 0;
+      gap: 10px; margin: 12px 0 20px;
     }
     .step {
       width: 38px; height: 38px; border-radius: 50%;
@@ -51,12 +55,13 @@
       font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
+    .step.done   { background: #16a34a; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
     /* ── Card ── */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px; padding: 16px;
+      border-radius: 18px; padding: 16px 14px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
@@ -68,14 +73,24 @@
       margin-bottom: 16px;
     }
 
-    /* ── Counter & bar ── */
+    /* ── Score counter ── */
     .counter-row {
-      display: flex; justify-content: center;
+      display: flex; justify-content: center; gap: 20px;
       margin-bottom: 8px;
     }
-    .counter {
-      font-size: 13px; font-weight: 700; color: #486581;
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .score-pills {
+      display: flex; justify-content: center; gap: 14px;
+      margin-bottom: 10px;
     }
+    .pill {
+      display: flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 30px;
+      font-size: 13px; font-weight: 700;
+    }
+    .pill.correct-pill { background: #dcfce7; color: #15803d; }
+    .pill.wrong-pill   { background: #fee2e2; color: #dc2626; }
+
     .bar-wrap {
       background: #e2e8f0; border-radius: 999px;
       height: 7px; margin-bottom: 18px; overflow: hidden;
@@ -107,10 +122,7 @@
       0%,100% { transform: scale(1); }
       50%      { transform: scale(1.18); }
     }
-    .play-label {
-      font-size: 12px; font-weight: 600; color: #486581;
-      text-align: center;
-    }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; text-align: center; }
 
     /* ── Hint line ── */
     .hint {
@@ -151,6 +163,7 @@
       max-height: 130px;
       width: auto; height: auto;
       object-fit: contain;
+      background: #f1f5f9;
       border-radius: 8px;
       display: block;
     }
@@ -159,17 +172,13 @@
       color: #374151; text-align: center;
     }
 
-    /* ── States ── */
     .choice-card.correct {
-      border-color: #16a34a;
-      background: #dcfce7;
-      transform: scale(1.04);
+      border-color: #16a34a; background: #dcfce7; transform: scale(1.04);
     }
     .choice-card.correct .choice-label { color: #15803d; }
 
     .choice-card.wrong {
-      border-color: #dc2626;
-      background: #fee2e2;
+      border-color: #dc2626; background: #fee2e2;
       animation: shake 0.45s ease;
     }
     .choice-card.wrong .choice-label { color: #dc2626; }
@@ -185,6 +194,7 @@
     @media (max-width: 400px) {
       .choice-card img { max-height: 100px; }
       .choice-label    { font-size: 11px; }
+      .play-btn        { width: 58px; height: 58px; font-size: 22px; }
     }
 
     /* ── End screen ── */
@@ -193,9 +203,15 @@
     .end .trophy { font-size: 52px; margin-bottom: 10px; }
     .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
     .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .end .final-score {
+      display: inline-block; margin: 10px auto;
+      background: #eff6ff; border: 2px solid #bfdbfe;
+      border-radius: 12px; padding: 8px 20px;
+      font-size: 13px; font-weight: 700; color: #1e40af;
+    }
     .finish-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 28px; background: #16a34a; color: #fff;
+      padding: 13px 28px; background: #16a34a; color: #fff;
       border: none; border-radius: 14px; font-weight: 900;
       font-size: 16px; cursor: pointer;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
@@ -211,11 +227,11 @@
 
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 2 • Parte 2</div>
+  <div class="top-title">Unidad 4 · Lección 2 · Parte 2</div>
   <div class="subline">Escucha y selecciona la imagen correcta</div>
 
   <div class="progress-container">
-    <a class="step" href="p1.html">1</a>
+    <a class="step done" href="p1.html">1</a>
     <a class="step active" href="p2.html">2</a>
     <a class="step" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
@@ -225,12 +241,17 @@
   <div class="card">
 
     <div id="slideArea">
-
       <div class="ex-header">Listen and pick the correct image</div>
 
       <div class="counter-row">
         <span class="counter" id="counter">1 / 6</span>
       </div>
+
+      <div class="score-pills">
+        <div class="pill correct-pill">✅ <span id="rightCount">0</span></div>
+        <div class="pill wrong-pill">❌ <span id="wrongCount">0</span></div>
+      </div>
+
       <div class="bar-wrap">
         <div class="bar-fill" id="progressBar"></div>
       </div>
@@ -243,20 +264,274 @@
       <p class="hint" id="hint">👂 Listen first, then pick the correct image.</p>
 
       <div class="choices" id="choices"></div>
-
     </div>
 
-    <!-- End screen -->
     <div class="end" id="endScreen">
       <div class="trophy">🏆</div>
       <h2>¡Excelente!</h2>
       <p>You identified all the images correctly.</p>
+      <div class="final-score" id="finalScore"></div>
       <a href="p3.html" class="finish-btn">Continuar → Parte 3</a>
     </div>
 
   </div>
 </div>
 
-<script src="../../../../js/u4/u4_l2_p2.js"></script>
+<script>
+(() => {
+  const UNIT   = 4;
+  const LESSON = 2;
+  const PART   = 2;
+  const BASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG    = BASE + "images/u4/";
+  const AUD    = BASE + "audio/u4/";
+  const SFX_OK    = BASE + "sfx/correct.wav";
+  const SFX_WRONG = BASE + "sfx/incorrect.wav";
+
+  const ROUNDS = [
+    {
+      audio: AUD + "u4.l2.p1.modern.house.mp3",
+      choices: [
+        { image: IMG + "u4.l2.p1.modern.house.jpg", label: "modern house", correct: true  },
+        { image: IMG + "u4.l2.p1.old.house.jpg",    label: "old house",    correct: false },
+      ],
+    },
+    {
+      audio: AUD + "u4.l2.p1.old.car.mp3",
+      choices: [
+        { image: IMG + "u4.l2.p1.new.car.jpg", label: "new car", correct: false },
+        { image: IMG + "u4.l2.p1.old.car.jpg", label: "old car", correct: true  },
+      ],
+    },
+    {
+      audio: AUD + "u4.l2.p1.new.phone.mp3",
+      choices: [
+        { image: IMG + "u4.l2.p1.new.phone.jpg", label: "new phone", correct: true  },
+        { image: IMG + "u4.l2.p1.old.phone.jpg", label: "old phone", correct: false },
+      ],
+    },
+    {
+      audio: AUD + "u4.l2.p1.cheap.watch.mp3",
+      choices: [
+        { image: IMG + "u4.l2.p1.expensive.watch.jpg", label: "expensive watch", correct: false },
+        { image: IMG + "u4.l2.p1.cheap.watch.jpg",     label: "cheap watch",     correct: true  },
+      ],
+    },
+    {
+      audio: AUD + "u4.l2.p1.expensive.car.mp3",
+      choices: [
+        { image: IMG + "u4.l2.p1.expensive.car.jpg", label: "expensive car", correct: true  },
+        { image: IMG + "u4.l2.p1.cheap.car.jpg",     label: "cheap car",     correct: false },
+      ],
+    },
+    {
+      audio: AUD + "u4.l2.p1.new.car.mp3",
+      choices: [
+        { image: IMG + "u4.l2.p1.old.car.jpg", label: "old car", correct: false },
+        { image: IMG + "u4.l2.p1.new.car.jpg", label: "new car", correct: true  },
+      ],
+    },
+  ];
+
+  const TOTAL = ROUNDS.length;
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let current     = 0;
+  let audioPlayed = false;
+  let answered    = false;
+  let isPlaying   = false;
+  let playPromise = null;
+  let audio       = new Audio();
+  let rightCount  = 0;
+  let wrongCount  = 0;
+
+  // ── DOM ───────────────────────────────────────────────────────────────────
+  const counterEl   = document.getElementById("counter");
+  const progressBar = document.getElementById("progressBar");
+  const playBtn     = document.getElementById("playBtn");
+  const playLabel   = document.getElementById("playLabel");
+  const choicesEl   = document.getElementById("choices");
+  const hintEl      = document.getElementById("hint");
+  const endScreen   = document.getElementById("endScreen");
+  const slideArea   = document.getElementById("slideArea");
+  const rightEl     = document.getElementById("rightCount");
+  const wrongEl     = document.getElementById("wrongCount");
+  const finalScore  = document.getElementById("finalScore");
+
+  function playSfx(url) { new Audio(url).play().catch(() => {}); }
+
+  // ── Load round ────────────────────────────────────────────────────────────
+  function loadRound(idx) {
+    const round = ROUNDS[idx];
+    audioPlayed = false;
+    answered    = false;
+    isPlaying   = false;
+
+    counterEl.textContent   = `${idx + 1} / ${TOTAL}`;
+    progressBar.style.width = ((idx + 1) / TOTAL * 100) + "%";
+
+    playBtn.textContent   = "▶";
+    playBtn.className     = "play-btn";
+    playLabel.textContent = "Toca para escuchar";
+    hintEl.textContent    = "👂 Listen first, then pick the correct image.";
+    hintEl.className      = "hint";
+
+    // Build choices (shuffled)
+    choicesEl.innerHTML = "";
+    const shuffled = [...round.choices].sort(() => Math.random() - 0.5);
+    shuffled.forEach(choice => {
+      const card = document.createElement("div");
+      card.className = "choice-card";
+
+      const img = document.createElement("img");
+      img.src = choice.image;
+      img.alt = choice.label;
+
+      const lbl = document.createElement("span");
+      lbl.className   = "choice-label";
+      lbl.textContent = choice.label;
+
+      card.appendChild(img);
+      card.appendChild(lbl);
+      card.addEventListener("click", () => handlePick(card, choice.correct));
+      choicesEl.appendChild(card);
+    });
+
+    // Audio — always new Audio() inside handler (iOS safe)
+    audio.pause();
+    audio = new Audio(round.audio);
+    audio.preload = "auto";
+
+    audio.addEventListener("ended", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      playBtn.textContent = "▶";
+      playBtn.classList.remove("playing");
+      playBtn.classList.add("done");
+      playLabel.textContent = "¡Escuchado! — Now pick the image.";
+      hintEl.textContent    = "☝️ Tap the correct image!";
+    });
+
+    audio.addEventListener("error", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      playLabel.textContent = "Audio no disponible";
+      hintEl.textContent    = "☝️ Tap the correct image!";
+    });
+  }
+
+  // ── Play / Pause ──────────────────────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (answered) return;
+
+    if (isPlaying) {
+      if (playPromise) {
+        playPromise.then(() => audio.pause()).catch(() => {});
+        playPromise = null;
+      } else {
+        audio.pause();
+      }
+      isPlaying = false;
+      playBtn.textContent = "▶";
+      playBtn.classList.remove("playing");
+      playLabel.textContent = "Toca ▶ para continuar";
+      return;
+    }
+
+    if (audioPlayed) audio.currentTime = 0;
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+    playBtn.classList.add("playing");
+    playLabel.textContent = "Escuchando...";
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise.then(() => { playPromise = null; }).catch(err => {
+        if (err.name !== "AbortError") {
+          isPlaying = false;
+          playBtn.classList.remove("playing");
+          playBtn.textContent   = "▶";
+          playLabel.textContent = "No se pudo reproducir.";
+        }
+        playPromise = null;
+      });
+    }
+  });
+
+  // ── Pick handler ──────────────────────────────────────────────────────────
+  function handlePick(card, correct) {
+    if (answered) return;
+
+    if (!audioPlayed) {
+      hintEl.textContent = "👂 Listen to the audio first!";
+      hintEl.className   = "hint warn";
+      playBtn.classList.add("pulse");
+      setTimeout(() => playBtn.classList.remove("pulse"), 600);
+      return;
+    }
+
+    answered = true;
+    audio.pause();
+
+    if (correct) {
+      card.classList.add("correct");
+      hintEl.textContent = "✅ Correct!";
+      hintEl.className   = "hint correct";
+      playSfx(SFX_OK);
+      rightCount++;
+      rightEl.textContent = rightCount;
+      setTimeout(() => {
+        current++;
+        if (current >= TOTAL) showEnd();
+        else loadRound(current);
+      }, 1100);
+    } else {
+      card.classList.add("wrong");
+      hintEl.textContent = "❌ Try again!";
+      hintEl.className   = "hint wrong";
+      playSfx(SFX_WRONG);
+      wrongCount++;
+      wrongEl.textContent = wrongCount;
+      setTimeout(() => {
+        card.classList.remove("wrong");
+        hintEl.textContent = "☝️ Try again — tap the correct image!";
+        hintEl.className   = "hint";
+        answered = false;
+      }, 800);
+    }
+  }
+
+  // ── End ───────────────────────────────────────────────────────────────────
+  function showEnd() {
+    slideArea.style.display = "none";
+    const pct = Math.round((rightCount / (rightCount + wrongCount)) * 100) || 100;
+    finalScore.textContent = `✅ ${rightCount} correctas · ❌ ${wrongCount} errores · ${pct}%`;
+    endScreen.classList.add("show");
+
+    try {
+      const key  = `inglesco_progress_u${UNIT}`;
+      const raw  = localStorage.getItem(key);
+      const prog = raw ? JSON.parse(raw) : {};
+      const lKey = `l${LESSON}`;
+      if (!prog[lKey]) prog[lKey] = { partsCompleted: 0, partsTotal: 5 };
+      if (prog[lKey].partsCompleted < PART) prog[lKey].partsCompleted = PART;
+      prog[lKey].partsTotal = 5;
+      localStorage.setItem(key, JSON.stringify(prog));
+
+      const fKey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(fKey) || "0", 10);
+      if (PART > prev) localStorage.setItem(fKey, String(PART));
+    } catch(e) {}
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  loadRound(0);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+  }
+})();
+</script>
+
 </body>
 </html>

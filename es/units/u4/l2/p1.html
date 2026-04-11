@@ -5,14 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unidad 4 • Lección 2 • Parte 1</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
     body {
       background: linear-gradient(135deg, #dbeafe, #fef9c3);
       min-height: 100vh;
-      padding: 16px 12px 60px;
+      padding: 16px 12px 80px;
       color: #111827;
     }
 
@@ -27,20 +33,20 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    /* ── Page title ── */
+    /* ── Titles ── */
     .top-title {
       text-align: center; font-size: 18px; font-weight: 900;
-      margin-bottom: 4px;
+      margin-bottom: 4px; color: #1e40af;
     }
     .subline {
       text-align: center; font-size: 14px; font-weight: 700;
       margin-bottom: 16px; color: #374151;
     }
 
-    /* ── Progress steps ── */
+    /* ── Progress dots ── */
     .progress-container {
       display: flex; justify-content: center;
-      gap: 10px; margin: 12px 0 20px 0;
+      gap: 10px; margin: 12px 0 20px;
     }
     .step {
       width: 38px; height: 38px; border-radius: 50%;
@@ -51,9 +57,10 @@
       font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
+    .step.done   { background: #16a34a; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
-    /* ── NEW WORDS accordion ── */
+    /* ── New Words accordion ── */
     .words-accordion {
       background: rgba(255,255,255,.88);
       border-radius: 16px;
@@ -69,7 +76,6 @@
       font-family: 'Poppins', sans-serif;
       font-size: 14px; font-weight: 700;
       letter-spacing: 0.05em; text-transform: uppercase;
-      border-radius: 0;
     }
     .words-toggle:hover { background: #1d4ed8; }
     .words-chevron { font-size: 12px; transition: transform 0.3s; }
@@ -86,28 +92,23 @@
       background: #eff6ff; border-radius: 10px;
       border: 1px solid #bfdbfe;
     }
-    .word-en {
-      font-weight: 700; font-size: 15px; color: #1e40af;
-    }
-    .word-es {
-      font-size: 13px; font-weight: 600; color: #374151;
-    }
+    .word-en { font-weight: 700; font-size: 15px; color: #1e40af; }
+    .word-es { font-size: 13px; font-weight: 600; color: #374151; }
 
     /* ── Main card ── */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px; padding: 16px;
+      border-radius: 18px; padding: 16px 14px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
-    /* ── Counter & progress bar ── */
+    /* ── Slide counter & bar ── */
     .counter-row {
       display: flex; justify-content: space-between;
       align-items: center; margin-bottom: 8px;
     }
-    .counter {
-      font-size: 13px; font-weight: 700; color: #486581;
-    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+
     .bar-wrap {
       background: #e2e8f0; border-radius: 999px;
       height: 7px; margin-bottom: 16px; overflow: hidden;
@@ -119,15 +120,14 @@
 
     /* ── Slide image ── */
     .img-wrap {
-      width: 100%;
-      border-radius: 14px; overflow: hidden;
-      background: #e2e8f0; margin-bottom: 14px;
+      width: 100%; border-radius: 14px; overflow: hidden;
+      background: #f1f5f9; margin-bottom: 14px;
       display: flex; align-items: center; justify-content: center;
-      padding: 8px;
+      padding: 10px; min-height: 160px;
     }
     .img-wrap img {
       max-width: 100%;
-      max-height: 160px;
+      max-height: 200px;
       width: auto; height: auto;
       object-fit: contain;
       display: block;
@@ -135,7 +135,8 @@
       transition: opacity 0.4s ease;
     }
     @media (max-width: 400px) {
-      .img-wrap img { max-height: 130px; }
+      .img-wrap img { max-height: 150px; }
+      .img-wrap { min-height: 130px; }
     }
 
     /* ── Text labels ── */
@@ -146,6 +147,10 @@
     .label-es {
       text-align: center; font-size: 15px; font-weight: 600;
       color: #64748b; margin-bottom: 18px;
+    }
+    @media (max-width: 400px) {
+      .label-en { font-size: 17px; }
+      .label-es { font-size: 13px; }
     }
 
     /* ── Audio area ── */
@@ -165,9 +170,7 @@
     .play-btn:active  { transform: scale(0.96); }
     .play-btn.playing { background: #7c3aed; }
     .play-btn.done    { background: #16a34a; }
-    .play-label {
-      font-size: 12px; font-weight: 600; color: #486581;
-    }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; }
 
     /* ── Next button ── */
     .next-btn {
@@ -191,9 +194,10 @@
     .end .trophy { font-size: 52px; margin-bottom: 10px; }
     .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
     .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+
     .finish-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 28px; background: #16a34a; color: #fff;
+      padding: 13px 28px; background: #16a34a; color: #fff;
       border: none; border-radius: 14px; font-weight: 900;
       font-size: 16px; cursor: pointer;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
@@ -201,11 +205,6 @@
       text-decoration: none; font-family: 'Poppins', sans-serif;
     }
     .finish-btn:hover { background: #15803d; }
-
-    @media (max-width: 400px) {
-      .label-en { font-size: 17px; }
-      .label-es { font-size: 13px; }
-    }
   </style>
 </head>
 <body>
@@ -214,7 +213,7 @@
 
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 2 • Parte 1</div>
+  <div class="top-title">Unidad 4 · Lección 2 · Parte 1</div>
   <div class="subline">Palabras nuevas — escucha y aprende</div>
 
   <div class="progress-container">
@@ -225,7 +224,7 @@
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- ══ NEW WORDS accordion ══ -->
+  <!-- New Words accordion -->
   <div class="words-accordion">
     <button class="words-toggle" id="wordsToggle" aria-expanded="false">
       <span>📖 New Words — Palabras Nuevas</span>
@@ -234,12 +233,10 @@
     <div class="words-body" id="wordsBody"></div>
   </div>
 
-  <!-- ══ Main card ══ -->
+  <!-- Main card -->
   <div class="card">
 
-    <!-- Slide area -->
     <div id="slideArea">
-
       <div class="counter-row">
         <span class="counter" id="counter">1 / 10</span>
       </div>
@@ -259,24 +256,231 @@
         <span class="play-label" id="playLabel">Toca para escuchar</span>
       </div>
 
-      <button class="next-btn" id="nextBtn" disabled>
-        Siguiente →
-      </button>
-
+      <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
     </div>
 
-    <!-- End screen -->
     <div class="end" id="endScreen">
       <div class="trophy">🏆</div>
       <h2>¡Muy bien!</h2>
       <p>Aprendiste las palabras nuevas de la Lección 2.</p>
-      <p>Continue to the next part.</p>
+      <p>Continúa a la siguiente parte.</p>
       <a href="p2.html" class="finish-btn">Continuar → Parte 2</a>
     </div>
 
-  </div>
-</div>
+  </div><!-- /card -->
+</div><!-- /wrap -->
 
-<script src="../../../../js/u4/u4_l2_p1.js"></script>
+<script>
+(() => {
+  const UNIT   = 4;
+  const LESSON = 2;
+  const PART   = 1;
+  const BASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG    = BASE + "images/u4/";
+  const AUD    = BASE + "audio/u4/";
+
+  // ── New Words ──────────────────────────────────────────────────────────────
+  const NEW_WORDS = [
+    { en: "new",       es: "nuevo / nueva" },
+    { en: "old",       es: "viejo / vieja" },
+    { en: "expensive", es: "caro / cara" },
+    { en: "cheap",     es: "barato / barata" },
+    { en: "modern",    es: "moderno / moderna" },
+    { en: "car",       es: "carro / auto" },
+    { en: "house",     es: "casa" },
+    { en: "watch",     es: "reloj" },
+    { en: "phone",     es: "teléfono" },
+  ];
+
+  // ── Slides (all verified in Supabase) ─────────────────────────────────────
+  const SLIDES = [
+    { image: IMG + "u4.l2.p1.new.car.jpg",        audio: AUD + "u4.l2.p1.new.car.mp3",        en: "car — new car",           es: "carro — carro nuevo" },
+    { image: IMG + "u4.l2.p1.old.car.jpg",        audio: AUD + "u4.l2.p1.old.car.mp3",        en: "car — old car",           es: "carro — carro viejo" },
+    { image: IMG + "u4.l2.p1.modern.house.jpg",   audio: AUD + "u4.l2.p1.modern.house.mp3",   en: "house — modern house",    es: "casa — casa moderna" },
+    { image: IMG + "u4.l2.p1.old.house.jpg",      audio: AUD + "u4.l2.p1.old.house.mp3",      en: "house — old house",       es: "casa — casa vieja" },
+    { image: IMG + "u4.l2.p1.new.phone.jpg",      audio: AUD + "u4.l2.p1.new.phone.mp3",      en: "new phone",               es: "teléfono nuevo" },
+    { image: IMG + "u4.l2.p1.old.phone.jpg",      audio: AUD + "u4.l2.p1.old.phone.mp3",      en: "old phone",               es: "teléfono viejo" },
+    { image: IMG + "u4.l2.p1.expensive.watch.jpg",audio: AUD + "u4.l2.p1.expensive.watch.mp3",en: "watch — expensive watch", es: "reloj — reloj caro" },
+    { image: IMG + "u4.l2.p1.cheap.watch.jpg",    audio: AUD + "u4.l2.p1.cheap.watch.mp3",    en: "watch — cheap watch",     es: "reloj — reloj barato" },
+    { image: IMG + "u4.l2.p1.cheap.car.jpg",      audio: AUD + "u4.l2.p1.cheap.car.mp3",      en: "cheap car",               es: "carro barato" },
+    { image: IMG + "u4.l2.p1.expensive.car.jpg",  audio: AUD + "u4.l2.p1.expensive.car.mp3",  en: "expensive car",           es: "carro caro" },
+  ];
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let current     = 0;
+  let audioPlayed = false;
+  let isPlaying   = false;
+  let playPromise = null;
+  let audio       = new Audio();
+
+  // ── DOM ───────────────────────────────────────────────────────────────────
+  const slideImg    = document.getElementById("slideImg");
+  const enText      = document.getElementById("enText");
+  const esText      = document.getElementById("esText");
+  const playBtn     = document.getElementById("playBtn");
+  const playLabel   = document.getElementById("playLabel");
+  const nextBtn     = document.getElementById("nextBtn");
+  const counterEl   = document.getElementById("counter");
+  const progressBar = document.getElementById("progressBar");
+  const endScreen   = document.getElementById("endScreen");
+  const slideArea   = document.getElementById("slideArea");
+  const wordsToggle = document.getElementById("wordsToggle");
+  const wordsBody   = document.getElementById("wordsBody");
+  const wordsChevron= document.getElementById("wordsChevron");
+
+  // ── New Words accordion ───────────────────────────────────────────────────
+  function buildWordList() {
+    wordsBody.innerHTML = "";
+    NEW_WORDS.forEach(w => {
+      const row = document.createElement("div");
+      row.className = "word-row";
+      row.innerHTML = `<span class="word-en">${w.en}</span><span class="word-es">${w.es}</span>`;
+      wordsBody.appendChild(row);
+    });
+  }
+
+  wordsToggle.addEventListener("click", () => {
+    const open = wordsBody.classList.toggle("open");
+    wordsChevron.textContent = open ? "▲" : "▼";
+    wordsToggle.setAttribute("aria-expanded", String(open));
+  });
+
+  // ── Slide loader ──────────────────────────────────────────────────────────
+  function loadSlide(idx) {
+    const s = SLIDES[idx];
+    audioPlayed = false;
+    isPlaying   = false;
+
+    slideImg.style.opacity = "0";
+    slideImg.src = s.image;
+    slideImg.onload = () => { slideImg.style.opacity = "1"; };
+
+    enText.textContent = s.en;
+    esText.textContent = s.es;
+    counterEl.textContent = `${idx + 1} / ${SLIDES.length}`;
+    progressBar.style.width = ((idx + 1) / SLIDES.length * 100) + "%";
+
+    setPlayIdle();
+    nextBtn.disabled = true;
+    nextBtn.classList.remove("ready");
+
+    audio.pause();
+    // Always new Audio() inside handler — iOS safe
+    audio = new Audio(s.audio);
+    audio.preload = "auto";
+
+    audio.addEventListener("ended", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      setPlayDone();
+      nextBtn.disabled = false;
+      nextBtn.classList.add("ready");
+    });
+
+    audio.addEventListener("error", () => {
+      isPlaying = false;
+      playLabel.textContent = "Audio no disponible";
+      playBtn.classList.remove("playing");
+      playBtn.textContent = "▶";
+      audioPlayed = true;
+      nextBtn.disabled = false;
+      nextBtn.classList.add("ready");
+    });
+  }
+
+  function setPlayIdle() {
+    playBtn.textContent = "▶";
+    playBtn.classList.remove("playing","done");
+    playLabel.textContent = "Toca para escuchar";
+  }
+
+  function setPlayDone() {
+    playBtn.textContent = "✓";
+    playBtn.classList.remove("playing");
+    playBtn.classList.add("done");
+    playLabel.textContent = "¡Escuchado!";
+  }
+
+  // ── Play / Pause ──────────────────────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      if (playPromise) {
+        playPromise.then(() => audio.pause()).catch(() => {});
+        playPromise = null;
+      } else {
+        audio.pause();
+      }
+      isPlaying = false;
+      playBtn.textContent = "▶";
+      playBtn.classList.remove("playing");
+      playLabel.textContent = "Toca ▶ para continuar";
+      return;
+    }
+
+    if (audioPlayed) audio.currentTime = 0;
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+    playBtn.classList.add("playing");
+    playLabel.textContent = "Escuchando...";
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise.then(() => { playPromise = null; }).catch(err => {
+        if (err.name !== "AbortError") {
+          isPlaying = false;
+          playBtn.classList.remove("playing");
+          playBtn.textContent = "▶";
+          playLabel.textContent = "No se pudo reproducir.";
+        }
+        playPromise = null;
+      });
+    }
+  });
+
+  // ── Next ──────────────────────────────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    if (nextBtn.disabled) return;
+    audio.pause();
+    isPlaying = false;
+    current++;
+    if (current >= SLIDES.length) {
+      showEnd();
+    } else {
+      loadSlide(current);
+    }
+  });
+
+  function showEnd() {
+    slideArea.style.display = "none";
+    endScreen.classList.add("show");
+
+    // ── Progress tracking ─────────────────────────────────────────────────
+    try {
+      const key  = `inglesco_progress_u${UNIT}`;
+      const raw  = localStorage.getItem(key);
+      const prog = raw ? JSON.parse(raw) : {};
+      const lKey = `l${LESSON}`;
+      if (!prog[lKey]) prog[lKey] = { partsCompleted: 0, partsTotal: 5 };
+      if (prog[lKey].partsCompleted < PART) prog[lKey].partsCompleted = PART;
+      prog[lKey].partsTotal = 5;
+      localStorage.setItem(key, JSON.stringify(prog));
+
+      const fKey = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(fKey) || "0", 10);
+      if (PART > prev) localStorage.setItem(fKey, String(PART));
+    } catch(e) {}
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  buildWordList();
+  loadSlide(0);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../../../sw.js').catch(() => {});
+  }
+
+})();
+</script>
+
 </body>
 </html>
