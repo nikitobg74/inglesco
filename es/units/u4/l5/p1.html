@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unidad 4 • Lección 5 • Parte 1</title>
+  <title>Unidad 4 • Lección 5 • Parte 1 – Preguntas simples | Inglesco</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
@@ -30,7 +32,7 @@
     /* ── Page title ── */
     .top-title {
       text-align: center; font-size: 18px; font-weight: 900;
-      margin-bottom: 4px;
+      margin-bottom: 4px; color: #1e40af;
     }
     .subline {
       text-align: center; font-size: 14px; font-weight: 700;
@@ -90,7 +92,6 @@
     }
     .grammar-note strong { color: #1e40af; display: block; margin-bottom: 4px; font-size: 13px; }
 
-    /* ── Grammar comparison table ── */
     .grammar-table {
       width: 100%; border-collapse: collapse; font-size: 13px;
     }
@@ -140,7 +141,7 @@
     }
     .col-left .img-wrap {
       width: 100%; border-radius: 14px; overflow: hidden;
-      background: #eff6ff; border: 2px solid #bfdbfe;
+      background: #f1f5f9; border: 2px solid #bfdbfe;
       display: flex; align-items: center; justify-content: center;
       padding: 8px; flex: 1;
     }
@@ -227,10 +228,7 @@
     .next-btn.ready:hover { background: #1d4ed8; }
 
     /* ── End screen ── */
-    .end {
-      display: none; text-align: center;
-      padding: 28px 16px;
-    }
+    .end { display: none; text-align: center; padding: 28px 16px; }
     .end.show { display: block; }
     .end .trophy { font-size: 52px; margin-bottom: 10px; }
     .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
@@ -246,7 +244,6 @@
     }
     .finish-btn:hover { background: #15803d; }
 
-    /* ── Mobile ── */
     @media (max-width: 480px) {
       .slide-columns { flex-direction: column; }
       .col-left { flex: none; width: 100%; }
@@ -294,13 +291,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td class="col-stmt">I am tall.</td>      <td class="col-qn">Am I tall?</td></tr>
-          <tr><td class="col-stmt">He is tall.</td>     <td class="col-qn">Is he tall?</td></tr>
-          <tr><td class="col-stmt">She is tall.</td>    <td class="col-qn">Is she tall?</td></tr>
-          <tr><td class="col-stmt">It is tall.</td>     <td class="col-qn">Is it tall?</td></tr>
-          <tr><td class="col-stmt">We are tall.</td>    <td class="col-qn">Are we tall?</td></tr>
-          <tr><td class="col-stmt">You are tall.</td>   <td class="col-qn">Are you tall?</td></tr>
-          <tr><td class="col-stmt">They are tall.</td>  <td class="col-qn">Are they tall?</td></tr>
+          <tr><td class="col-stmt">I am tall.</td>     <td class="col-qn">Am I tall?</td></tr>
+          <tr><td class="col-stmt">He is tall.</td>    <td class="col-qn">Is he tall?</td></tr>
+          <tr><td class="col-stmt">She is tall.</td>   <td class="col-qn">Is she tall?</td></tr>
+          <tr><td class="col-stmt">It is tall.</td>    <td class="col-qn">Is it tall?</td></tr>
+          <tr><td class="col-stmt">We are tall.</td>   <td class="col-qn">Are we tall?</td></tr>
+          <tr><td class="col-stmt">You are tall.</td>  <td class="col-qn">Are you tall?</td></tr>
+          <tr><td class="col-stmt">They are tall.</td> <td class="col-qn">Are they tall?</td></tr>
         </tbody>
       </table>
 
@@ -320,15 +317,11 @@
       </div>
 
       <div class="slide-columns">
-
-        <!-- Image -->
         <div class="col-left">
           <div class="img-wrap">
             <img id="slideImg" src="" alt="Imagen del ejercicio" />
           </div>
         </div>
-
-        <!-- Statement + Question -->
         <div class="col-right">
           <div class="statement-bubble">
             <div class="stmt-tag">Afirmación</div>
@@ -339,7 +332,6 @@
             <div class="label" id="questionText"></div>
           </div>
         </div>
-
       </div>
 
       <!-- Audio -->
@@ -362,9 +354,178 @@
     </div>
 
   </div>
-
 </div>
 
-<script src="../../../../js/u4/u4_l5_p1.js"></script>
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG  = BASE + "images/u4/";
+  const AUD  = BASE + "audio/u4/";
+
+  // ── Slides ────────────────────────────────────────────────────────────────
+  const SLIDES = [
+    { image: IMG + "u4.l4.p2.brian.tall.jpg",    statement: "He is tall.",     question: "Is he tall?",     audio: AUD + "u4.l5.p1.tall.mp3"    },
+    { image: IMG + "u4.l4.p2.billy.short.jpg",   statement: "He is short.",    question: "Is he short?",    audio: AUD + "u4.l5.p1.short.mp3"   },
+    { image: IMG + "u4.l4.p1.single.jpg",        statement: "He is single.",   question: "Is he single?",   audio: AUD + "u4.l5.p1.single.mp3"  },
+    { image: IMG + "u4.l4.p1.married.jpg",       statement: "She is married.", question: "Is she married?", audio: AUD + "u4.l5.p1.married.mp3" },
+    { image: IMG + "u4.l4.p1.old.couple.jpg",    statement: "They are old.",   question: "Are they old?",   audio: AUD + "u4.l5.p1.old.mp3"     },
+    { image: IMG + "u4.l4.p2.young.couple.jpg",  statement: "They are young.", question: "Are they young?", audio: AUD + "u4.l5.p1.young.mp3"   },
+  ];
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let current     = 0;
+  let audioPlayed = false;
+  let isPlaying   = false;
+  let playPromise = null;
+  let audio       = new Audio();
+
+  // ── DOM refs ──────────────────────────────────────────────────────────────
+  const slideImg    = document.getElementById("slideImg");
+  const statementEl = document.getElementById("statementText");
+  const questionEl  = document.getElementById("questionText");
+  const playBtn     = document.getElementById("playBtn");
+  const playLabel   = document.getElementById("playLabel");
+  const nextBtn     = document.getElementById("nextBtn");
+  const counterEl   = document.getElementById("counter");
+  const progressBar = document.getElementById("progressBar");
+  const endScreen   = document.getElementById("endScreen");
+  const slideArea   = document.getElementById("slideArea");
+
+  // ── Vocab panel toggle ────────────────────────────────────────────────────
+  document.getElementById("vocabToggle").addEventListener("click", () => {
+    const body    = document.getElementById("vocabBody");
+    const chevron = document.getElementById("vocabChevron");
+    const open    = body.classList.toggle("open");
+    chevron.textContent = open ? "▲" : "▼";
+  });
+
+  // ── Audio helpers ─────────────────────────────────────────────────────────
+  function playAudio() {
+    if (isPlaying) return;
+    isPlaying = true;
+    playBtn.innerHTML = "⏸";
+    playBtn.classList.add("playing");
+    playBtn.classList.remove("done");
+    playLabel.textContent = "Escuchando...";
+
+    playPromise = audio.play();
+    if (playPromise) {
+      playPromise.then(() => { playPromise = null; }).catch(err => {
+        if (err.name !== "AbortError") {
+          isPlaying = false;
+          playBtn.classList.remove("playing");
+          playBtn.innerHTML = "▶";
+          playLabel.textContent = "No se pudo reproducir.";
+        }
+        playPromise = null;
+      });
+    }
+  }
+
+  function setPlayIdle() {
+    playBtn.innerHTML = "▶";
+    playBtn.classList.remove("playing", "done");
+    playLabel.textContent = "Toca para escuchar la pregunta";
+  }
+
+  function setPlayDone() {
+    playBtn.innerHTML = "▶";
+    playBtn.classList.remove("playing");
+    playBtn.classList.add("done");
+    playLabel.textContent = "¡Escuchado! Toca para repetir";
+  }
+
+  // ── Load slide ────────────────────────────────────────────────────────────
+  function loadSlide(idx) {
+    const s     = SLIDES[idx];
+    audioPlayed = false;
+    isPlaying   = false;
+
+    slideImg.style.opacity = "0";
+    slideImg.src = s.image;
+    slideImg.onload = () => { slideImg.style.opacity = "1"; };
+
+    statementEl.textContent = s.statement;
+    questionEl.textContent  = s.question;
+
+    counterEl.textContent   = `${idx + 1} / ${SLIDES.length}`;
+    progressBar.style.width = ((idx + 1) / SLIDES.length * 100) + "%";
+
+    setPlayIdle();
+    nextBtn.disabled = true;
+    nextBtn.classList.remove("ready");
+
+    audio.pause();
+    audio = new Audio(s.audio);
+    audio.preload = "auto";
+
+    audio.addEventListener("ended", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      setPlayDone();
+      nextBtn.disabled = false;
+      nextBtn.classList.add("ready");
+    });
+
+    audio.addEventListener("error", () => {
+      isPlaying   = false;
+      audioPlayed = true;
+      playLabel.textContent = "Audio no disponible";
+      playBtn.classList.remove("playing");
+      playBtn.innerHTML = "▶";
+      nextBtn.disabled = false;
+      nextBtn.classList.add("ready");
+    });
+  }
+
+  // ── Play / pause / repeat ─────────────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      if (playPromise) { playPromise.then(() => audio.pause()).catch(() => {}); playPromise = null; }
+      else { audio.pause(); }
+      isPlaying = false;
+      playBtn.innerHTML = "▶";
+      playBtn.classList.remove("playing");
+      playLabel.textContent = "Toca ▶ para continuar";
+      return;
+    }
+    if (audioPlayed) audio.currentTime = 0;
+    playAudio();
+  });
+
+  // ── Next ──────────────────────────────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    if (nextBtn.disabled) return;
+    audio.pause();
+    isPlaying = false;
+    current++;
+    if (current >= SLIDES.length) {
+      showEnd();
+    } else {
+      loadSlide(current);
+    }
+  });
+
+  function showEnd() {
+    try {
+      const key  = "inglesco_progress_u4";
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      data["l5_p1"] = { completed: true, ts: Date.now() };
+      localStorage.setItem(key, JSON.stringify(data));
+
+      const fKey = "inglesco_furthest_u4_l5";
+      const cur  = parseInt(localStorage.getItem(fKey) || "0", 10);
+      if (cur < 1) localStorage.setItem(fKey, "1");
+    } catch(e) {}
+
+    slideArea.style.display = "none";
+    endScreen.classList.add("show");
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  loadSlide(0);
+
+})();
+</script>
 </body>
 </html>

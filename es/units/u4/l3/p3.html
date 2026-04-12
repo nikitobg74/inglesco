@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unidad 4 • Lección 3 • Parte 3</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
+  <link rel="manifest" href="../../../../manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
@@ -16,9 +22,8 @@
       color: #111827;
     }
 
-    .wrap { max-width: 700px; margin: 0 auto; }
+    .wrap { max-width: 480px; margin: 0 auto; }
 
-    /* ── Back button ── */
     .back-btn {
       display: inline-block; margin-bottom: 16px;
       padding: 7px 14px; background: #2563eb; color: white;
@@ -27,10 +32,9 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    /* ── Page title ── */
     .top-title {
       text-align: center; font-size: 18px; font-weight: 900;
-      margin-bottom: 4px;
+      color: #1e40af; margin-bottom: 4px;
     }
     .subline {
       text-align: center; font-size: 14px; font-weight: 700;
@@ -53,151 +57,118 @@
     .step.active { background: #2563eb; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
+    /* ── Score bar ── */
+    .score-bar {
+      display: flex; justify-content: center; gap: 24px;
+      margin-bottom: 14px;
+    }
+    .score-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: white; border-radius: 999px;
+      padding: 5px 14px; font-size: 14px; font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .score-pill.correct { color: #16a34a; }
+    .score-pill.wrong   { color: #dc2626; }
+
     /* ── Main card ── */
     .card {
-      background: rgba(255,255,255,.88);
-      border-radius: 18px; padding: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.92);
+      border-radius: 18px; padding: 18px 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.09);
     }
 
-    /* ── Counter & progress bar ── */
     .counter-row {
       display: flex; justify-content: space-between;
       align-items: center; margin-bottom: 8px;
     }
-    .counter {
-      font-size: 13px; font-weight: 700; color: #486581;
-    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+
     .bar-wrap {
       background: #e2e8f0; border-radius: 999px;
-      height: 7px; margin-bottom: 16px; overflow: hidden;
+      height: 7px; margin-bottom: 18px; overflow: hidden;
     }
     .bar-fill {
       height: 100%; width: 0%; background: #2563eb;
       border-radius: 999px; transition: width 0.5s ease;
     }
 
-    /* ── Two-column slide layout ── */
+    /* ── Two-column layout ── */
     .slide-columns {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      margin-bottom: 14px;
+      display: flex; gap: 12px;
+      align-items: flex-start; margin-bottom: 16px;
     }
-
-    /* ── Left column: question girl ── */
     .col-left {
       flex: 0 0 42%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
     }
-
     .col-left .img-wrap {
-      width: 100%;
-      border-radius: 14px; overflow: hidden;
-      background: #eff6ff;
-      border: 2px solid #bfdbfe;
+      width: 100%; border-radius: 14px; overflow: hidden;
+      background: #f1f5f9; border: 2px solid #bfdbfe;
       display: flex; align-items: center; justify-content: center;
       padding: 8px;
     }
     .col-left .img-wrap img {
-      max-width: 100%;
-      max-height: 150px;
+      max-width: 100%; max-height: 140px;
       width: auto; height: auto;
-      object-fit: contain;
-      display: block;
-      border-radius: 10px;
+      object-fit: contain; display: block; border-radius: 10px;
     }
-
     .question-bubble {
-      background: #2563eb;
-      color: white;
-      border-radius: 12px;
-      padding: 8px 12px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.4;
-      position: relative;
-      width: 100%;
+      background: #2563eb; color: white;
+      border-radius: 12px; padding: 8px 10px;
+      text-align: center; font-size: 13px; font-weight: 700;
+      line-height: 1.4; position: relative; width: 100%;
     }
     .question-bubble::before {
       content: '';
-      position: absolute;
-      top: -8px; left: 50%;
+      position: absolute; top: -8px; left: 50%;
       transform: translateX(-50%);
       border: 8px solid transparent;
-      border-bottom-color: #2563eb;
-      border-top: 0;
+      border-bottom-color: #2563eb; border-top: 0;
     }
-    .question-bubble .en { font-size: 14px; }
 
-    /* ── Right column: answer image ── */
     .col-right {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
     }
-
     .col-right .img-wrap {
-      width: 100%;
-      border-radius: 14px; overflow: hidden;
-      background: #e2e8f0;
+      width: 100%; border-radius: 14px; overflow: hidden;
+      background: #f1f5f9;
       display: flex; align-items: center; justify-content: center;
       padding: 8px;
     }
     .col-right .img-wrap img {
-      max-width: 100%;
-      max-height: 150px;
+      max-width: 100%; max-height: 140px;
       width: auto; height: auto;
-      object-fit: contain;
-      display: block;
-      border-radius: 10px;
+      object-fit: contain; display: block; border-radius: 10px;
       transition: opacity 0.4s ease;
     }
-
-    /* Answer bubble: noun shown, adjective blank */
     .answer-bubble {
-      background: #f0fdf4;
-      border: 2px solid #86efac;
-      border-radius: 12px;
-      padding: 10px 12px;
-      text-align: center;
-      width: 100%;
+      background: #f0fdf4; border: 2px solid #86efac;
+      border-radius: 12px; padding: 10px 12px;
+      text-align: center; width: 100%;
     }
     .answer-bubble .label-en {
-      font-size: 17px; font-weight: 900;
+      font-size: 16px; font-weight: 900;
       color: #1e293b; line-height: 1.4;
     }
-    /* blank slot for the adjective */
     .adj-blank {
       display: inline-block;
-      min-width: 80px;
+      min-width: 70px;
       border-bottom: 3px solid #2563eb;
       color: #2563eb;
       font-style: italic;
     }
 
-    @media (max-width: 420px) {
-      .slide-columns { flex-direction: column; }
-      .col-left { flex: none; width: 100%; }
-      .col-right { width: 100%; }
-      .col-left .img-wrap img,
-      .col-right .img-wrap img { max-height: 120px; }
-      .question-bubble::before { display: none; }
-    }
-
     /* ── Audio area ── */
     .audio-area {
       display: flex; flex-direction: column;
-      align-items: center; gap: 8px; margin-bottom: 18px;
+      align-items: center; gap: 8px; margin-bottom: 14px;
     }
     .play-btn {
-      width: 66px; height: 66px; border-radius: 50%;
+      width: 64px; height: 64px; border-radius: 50%;
       background: #2563eb; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 5px 16px rgba(37,99,235,0.35);
@@ -208,55 +179,37 @@
     .play-btn:active  { transform: scale(0.96); }
     .play-btn.playing { background: #7c3aed; }
     .play-btn.done    { background: #16a34a; }
-    .play-label {
-      font-size: 12px; font-weight: 600; color: #486581;
-    }
+    .play-label { font-size: 12px; font-weight: 600; color: #486581; }
 
-    /* ── Word tiles ── */
+    /* ── Tiles ── */
+    .tiles-section { transition: opacity 0.4s; }
+    .tiles-section.hidden { opacity: 0; pointer-events: none; }
+
     .tiles-label {
-      text-align: center;
-      font-size: 13px; font-weight: 700;
+      text-align: center; font-size: 13px; font-weight: 700;
       color: #486581; margin-bottom: 10px;
     }
     .tiles-row {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 18px;
+      display: flex; gap: 12px;
+      justify-content: center; margin-bottom: 14px;
     }
     .tile {
-      flex: 1;
-      max-width: 160px;
-      padding: 14px 10px;
-      border-radius: 14px;
-      border: 3px solid #d1d5db;
-      background: #f8fafc;
-      font-size: 18px; font-weight: 900;
-      color: #1e293b;
-      cursor: pointer;
-      text-align: center;
+      flex: 1; max-width: 160px;
+      padding: 14px 10px; border-radius: 14px;
+      border: 3px solid #d1d5db; background: #f8fafc;
+      font-size: 18px; font-weight: 900; color: #1e293b;
+      cursor: pointer; text-align: center;
       transition: border-color 0.2s, background 0.2s, transform 0.15s;
       user-select: none;
     }
     .tile:hover:not(.locked) {
-      border-color: #2563eb;
-      background: #eff6ff;
+      border-color: #2563eb; background: #eff6ff;
       transform: scale(1.04);
     }
     .tile.locked { cursor: default; pointer-events: none; }
+    .tile.correct { border-color: #16a34a; background: #dcfce7; color: #15803d; }
+    .tile.wrong   { border-color: #dc2626; background: #fee2e2; color: #dc2626; }
 
-    /* correct */
-    .tile.correct {
-      border-color: #16a34a;
-      background: #dcfce7;
-      color: #15803d;
-    }
-    /* wrong — shake animation */
-    .tile.wrong {
-      border-color: #dc2626;
-      background: #fee2e2;
-      color: #dc2626;
-    }
     @keyframes shake {
       0%   { transform: translateX(0); }
       15%  { transform: translateX(-7px); }
@@ -269,14 +222,13 @@
     }
     .tile.shake { animation: shake 0.45s ease; }
 
-    /* tiles hidden until audio played */
-    .tiles-section {
-      transition: opacity 0.4s;
+    /* ── Feedback ── */
+    .feedback-flash {
+      text-align: center; font-size: 15px; font-weight: 700;
+      min-height: 22px; margin-bottom: 8px;
     }
-    .tiles-section.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    .feedback-flash.correct { color: #16a34a; }
+    .feedback-flash.wrong   { color: #dc2626; }
 
     /* ── End screen ── */
     .end { text-align: center; padding: 24px 10px 10px; display: none; }
@@ -284,6 +236,15 @@
     .end .trophy { font-size: 52px; margin-bottom: 10px; }
     .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
     .end p  { margin: 5px 0; font-weight: 600; color: #486581; font-size: 14px; }
+    .end-score {
+      display: flex; justify-content: center; gap: 20px;
+      margin: 14px 0 6px;
+    }
+    .end-score .pill {
+      padding: 6px 18px; border-radius: 999px; font-weight: 700; font-size: 15px;
+    }
+    .end-score .pill.c { background: #dcfce7; color: #16a34a; }
+    .end-score .pill.w { background: #fee2e2; color: #dc2626; }
     .finish-btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 12px 28px; background: #16a34a; color: #fff;
@@ -294,6 +255,16 @@
       text-decoration: none; font-family: 'Poppins', sans-serif;
     }
     .finish-btn:hover { background: #15803d; }
+
+    @media (max-width: 400px) {
+      .slide-columns { flex-direction: column; }
+      .col-left { flex: none; width: 100%; }
+      .col-right { width: 100%; }
+      .col-left .img-wrap img,
+      .col-right .img-wrap img { max-height: 110px; }
+      .question-bubble::before { display: none; }
+      .tile { font-size: 16px; padding: 12px 8px; }
+    }
   </style>
 </head>
 <body>
@@ -313,10 +284,14 @@
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- ══ Main card ══ -->
+  <!-- Score pills -->
+  <div class="score-bar">
+    <div class="score-pill correct">✅ <span id="scoreCorrect">0</span> correctas</div>
+    <div class="score-pill wrong">❌ <span id="scoreWrong">0</span> errores</div>
+  </div>
+
   <div class="card">
 
-    <!-- Slide area -->
     <div id="slideArea">
 
       <div class="counter-row">
@@ -326,20 +301,15 @@
         <div class="bar-fill" id="progressBar"></div>
       </div>
 
-      <!-- Two-column layout -->
       <div class="slide-columns">
 
-        <!-- Left: question girl -->
         <div class="col-left">
           <div class="img-wrap">
             <img src="https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/images/u4/u4.l3.p1.girl.whatisthis.jpg" alt="Girl asking: What is this?" />
           </div>
-          <div class="question-bubble">
-            <div class="en">What is this?</div>
-          </div>
+          <div class="question-bubble">What is this?</div>
         </div>
 
-        <!-- Right: answer image -->
         <div class="col-right">
           <div class="img-wrap">
             <img id="slideImg" src="" alt="Answer image" />
@@ -351,16 +321,16 @@
 
       </div>
 
-      <!-- Audio -->
       <div class="audio-area">
         <button class="play-btn" id="playBtn" aria-label="Reproducir audio">▶</button>
         <span class="play-label" id="playLabel">Toca para escuchar</span>
       </div>
 
-      <!-- Word tiles (hidden until audio played) -->
+      <div class="feedback-flash" id="feedbackFlash"></div>
+
       <div class="tiles-section hidden" id="tilesSection">
-        <div class="tiles-label">Tap the correct word</div>
-        <div class="tiles-row" id="tilesRow">
+        <div class="tiles-label">Elige la palabra correcta 👇</div>
+        <div class="tiles-row">
           <div class="tile" id="tile0"></div>
           <div class="tile" id="tile1"></div>
         </div>
@@ -368,11 +338,14 @@
 
     </div>
 
-    <!-- End screen -->
     <div class="end" id="endScreen">
       <div class="trophy">🏆</div>
       <h2>¡Excelente!</h2>
-      
+      <p>Elegiste los adjetivos correctos.</p>
+      <div class="end-score">
+        <div class="pill c">✅ <span id="endCorrect">0</span> correctas</div>
+        <div class="pill w">❌ <span id="endWrong">0</span> errores</div>
+      </div>
       <a href="p4.html" class="finish-btn">Continuar → Parte 4</a>
     </div>
 
@@ -381,160 +354,155 @@
 
 <script>
 (() => {
+  const UNIT   = 4;
+  const LESSON = 3;
+  const PART   = 3;
+
   const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
   const IMG  = BASE + "images/u4/";
   const AUD  = BASE + "audio/u4/";
+  const SFX  = BASE + "sfx/";
 
-  // ── Slides: combined from p1 and p2
-  // Each slide: correct adjective + one distractor
   const SLIDES = [
-    {
-      image: IMG + "u4.l3.p1.new.car.jpg",
-      audio: AUD + "u4.l3.p1.my.new.car.mp3",
-      en:    "This is my ___ car.",
-      noun:  "car",
-      correct: "new",
-      wrong:   "old",
-    },
-    {
-      image: IMG + "u4.l2.p1.old.car.jpg",
-      audio: AUD + "u4.l3.p2.my.old.car.mp3",
-      en:    "This is my ___ car.",
-      noun:  "car",
-      correct: "old",
-      wrong:   "new",
-    },
-    {
-      image: IMG + "u4.l3.p1.new.watch.jpg",
-      audio: AUD + "u4.l3.p1.my.new.watch.mp3",
-      en:    "This is my ___ watch.",
-      noun:  "watch",
-      correct: "new",
-      wrong:   "cheap",
-    },
-    {
-      image: IMG + "u4.l2.p1.cheap.watch.jpg",
-      audio: AUD + "u4.l3.p2.cheap.watch.mp3",
-      en:    "This is my ___ watch.",
-      noun:  "watch",
-      correct: "cheap",
-      wrong:   "new",
-    },
-    {
-      image: IMG + "u4.l3.p1.new.house.jpg",
-      audio: AUD + "u4.l3.p1.my.new.house.mp3",
-      en:    "This is my ___ house.",
-      noun:  "house",
-      correct: "new",
-      wrong:   "big",
-    },
-    {
-      image: IMG + "u4.l2.p1.modern.house.jpg",
-      audio: AUD + "u4.l3.p2.big.house.mp3",
-      en:    "This is my ___ house.",
-      noun:  "house",
-      correct: "big",
-      wrong:   "new",
-    },
-    {
-      image: IMG + "u4.l2.p4.expensive.phone.jpg",
-      audio: AUD + "u4.l3.p2.my.expensive.phone.mp3",
-      en:    "This is my ___ phone.",
-      noun:  "phone",
-      correct: "expensive",
-      wrong:   "cheap",
-    },
-    {
-      image: IMG + "u4.l2.p1.small.bedroom.jpg",
-      audio: AUD + "u4.l3.p2.small.apartment.mp3",
-      en:    "This is my ___ apartment.",
-      noun:  "apartment",
-      correct: "small",
-      wrong:   "big",
-    },
+    { image: IMG + "u4.l3.p1.new.car.jpg",          audio: AUD + "u4.l3.p1.my.new.car.mp3",         en: "This is my ___ car.",       correct: "new",       wrong: "old"      },
+    { image: IMG + "u4.l2.p1.old.car.jpg",           audio: AUD + "u4.l3.p2.my.old.car.mp3",         en: "This is my ___ car.",       correct: "old",       wrong: "new"      },
+    { image: IMG + "u4.l3.p1.new.watch.jpg",         audio: AUD + "u4.l3.p1.my.new.watch.mp3",       en: "This is my ___ watch.",     correct: "new",       wrong: "cheap"    },
+    { image: IMG + "u4.l2.p1.cheap.watch.jpg",       audio: AUD + "u4.l3.p2.cheap.watch.mp3",        en: "This is my ___ watch.",     correct: "cheap",     wrong: "new"      },
+    { image: IMG + "u4.l3.p1.new.house.jpg",         audio: AUD + "u4.l3.p1.my.new.house.mp3",       en: "This is my ___ house.",     correct: "new",       wrong: "big"      },
+    { image: IMG + "u4.l2.p1.modern.house.jpg",      audio: AUD + "u4.l3.p2.big.house.mp3",          en: "This is my ___ house.",     correct: "big",       wrong: "new"      },
+    { image: IMG + "u4.l2.p4.expensive.phone.jpg",   audio: AUD + "u4.l3.p2.my.expensive.phone.mp3", en: "This is my ___ phone.",     correct: "expensive", wrong: "cheap"    },
+    { image: IMG + "u4.l2.p1.small.bedroom.jpg",     audio: AUD + "u4.l3.p2.small.apartment.mp3",    en: "This is my ___ apartment.", correct: "small",     wrong: "big"      },
   ];
 
-  // ── State
-  let current     = 0;
-  let audioPlayed = false;
-  let isPlaying   = false;
-  let playPromise = null;
-  let answered    = false;
+  const MAX_WRONG_BEFORE_REVEAL = 2;
 
-  // ── DOM
-  const slideImg    = document.getElementById("slideImg");
-  const enText      = document.getElementById("enText");
-  const playBtn     = document.getElementById("playBtn");
-  const playLabel   = document.getElementById("playLabel");
-  const counterEl   = document.getElementById("counter");
-  const progressBar = document.getElementById("progressBar");
-  const endScreen   = document.getElementById("endScreen");
-  const slideArea   = document.getElementById("slideArea");
-  const tilesSection = document.getElementById("tilesSection");
-  const tile0       = document.getElementById("tile0");
-  const tile1       = document.getElementById("tile1");
+  let current        = 0;
+  let audioPlayed    = false;
+  let isPlaying      = false;
+  let playPromise    = null;
+  let answered       = false;
+  let wrongThisSlide = 0;
+  let scoreCorrect   = 0;
+  let scoreWrong     = 0;
 
-  let audio = new Audio();
+  const slideImg       = document.getElementById("slideImg");
+  const enText         = document.getElementById("enText");
+  const playBtn        = document.getElementById("playBtn");
+  const playLabel      = document.getElementById("playLabel");
+  const counterEl      = document.getElementById("counter");
+  const progressBar    = document.getElementById("progressBar");
+  const endScreen      = document.getElementById("endScreen");
+  const slideArea      = document.getElementById("slideArea");
+  const tilesSection   = document.getElementById("tilesSection");
+  const tile0          = document.getElementById("tile0");
+  const tile1          = document.getElementById("tile1");
+  const feedbackFlash  = document.getElementById("feedbackFlash");
+  const scoreCorrectEl = document.getElementById("scoreCorrect");
+  const scoreWrongEl   = document.getElementById("scoreWrong");
 
-  // ── Build enText with blank
+  function playCorrectSFX() { new Audio(SFX + "correct.wav").play().catch(() => {}); }
+  function playWrongSFX()   { new Audio(SFX + "incorrect.wav").play().catch(() => {}); }
+
+  function showFeedback(type, msg) {
+    feedbackFlash.textContent = msg;
+    feedbackFlash.className = "feedback-flash " + type;
+    clearTimeout(feedbackFlash._timer);
+    feedbackFlash._timer = setTimeout(() => {
+      feedbackFlash.textContent = "";
+      feedbackFlash.className = "feedback-flash";
+    }, 2000);
+  }
+
   function renderEnText(slide) {
     enText.innerHTML = slide.en.replace("___", `<span class="adj-blank" id="adjBlank">___</span>`);
   }
 
-  // ── Shuffle tiles: randomly assign correct to tile0 or tile1
   function buildTiles(slide) {
     answered = false;
-    tile0.classList.remove("correct","wrong","shake","locked");
-    tile1.classList.remove("correct","wrong","shake","locked");
+    tile0.classList.remove("correct", "wrong", "shake", "locked");
+    tile1.classList.remove("correct", "wrong", "shake", "locked");
 
-    const flip = Math.random() < 0.5;
+    const flip   = Math.random() < 0.5;
     const t0word = flip ? slide.correct : slide.wrong;
     const t1word = flip ? slide.wrong   : slide.correct;
 
     tile0.textContent = t0word;
     tile1.textContent = t1word;
 
-    tile0.onclick = () => handleTap(tile0, t0word === slide.correct, slide.correct);
-    tile1.onclick = () => handleTap(tile1, t1word === slide.correct, slide.correct);
+    tile0.onclick = () => handleTap(tile0, t0word === slide.correct, slide);
+    tile1.onclick = () => handleTap(tile1, t1word === slide.correct, slide);
   }
 
-  function handleTap(tileEl, isCorrect, correctWord) {
+  function handleTap(tileEl, isCorrect, slide) {
     if (answered) return;
     answered = true;
 
-    // lock both tiles
     tile0.classList.add("locked");
     tile1.classList.add("locked");
 
     if (isCorrect) {
       tileEl.classList.add("correct");
+      scoreCorrect++;
+      scoreCorrectEl.textContent = scoreCorrect;
+      showFeedback("correct", "¡Correcto! 🎉");
+      playCorrectSFX();
+
       // fill the blank
       const blank = document.getElementById("adjBlank");
-      if (blank) { blank.textContent = correctWord; blank.style.color = "#15803d"; blank.style.borderBottomColor = "#15803d"; }
-      // advance after short delay
+      if (blank) {
+        blank.textContent = slide.correct;
+        blank.style.color = "#15803d";
+        blank.style.borderBottomColor = "#15803d";
+      }
+
       setTimeout(() => {
         current++;
-        if (current >= SLIDES.length) {
-          showEnd();
-        } else {
-          loadSlide(current, false);
-        }
+        if (current >= SLIDES.length) showEnd();
+        else loadSlide(current, false);
       }, 900);
+
     } else {
-      tileEl.classList.add("wrong","shake");
-      // remove shake class after animation so it can re-trigger
-      tileEl.addEventListener("animationend", () => {
-        tileEl.classList.remove("shake");
-        // unlock so student can try again
-        tileEl.classList.remove("locked");
-        tile0.classList.remove("locked");
-        tile1.classList.remove("locked");
-        answered = false;
-      }, { once: true });
+      wrongThisSlide++;
+      scoreWrong++;
+      scoreWrongEl.textContent = scoreWrong;
+      playWrongSFX();
+      tileEl.classList.add("wrong", "shake");
+
+      if (wrongThisSlide >= MAX_WRONG_BEFORE_REVEAL) {
+        showFeedback("wrong", "La respuesta: " + slide.correct);
+        // highlight correct tile after shake
+        tileEl.addEventListener("animationend", () => {
+          tileEl.classList.remove("shake");
+          // show which tile is correct
+          [tile0, tile1].forEach(t => {
+            if (t.textContent === slide.correct) t.classList.add("correct");
+          });
+          const blank = document.getElementById("adjBlank");
+          if (blank) {
+            blank.textContent = slide.correct;
+            blank.style.color = "#15803d";
+            blank.style.borderBottomColor = "#15803d";
+          }
+          setTimeout(() => {
+            current++;
+            if (current >= SLIDES.length) showEnd();
+            else loadSlide(current, false);
+          }, 1400);
+        }, { once: true });
+      } else {
+        showFeedback("wrong", "Inténtalo de nuevo 💪");
+        tileEl.addEventListener("animationend", () => {
+          tileEl.classList.remove("shake", "wrong", "locked");
+          tile0.classList.remove("locked");
+          tile1.classList.remove("locked");
+          answered = false;
+        }, { once: true });
+      }
     }
   }
 
-  // ── Audio
+  let audio = new Audio();
+
   function playAudio() {
     if (isPlaying) return;
     isPlaying = true;
@@ -559,7 +527,7 @@
 
   function setPlayIdle() {
     playBtn.innerHTML = "▶";
-    playBtn.classList.remove("playing","done");
+    playBtn.classList.remove("playing", "done");
     playLabel.textContent = "Toca para escuchar";
   }
 
@@ -572,29 +540,25 @@
 
   function loadSlide(idx, autoplay) {
     const s = SLIDES[idx];
-    audioPlayed = false;
-    isPlaying   = false;
-    answered    = false;
+    audioPlayed    = false;
+    isPlaying      = false;
+    answered       = false;
+    wrongThisSlide = 0;
 
-    // image
     slideImg.style.opacity = "0";
     slideImg.src = s.image;
     slideImg.onload = () => { slideImg.style.opacity = "1"; };
 
-    // text with blank
     renderEnText(s);
-
-    // counter & bar
     counterEl.textContent = `${idx + 1} / ${SLIDES.length}`;
     progressBar.style.width = ((idx + 1) / SLIDES.length * 100) + "%";
 
-    // reset play btn
     setPlayIdle();
-
-    // hide tiles until audio played
     tilesSection.classList.add("hidden");
 
-    // preload audio
+    feedbackFlash.textContent = "";
+    feedbackFlash.className = "feedback-flash";
+
     audio.pause();
     audio = new Audio(s.audio);
     audio.preload = "auto";
@@ -603,7 +567,6 @@
       isPlaying   = false;
       audioPlayed = true;
       setPlayDone();
-      // reveal tiles
       buildTiles(s);
       tilesSection.classList.remove("hidden");
     });
@@ -618,12 +581,9 @@
       tilesSection.classList.remove("hidden");
     });
 
-    if (autoplay) {
-      setTimeout(() => playAudio(), 300);
-    }
+    if (autoplay) setTimeout(() => playAudio(), 300);
   }
 
-  // ── Play / pause / repeat
   playBtn.addEventListener("click", () => {
     if (isPlaying) {
       if (playPromise) {
@@ -638,16 +598,33 @@
       playLabel.textContent = "Toca ▶ para continuar";
       return;
     }
-    if (audioPlayed) { audio.currentTime = 0; }
+    if (audioPlayed) audio.currentTime = 0;
     playAudio();
   });
 
   function showEnd() {
     slideArea.style.display = "none";
     endScreen.classList.add("show");
+    document.getElementById("endCorrect").textContent = scoreCorrect;
+    document.getElementById("endWrong").textContent   = scoreWrong;
+    markPartComplete();
   }
 
-  // ── Init
+  function markPartComplete() {
+    try {
+      const key  = `inglesco_progress_u${UNIT}`;
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      const lk   = `l${LESSON}`;
+      if (!data[lk]) data[lk] = { partsCompleted: 0, partsTotal: 5 };
+      if ((data[lk].partsCompleted || 0) < PART) data[lk].partsCompleted = PART;
+      localStorage.setItem(key, JSON.stringify(data));
+
+      const fk   = `inglesco_furthest_u${UNIT}_l${LESSON}`;
+      const prev = parseInt(localStorage.getItem(fk) || "0");
+      if (PART > prev) localStorage.setItem(fk, String(PART));
+    } catch(e) {}
+  }
+
   loadSlide(0, false);
 })();
 </script>
