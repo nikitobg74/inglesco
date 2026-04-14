@@ -6,6 +6,7 @@
 <title>Unidad 4 • Lección 7 • Parte 3</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<script defer src="https://cdn.jsdelivr.net/npm/@vercel/analytics/dist/chunk-UFNQYUXS.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -14,7 +15,7 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 .back-btn{
   display:inline-block;
   margin-bottom:16px;
@@ -44,9 +45,10 @@ body{
 .step.active{background:#2563eb;color:#fff}
 .card{
   background:rgba(255,255,255,.88);
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 8px 20px rgba(0,0,0,.08)
+  border-radius:20px;
+  padding:20px 16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  margin-bottom:16px;
 }
 .counter-row{
   display:flex;
@@ -55,6 +57,14 @@ body{
   font-size:13px;
   font-weight:700;
   color:#486581
+}
+.mistakes-badge{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font-size:13px;
+  font-weight:700;
+  color:#dc2626;
 }
 .bar-wrap{
   background:#e2e8f0;
@@ -70,65 +80,173 @@ body{
   border-radius:999px;
   transition:width .4s
 }
+
+/* Text box */
 .text-box{
   background:#f8fafc;
   border-radius:14px;
   padding:16px;
   border:2px solid #e2e8f0;
   font-size:16px;
-  line-height:1.7;
+  line-height:2;
 }
+.text-box p{margin:0 0 4px 0}
+
+/* Blank slots */
 .blank{
-  padding:2px 6px;
+  display:inline-block;
+  min-width:80px;
+  text-align:center;
+  padding:2px 10px;
+  border-radius:8px;
   border-bottom:3px solid #93c5fd;
-  color:#2563eb;
-  font-weight:800
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-weight:800;
+  cursor:pointer;
+  transition:background .15s, border-color .15s, transform .15s;
+  vertical-align:middle;
+  margin:0 2px;
 }
-.blank.correct{
+.blank:hover:not(.filled){
+  background:#dbeafe;
+  border-bottom-color:#2563eb;
+}
+.blank.selected{
+  background:#dbeafe;
+  border-bottom-color:#2563eb;
+  box-shadow:0 0 0 3px #bfdbfe;
+  transform:scale(1.04);
+}
+.blank.filled{
+  cursor:default;
   background:#dcfce7;
+  border-bottom-color:#22c55e;
   color:#15803d;
-  border-bottom-color:#22c55e
 }
+.blank.filled-wrong{
+  cursor:pointer;
+  background:#fee2e2;
+  border-bottom-color:#ef4444;
+  color:#b91c1c;
+}
+
+/* Tile pool */
 .tiles{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   justify-content:center;
-  margin-top:16px
+  margin-top:18px;
 }
 .tile{
-  padding:12px 16px;
+  padding:10px 18px;
   border-radius:12px;
   border:2px solid #bfdbfe;
   background:#eff6ff;
   color:#1d4ed8;
   font-weight:800;
+  font-size:15px;
   cursor:pointer;
+  transition:background .15s, transform .15s, box-shadow .15s;
+  user-select:none;
 }
-.tile:hover{background:#dbeafe}
-.tile.used{opacity:.35;pointer-events:none}
-.tile.correct{
-  background:#dcfce7;
-  border-color:#22c55e;
-  color:#15803d
+.tile:hover:not(.used){background:#dbeafe;transform:translateY(-2px)}
+.tile.selected-tile{
+  background:#2563eb;
+  color:#fff;
+  border-color:#1d4ed8;
+  box-shadow:0 4px 12px rgba(37,99,235,.3);
 }
-.shake{animation:shake .4s}
+.tile.used{opacity:.3;pointer-events:none}
+
+/* Hint bar */
+.hint-bar{
+  min-height:28px;
+  margin-top:12px;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  color:#dc2626;
+  opacity:0;
+  transition:opacity .2s;
+}
+.hint-bar.show{opacity:1}
+
+/* Review panel shown after paragraph complete */
+.review-panel{
+  display:none;
+  background:#f0fdf4;
+  border:2px solid #bbf7d0;
+  border-radius:14px;
+  padding:14px 16px;
+  margin-top:14px;
+  font-size:15px;
+  line-height:1.8;
+  color:#166534;
+  font-weight:600;
+}
+.review-panel.show{display:block}
+.review-panel .review-title{
+  font-size:13px;
+  font-weight:700;
+  color:#15803d;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+.next-btn{
+  display:none;
+  width:100%;
+  margin-top:16px;
+  padding:14px;
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  font-weight:800;
+  font-size:16px;
+  cursor:pointer;
+  transition:background .15s, transform .15s;
+}
+.next-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+.next-btn.show{display:block}
+
+/* Animations */
+.pop{animation:pop .3s ease}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+.shake{animation:shake .35s}
 @keyframes shake{
   0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
+  20%{transform:translateX(-7px)}
+  40%{transform:translateX(7px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
   100%{transform:translateX(0)}
 }
+
+/* End screen */
 .end{
   display:none;
   text-align:center;
   background:rgba(255,255,255,.88);
-  border-radius:18px;
-  padding:30px;
-  margin-top:16px
+  border-radius:20px;
+  padding:32px 24px;
 }
 .end.show{display:block}
+.end h2{font-size:26px;font-weight:900;margin-bottom:8px}
+.end p{color:#374151;margin-bottom:20px}
+.end-stats{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  margin-bottom:20px;
+}
+.stat{
+  text-align:center;
+}
+.stat-num{font-size:32px;font-weight:900;color:#2563eb}
+.stat-label{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -143,22 +261,318 @@ body{
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
   </div>
-  <div class="card">
+
+  <div class="card" id="exerciseCard">
     <div class="counter-row">
       <span id="counter">1 / 4</span>
+      <span class="mistakes-badge" id="mistakeBadge" style="visibility:hidden">✗ <span id="mistakeCount">0</span></span>
     </div>
     <div class="bar-wrap">
       <div class="bar-fill" id="progressBar"></div>
     </div>
+
     <div class="text-box" id="textBox"></div>
+    <div class="hint-bar" id="hintBar"></div>
     <div class="tiles" id="tiles"></div>
+
+    <div class="review-panel" id="reviewPanel">
+      <div class="review-title">✓ Texto completo</div>
+      <div id="reviewText"></div>
+    </div>
+
+    <button class="next-btn" id="nextBtn" onclick="nextParagraph()">Siguiente →</button>
   </div>
+
   <div class="end" id="endScreen">
     <h2>¡Buen trabajo!</h2>
-    <p>Terminaste la lectura.</p>
-    <a href="p4.html" class="back-btn">Continuar → Parte 4</a>
+    <p>Terminaste todos los textos.</p>
+    <div class="end-stats">
+      <div class="stat">
+        <div class="stat-num" id="totalCorrect">0</div>
+        <div class="stat-label">Correctas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="totalMistakes">0</div>
+        <div class="stat-label">Errores</div>
+      </div>
+    </div>
+    <a href="p4.html" class="back-btn" style="font-size:16px;padding:12px 28px">Continuar → Parte 4</a>
   </div>
 </div>
-<script src="../../../../js/u4/u4_l7_p3.js"></script>
+
+<script>
+(() => {
+  const PARAGRAPHS = [
+    {
+      lines: [
+        "Everyone is busy today.",
+        "Peggy is in her kitchen. She is ____ dinner.",
+        "Patty and Danny are at the restaurant.",
+        "This restaurant is new and ____.",
+        "Right now they are ____ dinner."
+      ],
+      answers: ["cooking", "expensive", "eating"]
+    },
+    {
+      lines: [
+        "Jenny is my sister. She is married.",
+        "Her house is ____ and old.",
+        "Right now she is in the basement.",
+        "She is ____ clothes."
+      ],
+      answers: ["small", "washing"]
+    },
+    {
+      lines: [
+        "Charles is my brother. He is not married.",
+        "He is ____.",
+        "His apartment is big.",
+        "Right now he is at the bar.",
+        "He is ____ beer."
+      ],
+      answers: ["single", "drinking"]
+    },
+    {
+      lines: [
+        "Tim is in the garage.",
+        "He is ____ his old car.",
+        "George is at the gym.",
+        "He is ____.",
+        "Where am I?",
+        "I am in my small bedroom.",
+        "I am ____ TV."
+      ],
+      answers: ["fixing", "exercising", "watching"]
+    }
+  ];
+
+  // Contextual hints shown on wrong answer
+  const WRONG_HINTS = {
+    "cooking": "cooking = presente continuo de 'cook' (cocinar)",
+    "expensive": "expensive = caro / costoso",
+    "eating": "eating = presente continuo de 'eat' (comer)",
+    "small": "small = pequeño/a",
+    "washing": "washing = presente continuo de 'wash' (lavar)",
+    "single": "single = soltero/a",
+    "drinking": "drinking = presente continuo de 'drink' (beber)",
+    "fixing": "fixing = presente continuo de 'fix' (arreglar)",
+    "exercising": "exercising = presente continuo de 'exercise' (hacer ejercicio)",
+    "watching": "watching = presente continuo de 'watch' (ver)"
+  };
+
+  let paragraphIndex = 0;
+  let selectedBlankIndex = null;   // which blank is currently active
+  let selectedTileEl = null;       // which tile button is active
+  let filledAnswers = [];          // array of filled words per blank slot
+  let totalMistakes = 0;
+  let totalCorrect = 0;
+  let paragraphMistakes = 0;
+
+  const textBox    = document.getElementById("textBox");
+  const tilesEl    = document.getElementById("tiles");
+  const counter    = document.getElementById("counter");
+  const bar        = document.getElementById("progressBar");
+  const hintBar    = document.getElementById("hintBar");
+  const reviewPanel= document.getElementById("reviewPanel");
+  const reviewText = document.getElementById("reviewText");
+  const nextBtn    = document.getElementById("nextBtn");
+  const endScreen  = document.getElementById("endScreen");
+  const exerciseCard=document.getElementById("exerciseCard");
+  const mistakeBadge=document.getElementById("mistakeBadge");
+  const mistakeCountEl=document.getElementById("mistakeCount");
+
+  function updateProgress() {
+    counter.textContent = `${paragraphIndex + 1} / ${PARAGRAPHS.length}`;
+    bar.style.width = ((paragraphIndex / PARAGRAPHS.length) * 100) + "%";
+  }
+
+  function renderParagraph() {
+    const p = PARAGRAPHS[paragraphIndex];
+    filledAnswers = new Array(p.answers.length).fill(null);
+    paragraphMistakes = 0;
+    selectedBlankIndex = null;
+    selectedTileEl = null;
+    reviewPanel.classList.remove("show");
+    nextBtn.classList.remove("show");
+    hintBar.classList.remove("show");
+    hintBar.textContent = "";
+    mistakeBadge.style.visibility = "hidden";
+
+    // Build HTML: replace each ____ with a numbered blank
+    let blankCounter = 0;
+    const html = p.lines.map(line => {
+      const lineHtml = line.replace(/____/g, () => {
+        const idx = blankCounter++;
+        return `<span class="blank" data-idx="${idx}" onclick="blankClick(${idx})">____</span>`;
+      });
+      return `<p>${lineHtml}</p>`;
+    }).join("");
+    textBox.innerHTML = html;
+
+    renderTiles();
+    updateProgress();
+  }
+
+  function renderTiles() {
+    tilesEl.innerHTML = "";
+    const p = PARAGRAPHS[paragraphIndex];
+    const words = shuffle([...p.answers]);
+    words.forEach(word => {
+      const btn = document.createElement("button");
+      btn.className = "tile";
+      btn.textContent = word;
+      btn.dataset.word = word;
+      btn.onclick = () => tileClick(btn, word);
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  // Select a blank
+  window.blankClick = function(idx) {
+    const p = PARAGRAPHS[paragraphIndex];
+    if (filledAnswers[idx] !== null) return; // already correctly filled
+
+    // Deselect previous
+    document.querySelectorAll(".blank").forEach(b => b.classList.remove("selected"));
+    if (selectedTileEl) { selectedTileEl.classList.remove("selected-tile"); selectedTileEl = null; }
+
+    if (selectedBlankIndex === idx) {
+      // Toggle off
+      selectedBlankIndex = null;
+      return;
+    }
+
+    selectedBlankIndex = idx;
+    document.querySelector(`.blank[data-idx="${idx}"]`).classList.add("selected");
+
+    // If a tile was already chosen, try to place it
+    // (handled in tileClick when blank is pre-selected)
+  };
+
+  // Select or place a tile
+  window.tileClick = function(btn, word) {
+    if (btn.classList.contains("used")) return;
+
+    // Deselect previous tile
+    if (selectedTileEl && selectedTileEl !== btn) {
+      selectedTileEl.classList.remove("selected-tile");
+    }
+
+    // If a blank is already selected, try placement
+    if (selectedBlankIndex !== null) {
+      placeTile(btn, word, selectedBlankIndex);
+      return;
+    }
+
+    // Toggle tile selection
+    if (selectedTileEl === btn) {
+      btn.classList.remove("selected-tile");
+      selectedTileEl = null;
+    } else {
+      btn.classList.add("selected-tile");
+      selectedTileEl = btn;
+    }
+  };
+
+  function placeTile(tileBtn, word, blankIdx) {
+    const p = PARAGRAPHS[paragraphIndex];
+    const correct = p.answers[blankIdx];
+    const blankEl = document.querySelector(`.blank[data-idx="${blankIdx}"]`);
+
+    if (word === correct) {
+      // Correct
+      filledAnswers[blankIdx] = word;
+      blankEl.textContent = word;
+      blankEl.classList.remove("selected", "filled-wrong");
+      blankEl.classList.add("filled");
+      blankEl.classList.add("pop");
+      setTimeout(() => blankEl.classList.remove("pop"), 300);
+      tileBtn.classList.add("used");
+      tileBtn.classList.remove("selected-tile");
+      selectedTileEl = null;
+      selectedBlankIndex = null;
+      totalCorrect++;
+
+      clearHint();
+
+      // Check paragraph complete
+      if (filledAnswers.every(a => a !== null)) {
+        setTimeout(showReview, 600);
+      }
+    } else {
+      // Wrong
+      paragraphMistakes++;
+      totalMistakes++;
+      mistakeBadge.style.visibility = "visible";
+      mistakeCountEl.textContent = totalMistakes;
+
+      // Shake the blank
+      blankEl.classList.add("shake");
+      blankEl.classList.add("filled-wrong");
+      setTimeout(() => {
+        blankEl.classList.remove("shake", "filled-wrong");
+      }, 500);
+
+      // Deselect tile but keep blank selected for retry
+      tileBtn.classList.remove("selected-tile");
+      selectedTileEl = null;
+
+      // Show contextual hint
+      showHint(word);
+    }
+  }
+
+  function showHint(wrongWord) {
+    const correct = PARAGRAPHS[paragraphIndex].answers[selectedBlankIndex];
+    const hint = WRONG_HINTS[wrongWord] || `"${wrongWord}" no va aquí. Intenta otra vez.`;
+    hintBar.textContent = hint;
+    hintBar.classList.add("show");
+    setTimeout(clearHint, 3000);
+  }
+
+  function clearHint() {
+    hintBar.classList.remove("show");
+  }
+
+  function showReview() {
+    const p = PARAGRAPHS[paragraphIndex];
+    // Build review text: substitute blanks with answers
+    let blankIdx = 0;
+    const html = p.lines.map(line => {
+      const lineHtml = line.replace(/____/g, () => {
+        return `<strong style="color:#15803d">${p.answers[blankIdx++]}</strong>`;
+      });
+      return `<p>${lineHtml}</p>`;
+    }).join("");
+    reviewText.innerHTML = html;
+    reviewPanel.classList.add("show");
+    nextBtn.classList.add("show");
+    nextBtn.textContent = paragraphIndex + 1 < PARAGRAPHS.length ? "Siguiente →" : "Ver resultados →";
+  }
+
+  window.nextParagraph = function() {
+    paragraphIndex++;
+    if (paragraphIndex >= PARAGRAPHS.length) {
+      exerciseCard.style.display = "none";
+      endScreen.classList.add("show");
+      document.getElementById("totalCorrect").textContent = totalCorrect;
+      document.getElementById("totalMistakes").textContent = totalMistakes;
+      bar.style.width = "100%";
+      return;
+    }
+    renderParagraph();
+  };
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  renderParagraph();
+})();
+</script>
 </body>
 </html>

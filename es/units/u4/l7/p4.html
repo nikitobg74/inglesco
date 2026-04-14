@@ -16,7 +16,7 @@
       color: #111827;
     }
 
-    .wrap { max-width: 700px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
     .back-btn {
       display: inline-block;
@@ -31,53 +31,25 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    .top-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
+    .top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+    .subline { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
 
-    .subline {
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #374151;
-    }
-
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 12px 0 20px 0;
-    }
-
+    .progress-container { display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px 0; }
     .step {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       background: #d1d5db;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      color: #1f2933;
-      transition: all .3s;
-      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; text-decoration: none;
+      color: #1f2933; transition: all .3s; font-size: 15px;
     }
-
     .step.active { background: #2563eb; color: #fff; }
     .step:hover { transform: scale(1.08); }
 
     .card {
       background: rgba(255,255,255,.90);
-      border-radius: 18px;
-      padding: 16px;
+      border-radius: 20px;
+      padding: 20px 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
-      position: relative;
     }
 
     .counter-row {
@@ -86,74 +58,85 @@
       align-items: center;
       margin-bottom: 8px;
     }
-
-    .counter {
-      font-size: 13px;
-      font-weight: 700;
-      color: #486581;
-    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .mistakes-badge { font-size: 13px; font-weight: 700; color: #dc2626; visibility: hidden; }
 
     .bar-wrap {
-      background: #e2e8f0;
-      border-radius: 999px;
-      height: 7px;
-      margin-bottom: 20px;
-      overflow: hidden;
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 20px; overflow: hidden;
     }
-
     .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #2563eb;
-      border-radius: 999px;
-      transition: width 0.35s ease;
+      height: 100%; width: 0%; background: #2563eb;
+      border-radius: 999px; transition: width 0.35s ease;
     }
 
+    /* Image */
+    .img-wrap {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f1f5f9;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
     .exercise-image {
       width: 100%;
-      max-width: 560px;
       max-height: 280px;
-      height: auto;
       object-fit: contain;
-      border-radius: 12px;
-      margin: 0 auto 16px;
       display: block;
-      box-shadow: 0 6px 16px rgba(0,0,0,.08);
-      background: #fff;
     }
 
     .instruction {
       text-align: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: #64748b;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
+      font-size: 12px; font-weight: 800;
+      color: #64748b; margin-bottom: 12px;
+      text-transform: uppercase; letter-spacing: .4px;
     }
 
+    /* Sentence build area */
     .sentence-box {
       background: #f8fafc;
       border: 2px solid #e2e8f0;
       border-radius: 14px;
       padding: 16px;
-      margin-bottom: 14px;
-      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+      margin-bottom: 10px;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
     .sentence {
       text-align: center;
       font-size: 24px;
       font-weight: 900;
       line-height: 1.4;
-      min-height: 40px;
       color: #1f2937;
       word-break: break-word;
     }
+    .sentence.correct { color: #15803d; }
 
-    .sentence.correct {
-      color: #15803d;
+    /* Undo button */
+    .undo-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
     }
+    .undo-btn {
+      background: none;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .undo-btn:hover { background: #f1f5f9; }
+    .undo-btn:disabled { opacity: .35; pointer-events: none; }
 
     .tiles-grid {
       display: flex;
@@ -164,180 +147,112 @@
     }
 
     .tile {
-      border: none;
       border-radius: 14px;
       padding: 12px 16px;
-      font-size: 16px;
-      font-weight: 800;
+      font-size: 16px; font-weight: 800;
       cursor: pointer;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: #eff6ff; color: #1d4ed8;
       border: 2px solid #bfdbfe;
-      transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease;
+      transition: transform .12s, background .2s, border-color .2s, opacity .2s;
       min-height: 54px;
     }
+    .tile:hover { transform: translateY(-2px); background: #dbeafe; }
+    .tile.used { opacity: .3; pointer-events: none; }
+    .tile.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
 
-    .tile:hover { transform: translateY(-1px); background: #dbeafe; }
-    .tile.used { opacity: .35; pointer-events: none; }
-    .tile.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      color: #15803d;
-    }
-
-    .feedback {
+    /* Hint / feedback */
+    .hint-bar {
+      min-height: 26px;
+      margin-top: 12px;
       text-align: center;
-      min-height: 24px;
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 800;
-      color: #475569;
+      font-size: 13px; font-weight: 700;
+      color: #dc2626;
+      opacity: 0; transition: opacity .2s;
     }
+    .hint-bar.show { opacity: 1; }
 
-    .feedback.good { color: #15803d; }
-    .feedback.bad { color: #b91c1c; }
-
+    /* Letter popup */
     .popup-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.45);
+      position: fixed; inset: 0;
+      background: rgba(15,23,42,.5);
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 50;
+      align-items: center; justify-content: center;
+      padding: 16px; z-index: 50;
     }
-
-    .popup-backdrop.show {
-      display: flex;
-    }
+    .popup-backdrop.show { display: flex; }
 
     .letter-popup {
-      width: 100%;
-      max-width: 420px;
+      width: 100%; max-width: 380px;
       background: white;
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      border-radius: 20px;
+      padding: 22px 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.2);
       text-align: center;
     }
-
     .popup-title {
-      font-size: 13px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      color: #64748b;
-      margin-bottom: 10px;
+      font-size: 12px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: #64748b; margin-bottom: 12px;
     }
-
     .popup-word {
-      font-size: 28px;
-      font-weight: 900;
-      color: #1d4ed8;
-      margin-bottom: 14px;
-      word-break: break-word;
+      font-size: 30px; font-weight: 900;
+      color: #1d4ed8; margin-bottom: 16px;
+      letter-spacing: 1px;
     }
-
+    .popup-word .missing-slot {
+      display: inline-block;
+      min-width: 24px;
+      border-bottom: 3px solid #93c5fd;
+      color: #93c5fd;
+      font-weight: 900;
+    }
     .letter-options {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 10px;
+      display: flex; justify-content: center;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 12px;
     }
-
     .letter-btn {
-      min-width: 58px;
-      height: 54px;
-      border: none;
+      min-width: 62px; height: 58px;
       border-radius: 14px;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: #eff6ff; color: #1d4ed8;
       border: 2px solid #bfdbfe;
-      font-size: 22px;
-      font-weight: 900;
-      cursor: pointer;
-      transition: .15s ease;
+      font-size: 24px; font-weight: 900;
+      cursor: pointer; transition: .15s;
     }
+    .letter-btn:hover { transform: translateY(-2px); background: #dbeafe; }
+    .letter-btn.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .letter-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+    .popup-note { min-height: 22px; font-size: 13px; font-weight: 800; color: #64748b; }
 
-    .letter-btn:hover {
-      transform: translateY(-1px);
-      background: #dbeafe;
-    }
-
-    .letter-btn.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      color: #15803d;
-    }
-
-    .letter-btn.wrong {
-      background: #fee2e2;
-      border-color: #ef4444;
-      color: #b91c1c;
-    }
-
-    .popup-note {
-      min-height: 22px;
-      font-size: 13px;
-      font-weight: 800;
-      color: #64748b;
-    }
-
+    /* End screen */
     .end {
-      display: none;
-      text-align: center;
+      display: none; text-align: center;
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
-      padding: 32px 20px;
+      border-radius: 20px; padding: 32px 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
       margin-top: 16px;
     }
-
     .end.show { display: block; }
-
-    .end .trophy {
-      font-size: 52px;
-      margin-bottom: 10px;
-    }
-
-    .end h2 {
-      margin: 8px 0;
-      font-size: 22px;
-      font-weight: 900;
-      color: #1e40af;
-    }
-
-    .end p {
-      margin: 6px 0;
-      font-weight: 600;
-      color: #374151;
-      font-size: 14px;
-    }
-
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
+    .end-stats { display: flex; justify-content: center; gap: 28px; margin: 16px 0; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 32px; font-weight: 900; color: #2563eb; }
+    .stat-label { font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; }
     .finish-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-flex; align-items: center; gap: 8px;
       padding: 12px 28px;
-      background: #16a34a;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 16px;
-      cursor: pointer;
+      background: #16a34a; color: #fff;
+      border: none; border-radius: 14px;
+      font-weight: 900; font-size: 16px;
+      cursor: pointer; text-decoration: none;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
-      transition: background .2s;
-      margin-top: 16px;
-      text-decoration: none;
+      transition: background .2s; margin-top: 4px;
     }
-
     .finish-btn:hover { background: #15803d; }
 
-    .shake { animation: shake .4s ease; }
-
+    /* Animations */
+    .shake { animation: shake .38s ease; }
     @keyframes shake {
       0%   { transform: translateX(0); }
       20%  { transform: translateX(-7px); }
@@ -346,8 +261,10 @@
       80%  { transform: translateX(6px); }
       100% { transform: translateX(0); }
     }
+    .pop { animation: pop .3s ease; }
+    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.12)} 100%{transform:scale(1)} }
 
-    @media (max-width: 560px) {
+    @media (max-width: 480px) {
       .exercise-image { max-height: 220px; }
       .sentence { font-size: 21px; }
       .tile { font-size: 15px; padding: 11px 14px; }
@@ -357,58 +274,437 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Unidad 4</a>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+  <div class="top-title">Unidad 4 • Lección 7 • Parte 4</div>
+  <div class="subline">Construye la oración y completa la letra que falta</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
 
-    <div class="top-title">Unidad 4 • Lección 7 • Parte 4</div>
-    <div class="subline">Construye la oración y completa la letra que falta</div>
-
-    <div class="progress-container">
-      <a class="step" href="p1.html">1</a>
-      <a class="step" href="p2.html">2</a>
-      <a class="step" href="p3.html">3</a>
-      <a class="step active" href="p4.html">4</a>
-      <a class="step" href="p5.html">5</a>
+  <div class="card" id="cardArea">
+    <div class="counter-row">
+      <span class="counter" id="counter">1 / 12</span>
+      <span class="mistakes-badge" id="mistakeBadge">✗ <span id="mistakeCount">0</span></span>
     </div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
 
-    <div class="card" id="cardArea">
-      <div class="counter-row">
-        <span class="counter" id="counter">1 / 12</span>
-      </div>
-
-      <div class="bar-wrap">
-        <div class="bar-fill" id="progressBar"></div>
-      </div>
-
+    <div class="img-wrap">
       <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" onerror="this.style.display='none'" />
-
-      <div class="instruction">Toca las palabras en orden</div>
-
-      <div class="sentence-box" id="sentenceBox">
-        <div class="sentence" id="sentence"></div>
-      </div>
-
-      <div class="tiles-grid" id="tiles"></div>
-      <div class="feedback" id="feedback"></div>
     </div>
 
-    <div class="end" id="endScreen">
-      <div class="trophy">🌟</div>
-      <h2>¡Buen trabajo!</h2>
-      <p>Terminaste la Parte 4.</p>
-      <a href="p5.html" class="finish-btn">Continuar → Parte 5</a>
+    <div class="instruction">Toca las palabras en orden</div>
+
+    <div class="sentence-box" id="sentenceBox">
+      <div class="sentence" id="sentence"></div>
     </div>
+
+    <div class="undo-row">
+      <button class="undo-btn" id="undoBtn" onclick="undoLast()" disabled>↩ Deshacer</button>
+    </div>
+
+    <div class="tiles-grid" id="tiles"></div>
+    <div class="hint-bar" id="hintBar"></div>
   </div>
 
-  <div class="popup-backdrop" id="popupBackdrop">
-    <div class="letter-popup" id="letterPopup">
-      <div class="popup-title">Elige la letra correcta</div>
-      <div class="popup-word" id="popupWord">yo_ng</div>
-      <div class="letter-options" id="letterOptions"></div>
-      <div class="popup-note" id="popupNote"></div>
+  <div class="end" id="endScreen">
+    <div class="trophy">🌟</div>
+    <h2>¡Buen trabajo!</h2>
+    <p>Terminaste la Parte 4.</p>
+    <div class="end-stats">
+      <div class="stat"><div class="stat-num" id="totalCorrect">0</div><div class="stat-label">Correctas</div></div>
+      <div class="stat"><div class="stat-num" id="totalMistakes">0</div><div class="stat-label">Errores</div></div>
     </div>
+    <a href="p5.html" class="finish-btn">Continuar → Parte 5</a>
   </div>
+</div>
 
-  <script src="../../../../js/u4/u4_l7_p4.js"></script>
+<!-- Letter popup -->
+<div class="popup-backdrop" id="popupBackdrop">
+  <div class="letter-popup" id="letterPopup">
+    <div class="popup-title">Elige la letra correcta</div>
+    <div class="popup-word" id="popupWord"></div>
+    <div class="letter-options" id="letterOptions"></div>
+    <div class="popup-note" id="popupNote"></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG  = BASE + "images/u4/";
+
+  const EXERCISES = [
+    {
+      img: "u4.l7.p1.young.woman.jpg",
+      answer: [
+        { display: "She", full: "She" },
+        { display: "is",  full: "is" },
+        { display: "yo_ng", full: "young", missing: "u", choices: ["u","i","o"] }
+      ]
+    },
+    {
+      img: "u4.l7.p1.old.woman.jpg",
+      answer: [
+        { display: "She", full: "She" },
+        { display: "is",  full: "is" },
+        { display: "o_d", full: "old", missing: "l", choices: ["l","r","n"] }
+      ]
+    },
+    {
+      img: "u4.l4.p1.married.jpg",
+      answer: [
+        { display: "She", full: "She" },
+        { display: "is",  full: "is" },
+        { display: "marr_ed", full: "married", missing: "i", choices: ["i","a","o"] }
+      ]
+    },
+    {
+      img: "u4.l4.p1.single.jpg",
+      answer: [
+        { display: "He", full: "He" },
+        { display: "is",  full: "is" },
+        { display: "s_ngle", full: "single", missing: "i", choices: ["i","a","o"] }
+      ]
+    },
+    {
+      img: "u4.l2.p1.fast.car.jpg",
+      answer: [
+        { display: "It", full: "It" },
+        { display: "is",  full: "is" },
+        { display: "fa_t", full: "fast", missing: "s", choices: ["s","r","n"] }
+      ]
+    },
+    {
+      img: "u4.l2.p1.cheap.watch.jpg",
+      answer: [
+        { display: "It", full: "It" },
+        { display: "is",  full: "is" },
+        { display: "ch_ap", full: "cheap", missing: "e", choices: ["e","a","i"] }
+      ]
+    },
+    {
+      img: "u4.l7.p1.pretty.woman.jpg",
+      answer: [
+        { display: "She", full: "She" },
+        { display: "is",  full: "is" },
+        { display: "pr_tty", full: "pretty", missing: "e", choices: ["e","a","i"] }
+      ]
+    },
+    {
+      img: "u4.l5.p5.restaurant.jpg",
+      answer: [
+        { display: "It", full: "It" },
+        { display: "is",  full: "is" },
+        { display: "exp_nsive", full: "expensive", missing: "e", choices: ["e","a","i"] }
+      ]
+    },
+    {
+      img: "u4.l6.p1.test.jpg",
+      answer: [
+        { display: "It", full: "It" },
+        { display: "is",  full: "is" },
+        { display: "diff_cult", full: "difficult", missing: "i", choices: ["i","a","o"] }
+      ]
+    },
+    {
+      img: "u4.l4.p3.small.house.jpg",
+      answer: [
+        { display: "It", full: "It" },
+        { display: "is",  full: "is" },
+        { display: "sm_ll", full: "small", missing: "a", choices: ["a","o","i"] }
+      ]
+    },
+    {
+      img: "u4.l4.p2.brian.tall.jpg",
+      answer: [
+        { display: "He", full: "He" },
+        { display: "is",  full: "is" },
+        { display: "ta_l", full: "tall", missing: "l", choices: ["l","r","n"] }
+      ]
+    },
+    {
+      img: "u4.l6.p1.noisy.jpg",
+      answer: [
+        { display: "They", full: "They" },
+        { display: "are",  full: "are" },
+        { display: "no_sy", full: "noisy", missing: "i", choices: ["i","a","o"] }
+      ]
+    }
+  ];
+
+  let current      = 0;
+  let userWords    = [];       // words committed to sentence so far
+  let wordSources  = [];       // parallel array: tile buttons used (for undo)
+  let locked       = false;
+  let totalMistakes= 0;
+  let totalCorrect = 0;
+
+  let pendingTile  = null;
+  let pendingBtn   = null;
+
+  const imageEl       = document.getElementById("exerciseImage");
+  const tilesEl       = document.getElementById("tiles");
+  const sentenceEl    = document.getElementById("sentence");
+  const sentenceBox   = document.getElementById("sentenceBox");
+  const counterEl     = document.getElementById("counter");
+  const barEl         = document.getElementById("progressBar");
+  const endScreen     = document.getElementById("endScreen");
+  const cardArea      = document.getElementById("cardArea");
+  const hintBar       = document.getElementById("hintBar");
+  const undoBtn       = document.getElementById("undoBtn");
+  const mistakeBadge  = document.getElementById("mistakeBadge");
+  const mistakeCountEl= document.getElementById("mistakeCount");
+
+  const popupBackdrop = document.getElementById("popupBackdrop");
+  const popupWordEl   = document.getElementById("popupWord");
+  const letterOptions = document.getElementById("letterOptions");
+  const popupNote     = document.getElementById("popupNote");
+  const letterPopup   = document.getElementById("letterPopup");
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function updateProgress() {
+    counterEl.textContent = `${current + 1} / ${EXERCISES.length}`;
+    barEl.style.width = `${(current / EXERCISES.length) * 100}%`;
+  }
+
+  function renderSentence() {
+    sentenceEl.textContent = userWords.join(" ");
+    undoBtn.disabled = userWords.length === 0 || locked;
+  }
+
+  function showHint(msg, duration = 2800) {
+    hintBar.textContent = msg;
+    hintBar.classList.add("show");
+    setTimeout(() => hintBar.classList.remove("show"), duration);
+  }
+
+  function loadExercise() {
+    const ex = EXERCISES[current];
+    userWords = [];
+    wordSources = [];
+    locked = false;
+    pendingTile = null;
+    pendingBtn  = null;
+
+    sentenceEl.textContent = "";
+    sentenceEl.classList.remove("correct");
+    sentenceBox.classList.remove("shake");
+    hintBar.classList.remove("show");
+    undoBtn.disabled = true;
+
+    imageEl.style.display = "block";
+    imageEl.src = IMG + ex.img;
+
+    updateProgress();
+    renderTiles();
+  }
+
+  function renderTiles() {
+    tilesEl.innerHTML = "";
+    const ex = EXERCISES[current];
+    const shuffled = shuffle(ex.answer.map(item => ({ ...item })));
+
+    shuffled.forEach(item => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tile";
+      btn.textContent = item.display;
+      btn.dataset.display = item.display;
+      btn.dataset.full    = item.full;
+
+      btn.addEventListener("click", () => {
+        if (locked || btn.classList.contains("used")) return;
+        if (popupBackdrop.classList.contains("show")) return;
+
+        if (item.missing) {
+          pendingTile = item;
+          pendingBtn  = btn;
+          openLetterPopup(item);
+        } else {
+          commitWord(item.full, btn);
+        }
+      });
+
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  function commitWord(word, btn) {
+    userWords.push(word);
+    wordSources.push(btn);
+    btn.classList.add("used");
+    renderSentence();
+
+    const ex = EXERCISES[current];
+    if (userWords.length === ex.answer.length) {
+      checkAnswer();
+    }
+  }
+
+  // Undo last placed tile
+  window.undoLast = function() {
+    if (userWords.length === 0 || locked) return;
+    userWords.pop();
+    const btn = wordSources.pop();
+    if (btn) {
+      btn.classList.remove("used", "correct");
+      btn.disabled = false;
+    }
+    renderSentence();
+  };
+
+  function openLetterPopup(tile) {
+    // Show word with blank highlighted
+    const before = tile.display.split("_")[0];
+    const after  = tile.display.split("_")[1] || "";
+    popupWordEl.innerHTML = `${before}<span class="missing-slot">_</span>${after}`;
+    popupNote.textContent = "";
+    letterOptions.innerHTML = "";
+
+    const choices = shuffle(tile.choices);
+    choices.forEach(letter => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "letter-btn";
+      btn.textContent = letter;
+
+      btn.addEventListener("click", () => {
+        if (!pendingTile || !pendingBtn) return;
+
+        if (letter === tile.missing) {
+          btn.classList.add("correct");
+          popupWordEl.textContent = tile.full;
+          popupNote.textContent   = "¡Correcto!";
+
+          pendingBtn.textContent          = tile.full;
+          pendingBtn.dataset.display      = tile.full;
+          pendingBtn.classList.add("correct");
+
+          const btnToUse  = pendingBtn;
+          const wordToUse = tile.full;
+          pendingTile = null;
+          pendingBtn  = null;
+
+          setTimeout(() => {
+            closeLetterPopup();
+            commitWord(wordToUse, btnToUse);
+          }, 350);
+
+        } else {
+          totalMistakes++;
+          mistakeBadge.style.visibility = "visible";
+          mistakeCountEl.textContent = totalMistakes;
+
+          btn.classList.add("wrong");
+          popupNote.textContent = "No. Inténtalo otra vez.";
+
+          letterPopup.classList.remove("shake");
+          void letterPopup.offsetWidth;
+          letterPopup.classList.add("shake");
+
+          setTimeout(() => {
+            btn.classList.remove("wrong");
+            letterPopup.classList.remove("shake");
+            popupNote.textContent = "";
+          }, 500);
+        }
+      });
+
+      letterOptions.appendChild(btn);
+    });
+
+    popupBackdrop.classList.add("show");
+  }
+
+  function closeLetterPopup() {
+    popupBackdrop.classList.remove("show");
+    popupWordEl.textContent = "";
+    popupNote.textContent   = "";
+    letterOptions.innerHTML = "";
+  }
+
+  function checkAnswer() {
+    locked = true;
+    const ex = EXERCISES[current];
+    const expected = ex.answer.map(i => i.full).join(" ");
+    const actual   = userWords.join(" ");
+
+    if (actual === expected) {
+      totalCorrect++;
+      sentenceEl.textContent = expected + ".";
+      sentenceEl.classList.add("correct");
+      // Mark all used tiles green
+      tilesEl.querySelectorAll(".tile.used").forEach(b => b.classList.add("correct"));
+
+      setTimeout(advance, 900);
+    } else {
+      // Wrong order — show which word was wrong
+      const expectedWords = ex.answer.map(i => i.full);
+      const wrongIdx = userWords.findIndex((w, i) => w !== expectedWords[i]);
+      const wrongWord = userWords[wrongIdx] || userWords[userWords.length - 1];
+      totalMistakes++;
+      mistakeBadge.style.visibility = "visible";
+      mistakeCountEl.textContent = totalMistakes;
+
+      sentenceBox.classList.remove("shake");
+      void sentenceBox.offsetWidth;
+      sentenceBox.classList.add("shake");
+      showHint(`"${wrongWord}" no va ahí. Inténtalo otra vez.`);
+
+      setTimeout(() => {
+        sentenceBox.classList.remove("shake");
+        resetAttempt();
+      }, 450);
+    }
+  }
+
+  function resetAttempt() {
+    userWords   = [];
+    wordSources = [];
+    locked      = false;
+    pendingTile = null;
+    pendingBtn  = null;
+    sentenceEl.classList.remove("correct");
+    tilesEl.querySelectorAll(".tile").forEach(btn => {
+      btn.classList.remove("used", "correct");
+      btn.disabled = false;
+      // Restore display text (in case letter was already resolved)
+      btn.textContent = btn.dataset.display;
+    });
+    renderSentence();
+    closeLetterPopup();
+  }
+
+  function advance() {
+    current++;
+    if (current >= EXERCISES.length) {
+      cardArea.style.display = "none";
+      endScreen.classList.add("show");
+      barEl.style.width = "100%";
+      document.getElementById("totalCorrect").textContent = totalCorrect;
+      document.getElementById("totalMistakes").textContent = totalMistakes;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    loadExercise();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  loadExercise();
+})();
+</script>
 </body>
 </html>

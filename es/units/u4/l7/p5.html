@@ -16,7 +16,7 @@
       color: #111827;
     }
 
-    .wrap { max-width: 700px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
     .back-btn {
       display: inline-block;
@@ -31,51 +31,24 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    .top-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
+    .top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+    .subline { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
 
-    .subline {
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #374151;
-    }
-
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 12px 0 20px 0;
-    }
-
+    .progress-container { display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px 0; }
     .step {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       background: #d1d5db;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      color: #1f2933;
-      transition: all .3s;
-      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; text-decoration: none;
+      color: #1f2933; transition: all .3s; font-size: 15px;
     }
-
     .step.active { background: #2563eb; color: #fff; }
     .step:hover { transform: scale(1.08); }
 
     .card {
       background: rgba(255,255,255,.90);
-      border-radius: 18px;
-      padding: 16px;
+      border-radius: 20px;
+      padding: 20px 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
@@ -85,67 +58,48 @@
       align-items: center;
       margin-bottom: 8px;
     }
-
-    .counter {
-      font-size: 13px;
-      font-weight: 700;
-      color: #486581;
-    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .score-badge { font-size: 13px; font-weight: 700; color: #15803d; visibility: hidden; }
 
     .bar-wrap {
-      background: #e2e8f0;
-      border-radius: 999px;
-      height: 7px;
-      margin-bottom: 20px;
-      overflow: hidden;
+      background: #e2e8f0; border-radius: 999px;
+      height: 7px; margin-bottom: 20px; overflow: hidden;
     }
-
     .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #2563eb;
-      border-radius: 999px;
-      transition: width 0.35s ease;
+      height: 100%; width: 0%; background: #2563eb;
+      border-radius: 999px; transition: width 0.35s ease;
     }
 
+    /* Image */
+    .img-wrap {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f1f5f9;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+    }
     .exercise-image {
       width: 100%;
-      max-width: 560px;
       max-height: 280px;
-      height: auto;
       object-fit: contain;
-      border-radius: 12px;
-      margin: 0 auto 16px;
       display: block;
-      box-shadow: 0 6px 16px rgba(0,0,0,.08);
-      background: #fff;
-    }
-
-    .question-box {
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 2px solid #e2e8f0;
-      transition: transform .2s ease;
     }
 
     .instruction {
       text-align: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: #64748b;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
+      font-size: 12px; font-weight: 800;
+      color: #64748b; margin-bottom: 10px;
+      text-transform: uppercase; letter-spacing: .4px;
     }
 
     .question-text {
       text-align: center;
-      font-size: 22px;
-      line-height: 1.35;
-      font-weight: 900;
-      color: #1e40af;
+      font-size: 22px; line-height: 1.35;
+      font-weight: 900; color: #1e40af;
       margin-bottom: 16px;
     }
 
@@ -157,83 +111,71 @@
     }
 
     .option-btn {
-      border: none;
       border-radius: 14px;
       padding: 14px 12px;
-      font-size: 16px;
-      font-weight: 800;
+      font-size: 16px; font-weight: 800;
       cursor: pointer;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: #eff6ff; color: #1d4ed8;
       border: 2px solid #bfdbfe;
-      transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease;
-      min-height: 56px;
-      text-align: center;
+      transition: transform .12s, background .2s, border-color .2s, color .2s;
+      min-height: 56px; text-align: center;
     }
+    .option-btn:hover:not(:disabled) { transform: translateY(-2px); background: #dbeafe; }
+    .option-btn:disabled { cursor: default; }
+    .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .option-btn.wrong   { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
 
-    .option-btn:hover {
-      transform: translateY(-1px);
-      background: #dbeafe;
+    /* Explanation banner — shown after wrong answer */
+    .explain-bar {
+      margin-top: 12px;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px; font-weight: 700;
+      background: #fef9c3;
+      border: 2px solid #fde68a;
+      color: #78350f;
+      display: none;
     }
-
-    .option-btn:disabled {
-      cursor: default;
-    }
-
-    .option-btn.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      color: #15803d;
-    }
-
-    .option-btn.wrong {
-      background: #fee2e2;
-      border-color: #ef4444;
-      color: #b91c1c;
-    }
+    .explain-bar.show { display: block; }
 
     .feedback {
       text-align: center;
       min-height: 24px;
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 800;
+      margin-top: 12px;
+      font-size: 14px; font-weight: 800;
       color: #475569;
     }
-
     .feedback.good { color: #15803d; }
-    .feedback.bad { color: #b91c1c; }
+    .feedback.bad  { color: #b91c1c; }
 
+    /* End screen */
     .end {
-      display: none;
-      text-align: center;
+      display: none; text-align: center;
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
-      padding: 32px 20px;
+      border-radius: 20px; padding: 32px 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
       margin-top: 16px;
     }
-
     .end.show { display: block; }
+    .end .trophy { font-size: 56px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 24px; font-weight: 900; color: #1e40af; }
+    .end p { margin: 6px 0; font-weight: 600; color: #374151; font-size: 15px; }
 
-    .end .trophy {
-      font-size: 56px;
-      margin-bottom: 10px;
-    }
+    .end-stats { display: flex; justify-content: center; gap: 28px; margin: 16px 0; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 32px; font-weight: 900; color: #2563eb; }
+    .stat-label { font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; }
 
-    .end h2 {
-      margin: 8px 0;
-      font-size: 24px;
-      font-weight: 900;
-      color: #1e40af;
+    /* Performance message */
+    .perf-msg {
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin: 8px 0 16px;
+      font-size: 14px; font-weight: 700;
     }
-
-    .end p {
-      margin: 6px 0;
-      font-weight: 600;
-      color: #374151;
-      font-size: 15px;
-    }
+    .perf-msg.great { background: #dcfce7; color: #15803d; border: 2px solid #86efac; }
+    .perf-msg.ok    { background: #fef9c3; color: #78350f; border: 2px solid #fde68a; }
+    .perf-msg.retry { background: #fee2e2; color: #b91c1c; border: 2px solid #fca5a5; }
 
     .highlight-msg {
       background: #fef9c3;
@@ -241,32 +183,23 @@
       border-radius: 12px;
       padding: 12px 16px;
       margin: 14px 0;
-      font-size: 14px;
-      color: #78350f;
+      font-size: 14px; color: #78350f;
     }
 
     .finish-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-flex; align-items: center; gap: 8px;
       padding: 12px 28px;
-      background: #16a34a;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 16px;
-      cursor: pointer;
+      background: #16a34a; color: #fff;
+      border: none; border-radius: 14px;
+      font-weight: 900; font-size: 16px;
+      cursor: pointer; text-decoration: none;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
-      transition: background .2s;
-      margin-top: 16px;
-      text-decoration: none;
+      transition: background .2s; margin-top: 4px;
     }
-
     .finish-btn:hover { background: #15803d; }
 
-    .shake { animation: shake .4s ease; }
-
+    /* Animations */
+    .shake { animation: shake .38s ease; }
     @keyframes shake {
       0%   { transform: translateX(0); }
       20%  { transform: translateX(-7px); }
@@ -275,8 +208,10 @@
       80%  { transform: translateX(6px); }
       100% { transform: translateX(0); }
     }
+    .pop { animation: pop .3s ease; }
+    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.04)} 100%{transform:scale(1)} }
 
-    @media (max-width: 560px) {
+    @media (max-width: 480px) {
       .exercise-image { max-height: 220px; }
       .question-text { font-size: 19px; }
       .option-btn { font-size: 15px; padding: 13px 10px; }
@@ -284,50 +219,270 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Unidad 4</a>
-
-    <div class="top-title">Unidad 4 • Lección 7 • Parte 5</div>
-    <div class="subline">Repaso final de la Unidad 4</div>
-
-    <div class="progress-container">
-      <a class="step" href="p1.html">1</a>
-      <a class="step" href="p2.html">2</a>
-      <a class="step" href="p3.html">3</a>
-      <a class="step" href="p4.html">4</a>
-      <a class="step active" href="p5.html">5</a>
-    </div>
-
-    <div class="card" id="quizCard">
-      <div class="counter-row">
-        <span class="counter" id="counter">1 / 10</span>
-      </div>
-
-      <div class="bar-wrap">
-        <div class="bar-fill" id="progressBar"></div>
-      </div>
-
-      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" onerror="this.style.display='none'" />
-
-      <div class="question-box" id="questionBox">
-        <div class="instruction">Mira la imagen y elige la respuesta correcta</div>
-        <div class="question-text" id="questionText"></div>
-        <div class="options-grid" id="optionsGrid"></div>
-        <div class="feedback" id="feedback"></div>
-      </div>
-    </div>
-
-    <div class="end" id="endScreen">
-      <div class="trophy">🎉</div>
-      <h2>¡Felicitaciones!</h2>
-      <p>Terminaste la Unidad 4.</p>
-      <div class="highlight-msg">
-        Completaste el repaso final y practicaste adjetivos, preguntas cortas y respuestas con <strong>he</strong>, <strong>she</strong>, <strong>it</strong> y <strong>they</strong>.
-      </div>
-      <a href="../index.html" class="finish-btn">Volver a la unidad</a>
-    </div>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+  <div class="top-title">Unidad 4 • Lección 7 • Parte 5</div>
+  <div class="subline">Repaso final de la Unidad 4</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step" href="p4.html">4</a>
+    <a class="step active" href="p5.html">5</a>
   </div>
 
-  <script src="../../../../js/u4/u4_l7_p5.js"></script>
+  <div class="card" id="quizCard">
+    <div class="counter-row">
+      <span class="counter" id="counter">1 / 10</span>
+      <span class="score-badge" id="scoreBadge">✓ <span id="scoreCount">0</span></span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+
+    <div class="img-wrap">
+      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" onerror="this.style.display='none'" />
+    </div>
+
+    <div class="instruction">Mira la imagen y elige la respuesta correcta</div>
+    <div class="question-text" id="questionText"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="explain-bar" id="explainBar"></div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <div class="end" id="endScreen">
+    <div class="trophy">🎉</div>
+    <h2>¡Felicitaciones!</h2>
+    <p>Terminaste la Unidad 4.</p>
+    <div class="end-stats">
+      <div class="stat"><div class="stat-num" id="totalCorrect">0</div><div class="stat-label">Correctas</div></div>
+      <div class="stat"><div class="stat-num" id="totalMistakes">0</div><div class="stat-label">Errores</div></div>
+    </div>
+    <div class="perf-msg" id="perfMsg"></div>
+    <div class="highlight-msg">
+      Practicaste adjetivos, preguntas cortas y respuestas con <strong>he</strong>, <strong>she</strong>, <strong>it</strong> y <strong>they</strong>.
+    </div>
+    <a href="../index.html" class="finish-btn">Volver a la unidad</a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG  = BASE + "images/u4/";
+
+  const EXERCISES = [
+    {
+      image: "u4.l7.p1.young.woman.jpg",
+      question: "Is Kate young or old?",
+      options: ["She is young.", "She is old.", "She is noisy."],
+      correct: "She is young.",
+      explain: "Kate looks young. Young = joven."
+    },
+    {
+      image: "u4.l4.p2.brian.tall.jpg",
+      question: "Is Brian tall or short?",
+      options: ["He is tall.", "He is short.", "He is small."],
+      correct: "He is tall.",
+      explain: "Brian is tall. Tall = alto."
+    },
+    {
+      image: "u4.l4.p1.married.jpg",
+      question: "Is Gloria married or single?",
+      options: ["She is married.", "She is single.", "She is noisy."],
+      correct: "She is married.",
+      explain: "Gloria is married. Married = casada."
+    },
+    {
+      image: "u4.l4.p1.single.jpg",
+      question: "Is Jake married or single?",
+      options: ["He is single.", "He is married.", "He is small."],
+      correct: "He is single.",
+      explain: "Jake is single. Single = soltero."
+    },
+    {
+      image: "u4.l2.p1.fast.car.jpg",
+      question: "Is the car fast or slow?",
+      options: ["It is fast.", "It is slow.", "It is cheap."],
+      correct: "It is fast.",
+      explain: "The car is fast. Fast = rápido."
+    },
+    {
+      image: "u4.l2.p1.cheap.watch.jpg",
+      question: "Is the watch cheap or expensive?",
+      options: ["It is cheap.", "It is expensive.", "It is noisy."],
+      correct: "It is cheap.",
+      explain: "The watch is cheap. Cheap = barato."
+    },
+    {
+      image: "u4.l5.p5.restaurant.jpg",
+      question: "Is this restaurant cheap or expensive?",
+      options: ["It is expensive.", "It is cheap.", "It is small."],
+      correct: "It is expensive.",
+      explain: "This restaurant is expensive. Expensive = caro."
+    },
+    {
+      image: "u4.l4.p3.small.house.jpg",
+      question: "Is the house big or small?",
+      options: ["It is small.", "It is big.", "It is noisy."],
+      correct: "It is small.",
+      explain: "The house is small. Small = pequeña."
+    },
+    {
+      image: "u4.l6.p1.test.jpg",
+      question: "Is the test easy or difficult?",
+      options: ["It is difficult.", "It is easy.", "It is noisy."],
+      correct: "It is difficult.",
+      explain: "The test is difficult. Difficult = difícil."
+    },
+    {
+      image: "u4.l6.p1.noisy.jpg",
+      question: "Are the neighbors noisy or quiet?",
+      options: ["They are noisy.", "They are quiet.", "They are married."],
+      correct: "They are noisy.",
+      explain: "The neighbors are noisy. Noisy = ruidoso."
+    }
+  ];
+
+  let current      = 0;
+  let locked       = false;
+  let totalCorrect = 0;
+  let totalMistakes= 0;
+  let mistakesThisQ= 0; // track if learner needed >1 attempt on current Q
+
+  const imageEl    = document.getElementById("exerciseImage");
+  const questionEl = document.getElementById("questionText");
+  const optionsEl  = document.getElementById("optionsGrid");
+  const feedbackEl = document.getElementById("feedback");
+  const counterEl  = document.getElementById("counter");
+  const barEl      = document.getElementById("progressBar");
+  const quizCard   = document.getElementById("quizCard");
+  const endScreen  = document.getElementById("endScreen");
+  const explainBar = document.getElementById("explainBar");
+  const scoreBadge = document.getElementById("scoreBadge");
+  const scoreCount = document.getElementById("scoreCount");
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function updateProgress() {
+    counterEl.textContent = `${current + 1} / ${EXERCISES.length}`;
+    barEl.style.width = `${(current / EXERCISES.length) * 100}%`;
+  }
+
+  function renderExercise() {
+    locked = false;
+    mistakesThisQ = 0;
+    const ex = EXERCISES[current];
+
+    updateProgress();
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+    explainBar.classList.remove("show");
+    explainBar.textContent = "";
+
+    imageEl.style.display = "block";
+    imageEl.src = IMG + ex.image;
+    questionEl.textContent = ex.question;
+
+    optionsEl.innerHTML = "";
+    shuffle(ex.options).forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.type = "button";
+      btn.textContent = opt;
+      btn.addEventListener("click", () => handleAnswer(btn, opt));
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function disableAll() {
+    optionsEl.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
+  }
+
+  function handleAnswer(btn, selected) {
+    if (locked) return;
+    const ex = EXERCISES[current];
+
+    if (selected === ex.correct) {
+      locked = true;
+      btn.classList.add("correct");
+      disableAll();
+
+      // Only count as clean correct if no mistakes on this question
+      if (mistakesThisQ === 0) totalCorrect++;
+      scoreBadge.style.visibility = "visible";
+      scoreCount.textContent = totalCorrect;
+
+      feedbackEl.textContent = "¡Correcto!";
+      feedbackEl.classList.add("good");
+      explainBar.classList.remove("show");
+
+      setTimeout(() => {
+        current++;
+        if (current >= EXERCISES.length) {
+          showEnd();
+        } else {
+          renderExercise();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }, 900);
+
+    } else {
+      mistakesThisQ++;
+      totalMistakes++;
+
+      btn.classList.add("wrong");
+      feedbackEl.textContent = "No. Inténtalo otra vez.";
+      feedbackEl.classList.add("bad");
+
+      // After first wrong attempt, reveal a Spanish hint
+      explainBar.textContent = ex.explain;
+      explainBar.classList.add("show");
+
+      // Shake the question
+      questionEl.classList.remove("shake");
+      void questionEl.offsetWidth;
+      questionEl.classList.add("shake");
+
+      setTimeout(() => {
+        btn.classList.remove("wrong");
+        questionEl.classList.remove("shake");
+      }, 450);
+    }
+  }
+
+  function showEnd() {
+    quizCard.style.display = "none";
+    endScreen.classList.add("show");
+    barEl.style.width = "100%";
+
+    document.getElementById("totalCorrect").textContent  = totalCorrect;
+    document.getElementById("totalMistakes").textContent = totalMistakes;
+
+    const pct = totalCorrect / EXERCISES.length;
+    const perfEl = document.getElementById("perfMsg");
+    if (pct >= 0.9) {
+      perfEl.className = "perf-msg great";
+      perfEl.textContent = "¡Excelente! Dominaste el repaso. 🌟";
+    } else if (pct >= 0.6) {
+      perfEl.className = "perf-msg ok";
+      perfEl.textContent = "Bien hecho. Repasa las palabras en rojo si quieres mejorar.";
+    } else {
+      perfEl.className = "perf-msg retry";
+      perfEl.textContent = "Sigue practicando. Puedes repetir la lección para mejorar.";
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  renderExercise();
+})();
+</script>
 </body>
 </html>

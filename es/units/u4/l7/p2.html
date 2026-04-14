@@ -6,6 +6,11 @@
   <title>Unidad 4 • Lección 7 • Parte 2</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
@@ -16,7 +21,7 @@
       color: #111827;
     }
 
-    .wrap { max-width: 700px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
     .back-btn {
       display: inline-block;
@@ -46,11 +51,12 @@
       color: #374151;
     }
 
+    /* ── Progress dots ── */
     .progress-container {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 12px 0 20px 0;
+      margin: 12px 0 20px;
     }
 
     .step {
@@ -68,10 +74,34 @@
       transition: all .3s;
       font-size: 15px;
     }
-
     .step.active { background: #2563eb; color: #fff; }
-    .step:hover { transform: scale(1.1); }
+    .step:hover  { transform: scale(1.1); }
 
+    /* ── Score row ── */
+    .score-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+    .score-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
+    .score-badge.correct-badge { color: #15803d; }
+    .score-badge.wrong-badge   { color: #b91c1c; }
+    .score-badge .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .correct-badge .dot { background: #22c55e; }
+    .wrong-badge   .dot { background: #ef4444; }
+
+    /* ── Vocab panel ── */
     .vocab-panel {
       background: rgba(255,255,255,.92);
       border-radius: 14px;
@@ -94,8 +124,8 @@
       font-size: 15px;
       border-radius: 14px;
       transition: background 0.2s;
+      font-family: 'Poppins', sans-serif;
     }
-
     .vocab-toggle:hover { background: #1d4ed8; }
 
     .vocab-body {
@@ -104,11 +134,7 @@
       transition: max-height 0.45s ease, padding 0.3s ease;
       padding: 0 14px;
     }
-
-    .vocab-body.open {
-      max-height: 900px;
-      padding: 14px;
-    }
+    .vocab-body.open { max-height: 900px; padding: 14px; }
 
     .vocab-grid {
       display: grid;
@@ -125,7 +151,6 @@
       line-height: 1.55;
       font-size: 13px;
     }
-
     .box-title {
       font-size: 10.5px;
       font-weight: 900;
@@ -134,19 +159,18 @@
       color: #3b82f6;
       margin-bottom: 8px;
     }
-
     .vocab-line {
       display: flex;
       justify-content: space-between;
       gap: 10px;
     }
-
     .vocab-line strong { color: #1e40af; }
-    .vocab-line span { color: #475569; font-weight: 600; }
+    .vocab-line span   { color: #475569; font-weight: 600; }
 
+    /* ── Main card ── */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
@@ -157,21 +181,15 @@
       align-items: center;
       margin-bottom: 8px;
     }
-
-    .counter {
-      font-size: 13px;
-      font-weight: 700;
-      color: #486581;
-    }
+    .counter { font-size: 13px; font-weight: 700; color: #486581; }
 
     .bar-wrap {
       background: #e2e8f0;
       border-radius: 999px;
       height: 7px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       overflow: hidden;
     }
-
     .bar-fill {
       height: 100%;
       width: 0%;
@@ -180,31 +198,39 @@
       transition: width 0.35s ease;
     }
 
+    /* ── Exercise image ── */
+    .img-wrap {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto 16px;
+      border-radius: 14px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 160px;
+    }
     .exercise-image {
       width: 100%;
-      max-width: 560px;
-      max-height: 280px;
-      height: auto;
+      max-height: 260px;
       object-fit: contain;
-      border-radius: 12px;
-      margin: 0 auto 16px;
       display: block;
-      box-shadow: 0 6px 16px rgba(0,0,0,.08);
-      background: #fff;
+      border-radius: 14px;
     }
 
+    /* ── Question box ── */
     .question-box {
       background: #f8fafc;
       border-radius: 14px;
       padding: 16px;
       margin-bottom: 16px;
       border: 2px solid #e2e8f0;
-      transition: border-color .2s ease, background .2s ease;
     }
 
     .instruction {
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       color: #64748b;
       margin-bottom: 10px;
@@ -212,10 +238,12 @@
       letter-spacing: .4px;
     }
 
+    .phase-wrap { text-align: center; }
+
     .phase-badge {
       display: inline-block;
       margin: 0 auto 12px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 999px;
       background: #dbeafe;
       color: #1d4ed8;
@@ -224,18 +252,19 @@
       text-transform: uppercase;
       letter-spacing: .5px;
     }
-
-    .phase-wrap {
-      text-align: center;
+    .phase-badge.negative {
+      background: #fee2e2;
+      color: #b91c1c;
     }
 
+    /* ── Slot target line ── */
     .target-line {
       text-align: center;
-      font-size: 24px;
-      line-height: 1.4;
+      font-size: 22px;
+      line-height: 1.6;
       font-weight: 900;
       color: #1f2937;
-      min-height: 72px;
+      min-height: 68px;
       margin-bottom: 16px;
     }
 
@@ -243,27 +272,21 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 64px;
+      min-width: 60px;
       padding: 4px 8px;
-      margin: 2px 4px;
+      margin: 2px 3px;
       border-bottom: 4px solid #93c5fd;
       color: #2563eb;
       border-radius: 8px 8px 4px 4px;
       background: #ffffff;
       transition: all .2s ease;
+      font-size: 20px;
     }
+    .slot.filled  { background: #eff6ff; color: #1d4ed8; }
+    .slot.correct { background: #dcfce7; color: #15803d; border-bottom-color: #22c55e; }
+    .slot.revealed{ background: #fef3c7; color: #92400e; border-bottom-color: #f59e0b; }
 
-    .slot.filled {
-      background: #eff6ff;
-      color: #1d4ed8;
-    }
-
-    .slot.correct {
-      background: #dcfce7;
-      color: #15803d;
-      border-bottom-color: #22c55e;
-    }
-
+    /* ── Tile bank ── */
     .tiles-grid {
       display: flex;
       flex-wrap: wrap;
@@ -273,7 +296,7 @@
     }
 
     .tile {
-      border: none;
+      border: 2px solid #bfdbfe;
       border-radius: 14px;
       padding: 12px 16px;
       font-size: 16px;
@@ -281,27 +304,16 @@
       cursor: pointer;
       background: #eff6ff;
       color: #1d4ed8;
-      border: 2px solid #bfdbfe;
-      transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease;
-      min-height: 52px;
+      transition: transform .12s ease, background .2s, border-color .2s, opacity .2s;
+      min-height: 50px;
+      font-family: 'Poppins', sans-serif;
     }
+    .tile:hover       { transform: translateY(-1px); background: #dbeafe; }
+    .tile.used        { opacity: .35; pointer-events: none; }
+    .tile.correct     { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .tile.wrong-tile  { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
 
-    .tile:hover {
-      transform: translateY(-1px);
-      background: #dbeafe;
-    }
-
-    .tile.used {
-      opacity: .35;
-      pointer-events: none;
-    }
-
-    .tile.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      color: #15803d;
-    }
-
+    /* ── Controls ── */
     .controls-row {
       display: flex;
       justify-content: center;
@@ -313,21 +325,17 @@
     .mini-btn {
       border: none;
       border-radius: 12px;
-      padding: 10px 16px;
+      padding: 10px 18px;
       font-size: 14px;
       font-weight: 800;
       cursor: pointer;
       transition: .2s ease;
+      font-family: 'Poppins', sans-serif;
     }
-
-    .clear-btn {
-      background: #e2e8f0;
-      color: #334155;
-    }
+    .clear-btn { background: #e2e8f0; color: #334155; }
     .clear-btn:hover { background: #cbd5e1; }
 
-    
-
+    /* ── Feedback ── */
     .feedback {
       text-align: center;
       min-height: 24px;
@@ -336,40 +344,24 @@
       font-weight: 800;
       color: #475569;
     }
-
     .feedback.good { color: #15803d; }
-    .feedback.bad { color: #b91c1c; }
+    .feedback.bad  { color: #b91c1c; }
+    .feedback.hint { color: #92400e; }
 
+    /* ── End screen ── */
     .end {
       display: none;
       text-align: center;
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 32px 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
       margin-top: 16px;
     }
-
     .end.show { display: block; }
-
-    .end .trophy {
-      font-size: 52px;
-      margin-bottom: 10px;
-    }
-
-    .end h2 {
-      margin: 8px 0;
-      font-size: 22px;
-      font-weight: 900;
-      color: #1e40af;
-    }
-
-    .end p {
-      margin: 6px 0;
-      font-weight: 600;
-      color: #374151;
-      font-size: 14px;
-    }
+    .end .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
 
     .highlight-msg {
       background: #fef9c3;
@@ -380,6 +372,23 @@
       font-size: 14px;
       color: #78350f;
     }
+
+    .end-score-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 12px 0;
+    }
+    .end-score-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .end-score-num   { font-size: 28px; font-weight: 900; }
+    .end-score-label { font-size: 12px; font-weight: 700; color: #6b7280; }
+    .end-score-item.c .end-score-num { color: #15803d; }
+    .end-score-item.w .end-score-num { color: #b91c1c; }
 
     .finish-btn {
       display: inline-flex;
@@ -397,14 +406,12 @@
       transition: background .2s;
       margin-top: 16px;
       text-decoration: none;
+      font-family: 'Poppins', sans-serif;
     }
-
     .finish-btn:hover { background: #15803d; }
 
-    .shake {
-      animation: shake .4s ease;
-    }
-
+    /* ── Shake ── */
+    .shake { animation: shake .4s ease; }
     @keyframes shake {
       0%   { transform: translateX(0); }
       20%  { transform: translateX(-7px); }
@@ -414,14 +421,15 @@
       100% { transform: translateX(0); }
     }
 
-    @media (max-width: 560px) {
-      .exercise-image { max-height: 220px; }
-      .target-line { font-size: 20px; min-height: 64px; }
-      .tile { font-size: 15px; padding: 11px 14px; }
-      .vocab-grid { grid-template-columns: 1fr 1fr; }
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .exercise-image { max-height: 200px; }
+      .target-line    { font-size: 18px; min-height: 58px; }
+      .slot           { font-size: 17px; min-width: 50px; padding: 3px 6px; }
+      .tile           { font-size: 15px; padding: 11px 13px; }
+      .vocab-grid     { grid-template-columns: 1fr 1fr; }
     }
-
-    @media (max-width: 420px) {
+    @media (max-width: 380px) {
       .vocab-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -441,6 +449,19 @@
     <a class="step" href="p5.html">5</a>
   </div>
 
+  <!-- Live score counters -->
+  <div class="score-row">
+    <div class="score-badge correct-badge">
+      <div class="dot"></div>
+      <span id="scoreCorrect">0</span> correctas
+    </div>
+    <div class="score-badge wrong-badge">
+      <div class="dot"></div>
+      <span id="scoreWrong">0</span> errores
+    </div>
+  </div>
+
+  <!-- Vocab panel -->
   <div class="vocab-panel">
     <button class="vocab-toggle" id="vocabToggle">
       <span>📚 Banco de palabras</span>
@@ -473,23 +494,26 @@
     </div>
   </div>
 
+  <!-- Exercise card -->
   <div class="card">
     <div id="slideArea">
       <div class="counter-row">
         <span class="counter" id="counter">1 / 14</span>
       </div>
-
       <div class="bar-wrap">
         <div class="bar-fill" id="progressBar"></div>
       </div>
 
-      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" onerror="this.style.display='none'" />
+      <div class="img-wrap">
+        <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio"
+             onerror="this.parentElement.style.display='none'" />
+      </div>
 
       <div class="question-box" id="questionBox">
         <div class="instruction">Toca las palabras en orden para construir la oración</div>
 
         <div class="phase-wrap">
-          <div class="phase-badge" id="phaseBadge">Oración 1</div>
+          <div class="phase-badge" id="phaseBadge">Oración afirmativa</div>
         </div>
 
         <div class="target-line" id="targetLine"></div>
@@ -498,24 +522,346 @@
 
         <div class="controls-row">
           <button class="mini-btn clear-btn" id="clearBtn" type="button">Borrar</button>
-                 </div>
+        </div>
 
         <div class="feedback" id="feedback"></div>
       </div>
     </div>
   </div>
 
+  <!-- End screen -->
   <div class="end" id="endScreen">
     <div class="trophy">🌟</div>
     <h2>¡Buen trabajo!</h2>
     <p>Completaste la Parte 2 de la Lección 7.</p>
+    <div class="end-score-row">
+      <div class="end-score-item c">
+        <div class="end-score-num" id="endCorrect">0</div>
+        <div class="end-score-label">Correctas</div>
+      </div>
+      <div class="end-score-item w">
+        <div class="end-score-num" id="endWrong">0</div>
+        <div class="end-score-label">Errores</div>
+      </div>
+    </div>
     <div class="highlight-msg">
-      Practicaste oraciones afirmativas y negativas con <strong>is</strong>, <strong>am</strong> y <strong>are</strong>.
+      Practicaste oraciones afirmativas y negativas con <strong>is</strong>,
+      <strong>am</strong> y <strong>are</strong>.
     </div>
     <a href="p3.html" class="finish-btn">Continuar → Parte 3</a>
   </div>
 </div>
 
-<script src="../../../../js/u4/u4_l7_p2.js"></script>
+<script>
+(() => {
+  /* ─── Asset paths ─── */
+  const BASE   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG    = BASE + "images/u4/";
+  const SFX_OK = BASE + "sfx/correct.wav";
+  const SFX_NO = BASE + "sfx/incorrect.wav";
+
+  /* ─── Max wrong attempts before auto-reveal ─── */
+  const MAX_WRONG = 3;
+
+  /* ─── Exercise data ─── */
+  const EXERCISES = [
+    {
+      image: "u4.l6.p1.noisy.dog.jpg",
+      positive: ["His", "dog", "is", "noisy."],
+      negative: ["It", "is", "not", "quiet."]
+    },
+    {
+      image: "u4.l2.p4.small.house.jpg",
+      positive: ["Her", "house", "is", "small."],
+      negative: ["It", "is", "not", "big."]
+    },
+    {
+      image: "u4.l7.p1.pretty.woman.jpg",
+      positive: ["My", "sister", "is", "pretty."],
+      negative: ["She", "is", "not", "ugly."]
+    },
+    {
+      image: "u4.l4.p4.rich.man.beer.jpg",
+      positive: ["Her", "brother", "is", "single."],
+      negative: ["He", "is", "not", "married."]
+    },
+    {
+      image: "u4.l4.p1.married.jpg",
+      positive: ["I", "am", "married."],
+      negative: ["I", "am", "not", "single."]
+    },
+    {
+      image: "u4.l6.p1.noisy.jpg",
+      positive: ["His", "neighbors", "are", "noisy."],
+      negative: ["They", "are", "not", "quiet."]
+    },
+    {
+      image: "u4.l4.p3.expensive.watch.jpg",
+      positive: ["His", "watch", "is", "expensive."],
+      negative: ["It", "is", "not", "cheap."]
+    }
+  ];
+
+  /* ─── State ─── */
+  let exerciseIndex = 0;
+  let phase         = "positive"; // "positive" | "negative"
+  let selectedWords = [];
+  let locked        = false;
+  let wrongStreak   = 0;
+  let totalCorrect  = 0;
+  let totalWrong    = 0;
+
+  /* ─── DOM refs ─── */
+  const exerciseImage = document.getElementById("exerciseImage");
+  const phaseBadge    = document.getElementById("phaseBadge");
+  const targetLine    = document.getElementById("targetLine");
+  const tilesGrid     = document.getElementById("tilesGrid");
+  const clearBtn      = document.getElementById("clearBtn");
+  const feedbackEl    = document.getElementById("feedback");
+  const counterEl     = document.getElementById("counter");
+  const progressBar   = document.getElementById("progressBar");
+  const slideArea     = document.getElementById("slideArea");
+  const endScreen     = document.getElementById("endScreen");
+  const questionBox   = document.getElementById("questionBox");
+  const scoreCorrect  = document.getElementById("scoreCorrect");
+  const scoreWrong    = document.getElementById("scoreWrong");
+  const endCorrect    = document.getElementById("endCorrect");
+  const endWrong      = document.getElementById("endWrong");
+
+  /* ─── Audio ─── */
+  let currentAudio = null;
+  function playSound(url) {
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+    currentAudio = new Audio(url);
+    currentAudio.play().catch(() => {});
+  }
+
+  /* ─── LocalStorage ─── */
+  function saveProgress() {
+    try {
+      const prog = JSON.parse(localStorage.getItem("inglesco_progress_u4") || "{}");
+      prog["l7_p2"] = true;
+      localStorage.setItem("inglesco_progress_u4", JSON.stringify(prog));
+      const cur = parseInt(localStorage.getItem("inglesco_furthest_u4_l7") || "0");
+      if (2 > cur) localStorage.setItem("inglesco_furthest_u4_l7", "2");
+    } catch(e) {}
+  }
+
+  /* ─── Vocab toggle ─── */
+  document.getElementById("vocabToggle").addEventListener("click", () => {
+    const body    = document.getElementById("vocabBody");
+    const chevron = document.getElementById("vocabChevron");
+    const open    = body.classList.toggle("open");
+    chevron.textContent = open ? "▲" : "▼";
+  });
+
+  /* ─── Helpers ─── */
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function getCurrentSentence() {
+    return phase === "positive" ? EXERCISES[exerciseIndex].positive : EXERCISES[exerciseIndex].negative;
+  }
+
+  function getGlobalStep() {
+    return exerciseIndex * 2 + (phase === "positive" ? 1 : 2);
+  }
+
+  function updateScoreBadges() {
+    scoreCorrect.textContent = totalCorrect;
+    scoreWrong.textContent   = totalWrong;
+  }
+
+  /* ─── Render target slots ─── */
+  function renderTargetLine() {
+    const sentence = getCurrentSentence();
+    targetLine.innerHTML = "";
+    sentence.forEach((_, i) => {
+      const slot = document.createElement("span");
+      slot.className = "slot";
+      if (selectedWords[i]) {
+        slot.textContent = selectedWords[i];
+        slot.classList.add("filled");
+      } else {
+        slot.textContent = "_____";
+      }
+      targetLine.appendChild(slot);
+    });
+  }
+
+  /* ─── Render tile bank ─── */
+  function renderTiles() {
+    const sentence = getCurrentSentence();
+    tilesGrid.innerHTML = "";
+    shuffle(sentence).forEach(word => {
+      const btn = document.createElement("button");
+      btn.type        = "button";
+      btn.className   = "tile";
+      btn.textContent = word;
+      btn.addEventListener("click", () => {
+        if (locked) return;
+        if (selectedWords.length >= sentence.length) return;
+        selectedWords.push(word);
+        btn.classList.add("used");
+        renderTargetLine();
+        if (selectedWords.length === sentence.length) autoCheckAnswer();
+      });
+      tilesGrid.appendChild(btn);
+    });
+  }
+
+  /* ─── Render full phase ─── */
+  function renderPhase() {
+    const ex = EXERCISES[exerciseIndex];
+    selectedWords = [];
+    locked        = false;
+    wrongStreak   = 0;
+
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+    questionBox.classList.remove("shake");
+
+    // image
+    const imgWrap = exerciseImage.parentElement;
+    imgWrap.style.display = "flex";
+    exerciseImage.src = IMG + ex.image;
+    exerciseImage.alt = "Imagen del ejercicio";
+
+    // badge
+    phaseBadge.textContent = phase === "positive" ? "Oración afirmativa" : "Oración negativa";
+    phaseBadge.className   = phase === "positive" ? "phase-badge" : "phase-badge negative";
+
+    // progress
+    const totalSteps   = EXERCISES.length * 2;
+    const currentStep  = getGlobalStep();
+    counterEl.textContent   = `${currentStep} / ${totalSteps}`;
+    progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
+
+    renderTargetLine();
+    renderTiles();
+  }
+
+  /* ─── Mark all slots / tiles correct ─── */
+  function markCorrect() {
+    targetLine.querySelectorAll(".slot").forEach(s => {
+      s.classList.remove("filled");
+      s.classList.add("correct");
+    });
+    tilesGrid.querySelectorAll(".tile.used").forEach(t => t.classList.add("correct"));
+  }
+
+  /* ─── Reveal correct answer after MAX_WRONG ─── */
+  function revealAnswer() {
+    locked = true;
+    const sentence = getCurrentSentence();
+
+    // show answer in slots
+    const slots = targetLine.querySelectorAll(".slot");
+    sentence.forEach((word, i) => {
+      if (slots[i]) {
+        slots[i].textContent = word;
+        slots[i].className   = "slot revealed";
+      }
+    });
+
+    feedbackEl.textContent = "La respuesta: " + sentence.join(" ");
+    feedbackEl.className   = "feedback hint";
+    playSound(SFX_NO);
+
+    setTimeout(goNext, 2200);
+  }
+
+  /* ─── Auto-check when all slots filled ─── */
+  function autoCheckAnswer() {
+    if (locked) return;
+    const sentence = getCurrentSentence();
+    const correct  = sentence.every((w, i) => selectedWords[i] === w);
+
+    if (correct) {
+      locked = true;
+      markCorrect();
+      feedbackEl.textContent = "¡Correcto!";
+      feedbackEl.className   = "feedback good";
+      totalCorrect++;
+      updateScoreBadges();
+      playSound(SFX_OK);
+      setTimeout(goNext, 1000);
+    } else {
+      wrongStreak++;
+      totalWrong++;
+      updateScoreBadges();
+      playSound(SFX_NO);
+
+      if (wrongStreak >= MAX_WRONG) {
+        revealAnswer();
+        return;
+      }
+
+      feedbackEl.textContent = "No. Inténtalo otra vez.";
+      feedbackEl.className   = "feedback bad";
+      questionBox.classList.remove("shake");
+      void questionBox.offsetWidth;
+      questionBox.classList.add("shake");
+
+      // reset tiles so student can try again
+      setTimeout(() => {
+        questionBox.classList.remove("shake");
+        selectedWords = [];
+        renderTargetLine();
+        renderTiles();
+        feedbackEl.textContent = "";
+        feedbackEl.className   = "feedback";
+      }, 500);
+    }
+  }
+
+  /* ─── Advance to next phase / exercise ─── */
+  function goNext() {
+    if (phase === "positive") {
+      phase = "negative";
+      renderPhase();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    exerciseIndex++;
+    phase = "positive";
+    if (exerciseIndex >= EXERCISES.length) {
+      showEnd();
+    } else {
+      renderPhase();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  /* ─── End screen ─── */
+  function showEnd() {
+    saveProgress();
+    slideArea.style.display = "none";
+    endCorrect.textContent  = totalCorrect;
+    endWrong.textContent    = totalWrong;
+    endScreen.classList.add("show");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ─── Clear button ─── */
+  clearBtn.addEventListener("click", () => {
+    if (locked) return;
+    selectedWords = [];
+    renderTargetLine();
+    renderTiles();
+    feedbackEl.textContent = "";
+    feedbackEl.className   = "feedback";
+  });
+
+  /* ─── Init ─── */
+  renderPhase();
+})();
+</script>
 </body>
 </html>
