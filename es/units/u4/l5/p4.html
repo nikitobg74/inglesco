@@ -6,6 +6,8 @@
   <title>Unidad 4 • Lección 5 • Parte 4</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
@@ -16,7 +18,7 @@
       color: #111827;
     }
 
-    .wrap { max-width: 700px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
     .back-btn {
       display: inline-block;
@@ -31,44 +33,32 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    .top-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-    .subline {
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #374151;
-    }
+    .top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+    .subline { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
 
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 12px 0 20px 0;
-    }
+    .progress-container { display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px; }
     .step {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       background: #d1d5db;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      color: #1f2933;
-      transition: all .3s;
-      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; text-decoration: none; color: #1f2933;
+      transition: all .3s; font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
-    .step:hover  { transform: scale(1.1); }
+    .step:hover { transform: scale(1.1); }
 
+    /* Score badges */
+    .score-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 14px; }
+    .badge {
+      display: flex; align-items: center; gap: 6px;
+      background: white; border-radius: 20px; padding: 6px 14px;
+      font-weight: 700; font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .badge.correct-badge { color: #15803d; }
+    .badge.wrong-badge { color: #b91c1c; }
+
+    /* Vocab / Grammar panel */
     .vocab-panel {
       background: rgba(255,255,255,.92);
       border-radius: 14px;
@@ -77,117 +67,54 @@
       overflow: hidden;
     }
     .vocab-toggle {
-      width: 100%;
-      background: #1e40af;
-      color: white;
-      border: none;
+      width: 100%; background: #1e40af; color: white; border: none;
       padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 15px;
-      border-radius: 14px;
-      transition: background 0.2s;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-weight: 700; font-size: 15px;
+      border-radius: 14px; transition: background 0.2s;
+      font-family: 'Poppins', sans-serif;
     }
     .vocab-toggle:hover { background: #1d4ed8; }
-    .vocab-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.45s ease, padding 0.3s ease;
-      padding: 0 14px;
-    }
+    .vocab-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease, padding 0.3s ease; padding: 0 14px; }
     .vocab-body.open { max-height: 700px; padding: 14px; }
 
-    .grammar-grid {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    }
-    .grammar-box {
-      background: #dbeafe;
-      border-radius: 12px;
-      padding: 14px 16px;
-      color: #1e3a5f;
-      font-size: 13.5px;
-      line-height: 1.75;
-    }
-    .box-title {
-      font-size: 10.5px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      color: #3b82f6;
-      margin-bottom: 8px;
-    }
+    .grammar-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+    .grammar-box { background: #dbeafe; border-radius: 12px; padding: 14px 16px; color: #1e3a5f; font-size: 13.5px; line-height: 1.75; }
+    .box-title { font-size: 10.5px; font-weight: 900; text-transform: uppercase; letter-spacing: .6px; color: #3b82f6; margin-bottom: 8px; }
     .grammar-box .main { font-weight: 800; color: #1e40af; }
     .grammar-box .good { font-weight: 800; color: #15803d; }
-    .grammar-box .neg { font-weight: 800; color: #dc2626; }
+    .grammar-box .neg  { font-weight: 800; color: #dc2626; }
 
+    /* Card */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
-
-    .counter-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
+    .counter-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .counter { font-size: 13px; font-weight: 700; color: #486581; }
-    .bar-wrap {
-      background: #e2e8f0;
-      border-radius: 999px;
-      height: 7px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #2563eb;
-      border-radius: 999px;
-      transition: width 0.5s ease;
-    }
+    .bar-wrap { background: #e2e8f0; border-radius: 999px; height: 7px; margin-bottom: 20px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0%; background: #2563eb; border-radius: 999px; transition: width 0.5s ease; }
 
-    .exercise-image {
-      width: 100%;
-      max-width: 560px;
-      max-height: 280px;
-      height: auto;
-      object-fit: contain;
-      border-radius: 12px;
-      margin: 0 auto 14px;
-      display: block;
-      box-shadow: 0 6px 16px rgba(0,0,0,.08);
-      background: #fff;
+    /* Image */
+    .img-wrap {
+      width: 100%; background: #f1f5f9; border-radius: 14px;
+      margin-bottom: 14px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 180px; max-height: 300px;
     }
+    .exercise-image { width: 100%; height: auto; max-height: 300px; object-fit: contain; display: block; }
 
-    .audio-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
+    /* Audio row */
+    .audio-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
     .play-btn {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: #2563eb;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,.35);
       transition: background 0.2s, transform 0.1s;
-      color: white;
-      font-size: 22px;
-      flex-shrink: 0;
+      color: white; font-size: 22px; flex-shrink: 0;
     }
     .play-btn:hover { background: #1d4ed8; transform: scale(1.05); }
     .play-btn.playing { background: #7c3aed; }
@@ -196,345 +123,644 @@
     .audio-label { font-size: 13px; font-weight: 700; color: #1e40af; }
     .audio-sub { font-size: 11px; color: #6b7280; font-weight: 600; }
 
-    .script-box {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      min-height: 58px;
-    }
-    .script-line {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 2px;
-      padding: 4px 8px;
-      border-radius: 10px;
-      transition: background-color 0.25s ease, transform 0.25s ease;
-    }
+    /* Script box */
+    .script-box { background: #f8fafc; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; min-height: 48px; }
+    .script-line { display: flex; gap: 8px; margin-bottom: 2px; padding: 4px 8px; border-radius: 10px; transition: background-color 0.25s ease, transform 0.25s ease; }
     .script-line:last-child { margin-bottom: 0; }
-    .script-line.active-line {
-      background: #fef3c7;
-      transform: scale(1.01);
-    }
+    .script-line.active-line { background: #fef3c7; transform: scale(1.01); }
     .script-line.active-line .line-text { color: #92400e; }
-    .speaker {
-      font-weight: 900;
-      font-size: 13px;
-      min-width: 20px;
-      padding-top: 1px;
-    }
+    .speaker { font-weight: 900; font-size: 13px; min-width: 20px; padding-top: 1px; }
     .speaker.a { color: #2563eb; }
     .speaker.b { color: #16a34a; }
-    .line-text {
-      font-weight: 600;
-      color: #1e293b;
-      transition: color 0.25s ease;
-    }
-    .script-note {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: #64748b;
-      padding: 4px 6px;
-    }
+    .line-text { font-weight: 600; color: #1e293b; transition: color 0.25s ease; }
+    .script-note { text-align: center; font-size: 13px; font-weight: 700; color: #64748b; padding: 4px 6px; }
 
-    .exercise-phases {
-      position: relative;
-      min-height: 380px;
-    }
+    /* Phases */
+    .phase { border-top: 1px solid #e5e7eb; padding-top: 16px; margin-top: 14px; }
+    .phase.hidden { display: none; }
+    .phase.entering { animation: phaseIn .28s ease; }
+    @keyframes phaseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    .phase {
-      border-top: 1px solid #e5e7eb;
-      padding-top: 16px;
-      margin-top: 14px;
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity .28s ease, transform .28s ease;
-    }
-    .phase.hidden {
-      display: none;
-    }
-    .phase.entering {
-      animation: phaseIn .28s ease;
-    }
-    @keyframes phaseIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .phase-label {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: #486581;
-      margin-bottom: 10px;
-      padding: 6px 12px;
-      background: #f1f5f9;
-      border-radius: 8px;
-    }
-    .phase-label.green { background: #f0fdf4; color: #15803d; }
+    .phase-label { text-align: center; font-size: 13px; font-weight: 700; color: #486581; margin-bottom: 10px; padding: 6px 12px; background: #f1f5f9; border-radius: 8px; }
+    .phase-label.green  { background: #f0fdf4; color: #15803d; }
     .phase-label.orange { background: #fff7ed; color: #c2410c; }
-    .instruction {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: #486581;
-      margin-bottom: 14px;
-    }
+    .instruction { text-align: center; font-size: 13px; font-weight: 600; color: #486581; margin-bottom: 14px; }
 
-    .slots-row {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
+    /* Slots */
+    .slots-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
     .slot {
-      min-width: 72px;
-      min-height: 46px;
-      border: 2px dashed #93c5fd;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: #1e40af;
-      background: #eff6ff;
-      transition: all 0.2s;
-      padding: 8px 10px;
-      text-align: center;
+      min-width: 64px; min-height: 44px;
+      border: 2px dashed #93c5fd; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #1e40af;
+      background: #eff6ff; transition: all 0.2s;
+      padding: 6px 10px; text-align: center;
     }
-    .slot.filled {
-      border-style: solid;
-      border-color: #3b82f6;
-      background: #dbeafe;
-    }
-    .slot.correct {
-      border-color: #16a34a;
-      background: #dcfce7;
-      color: #15803d;
-    }
-    .slot.shake {
-      animation: shake 0.4s ease;
-      border-color: #dc2626;
-      background: #fee2e2;
-      color: #dc2626;
-    }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
-    }
+    .slot.filled  { border-style: solid; border-color: #3b82f6; background: #dbeafe; }
+    .slot.correct { border-color: #16a34a; background: #dcfce7; color: #15803d; }
+    .slot.revealed{ border-color: #f59e0b; background: #fef3c7; color: #92400e; }
+    .slot.shake   { animation: shake 0.4s ease; border-color: #dc2626; background: #fee2e2; color: #dc2626; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
 
-    .feedback {
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      min-height: 22px;
-      margin-bottom: 14px;
-    }
+    /* Feedback */
+    .feedback { text-align: center; font-size: 14px; font-weight: 700; min-height: 22px; margin-bottom: 10px; }
     .feedback.correct { color: #16a34a; }
-    .feedback.wrong { color: #dc2626; }
+    .feedback.wrong   { color: #dc2626; }
 
-    .tiles-wrap {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
+    /* Mistake hint */
+    .mistake-hint {
+      text-align: center; font-size: 13px; font-weight: 600;
+      color: #92400e; background: #fef3c7; border-radius: 10px;
+      padding: 8px 12px; margin-bottom: 10px; display: none;
     }
+    .mistake-hint.show { display: block; }
+
+    /* Tiles */
+    .tiles-wrap { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
     .tile-btn {
-      padding: 10px 18px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
+      padding: 10px 18px; background: #2563eb; color: white; border: none;
+      border-radius: 14px; font-weight: 700; font-size: 14px; cursor: pointer;
+      font-family: 'Poppins', sans-serif;
       box-shadow: 0 4px 12px rgba(37,99,235,.25);
       transition: background 0.2s, transform 0.1s, opacity 0.2s;
       user-select: none;
     }
-    .tile-btn.answer-tile {
-      background: #16a34a;
-      box-shadow: 0 4px 12px rgba(22,163,74,.25);
-    }
-    .tile-btn.fact-tile {
-      background: #ea580c;
-      box-shadow: 0 4px 12px rgba(234,88,12,.25);
-    }
+    .tile-btn.answer-tile { background: #16a34a; box-shadow: 0 4px 12px rgba(22,163,74,.25); }
+    .tile-btn.fact-tile   { background: #ea580c; box-shadow: 0 4px 12px rgba(234,88,12,.25); }
     .tile-btn:hover { background: #1d4ed8; transform: scale(1.04); }
     .tile-btn.answer-tile:hover { background: #15803d; }
-    .tile-btn.fact-tile:hover { background: #c2410c; }
+    .tile-btn.fact-tile:hover   { background: #c2410c; }
     .tile-btn:active { transform: scale(0.97); }
-    .tile-btn.used,
-    .tile-btn:disabled {
-      opacity: 0.35;
-      cursor: default;
-      transform: none;
-    }
+    .tile-btn.used, .tile-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
 
+    /* Next btn */
     .next-btn {
-      width: 100%;
-      border: none;
-      background: #cbd5e1;
-      color: white;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-weight: 800;
-      font-size: 15px;
-      cursor: not-allowed;
+      width: 100%; border: none; background: #cbd5e1; color: white;
+      border-radius: 14px; padding: 14px 18px;
+      font-weight: 800; font-size: 15px; cursor: not-allowed;
+      font-family: 'Poppins', sans-serif;
       transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
     }
-    .next-btn.ready {
-      background: #2563eb;
-      cursor: pointer;
-    }
+    .next-btn.ready { background: #2563eb; cursor: pointer; }
     .next-btn.ready:hover { background: #1d4ed8; transform: scale(1.01); }
 
-    .end-screen {
-      display: none;
-      text-align: center;
-      padding: 18px 8px 4px;
-    }
+    /* End screen */
+    .end-screen { display: none; text-align: center; background: rgba(255,255,255,.88); border-radius: 20px; padding: 36px 24px; margin-top: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.08); }
     .end-screen.show { display: block; }
-    .end-title {
-      font-size: 24px;
-      font-weight: 900;
-      color: #16a34a;
-      margin-bottom: 8px;
-    }
-    .end-text {
-      font-size: 15px;
-      color: #374151;
-      margin-bottom: 18px;
-      font-weight: 600;
-    }
-    .continue-link {
-      display: inline-block;
-      background: #16a34a;
-      color: white;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: 800;
-    }
+    .end-title { font-size: 24px; font-weight: 900; color: #16a34a; margin-bottom: 8px; }
+    .end-text  { font-size: 15px; color: #374151; margin-bottom: 8px; font-weight: 600; }
+    .end-score { font-size: 16px; font-weight: 700; margin: 12px 0 20px; }
+    .end-score .g { color: #15803d; }
+    .end-score .b { color: #b91c1c; }
+    .continue-link { display: inline-block; background: #16a34a; color: white; text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; font-size: 15px; }
     .continue-link:hover { background: #15803d; }
 
     @media (max-width: 480px) {
       body { padding: 14px 10px 54px; }
       .step { width: 34px; height: 34px; font-size: 14px; }
-      .exercise-image { max-height: 210px; }
-      .slot { min-width: 64px; font-size: 13px; }
-      .tile-btn { padding: 10px 14px; font-size: 13px; }
-      .script-box { padding: 12px 12px; }
-      .exercise-phases { min-height: 420px; }
+      .img-wrap { min-height: 140px; max-height: 220px; }
+      .slot { min-width: 56px; font-size: 13px; }
+      .tile-btn { padding: 10px 12px; font-size: 13px; }
+      .script-box { padding: 12px; }
+      .top-title { font-size: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="../index.html" class="back-btn">← Unidad 4</a>
+<div class="wrap">
+  <a href="../index.html" class="back-btn">← Unidad 4</a>
+  <div class="top-title">Unidad 4 · Lección 5 · Parte 4</div>
+  <div class="subline">Tell me about…</div>
 
-    <div class="top-title">Unidad 4 • Lección 5 • Parte 4</div>
-    <div class="subline">Tell me about…</div>
+  <div class="progress-container">
+    <a class="step" href="p1.html">1</a>
+    <a class="step" href="p2.html">2</a>
+    <a class="step" href="p3.html">3</a>
+    <a class="step active" href="p4.html">4</a>
+    <a class="step" href="p5.html">5</a>
+  </div>
 
-    <div class="progress-container">
-      <a class="step" href="p1.html">1</a>
-      <a class="step" href="p2.html">2</a>
-      <a class="step" href="p3.html">3</a>
-      <a class="step active" href="p4.html">4</a>
-      <a class="step" href="p5.html">5</a>
-    </div>
+  <!-- Score badges -->
+  <div class="score-row">
+    <div class="badge correct-badge">✓ <span id="scoreCorrect">0</span></div>
+    <div class="badge wrong-badge">✗ <span id="scoreWrong">0</span></div>
+  </div>
 
-    <div class="vocab-panel">
-      <button class="vocab-toggle" id="vocabToggle">
-        <span>Gramática rápida</span>
-        <span id="vocabChevron">▼</span>
-      </button>
-      <div class="vocab-body" id="vocabBody">
-        <div class="grammar-grid">
-          <div class="grammar-box">
-            <div class="box-title">Pregunta</div>
-            <div class="main">Tell me about your car.</div>
-            <div class="main">Is it fast?</div>
-          </div>
-          <div class="grammar-box">
-            <div class="box-title">Respuesta corta</div>
-            <div><span class="good">Yes,</span> it is.</div>
-            <div><span class="neg">No,</span> it is not.</div>
-          </div>
-          <div class="grammar-box">
-            <div class="box-title">Respuesta completa</div>
-            <div>It is fast.</div>
-            <div>It is old.</div>
-          </div>
+  <!-- Grammar panel -->
+  <div class="vocab-panel">
+    <button class="vocab-toggle" id="vocabToggle">
+      <span>Gramática rápida</span>
+      <span id="vocabChevron">▼</span>
+    </button>
+    <div class="vocab-body" id="vocabBody">
+      <div class="grammar-grid">
+        <div class="grammar-box">
+          <div class="box-title">Pregunta</div>
+          <div class="main">Tell me about your car.</div>
+          <div class="main">Is it fast?</div>
+        </div>
+        <div class="grammar-box">
+          <div class="box-title">Respuesta corta</div>
+          <div><span class="good">Yes,</span> it is.</div>
+          <div><span class="neg">No,</span> it is not.</div>
+        </div>
+        <div class="grammar-box">
+          <div class="box-title">Respuesta completa</div>
+          <div>It is fast.</div>
+          <div>It is old.</div>
         </div>
       </div>
-    </div>
-
-    <div class="card" id="slideArea">
-      <div class="counter-row">
-        <div class="counter" id="counter">1 / 3</div>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" id="progressBar"></div>
-      </div>
-
-      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" />
-
-      <div class="audio-row">
-        <button class="play-btn" id="audioPlayBtn" aria-label="Escuchar audio">▶</button>
-        <div class="audio-label-wrap">
-          <div class="audio-label">Escucha</div>
-          <div class="audio-sub" id="audioSub">Toca ▶ para escuchar</div>
-        </div>
-      </div>
-
-      <div class="script-box" id="scriptBox">
-        <div class="script-note" id="scriptNote">Escucha y construye la frase.</div>
-        <div id="scriptLines"></div>
-      </div>
-
-      <div class="exercise-phases">
-        <div class="phase" id="questionPhase">
-          <div class="phase-label" id="questionLabel">Construye la pregunta</div>
-          <div class="instruction" id="questionInstruction">Toca las palabras en orden.</div>
-          <div class="slots-row" id="qSlots"></div>
-          <div class="feedback" id="qFeedback"></div>
-          <div class="tiles-wrap" id="qTiles"></div>
-        </div>
-
-        <div class="phase hidden" id="answerPhase">
-          <div class="phase-label green" id="answerLabel">Construye la respuesta</div>
-          <div class="instruction" id="answerInstruction">Toca las palabras en orden.</div>
-          <div class="slots-row" id="aSlots"></div>
-          <div class="feedback" id="aFeedback"></div>
-          <div class="tiles-wrap" id="aTiles"></div>
-        </div>
-
-        <div class="phase hidden" id="factPhase">
-          <div class="phase-label orange" id="factLabel">Completa la idea</div>
-          <div class="instruction" id="factInstruction">Toca las palabras en orden.</div>
-          <div class="slots-row" id="fSlots"></div>
-          <div class="feedback" id="fFeedback"></div>
-          <div class="tiles-wrap" id="fTiles"></div>
-        </div>
-      </div>
-
-      <button class="next-btn" id="nextBtn" disabled>Siguiente</button>
-    </div>
-
-    <div class="card end-screen" id="endScreen">
-      <div class="end-title">¡Muy bien!</div>
-      <div class="end-text">Terminaste la parte 4.</div>
-      <a class="continue-link" href="p5.html">Continuar</a>
     </div>
   </div>
 
-  <script src="../../../../js/u4/u4_l5_p4.js"></script>
+  <!-- Main card -->
+  <div class="card" id="slideArea">
+    <div class="counter-row">
+      <div class="counter" id="counter">1 / 3</div>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+
+    <div class="img-wrap">
+      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" />
+    </div>
+
+    <div class="audio-row">
+      <button class="play-btn" id="audioPlayBtn" aria-label="Escuchar audio">▶</button>
+      <div class="audio-label-wrap">
+        <div class="audio-label">Escucha</div>
+        <div class="audio-sub" id="audioSub">Toca ▶ para escuchar</div>
+      </div>
+    </div>
+
+    <div class="script-box" id="scriptBox">
+      <div class="script-note" id="scriptNote">Escucha y construye la frase.</div>
+      <div id="scriptLines"></div>
+    </div>
+
+    <!-- Phase 1: Question or first answer -->
+    <div class="phase" id="questionPhase">
+      <div class="phase-label" id="questionLabel">Construye la pregunta</div>
+      <div class="instruction" id="questionInstruction">Toca las palabras en orden.</div>
+      <div class="slots-row" id="qSlots"></div>
+      <div class="feedback" id="qFeedback"></div>
+      <div class="mistake-hint" id="qHint"></div>
+      <div class="tiles-wrap" id="qTiles"></div>
+    </div>
+
+    <!-- Phase 2: Answer -->
+    <div class="phase hidden" id="answerPhase">
+      <div class="phase-label green" id="answerLabel">Construye la respuesta</div>
+      <div class="instruction" id="answerInstruction">Toca las palabras en orden.</div>
+      <div class="slots-row" id="aSlots"></div>
+      <div class="feedback" id="aFeedback"></div>
+      <div class="mistake-hint" id="aHint"></div>
+      <div class="tiles-wrap" id="aTiles"></div>
+    </div>
+
+    <!-- Phase 3: Fact -->
+    <div class="phase hidden" id="factPhase">
+      <div class="phase-label orange" id="factLabel">Completa la idea</div>
+      <div class="instruction" id="factInstruction">Toca las palabras en orden.</div>
+      <div class="slots-row" id="fSlots"></div>
+      <div class="feedback" id="fFeedback"></div>
+      <div class="mistake-hint" id="fHint"></div>
+      <div class="tiles-wrap" id="fTiles"></div>
+    </div>
+
+    <button class="next-btn" id="nextBtn" disabled>Siguiente</button>
+  </div>
+
+  <!-- End screen -->
+  <div class="end-screen" id="endScreen">
+    <div class="end-title">¡Muy bien! 🎉</div>
+    <div class="end-text">Terminaste la Parte 4.</div>
+    <div class="end-score">
+      <span class="g">✓ <span id="finalCorrect">0</span> correctas</span>
+      &nbsp;&nbsp;
+      <span class="b">✗ <span id="finalWrong">0</span> errores</span>
+    </div>
+    <a class="continue-link" href="p5.html">Continuar → Parte 5</a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG  = BASE + "images/u4/";
+  const AUD  = BASE + "audio/u4/";
+  const SFX_OK  = BASE + "sfx/correct.wav";
+  const SFX_BAD = BASE + "sfx/incorrect.wav";
+  const MAX_ERRORS = 2;
+
+  const EXERCISES = [
+    {
+      image: "u4.l5.p4.car.jpg",
+      audio: "u4.l5.p4.car.mp3",
+      lines: [{ speaker: "a", text: "Tell me about your car. Is it fast?" }],
+      showLines: true,
+      question: null,
+      answer1: ["Yes,", "it", "is."],
+      answer2: ["It", "is", "fast."]
+    },
+    {
+      image: "u4.l5.p4.house.jpg",
+      audio: "u4.l5.p4.house.mp3",
+      lines: [{ speaker: "a", text: "Tell me about your house. Is it modern?" }],
+      showLines: true,
+      question: null,
+      answer1: ["No,", "it", "is", "not."],
+      answer2: ["It", "is", "old."]
+    },
+    {
+      image: "u4.l5.p4.apartment.jpg",
+      audio: "u4.l5.p4.apartment.mp3",
+      lines: [
+        { speaker: "a", text: "Tell me about your apartment. Is it big?" },
+        { speaker: "b", text: "No, it is not. It is small." }
+      ],
+      showLines: false,
+      question: ["Tell me", "about", "your apartment.", "Is it", "big?"],
+      answer1: ["No,", "it", "is", "not."],
+      answer2: ["It", "is", "small."]
+    }
+  ];
+
+  // ── State ────────────────────────────────────────────────
+  let current      = 0;
+  let audioPlaying = false;
+  let lineTimers   = [];
+  let currentAudio = null;
+
+  let totalRight = 0;
+  let totalWrong = 0;
+
+  // per-phase error counts
+  let phaseErrors = { q: 0, a: 0, f: 0 };
+  let phaseSolved = { q: false, a: false, f: false };
+  let phaseSelected = { q: [], a: [], f: [] };
+
+  // ── DOM ──────────────────────────────────────────────────
+  const exerciseImage = document.getElementById("exerciseImage");
+  const audioPlayBtn  = document.getElementById("audioPlayBtn");
+  const audioSub      = document.getElementById("audioSub");
+  const scriptNote    = document.getElementById("scriptNote");
+  const scriptLinesEl = document.getElementById("scriptLines");
+
+  const questionPhase = document.getElementById("questionPhase");
+  const answerPhase   = document.getElementById("answerPhase");
+  const factPhase     = document.getElementById("factPhase");
+
+  const questionLabel = document.getElementById("questionLabel");
+  const answerLabel   = document.getElementById("answerLabel");
+  const factLabel     = document.getElementById("factLabel");
+
+  const qSlotsEl = document.getElementById("qSlots");
+  const aSlotsEl = document.getElementById("aSlots");
+  const fSlotsEl = document.getElementById("fSlots");
+
+  const qTilesEl = document.getElementById("qTiles");
+  const aTilesEl = document.getElementById("aTiles");
+  const fTilesEl = document.getElementById("fTiles");
+
+  const qFeedbackEl = document.getElementById("qFeedback");
+  const aFeedbackEl = document.getElementById("aFeedback");
+  const fFeedbackEl = document.getElementById("fFeedback");
+
+  const qHint = document.getElementById("qHint");
+  const aHint = document.getElementById("aHint");
+  const fHint = document.getElementById("fHint");
+
+  const nextBtn      = document.getElementById("nextBtn");
+  const counterEl    = document.getElementById("counter");
+  const progressBar  = document.getElementById("progressBar");
+  const slideArea    = document.getElementById("slideArea");
+  const endScreen    = document.getElementById("endScreen");
+  const scoreCorrect = document.getElementById("scoreCorrect");
+  const scoreWrong   = document.getElementById("scoreWrong");
+  const finalCorrect = document.getElementById("finalCorrect");
+  const finalWrong   = document.getElementById("finalWrong");
+
+  const hintEls = { q: qHint, a: aHint, f: fHint };
+  const feedbackEls = { q: qFeedbackEl, a: aFeedbackEl, f: fFeedbackEl };
+  const slotsEls = { q: qSlotsEl, a: aSlotsEl, f: fSlotsEl };
+  const tilesEls = { q: qTilesEl, a: aTilesEl, f: fTilesEl };
+
+  // ── Vocab toggle ─────────────────────────────────────────
+  document.getElementById("vocabToggle").addEventListener("click", () => {
+    const body    = document.getElementById("vocabBody");
+    const chevron = document.getElementById("vocabChevron");
+    const open    = body.classList.toggle("open");
+    chevron.textContent = open ? "▲" : "▼";
+  });
+
+  // ── SFX ──────────────────────────────────────────────────
+  function playSfx(url) { new Audio(url).play().catch(() => {}); }
+
+  // ── Helpers ───────────────────────────────────────────────
+  function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function getSlots(container) { return Array.from(container.querySelectorAll(".slot")); }
+
+  function buildSlots(container, count) {
+    container.innerHTML = "";
+    for (let i = 0; i < count; i++) {
+      const slot = document.createElement("div");
+      slot.className = "slot";
+      container.appendChild(slot);
+    }
+  }
+
+  function buildTiles(container, words, onTap, extraClass = "") {
+    container.innerHTML = "";
+    shuffle(words).forEach(word => {
+      const btn = document.createElement("button");
+      btn.className = "tile-btn" + (extraClass ? " " + extraClass : "");
+      btn.textContent = word;
+      btn.dataset.word = word;
+      btn.addEventListener("click", () => onTap(btn));
+      container.appendChild(btn);
+    });
+  }
+
+  function clearLineTimers() { lineTimers.forEach(t => clearTimeout(t)); lineTimers = []; }
+  function clearLineHighlights() { scriptLinesEl.querySelectorAll(".script-line").forEach(l => l.classList.remove("active-line")); }
+  function highlightLine(index) {
+    clearLineHighlights();
+    const lines = scriptLinesEl.querySelectorAll(".script-line");
+    if (lines[index]) lines[index].classList.add("active-line");
+  }
+
+  function stopAudioUI(message = "Toca ▶ para escuchar") {
+    audioPlaying = false;
+    audioPlayBtn.innerHTML = "▶";
+    audioPlayBtn.classList.remove("playing");
+    audioSub.textContent = message;
+    clearLineTimers();
+    clearLineHighlights();
+  }
+
+  function shakeSlots(container) {
+    getSlots(container).forEach(slot => {
+      slot.classList.add("shake");
+      setTimeout(() => slot.classList.remove("shake"), 450);
+    });
+  }
+
+  function showPhase(phaseEl) {
+    phaseEl.classList.remove("hidden");
+    void phaseEl.offsetWidth;
+    phaseEl.classList.add("entering");
+    setTimeout(() => phaseEl.classList.remove("entering"), 320);
+    phaseEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function resetPhase(phase) {
+    phaseSelected[phase] = [];
+    getSlots(slotsEls[phase]).forEach(slot => {
+      slot.textContent = "";
+      slot.className = "slot";
+    });
+    feedbackEls[phase].textContent = "";
+    feedbackEls[phase].className = "feedback";
+    tilesEls[phase].querySelectorAll(".tile-btn").forEach(btn => {
+      btn.disabled = false;
+      btn.classList.remove("used");
+    });
+  }
+
+  // ── Tile tap handler ──────────────────────────────────────
+  function handleTap(btn, correctOrder, phase) {
+    if (btn.disabled || phaseSolved[phase]) return;
+    const selected = phaseSelected[phase];
+    const pos = selected.length;
+    if (pos >= correctOrder.length) return;
+
+    selected.push(btn.dataset.word);
+    const slots = getSlots(slotsEls[phase]);
+    slots[pos].textContent = btn.dataset.word;
+    slots[pos].classList.add("filled");
+    btn.disabled = true;
+    btn.classList.add("used");
+
+    if (selected.length === correctOrder.length) {
+      const correct = correctOrder.every((w, i) => w.toLowerCase() === selected[i].toLowerCase());
+
+      if (correct) {
+        slots.forEach(slot => slot.classList.add("correct"));
+        feedbackEls[phase].textContent = "¡Correcto! 🎉";
+        feedbackEls[phase].className = "feedback correct";
+        tilesEls[phase].querySelectorAll(".tile-btn").forEach(t => { t.disabled = true; });
+        playSfx(SFX_OK);
+        totalRight++;
+        scoreCorrect.textContent = totalRight;
+        phaseSolved[phase] = true;
+        advancePhase(phase);
+      } else {
+        phaseErrors[phase]++;
+        totalWrong++;
+        scoreWrong.textContent = totalWrong;
+        playSfx(SFX_BAD);
+        feedbackEls[phase].textContent = "¡Inténtalo de nuevo!";
+        feedbackEls[phase].className = "feedback wrong";
+        shakeSlots(slotsEls[phase]);
+
+        if (phaseErrors[phase] >= MAX_ERRORS) {
+          // Reveal correct answer
+          setTimeout(() => {
+            slots.forEach((slot, i) => {
+              slot.textContent = correctOrder[i];
+              slot.className = "slot revealed";
+            });
+            tilesEls[phase].querySelectorAll(".tile-btn").forEach(t => { t.disabled = true; });
+            hintEls[phase].textContent = `✓ Orden correcto: ${correctOrder.join(" ")}`;
+            hintEls[phase].classList.add("show");
+            feedbackEls[phase].textContent = "";
+            phaseSolved[phase] = true;
+            advancePhase(phase);
+          }, 800);
+        } else {
+          setTimeout(() => resetPhase(phase), 800);
+        }
+      }
+    }
+  }
+
+  function advancePhase(phase) {
+    const ex = EXERCISES[current];
+    if (phase === "q") {
+      if (ex.question) {
+        setTimeout(() => showPhase(answerPhase), 600);
+      } else {
+        setTimeout(() => showPhase(factPhase), 600);
+      }
+    } else if (phase === "a") {
+      setTimeout(() => showPhase(factPhase), 600);
+    } else {
+      // fact solved — enable next
+      setTimeout(() => {
+        nextBtn.disabled = false;
+        nextBtn.classList.add("ready");
+      }, 300);
+    }
+  }
+
+  // ── Render script lines ───────────────────────────────────
+  function renderLines(exercise) {
+    scriptLinesEl.innerHTML = "";
+    if (!exercise.showLines) {
+      scriptNote.textContent = "Escucha. Luego construye la pregunta y la respuesta.";
+      return;
+    }
+    scriptNote.textContent = "Escucha y mira la frase.";
+    exercise.lines.forEach(line => {
+      const row     = document.createElement("div");
+      row.className = "script-line";
+      const speaker = document.createElement("div");
+      speaker.className = "speaker " + line.speaker;
+      speaker.textContent = line.speaker.toUpperCase() + ":";
+      const text    = document.createElement("div");
+      text.className = "line-text";
+      text.textContent = line.text;
+      row.appendChild(speaker);
+      row.appendChild(text);
+      scriptLinesEl.appendChild(row);
+    });
+  }
+
+  // ── Load exercise ─────────────────────────────────────────
+  function loadExercise(index) {
+    const exercise = EXERCISES[index];
+    current = index;
+
+    phaseErrors   = { q: 0, a: 0, f: 0 };
+    phaseSolved   = { q: false, a: false, f: false };
+    phaseSelected = { q: [], a: [], f: [] };
+
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+
+    currentAudio = new Audio(AUD + exercise.audio);
+    currentAudio.addEventListener("ended", () => {
+      audioPlaying = false;
+      audioPlayBtn.innerHTML = "▶";
+      audioPlayBtn.classList.remove("playing");
+      audioPlayBtn.classList.add("done");
+      audioSub.textContent = "¡Escuchado! Toca para repetir";
+      clearLineTimers();
+      clearLineHighlights();
+    });
+    currentAudio.addEventListener("error", () => stopAudioUI("Audio no disponible"));
+
+    exerciseImage.src = IMG + exercise.image;
+    renderLines(exercise);
+
+    counterEl.textContent = `${index + 1} / ${EXERCISES.length}`;
+    progressBar.style.width = `${((index + 1) / EXERCISES.length) * 100}%`;
+
+    // Reset phases
+    questionPhase.classList.remove("hidden");
+    answerPhase.classList.add("hidden");
+    factPhase.classList.add("hidden");
+
+    [qFeedbackEl, aFeedbackEl, fFeedbackEl].forEach(el => { el.textContent = ""; el.className = "feedback"; });
+    [qHint, aHint, fHint].forEach(el => { el.textContent = ""; el.classList.remove("show"); });
+
+    nextBtn.disabled = true;
+    nextBtn.classList.remove("ready");
+
+    if (exercise.question) {
+      questionLabel.textContent = "Construye la pregunta";
+      buildSlots(qSlotsEl, exercise.question.length);
+      buildTiles(qTilesEl, exercise.question, btn => handleTap(btn, exercise.question, "q"));
+
+      answerLabel.textContent = "Construye la respuesta";
+      buildSlots(aSlotsEl, exercise.answer1.length);
+      buildTiles(aTilesEl, exercise.answer1, btn => handleTap(btn, exercise.answer1, "a"), "answer-tile");
+    } else {
+      questionLabel.textContent = "Construye la respuesta";
+      buildSlots(qSlotsEl, exercise.answer1.length);
+      buildTiles(qTilesEl, exercise.answer1, btn => handleTap(btn, exercise.answer1, "q"), "answer-tile");
+      aSlotsEl.innerHTML = "";
+      aTilesEl.innerHTML = "";
+    }
+
+    factLabel.textContent = "Completa la idea";
+    buildSlots(fSlotsEl, exercise.answer2.length);
+    buildTiles(fTilesEl, exercise.answer2, btn => handleTap(btn, exercise.answer2, "f"), "fact-tile");
+
+    stopAudioUI();
+  }
+
+  // ── Audio play/pause ──────────────────────────────────────
+  audioPlayBtn.addEventListener("click", () => {
+    if (!currentAudio) return;
+
+    if (audioPlaying) {
+      currentAudio.pause();
+      stopAudioUI("Toca ▶ para escuchar");
+      return;
+    }
+
+    currentAudio.currentTime = 0;
+    currentAudio.play().catch(() => stopAudioUI("Audio no disponible"));
+
+    audioPlaying = true;
+    audioPlayBtn.innerHTML = "⏸";
+    audioPlayBtn.classList.add("playing");
+    audioPlayBtn.classList.remove("done");
+    audioSub.textContent = "Escuchando...";
+
+    clearLineTimers();
+    clearLineHighlights();
+
+    const lines = scriptLinesEl.querySelectorAll(".script-line");
+    if (!lines.length) return;
+
+    const duration = currentAudio.duration && Number.isFinite(currentAudio.duration)
+      ? currentAudio.duration
+      : Math.max(4, lines.length * 3.5);
+    const step = duration / lines.length;
+    lines.forEach((_, i) => {
+      const timer = setTimeout(() => highlightLine(i), i * step * 1000);
+      lineTimers.push(timer);
+    });
+  });
+
+  // ── Next button ───────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    if (nextBtn.disabled) return;
+    const nextIndex = current + 1;
+    if (nextIndex >= EXERCISES.length) {
+      // Save progress
+      try {
+        const key  = "inglesco_progress_u4";
+        const data = JSON.parse(localStorage.getItem(key) || "{}");
+        data["l5_p4"] = true;
+        localStorage.setItem(key, JSON.stringify(data));
+        const fKey = "inglesco_furthest_u4_l5";
+        const cur  = parseInt(localStorage.getItem(fKey) || "0", 10);
+        if (cur < 4) localStorage.setItem(fKey, "4");
+      } catch(e) {}
+
+      finalCorrect.textContent = totalRight;
+      finalWrong.textContent   = totalWrong;
+      slideArea.style.display  = "none";
+      endScreen.classList.add("show");
+      return;
+    }
+    loadExercise(nextIndex);
+  });
+
+  // ── Init ──────────────────────────────────────────────────
+  loadExercise(0);
+})();
+</script>
 </body>
 </html>

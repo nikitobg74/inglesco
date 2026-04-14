@@ -6,6 +6,8 @@
   <title>Unidad 4 • Lección 6 • Parte 1</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
@@ -16,7 +18,7 @@
       color: #111827;
     }
 
-    .wrap { max-width: 700px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
     .back-btn {
       display: inline-block;
@@ -31,44 +33,31 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    .top-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-    .subline {
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #374151;
-    }
+    .top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+    .subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
 
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 12px 0 20px 0;
-    }
+    .progress-container { display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px; }
     .step {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       background: #d1d5db;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      color: #1f2933;
-      transition: all .3s;
-      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; text-decoration: none; color: #1f2933;
+      transition: all .3s; font-size: 15px;
     }
     .step.active { background: #2563eb; color: #fff; }
     .step:hover  { transform: scale(1.1); }
 
+    /* Score badges */
+    .score-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 14px; }
+    .badge {
+      display: flex; align-items: center; gap: 6px;
+      background: white; border-radius: 20px; padding: 6px 14px;
+      font-weight: 700; font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .badge.words-badge { color: #1d4ed8; }
+
+    /* Vocab panel */
     .vocab-panel {
       background: rgba(255,255,255,.92);
       border-radius: 14px;
@@ -77,313 +66,157 @@
       overflow: hidden;
     }
     .vocab-toggle {
-      width: 100%;
-      background: #1e40af;
-      color: white;
-      border: none;
+      width: 100%; background: #1e40af; color: white; border: none;
       padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 15px;
-      border-radius: 14px;
-      transition: background 0.2s;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-weight: 700; font-size: 15px;
+      border-radius: 14px; transition: background 0.2s;
+      font-family: 'Poppins', sans-serif;
     }
     .vocab-toggle:hover { background: #1d4ed8; }
-    .vocab-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.45s ease, padding 0.3s ease;
-      padding: 0 14px;
-    }
+    .vocab-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease, padding 0.3s ease; padding: 0 14px; }
     .vocab-body.open { max-height: 900px; padding: 14px; }
-    .vocab-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-    }
-    .vocab-box {
-      background: #eff6ff;
-      border: 2px solid #bfdbfe;
-      border-radius: 12px;
-      padding: 12px 14px;
-      color: #1e3a5f;
-      line-height: 1.55;
-      font-size: 13px;
-    }
-    .box-title {
-      font-size: 10.5px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      color: #3b82f6;
-      margin-bottom: 8px;
-    }
+
+    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+    .vocab-box { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 12px; padding: 12px 14px; color: #1e3a5f; line-height: 1.55; font-size: 13px; }
+    .box-title { font-size: 10.5px; font-weight: 900; text-transform: uppercase; letter-spacing: .6px; color: #3b82f6; margin-bottom: 8px; }
     .vocab-line { display: flex; justify-content: space-between; gap: 10px; }
     .vocab-line strong { color: #1e40af; }
-    .vocab-line span { color: #475569; font-weight: 600; }
+    .vocab-line span   { color: #475569; font-weight: 600; }
 
+    /* Card */
     .card {
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
-
-    .counter-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
+    .counter-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .counter { font-size: 13px; font-weight: 700; color: #486581; }
-    .bar-wrap {
-      background: #e2e8f0;
-      border-radius: 999px;
-      height: 7px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #2563eb;
-      border-radius: 999px;
-      transition: width 0.5s ease;
-    }
+    .bar-wrap { background: #e2e8f0; border-radius: 999px; height: 7px; margin-bottom: 20px; overflow: hidden; }
+    .bar-fill  { height: 100%; width: 0%; background: #2563eb; border-radius: 999px; transition: width 0.5s ease; }
 
-    .exercise-image {
-      width: 100%;
-      max-width: 560px;
-      max-height: 280px;
-      height: auto;
-      object-fit: contain;
-      border-radius: 12px;
-      margin: 0 auto 14px;
-      display: block;
-      box-shadow: 0 6px 16px rgba(0,0,0,.08);
-      background: #fff;
+    /* Image */
+    .img-wrap {
+      width: 100%; background: #f1f5f9; border-radius: 14px;
+      margin-bottom: 14px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 180px; max-height: 300px;
     }
+    .exercise-image { width: 100%; height: auto; max-height: 300px; object-fit: contain; display: block; }
 
-    .audio-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
+    /* Audio row */
+    .audio-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
     .play-btn {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: #2563eb;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 5px 16px rgba(37,99,235,0.35);
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #2563eb; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 16px rgba(37,99,235,.35);
       transition: background 0.2s, transform 0.1s;
-      color: white;
-      font-size: 22px;
-      flex-shrink: 0;
+      color: white; font-size: 22px; flex-shrink: 0;
     }
-    .play-btn:hover { background: #1d4ed8; transform: scale(1.05); }
-    .play-btn.playing { background: #7c3aed; }
-    .play-btn.done { background: #16a34a; }
-    .audio-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .play-btn:hover  { background: #1d4ed8; transform: scale(1.05); }
+    .play-btn.playing{ background: #7c3aed; }
+    .play-btn.done   { background: #16a34a; }
+    .audio-label-wrap{ display: flex; flex-direction: column; gap: 2px; }
     .audio-label { font-size: 13px; font-weight: 700; color: #1e40af; }
-    .audio-sub { font-size: 11px; color: #6b7280; font-weight: 600; }
+    .audio-sub   { font-size: 11px; color: #6b7280; font-weight: 600; }
 
-    .script-box {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      min-height: 122px;
-    }
-    .script-note {
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #64748b;
-      margin-bottom: 10px;
-    }
+    /* Script box */
+    .script-box { background: #f8fafc; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; min-height: 110px; }
+    .script-note { text-align: center; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 10px; }
     .script-line {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 2px;
-      padding: 4px 8px;
+      display: flex; gap: 8px; margin-bottom: 2px; padding: 4px 8px;
       border-radius: 10px;
       transition: background-color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
       opacity: 0;
     }
     .script-line.show { opacity: 1; }
-    .script-line.active-line {
-      background: #fef3c7;
-      transform: scale(1.01);
-    }
+    .script-line.active-line { background: #fef3c7; transform: scale(1.01); }
     .script-line.active-line .line-text { color: #92400e; }
-    .speaker {
-      font-weight: 900;
-      font-size: 13px;
-      min-width: 20px;
-      padding-top: 1px;
-    }
+    .speaker   { font-weight: 900; font-size: 13px; min-width: 20px; padding-top: 1px; }
     .speaker.a { color: #2563eb; }
     .speaker.b { color: #16a34a; }
-    .line-text {
-      font-weight: 600;
-      color: #1e293b;
-      transition: color 0.25s ease;
-    }
+    .line-text { font-weight: 600; color: #1e293b; transition: color 0.25s ease; }
 
+    /* Word stage */
     .word-stage {
       display: none;
-      margin-top: 6px;
-      padding-top: 14px;
+      margin-top: 6px; padding-top: 14px;
       border-top: 2px dashed #d1d5db;
       animation: riseIn .35s ease;
     }
     .word-stage.show { display: block; }
-    .word-label {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      color: #3b82f6;
-      margin-bottom: 8px;
-    }
+    .word-label { text-align: center; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .6px; color: #3b82f6; margin-bottom: 8px; }
     .word-card {
       background: linear-gradient(135deg, #eff6ff, #dbeafe);
-      border: 2px solid #93c5fd;
-      border-radius: 18px;
-      padding: 18px 14px;
-      text-align: center;
-      margin-bottom: 12px;
+      border: 2px solid #93c5fd; border-radius: 18px;
+      padding: 18px 14px; text-align: center; margin-bottom: 12px;
       box-shadow: 0 6px 16px rgba(37,99,235,.12);
     }
-    .big-word {
-      font-size: 28px;
-      font-weight: 900;
-      color: #1d4ed8;
-      line-height: 1.15;
-      margin-bottom: 6px;
-      word-break: break-word;
-    }
-    .big-word-sub {
-      font-size: 13px;
-      font-weight: 700;
-      color: #475569;
-    }
+    .big-word { font-size: 28px; font-weight: 900; color: #1d4ed8; line-height: 1.15; margin-bottom: 6px; word-break: break-word; }
+    .big-word-sub { font-size: 13px; font-weight: 700; color: #475569; }
 
-    .vocab-play-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
+    .vocab-play-wrap { display: flex; justify-content: center; margin-bottom: 10px; }
     .vocab-play-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 18px;
-      border: none;
-      border-radius: 999px;
-      background: #16a34a;
-      color: #fff;
-      cursor: pointer;
-      font-weight: 800;
-      font-size: 14px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 18px; border: none; border-radius: 999px;
+      background: #16a34a; color: #fff; cursor: pointer;
+      font-weight: 800; font-size: 14px; font-family: 'Poppins', sans-serif;
       box-shadow: 0 5px 14px rgba(22,163,74,.28);
       transition: background .2s, transform .1s;
     }
-    .vocab-play-btn:hover { background: #15803d; transform: scale(1.03); }
+    .vocab-play-btn:hover   { background: #15803d; transform: scale(1.03); }
     .vocab-play-btn.playing { background: #7c3aed; }
-    .vocab-play-btn.done { background: #0f766e; }
-    .mini-note {
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #64748b;
-      min-height: 18px;
-    }
+    .vocab-play-btn.done    { background: #0f766e; }
+    .mini-note { text-align: center; font-size: 12px; font-weight: 700; color: #64748b; min-height: 18px; }
 
+    /* Next btn */
     .next-btn {
-      display: block;
-      width: 100%;
-      padding: 13px 0;
-      background: #d1d5db;
-      color: #9ca3af;
-      border: none;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 16px;
-      cursor: not-allowed;
+      display: block; width: 100%; padding: 13px 0;
+      background: #d1d5db; color: #9ca3af; border: none;
+      border-radius: 14px; font-weight: 900; font-size: 16px;
+      cursor: not-allowed; font-family: 'Poppins', sans-serif;
       transition: background 0.3s, color 0.3s, box-shadow 0.3s;
       margin-top: 18px;
     }
-    .next-btn.ready {
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 5px 14px rgba(37,99,235,.30);
-    }
+    .next-btn.ready { background: #2563eb; color: white; cursor: pointer; box-shadow: 0 5px 14px rgba(37,99,235,.30); }
     .next-btn.ready:hover { background: #1d4ed8; }
 
+    /* End screen */
     .end {
-      display: none;
-      text-align: center;
+      display: none; text-align: center;
       background: rgba(255,255,255,.88);
-      border-radius: 18px;
-      padding: 32px 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
-      margin-top: 16px;
+      border-radius: 20px; padding: 36px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08); margin-top: 16px;
     }
     .end.show { display: block; }
     .end .trophy { font-size: 52px; margin-bottom: 10px; }
     .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
     .end p  { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
+    .end-score { font-size: 15px; font-weight: 700; margin: 12px 0 4px; color: #1d4ed8; }
     .highlight-msg {
-      background: #fef9c3;
-      border: 2px solid #fde68a;
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin: 14px 0;
-      font-size: 14px;
-      color: #78350f;
+      background: #fef9c3; border: 2px solid #fde68a; border-radius: 12px;
+      padding: 12px 16px; margin: 14px 0; font-size: 14px; color: #78350f;
     }
     .finish-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      background: #16a34a;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 16px;
-      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: #16a34a; color: #fff; border: none;
+      border-radius: 14px; font-weight: 900; font-size: 16px; cursor: pointer;
       box-shadow: 0 5px 12px rgba(22,163,74,.30);
-      transition: background .2s;
-      margin-top: 16px;
-      text-decoration: none;
+      transition: background .2s; margin-top: 16px; text-decoration: none;
     }
     .finish-btn:hover { background: #15803d; }
 
-    @keyframes riseIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 480px) {
-      .exercise-image { max-height: 210px; }
+      .img-wrap { min-height: 140px; max-height: 220px; }
       .big-word { font-size: 24px; }
       .vocab-grid { grid-template-columns: 1fr 1fr; }
-      .script-box { min-height: 136px; padding: 12px; }
+      .script-box { min-height: 120px; padding: 12px; }
       .vocab-box { padding: 10px 12px; font-size: 12.5px; }
+      .top-title { font-size: 16px; }
     }
   </style>
 </head>
@@ -391,7 +224,7 @@
 <div class="wrap">
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 6 • Parte 1</div>
+  <div class="top-title">Unidad 4 · Lección 6 · Parte 1</div>
   <div class="subline">My neighbours are very noisy — Mis vecinos son muy ruidosos</div>
 
   <div class="progress-container">
@@ -402,6 +235,12 @@
     <a class="step" href="p5.html">5</a>
   </div>
 
+  <!-- Words heard counter -->
+  <div class="score-row">
+    <div class="badge words-badge">🔊 <span id="wordsHeard">0</span> / 6 palabras escuchadas</div>
+  </div>
+
+  <!-- Vocab panel -->
   <div class="vocab-panel">
     <button class="vocab-toggle" id="vocabToggle">
       <span>📚 Banco de palabras</span>
@@ -432,16 +271,17 @@
     </div>
   </div>
 
+  <!-- Main card -->
   <div class="card">
     <div id="slideArea">
       <div class="counter-row">
         <span class="counter" id="counter">1 / 6</span>
       </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" id="progressBar"></div>
-      </div>
+      <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
 
-      <img id="exerciseImage" class="exercise-image" src="" alt="Imagen del ejercicio" onerror="this.style.display='none'" />
+      <div class="img-wrap">
+        <img id="exerciseImage" class="exercise-image" src="" alt="" />
+      </div>
 
       <div class="audio-row">
         <button class="play-btn" id="dialogPlayBtn" aria-label="Reproducir diálogo">▶</button>
@@ -460,7 +300,7 @@
         <div class="word-label">Palabra clave</div>
         <div class="word-card">
           <div class="big-word" id="bigWord"></div>
-          <div class="big-word-sub" id="bigWordSub">Toca para escuchar la palabra o frase</div>
+          <div class="big-word-sub">Toca para escuchar la palabra o frase</div>
         </div>
         <div class="vocab-play-wrap">
           <button class="vocab-play-btn" id="wordPlayBtn">🔊 Escuchar palabra</button>
@@ -472,10 +312,12 @@
     </div>
   </div>
 
+  <!-- End screen -->
   <div class="end" id="endScreen">
     <div class="trophy">🌟</div>
     <h2>¡Buen trabajo!</h2>
     <p>Completaste la Parte 1 de la Lección 6.</p>
+    <div class="end-score">🔊 <span id="finalWords">0</span> / 6 palabras escuchadas</div>
     <div class="highlight-msg">
       Escuchaste diálogos y aprendiste palabras nuevas como <strong>noisy</strong>, <strong>pretty</strong>, <strong>handsome</strong> y <strong>difficult</strong>.
     </div>
@@ -483,6 +325,322 @@
   </div>
 </div>
 
-<script src="../../../../js/u4/u4_l6_p1.js"></script>
+<script>
+(() => {
+  const BASE    = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG     = BASE + "images/u4/";
+  const AUD     = BASE + "audio/u4/";
+  const SFX_OK  = BASE + "sfx/correct.wav";
+
+  const EXERCISES = [
+    {
+      image:       "u4.l6.p1.noisy.jpg",
+      dialogAudio: "u4.l6.p1.noisy.dial.mp3",
+      lines: [
+        { speaker: "A", text: "Tell me about your neighbours. Are they quiet?" },
+        { speaker: "B", text: "No, they are not. They are very noisy." }
+      ],
+      word:       "noisy neighbours",
+      vocabAudio: "u4.l6.p1.noisy2.mp3"
+    },
+    {
+      image:       "u4.l6.p1.pretty.sister.jpg",
+      dialogAudio: "u4.l6.p1.pretty.mp3",
+      lines: [
+        { speaker: "A", text: "Tell me about your sister. Is she pretty?" },
+        { speaker: "B", text: "Yes, she is. She is very pretty." }
+      ],
+      word:       "pretty",
+      vocabAudio: "u4.l6.p1.pretty2.mp3"
+    },
+    {
+      image:       "u4.l6.p1.handsome.jpg",
+      dialogAudio: "u4.l6.p1.handsome.mp3",
+      lines: [
+        { speaker: "A", text: "Tell me about your brother. Is he handsome?" },
+        { speaker: "B", text: "Yes, he is. He is very handsome." }
+      ],
+      word:       "handsome",
+      vocabAudio: "u4.l6.p1.handsome2.mp3"
+    },
+    {
+      image:       "u4.l6.p1.ugly.jpg",
+      dialogAudio: "u4.l6.p1.ugly.mp3",
+      lines: [
+        { speaker: "A", text: "Tell me about your house. Is it pretty?" },
+        { speaker: "B", text: "No, it is not. It is old and ugly." }
+      ],
+      word:       "ugly",
+      vocabAudio: "u4.l6.p1.ugly2.mp3"
+    },
+    {
+      image:       "u4.l6.p1.noisy.dog.jpg",
+      dialogAudio: "u4.l6.p1.noisy.dog.mp3",
+      lines: [
+        { speaker: "A", text: "Tell me about your dog. Is it quiet?" },
+        { speaker: "B", text: "No, it is not. It is very noisy." }
+      ],
+      word:       "noisy dog",
+      vocabAudio: "u4.l6.p1.noisy.dog2.mp3"
+    },
+    {
+      image:       "u4.l6.p1.test.jpg",
+      dialogAudio: "u4.l6.p1.test.mp3",
+      lines: [
+        { speaker: "A", text: "Tell me about your English test. Is it easy?" },
+        { speaker: "B", text: "No, it is not. It is difficult." }
+      ],
+      word:       "difficult",
+      vocabAudio: "u4.l6.p1.difficult.mp3"
+    }
+  ];
+
+  // ── State ────────────────────────────────────────────────
+  let current       = 0;
+  let dialogAudio   = null;
+  let vocabAudioObj = null;
+  let dialogPlaying = false;
+  let vocabPlaying  = false;
+  let dialogTimers  = [];
+  let wordUnlocked  = false;
+  let vocabHeard    = false;
+  let totalHeard    = 0;
+
+  // ── DOM ──────────────────────────────────────────────────
+  const exerciseImage  = document.getElementById("exerciseImage");
+  const dialogPlayBtn  = document.getElementById("dialogPlayBtn");
+  const dialogAudioSub = document.getElementById("dialogAudioSub");
+  const scriptNote     = document.getElementById("scriptNote");
+  const scriptLinesEl  = document.getElementById("scriptLines");
+  const wordStage      = document.getElementById("wordStage");
+  const bigWord        = document.getElementById("bigWord");
+  const wordPlayBtn    = document.getElementById("wordPlayBtn");
+  const wordNote       = document.getElementById("wordNote");
+  const nextBtn        = document.getElementById("nextBtn");
+  const counterEl      = document.getElementById("counter");
+  const progressBar    = document.getElementById("progressBar");
+  const slideArea      = document.getElementById("slideArea");
+  const endScreen      = document.getElementById("endScreen");
+  const wordsHeardEl   = document.getElementById("wordsHeard");
+  const finalWordsEl   = document.getElementById("finalWords");
+
+  // ── Vocab panel toggle ────────────────────────────────────
+  document.getElementById("vocabToggle").addEventListener("click", () => {
+    const body    = document.getElementById("vocabBody");
+    const chevron = document.getElementById("vocabChevron");
+    const open    = body.classList.toggle("open");
+    chevron.textContent = open ? "▲" : "▼";
+  });
+
+  // ── Helpers ───────────────────────────────────────────────
+  function clearTimers() { dialogTimers.forEach(t => clearTimeout(t)); dialogTimers = []; }
+  function clearHighlights() { scriptLinesEl.querySelectorAll(".script-line").forEach(l => l.classList.remove("active-line")); }
+
+  function stopDialogUI(message = "Toca ▶ para escuchar") {
+    dialogPlaying = false;
+    dialogPlayBtn.innerHTML = "▶";
+    dialogPlayBtn.classList.remove("playing");
+    dialogAudioSub.textContent = message;
+    clearTimers();
+    clearHighlights();
+  }
+
+  function stopVocabUI(message = "Toca para escuchar la palabra o frase") {
+    vocabPlaying = false;
+    wordPlayBtn.classList.remove("playing");
+    wordPlayBtn.textContent = vocabHeard ? "✅ Escuchado" : "🔊 Escuchar palabra";
+    if (vocabHeard) wordPlayBtn.classList.add("done");
+    wordNote.textContent = message;
+  }
+
+  function renderLines(lines) {
+    scriptLinesEl.innerHTML = "";
+    lines.forEach(({ speaker, text }) => {
+      const row = document.createElement("div");
+      row.className = "script-line";
+      const sp = document.createElement("div");
+      sp.className = "speaker " + speaker.toLowerCase();
+      sp.textContent = speaker + ":";
+      const tx = document.createElement("div");
+      tx.className = "line-text";
+      tx.textContent = text;
+      row.appendChild(sp);
+      row.appendChild(tx);
+      scriptLinesEl.appendChild(row);
+    });
+  }
+
+  function showWordStage(exercise) {
+    wordUnlocked = true;
+    bigWord.textContent = exercise.word;
+    wordStage.classList.add("show");
+    scriptNote.textContent = "Ahora escucha la palabra o frase grande.";
+    wordNote.textContent = "Toca el botón verde para escuchar.";
+  }
+
+  function enableNextIfReady() {
+    if (!vocabHeard) return;
+    nextBtn.disabled = false;
+    nextBtn.classList.add("ready");
+  }
+
+  // ── Load exercise ─────────────────────────────────────────
+  function loadExercise(index) {
+    current = index;
+    const exercise = EXERCISES[index];
+
+    clearTimers();
+    if (dialogAudio)   { dialogAudio.pause(); }
+    if (vocabAudioObj) { vocabAudioObj.pause(); }
+
+    dialogAudio   = new Audio(AUD + exercise.dialogAudio);
+    vocabAudioObj = new Audio(AUD + exercise.vocabAudio);
+
+    dialogPlaying = false;
+    vocabPlaying  = false;
+    wordUnlocked  = false;
+    vocabHeard    = false;
+
+    // Dialog ended → reveal word stage
+    dialogAudio.addEventListener("ended", () => {
+      stopDialogUI("¡Escuchado! Toca para repetir");
+      dialogPlayBtn.classList.add("done");
+      showWordStage(EXERCISES[current]);
+    });
+    dialogAudio.addEventListener("error", () => stopDialogUI("Audio no disponible"));
+
+    // Safety: unlock word stage after 12s if audio stalls
+    const safetyReveal = setTimeout(() => {
+      if (!wordUnlocked) showWordStage(EXERCISES[current]);
+    }, 12000);
+    dialogAudio.addEventListener("ended", () => clearTimeout(safetyReveal));
+
+    // Vocab ended → mark heard, enable next
+    vocabAudioObj.addEventListener("ended", () => {
+      vocabHeard = true;
+      totalHeard++;
+      wordsHeardEl.textContent = totalHeard;
+      new Audio(SFX_OK).play().catch(() => {});
+      stopVocabUI("¡Muy bien! Ya puedes continuar.");
+      enableNextIfReady();
+    });
+    vocabAudioObj.addEventListener("error", () => { wordNote.textContent = "Audio no disponible"; });
+
+    counterEl.textContent    = `${index + 1} / ${EXERCISES.length}`;
+    progressBar.style.width  = ((index + 1) / EXERCISES.length * 100) + "%";
+
+    exerciseImage.src = IMG + exercise.image;
+    exerciseImage.alt = exercise.word;
+
+    renderLines(exercise.lines);
+    scriptLinesEl.querySelectorAll(".script-line").forEach(l => l.classList.remove("show", "active-line"));
+
+    dialogPlayBtn.innerHTML = "▶";
+    dialogPlayBtn.classList.remove("playing", "done");
+    dialogAudioSub.textContent = "Escucha y lee";
+
+    wordStage.classList.remove("show");
+    bigWord.textContent = "";
+    wordPlayBtn.classList.remove("playing", "done");
+    wordPlayBtn.textContent = "🔊 Escuchar palabra";
+    wordNote.textContent = "Primero escucha el diálogo.";
+
+    nextBtn.disabled = true;
+    nextBtn.classList.remove("ready");
+  }
+
+  // ── Dialog play/pause ─────────────────────────────────────
+  dialogPlayBtn.addEventListener("click", () => {
+    if (!dialogAudio) return;
+
+    if (dialogPlaying) {
+      dialogAudio.pause();
+      stopDialogUI("Toca ▶ para continuar");
+      return;
+    }
+
+    if (vocabPlaying && vocabAudioObj) {
+      vocabAudioObj.pause();
+      stopVocabUI("Toca otra vez para escuchar.");
+    }
+
+    dialogAudio.currentTime = 0;
+    dialogAudio.play().catch(() => {});
+    dialogPlaying = true;
+    dialogPlayBtn.innerHTML = "⏸";
+    dialogPlayBtn.classList.add("playing");
+    dialogPlayBtn.classList.remove("done");
+    dialogAudioSub.textContent = "Escuchando...";
+    wordStage.classList.remove("show");
+    clearTimers();
+    clearHighlights();
+
+    const lines = Array.from(scriptLinesEl.querySelectorAll(".script-line"));
+    lines.forEach(l => l.classList.add("show"));
+
+    const duration = dialogAudio.duration && Number.isFinite(dialogAudio.duration) ? dialogAudio.duration : 7;
+    const step = duration / Math.max(lines.length, 1);
+    lines.forEach((_, i) => {
+      dialogTimers.push(setTimeout(() => {
+        clearHighlights();
+        if (lines[i]) lines[i].classList.add("active-line");
+      }, i * step * 1000));
+    });
+  });
+
+  // ── Vocab play/pause ──────────────────────────────────────
+  wordPlayBtn.addEventListener("click", () => {
+    if (!wordUnlocked || !vocabAudioObj) return;
+
+    if (vocabPlaying) {
+      vocabAudioObj.pause();
+      vocabPlaying = false;
+      stopVocabUI("Toca otra vez para escuchar.");
+      return;
+    }
+
+    if (dialogPlaying && dialogAudio) {
+      dialogAudio.pause();
+      stopDialogUI("Toca ▶ para escuchar");
+    }
+
+    vocabAudioObj.currentTime = 0;
+    vocabAudioObj.play().catch(() => {});
+    vocabPlaying = true;
+    wordPlayBtn.classList.remove("done");
+    wordPlayBtn.classList.add("playing");
+    wordPlayBtn.textContent = "⏸ Escuchando";
+    wordNote.textContent = "Escuchando la palabra o frase...";
+  });
+
+  // ── Next ──────────────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    if (nextBtn.disabled) return;
+    const nextIndex = current + 1;
+    if (nextIndex >= EXERCISES.length) {
+      // Save progress
+      try {
+        const key  = "inglesco_progress_u4";
+        const data = JSON.parse(localStorage.getItem(key) || "{}");
+        data["l6_p1"] = true;
+        localStorage.setItem(key, JSON.stringify(data));
+        const fKey = "inglesco_furthest_u4_l6";
+        const cur  = parseInt(localStorage.getItem(fKey) || "0", 10);
+        if (cur < 1) localStorage.setItem(fKey, "1");
+      } catch(e) {}
+
+      finalWordsEl.textContent    = totalHeard;
+      slideArea.style.display     = "none";
+      endScreen.classList.add("show");
+    } else {
+      loadExercise(nextIndex);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  // ── Init ──────────────────────────────────────────────────
+  loadExercise(0);
+})();
+</script>
 </body>
 </html>

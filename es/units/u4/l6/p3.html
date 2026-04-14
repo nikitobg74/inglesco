@@ -6,6 +6,8 @@
   <title>Unidad 4 • Lección 6 • Parte 3</title>
   <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     body {
@@ -14,7 +16,7 @@
       padding: 16px 12px 60px;
       color: #111827;
     }
-    .wrap { max-width: 480px; margin: 0 auto; }
+    .wrap { max-width: 640px; margin: 0 auto; }
 
     .back-btn {
       display: inline-block; margin-bottom: 16px; padding: 7px 14px;
@@ -23,116 +25,119 @@
     }
     .back-btn:hover { background: #1e40af; }
 
-    .top-title { text-align:center; font-size:18px; font-weight:900; margin-bottom:4px; }
-    .subline    { text-align:center; font-size:14px; font-weight:700; margin-bottom:16px; color:#374151; }
+    .top-title { text-align: center; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+    .subline   { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #374151; }
 
-    .progress-container { display:flex; justify-content:center; gap:10px; margin:12px 0 20px; }
+    .progress-container { display: flex; justify-content: center; gap: 10px; margin: 12px 0 20px; }
     .step {
-      width:38px; height:38px; border-radius:50%; background:#d1d5db;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:15px; text-decoration:none; color:#1f2933; transition:all .25s;
+      width: 38px; height: 38px; border-radius: 50%; background: #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px; text-decoration: none; color: #1f2933; transition: all .25s;
     }
-    .step.active { background:#2563eb; color:#fff; }
-    .step:hover  { transform:scale(1.08); }
+    .step.active { background: #2563eb; color: #fff; }
+    .step:hover  { transform: scale(1.08); }
 
-    /* ── card ── */
-    .card, .end {
-      background: rgba(255,255,255,.88); border-radius:18px; padding:24px 20px;
+    /* Score badges */
+    .score-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 14px; }
+    .badge {
+      display: flex; align-items: center; gap: 6px;
+      background: white; border-radius: 20px; padding: 6px 14px;
+      font-weight: 700; font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .badge.correct-badge { color: #15803d; }
+    .badge.wrong-badge   { color: #b91c1c; }
+
+    /* Card */
+    .card {
+      background: rgba(255,255,255,.88); border-radius: 20px; padding: 24px 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
     }
 
-    /* ── exercise progress bar ── */
-    .ex-progress-row {
-      display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;
-    }
-    .ex-counter { font-size:13px; font-weight:700; color:#486581; }
-    .bar-wrap {
-      background:#e2e8f0; border-radius:999px; height:7px; margin-bottom:22px; overflow:hidden;
-    }
-    .bar-fill {
-      height:100%; width:0%; background:#a855f7; border-radius:999px; transition:width .45s ease;
-    }
+    .ex-progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .ex-counter { font-size: 13px; font-weight: 700; color: #486581; }
+    .bar-wrap { background: #e2e8f0; border-radius: 999px; height: 7px; margin-bottom: 22px; overflow: hidden; }
+    .bar-fill  { height: 100%; width: 0%; background: #a855f7; border-radius: 999px; transition: width .45s ease; }
 
-    /* ── prompt word ── */
+    /* Prompt */
     .prompt-label {
-      text-align:center; font-size:10.5px; font-weight:900; text-transform:uppercase;
-      letter-spacing:.7px; color:#7c3aed; margin-bottom:10px;
+      text-align: center; font-size: 10.5px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: .7px; color: #7c3aed; margin-bottom: 10px;
     }
     .prompt-word {
-      text-align:center; font-size:36px; font-weight:900; color:#1e293b;
-      background:#f5f3ff; border:2px solid #c4b5fd; border-radius:16px;
-      padding:22px 20px; margin-bottom:28px; letter-spacing:.5px;
+      text-align: center; font-size: 36px; font-weight: 900; color: #1e293b;
+      background: #f5f3ff; border: 2px solid #c4b5fd; border-radius: 16px;
+      padding: 22px 20px; margin-bottom: 28px; letter-spacing: .5px;
     }
 
-    /* ── choice tiles ── */
+    /* Choices */
     .choices-label {
-      text-align:center; font-size:10.5px; font-weight:900; text-transform:uppercase;
-      letter-spacing:.7px; color:#0f766e; margin-bottom:10px;
+      text-align: center; font-size: 10.5px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: .7px; color: #0f766e; margin-bottom: 10px;
     }
-    .choices-wrap {
-      display:flex; flex-direction:column; gap:10px; margin-bottom:22px;
-    }
+    .choices-wrap { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
     .choice-btn {
-      width:100%; padding:13px 16px; border:none; border-radius:14px; cursor:pointer;
-      background:#0d9488; color:#fff; font-size:16px; font-weight:700;
-      box-shadow:0 4px 12px rgba(13,148,136,.25); transition:all .15s; text-align:center;
+      width: 100%; padding: 13px 16px; border: none; border-radius: 14px; cursor: pointer;
+      background: #0d9488; color: #fff; font-size: 16px; font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 12px rgba(13,148,136,.25); transition: all .15s; text-align: center;
     }
-    .choice-btn:hover:not(:disabled) { background:#0f766e; transform:scale(1.02); }
+    .choice-btn:hover:not(:disabled) { background: #0f766e; transform: scale(1.02); }
+    .choice-btn.correct-flash { background: #16a34a !important; }
+    .choice-btn.wrong-flash   { background: #dc2626 !important; animation: shake .4s ease; }
+    .choice-btn:disabled      { opacity: .45; cursor: default; transform: none; }
 
     @keyframes shake {
-      0%,100% { transform:translateX(0); }
-      20%      { transform:translateX(-9px); }
-      40%      { transform:translateX(9px); }
-      60%      { transform:translateX(-6px); }
-      80%      { transform:translateX(6px); }
+      0%,100%{transform:translateX(0)} 20%{transform:translateX(-9px)}
+      40%{transform:translateX(9px)}   60%{transform:translateX(-6px)} 80%{transform:translateX(6px)}
     }
-    .choice-btn.wrong-flash {
-      background:#dc2626 !important;
-      animation: shake .4s ease;
-    }
-    .choice-btn.correct-flash {
-      background:#16a34a !important;
-    }
-    .choice-btn:disabled { opacity:.45; cursor:default; transform:none; }
 
-    /* ── feedback ── */
-    .feedback {
-      min-height:22px; text-align:center; font-size:14px; font-weight:700; margin-bottom:18px;
-    }
-    .feedback.correct { color:#16a34a; }
-    .feedback.wrong   { color:#dc2626; }
+    /* Feedback */
+    .feedback { min-height: 22px; text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 18px; }
+    .feedback.correct { color: #16a34a; }
+    .feedback.wrong   { color: #dc2626; }
 
-    /* ── next button ── */
+    /* Mistake hint */
+    .mistake-hint {
+      text-align: center; font-size: 13px; font-weight: 600;
+      color: #92400e; background: #fef3c7; border-radius: 10px;
+      padding: 8px 12px; margin-bottom: 12px; display: none;
+    }
+    .mistake-hint.show { display: block; }
+
+    /* Next btn */
     .next-btn {
-      display:block; width:100%; padding:13px 0; border:none; border-radius:14px;
-      font-weight:900; font-size:16px; font-family:'Poppins',sans-serif;
-      background:#d1d5db; color:#9ca3af; cursor:not-allowed; transition:all .3s;
+      display: block; width: 100%; padding: 13px 0; border: none; border-radius: 14px;
+      font-weight: 900; font-size: 16px; font-family: 'Poppins', sans-serif;
+      background: #d1d5db; color: #9ca3af; cursor: not-allowed; transition: all .3s;
     }
-    .next-btn.ready {
-      background:#2563eb; color:#fff; cursor:pointer; box-shadow:0 5px 14px rgba(37,99,235,.3);
-    }
-    .next-btn.ready:hover { background:#1d4ed8; }
+    .next-btn.ready { background: #2563eb; color: #fff; cursor: pointer; box-shadow: 0 5px 14px rgba(37,99,235,.3); }
+    .next-btn.ready:hover { background: #1d4ed8; }
 
-    /* ── end screen ── */
-    .end { display:none; text-align:center; margin-top:16px; padding:32px 20px; }
-    .end.show { display:block; }
-    .trophy { font-size:52px; margin-bottom:10px; }
-    .end h2  { margin:8px 0; font-size:22px; font-weight:900; color:#1e40af; }
-    .end p   { margin:6px 0; font-weight:600; color:#374151; font-size:14px; }
-    .highlight-msg {
-      background:#fef9c3; border:2px solid #fde68a; border-radius:12px;
-      padding:12px 16px; margin:14px 0; font-size:14px; color:#78350f;
+    /* End screen */
+    .end {
+      display: none; text-align: center;
+      background: rgba(255,255,255,.88); border-radius: 20px;
+      padding: 36px 20px; box-shadow: 0 8px 20px rgba(0,0,0,.08); margin-top: 16px;
     }
+    .end.show { display: block; }
+    .trophy { font-size: 52px; margin-bottom: 10px; }
+    .end h2 { margin: 8px 0; font-size: 22px; font-weight: 900; color: #1e40af; }
+    .end p  { margin: 6px 0; font-weight: 600; color: #374151; font-size: 14px; }
+    .end-score { font-size: 16px; font-weight: 700; margin: 12px 0 4px; }
+    .end-score .g { color: #15803d; }
+    .end-score .b { color: #b91c1c; }
+    .highlight-msg { background: #fef9c3; border: 2px solid #fde68a; border-radius: 12px; padding: 12px 16px; margin: 14px 0; font-size: 14px; color: #78350f; }
     .finish-btn {
-      display:inline-flex; align-items:center; gap:8px; padding:12px 28px;
-      background:#16a34a; color:#fff; text-decoration:none; border-radius:14px;
-      font-weight:900; font-size:16px; box-shadow:0 5px 12px rgba(22,163,74,.3);
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px;
+      background: #16a34a; color: #fff; text-decoration: none; border-radius: 14px;
+      font-weight: 900; font-size: 16px; box-shadow: 0 5px 12px rgba(22,163,74,.3);
     }
-    .finish-btn:hover { background:#15803d; }
+    .finish-btn:hover { background: #15803d; }
 
-    @media (max-width:480px) {
-      .prompt-word { font-size:28px; padding:18px 14px; }
-      .choice-btn  { font-size:15px; }
+    @media (max-width: 480px) {
+      .prompt-word { font-size: 28px; padding: 18px 14px; }
+      .choice-btn  { font-size: 15px; }
     }
   </style>
 </head>
@@ -140,7 +145,7 @@
 <div class="wrap">
   <a href="../index.html" class="back-btn">← Unidad 4</a>
 
-  <div class="top-title">Unidad 4 • Lección 6 • Parte 3</div>
+  <div class="top-title">Unidad 4 · Lección 6 · Parte 3</div>
   <div class="subline">Adjetivos opuestos — Opposite adjectives</div>
 
   <div class="progress-container">
@@ -151,13 +156,18 @@
     <a class="step" href="p5.html">5</a>
   </div>
 
+  <!-- Score badges -->
+  <div class="score-row">
+    <div class="badge correct-badge">✓ <span id="scoreCorrect">0</span></div>
+    <div class="badge wrong-badge">✗ <span id="scoreWrong">0</span></div>
+  </div>
+
+  <!-- Card -->
   <div class="card" id="slideArea">
     <div class="ex-progress-row">
       <span class="ex-counter" id="exCounter">1 / 9</span>
     </div>
-    <div class="bar-wrap">
-      <div class="bar-fill" id="barFill"></div>
-    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="barFill"></div></div>
 
     <div class="prompt-label">¿Cuál es el opuesto?</div>
     <div class="prompt-word" id="promptWord"></div>
@@ -166,18 +176,180 @@
     <div class="choices-wrap" id="choicesWrap"></div>
 
     <div class="feedback" id="feedback"></div>
+    <div class="mistake-hint" id="mistakeHint"></div>
 
     <button class="next-btn" id="nextBtn" disabled>Siguiente →</button>
   </div>
 
+  <!-- End screen -->
   <div class="end" id="endScreen">
     <div class="trophy">🏆</div>
     <h2>¡Muy buen trabajo!</h2>
     <p>Completaste la Parte 3.</p>
+    <div class="end-score">
+      <span class="g">✓ <span id="finalCorrect">0</span> correctas</span>
+      &nbsp;&nbsp;
+      <span class="b">✗ <span id="finalWrong">0</span> errores</span>
+    </div>
     <div class="highlight-msg">🎉 ¡Excelente! Ya conoces todos los adjetivos opuestos de esta lección.</div>
     <a href="p4.html" class="finish-btn">Continuar → Parte 4</a>
   </div>
 </div>
-<script src="../../../../js/u4/u4_l6_p3.js"></script>
+
+<script>
+(() => {
+  const SFX_OK  = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/correct.wav";
+  const SFX_BAD = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/incorrect.wav";
+  const MAX_ERRORS = 2;
+
+  const PAIRS = [
+    ["single",    "married"],
+    ["pretty",    "ugly"],
+    ["cheap",     "expensive"],
+    ["old",       "young"],
+    ["big",       "small"],
+    ["tall",      "short"],
+    ["difficult", "easy"],
+    ["handsome",  "ugly"],
+    ["quiet",     "noisy"]
+  ];
+
+  const ALL_ANSWERS = PAIRS.map(([, r]) => r);
+
+  // ── DOM ──────────────────────────────────────────────────
+  const promptWordEl = document.getElementById("promptWord");
+  const choicesWrap  = document.getElementById("choicesWrap");
+  const feedbackEl   = document.getElementById("feedback");
+  const mistakeHint  = document.getElementById("mistakeHint");
+  const nextBtn      = document.getElementById("nextBtn");
+  const exCounter    = document.getElementById("exCounter");
+  const barFill      = document.getElementById("barFill");
+  const slideArea    = document.getElementById("slideArea");
+  const endScreen    = document.getElementById("endScreen");
+  const scoreCorrect = document.getElementById("scoreCorrect");
+  const scoreWrong   = document.getElementById("scoreWrong");
+  const finalCorrect = document.getElementById("finalCorrect");
+  const finalWrong   = document.getElementById("finalWrong");
+
+  // ── State ────────────────────────────────────────────────
+  let current    = 0;
+  let roundErrors= 0;
+  let totalRight = 0;
+  let totalWrong = 0;
+
+  function playSfx(url) { new Audio(url).play().catch(() => {}); }
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const shuffledPairs = shuffle(PAIRS);
+
+  function getDistractors(correctAnswer) {
+    const pool = ALL_ANSWERS.filter(w => w !== correctAnswer);
+    return shuffle(pool).slice(0, 2);
+  }
+
+  function updateProgress(index) {
+    exCounter.textContent = `${index + 1} / ${shuffledPairs.length}`;
+    barFill.style.width   = `${(index / shuffledPairs.length) * 100}%`;
+  }
+
+  // ── Load round ────────────────────────────────────────────
+  function loadRound(index) {
+    const [prompt, correct] = shuffledPairs[index];
+    const choices = shuffle([correct, ...getDistractors(correct)]);
+
+    roundErrors = 0;
+    updateProgress(index);
+
+    promptWordEl.textContent = prompt;
+    choicesWrap.innerHTML    = "";
+    feedbackEl.textContent   = "";
+    feedbackEl.className     = "feedback";
+    mistakeHint.textContent  = "";
+    mistakeHint.classList.remove("show");
+    nextBtn.disabled         = true;
+    nextBtn.classList.remove("ready");
+
+    choices.forEach(word => {
+      const btn = document.createElement("button");
+      btn.type        = "button";
+      btn.className   = "choice-btn";
+      btn.textContent = word;
+      btn.addEventListener("click", () => onChoice(btn, word, correct));
+      choicesWrap.appendChild(btn);
+    });
+  }
+
+  // ── Handle tap ────────────────────────────────────────────
+  function onChoice(btn, chosen, correct) {
+    // Disable all immediately
+    choicesWrap.querySelectorAll(".choice-btn").forEach(b => { b.disabled = true; });
+
+    if (chosen === correct) {
+      btn.classList.add("correct-flash");
+      feedbackEl.textContent = "¡Correcto! 🎉";
+      feedbackEl.className   = "feedback correct";
+      barFill.style.width    = `${((current + 1) / shuffledPairs.length) * 100}%`;
+      playSfx(SFX_OK);
+      totalRight++;
+      scoreCorrect.textContent = totalRight;
+      setTimeout(() => { nextBtn.disabled = false; nextBtn.classList.add("ready"); }, 350);
+    } else {
+      roundErrors++;
+      totalWrong++;
+      scoreWrong.textContent = totalWrong;
+      playSfx(SFX_BAD);
+      btn.classList.add("wrong-flash");
+      // Highlight correct
+      choicesWrap.querySelectorAll(".choice-btn").forEach(b => {
+        if (b.textContent === correct) b.classList.add("correct-flash");
+      });
+      feedbackEl.textContent = `La respuesta correcta es: ${correct}`;
+      feedbackEl.className   = "feedback wrong";
+
+      if (roundErrors >= MAX_ERRORS) {
+        mistakeHint.textContent = `✓ El opuesto de "${shuffledPairs[current][0]}" es "${correct}"`;
+        mistakeHint.classList.add("show");
+      }
+
+      setTimeout(() => { nextBtn.disabled = false; nextBtn.classList.add("ready"); }, 700);
+    }
+  }
+
+  // ── Next ──────────────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    if (nextBtn.disabled) return;
+    current++;
+    if (current >= shuffledPairs.length) {
+      barFill.style.width = "100%";
+      try {
+        const key  = "inglesco_progress_u4";
+        const data = JSON.parse(localStorage.getItem(key) || "{}");
+        data["l6_p3"] = true;
+        localStorage.setItem(key, JSON.stringify(data));
+        const fKey = "inglesco_furthest_u4_l6";
+        const cur  = parseInt(localStorage.getItem(fKey) || "0", 10);
+        if (cur < 3) localStorage.setItem(fKey, "3");
+      } catch(e) {}
+      finalCorrect.textContent = totalRight;
+      finalWrong.textContent   = totalWrong;
+      slideArea.style.display  = "none";
+      endScreen.classList.add("show");
+    } else {
+      loadRound(current);
+    }
+  });
+
+  // ── Init ──────────────────────────────────────────────────
+  loadRound(0);
+})();
+</script>
 </body>
 </html>
