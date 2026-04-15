@@ -6,6 +6,9 @@
 <title>Unidad 5 • Lección 3 • Parte 5</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<!-- Vercel Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -14,16 +17,18 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
+
 .back-btn{
-  display:inline-block;margin-bottom:16px;padding:7px 14px;
-  background:#2563eb;color:white;border-radius:10px;
-  text-decoration:none;font-weight:700;font-size:14px;
+  display:inline-block;margin-bottom:16px;
+  padding:7px 14px;background:#2563eb;color:white;
+  border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;
 }
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
 .progress-container{
-  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px;
 }
 .step{
   width:38px;height:38px;border-radius:50%;background:#d1d5db;
@@ -32,10 +37,23 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
+/* Score */
+.score-row{
+  display:flex;justify-content:center;gap:24px;margin-bottom:14px;
+}
+.score-box{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.7);border-radius:12px;
+  padding:6px 14px;font-weight:700;font-size:14px;
+}
+.score-box.correct-score{color:#15803d}
+.score-box.wrong-score{color:#b91c1c}
+.score-dot{font-size:18px;line-height:1}
+
 /* Card */
 .card{
-  background:rgba(255,255,255,.88);border-radius:18px;
-  padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:20px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
   display:flex;justify-content:space-between;
@@ -46,47 +64,51 @@ body{
   margin-bottom:20px;overflow:hidden;
 }
 .bar-fill{
-  height:100%;width:0%;background:#a855f7;
+  height:100%;width:0%;background:#2563eb;
   border-radius:999px;transition:width .4s;
 }
 
 /* Image */
-.lesson-img{
-  width:100%;height:auto;max-height:280px;object-fit:contain;
-  border-radius:14px;margin-bottom:14px;display:block;background:#f1f5f9;
+.img-wrap{
+  width:100%;border-radius:14px;overflow:hidden;
+  background:#f1f5f9;margin-bottom:14px;
+  aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;
 }
+.lesson-img{width:100%;height:100%;object-fit:contain;display:block}
 
-/* Audio controls */
+/* Audio */
 .audio-controls{
   display:flex;align-items:center;justify-content:center;
-  gap:14px;margin-bottom:18px;
+  gap:14px;margin-bottom:16px;
 }
 .play-btn{
-  width:56px;height:56px;border-radius:50%;
-  border:none;cursor:pointer;
+  width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  font-size:22px;transition:background .2s,transform .1s;
-  flex-shrink:0;
+  font-size:24px;transition:background .2s,transform .1s;
+  flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.15);
+  -webkit-tap-highlight-color:transparent;
 }
-.play-btn.idle{background:#2563eb;color:white;}
-.play-btn.playing{background:#f59e0b;color:white;}
-.play-btn.done{background:#22c55e;color:white;}
+.play-btn.idle{background:#2563eb;color:white}
+.play-btn.playing{background:#f59e0b;color:white}
+.play-btn.done{background:#22c55e;color:white}
 .play-btn:active{transform:scale(.93)}
 .play-btn:disabled{opacity:.4;cursor:default}
 
-/* Questions area */
-#questionsArea{display:none;margin-bottom:4px;}
-
-.q-block{
-  margin-bottom:20px;
+.ios-hint{
+  text-align:center;font-size:12px;color:#94a3b8;font-weight:600;
+  margin-bottom:10px;display:none;
 }
+.ios-hint.show{display:block}
+
+/* Questions */
+#questionsArea{display:none;margin-bottom:4px}
+
+.q-block{margin-bottom:20px}
 
 .q-prompt{
-  text-align:center;
-  font-size:15px;font-weight:700;
-  color:#1e3a5f;line-height:1.6;
-  margin-bottom:12px;
-  min-height:24px;
+  text-align:center;font-size:15px;font-weight:700;
+  color:#1e3a5f;line-height:1.6;margin-bottom:12px;min-height:24px;
 }
 
 .options-row{
@@ -94,50 +116,66 @@ body{
 }
 
 .opt-btn{
-  padding:12px 26px;
-  border-radius:12px;
-  border:2px solid #0d9488;
-  background:#f0fdfa;
-  color:#0f766e;
-  font-weight:700;font-size:15px;
-  font-family:'Poppins',sans-serif;
-  cursor:pointer;
+  padding:12px 26px;border-radius:12px;
+  border:2px solid #0d9488;background:#f0fdfa;color:#0f766e;
+  font-weight:700;font-size:15px;font-family:'Poppins',sans-serif;
+  cursor:pointer;min-width:120px;text-align:center;
   transition:background .15s,border-color .15s,transform .1s,color .15s;
-  min-width:120px;
-  text-align:center;
+  -webkit-tap-highlight-color:transparent;
 }
-.opt-btn:hover:not(:disabled){
-  background:#ccfbf1;border-color:#0d9488;
-}
+.opt-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
 .opt-btn:active{transform:scale(.96)}
 .opt-btn:disabled{cursor:default}
+.opt-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
+.opt-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c;animation:shake .3s ease}
+.opt-btn.reveal{background:#fef9c3;border-color:#f59e0b;color:#92400e}
 
-.opt-btn.correct{
-  background:#22c55e;border-color:#22c55e;color:white;
-}
-.opt-btn.wrong{
-  background:#fee2e2;border-color:#ef4444;color:#b91c1c;
-  animation:shake .3s ease;
-}
-
-@keyframes shake {
+@keyframes shake{
   0%,100%{transform:translateX(0)}
   25%{transform:translateX(-6px)}
   75%{transform:translateX(6px)}
 }
 
-/* Continue button */
+/* Continue */
 .continue-btn{
-  display:none;
-  margin:8px auto 0;
-  padding:11px 28px;
-  background:#2563eb;color:white;
-  border:none;border-radius:12px;
-  font-weight:700;font-size:15px;font-family:'Poppins',sans-serif;
-  cursor:pointer;transition:background .2s;
+  display:none;width:100%;margin-top:8px;padding:14px;
+  background:linear-gradient(135deg,#2563eb,#1e40af);color:white;
+  border:none;border-radius:14px;
+  font-weight:700;font-size:16px;font-family:'Poppins',sans-serif;
+  cursor:pointer;transition:opacity .2s;
+  box-shadow:0 4px 12px rgba(37,99,235,.35);
+  -webkit-tap-highlight-color:transparent;
 }
 .continue-btn.visible{display:block}
-.continue-btn:hover{background:#1d4ed8}
+.continue-btn:hover{opacity:.92}
+
+/* End screen */
+.end-screen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:36px 20px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.end-screen .trophy{font-size:52px;margin-bottom:12px}
+.end-screen h2{font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px}
+.end-screen p{font-size:16px;font-weight:600;color:#374151;margin-bottom:6px}
+.end-screen .sub{font-size:14px;color:#64748b;margin-bottom:20px}
+.end-stats{display:flex;justify-content:center;gap:20px;margin:16px 0 24px}
+.end-stat{background:#eff6ff;border-radius:14px;padding:12px 20px;font-weight:700;font-size:15px}
+.end-stat span{display:block;font-size:11px;font-weight:600;color:#64748b;margin-top:2px}
+.end-stat.green{color:#15803d;background:#dcfce7}
+.end-stat.red{color:#b91c1c;background:#fee2e2}
+.return-btn{
+  display:inline-block;padding:12px 28px;
+  background:linear-gradient(135deg,#2563eb,#1e40af);
+  color:white;border-radius:12px;text-decoration:none;
+  font-weight:700;font-size:16px;
+  box-shadow:0 4px 12px rgba(37,99,235,.35);
+}
+
+@media(max-width:400px){
+  .top-title{font-size:15px}
+  .opt-btn{font-size:14px;padding:11px 18px;min-width:100px}
+}
 </style>
 </head>
 <body>
@@ -145,6 +183,7 @@ body{
   <a href="../index.html" class="back-btn">← Unidad 5</a>
   <div class="top-title">Unidad 5 • Lección 3 • Parte 5</div>
   <div class="subline">Escucha y elige la palabra correcta</div>
+
   <div class="progress-container">
     <a class="step" href="p1.html">1</a>
     <a class="step" href="p2.html">2</a>
@@ -153,37 +192,321 @@ body{
     <a class="step active" href="p5.html">5</a>
   </div>
 
+  <!-- Score -->
+  <div class="score-row">
+    <div class="score-box correct-score">
+      <span class="score-dot">✅</span>
+      <span id="scoreCorrect">0</span> correctas
+    </div>
+    <div class="score-box wrong-score">
+      <span class="score-dot">❌</span>
+      <span id="scoreWrong">0</span> errores
+    </div>
+  </div>
+
   <!-- Main card -->
   <div class="card" id="mainCard">
     <div class="counter-row"><span id="counter">1 / 8</span></div>
     <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
 
-    <img id="lessonImg" class="lesson-img" src="" alt="" />
-
-    <!-- Audio controls -->
-    <div class="audio-controls" id="audioControls">
-      <button class="play-btn idle" id="playBtn" title="Reproducir">▶</button>
+    <div class="img-wrap">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
     </div>
 
-    <!-- Questions rendered here by JS -->
-    <div id="questionsArea"></div>
+    <div class="audio-controls">
+      <button class="play-btn idle" id="playBtn">▶</button>
+    </div>
+    <p class="ios-hint" id="iosHint">Toca ▶ para escuchar el audio</p>
 
-    <!-- Continue button -->
+    <div id="questionsArea"></div>
     <button class="continue-btn" id="continueBtn">Continuar →</button>
+  </div>
+
+  <!-- End screen -->
+  <div class="end-screen" id="endScreen">
+    <div class="trophy">🏆</div>
+    <h2>¡Muy buen trabajo!</h2>
+    <p>Completaste la Lección 3.</p>
+    <p class="sub">¡Excelente esfuerzo!</p>
+    <div class="end-stats">
+      <div class="end-stat green">
+        <span id="endCorrect">0</span>
+        <span>correctas</span>
+      </div>
+      <div class="end-stat red">
+        <span id="endWrong">0</span>
+        <span>errores</span>
+      </div>
+    </div>
+    <a href="../index.html" class="return-btn">Continuar → Lección 4</a>
   </div>
 </div>
 
-<!-- End screen outside card -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:36px 24px;margin:16px auto;max-width:700px"
-     id="endScreen"
-     data-unit="5" data-lesson="3" data-part="5">
-  <div style="font-size:52px;margin-bottom:12px">🏆</div>
-  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px">¡Muy buen trabajo!</h2>
-  <p style="font-size:16px;font-weight:600;color:#374151;margin-bottom:6px">Completaste la Lección 3.</p>
-  <p style="font-size:14px;color:#64748b;margin-bottom:24px">¡Excelente esfuerzo!</p>
-  <a href="../index.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">Continuar → Lección 4</a>
-</div>
+<script>
+(() => {
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = BASE + "images/u5/";
+  const AUDIO_BASE = BASE + "audio/u5/";
+  const SFX_OK     = new Audio(BASE + "sfx/correct.wav");
+  const SFX_BAD    = new Audio(AUDIO_BASE + "incorrect.wav");
+  const MAX_MISTAKES_PER_Q = 3;
 
-<script src="../../../../js/u5/u5_l3_p5.js"></script>
+  const SLIDES = [
+    {
+      image: IMG_BASE + "u5.birthday.jpg", audio: AUDIO_BASE + "u5.birthday.mp3", autoPlay: false,
+      questions: [
+        { prompt:"Today is my ______.",     options:[{text:"birthday",correct:true},{text:"vacation",correct:false}] },
+        { prompt:"All my ______ is at home.",options:[{text:"friends",correct:false},{text:"family",correct:true}]  }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.parents.fireplace.jpg", audio: AUDIO_BASE + "u5.birthday1.mp3", autoPlay: true,
+      questions: [
+        { prompt:"My parents are in the ______.",    options:[{text:"bedroom",correct:false},{text:"living room",correct:true}] },
+        { prompt:"They are ______ to their friends.",options:[{text:"reading",correct:false},{text:"talking",correct:true}]    }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.wife.baking2.jpg", audio: AUDIO_BASE + "u5.birthday2.mp3", autoPlay: true,
+      questions: [
+        { prompt:"My wife is in the ______.",        options:[{text:"bathroom",correct:false},{text:"kitchen",correct:true}]  },
+        { prompt:"She is ______ a chocolate cake.",  options:[{text:"baking",correct:true},{text:"cooking",correct:false}]   }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.boy.guitar.jpg", audio: AUDIO_BASE + "u5.birthday3.mp3", autoPlay: true,
+      questions: [
+        { prompt:"My son is in his ______.",  options:[{text:"bathroom",correct:false},{text:"bedroom",correct:true}]  },
+        { prompt:"He is ______ the guitar.", options:[{text:"fixing",correct:false},{text:"playing",correct:true}]    }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.girls.playing.jpg", audio: AUDIO_BASE + "u5.birthday4.mp3", autoPlay: true,
+      questions: [
+        { prompt:"My daughter is in the ______.",    options:[{text:"yard",correct:true},{text:"zoo",correct:false}]      },
+        { prompt:"She is ______ with her friend.",   options:[{text:"riding",correct:false},{text:"playing",correct:true}] }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.fixing.sink.jpg", audio: AUDIO_BASE + "u5.birthday5.mp3", autoPlay: true,
+      questions: [
+        { prompt:"My brother is in the ______.", options:[{text:"bedroom",correct:false},{text:"bathroom",correct:true}]  },
+        { prompt:"He is ______ the sink.",       options:[{text:"fixing",correct:true},{text:"cleaning",correct:false}]  }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.wife.baking.jpg", audio: AUDIO_BASE + "u5.birthday6.mp3", autoPlay: true,
+      questions: [
+        { prompt:"She is ______ my wife.", options:[{text:"baking",correct:false},{text:"helping",correct:true}] }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.sister.washing.jpg", audio: AUDIO_BASE + "u5.birthday7.mp3", autoPlay: true,
+      questions: [
+        { prompt:"My sister is not ______.", options:[{text:"married",correct:true},{text:"single",correct:false}]  },
+        { prompt:"She is ______ her car.",   options:[{text:"fixing",correct:false},{text:"washing",correct:true}]  }
+      ]
+    }
+  ];
+
+  // ── State ─────────────────────────────────────────────────
+  let slideIndex   = 0;
+  let currentAudio = null;
+  let autoPlayTimer = null;
+  let totalCorrect = 0;
+  let totalWrong   = 0;
+
+  // ── DOM ───────────────────────────────────────────────────
+  const imgEl          = document.getElementById("lessonImg");
+  const playBtn        = document.getElementById("playBtn");
+  const continueBtn    = document.getElementById("continueBtn");
+  const counterEl      = document.getElementById("counter");
+  const barEl          = document.getElementById("progressBar");
+  const mainCard       = document.getElementById("mainCard");
+  const endScreen      = document.getElementById("endScreen");
+  const questionsArea  = document.getElementById("questionsArea");
+  const iosHint        = document.getElementById("iosHint");
+  const scoreCorrectEl = document.getElementById("scoreCorrect");
+  const scoreWrongEl   = document.getElementById("scoreWrong");
+
+  function playOk()  { SFX_OK.currentTime  = 0; SFX_OK.play().catch(()=>{}); }
+  function playBad() { SFX_BAD.currentTime = 0; SFX_BAD.play().catch(()=>{}); }
+  function updateScore() {
+    scoreCorrectEl.textContent = totalCorrect;
+    scoreWrongEl.textContent   = totalWrong;
+  }
+
+  // ── Audio helpers ─────────────────────────────────────────
+  function setPlayState(state) {
+    playBtn.className   = "play-btn " + state;
+    playBtn.textContent = state === "playing" ? "⏸" : "▶";
+    playBtn.disabled    = false;
+  }
+  function destroyAudio() {
+    if (autoPlayTimer) { clearTimeout(autoPlayTimer); autoPlayTimer = null; }
+    if (currentAudio)  { currentAudio.pause(); currentAudio.src = ""; currentAudio = null; }
+  }
+  function showContinue() { continueBtn.classList.add("visible"); }
+  function hideContinue()  { continueBtn.classList.remove("visible"); }
+
+  // ── Render questions ──────────────────────────────────────
+  // Returns a Promise that resolves when all questions answered.
+  function renderQuestions(slide) {
+    questionsArea.innerHTML = "";
+    questionsArea.style.display = "block";
+
+    const total    = slide.questions.length;
+    let   answered = 0;
+
+    return new Promise(resolve => {
+      slide.questions.forEach(q => {
+        let qMistakes = 0;
+
+        const block = document.createElement("div");
+        block.className = "q-block";
+
+        const promptEl = document.createElement("p");
+        promptEl.className = "q-prompt";
+        promptEl.textContent = q.prompt;
+        block.appendChild(promptEl);
+
+        const optRow = document.createElement("div");
+        optRow.className = "options-row";
+
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.className   = "opt-btn";
+          btn.textContent = opt.text;
+
+          btn.addEventListener("click", () => {
+            if (btn.disabled) return;
+
+            if (opt.correct) {
+              btn.classList.add("correct");
+              optRow.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+              promptEl.textContent = q.prompt.replace("______", opt.text);
+              totalCorrect++; updateScore(); playOk();
+              answered++;
+              if (answered === total) resolve();
+            } else {
+              qMistakes++; totalWrong++; updateScore(); playBad();
+              btn.classList.add("wrong");
+
+              if (qMistakes >= MAX_MISTAKES_PER_Q) {
+                // Reveal — disable all, highlight correct in amber
+                optRow.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+                optRow.querySelectorAll(".opt-btn").forEach(b => {
+                  // find the correct one by checking dataset
+                  if (b.textContent === q.options.find(o => o.correct).text) {
+                    b.classList.remove("wrong");
+                    b.classList.add("reveal");
+                  }
+                });
+                promptEl.textContent = q.prompt.replace("______",
+                  q.options.find(o => o.correct).text + " ⚠️");
+                setTimeout(() => {
+                  answered++;
+                  if (answered === total) resolve();
+                }, 1500);
+              } else {
+                setTimeout(() => btn.classList.remove("wrong"), 600);
+              }
+            }
+          });
+
+          optRow.appendChild(btn);
+        });
+
+        block.appendChild(optRow);
+        questionsArea.appendChild(block);
+      });
+    });
+  }
+
+  // ── Load slide ─────────────────────────────────────────────
+  function loadSlide(index) {
+    slideIndex = index;
+    destroyAudio();
+    hideContinue();
+    iosHint.classList.remove("show");
+    questionsArea.innerHTML = "";
+    questionsArea.style.display = "none";
+
+    counterEl.textContent = `${index + 1} / ${SLIDES.length}`;
+    barEl.style.width = ((index + 1) / SLIDES.length * 100) + "%";
+
+    const slide = SLIDES[index];
+    imgEl.src = slide.image;
+    imgEl.alt = slide.questions[0]?.prompt || "";
+
+    const audio = new Audio(slide.audio);
+    currentAudio = audio;
+
+    audio.addEventListener("ended", () => {
+      setPlayState("done");
+      renderQuestions(slide).then(showContinue);
+    });
+
+    if (slide.autoPlay) {
+      setPlayState("idle");
+      playBtn.disabled = true;
+      autoPlayTimer = setTimeout(() => {
+        audio.play()
+          .then(() => { setPlayState("playing"); playBtn.disabled = false; })
+          .catch(() => {
+            setPlayState("idle");
+            playBtn.disabled = false;
+            iosHint.classList.add("show");
+            // iOS fallback: show questions without waiting for audio
+            renderQuestions(slide).then(showContinue);
+          });
+      }, 600);
+    } else {
+      setPlayState("idle");
+    }
+  }
+
+  // ── Play button ───────────────────────────────────────────
+  playBtn.addEventListener("click", () => {
+    if (!currentAudio) return;
+    iosHint.classList.remove("show");
+    if (currentAudio.paused) {
+      currentAudio.play().then(() => setPlayState("playing")).catch(()=>{});
+    } else {
+      currentAudio.pause();
+      setPlayState("idle");
+    }
+  });
+
+  // ── Continue ──────────────────────────────────────────────
+  continueBtn.addEventListener("click", () => {
+    const next = slideIndex + 1;
+    if (next >= SLIDES.length) {
+      destroyAudio();
+      mainCard.style.display  = "none";
+      endScreen.style.display = "block";
+      document.getElementById("endCorrect").textContent = totalCorrect;
+      document.getElementById("endWrong").textContent   = totalWrong;
+      saveProgress();
+    } else {
+      loadSlide(next);
+    }
+  });
+
+  function saveProgress() {
+    try {
+      const key  = "inglesco_progress_u5";
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data.l3) data.l3 = {};
+      data.l3.partsCompleted = Math.max(data.l3.partsCompleted || 0, 5);
+      data.l3.completed      = true;
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  // ── Init ──────────────────────────────────────────────────
+  loadSlide(0);
+})();
+</script>
 </body>
 </html>

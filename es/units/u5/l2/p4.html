@@ -6,6 +6,9 @@
 <title>Unidad 5 • Lección 2 • Parte 4</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<!-- Vercel Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -14,7 +17,8 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
+
 .back-btn{
   display:inline-block;
   margin-bottom:16px;
@@ -28,11 +32,10 @@ body{
 }
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
 .progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:12px 0 20px 0;
+  display:flex;justify-content:center;gap:10px;
+  margin:12px 0 20px;
 }
 .step{
   width:38px;height:38px;border-radius:50%;
@@ -43,13 +46,26 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* Vocabulary panel */
+/* Score */
+.score-row{
+  display:flex;justify-content:center;gap:24px;
+  margin-bottom:14px;
+}
+.score-box{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.7);
+  border-radius:12px;padding:6px 14px;
+  font-weight:700;font-size:14px;
+}
+.score-box.correct-score{color:#15803d}
+.score-box.wrong-score{color:#b91c1c}
+.score-dot{font-size:18px;line-height:1}
+
+/* Vocab */
 .vocab-panel{
   background:rgba(255,255,255,.88);
-  border-radius:18px;
-  margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.06);
-  overflow:hidden;
+  border-radius:20px;margin-bottom:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);overflow:hidden;
 }
 .vocab-toggle{
   width:100%;background:none;border:none;padding:14px 18px;
@@ -67,6 +83,7 @@ body{
   padding:12px 14px;border-radius:12px;background:#eff6ff;
   border:2px solid #bfdbfe;cursor:pointer;
   transition:background .15s,border-color .15s;user-select:none;min-height:56px;
+  -webkit-tap-highlight-color:transparent;
 }
 .vocab-tile:hover{background:#dbeafe;border-color:#93c5fd}
 .vocab-tile.playing{background:#fef9c3;border-color:#f59e0b}
@@ -78,7 +95,7 @@ body{
 /* Card */
 .card{
   background:rgba(255,255,255,.88);
-  border-radius:18px;padding:16px;
+  border-radius:20px;padding:20px 16px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
@@ -93,21 +110,30 @@ body{
   height:100%;width:0%;background:#2563eb;
   border-radius:999px;transition:width .4s;
 }
-.lesson-img{
-  width:100%;height:auto;max-height:320px;object-fit:contain;
-  border-radius:14px;margin-bottom:20px;display:block;background:#f1f5f9;
+
+/* Image — mobile-friendly */
+.img-wrap{
+  width:100%;border-radius:14px;overflow:hidden;
+  background:#f1f5f9;margin-bottom:20px;
+  aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;
+}
+.lesson-img{width:100%;height:100%;object-fit:contain;display:block}
+
+.sub-counter{
+  text-align:center;font-size:12px;font-weight:600;
+  color:#94a3b8;margin-bottom:10px;
+}
+.mistake-hint{
+  text-align:center;font-size:13px;font-weight:600;
+  color:#b45309;background:#fef3c7;border-radius:10px;
+  padding:8px 12px;margin-bottom:12px;display:none;
 }
 .question-label{
   text-align:center;font-size:17px;font-weight:700;
-  color:#1e40af;margin-bottom:16px;
+  color:#1e40af;margin-bottom:18px;line-height:1.4;
 }
-.sub-counter{
-  text-align:center;font-size:12px;font-weight:600;
-  color:#94a3b8;margin-bottom:14px;
-}
-.answers{
-  display:flex;flex-direction:column;gap:12px;
-}
+.answers{display:flex;flex-direction:column;gap:12px}
 .answer-btn{
   width:100%;padding:16px 20px;
   border-radius:14px;border:2px solid #bfdbfe;
@@ -116,17 +142,46 @@ body{
   cursor:pointer;text-align:left;
   transition:background .15s,border-color .15s;
   line-height:1.4;
+  -webkit-tap-highlight-color:transparent;
 }
 .answer-btn:hover:not(:disabled){background:#dbeafe;border-color:#93c5fd}
-.answer-btn.correct{background:#dcfce7;border-color:#22c55e;color:#15803d;}
-.answer-btn.wrong{
-  background:#fee2e2;border-color:#ef4444;color:#b91c1c;
-  animation:shake .4s;
-}
+.answer-btn.correct{background:#dcfce7;border-color:#22c55e;color:#15803d}
+.answer-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c;animation:shake .4s}
+.answer-btn.reveal{background:#fef9c3;border-color:#f59e0b;color:#92400e}
 .answer-btn:disabled{cursor:default}
+
 @keyframes shake{
   0%{transform:translateX(0)}25%{transform:translateX(-6px)}
   50%{transform:translateX(6px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}
+}
+
+/* End screen */
+.end-screen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);
+  border-radius:20px;padding:30px 20px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.end-screen h2{font-size:22px;font-weight:900;margin-bottom:8px;color:#1e40af}
+.end-screen p{font-size:15px;color:#374151;margin-bottom:6px}
+.end-stats{display:flex;justify-content:center;gap:20px;margin:16px 0 20px}
+.end-stat{background:#eff6ff;border-radius:14px;padding:12px 20px;font-weight:700;font-size:15px}
+.end-stat span{display:block;font-size:11px;font-weight:600;color:#64748b;margin-top:2px}
+.end-stat.green{color:#15803d;background:#dcfce7}
+.end-stat.red{color:#b91c1c;background:#fee2e2}
+.continue-btn{
+  display:inline-block;padding:12px 28px;
+  background:linear-gradient(135deg,#2563eb,#1e40af);
+  color:white;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:16px;
+  box-shadow:0 4px 12px rgba(37,99,235,.35);
+}
+
+@media(max-width:400px){
+  .top-title{font-size:15px}
+  .question-label{font-size:15px}
+  .answer-btn{font-size:14px;padding:14px 16px}
+  .vocab-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -135,6 +190,7 @@ body{
   <a href="../index.html" class="back-btn">← Unidad 5</a>
   <div class="top-title">Unidad 5 • Lección 2 • Parte 4</div>
   <div class="subline">Lee y selecciona la respuesta correcta</div>
+
   <div class="progress-container">
     <a class="step" href="p1.html">1</a>
     <a class="step" href="p2.html">2</a>
@@ -143,28 +199,40 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
+  <!-- Score tracker -->
+  <div class="score-row">
+    <div class="score-box correct-score">
+      <span class="score-dot">✅</span>
+      <span id="scoreCorrect">0</span> correctas
+    </div>
+    <div class="score-box wrong-score">
+      <span class="score-dot">❌</span>
+      <span id="scoreWrong">0</span> errores
+    </div>
+  </div>
+
   <!-- Vocabulary panel -->
   <div class="vocab-panel">
-    <button class="vocab-toggle open" id="vocabToggle" onclick="toggleVocab()">
+    <button class="vocab-toggle open" id="vocabToggle">
       <span>📖 Vocabulario nuevo</span>
       <span class="arrow">▲</span>
     </button>
     <div class="vocab-body" id="vocabBody">
       <p class="vocab-hint">🔊 Toca una palabra para escucharla</p>
       <div class="vocab-grid">
-        <div class="vocab-tile" onclick="playVocab(this,'u5.mother.mp3')">
+        <div class="vocab-tile" data-audio="u5.mother.mp3">
           <div class="vocab-left"><span class="vocab-en">mother</span><span class="vocab-es">madre</span></div>
           <span class="vocab-speaker">🔊</span>
         </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.father.mp3')">
+        <div class="vocab-tile" data-audio="u5.father.mp3">
           <div class="vocab-left"><span class="vocab-en">father</span><span class="vocab-es">padre</span></div>
           <span class="vocab-speaker">🔊</span>
         </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.son.mp3')">
+        <div class="vocab-tile" data-audio="u5.son.mp3">
           <div class="vocab-left"><span class="vocab-en">son</span><span class="vocab-es">hijo</span></div>
           <span class="vocab-speaker">🔊</span>
         </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.daughter.mp3')">
+        <div class="vocab-tile" data-audio="u5.daughter.mp3">
           <div class="vocab-left"><span class="vocab-en">daughter</span><span class="vocab-es">hija</span></div>
           <span class="vocab-speaker">🔊</span>
         </div>
@@ -173,42 +241,249 @@ body{
   </div>
 
   <!-- Main card -->
-  <div class="card">
-    <div class="counter-row"><span id="counter">1 / 4</span></div>
+  <div class="card" id="mainCard">
+    <div class="counter-row">
+      <span id="counter">1 / 4</span>
+    </div>
     <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
-    <img id="lessonImg" class="lesson-img" src="" alt="" />
+
+    <div class="img-wrap">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
+    </div>
+
     <div class="sub-counter" id="subCounter"></div>
+    <div class="mistake-hint" id="mistakeHint">⚠️ Demasiados errores — mira la respuesta correcta.</div>
     <div class="question-label" id="questionLabel"></div>
     <div class="answers" id="answers"></div>
   </div>
-</div>
 
-<!-- End screen outside card -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
-  <h2>¡Excelente trabajo!</h2>
-  <p style="margin:10px 0 20px">Completaste la Parte 4.</p>
-  <a href="p5.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 5</a>
+  <!-- End screen -->
+  <div class="end-screen" id="endScreen">
+    <h2>¡Excelente trabajo! 🎉</h2>
+    <p>Completaste la Parte 4.</p>
+    <div class="end-stats">
+      <div class="end-stat green">
+        <span id="endCorrect">0</span>
+        <span>correctas</span>
+      </div>
+      <div class="end-stat red">
+        <span id="endWrong">0</span>
+        <span>errores</span>
+      </div>
+    </div>
+    <a href="p5.html" class="continue-btn">Continuar → Parte 5</a>
+  </div>
 </div>
 
 <script>
-  const VOCAB_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u5/";
+(() => {
+  const BASE     = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUDIO_BASE = BASE + "audio/u5/";
+  const IMG_BASE   = BASE + "images/u5/";
+  const SFX_OK   = new Audio(BASE + "sfx/correct.wav");
+  const SFX_BAD  = new Audio(AUDIO_BASE + "incorrect.wav");
+  const MAX_MISTAKES = 3;
+
+  const EXERCISES = [
+    {
+      image: IMG_BASE + "u5.she.cooking.dinner.jpg",
+      questions: [
+        { q:"Who is she?",        correct:"She is my mother.",        wrong:"She is my grandmother."  },
+        { q:"Where is she?",      correct:"She is in the kitchen.",   wrong:"She is in the living room." },
+        { q:"What is she doing?", correct:"She is cooking dinner.",   wrong:"She is eating dinner."   }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.l1.p1.man.painting.jpg",
+      questions: [
+        { q:"Who is he?",        correct:"He is my father.",                 wrong:"He is my grandfather."    },
+        { q:"Where is he?",      correct:"He is at home.",                   wrong:"He is in the garage."     },
+        { q:"What is he doing?", correct:"He is painting the living room.",  wrong:"He is fixing the sink."   }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.daughter.english.jpg",
+      questions: [
+        { q:"Who is she?",        correct:"She is my daughter.",      wrong:"She is my mother."   },
+        { q:"What is she doing?", correct:"She is studying English.", wrong:"She is swimming."    }
+      ]
+    },
+    {
+      image: IMG_BASE + "u5.son.reading.jpg",
+      questions: [
+        { q:"Who is he?",        correct:"He is my son.",           wrong:"He is my husband."         },
+        { q:"What is he doing?", correct:"He is reading a book.",   wrong:"He is riding a bicycle."   }
+      ]
+    }
+  ];
+
+  let exIndex      = 0;
+  let qIndex       = 0;
+  let locked       = false;
+  let totalCorrect = 0;
+  let totalWrong   = 0;
+  let qMistakes    = 0;
+
+  const imgEl          = document.getElementById("lessonImg");
+  const subCounter     = document.getElementById("subCounter");
+  const questionLabel  = document.getElementById("questionLabel");
+  const answersEl      = document.getElementById("answers");
+  const counterEl      = document.getElementById("counter");
+  const barEl          = document.getElementById("progressBar");
+  const endScreen      = document.getElementById("endScreen");
+  const mainCard       = document.getElementById("mainCard");
+  const scoreCorrectEl = document.getElementById("scoreCorrect");
+  const scoreWrongEl   = document.getElementById("scoreWrong");
+  const mistakeHint    = document.getElementById("mistakeHint");
+
+  // Vocab panel
   let vocabAudio = null;
-  window.playVocab = function(tile, file) {
-    if (vocabAudio) { vocabAudio.pause(); vocabAudio = null; }
-    document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
-    tile.classList.add("playing");
-    vocabAudio = new Audio(VOCAB_BASE + file);
-    vocabAudio.play().catch(() => {});
-    vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
-  };
-  window.toggleVocab = function() {
+  document.getElementById("vocabToggle").addEventListener("click", () => {
     const body   = document.getElementById("vocabBody");
     const toggle = document.getElementById("vocabToggle");
     const isOpen = !body.classList.contains("hidden");
     body.classList.toggle("hidden", isOpen);
     toggle.classList.toggle("open", !isOpen);
-  };
+  });
+  document.querySelectorAll(".vocab-tile").forEach(tile => {
+    tile.addEventListener("click", () => {
+      if (vocabAudio) { vocabAudio.pause(); }
+      document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
+      tile.classList.add("playing");
+      vocabAudio = new Audio(AUDIO_BASE + tile.dataset.audio);
+      vocabAudio.play().catch(() => {});
+      vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
+    });
+  });
+
+  function playOk()  { SFX_OK.currentTime  = 0; SFX_OK.play().catch(() => {}); }
+  function playBad() { SFX_BAD.currentTime = 0; SFX_BAD.play().catch(() => {}); }
+
+  function updateScore() {
+    scoreCorrectEl.textContent = totalCorrect;
+    scoreWrongEl.textContent   = totalWrong;
+  }
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+  }
+
+  function loadExercise() {
+    qIndex    = 0;
+    qMistakes = 0;
+    locked    = false;
+    mistakeHint.style.display = "none";
+
+    const ex = EXERCISES[exIndex];
+    counterEl.textContent = `${exIndex + 1} / ${EXERCISES.length}`;
+    barEl.style.width = ((exIndex + 1) / EXERCISES.length * 100) + "%";
+
+    imgEl.src = ex.image;
+    imgEl.alt = ex.questions[0].q;
+
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const ex = EXERCISES[exIndex];
+    const q  = ex.questions[qIndex];
+
+    subCounter.textContent    = `Pregunta ${qIndex + 1} / ${ex.questions.length}`;
+    questionLabel.textContent = q.q;
+    mistakeHint.style.display = "none";
+    qMistakes = 0;
+
+    const options = [
+      { text: q.correct, isCorrect: true  },
+      { text: q.wrong,   isCorrect: false }
+    ];
+    shuffle(options);
+
+    answersEl.innerHTML = "";
+    options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className   = "answer-btn";
+      btn.textContent = opt.text;
+      btn.addEventListener("click", () => selectAnswer(btn, opt.isCorrect, q.correct));
+      answersEl.appendChild(btn);
+    });
+
+    locked = false;
+  }
+
+  function selectAnswer(btn, isCorrect, correctText) {
+    if (locked) return;
+
+    const allBtns = answersEl.querySelectorAll(".answer-btn");
+
+    if (isCorrect) {
+      locked = true;
+      allBtns.forEach(b => b.disabled = true);
+      btn.classList.add("correct");
+      totalCorrect++;
+      updateScore();
+      playOk();
+      setTimeout(nextQuestion, 900);
+    } else {
+      qMistakes++;
+      totalWrong++;
+      updateScore();
+      playBad();
+      btn.classList.add("wrong");
+
+      if (qMistakes >= MAX_MISTAKES) {
+        locked = true;
+        allBtns.forEach(b => b.disabled = true);
+        mistakeHint.style.display = "block";
+        allBtns.forEach(b => {
+          if (b.textContent === correctText) b.classList.add("reveal");
+        });
+        setTimeout(nextQuestion, 2000);
+      } else {
+        setTimeout(() => {
+          btn.classList.remove("wrong");
+          locked = false;
+        }, 600);
+      }
+    }
+  }
+
+  function nextQuestion() {
+    const ex = EXERCISES[exIndex];
+    qIndex++;
+    if (qIndex < ex.questions.length) {
+      renderQuestion();
+    } else {
+      exIndex++;
+      if (exIndex >= EXERCISES.length) {
+        showEndScreen();
+      } else {
+        loadExercise();
+      }
+    }
+  }
+
+  function showEndScreen() {
+    mainCard.style.display  = "none";
+    endScreen.style.display = "block";
+    document.getElementById("endCorrect").textContent = totalCorrect;
+    document.getElementById("endWrong").textContent   = totalWrong;
+
+    try {
+      const key  = "inglesco_progress_u5";
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data.l2) data.l2 = {};
+      data.l2.partsCompleted = Math.max(data.l2.partsCompleted || 0, 4);
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  shuffle(EXERCISES);
+  loadExercise();
+})();
 </script>
-<script src="../../../../js/u5/u5_l2_p4.js"></script>
 </body>
 </html>
