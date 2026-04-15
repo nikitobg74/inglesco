@@ -6,6 +6,11 @@
 <title>Unidad 5 • Lección 2 • Parte 2</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Insights -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -14,56 +19,48 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
+
 .back-btn{
-  display:inline-block;
-  margin-bottom:16px;
-  padding:7px 14px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
-  font-size:14px;
+  display:inline-flex;align-items:center;gap:6px;
+  margin-bottom:16px;padding:7px 14px;
+  background:#2563eb;color:white;border-radius:10px;
+  text-decoration:none;font-weight:700;font-size:14px;
 }
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
 .progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:12px 0 20px 0;
+  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
 }
 .step{
-  width:38px;height:38px;border-radius:50%;
-  background:#d1d5db;
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
   display:flex;align-items:center;justify-content:center;
-  font-weight:600;text-decoration:none;
-  color:#1f2933;transition:.3s;font-size:15px;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* Vocabulary panel */
+/* Score counters */
+.score-row{
+  display:flex;justify-content:center;gap:16px;margin-bottom:14px;
+}
+.score-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:999px;font-weight:700;font-size:14px;
+}
+.score-pill.correct-pill{background:#dcfce7;color:#15803d;border:2px solid #bbf7d0}
+.score-pill.wrong-pill{background:#fee2e2;color:#b91c1c;border:2px solid #fecaca}
+
+/* Vocab panel */
 .vocab-panel{
-  background:rgba(255,255,255,.88);
-  border-radius:18px;
-  margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.06);
-  overflow:hidden;
+  background:rgba(255,255,255,.88);border-radius:20px;
+  margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.06);overflow:hidden;
 }
 .vocab-toggle{
-  width:100%;
-  background:none;
-  border:none;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-weight:700;
-  font-size:15px;
-  color:#1e40af;
+  width:100%;background:none;border:none;padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;font-family:'Poppins',sans-serif;font-weight:700;
+  font-size:15px;color:#1e40af;
 }
 .vocab-toggle .arrow{transition:transform .3s;font-size:12px}
 .vocab-toggle.open .arrow{transform:rotate(180deg)}
@@ -75,21 +72,19 @@ body{
   display:flex;justify-content:space-between;align-items:center;
   padding:12px 14px;border-radius:12px;background:#eff6ff;
   border:2px solid #bfdbfe;cursor:pointer;
-  transition:background .15s,border-color .15s;user-select:none;min-height:56px;
+  transition:background .15s,border-color .15s;user-select:none;min-height:52px;
 }
 .vocab-tile:hover{background:#dbeafe;border-color:#93c5fd}
 .vocab-tile.playing{background:#fef9c3;border-color:#f59e0b}
-.vocab-left{display:flex;flex-direction:column;gap:2px}
+.vocab-left{display:flex;flex-direction:column;gap:1px}
 .vocab-en{font-weight:700;color:#1d4ed8;font-size:14px}
 .vocab-es{color:#64748b;font-size:12px}
-.vocab-speaker{font-size:20px;flex-shrink:0;margin-left:6px}
+.vocab-speaker{font-size:18px;flex-shrink:0;margin-left:6px}
 
-/* Card */
+/* Main card */
 .card{
-  background:rgba(255,255,255,.88);
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
   display:flex;justify-content:space-between;
@@ -97,15 +92,21 @@ body{
 }
 .bar-wrap{
   background:#e2e8f0;border-radius:999px;height:7px;
-  margin-bottom:20px;overflow:hidden;
+  margin-bottom:18px;overflow:hidden;
 }
 .bar-fill{
   height:100%;width:0%;background:#2563eb;
   border-radius:999px;transition:width .4s;
 }
+
+/* Image */
+.img-wrap{
+  width:100%;border-radius:14px;margin-bottom:14px;overflow:hidden;
+  background:#f1f5f9;display:flex;align-items:center;justify-content:center;
+  max-height:280px;
+}
 .lesson-img{
-  width:100%;height:auto;max-height:360px;object-fit:contain;
-  border-radius:14px;margin-bottom:14px;display:block;background:#f1f5f9;
+  width:100%;height:auto;max-height:280px;object-fit:contain;display:block;
 }
 
 /* Audio button */
@@ -115,12 +116,13 @@ body{
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 20px;transition:background .2s;flex-shrink:0;
   box-shadow:0 4px 14px rgba(37,99,235,.35);
+  -webkit-tap-highlight-color:transparent;
 }
 .audio-btn:hover{background:#1d4ed8}
 .audio-btn.playing{background:#f59e0b;box-shadow:0 4px 14px rgba(245,158,11,.35)}
 .audio-btn.done{background:#22c55e;box-shadow:0 4px 14px rgba(34,197,94,.35)}
 
-/* Builder section */
+/* Builder */
 .builder-area{display:none;margin-bottom:20px}
 .builder-area.show{display:block}
 .builder-label{
@@ -130,24 +132,30 @@ body{
 .drop-zone{
   min-height:54px;border:2px dashed #93c5fd;border-radius:14px;
   background:#f0f9ff;display:flex;flex-wrap:wrap;align-items:center;
-  gap:8px;padding:10px 12px;margin-bottom:14px;
+  gap:8px;padding:10px 12px;margin-bottom:14px;transition:border-color .2s,background .2s;
 }
 .drop-zone .placed{
   padding:9px 14px;border-radius:10px;background:#2563eb;
   color:white;font-weight:800;font-size:15px;cursor:pointer;
-  transition:background .15s;
+  transition:background .15s;-webkit-tap-highlight-color:transparent;
 }
 .drop-zone .placed:hover{background:#1d4ed8}
 .drop-zone.correct{border-color:#22c55e;background:#f0fdf4}
 .drop-zone.correct .placed{background:#15803d;cursor:default}
-.drop-zone.error{
-  border-color:#ef4444;background:#fef2f2;animation:shake .4s;
+.drop-zone.error{border-color:#ef4444;background:#fef2f2;animation:shake .4s}
+
+/* Mistake hint */
+.mistake-hint{
+  text-align:center;font-size:13px;font-weight:600;
+  color:#b45309;margin-top:-8px;margin-bottom:10px;min-height:20px;
 }
+
 .tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .tile{
   padding:12px 18px;border-radius:12px;border:2px solid #bfdbfe;
   background:#eff6ff;color:#1d4ed8;font-weight:800;cursor:pointer;
   font-family:'Poppins',sans-serif;font-size:15px;transition:background .15s;
+  -webkit-tap-highlight-color:transparent;
 }
 .tile:hover{background:#dbeafe}
 .tile.used{opacity:.25;pointer-events:none}
@@ -156,6 +164,32 @@ body{
   0%{transform:translateX(0)}25%{transform:translateX(-6px)}
   50%{transform:translateX(6px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}
 }
+
+/* End screen */
+#endScreen{
+  display:none;text-align:center;background:rgba(255,255,255,.88);
+  border-radius:20px;padding:30px 20px;margin:16px auto;max-width:640px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+#endScreen h2{font-size:22px;font-weight:900;margin-bottom:8px}
+#endScreen p{margin:6px 0 20px;color:#374151;font-size:15px}
+.end-score{display:flex;justify-content:center;gap:16px;margin-bottom:20px}
+.end-pill{padding:8px 18px;border-radius:999px;font-weight:700;font-size:15px}
+.end-pill.green{background:#dcfce7;color:#15803d;border:2px solid #bbf7d0}
+.end-pill.red{background:#fee2e2;color:#b91c1c;border:2px solid #fecaca}
+.next-btn{
+  display:inline-block;padding:12px 28px;background:#2563eb;
+  color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px;
+}
+
+@media(max-width:480px){
+  .top-title{font-size:16px}
+  .tile{padding:10px 14px;font-size:13px}
+  .drop-zone .placed{padding:8px 12px;font-size:13px}
+  .lesson-img{max-height:200px}
+  .img-wrap{max-height:200px}
+  .builder-label{font-size:14px}
+}
 </style>
 </head>
 <body>
@@ -163,12 +197,19 @@ body{
   <a href="../index.html" class="back-btn">← Unidad 5</a>
   <div class="top-title">Unidad 5 • Lección 2 • Parte 2</div>
   <div class="subline">Escucha y construye la oración</div>
+
   <div class="progress-container">
     <a class="step" href="p1.html">1</a>
     <a class="step active" href="p2.html">2</a>
     <a class="step" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Score counters -->
+  <div class="score-row">
+    <div class="score-pill correct-pill">✓ <span id="scoreCorrect">0</span></div>
+    <div class="score-pill wrong-pill">✗ <span id="scoreWrong">0</span></div>
   </div>
 
   <!-- Vocabulary panel -->
@@ -179,87 +220,430 @@ body{
     </button>
     <div class="vocab-body" id="vocabBody">
       <p class="vocab-hint">🔊 Toca una palabra para escucharla</p>
-      <div class="vocab-grid">
-        <div class="vocab-tile" onclick="playVocab(this,'u5.mother.mp3')">
-          <div class="vocab-left"><span class="vocab-en">mother</span><span class="vocab-es">madre</span></div>
-          <span class="vocab-speaker">🔊</span>
-        </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.father.mp3')">
-          <div class="vocab-left"><span class="vocab-en">father</span><span class="vocab-es">padre</span></div>
-          <span class="vocab-speaker">🔊</span>
-        </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.grandmother1.mp3')">
-          <div class="vocab-left"><span class="vocab-en">grandmother</span><span class="vocab-es">abuela</span></div>
-          <span class="vocab-speaker">🔊</span>
-        </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.grandfather1.mp3')">
-          <div class="vocab-left"><span class="vocab-en">grandfather</span><span class="vocab-es">abuelo</span></div>
-          <span class="vocab-speaker">🔊</span>
-        </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.parents.mp3')">
-          <div class="vocab-left"><span class="vocab-en">parents</span><span class="vocab-es">padres</span></div>
-          <span class="vocab-speaker">🔊</span>
-        </div>
-        <div class="vocab-tile" onclick="playVocab(this,'u5.grandparents.mp3')">
-          <div class="vocab-left"><span class="vocab-en">grandparents</span><span class="vocab-es">abuelos</span></div>
-          <span class="vocab-speaker">🔊</span>
-        </div>
-      </div>
+      <div class="vocab-grid" id="vocabGrid"></div>
     </div>
   </div>
 
   <!-- Main card -->
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="counter-row"><span id="counter">1 / 4</span></div>
     <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
 
-    <img id="lessonImg" class="lesson-img" src="" alt="" />
+    <div class="img-wrap">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
+    </div>
 
     <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
 
-    <!-- First sentence builder -->
+    <!-- Builder 1 -->
     <div class="builder-area" id="builder1Area">
       <div class="builder-label" id="builder1Label"></div>
       <div class="drop-zone" id="dropZone1"></div>
+      <div class="mistake-hint" id="hint1"></div>
       <div class="tiles" id="tiles1"></div>
     </div>
 
-    <!-- Second sentence builder -->
+    <!-- Builder 2 -->
     <div class="builder-area" id="builder2Area">
       <div class="builder-label" id="builder2Label"></div>
       <div class="drop-zone" id="dropZone2"></div>
+      <div class="mistake-hint" id="hint2"></div>
       <div class="tiles" id="tiles2"></div>
     </div>
   </div>
 </div>
 
-<!-- End screen outside card -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
+<!-- End screen -->
+<div id="endScreen">
   <h2>¡Excelente trabajo!</h2>
-  <p style="margin:10px 0 20px">Completaste la Parte 2.</p>
-  <a href="p3.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 3</a>
+  <p>Completaste la Parte 2.</p>
+  <div class="end-score">
+    <div class="end-pill green">✓ <span id="endCorrect">0</span> correctas</div>
+    <div class="end-pill red">✗ <span id="endWrong">0</span> errores</div>
+  </div>
+  <a href="p3.html" class="next-btn">Continuar → Parte 3</a>
 </div>
 
 <script>
-  const VOCAB_BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/audio/u5/";
-  let vocabAudio = null;
-  window.playVocab = function(tile, file) {
-    if (vocabAudio) { vocabAudio.pause(); vocabAudio = null; }
-    document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
-    tile.classList.add("playing");
-    vocabAudio = new Audio(VOCAB_BASE + file);
-    vocabAudio.play().catch(() => {});
-    vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
-  };
-  window.toggleVocab = function() {
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const SFX_CORRECT   = BASE + "audio/u5/correct.wav";
+  const SFX_INCORRECT = BASE + "audio/u5/incorrect.wav";
+  const MAX_MISTAKES   = 3;
+
+  // ── Vocabulary ────────────────────────────────────────────
+  const VOCAB = [
+    { en: "mother",       es: "madre",   audio: "u5.mother.mp3"       },
+    { en: "father",       es: "padre",   audio: "u5.father.mp3"       },
+    { en: "grandmother",  es: "abuela",  audio: "u5.grandmother1.mp3" },
+    { en: "grandfather",  es: "abuelo",  audio: "u5.grandfather1.mp3" },
+    { en: "parents",      es: "padres",  audio: "u5.parents.mp3"      },
+    { en: "grandparents", es: "abuelos", audio: "u5.grandparents.mp3" }
+  ];
+
+  // ── Exercises ─────────────────────────────────────────────
+  const EXERCISES = [
+    {
+      image:   BASE + "images/u5/u5.she.cooking.dinner.jpg",
+      audio1:  BASE + "audio/u5/u5.who.she.mp3",
+      q1:      "Who is she?",
+      words1:  ["She", "is", "my", "mother."],
+      extra1:  "grandmother",
+      correct1Audio: BASE + "audio/u5/u5.my.mother2.mp3",
+      audio2:  BASE + "audio/u5/u5.what.she.doing.mp3",
+      q2:      "What is she doing?",
+      words2:  ["She", "is", "cooking", "dinner."],
+      extra2:  "eating",
+      correct2Audio: BASE + "audio/u5/u5.she.cooking.mp3"
+    },
+    {
+      image:   BASE + "images/u5/u5.l1.p1.man.painting.jpg",
+      audio1:  BASE + "audio/u5/u5.who.he.mp3",
+      q1:      "Who is he?",
+      words1:  ["He", "is", "my", "father."],
+      extra1:  "grandfather",
+      correct1Audio: BASE + "audio/u5/u5.my.father.mp3",
+      audio2:  BASE + "audio/u5/u5.what.he.doing.mp3",
+      q2:      "What is he doing?",
+      words2:  ["He", "is", "painting", "the", "living room."],
+      extra2:  "bedroom",
+      correct2Audio: BASE + "audio/u5/u5.he.painting.mp3"
+    },
+    {
+      image:   BASE + "images/u5/u5.grandmother.planting.jpg",
+      audio1:  BASE + "audio/u5/u5.who.she.mp3",
+      q1:      "Who is she?",
+      words1:  ["She", "is", "my", "grandmother."],
+      extra1:  "mother",
+      correct1Audio: BASE + "audio/u5/u5.my.grandmother2.mp3",
+      audio2:  BASE + "audio/u5/u5.what.she.doing.mp3",
+      q2:      "What is she doing?",
+      words2:  ["She", "is", "planting", "flowers."],
+      extra2:  "eating",
+      correct2Audio: BASE + "audio/u5/u5.she.planting.mp3"
+    },
+    {
+      image:   BASE + "images/u5/u5.grandfather.jpg",
+      audio1:  BASE + "audio/u5/u5.who.he.mp3",
+      q1:      "Who is he?",
+      words1:  ["He", "is", "my", "grandfather."],
+      extra1:  "father",
+      correct1Audio: BASE + "audio/u5/u5.my.grandfather.mp3",
+      audio2:  BASE + "audio/u5/u5.what.he.doing.mp3",
+      q2:      "What is he doing?",
+      words2:  ["He", "is", "fixing", "the", "shower."],
+      extra2:  "car",
+      correct2Audio: BASE + "audio/u5/u5.he.shower.mp3"
+    }
+  ];
+
+  // ── State ─────────────────────────────────────────────────
+  let exIndex      = 0;
+  let mainAudio    = null;
+  let totalCorrect = 0;
+  let totalWrong   = 0;
+  let vocabAudio   = null;
+
+  // Per-builder state
+  let placed1 = [], placed2 = [];
+  let solved1 = false, solved2 = false;
+  let mistakes1 = 0, mistakes2 = 0;
+
+  // ── DOM refs ──────────────────────────────────────────────
+  const imgEl         = document.getElementById("lessonImg");
+  const audioBtn      = document.getElementById("audioBtn");
+  const builder1Area  = document.getElementById("builder1Area");
+  const builder1Label = document.getElementById("builder1Label");
+  const dropZone1     = document.getElementById("dropZone1");
+  const tiles1El      = document.getElementById("tiles1");
+  const hint1El       = document.getElementById("hint1");
+  const builder2Area  = document.getElementById("builder2Area");
+  const builder2Label = document.getElementById("builder2Label");
+  const dropZone2     = document.getElementById("dropZone2");
+  const tiles2El      = document.getElementById("tiles2");
+  const hint2El       = document.getElementById("hint2");
+  const counter       = document.getElementById("counter");
+  const bar           = document.getElementById("progressBar");
+  const endScreen     = document.getElementById("endScreen");
+  const mainCard      = document.getElementById("mainCard");
+  const scoreCorrect  = document.getElementById("scoreCorrect");
+  const scoreWrong    = document.getElementById("scoreWrong");
+
+  // ── SFX ───────────────────────────────────────────────────
+  function playSfx(url) { try { new Audio(url).play(); } catch(e) {} }
+
+  // ── Vocabulary ────────────────────────────────────────────
+  function buildVocab() {
+    const grid = document.getElementById("vocabGrid");
+    grid.innerHTML = "";
+    VOCAB.forEach(v => {
+      const tile = document.createElement("div");
+      tile.className = "vocab-tile";
+      tile.innerHTML = `
+        <div class="vocab-left">
+          <span class="vocab-en">${v.en}</span>
+          <span class="vocab-es">${v.es}</span>
+        </div>
+        <span class="vocab-speaker">🔊</span>`;
+      tile.onclick = () => {
+        if (vocabAudio) { vocabAudio.pause(); vocabAudio = null; }
+        document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
+        tile.classList.add("playing");
+        vocabAudio = new Audio(BASE + "audio/u5/" + v.audio);
+        vocabAudio.play().catch(() => {});
+        vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
+      };
+      grid.appendChild(tile);
+    });
+  }
+
+  window.toggleVocab = function () {
     const body   = document.getElementById("vocabBody");
     const toggle = document.getElementById("vocabToggle");
     const isOpen = !body.classList.contains("hidden");
     body.classList.toggle("hidden", isOpen);
     toggle.classList.toggle("open", !isOpen);
   };
-</script>
 
-<script src="../../../../js/u5/u5_l2_p2.js"></script>
+  // ── Load exercise ─────────────────────────────────────────
+  function loadExercise() {
+    solved1 = false; solved2 = false;
+    placed1 = []; placed2 = [];
+    mistakes1 = 0; mistakes2 = 0;
+
+    const ex = EXERCISES[exIndex];
+    counter.textContent = `${exIndex + 1} / ${EXERCISES.length}`;
+    bar.style.width = ((exIndex + 1) / EXERCISES.length * 100) + "%";
+
+    imgEl.src = ex.image;
+    imgEl.alt = ex.q1;
+
+    audioBtn.className   = "audio-btn";
+    audioBtn.textContent = "▶";
+    audioBtn.disabled    = false;
+
+    builder1Area.classList.remove("show");
+    builder2Area.classList.remove("show");
+    dropZone1.className = "drop-zone"; dropZone1.innerHTML = "";
+    dropZone2.className = "drop-zone"; dropZone2.innerHTML = "";
+    tiles1El.innerHTML = ""; tiles2El.innerHTML = "";
+    hint1El.textContent = ""; hint2El.textContent = "";
+
+    if (mainAudio) { mainAudio.pause(); mainAudio = null; }
+  }
+
+  // ── Play first audio ──────────────────────────────────────
+  window.playFirstAudio = function () {
+    if (audioBtn.disabled) return;
+    audioBtn.disabled    = true;
+    audioBtn.className   = "audio-btn playing";
+    audioBtn.textContent = "🔊";
+
+    const ex = EXERCISES[exIndex];
+    mainAudio = new Audio(ex.audio1);
+    mainAudio.play().catch(() => {});
+    mainAudio.addEventListener("ended", () => {
+      audioBtn.className   = "audio-btn done";
+      audioBtn.textContent = "✓";
+      showBuilder1();
+    });
+  };
+
+  // ── Show builder 1 ────────────────────────────────────────
+  function showBuilder1() {
+    const ex = EXERCISES[exIndex];
+    builder1Label.textContent = ex.q1;
+    const words = shuffle([...ex.words1, ex.extra1]);
+    buildTiles(tiles1El, dropZone1, hint1El, words, ex.words1, placed1, 1);
+    builder1Area.classList.add("show");
+  }
+
+  // ── Show builder 2 ────────────────────────────────────────
+  function showBuilder2() {
+    const ex = EXERCISES[exIndex];
+    builder2Label.textContent = ex.q2;
+    const words = shuffle([...ex.words2, ex.extra2]);
+    buildTiles(tiles2El, dropZone2, hint2El, words, ex.words2, placed2, 2);
+    builder2Area.classList.add("show");
+    // Scroll builder 2 into view on mobile
+    setTimeout(() => builder2Area.scrollIntoView({ behavior: "smooth", block: "nearest" }), 100);
+  }
+
+  // ── Build tiles ───────────────────────────────────────────
+  function buildTiles(tilesEl, dropZone, hintEl, words, correctWords, placedArr, num) {
+    tilesEl.innerHTML = "";
+    words.forEach(word => {
+      const btn = document.createElement("button");
+      btn.className = "tile";
+      btn.textContent = word;
+      btn.dataset.word = word;
+      btn.onclick = () => placeTile(btn, tilesEl, dropZone, hintEl, correctWords, placedArr, num);
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  // ── Place tile ────────────────────────────────────────────
+  function placeTile(btn, tilesEl, dropZone, hintEl, correctWords, placedArr, num) {
+    if (num === 1 && solved1) return;
+    if (num === 2 && solved2) return;
+
+    btn.classList.add("used");
+    placedArr.push({ word: btn.dataset.word, btn });
+
+    const chip = document.createElement("span");
+    chip.className = "placed";
+    chip.textContent = btn.dataset.word;
+    chip.onclick = () => {
+      if (num === 1 && solved1) return;
+      if (num === 2 && solved2) return;
+      chip.remove();
+      const idx = placedArr.findIndex(p => p.btn === btn);
+      if (idx !== -1) placedArr.splice(idx, 1);
+      btn.classList.remove("used");
+      dropZone.classList.remove("error");
+    };
+    dropZone.appendChild(chip);
+
+    // Auto-check when enough words placed
+    if (placedArr.length === correctWords.length) {
+      checkBuilder(tilesEl, dropZone, hintEl, correctWords, placedArr, num);
+    }
+  }
+
+  // ── Check builder ─────────────────────────────────────────
+  function checkBuilder(tilesEl, dropZone, hintEl, correctWords, placedArr, num) {
+    const built   = placedArr.map(p => p.word).join(" ");
+    const correct = correctWords.join(" ");
+    const ex      = EXERCISES[exIndex];
+
+    if (built === correct) {
+      // ✓ Correct
+      if (num === 1) solved1 = true;
+      else           solved2 = true;
+
+      totalCorrect++;
+      scoreCorrect.textContent = totalCorrect;
+      playSfx(SFX_CORRECT);
+
+      dropZone.classList.add("correct");
+      dropZone.querySelectorAll(".placed").forEach(c => { c.onclick = null; c.style.cursor = "default"; });
+      tilesEl.querySelectorAll(".tile").forEach(t => { t.classList.add("used"); t.style.pointerEvents = "none"; });
+      hintEl.textContent = "";
+
+      const confirmAudio = new Audio(num === 1 ? ex.correct1Audio : ex.correct2Audio);
+      confirmAudio.play().catch(() => {});
+
+      if (num === 1) {
+        confirmAudio.addEventListener("ended", () => {
+          if (mainAudio) { mainAudio.pause(); mainAudio = null; }
+          mainAudio = new Audio(ex.audio2);
+          mainAudio.play().catch(() => {});
+          mainAudio.addEventListener("ended", () => showBuilder2());
+        });
+      } else {
+        setTimeout(advance, 2000);
+      }
+
+    } else {
+      // ✗ Wrong
+      if (num === 1) mistakes1++;
+      else           mistakes2++;
+      totalWrong++;
+      scoreWrong.textContent = totalWrong;
+      playSfx(SFX_INCORRECT);
+
+      dropZone.classList.add("error");
+
+      const mistakesNow = num === 1 ? mistakes1 : mistakes2;
+
+      if (mistakesNow >= MAX_MISTAKES) {
+        // Reveal answer — auto-place correct words
+        if (num === 1) solved1 = true;
+        else           solved2 = true;
+
+        setTimeout(() => {
+          dropZone.classList.remove("error");
+          dropZone.innerHTML = "";
+          placedArr.splice(0, placedArr.length);
+          tilesEl.querySelectorAll(".tile").forEach(t => {
+            t.classList.add("used");
+            t.style.pointerEvents = "none";
+          });
+          // Place correct chips
+          correctWords.forEach(word => {
+            const chip = document.createElement("span");
+            chip.className = "placed";
+            chip.textContent = word;
+            chip.style.cursor = "default";
+            dropZone.appendChild(chip);
+          });
+          dropZone.classList.add("correct");
+          hintEl.textContent = "";
+
+          const confirmAudio = new Audio(num === 1 ? ex.correct1Audio : ex.correct2Audio);
+          confirmAudio.play().catch(() => {});
+
+          if (num === 1) {
+            confirmAudio.addEventListener("ended", () => {
+              if (mainAudio) { mainAudio.pause(); mainAudio = null; }
+              mainAudio = new Audio(ex.audio2);
+              mainAudio.play().catch(() => {});
+              mainAudio.addEventListener("ended", () => showBuilder2());
+            });
+          } else {
+            setTimeout(advance, 2000);
+          }
+        }, 500);
+
+      } else {
+        // Clear and let student retry
+        setTimeout(() => {
+          dropZone.classList.remove("error");
+          placedArr.forEach(p => p.btn.classList.remove("used"));
+          placedArr.splice(0, placedArr.length);
+          dropZone.innerHTML = "";
+          const left = MAX_MISTAKES - mistakesNow;
+          hintEl.textContent = left === 1
+            ? "⚠️ Último intento — ¡piensa bien!"
+            : "Intenta otra vez.";
+        }, 500);
+      }
+    }
+  }
+
+  // ── Advance ───────────────────────────────────────────────
+  function advance() {
+    exIndex++;
+    if (exIndex >= EXERCISES.length) {
+      mainCard.style.display  = "none";
+      endScreen.style.display = "block";
+      document.getElementById("endCorrect").textContent = totalCorrect;
+      document.getElementById("endWrong").textContent   = totalWrong;
+      try {
+        const prog = JSON.parse(localStorage.getItem("inglesco_progress_u5") || "{}");
+        prog["l2_p2"] = { done: true, correct: totalCorrect, wrong: totalWrong };
+        localStorage.setItem("inglesco_progress_u5", JSON.stringify(prog));
+        localStorage.setItem("inglesco_furthest_u5_l2", "p2");
+      } catch(e) {}
+      return;
+    }
+    loadExercise();
+  }
+
+  // ── Shuffle ───────────────────────────────────────────────
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ── Init ──────────────────────────────────────────────────
+  buildVocab();
+  shuffle(EXERCISES);
+  loadExercise();
+})();
+</script>
 </body>
 </html>

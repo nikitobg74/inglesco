@@ -6,6 +6,11 @@
 <title>Unidad 5 • Lección 2 • Parte 1</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Insights -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
@@ -14,9 +19,11 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
+
+/* Back button */
 .back-btn{
-  display:inline-block;
+  display:inline-flex;align-items:center;gap:6px;
   margin-bottom:16px;
   padding:7px 14px;
   background:#2563eb;
@@ -26,8 +33,12 @@ body{
   font-weight:700;
   font-size:14px;
 }
+
+/* Header */
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+/* Progress steps */
 .progress-container{
   display:flex;
   justify-content:center;
@@ -43,10 +54,27 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
+/* Score counters */
+.score-row{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:14px;
+}
+.score-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 14px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:14px;
+}
+.score-pill.correct-pill{background:#dcfce7;color:#15803d;border:2px solid #bbf7d0}
+.score-pill.wrong-pill{background:#fee2e2;color:#b91c1c;border:2px solid #fecaca}
+
 /* Vocabulary panel */
 .vocab-panel{
   background:rgba(255,255,255,.88);
-  border-radius:18px;
+  border-radius:20px;
   margin-bottom:16px;
   box-shadow:0 4px 12px rgba(0,0,0,.06);
   overflow:hidden;
@@ -67,16 +95,9 @@ body{
 }
 .vocab-toggle .arrow{transition:transform .3s;font-size:12px}
 .vocab-toggle.open .arrow{transform:rotate(180deg)}
-.vocab-body{
-  padding:0 18px 16px;
-}
+.vocab-body{padding:0 18px 16px}
 .vocab-body.hidden{display:none}
-.vocab-hint{
-  font-size:12px;
-  color:#64748b;
-  font-weight:600;
-  margin-bottom:10px;
-}
+.vocab-hint{font-size:12px;color:#64748b;font-weight:600;margin-bottom:10px}
 .vocab-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -96,18 +117,17 @@ body{
   min-height:52px;
 }
 .vocab-tile:hover{background:#dbeafe;border-color:#93c5fd}
-.vocab-tile:active{background:#bfdbfe}
 .vocab-tile.playing{background:#fef9c3;border-color:#f59e0b}
 .vocab-left{display:flex;flex-direction:column;gap:1px}
 .vocab-en{font-weight:700;color:#1d4ed8;font-size:14px}
 .vocab-es{color:#64748b;font-size:12px}
 .vocab-speaker{font-size:18px;flex-shrink:0;margin-left:6px}
 
-/* Card */
+/* Main card */
 .card{
   background:rgba(255,255,255,.88);
-  border-radius:18px;
-  padding:16px;
+  border-radius:20px;
+  padding:18px 16px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
@@ -122,7 +142,7 @@ body{
   background:#e2e8f0;
   border-radius:999px;
   height:7px;
-  margin-bottom:20px;
+  margin-bottom:18px;
   overflow:hidden;
 }
 .bar-fill{
@@ -134,15 +154,23 @@ body{
 }
 
 /* Image */
+.img-wrap{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:14px;
+  overflow:hidden;
+  background:#f1f5f9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  max-height:300px;
+}
 .lesson-img{
   width:100%;
   height:auto;
-  max-height:360px;
+  max-height:300px;
   object-fit:contain;
-  border-radius:14px;
-  margin-bottom:14px;
   display:block;
-  background:#f1f5f9;
 }
 
 /* Audio button */
@@ -159,6 +187,7 @@ body{
   transition:background .2s;
   flex-shrink:0;
   box-shadow:0 4px 14px rgba(37,99,235,.35);
+  -webkit-tap-highlight-color:transparent;
 }
 .audio-btn:hover{background:#1d4ed8}
 .audio-btn.playing{background:#f59e0b;box-shadow:0 4px 14px rgba(245,158,11,.35)}
@@ -171,7 +200,7 @@ body{
   padding:14px 16px;
   border:2px solid #e2e8f0;
   font-size:15px;
-  line-height:1.9;
+  line-height:2;
   margin-bottom:16px;
 }
 .karaoke-box span{
@@ -185,11 +214,8 @@ body{
   font-weight:700;
 }
 
-/* Question + fill-in */
-.question-area{
-  display:none;
-  margin-top:4px;
-}
+/* Question area */
+.question-area{display:none;margin-top:4px}
 .question-area.show{display:block}
 .question-label{
   text-align:center;
@@ -207,6 +233,7 @@ body{
   font-weight:700;
   margin-bottom:14px;
   flex-wrap:wrap;
+  line-height:2;
 }
 .blank-word{
   padding:4px 12px;
@@ -217,10 +244,16 @@ body{
   text-align:center;
   display:inline-block;
 }
-.blank-word.correct{
+.blank-word.correct-blank{
   background:#dcfce7;
   color:#15803d;
   border-bottom-color:#22c55e;
+  border-radius:6px;
+}
+.blank-word.revealed{
+  background:#fef9c3;
+  color:#92400e;
+  border-bottom-color:#f59e0b;
   border-radius:6px;
 }
 
@@ -230,6 +263,7 @@ body{
   flex-wrap:wrap;
   gap:10px;
   justify-content:center;
+  margin-bottom:4px;
 }
 .tile{
   padding:13px 20px;
@@ -242,15 +276,26 @@ body{
   font-family:'Poppins',sans-serif;
   font-size:15px;
   transition:background .15s;
+  -webkit-tap-highlight-color:transparent;
 }
 .tile:hover{background:#dbeafe}
 .tile.used{opacity:.3;pointer-events:none}
-.tile.correct{background:#dcfce7;border-color:#22c55e;color:#15803d;pointer-events:none}
+.tile.correct-tile{background:#dcfce7;border-color:#22c55e;color:#15803d;pointer-events:none}
 .tile.error{
   background:#fee2e2;
   border-color:#ef4444;
   color:#b91c1c;
   animation:shake .4s;
+}
+
+/* Mistake hint */
+.mistake-hint{
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  color:#b45309;
+  margin-top:6px;
+  min-height:20px;
 }
 
 @keyframes shake{
@@ -260,6 +305,52 @@ body{
   75%{transform:translateX(-6px)}
   100%{transform:translateX(0)}
 }
+
+/* End screen */
+#endScreen{
+  display:none;
+  text-align:center;
+  background:rgba(255,255,255,.88);
+  border-radius:20px;
+  padding:30px 20px;
+  margin:16px auto;
+  max-width:640px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+#endScreen h2{font-size:22px;font-weight:900;margin-bottom:8px}
+#endScreen p{margin:6px 0 20px;color:#374151;font-size:15px}
+.end-score{
+  display:flex;justify-content:center;gap:16px;margin-bottom:20px;
+}
+.end-pill{
+  padding:8px 18px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:15px;
+}
+.end-pill.green{background:#dcfce7;color:#15803d;border:2px solid #bbf7d0}
+.end-pill.red{background:#fee2e2;color:#b91c1c;border:2px solid #fecaca}
+.next-btn{
+  display:inline-block;
+  padding:12px 28px;
+  background:#2563eb;
+  color:white;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:16px;
+}
+
+/* Mobile tweaks */
+@media(max-width:480px){
+  .top-title{font-size:16px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .tile{padding:11px 16px;font-size:14px}
+  .karaoke-box{font-size:14px}
+  .lesson-img{max-height:220px}
+  .img-wrap{max-height:220px}
+  .answer-row{font-size:14px}
+}
 </style>
 </head>
 <body>
@@ -267,12 +358,19 @@ body{
   <a href="../index.html" class="back-btn">← Unidad 5</a>
   <div class="top-title">Unidad 5 • Lección 2 • Parte 1</div>
   <div class="subline">Escucha y responde</div>
+
   <div class="progress-container">
     <a class="step active" href="p1.html">1</a>
     <a class="step" href="p2.html">2</a>
     <a class="step" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Score counters -->
+  <div class="score-row">
+    <div class="score-pill correct-pill">✓ <span id="scoreCorrect">0</span></div>
+    <div class="score-pill wrong-pill">✗ <span id="scoreWrong">0</span></div>
   </div>
 
   <!-- Vocabulary panel -->
@@ -288,7 +386,7 @@ body{
   </div>
 
   <!-- Main card -->
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="counter-row">
       <span id="counter">1 / 6</span>
     </div>
@@ -296,7 +394,9 @@ body{
       <div class="bar-fill" id="progressBar"></div>
     </div>
 
-    <img id="lessonImg" class="lesson-img" src="" alt="" />
+    <div class="img-wrap">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
+    </div>
 
     <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
 
@@ -306,17 +406,405 @@ body{
       <div class="question-label" id="questionLabel"></div>
       <div class="answer-row" id="answerRow"></div>
       <div class="tiles" id="tiles"></div>
+      <div class="mistake-hint" id="mistakeHint"></div>
     </div>
   </div>
 </div>
 
-<!-- End screen outside card -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
+<!-- End screen -->
+<div id="endScreen">
   <h2>¡Excelente trabajo!</h2>
-  <p style="margin:10px 0 20px">Completaste la Parte 1.</p>
-  <a href="p2.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 2</a>
+  <p>Completaste la Parte 1.</p>
+  <div class="end-score">
+    <div class="end-pill green">✓ <span id="endCorrect">0</span> correctas</div>
+    <div class="end-pill red">✗ <span id="endWrong">0</span> errores</div>
+  </div>
+  <a href="p2.html" class="next-btn">Continuar → Parte 2</a>
 </div>
 
-<script src="../../../../js/u5/u5_l2_p1.js"></script>
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const SFX_CORRECT   = BASE + "audio/u5/correct.wav";
+  const SFX_INCORRECT = BASE + "audio/u5/incorrect.wav";
+  const MAX_MISTAKES   = 3; // reveal answer after this many wrong taps
+
+  // ── Vocabulary ────────────────────────────────────────────
+  const VOCAB = [
+    { en: "mother",       es: "madre",   audio: "u5.mother.mp3"       },
+    { en: "father",       es: "padre",   audio: "u5.father.mp3"       },
+    { en: "grandmother",  es: "abuela",  audio: "u5.grandmother1.mp3" },
+    { en: "grandfather",  es: "abuelo",  audio: "u5.grandfather1.mp3" },
+    { en: "parents",      es: "padres",  audio: "u5.parents.mp3"      },
+    { en: "grandparents", es: "abuelos", audio: "u5.grandparents.mp3" }
+  ];
+
+  // ── Exercises ─────────────────────────────────────────────
+  const EXERCISES = [
+    {
+      image:   BASE + "images/u5/u5.she.cooking.dinner.jpg",
+      audio1:  BASE + "audio/u5/u5.mother.cooking.mp3",
+      lines: [
+        { text: "Who is she?",            t: 0.0 },
+        { text: "She is my mother.",      t: 1.3 },
+        { text: "Where is she?",          t: 3.0 },
+        { text: "She is in the kitchen.", t: 4.2 },
+        { text: "What is she doing?",     t: 6.0 },
+        { text: "She is cooking dinner.", t: 7.3 }
+      ],
+      audio2:   BASE + "audio/u5/u5.my.mother.mp3",
+      question: "Who is she?",
+      partial:  ["She is my", "_____", "."],
+      correct:  "mother",
+      options:  ["wife", "sister", "mother"]
+    },
+    {
+      image:   BASE + "images/u5/u5.l1.p1.man.painting.jpg",
+      audio1:  BASE + "audio/u5/u5.father.painting.mp3",
+      lines: [
+        { text: "Who is he?",                      t: 0.0 },
+        { text: "He is my father.",                t: 1.3 },
+        { text: "Where is he?",                    t: 3.0 },
+        { text: "He is at home.",                  t: 4.2 },
+        { text: "What is he doing?",               t: 6.0 },
+        { text: "He is painting the living room.", t: 7.3 }
+      ],
+      audio2:   BASE + "audio/u5/u5.my.father.mp3",
+      question: "Who is he?",
+      partial:  ["He is my", "_____", "."],
+      correct:  "father",
+      options:  ["husband", "father", "brother"]
+    },
+    {
+      image:   BASE + "images/u5/u5.grandmother.planting.jpg",
+      audio1:  BASE + "audio/u5/u5.grandmother.flowers.mp3",
+      lines: [
+        { text: "Who is she?",              t: 0.0 },
+        { text: "She is my grandmother.",   t: 1.3 },
+        { text: "Where is she?",            t: 3.0 },
+        { text: "She is in the garden.",    t: 4.2 },
+        { text: "What is she doing?",       t: 6.0 },
+        { text: "She is planting flowers.", t: 7.3 }
+      ],
+      audio2:   BASE + "audio/u5/u5.my.grandmother.mp3",
+      question: "Who is she?",
+      partial:  ["She is my", "_____", "."],
+      correct:  "grandmother",
+      options:  ["grandmother", "sister", "mother"]
+    },
+    {
+      image:   BASE + "images/u5/u5.grandfather.jpg",
+      audio1:  BASE + "audio/u5/u5.grandfather.fixing.mp3",
+      lines: [
+        { text: "Who is he?",               t: 0.0 },
+        { text: "He is my grandfather.",    t: 1.3 },
+        { text: "Where is he?",             t: 3.0 },
+        { text: "He is in the bathroom.",   t: 4.2 },
+        { text: "What is he doing?",        t: 6.0 },
+        { text: "He is fixing the shower.", t: 8.0 }
+      ],
+      audio2:   BASE + "audio/u5/u5.my.grandfather.mp3",
+      question: "Who is he?",
+      partial:  ["He is my", "_____", "."],
+      correct:  "grandfather",
+      options:  ["husband", "grandfather", "brother"]
+    },
+    {
+      image:   BASE + "images/u5/u5.grandparents.jpg",
+      audio1:  BASE + "audio/u5/u5.grandparents.eiffel.mp3",
+      lines: [
+        { text: "Who are they?",                                    t: 0.0 },
+        { text: "They are my grandparents.",                        t: 1.3 },
+        { text: "Where are they?",                                  t: 3.2 },
+        { text: "They are in Paris.",                               t: 5.4 },
+        { text: "What are they doing?",                             t: 7.1 },
+        { text: "They are standing in front of the Eiffel Tower.", t: 9.1 }
+      ],
+      audio2:   BASE + "audio/u5/u5.grandparents1.mp3",
+      question: "Who are they?",
+      partial:  ["They are my", "_____", "."],
+      correct:  "grandparents",
+      options:  ["grandparents", "parents", "family"]
+    },
+    {
+      image:   BASE + "images/u5/u5.man.woman.beach.surfing.jpg",
+      audio1:  BASE + "audio/u5/u5.parents.surfing.mp3",
+      lines: [
+        { text: "Who are they?",          t: 0.0 },
+        { text: "They are my parents.",   t: 1.5 },
+        { text: "Where are they?",        t: 3.2 },
+        { text: "They are at the beach.", t: 5.5 },
+        { text: "What are they doing?",   t: 7.5 },
+        { text: "They are surfing.",      t: 9.3 }
+      ],
+      audio2:   BASE + "audio/u5/u5.my.parents.mp3",
+      question: "Who are they?",
+      partial:  ["They are my", "_____", "."],
+      correct:  "parents",
+      options:  ["grandparents", "parents", "brothers"]
+    }
+  ];
+
+  // ── State ─────────────────────────────────────────────────
+  let exIndex      = 0;
+  let audio1       = null;
+  let audio2       = null;
+  let rafId        = null;
+  let answered     = false;
+  let mistakesThis = 0;   // mistakes on current exercise
+  let totalCorrect = 0;
+  let totalWrong   = 0;
+  let vocabAudio   = null;
+
+  // ── DOM refs ──────────────────────────────────────────────
+  const imgEl         = document.getElementById("lessonImg");
+  const audioBtn      = document.getElementById("audioBtn");
+  const karaokeBox    = document.getElementById("karaokeBox");
+  const questionArea  = document.getElementById("questionArea");
+  const questionLabel = document.getElementById("questionLabel");
+  const answerRow     = document.getElementById("answerRow");
+  const tilesEl       = document.getElementById("tiles");
+  const counter       = document.getElementById("counter");
+  const bar           = document.getElementById("progressBar");
+  const endScreen     = document.getElementById("endScreen");
+  const mainCard      = document.getElementById("mainCard");
+  const scoreCorrect  = document.getElementById("scoreCorrect");
+  const scoreWrong    = document.getElementById("scoreWrong");
+  const mistakeHint   = document.getElementById("mistakeHint");
+
+  // ── SFX helpers ───────────────────────────────────────────
+  function playSfx(url) {
+    try { new Audio(url).play(); } catch(e) {}
+  }
+
+  // ── Build vocabulary tiles ────────────────────────────────
+  function buildVocab() {
+    const grid = document.getElementById("vocabGrid");
+    grid.innerHTML = "";
+    VOCAB.forEach(v => {
+      const tile = document.createElement("div");
+      tile.className = "vocab-tile";
+      tile.innerHTML = `
+        <div class="vocab-left">
+          <span class="vocab-en">${v.en}</span>
+          <span class="vocab-es">${v.es}</span>
+        </div>
+        <span class="vocab-speaker">🔊</span>`;
+      tile.onclick = () => playVocabWord(tile, v.audio);
+      grid.appendChild(tile);
+    });
+  }
+
+  function playVocabWord(tile, audioFile) {
+    if (vocabAudio) { vocabAudio.pause(); vocabAudio = null; }
+    document.querySelectorAll(".vocab-tile").forEach(t => t.classList.remove("playing"));
+    tile.classList.add("playing");
+    vocabAudio = new Audio(BASE + "audio/u5/" + audioFile);
+    vocabAudio.play().catch(() => {});
+    vocabAudio.addEventListener("ended", () => tile.classList.remove("playing"));
+  }
+
+  // ── Vocab toggle ──────────────────────────────────────────
+  window.toggleVocab = function () {
+    const body   = document.getElementById("vocabBody");
+    const toggle = document.getElementById("vocabToggle");
+    const isOpen = !body.classList.contains("hidden");
+    body.classList.toggle("hidden", isOpen);
+    toggle.classList.toggle("open", !isOpen);
+  };
+
+  // ── Load exercise ─────────────────────────────────────────
+  function loadExercise() {
+    answered     = false;
+    mistakesThis = 0;
+    const ex = EXERCISES[exIndex];
+
+    counter.textContent = `${exIndex + 1} / ${EXERCISES.length}`;
+    bar.style.width     = ((exIndex + 1) / EXERCISES.length * 100) + "%";
+
+    imgEl.src = ex.image;
+    imgEl.alt = ex.question;
+
+    audioBtn.className   = "audio-btn";
+    audioBtn.textContent = "▶";
+    audioBtn.disabled    = false;
+    audioBtn.onclick     = playFirstAudio;
+
+    karaokeBox.innerHTML = ex.lines
+      .map((l, i) => `<span data-i="${i}">${l.text}</span>`)
+      .join("<br>");
+
+    questionArea.classList.remove("show");
+    tilesEl.innerHTML    = "";
+    answerRow.innerHTML  = "";
+    mistakeHint.textContent = "";
+
+    stopAll();
+  }
+
+  // ── Play first audio (karaoke) ────────────────────────────
+  window.playFirstAudio = function () {
+    if (audioBtn.disabled) return;
+    audioBtn.disabled    = true;
+    audioBtn.className   = "audio-btn playing";
+    audioBtn.textContent = "🔊";
+
+    const ex = EXERCISES[exIndex];
+    audio1 = new Audio(ex.audio1);
+    audio1.play().catch(() => {});
+
+    const spans = karaokeBox.querySelectorAll("span");
+
+    function tick() {
+      const t = audio1.currentTime;
+      spans.forEach((sp, i) => {
+        const lineT = ex.lines[i].t;
+        const nextT = ex.lines[i + 1] ? ex.lines[i + 1].t : Infinity;
+        sp.classList.toggle("highlight", t >= lineT && t < nextT);
+      });
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+
+    audio1.addEventListener("ended", () => {
+      cancelAnimationFrame(rafId);
+      karaokeBox.querySelectorAll("span").forEach(sp => sp.classList.remove("highlight"));
+      audioBtn.className   = "audio-btn done";
+      audioBtn.textContent = "✓";
+      showQuestion();
+    });
+  };
+
+  // ── Show fill-in question ─────────────────────────────────
+  function showQuestion() {
+    const ex = EXERCISES[exIndex];
+    questionLabel.textContent = ex.question;
+
+    answerRow.innerHTML = "";
+    ex.partial.forEach(part => {
+      if (part === "_____") {
+        const blank = document.createElement("span");
+        blank.className  = "blank-word";
+        blank.id         = "blankWord";
+        blank.textContent = "_____";
+        answerRow.appendChild(blank);
+      } else {
+        const txt = document.createElement("span");
+        txt.textContent = part;
+        answerRow.appendChild(txt);
+      }
+    });
+
+    const opts = [...ex.options];
+    shuffle(opts);
+    tilesEl.innerHTML = "";
+    opts.forEach(word => {
+      const btn = document.createElement("button");
+      btn.className = "tile";
+      btn.textContent = word;
+      btn.onclick = () => selectAnswer(btn, word);
+      tilesEl.appendChild(btn);
+    });
+
+    mistakeHint.textContent = "";
+    questionArea.classList.add("show");
+  }
+
+  // ── Select answer ─────────────────────────────────────────
+  function selectAnswer(btn, word) {
+    if (answered) return;
+    const ex    = EXERCISES[exIndex];
+    const blank = document.getElementById("blankWord");
+
+    if (word === ex.correct) {
+      answered = true;
+      totalCorrect++;
+      scoreCorrect.textContent = totalCorrect;
+      blank.textContent = word;
+      blank.classList.add("correct-blank");
+      btn.classList.add("correct-tile");
+      tilesEl.querySelectorAll(".tile").forEach(t => t.classList.add("used"));
+      mistakeHint.textContent = "";
+      playSfx(SFX_CORRECT);
+      setTimeout(playSecondAudio, 600);
+    } else {
+      mistakesThis++;
+      totalWrong++;
+      scoreWrong.textContent = totalWrong;
+      playSfx(SFX_INCORRECT);
+      btn.classList.add("error");
+      setTimeout(() => btn.classList.remove("error"), 400);
+
+      if (mistakesThis >= MAX_MISTAKES) {
+        // Reveal answer
+        answered = true;
+        blank.textContent = ex.correct;
+        blank.classList.add("revealed");
+        tilesEl.querySelectorAll(".tile").forEach(t => {
+          t.classList.add("used");
+          if (t.textContent === ex.correct) {
+            t.classList.remove("used");
+            t.classList.add("correct-tile");
+          }
+        });
+        mistakeHint.textContent = "";
+        setTimeout(playSecondAudio, 900);
+      } else {
+        const left = MAX_MISTAKES - mistakesThis;
+        mistakeHint.textContent = left === 1
+          ? "⚠️ Último intento — ¡piensa bien!"
+          : `Intenta otra vez.`;
+      }
+    }
+  }
+
+  // ── Play second audio then advance ────────────────────────
+  function playSecondAudio() {
+    const ex = EXERCISES[exIndex];
+    audio2 = new Audio(ex.audio2);
+    audio2.play().catch(() => {});
+    audio2.addEventListener("ended", () => setTimeout(advance, 1800));
+  }
+
+  // ── Advance ───────────────────────────────────────────────
+  function advance() {
+    exIndex++;
+    if (exIndex >= EXERCISES.length) {
+      mainCard.style.display = "none";
+      endScreen.style.display = "block";
+      document.getElementById("endCorrect").textContent = totalCorrect;
+      document.getElementById("endWrong").textContent   = totalWrong;
+      // Page completion tracking
+      try {
+        const prog = JSON.parse(localStorage.getItem("inglesco_progress_u5") || "{}");
+        prog["l2_p1"] = { done: true, correct: totalCorrect, wrong: totalWrong };
+        localStorage.setItem("inglesco_progress_u5", JSON.stringify(prog));
+        localStorage.setItem("inglesco_furthest_u5_l2", "p1");
+      } catch(e) {}
+      return;
+    }
+    loadExercise();
+  }
+
+  // ── Helpers ───────────────────────────────────────────────
+  function stopAll() {
+    if (rafId)  { cancelAnimationFrame(rafId); rafId = null; }
+    if (audio1) { audio1.pause(); audio1 = null; }
+    if (audio2) { audio2.pause(); audio2 = null; }
+  }
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+  }
+
+  // ── Init ──────────────────────────────────────────────────
+  buildVocab();
+  shuffle(EXERCISES);
+  loadExercise();
+})();
+</script>
 </body>
 </html>
