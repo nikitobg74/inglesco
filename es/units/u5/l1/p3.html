@@ -14,241 +14,165 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 .back-btn{
-  display:inline-block;
-  margin-bottom:16px;
-  padding:7px 14px;
-  background:#2563eb;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
-  font-size:14px;
+  display:inline-block;margin-bottom:16px;
+  padding:7px 14px;background:#2563eb;color:white;
+  border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;
 }
+.back-btn:hover{background:#1e40af}
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
-.progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:12px 0 20px 0;
-}
+.progress-container{display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0}
 .step{
-  width:38px;height:38px;border-radius:50%;
-  background:#d1d5db;
+  width:38px;height:38px;border-radius:50%;background:#d1d5db;
   display:flex;align-items:center;justify-content:center;
-  font-weight:600;text-decoration:none;
-  color:#1f2933;transition:.3s;font-size:15px;
+  font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
 }
 .step.active{background:#2563eb;color:#fff}
+.step:hover{transform:scale(1.08)}
 
-/* Vocabulary panel */
+/* Vocab panel */
 .vocab-panel{
-  background:rgba(255,255,255,.88);
-  border-radius:18px;
-  margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.06);
-  overflow:hidden;
+  background:rgba(255,255,255,.88);border-radius:18px;
+  margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.06);overflow:hidden;
 }
 .vocab-toggle{
-  width:100%;
-  background:none;
-  border:none;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-weight:700;
-  font-size:15px;
-  color:#1e40af;
+  width:100%;background:none;border:none;padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#1e40af;
 }
 .vocab-toggle .arrow{transition:transform .3s;font-size:12px}
 .vocab-toggle.open .arrow{transform:rotate(180deg)}
-.vocab-body{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px 12px;
-  padding:0 18px 14px;
-}
+.vocab-body{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;padding:0 18px 14px}
 .vocab-body.hidden{display:none}
-.vocab-row{
-  display:flex;
-  justify-content:space-between;
-  padding:5px 10px;
-  border-radius:8px;
-  background:#eff6ff;
-  font-size:14px;
-}
+.vocab-row{display:flex;justify-content:space-between;padding:5px 10px;border-radius:8px;background:#eff6ff;font-size:14px}
 .vocab-en{font-weight:700;color:#1d4ed8}
 .vocab-es{color:#374151}
 
 /* Card */
 .card{
-  background:rgba(255,255,255,.88);
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:20px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-size:13px;
-  font-weight:700;
-  color:#486581;
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
 }
-.bar-wrap{
-  background:#e2e8f0;
-  border-radius:999px;
-  height:7px;
-  margin-bottom:20px;
-  overflow:hidden;
-}
-.bar-fill{
-  height:100%;
-  width:0%;
-  background:#2563eb;
-  border-radius:999px;
-  transition:width .4s;
-}
+.mistakes-badge{font-size:13px;font-weight:700;color:#dc2626;visibility:hidden}
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:20px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:#2563eb;border-radius:999px;transition:width .4s}
 
 /* Image */
-.lesson-img{
-  width:100%;
-  height:auto;
-  max-height:360px;
-  object-fit:contain;
-  border-radius:14px;
-  margin-bottom:14px;
-  display:block;
-  background:#f1f5f9;
+.img-wrap{
+  width:100%;border-radius:14px;overflow:hidden;background:#f1f5f9;
+  margin-bottom:16px;display:flex;align-items:center;justify-content:center;min-height:180px;
 }
+.lesson-img{width:100%;max-height:320px;object-fit:contain;display:block}
 
-/* Audio button */
+/* Audio */
+.audio-row{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:16px}
 .audio-btn{
-  width:64px;height:64px;
-  border-radius:50%;
-  border:none;
-  background:#2563eb;
-  color:white;
-  font-size:26px;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 16px;
-  transition:background .2s;
-  flex-shrink:0;
-  box-shadow:0 4px 14px rgba(37,99,235,.35);
+  width:68px;height:68px;border-radius:50%;border:none;
+  background:#2563eb;color:white;font-size:28px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(37,99,235,.35);transition:background .2s,transform .15s;
 }
-.audio-btn:hover{background:#1d4ed8}
+.audio-btn:hover{background:#1d4ed8;transform:scale(1.05)}
 .audio-btn.playing{background:#f59e0b;box-shadow:0 4px 14px rgba(245,158,11,.35)}
 .audio-btn.done{background:#22c55e;box-shadow:0 4px 14px rgba(34,197,94,.35)}
+.audio-btn:disabled{opacity:.7;cursor:default;transform:none}
+.audio-hint{font-size:13px;font-weight:700;color:#64748b}
 
-/* Karaoke text */
+/* Karaoke */
 .karaoke-box{
-  background:#f8fafc;
-  border-radius:14px;
-  padding:14px 16px;
-  border:2px solid #e2e8f0;
-  font-size:15px;
-  line-height:1.9;
-  margin-bottom:16px;
-}
-.karaoke-box span{
-  border-radius:4px;
-  transition:background .15s;
-  padding:1px 3px;
-}
-.karaoke-box span.highlight{
-  background:#fde68a;
-  color:#92400e;
-  font-weight:700;
-}
-
-/* Sentence builder */
-.builder-area{
-  display:none;
-  margin-top:4px;
-}
-.builder-area.show{display:block}
-
-.builder-label{
+  background:#f8fafc;border-radius:14px;
+  padding:14px 16px;border:2px solid #e2e8f0;
+  font-size:16px;line-height:2;margin-bottom:16px;
   text-align:center;
-  font-size:15px;
-  font-weight:700;
-  color:#1e40af;
-  margin-bottom:12px;
+}
+.karaoke-box span{border-radius:4px;transition:background .15s;padding:1px 3px}
+.karaoke-box span.highlight{background:#fde68a;color:#92400e;font-weight:700}
+
+/* Builder */
+.builder-area{display:none;margin-top:4px}
+.builder-area.show{display:block}
+.builder-label{
+  text-align:center;font-size:15px;font-weight:700;
+  color:#1e40af;margin-bottom:12px;
 }
 
-/* Drop zone — built sentence */
+/* Drop zone */
 .drop-zone{
-  min-height:54px;
+  min-height:56px;
   border:2px dashed #93c5fd;
-  border-radius:14px;
-  background:#f0f9ff;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:8px;
-  padding:10px 12px;
-  margin-bottom:14px;
+  border-radius:14px;background:#f0f9ff;
+  display:flex;flex-wrap:wrap;align-items:center;
+  gap:8px;padding:10px 12px;margin-bottom:6px;
+  transition:border-color .2s,background .2s;
 }
 .drop-zone .placed{
-  padding:9px 14px;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:800;
-  font-size:15px;
-  cursor:pointer;
-  transition:background .15s;
+  padding:9px 14px;border-radius:10px;
+  background:#2563eb;color:white;
+  font-weight:800;font-size:15px;
+  cursor:pointer;transition:background .15s;
+  user-select:none;
 }
 .drop-zone .placed:hover{background:#1d4ed8}
-.drop-zone.correct{
-  border-color:#22c55e;
-  background:#f0fdf4;
-}
-.drop-zone.correct .placed{
-  background:#15803d;
-  cursor:default;
-}
-.drop-zone.error{
-  border-color:#ef4444;
-  background:#fef2f2;
-  animation:shake .4s;
-}
+.drop-zone.correct{border-color:#22c55e;background:#f0fdf4}
+.drop-zone.correct .placed{background:#15803d;cursor:default}
+.drop-zone.error{border-color:#ef4444;background:#fef2f2}
 
-/* Word tile bank */
-.tiles{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
+/* Undo row */
+.undo-row{display:flex;justify-content:flex-end;margin-bottom:12px}
+.undo-btn{
+  background:none;border:2px solid #e2e8f0;border-radius:8px;
+  padding:4px 12px;font-size:12px;font-weight:700;
+  color:#64748b;cursor:pointer;transition:background .15s;
 }
+.undo-btn:hover{background:#f1f5f9}
+.undo-btn:disabled{opacity:.35;pointer-events:none}
+
+/* Tiles */
+.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .tile{
-  padding:12px 18px;
-  border-radius:12px;
-  border:2px solid #bfdbfe;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-weight:800;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-size:15px;
-  transition:background .15s;
+  padding:12px 18px;border-radius:12px;
+  border:2px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+  font-weight:800;cursor:pointer;font-size:15px;
+  transition:background .15s,transform .15s;
 }
-.tile:hover{background:#dbeafe}
+.tile:hover{background:#dbeafe;transform:translateY(-2px)}
 .tile.used{opacity:.25;pointer-events:none}
 
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
+/* Hint */
+.hint-bar{
+  min-height:26px;margin-top:10px;text-align:center;
+  font-size:13px;font-weight:700;color:#dc2626;
+  opacity:0;transition:opacity .2s;
 }
+.hint-bar.show{opacity:1}
+
+/* End screen */
+.end{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:32px 20px;margin-top:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.end.show{display:block}
+.end h2{font-size:24px;font-weight:900;margin-bottom:8px}
+.end p{color:#374151;margin-bottom:20px}
+.end-stats{display:flex;justify-content:center;gap:28px;margin-bottom:20px}
+.stat{text-align:center}
+.stat-num{font-size:32px;font-weight:900;color:#2563eb}
+.stat-label{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase}
+
+@keyframes shake{
+  0%{transform:translateX(0)}20%{transform:translateX(-7px)}
+  40%{transform:translateX(7px)}60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}100%{transform:translateX(0)}
+}
+.shake-it{animation:shake .4s}
 </style>
 </head>
 <body>
@@ -264,7 +188,7 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- Vocabulary panel -->
+  <!-- Vocab panel -->
   <div class="vocab-panel">
     <button class="vocab-toggle open" id="vocabToggle" onclick="toggleVocab()">
       <span>📖 Vocabulario nuevo</span>
@@ -279,17 +203,21 @@ body{
   </div>
 
   <!-- Main card -->
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="counter-row">
       <span id="counter">1 / 4</span>
+      <span class="mistakes-badge" id="mistakeBadge">✗ <span id="mistakeCount">0</span></span>
     </div>
-    <div class="bar-wrap">
-      <div class="bar-fill" id="progressBar"></div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+
+    <div class="img-wrap">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
     </div>
 
-    <img id="lessonImg" class="lesson-img" src="" alt="" />
-
-    <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
+    <div class="audio-row">
+      <button class="audio-btn" id="audioBtn" onclick="playFirstAudio()">▶</button>
+      <span class="audio-hint" id="audioHint">Toca para escuchar</span>
+    </div>
 
     <div class="karaoke-box" id="karaokeBox"></div>
 
@@ -297,18 +225,346 @@ body{
     <div class="builder-area" id="builderArea">
       <div class="builder-label" id="builderLabel"></div>
       <div class="drop-zone" id="dropZone"></div>
+      <div class="undo-row">
+        <button class="undo-btn" id="undoBtn" onclick="undoLast()" disabled>↩ Deshacer</button>
+      </div>
       <div class="tiles" id="tiles"></div>
+      <div class="hint-bar" id="hintBar"></div>
     </div>
+  </div>
+
+  <!-- End screen -->
+  <div class="end" id="endScreen">
+    <h2>¡Excelente trabajo!</h2>
+    <p>Completaste la Parte 3.</p>
+    <div class="end-stats">
+      <div class="stat"><div class="stat-num" id="totalCorrect">0</div><div class="stat-label">Correctas</div></div>
+      <div class="stat"><div class="stat-num" id="totalMistakes">0</div><div class="stat-label">Errores</div></div>
+    </div>
+    <a href="p4.html" class="back-btn" style="font-size:16px;padding:12px 28px">Continuar → Parte 4</a>
   </div>
 </div>
 
-<!-- End screen outside card -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
-  <h2>¡Excelente trabajo!</h2>
-  <p style="margin:10px 0 20px">Completaste la Parte 3.</p>
-  <a href="p4.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 4</a>
-</div>
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
 
-<script src="../../../../js/u5/u5_l1_p3.js"></script>
+  const EXERCISES = [
+    {
+      image:    BASE + "images/u5/u5.l1.p1.wife.jpg",
+      audio1:   BASE + "audio/u5/u5.who.she.mp3",
+      audio2:   BASE + "audio/u5/u5.l1.p1.wife.mp3",
+      lines:    [{ text: "Who is she?", t: 0.0 }],
+      question: "Who is she?",
+      words:    ["She", "is", "my", "wife"],
+      translation: "Ella es mi esposa."
+    },
+    {
+      image:    BASE + "images/u5/u5.l1.p1.husband.statue.liberty.jpg",
+      audio1:   BASE + "audio/u5/u5.who.he.mp3",
+      audio2:   BASE + "audio/u5/u5.l1.p1.husband.mp3",
+      lines:    [{ text: "Who is he?", t: 0.0 }],
+      question: "Who is he?",
+      words:    ["He", "is", "my", "husband"],
+      translation: "Él es mi esposo."
+    },
+    {
+      image:    BASE + "images/u5/u5.l1.p1.boy.swimming.jpg",
+      audio1:   BASE + "audio/u5/u5.who.he.mp3",
+      audio2:   BASE + "audio/u5/u5.l1.p1.son.mp3",
+      lines:    [{ text: "Who is he?", t: 0.0 }],
+      question: "Who is he?",
+      words:    ["He", "is", "my", "son"],
+      translation: "Él es mi hijo."
+    },
+    {
+      image:    BASE + "images/u5/u5.l1.p1.daughter.riding.jpg",
+      audio1:   BASE + "audio/u5/u5.who.she.mp3",
+      audio2:   BASE + "audio/u5/u5.l1.p1.daughter.mp3",
+      lines:    [{ text: "Who is she?", t: 0.0 }],
+      question: "Who is she?",
+      words:    ["She", "is", "my", "daughter"],
+      translation: "Ella es mi hija."
+    }
+  ];
+
+  // Shuffle exercise order
+  for (let i = EXERCISES.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [EXERCISES[i], EXERCISES[j]] = [EXERCISES[j], EXERCISES[i]];
+  }
+
+  let exIndex      = 0;
+  let audio1       = null;
+  let audio2       = null;
+  let rafId        = null;
+  let placed       = [];   // {word, btn, chip}
+  let solved       = false;
+  let totalCorrect = 0;
+  let totalMistakes= 0;
+
+  const imgEl        = document.getElementById("lessonImg");
+  const audioBtn     = document.getElementById("audioBtn");
+  const audioHint    = document.getElementById("audioHint");
+  const karaokeBox   = document.getElementById("karaokeBox");
+  const builderArea  = document.getElementById("builderArea");
+  const builderLabel = document.getElementById("builderLabel");
+  const dropZone     = document.getElementById("dropZone");
+  const tilesEl      = document.getElementById("tiles");
+  const counter      = document.getElementById("counter");
+  const bar          = document.getElementById("progressBar");
+  const endScreen    = document.getElementById("endScreen");
+  const mainCard     = document.getElementById("mainCard");
+  const hintBar      = document.getElementById("hintBar");
+  const undoBtn      = document.getElementById("undoBtn");
+  const mistakeBadge = document.getElementById("mistakeBadge");
+  const mistakeCount = document.getElementById("mistakeCount");
+
+  window.toggleVocab = function() {
+    const body   = document.getElementById("vocabBody");
+    const toggle = document.getElementById("vocabToggle");
+    const isOpen = !body.classList.contains("hidden");
+    body.classList.toggle("hidden", isOpen);
+    toggle.classList.toggle("open", !isOpen);
+  };
+
+  function stopAll() {
+    if (rafId)  { cancelAnimationFrame(rafId); rafId = null; }
+    if (audio1) { audio1.pause(); audio1 = null; }
+    if (audio2) { audio2.pause(); audio2 = null; }
+  }
+
+  function shuffleWords(a) {
+    const arr = [...a];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function loadExercise() {
+    solved  = false;
+    placed  = [];
+    const ex = EXERCISES[exIndex];
+
+    counter.textContent = `${exIndex + 1} / ${EXERCISES.length}`;
+    bar.style.width = ((exIndex / EXERCISES.length) * 100) + "%";
+
+    imgEl.src = ex.image;
+    imgEl.alt = ex.question;
+
+    audioBtn.className   = "audio-btn";
+    audioBtn.textContent = "▶";
+    audioBtn.disabled    = false;
+    audioHint.textContent= "Toca para escuchar";
+
+    karaokeBox.innerHTML = ex.lines
+      .map((l, i) => `<span data-i="${i}">${l.text}</span>`)
+      .join("<br>");
+
+    builderArea.classList.remove("show");
+    dropZone.className = "drop-zone";
+    dropZone.innerHTML = "";
+    tilesEl.innerHTML  = "";
+    hintBar.classList.remove("show");
+    hintBar.textContent = "";
+    undoBtn.disabled = true;
+
+    stopAll();
+  }
+
+  window.playFirstAudio = function() {
+    if (audioBtn.disabled) return;
+    audioBtn.disabled    = true;
+    audioBtn.className   = "audio-btn playing";
+    audioBtn.textContent = "🔊";
+    audioHint.textContent= "Escuchando...";
+
+    const ex = EXERCISES[exIndex];
+    stopAll();
+    audio1 = new Audio(ex.audio1);
+
+    const spans = karaokeBox.querySelectorAll("span");
+
+    function tick() {
+      const t = audio1.currentTime;
+      spans.forEach((sp, i) => {
+        const lineT = ex.lines[i].t;
+        const nextT = ex.lines[i + 1] ? ex.lines[i + 1].t : Infinity;
+        sp.classList.toggle("highlight", t >= lineT && t < nextT);
+      });
+      rafId = requestAnimationFrame(tick);
+    }
+
+    audio1.play().catch(() => {
+      // fallback if audio fails
+      setTimeout(() => {
+        cancelAnimationFrame(rafId);
+        onFirstAudioEnd();
+      }, 800);
+    });
+    rafId = requestAnimationFrame(tick);
+    audio1.addEventListener("ended", () => {
+      cancelAnimationFrame(rafId);
+      karaokeBox.querySelectorAll("span").forEach(sp => sp.classList.remove("highlight"));
+      onFirstAudioEnd();
+    });
+  };
+
+  function onFirstAudioEnd() {
+    audioBtn.className    = "audio-btn done";
+    audioBtn.textContent  = "✓";
+    audioBtn.disabled     = false;  // allow replay
+    audioHint.textContent = "Toca para escuchar de nuevo";
+    showBuilder();
+  }
+
+  function showBuilder() {
+    const ex = EXERCISES[exIndex];
+    builderLabel.textContent = ex.question;
+
+    // Shuffle ensuring order differs from answer
+    let shuffled;
+    do { shuffled = shuffleWords(ex.words); }
+    while (shuffled.join(" ") === ex.words.join(" "));
+
+    tilesEl.innerHTML = "";
+    shuffled.forEach(word => {
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.textContent = word;
+      btn.dataset.word= word;
+      btn.onclick     = () => placeTile(btn);
+      tilesEl.appendChild(btn);
+    });
+
+    builderArea.classList.add("show");
+  }
+
+  function placeTile(btn) {
+    if (solved) return;
+    const word = btn.dataset.word;
+
+    btn.classList.add("used");
+
+    const chip = document.createElement("span");
+    chip.className   = "placed";
+    chip.textContent = word;
+    chip.onclick     = () => removeChip(chip, btn);
+    dropZone.appendChild(chip);
+
+    placed.push({ word, btn, chip });
+    undoBtn.disabled = false;
+
+    const ex = EXERCISES[exIndex];
+    if (placed.length === ex.words.length) checkAnswer();
+  }
+
+  function removeChip(chip, sourceBtn) {
+    if (solved) return;
+    chip.remove();
+    placed = placed.filter(p => p.chip !== chip);
+    sourceBtn.classList.remove("used");
+    dropZone.classList.remove("error");
+    undoBtn.disabled = placed.length === 0;
+  }
+
+  window.undoLast = function() {
+    if (solved || placed.length === 0) return;
+    const last = placed[placed.length - 1];
+    removeChip(last.chip, last.btn);
+  };
+
+  function checkAnswer() {
+    const ex        = EXERCISES[exIndex];
+    const built     = placed.map(p => p.word).join(" ");
+    const correct   = ex.words.join(" ");
+
+    if (built === correct) {
+      solved = true;
+      totalCorrect++;
+      dropZone.classList.add("correct");
+      undoBtn.disabled = true;
+
+      // Lock all tiles
+      tilesEl.querySelectorAll(".tile").forEach(t => {
+        t.classList.add("used");
+        t.style.pointerEvents = "none";
+      });
+      // Lock chips
+      dropZone.querySelectorAll(".placed").forEach(c => {
+        c.style.cursor = "default";
+        c.onclick = null;
+      });
+
+      hintBar.classList.remove("show");
+      setTimeout(playSecondAudio, 600);
+
+    } else {
+      // Grade each slot: which word was placed wrong?
+      totalMistakes++;
+      mistakeBadge.style.visibility = "visible";
+      mistakeCount.textContent = totalMistakes;
+
+      const placedWords   = placed.map(p => p.word);
+      const correctWords  = ex.words;
+      const firstWrong    = placedWords.find((w, i) => w !== correctWords[i]);
+      if (firstWrong) {
+        hintBar.textContent = `"${firstWrong}" no va ahí. Intenta de nuevo.`;
+        hintBar.classList.add("show");
+        setTimeout(() => hintBar.classList.remove("show"), 3000);
+      }
+
+      dropZone.classList.add("error", "shake-it");
+      setTimeout(() => {
+        dropZone.classList.remove("error", "shake-it");
+        // Return all tiles
+        placed.forEach(p => p.btn.classList.remove("used"));
+        placed = [];
+        dropZone.innerHTML = "";
+        undoBtn.disabled = true;
+      }, 500);
+    }
+  }
+
+  function playSecondAudio() {
+    const ex = EXERCISES[exIndex];
+    stopAll();
+    audio2 = new Audio(ex.audio2);
+    audio2.play().catch(() => {});
+    audio2.addEventListener("ended", () => {
+      // Show Spanish translation briefly, then advance
+      showTranslation(ex.translation, () => setTimeout(advance, 800));
+    });
+  }
+
+  function showTranslation(text, cb) {
+    // Append a translation chip to the drop zone
+    const chip = document.createElement("div");
+    chip.style.cssText = "width:100%;text-align:center;font-size:14px;font-weight:700;color:#374151;margin-top:8px;padding:8px;background:#f0fdf4;border-radius:10px;border:1px solid #bbf7d0";
+    chip.textContent = text;
+    dropZone.appendChild(chip);
+    setTimeout(cb, 1200);
+  }
+
+  function advance() {
+    exIndex++;
+    if (exIndex >= EXERCISES.length) {
+      mainCard.style.display = "none";
+      endScreen.classList.add("show");
+      bar.style.width = "100%";
+      document.getElementById("totalCorrect").textContent  = totalCorrect;
+      document.getElementById("totalMistakes").textContent = totalMistakes;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    loadExercise();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  loadExercise();
+})();
+</script>
 </body>
 </html>

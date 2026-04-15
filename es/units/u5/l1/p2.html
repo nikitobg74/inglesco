@@ -14,7 +14,7 @@ body{
   padding:16px 12px 60px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 .back-btn{
   display:inline-block;
   margin-bottom:16px;
@@ -26,14 +26,10 @@ body{
   font-weight:700;
   font-size:14px;
 }
+.back-btn:hover{background:#1e40af}
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
-.progress-container{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:12px 0 20px 0;
-}
+.progress-container{display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0}
 .step{
   width:38px;height:38px;border-radius:50%;
   background:#d1d5db;
@@ -42,8 +38,9 @@ body{
   color:#1f2933;transition:.3s;font-size:15px;
 }
 .step.active{background:#2563eb;color:#fff}
+.step:hover{transform:scale(1.08)}
 
-/* Vocabulary panel */
+/* Vocab panel */
 .vocab-panel{
   background:rgba(255,255,255,.88);
   border-radius:18px;
@@ -52,35 +49,23 @@ body{
   overflow:hidden;
 }
 .vocab-toggle{
-  width:100%;
-  background:none;
-  border:none;
+  width:100%;background:none;border:none;
   padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-weight:700;
-  font-size:15px;
-  color:#1e40af;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;font-family:'Poppins',sans-serif;
+  font-weight:700;font-size:15px;color:#1e40af;
 }
 .vocab-toggle .arrow{transition:transform .3s;font-size:12px}
 .vocab-toggle.open .arrow{transform:rotate(180deg)}
 .vocab-body{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px 12px;
-  padding:0 18px 14px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6px 12px;padding:0 18px 14px;
 }
 .vocab-body.hidden{display:none}
 .vocab-row{
-  display:flex;
-  justify-content:space-between;
-  padding:5px 10px;
-  border-radius:8px;
-  background:#eff6ff;
-  font-size:14px;
+  display:flex;justify-content:space-between;
+  padding:5px 10px;border-radius:8px;
+  background:#eff6ff;font-size:14px;
 }
 .vocab-en{font-weight:700;color:#1d4ed8}
 .vocab-es{color:#374151}
@@ -88,167 +73,122 @@ body{
 /* Card */
 .card{
   background:rgba(255,255,255,.88);
-  border-radius:18px;
-  padding:16px;
+  border-radius:20px;
+  padding:20px 16px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-size:13px;
-  font-weight:700;
-  color:#486581;
+  display:flex;justify-content:space-between;
+  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
 }
-.bar-wrap{
-  background:#e2e8f0;
-  border-radius:999px;
-  height:7px;
-  margin-bottom:20px;
-  overflow:hidden;
-}
-.bar-fill{
-  height:100%;
-  width:0%;
-  background:#2563eb;
-  border-radius:999px;
-  transition:width .4s;
-}
+.mistakes-badge{font-size:13px;font-weight:700;color:#dc2626;visibility:hidden}
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:20px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:#2563eb;border-radius:999px;transition:width .4s}
 
 /* Image */
-.lesson-img{
-  width:100%;
-  height:auto;
-  max-height:360px;
-  object-fit:contain;
-  border-radius:14px;
-  margin-bottom:14px;
-  display:block;
-  background:#f1f5f9;
+.img-wrap{
+  width:100%;border-radius:14px;overflow:hidden;
+  background:#f1f5f9;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+  min-height:180px;
 }
-
-/* Instruction */
-.instruction{
-  text-align:center;
-  font-size:14px;
-  font-weight:600;
-  color:#64748b;
-  margin-bottom:14px;
-}
+.lesson-img{width:100%;max-height:320px;object-fit:contain;display:block}
 
 /* Audio button */
+.audio-row{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:20px}
 .audio-btn{
-  width:64px;height:64px;
-  border-radius:50%;
-  border:none;
-  background:#2563eb;
-  color:white;
-  font-size:26px;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;
-  transition:background .2s;
-  flex-shrink:0;
+  width:68px;height:68px;border-radius:50%;border:none;
+  background:#2563eb;color:white;font-size:28px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
   box-shadow:0 4px 14px rgba(37,99,235,.35);
+  transition:background .2s,transform .15s;
 }
-.audio-btn:hover{background:#1d4ed8}
+.audio-btn:hover{background:#1d4ed8;transform:scale(1.05)}
 .audio-btn.playing{background:#f59e0b;box-shadow:0 4px 14px rgba(245,158,11,.35)}
 .audio-btn.done{background:#22c55e;box-shadow:0 4px 14px rgba(34,197,94,.35)}
+.audio-hint{font-size:13px;font-weight:700;color:#64748b}
 
-/* Tiles area */
-.tiles-area{
-  display:none;
-  margin-top:4px;
-}
+/* Tiles */
+.tiles-area{display:none;margin-top:4px}
 .tiles-area.show{display:block}
-
-.tiles-label{
-  text-align:center;
-  font-size:14px;
-  font-weight:700;
-  color:#1e40af;
-  margin-bottom:12px;
-}
-
-.tiles{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  justify-content:center;
-}
+.tiles-label{text-align:center;font-size:14px;font-weight:700;color:#1e40af;margin-bottom:14px}
+.tiles{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .tile{
-  padding:16px 28px;
-  border-radius:14px;
-  border:2px solid #bfdbfe;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-weight:800;
-  cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-size:18px;
-  min-width:120px;
-  text-align:center;
-  transition:background .15s, border-color .15s;
+  padding:16px 28px;border-radius:14px;
+  border:2px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+  font-weight:800;cursor:pointer;font-size:18px;
+  min-width:120px;text-align:center;
+  transition:background .15s,border-color .15s,transform .15s;
 }
-.tile:hover{background:#dbeafe}
-.tile.correct{
-  background:#dcfce7;
-  border-color:#22c55e;
-  color:#15803d;
-  pointer-events:none;
-}
-.tile.error{
-  background:#fee2e2;
-  border-color:#ef4444;
-  color:#b91c1c;
-  animation:shake .4s;
-}
+.tile:hover{background:#dbeafe;transform:translateY(-2px)}
+.tile.correct{background:#dcfce7;border-color:#22c55e;color:#15803d;pointer-events:none}
+.tile.error{background:#fee2e2;border-color:#ef4444;color:#b91c1c}
 .tile.disabled{opacity:.4;pointer-events:none}
 
-/* Confirmation sentence */
-.confirm-sentence{
+/* Confirmation */
+.confirm-box{
   display:none;
+  margin-top:16px;
+  border-radius:14px;
+  overflow:hidden;
+  border:2px solid #bbf7d0;
+}
+.confirm-box.show{display:block}
+.confirm-sentence{
   text-align:center;
-  margin-top:14px;
-  font-size:16px;
-  font-weight:700;
-  color:#15803d;
+  font-size:16px;font-weight:700;color:#15803d;
   background:#dcfce7;
-  border-radius:12px;
   padding:12px 16px;
 }
-.confirm-sentence.show{display:block}
+/* Spanish translation shown under the sentence */
+.confirm-translation{
+  text-align:center;
+  font-size:14px;font-weight:600;color:#374151;
+  background:#f0fdf4;
+  padding:8px 16px;
+  border-top:1px solid #bbf7d0;
+}
+
+/* Hint bar */
+.hint-bar{
+  min-height:26px;margin-top:10px;
+  text-align:center;font-size:13px;font-weight:700;
+  color:#dc2626;opacity:0;transition:opacity .2s;
+}
+.hint-bar.show{opacity:1}
 
 /* Next button */
 .next-btn{
-  display:block;
-  width:100%;
-  margin-top:18px;
-  padding:15px;
-  border-radius:14px;
-  border:none;
-  background:#2563eb;
-  color:white;
-  font-family:'Poppins',sans-serif;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  transition:background .2s, opacity .2s;
+  display:block;width:100%;margin-top:18px;
+  padding:15px;border-radius:14px;border:none;
+  background:#2563eb;color:white;
+  font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:background .2s,opacity .2s;
 }
-.next-btn:disabled{
-  background:#94a3b8;
-  cursor:not-allowed;
-  opacity:.6;
-}
+.next-btn:disabled{background:#94a3b8;cursor:not-allowed;opacity:.6}
 .next-btn:not(:disabled):hover{background:#1d4ed8}
 
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
+/* End screen */
+.end{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.88);
+  border-radius:20px;padding:32px 20px;
+  margin-top:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
+.end.show{display:block}
+.end h2{font-size:24px;font-weight:900;margin-bottom:8px}
+.end p{color:#374151;margin-bottom:20px}
+.end-stats{display:flex;justify-content:center;gap:28px;margin-bottom:20px}
+.stat{text-align:center}
+.stat-num{font-size:32px;font-weight:900;color:#2563eb}
+.stat-label{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase}
+
+@keyframes shake{
+  0%{transform:translateX(0)}25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}
+}
+.shake-it{animation:shake .4s}
 </style>
 </head>
 <body>
@@ -264,7 +204,7 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- Vocabulary panel -->
+  <!-- Vocab panel -->
   <div class="vocab-panel">
     <button class="vocab-toggle open" id="vocabToggle" onclick="toggleVocab()">
       <span>📖 Vocabulario nuevo</span>
@@ -275,42 +215,280 @@ body{
       <div class="vocab-row"><span class="vocab-en">husband</span><span class="vocab-es">esposo</span></div>
       <div class="vocab-row"><span class="vocab-en">son</span><span class="vocab-es">hijo</span></div>
       <div class="vocab-row"><span class="vocab-en">daughter</span><span class="vocab-es">hija</span></div>
-      
     </div>
   </div>
 
   <!-- Main card -->
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="counter-row">
       <span id="counter">1 / 4</span>
+      <span class="mistakes-badge" id="mistakeBadge">✗ <span id="mistakeCount">0</span></span>
     </div>
-    <div class="bar-wrap">
-      <div class="bar-fill" id="progressBar"></div>
+    <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
+
+    <div class="img-wrap">
+      <img id="lessonImg" class="lesson-img" src="" alt="" />
     </div>
 
-    <img id="lessonImg" class="lesson-img" src="" alt="" />
-
-    <p class="instruction">Toca ▶ para escuchar</p>
-
-    <button class="audio-btn" id="audioBtn" onclick="playAudio()">▶</button>
+    <div class="audio-row">
+      <button class="audio-btn" id="audioBtn" onclick="playAudio()">▶</button>
+      <span class="audio-hint" id="audioHint">Toca para escuchar</span>
+    </div>
 
     <div class="tiles-area" id="tilesArea">
       <div class="tiles-label">¿Cuál es la palabra correcta?</div>
       <div class="tiles" id="tiles"></div>
-      <div class="confirm-sentence" id="confirmSentence"></div>
+
+      <div class="confirm-box" id="confirmBox">
+        <div class="confirm-sentence" id="confirmSentence"></div>
+        <div class="confirm-translation" id="confirmTranslation"></div>
+      </div>
+
+      <div class="hint-bar" id="hintBar"></div>
     </div>
 
     <button class="next-btn" id="nextBtn" disabled onclick="nextExercise()">Siguiente →</button>
   </div>
+
+  <!-- End screen -->
+  <div class="end" id="endScreen">
+    <h2>¡Excelente trabajo!</h2>
+    <p>Completaste la Parte 2.</p>
+    <div class="end-stats">
+      <div class="stat"><div class="stat-num" id="totalCorrect">0</div><div class="stat-label">Correctas</div></div>
+      <div class="stat"><div class="stat-num" id="totalMistakes">0</div><div class="stat-label">Errores</div></div>
+    </div>
+    <a href="p3.html" class="back-btn" style="font-size:16px;padding:12px 28px">Continuar → Parte 3</a>
+  </div>
 </div>
 
-<!-- End screen outside card -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:30px;margin:16px auto;max-width:700px" id="endScreen">
-  <h2>¡Excelente trabajo!</h2>
-  <p style="margin:10px 0 20px">Completaste la Parte 2.</p>
-  <a href="p3.html" style="display:inline-block;padding:10px 24px;background:#2563eb;color:white;border-radius:10px;text-decoration:none;font-weight:700">Continuar → Parte 3</a>
-</div>
+<script>
+(() => {
+  const BASE = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
 
-<script src="../../../../js/u5/u5_l1_p2.js"></script>
+  const EXERCISES = [
+    {
+      image:       BASE + "images/u5/u5.l1.p1.wife.jpg",
+      audio:       BASE + "audio/u5/u5.wife.mp3",
+      correct:     "wife",
+      options:     ["wife", "sister"],
+      sentence:    "She is my wife.",
+      translation: "Ella es mi esposa."
+    },
+    {
+      image:       BASE + "images/u5/u5.l1.p1.husband.statue.liberty.jpg",
+      audio:       BASE + "audio/u5/u5.husband.mp3",
+      correct:     "husband",
+      options:     ["husband", "brother"],
+      sentence:    "He is my husband.",
+      translation: "Él es mi esposo."
+    },
+    {
+      image:       BASE + "images/u5/u5.l1.p1.boy.swimming.jpg",
+      audio:       BASE + "audio/u5/u5.son.mp3",
+      correct:     "son",
+      options:     ["son", "brother"],
+      sentence:    "He is my son.",
+      translation: "Él es mi hijo."
+    },
+    {
+      image:       BASE + "images/u5/u5.l1.p1.daughter.riding.jpg",
+      audio:       BASE + "audio/u5/u5.daughter.mp3",
+      correct:     "daughter",
+      options:     ["daughter", "sister"],
+      sentence:    "She is my daughter.",
+      translation: "Ella es mi hija."
+    }
+  ];
+
+  // Shuffle exercise order each session
+  for (let i = EXERCISES.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [EXERCISES[i], EXERCISES[j]] = [EXERCISES[j], EXERCISES[i]];
+  }
+
+  let exIndex      = 0;
+  let currentAudio = null;
+  let answered     = false;
+  let audioPlayed  = false;   // must listen before tiles appear
+  let totalCorrect = 0;
+  let totalMistakes= 0;
+
+  const imgEl        = document.getElementById("lessonImg");
+  const audioBtn     = document.getElementById("audioBtn");
+  const audioHint    = document.getElementById("audioHint");
+  const tilesArea    = document.getElementById("tilesArea");
+  const tilesEl      = document.getElementById("tiles");
+  const confirmBox   = document.getElementById("confirmBox");
+  const confirmEl    = document.getElementById("confirmSentence");
+  const confirmTrans = document.getElementById("confirmTranslation");
+  const nextBtn      = document.getElementById("nextBtn");
+  const counter      = document.getElementById("counter");
+  const bar          = document.getElementById("progressBar");
+  const endScreen    = document.getElementById("endScreen");
+  const mainCard     = document.getElementById("mainCard");
+  const hintBar      = document.getElementById("hintBar");
+  const mistakeBadge = document.getElementById("mistakeBadge");
+  const mistakeCount = document.getElementById("mistakeCount");
+
+  window.toggleVocab = function() {
+    const body   = document.getElementById("vocabBody");
+    const toggle = document.getElementById("vocabToggle");
+    const isOpen = !body.classList.contains("hidden");
+    body.classList.toggle("hidden", isOpen);
+    toggle.classList.toggle("open", !isOpen);
+  };
+
+  function stopAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  }
+
+  function loadExercise() {
+    answered   = false;
+    audioPlayed= false;
+    const ex   = EXERCISES[exIndex];
+
+    counter.textContent = `${exIndex + 1} / ${EXERCISES.length}`;
+    bar.style.width = ((exIndex / EXERCISES.length) * 100) + "%";
+
+    imgEl.src = ex.image;
+    imgEl.alt = ex.sentence;
+
+    audioBtn.className   = "audio-btn";
+    audioBtn.textContent = "▶";
+    audioBtn.disabled    = false;
+    audioHint.textContent= "Toca para escuchar";
+
+    tilesArea.classList.remove("show");
+    tilesEl.innerHTML = "";
+    confirmBox.classList.remove("show");
+    confirmEl.textContent    = "";
+    confirmTrans.textContent = "";
+    hintBar.classList.remove("show");
+    hintBar.textContent = "";
+    nextBtn.disabled = true;
+
+    stopAudio();
+  }
+
+  window.playAudio = function() {
+    const ex = EXERCISES[exIndex];
+    stopAudio();
+
+    audioBtn.className   = "audio-btn playing";
+    audioBtn.textContent = "🔊";
+    audioBtn.disabled    = true;
+    audioHint.textContent= "Escuchando...";
+
+    currentAudio = new Audio(ex.audio);
+    currentAudio.play().catch(() => {
+      // fallback: show tiles anyway after brief delay
+      setTimeout(onAudioEnd, 800);
+    });
+    currentAudio.addEventListener("ended", onAudioEnd);
+  };
+
+  function onAudioEnd() {
+    audioBtn.className   = "audio-btn done";
+    audioBtn.textContent = "✓";
+    audioBtn.disabled    = false;
+    audioHint.textContent= "Toca para escuchar de nuevo";
+
+    if (!audioPlayed) {
+      audioPlayed = true;
+      showTiles();
+    }
+  }
+
+  function showTiles() {
+    const ex   = EXERCISES[exIndex];
+    const opts = [...ex.options];
+    // shuffle options
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [opts[i], opts[j]] = [opts[j], opts[i]];
+    }
+
+    tilesEl.innerHTML = "";
+    opts.forEach(word => {
+      const btn = document.createElement("button");
+      btn.className   = "tile";
+      btn.textContent = word;
+      btn.onclick     = () => selectAnswer(btn, word);
+      tilesEl.appendChild(btn);
+    });
+
+    tilesArea.classList.add("show");
+  }
+
+  function selectAnswer(btn, word) {
+    if (answered) return;
+    const ex = EXERCISES[exIndex];
+
+    if (word === ex.correct) {
+      answered = true;
+      totalCorrect++;
+
+      btn.classList.add("correct");
+      tilesEl.querySelectorAll(".tile").forEach(t => {
+        if (t !== btn) t.classList.add("disabled");
+      });
+
+      // Show sentence + Spanish translation
+      confirmEl.textContent    = ex.sentence;
+      confirmTrans.textContent = ex.translation;
+      confirmBox.classList.add("show");
+      hintBar.classList.remove("show");
+
+      // Replay audio to reinforce word ↔ sound mapping
+      stopAudio();
+      currentAudio = new Audio(ex.audio);
+      currentAudio.play().catch(() => {});
+
+      nextBtn.disabled = false;
+
+    } else {
+      totalMistakes++;
+      mistakeBadge.style.visibility = "visible";
+      mistakeCount.textContent = totalMistakes;
+
+      btn.classList.add("error");
+      btn.classList.add("shake-it");
+
+      // Show vocab hint after wrong answer
+      const hint = ex.correct === "wife"     ? "wife = esposa"
+                 : ex.correct === "husband"  ? "husband = esposo"
+                 : ex.correct === "son"      ? "son = hijo"
+                 : ex.correct === "daughter" ? "daughter = hija"
+                 : "";
+      if (hint) {
+        hintBar.textContent = hint;
+        hintBar.classList.add("show");
+        setTimeout(() => hintBar.classList.remove("show"), 3000);
+      }
+
+      setTimeout(() => {
+        btn.classList.remove("error", "shake-it");
+      }, 450);
+    }
+  }
+
+  window.nextExercise = function() {
+    exIndex++;
+    if (exIndex >= EXERCISES.length) {
+      mainCard.style.display = "none";
+      endScreen.classList.add("show");
+      bar.style.width = "100%";
+      document.getElementById("totalCorrect").textContent  = totalCorrect;
+      document.getElementById("totalMistakes").textContent = totalMistakes;
+      return;
+    }
+    loadExercise();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  loadExercise();
+})();
+</script>
 </body>
 </html>
