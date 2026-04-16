@@ -2,19 +2,23 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>Unidad 5 • Lección 5 • Parte 4</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
 body{
   background:linear-gradient(135deg,#dbeafe,#fef9c3);
-  min-height:100vh;
-  padding:16px 12px 60px;
-  color:#111827;
+  min-height:100vh;padding:16px 12px 80px;color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
+
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
   background:#2563eb;color:white;border-radius:10px;
@@ -22,6 +26,8 @@ body{
 }
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
+
+/* ── Progress dots ── */
 .progress-container{display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0}
 .step{
   width:38px;height:38px;border-radius:50%;background:#d1d5db;
@@ -30,112 +36,105 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* ── Vocab panel ─────────────────────────────────────────────────────────── */
+/* ── Score pills ── */
+.score-row{display:flex;justify-content:center;gap:16px;margin-bottom:14px}
+.score-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:999px;font-weight:700;font-size:13px;
+}
+.score-pill.correct-pill{background:#dcfce7;color:#16a34a;border:1.5px solid #86efac}
+.score-pill.wrong-pill  {background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5}
+
+/* ── Vocab panel ── */
 .vocab-panel{
-  background:rgba(255,255,255,.92);
-  border-radius:16px;
+  background:rgba(255,255,255,.92);border-radius:16px;
   box-shadow:0 4px 14px rgba(0,0,0,.09);
-  margin-bottom:18px;
-  overflow:hidden;
-  border-left:5px solid #0d9488;
+  margin-bottom:18px;overflow:hidden;border-left:5px solid #0d9488;
 }
 .vocab-toggle{
   width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px;
-  background:none;border:none;cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  text-align:left;
+  padding:14px 18px;background:none;border:none;cursor:pointer;
+  font-family:'Poppins',sans-serif;text-align:left;touch-action:manipulation;
 }
 .vocab-toggle:hover{background:rgba(0,0,0,.02)}
-.vocab-toggle-label{
-  font-size:17px;font-weight:900;color:#0f766e;
-  display:flex;align-items:center;gap:8px;
-}
-.vocab-badge{
-  background:#0d9488;color:white;
-  font-size:11px;font-weight:700;
-  padding:2px 8px;border-radius:999px;
-  letter-spacing:.04em;
-}
+.vocab-toggle-label{font-size:17px;font-weight:900;color:#0f766e;display:flex;align-items:center;gap:8px}
+.vocab-badge{background:#0d9488;color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.04em}
 .toggle-arrow{font-size:13px;color:#94a3b8;flex-shrink:0}
 .vocab-body{display:none;padding:0 18px 18px}
 .vocab-body.open{display:block}
 .vocab-table{width:100%;border-collapse:collapse;font-size:15px}
-.vocab-table th{
-  background:#0f766e;color:white;
-  padding:9px 12px;font-weight:700;font-size:14px;text-align:left;
-}
+.vocab-table th{background:#0f766e;color:white;padding:9px 12px;font-weight:700;font-size:14px;text-align:left}
 .vocab-table th:first-child{border-radius:8px 0 0 0}
 .vocab-table th:last-child{border-radius:0 8px 0 0}
-.vocab-table td{
-  padding:9px 12px;border-bottom:1px solid #e2e8f0;
-  font-weight:600;vertical-align:middle;
-}
+.vocab-table td{padding:9px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;vertical-align:middle}
 .vocab-table tr:last-child td{border-bottom:none}
 .vocab-table tr:nth-child(even) td{background:#f0fdfa}
 .vocab-es{color:#0d9488;font-weight:700}
 .vocab-tap{
   background:none;border:none;cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-size:15px;font-weight:700;color:#1e40af;
-  padding:4px 2px;text-align:left;
-  text-decoration:underline dotted #93c5fd;
-  transition:color .2s;
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:#1e40af;
+  padding:4px 2px;text-align:left;text-decoration:underline dotted #93c5fd;
+  transition:color .2s;touch-action:manipulation;
 }
 .vocab-tap:hover{color:#1d4ed8}
 
-/* ── Quiz card ───────────────────────────────────────────────────────────── */
+/* ── Quiz card ── */
 .card{
-  background:rgba(255,255,255,.9);border-radius:20px;padding:16px;
+  background:rgba(255,255,255,.9);border-radius:20px;padding:18px 16px 22px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .top-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
 .small-label{font-size:13px;font-weight:800;color:#486581}
 .fail-box{
-  padding:6px 10px;border-radius:999px;background:#fee2e2;color:#b91c1c;
+  padding:5px 12px;border-radius:999px;background:#fee2e2;color:#b91c1c;
   font-size:12px;font-weight:800;white-space:nowrap;
 }
 .bar-wrap{background:#e2e8f0;border-radius:999px;height:8px;margin-bottom:18px;overflow:hidden}
 .bar-fill{height:100%;width:0;background:#a855f7;border-radius:999px;transition:width .35s}
-.prompt{
-  text-align:center;margin-bottom:14px;font-size:15px;font-weight:800;color:#1e40af;
-}
+
+.prompt{text-align:center;margin-bottom:14px;font-size:15px;font-weight:800;color:#1e40af}
+
 .lesson-img{
-  width:100%;height:auto;max-height:240px;object-fit:contain;border-radius:16px;
-  margin-bottom:16px;display:block;background:#f8fafc;
+  width:100%;max-height:220px;object-fit:contain;border-radius:16px;
+  margin-bottom:16px;display:block;background:#f1f5f9;
 }
+
 .en-sentence{
-  text-align:center;font-size:22px;font-weight:900;line-height:1.35;color:#1e3a5f;
+  text-align:center;font-size:21px;font-weight:900;line-height:1.35;color:#1e3a5f;
   margin-bottom:6px;
 }
-.hint{
-  text-align:center;font-size:13px;font-weight:700;color:#64748b;margin-bottom:16px;
-}
+.hint{text-align:center;font-size:13px;font-weight:700;color:#64748b;margin-bottom:16px}
+
 .options{display:grid;gap:12px}
 .option-btn{
   width:100%;border:none;border-radius:16px;padding:14px 16px;text-align:left;
-  background:#eff6ff;color:#1e3a8a;font-size:18px;font-weight:800;cursor:pointer;
-  box-shadow:0 2px 8px rgba(37,99,235,.08);transition:transform .06s, background .2s;
+  background:#eff6ff;color:#1e3a8a;font-size:17px;font-weight:800;cursor:pointer;
+  box-shadow:0 2px 8px rgba(37,99,235,.08);transition:transform .06s,background .2s;
+  touch-action:manipulation;
 }
 .option-btn:active{transform:scale(.99)}
 .option-btn:disabled{cursor:default;opacity:1}
 .option-btn.correct{background:#dcfce7;color:#166534}
-.option-btn.wrong{background:#fee2e2;color:#b91c1c}
+.option-btn.wrong  {background:#fee2e2;color:#b91c1c}
+
 .feedback{
   display:none;margin-top:16px;border-radius:16px;padding:14px 14px 12px;
   background:#f8fafc;border:2px solid #e2e8f0;
 }
 .feedback.show{display:block}
 .feedback-line{font-size:15px;font-weight:700;line-height:1.6;margin-bottom:6px}
-.feedback-line.bad{color:#b91c1c}
+.feedback-line.bad {color:#b91c1c}
 .feedback-line.good{color:#166534}
 .feedback-line.info{color:#334155}
-.next-btn, .restart-btn, .continue-btn{
-  display:inline-flex;align-items:center;justify-content:center;border:none;cursor:pointer;
-  text-decoration:none;padding:12px 24px;border-radius:14px;font-weight:800;font-size:15px;
-}
 .next-wrap{text-align:center;margin-top:14px}
-.next-btn{background:#2563eb;color:#fff}
+.next-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;text-decoration:none;
+  padding:12px 28px;border-radius:14px;font-weight:800;font-size:15px;
+  background:#2563eb;color:#fff;touch-action:manipulation;
+}
+
+/* ── End screen ── */
 .end-screen{display:none;text-align:center}
 .end-title{font-size:24px;font-weight:900;color:#1e3a8a;margin-bottom:8px}
 .end-sub{font-size:16px;font-weight:700;color:#334155;margin-bottom:18px;line-height:1.55}
@@ -145,11 +144,22 @@ body{
 .score-main{font-size:28px;font-weight:900;color:#1e40af;margin-bottom:6px}
 .score-detail{font-size:15px;font-weight:700;color:#475569;line-height:1.6}
 .end-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.restart-btn{background:#e2e8f0;color:#1f2937}
-.continue-btn{background:#2563eb;color:#fff}
+.restart-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;padding:12px 24px;border-radius:14px;
+  font-weight:800;font-size:15px;background:#e2e8f0;color:#1f2937;
+  touch-action:manipulation;
+}
+.continue-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;padding:12px 24px;border-radius:14px;
+  font-weight:800;font-size:15px;background:#2563eb;color:#fff;
+  touch-action:manipulation;
+}
+
 @media(max-width:480px){
-  .en-sentence{font-size:20px}
-  .option-btn{font-size:17px}
+  .en-sentence{font-size:19px}
+  .option-btn{font-size:16px}
 }
 </style>
 </head>
@@ -167,16 +177,22 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- ── Vocab panel ────────────────────────────────────────────────────── -->
+  <!-- Score pills -->
+  <div class="score-row">
+    <div class="score-pill correct-pill">✓ <span id="correctCount">0</span></div>
+    <div class="score-pill wrong-pill">✗ <span id="wrongCount">0</span></div>
+  </div>
+
+  <!-- Vocab panel (collapsed on p4 — it's review) -->
   <div class="vocab-panel">
     <button class="vocab-toggle" id="vocabToggle">
       <span class="vocab-toggle-label">
         📗 Vocabulario
         <span class="vocab-badge">REPASO</span>
       </span>
-      <span class="toggle-arrow" id="vocabArrow">▲</span>
+      <span class="toggle-arrow" id="vocabArrow">▼</span>
     </button>
-    <div class="vocab-body open" id="vocabBody">
+    <div class="vocab-body" id="vocabBody">
       <table class="vocab-table">
         <thead>
           <tr><th>🇺🇸 English (tap to listen)</th><th>🇲🇽 Español</th></tr>
@@ -199,7 +215,7 @@ body{
     </div>
   </div>
 
-  <!-- ── Quiz card ──────────────────────────────────────────────────────── -->
+  <!-- Quiz card -->
   <div class="card" id="quizCard">
     <div class="top-meta">
       <div class="small-label" id="counter">1 / 8</div>
@@ -208,10 +224,9 @@ body{
     <div class="bar-wrap"><div class="bar-fill" id="barFill"></div></div>
 
     <div class="prompt">Piensa bien y toca la respuesta correcta.</div>
-    <img class="lesson-img" id="questionImg" src="" alt="Imagen de la familia" />
+    <img class="lesson-img" id="questionImg" src="" alt="" />
     <div class="en-sentence" id="questionText"></div>
     <div class="hint">Elige la opción correcta en inglés.</div>
-
     <div class="options" id="optionsWrap"></div>
 
     <div class="feedback" id="feedbackBox">
@@ -224,20 +239,233 @@ body{
     </div>
   </div>
 
-  <!-- ── End screen ─────────────────────────────────────────────────────── -->
+  <!-- End screen -->
   <div class="card end-screen" id="endScreen">
     <div style="font-size:52px;margin-bottom:12px" id="endTrophy">🏆</div>
-    <div class="end-title" id="endTitle">Lección completada</div>
-    <div class="end-sub" id="endSub">Terminaste la Parte 4.</div>
+    <div class="end-title" id="endTitle"></div>
+    <div class="end-sub" id="endSub"></div>
     <div class="score-box">
-      <div class="score-main" id="scoreMain">Puntaje: 0 / 8</div>
+      <div class="score-main" id="scoreMain"></div>
       <div class="score-detail" id="scoreDetail"></div>
     </div>
     <div class="end-actions" id="endActions"></div>
   </div>
+</div>
 
-</div><!-- /wrap -->
+<script>
+(() => {
+  const UNIT   = 5;
+  const LESSON = 5;
+  const PART   = 4;
 
-<script src="../../../../js/u5/u5_l5_p4.js"></script>
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = BASE + "images/u5/";
+  const AUDIO_BASE = BASE + "audio/u5/";
+
+  // ── SFX ────────────────────────────────────────────────────────────────────
+  const sfxCorrect   = new Audio(AUDIO_BASE + "correct.wav");
+  const sfxIncorrect = new Audio(AUDIO_BASE + "incorrect.wav");
+  sfxCorrect.preload = sfxIncorrect.preload = "auto";
+  function playCorrectSfx()   { sfxCorrect.currentTime   = 0; sfxCorrect.play().catch(()=>{}); }
+  function playIncorrectSfx() { sfxIncorrect.currentTime = 0; sfxIncorrect.play().catch(()=>{}); }
+
+  // ── Questions ──────────────────────────────────────────────────────────────
+  const QUESTIONS = [
+    { image:IMG_BASE+"u5.brother.sister.jpg",       prompt:"Mary is Tom's...",              options:["sister","mother"],   correct:0, wrongMeaning:"Mary is Tom's mother = Mary es la madre de Tom.",         correctAnswer:"Correcto: Mary is Tom's sister.",          explain:"sister = hermana"  },
+    { image:IMG_BASE+"u5.brother.sister.jpg",       prompt:"Tom is Mary's...",              options:["brother","father"],  correct:0, wrongMeaning:"Tom is Mary's father = Tom es el padre de Mary.",         correctAnswer:"Correcto: Tom is Mary's brother.",         explain:"brother = hermano" },
+    { image:IMG_BASE+"u5.craig.linda.jpg",          prompt:"Craig is Linda's...",           options:["husband","brother"], correct:0, wrongMeaning:"Craig is Linda's brother = Craig es el hermano de Linda.", correctAnswer:"Correcto: Craig is Linda's husband.",      explain:"husband = esposo"  },
+    { image:IMG_BASE+"u5.craig.linda.jpg",          prompt:"Linda is Craig's...",           options:["wife","sister"],     correct:0, wrongMeaning:"Linda is Craig's sister = Linda es la hermana de Craig.",  correctAnswer:"Correcto: Linda is Craig's wife.",         explain:"wife = esposa"     },
+    { image:IMG_BASE+"u5.baby.bill.jpg",            prompt:"Bill is my...",                 options:["nephew","son"],      correct:0, wrongMeaning:"Bill is my son = Bill es mi hijo.",                        correctAnswer:"Correcto: Bill is my nephew.",             explain:"nephew = sobrino"  },
+    { image:IMG_BASE+"u5.baby.bill.jpg",            prompt:"Bill is Tom and Mary's...",     options:["cousin","brother"],  correct:0, wrongMeaning:"Bill is Tom and Mary's brother = Bill es el hermano de Tom y Mary.", correctAnswer:"Correcto: Bill is Tom and Mary's cousin.", explain:"cousin = primo"  },
+    { image:IMG_BASE+"u5.brother.sister.uncle.jpg", prompt:"Mary is Craig's...",            options:["niece","daughter"],  correct:0, wrongMeaning:"Mary is Craig's daughter = Mary es la hija de Craig.",    correctAnswer:"Correcto: Mary is Craig's niece.",         explain:"niece = sobrina"   },
+    { image:IMG_BASE+"u5.brother.sister.uncle.jpg", prompt:"Tom is Craig's...",             options:["nephew","son"],      correct:0, wrongMeaning:"Tom is Craig's son = Tom es el hijo de Craig.",           correctAnswer:"Correcto: Tom is Craig's nephew.",         explain:"nephew = sobrino"  }
+  ];
+
+  // ── DOM ────────────────────────────────────────────────────────────────────
+  const questionImg    = document.getElementById("questionImg");
+  const questionText   = document.getElementById("questionText");
+  const optionsWrap    = document.getElementById("optionsWrap");
+  const feedbackBox    = document.getElementById("feedbackBox");
+  const feedbackWrong  = document.getElementById("feedbackWrong");
+  const feedbackCorrectEl = document.getElementById("feedbackCorrect");
+  const feedbackExplain   = document.getElementById("feedbackExplain");
+  const nextBtn        = document.getElementById("nextBtn");
+  const counterEl      = document.getElementById("counter");
+  const failBox        = document.getElementById("failBox");
+  const barFill        = document.getElementById("barFill");
+  const quizCard       = document.getElementById("quizCard");
+  const endScreen      = document.getElementById("endScreen");
+  const endTrophy      = document.getElementById("endTrophy");
+  const endTitle       = document.getElementById("endTitle");
+  const endSub         = document.getElementById("endSub");
+  const scoreMain      = document.getElementById("scoreMain");
+  const scoreDetail    = document.getElementById("scoreDetail");
+  const endActions     = document.getElementById("endActions");
+  const vocabToggle    = document.getElementById("vocabToggle");
+  const vocabBody      = document.getElementById("vocabBody");
+  const vocabArrow     = document.getElementById("vocabArrow");
+  const correctCountEl = document.getElementById("correctCount");
+  const wrongCountEl   = document.getElementById("wrongCount");
+
+  let index        = 0;
+  let errors       = 0;
+  let totalCorrect = 0;
+  let locked       = false;
+
+  function updateScorePills() {
+    correctCountEl.textContent = totalCorrect;
+    wrongCountEl.textContent   = errors;
+  }
+
+  // ── Vocab ──────────────────────────────────────────────────────────────────
+  vocabToggle.addEventListener("click", () => {
+    const open = vocabBody.classList.toggle("open");
+    vocabArrow.textContent = open ? "▲" : "▼";
+  });
+  document.querySelectorAll(".vocab-tap").forEach(btn => {
+    btn.addEventListener("click", () => new Audio(AUDIO_BASE + btn.dataset.audio).play().catch(()=>{}));
+  });
+
+  // ── Render question ────────────────────────────────────────────────────────
+  function renderQuestion() {
+    locked = false;
+    const q = QUESTIONS[index];
+
+    counterEl.textContent = `${index + 1} / ${QUESTIONS.length}`;
+    failBox.textContent   = `Errores: ${errors}`;
+    barFill.style.width   = `${((index + 1) / QUESTIONS.length) * 100}%`;
+
+    feedbackBox.classList.remove("show");
+    feedbackWrong.textContent      = "";
+    feedbackWrong.className        = "feedback-line";
+    feedbackCorrectEl.textContent  = "";
+    feedbackExplain.textContent    = "";
+
+    questionImg.src          = q.image;
+    questionImg.alt          = q.prompt;
+    questionText.textContent = q.prompt;
+
+    optionsWrap.innerHTML = "";
+    const shuffled = q.options
+      .map((opt, i) => ({ opt, i }))
+      .sort(() => Math.random() - 0.5);
+
+    shuffled.forEach(({ opt, i }) => {
+      const btn = document.createElement("button");
+      btn.className   = "option-btn";
+      btn.textContent = opt;
+      btn.addEventListener("click", () => chooseOption(i, btn));
+      optionsWrap.appendChild(btn);
+    });
+  }
+
+  // ── Choose option ──────────────────────────────────────────────────────────
+  function chooseOption(choice, btnEl) {
+    if (locked) return;
+    locked = true;
+
+    const q       = QUESTIONS[index];
+    const allBtns = [...optionsWrap.querySelectorAll(".option-btn")];
+    allBtns.forEach(b => b.disabled = true);
+
+    if (choice === q.correct) {
+      totalCorrect++;
+      playCorrectSfx();
+      btnEl.classList.add("correct");
+      feedbackWrong.className      = "feedback-line good";
+      feedbackWrong.textContent    = "✔ Correcto";
+      feedbackCorrectEl.textContent = q.correctAnswer;
+      feedbackExplain.textContent  = q.explain;
+    } else {
+      errors++;
+      playIncorrectSfx();
+      failBox.textContent = `Errores: ${errors}`;
+      btnEl.classList.add("wrong");
+      allBtns.find(b => b.textContent === q.options[q.correct]).classList.add("correct");
+      feedbackWrong.className      = "feedback-line bad";
+      feedbackWrong.textContent    = `✘ Incorrecto: ${q.wrongMeaning}`;
+      feedbackCorrectEl.textContent = q.correctAnswer;
+      feedbackExplain.textContent  = q.explain;
+    }
+
+    updateScorePills();
+    feedbackBox.classList.add("show");
+  }
+
+  // ── Next ───────────────────────────────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    index++;
+    if (index >= QUESTIONS.length) {
+      showEnd();
+    } else {
+      renderQuestion();
+    }
+  });
+
+  // ── End screen ─────────────────────────────────────────────────────────────
+  function showEnd() {
+    quizCard.style.display  = "none";
+    endScreen.style.display = "block";
+
+    // Progress tracking
+    const key = `inglesco_progress_u${UNIT}`;
+    try {
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data[`l${LESSON}`]) data[`l${LESSON}`] = {};
+      if (!data[`l${LESSON}`].partsCompleted || data[`l${LESSON}`].partsCompleted < PART) {
+        data[`l${LESSON}`].partsCompleted = PART;
+      }
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    const score = QUESTIONS.length - errors;
+    scoreMain.textContent = `Puntaje: ${score} / ${QUESTIONS.length}`;
+
+    let trophy, title, detail, actions;
+
+    if (score <= 3) {
+      trophy  = "😓";
+      title   = "Necesitas practicar más";
+      detail  = "Recomendación: Repite la lección para mejorar.";
+      actions = `<button class="restart-btn" id="restartBtn">🔁 Intentar de nuevo</button>`;
+    } else if (score <= 6) {
+      trophy  = "🙂";
+      title   = "Buen trabajo, pero puedes mejorar";
+      detail  = "Intenta otra vez para un mejor resultado.";
+      actions = `<button class="restart-btn" id="restartBtn">🔁 Intentar de nuevo</button>
+                 <a class="continue-btn" href="p5.html">Continuar → Parte 5</a>`;
+    } else {
+      trophy  = "🏆";
+      title   = "¡Muy buen trabajo!";
+      detail  = "¡Listo para continuar!";
+      actions = `<a class="continue-btn" href="p5.html">Continuar → Parte 5</a>`;
+    }
+
+    endTrophy.textContent   = trophy;
+    endTitle.textContent    = title;
+    endSub.textContent      = `Puntaje: ${score} / ${QUESTIONS.length}`;
+    scoreDetail.textContent = detail;
+    endActions.innerHTML    = actions;
+
+    const restartBtn = document.getElementById("restartBtn");
+    if (restartBtn) {
+      restartBtn.addEventListener("click", () => {
+        index        = 0;
+        errors       = 0;
+        totalCorrect = 0;
+        updateScorePills();
+        quizCard.style.display  = "block";
+        endScreen.style.display = "none";
+        renderQuestion();
+      });
+    }
+
+    endScreen.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  renderQuestion();
+})();
+</script>
 </body>
 </html>

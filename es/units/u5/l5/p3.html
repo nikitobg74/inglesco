@@ -2,19 +2,22 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>Unidad 5 • Lección 5 • Parte 3</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
 body{
   background:linear-gradient(135deg,#dbeafe,#fef9c3);
-  min-height:100vh;
-  padding:16px 12px 60px;
-  color:#111827;
+  min-height:100vh;padding:16px 12px 80px;color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -24,9 +27,8 @@ body{
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
 
-.progress-container{
-  display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
-}
+/* ── Progress dots ── */
+.progress-container{display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0}
 .step{
   width:38px;height:38px;border-radius:50%;background:#d1d5db;
   display:flex;align-items:center;justify-content:center;
@@ -34,104 +36,67 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* ── Vocab panel ─────────────────────────────────────────────────────────── */
+/* ── Score pills ── */
+.score-row{display:flex;justify-content:center;gap:16px;margin-bottom:14px}
+.score-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:999px;font-weight:700;font-size:13px;
+}
+.score-pill.correct-pill{background:#dcfce7;color:#16a34a;border:1.5px solid #86efac}
+.score-pill.wrong-pill{background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5}
+
+/* ── Vocab panel ── */
 .vocab-panel{
-  background:rgba(255,255,255,.92);
-  border-radius:16px;
+  background:rgba(255,255,255,.92);border-radius:16px;
   box-shadow:0 4px 14px rgba(0,0,0,.09);
-  margin-bottom:18px;
-  overflow:hidden;
-  border-left:5px solid #0d9488;
+  margin-bottom:18px;overflow:hidden;border-left:5px solid #0d9488;
 }
 .vocab-toggle{
   width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px;
-  background:none;border:none;cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  text-align:left;
+  padding:14px 18px;background:none;border:none;cursor:pointer;
+  font-family:'Poppins',sans-serif;text-align:left;touch-action:manipulation;
 }
 .vocab-toggle:hover{background:rgba(0,0,0,.02)}
-.vocab-toggle-label{
-  font-size:17px;font-weight:900;color:#0f766e;
-  display:flex;align-items:center;gap:8px;
-}
-.vocab-badge{
-  background:#0d9488;color:white;
-  font-size:11px;font-weight:700;
-  padding:2px 8px;border-radius:999px;
-  letter-spacing:.04em;
-}
+.vocab-toggle-label{font-size:17px;font-weight:900;color:#0f766e;display:flex;align-items:center;gap:8px}
+.vocab-badge{background:#0d9488;color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.04em}
 .toggle-arrow{font-size:13px;color:#94a3b8;flex-shrink:0}
-.vocab-body{
-  display:none;
-  padding:0 18px 18px;
-}
+.vocab-body{display:none;padding:0 18px 18px}
 .vocab-body.open{display:block}
 
-.vocab-table{
-  width:100%;border-collapse:collapse;font-size:15px;
-}
-.vocab-table th{
-  background:#0f766e;color:white;
-  padding:9px 12px;font-weight:700;font-size:14px;text-align:left;
-}
+.vocab-table{width:100%;border-collapse:collapse;font-size:15px}
+.vocab-table th{background:#0f766e;color:white;padding:9px 12px;font-weight:700;font-size:14px;text-align:left}
 .vocab-table th:first-child{border-radius:8px 0 0 0}
 .vocab-table th:last-child{border-radius:0 8px 0 0}
-.vocab-table td{
-  padding:9px 12px;border-bottom:1px solid #e2e8f0;
-  font-weight:600;vertical-align:middle;
-}
+.vocab-table td{padding:9px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;vertical-align:middle}
 .vocab-table tr:last-child td{border-bottom:none}
 .vocab-table tr:nth-child(even) td{background:#f0fdfa}
-.vocab-en{color:#1e40af;font-weight:700}
 .vocab-es{color:#0d9488;font-weight:700}
-.vocab-en.vocab-tap{
+.vocab-tap{
   background:none;border:none;cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  font-size:15px;font-weight:700;color:#1e40af;
-  padding:4px 0;text-align:left;
-  transition:color .15s;
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:#1e40af;
+  padding:4px 0;text-align:left;transition:color .15s;touch-action:manipulation;
 }
-.vocab-en.vocab-tap:hover{color:#2563eb;text-decoration:underline}
+.vocab-tap:hover{color:#2563eb;text-decoration:underline}
 
-/* ── Exercise card ──────────────────────────────────────────────────────── */
+/* ── Exercise card ── */
 .card{
-  background:rgba(255,255,255,.88);border-radius:18px;
-  padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:18px 16px 22px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
-.counter-row{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
-}
-.score-badge{
-  background:#f0fdf4;border:2px solid #86efac;
-  color:#166534;border-radius:999px;
-  padding:3px 12px;font-size:13px;font-weight:700;
-}
-.bar-wrap{
-  background:#e2e8f0;border-radius:999px;height:7px;
-  margin-bottom:20px;overflow:hidden;
-}
-.bar-fill{
-  height:100%;width:0%;background:#a855f7;
-  border-radius:999px;transition:width .4s;
-}
+.counter-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:13px;font-weight:700;color:#486581}
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:18px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:#a855f7;border-radius:999px;transition:width .4s}
 
 .lesson-img{
-  width:100%;height:auto;max-height:240px;object-fit:contain;
+  width:100%;max-height:220px;object-fit:contain;
   border-radius:14px;margin-bottom:14px;display:block;background:#f1f5f9;
 }
 
-/* Audio play button */
-.audio-controls{
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:16px;
-}
+.audio-controls{display:flex;align-items:center;justify-content:center;margin-bottom:16px}
 .play-btn{
-  width:54px;height:54px;border-radius:50%;
-  border:none;cursor:pointer;
+  width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  font-size:22px;transition:background .2s,transform .1s;
+  font-size:22px;transition:background .2s,transform .1s;touch-action:manipulation;
 }
 .play-btn.idle   {background:#2563eb;color:white}
 .play-btn.playing{background:#f59e0b;color:white}
@@ -139,80 +104,60 @@ body{
 .play-btn:active {transform:scale(.93)}
 .play-btn:disabled{opacity:.4;cursor:default}
 
-/* Fill-in sentence */
 .sentence-wrap{
-  text-align:center;
-  font-size:17px;font-weight:700;color:#1e3a5f;
+  text-align:center;font-size:17px;font-weight:700;color:#1e3a5f;
   margin-bottom:16px;line-height:1.8;
   background:#f0f9ff;border-radius:12px;padding:14px 16px;
   border-left:4px solid #2563eb;
 }
 .blank{
-  display:inline-block;
-  min-width:100px;
+  display:inline-block;min-width:100px;
   border-bottom:3px solid #2563eb;
-  padding:2px 8px;
-  border-radius:4px;
-  color:#1e40af;
-  font-weight:900;
-  background:#dbeafe;
-  transition:background .2s, color .2s, border-color .2s;
-  cursor:default;
+  padding:2px 8px;border-radius:4px;
+  color:#1e40af;font-weight:900;background:#dbeafe;
+  transition:background .2s,color .2s,border-color .2s;cursor:default;
 }
-.blank.filled-correct{
-  background:#dcfce7;color:#166534;border-color:#22c55e;
-}
-.blank.filled-wrong{
-  background:#fee2e2;color:#991b1b;border-color:#ef4444;
-  animation:shake .4s ease;
-}
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  20%{transform:translateX(-7px)}
-  40%{transform:translateX(7px)}
-  60%{transform:translateX(-5px)}
-  80%{transform:translateX(5px)}
-}
+.blank.filled-correct{background:#dcfce7;color:#166534;border-color:#22c55e}
+.blank.filled-wrong  {background:#fee2e2;color:#991b1b;border-color:#ef4444;animation:shake .4s ease}
 
-/* Word bank */
-.word-bank{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:10px;
-  margin-bottom:16px;
-}
+.word-bank{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:16px}
 .chip{
-  padding:9px 20px;
-  background:#0d9488;color:white;
+  padding:10px 22px;background:#0d9488;color:white;
   border:none;border-radius:10px;
   font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;
   cursor:pointer;transition:background .2s,transform .1s,opacity .2s;
+  touch-action:manipulation;
 }
 .chip:hover:not(:disabled){background:#0f766e;transform:translateY(-2px)}
 .chip:disabled{opacity:.35;cursor:default;transform:none}
 
-/* Feedback box */
 .feedback-box{
-  display:none;
-  border-radius:12px;padding:12px 16px;
+  display:none;border-radius:12px;padding:12px 16px;
   margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;
 }
 .feedback-box.show{display:block}
 .feedback-box.correct{background:#f0fdf4;border:2px solid #86efac;color:#166534}
-.feedback-box.wrong{background:#fef2f2;border:2px solid #fca5a5;color:#991b1b}
+.feedback-box.wrong  {background:#fef2f2;border:2px solid #fca5a5;color:#991b1b}
 
-/* Continue button */
 .continue-btn{
-  display:none;
-  margin:0 auto;
-  padding:12px 30px;
-  background:#2563eb;color:white;
+  display:none;margin:0 auto;
+  padding:13px 30px;background:#2563eb;color:white;
   border:none;border-radius:12px;
   font-weight:700;font-size:15px;font-family:'Poppins',sans-serif;
-  cursor:pointer;transition:background .2s;
+  cursor:pointer;transition:background .2s;touch-action:manipulation;
 }
 .continue-btn.visible{display:block}
 .continue-btn:hover{background:#1d4ed8}
 
+/* ── End screen ── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.92);border-radius:20px;
+  padding:40px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
 
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 </style>
 </head>
 <body>
@@ -229,7 +174,13 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- ── Vocab panel ────────────────────────────────────────────────────── -->
+  <!-- Score pills -->
+  <div class="score-row">
+    <div class="score-pill correct-pill">✓ <span id="correctCount">0</span></div>
+    <div class="score-pill wrong-pill">✗ <span id="wrongCount">0</span></div>
+  </div>
+
+  <!-- Vocab panel -->
   <div class="vocab-panel">
     <button class="vocab-toggle" id="vocabToggle">
       <span class="vocab-toggle-label">
@@ -245,15 +196,15 @@ body{
         </thead>
         <tbody>
           <tr>
-            <td><button class="vocab-en vocab-tap" data-audio="u5.nephew.mp3">🔊 nephew</button></td>
+            <td><button class="vocab-tap" data-audio="u5.nephew.mp3">🔊 nephew</button></td>
             <td class="vocab-es">sobrino</td>
           </tr>
           <tr>
-            <td><button class="vocab-en vocab-tap" data-audio="u5.niece.mp3">🔊 niece</button></td>
+            <td><button class="vocab-tap" data-audio="u5.niece.mp3">🔊 niece</button></td>
             <td class="vocab-es">sobrina</td>
           </tr>
           <tr>
-            <td><button class="vocab-en vocab-tap" data-audio="u5.cousin.mp3">🔊 cousin</button></td>
+            <td><button class="vocab-tap" data-audio="u5.cousin.mp3">🔊 cousin</button></td>
             <td class="vocab-es">primo / prima</td>
           </tr>
         </tbody>
@@ -261,39 +212,285 @@ body{
     </div>
   </div>
 
-  <!-- ── Exercise card ──────────────────────────────────────────────────── -->
+  <!-- Exercise card -->
   <div class="card" id="mainCard">
     <div class="counter-row">
       <span id="counter">1 / 10</span>
-      <span class="score-badge">✅ <span id="scoreNum">0</span> / 10</span>
     </div>
     <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
 
     <img id="lessonImg" class="lesson-img" src="" alt="" />
 
     <div class="audio-controls">
-      <button class="play-btn idle" id="playBtn" title="Reproducir">▶</button>
+      <button class="play-btn idle" id="playBtn" title="Reproducir" aria-label="Reproducir audio">▶</button>
     </div>
 
     <div class="sentence-wrap" id="sentenceWrap"></div>
-
     <div class="word-bank" id="wordBank"></div>
-
     <div class="feedback-box" id="feedbackBox"></div>
-
     <button class="continue-btn" id="continueBtn">Siguiente →</button>
   </div>
 
-
-</div><!-- /wrap -->
-
-<!-- End screen -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:36px 24px;margin:16px auto;max-width:700px"
-     id="endScreen"
-     data-unit="5" data-lesson="5" data-part="3">
-  <!-- populated by JS based on score -->
+  <!-- End screen -->
+  <div id="endScreen" data-unit="5" data-lesson="5" data-part="3"></div>
 </div>
 
-<script src="../../../../js/u5/u5_l5_p3.js"></script>
+<script>
+(() => {
+  const UNIT   = 5;
+  const LESSON = 5;
+  const PART   = 3;
+
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = BASE + "images/u5/";
+  const AUDIO_BASE = BASE + "audio/u5/";
+
+  // ── SFX ────────────────────────────────────────────────────────────────────
+  const sfxCorrect   = new Audio(AUDIO_BASE + "correct.wav");
+  const sfxIncorrect = new Audio(AUDIO_BASE + "incorrect.wav");
+  sfxCorrect.preload = sfxIncorrect.preload = "auto";
+  function playCorrectSfx()   { sfxCorrect.currentTime   = 0; sfxCorrect.play().catch(()=>{}); }
+  function playIncorrectSfx() { sfxIncorrect.currentTime = 0; sfxIncorrect.play().catch(()=>{}); }
+
+  // ── Questions ──────────────────────────────────────────────────────────────
+  const QUESTIONS = [
+    { image:IMG_BASE+"u5.brother.sister.jpg",       audio:AUDIO_BASE+"u5.mary.tom.mp3",     before:"Mary is Tom's",              after:".", answer:"sister",  wrong:"brother", es:"Mary es la hermana de Tom."          },
+    { image:IMG_BASE+"u5.brother.sister.jpg",       audio:AUDIO_BASE+"u5.mary.tom.mp3",     before:"Tom is Mary's",              after:".", answer:"brother", wrong:"sister",  es:"Tom es el hermano de Mary."          },
+    { image:IMG_BASE+"u5.craig.linda.jpg",          audio:AUDIO_BASE+"u5.linda.craig.mp3",  before:"Craig is Linda's",           after:".", answer:"husband", wrong:"wife",    es:"Craig es el esposo de Linda."        },
+    { image:IMG_BASE+"u5.craig.linda.jpg",          audio:AUDIO_BASE+"u5.linda.craig.mp3",  before:"Linda is Craig's",           after:".", answer:"wife",    wrong:"husband", es:"Linda es la esposa de Craig."        },
+    { image:IMG_BASE+"u5.brother.sister.uncle.jpg", audio:AUDIO_BASE+"u5.niece.nephew.mp3", before:"Mary is Craig's",            after:".", answer:"niece",   wrong:"daughter",es:"Mary es la sobrina de Craig."        },
+    { image:IMG_BASE+"u5.brother.sister.uncle.jpg", audio:AUDIO_BASE+"u5.niece.nephew.mp3", before:"Tom is Craig's",             after:".", answer:"nephew",  wrong:"son",     es:"Tom es el sobrino de Craig."         },
+    { image:IMG_BASE+"u5.brother.sister.uncle.jpg", audio:AUDIO_BASE+"u5.niece.nephew.mp3", before:"Craig is Mary and Tom's",    after:".", answer:"uncle",   wrong:"aunt",    es:"Craig es el tío de Mary y Tom."      },
+    { image:IMG_BASE+"u5.brother.sister.uncle.jpg", audio:AUDIO_BASE+"u5.niece.nephew.mp3", before:"Linda is Mary and Tom's",   after:".", answer:"aunt",    wrong:"uncle",   es:"Linda es la tía de Mary y Tom."      },
+    { image:IMG_BASE+"u5.baby.bill.jpg",            audio:AUDIO_BASE+"u5.baby.bill.mp3",    before:"Bill is Craig and Linda's", after:".", answer:"baby",    wrong:"dog",     es:"Bill es el bebé de Craig y Linda."   },
+    { image:IMG_BASE+"u5.brother.sister.baby.jpg",  audio:AUDIO_BASE+"u5.baby.bill.mp3",    before:"Bill is Tom and Mary's",    after:".", answer:"cousin",  wrong:"brother", es:"Bill es el primo de Tom y Mary."     }
+  ];
+
+  // ── DOM ────────────────────────────────────────────────────────────────────
+  const imgEl          = document.getElementById("lessonImg");
+  const playBtn        = document.getElementById("playBtn");
+  const sentenceEl     = document.getElementById("sentenceWrap");
+  const wordBankEl     = document.getElementById("wordBank");
+  const feedbackEl     = document.getElementById("feedbackBox");
+  const continueBtn    = document.getElementById("continueBtn");
+  const counterEl      = document.getElementById("counter");
+  const barEl          = document.getElementById("progressBar");
+  const mainCard       = document.getElementById("mainCard");
+  const endScreen      = document.getElementById("endScreen");
+  const vocabToggle    = document.getElementById("vocabToggle");
+  const vocabBody      = document.getElementById("vocabBody");
+  const vocabArrow     = document.getElementById("vocabArrow");
+  const correctCountEl = document.getElementById("correctCount");
+  const wrongCountEl   = document.getElementById("wrongCount");
+
+  let questionIndex = 0;
+  let totalCorrect  = 0;
+  let totalWrong    = 0;
+  let answered      = false;
+  let currentAudio  = null;
+
+  function updateScore() {
+    correctCountEl.textContent = totalCorrect;
+    wrongCountEl.textContent   = totalWrong;
+  }
+
+  // ── Vocab toggle ───────────────────────────────────────────────────────────
+  vocabToggle.addEventListener("click", () => {
+    const open = vocabBody.classList.toggle("open");
+    vocabArrow.textContent = open ? "▲" : "▼";
+  });
+
+  // Vocab tap-to-listen
+  document.querySelectorAll(".vocab-tap").forEach(btn => {
+    btn.addEventListener("click", () => {
+      new Audio(AUDIO_BASE + btn.dataset.audio).play().catch(()=>{});
+    });
+  });
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function updateCounter() {
+    counterEl.textContent = `${questionIndex + 1} / ${QUESTIONS.length}`;
+    barEl.style.width = ((questionIndex + 1) / QUESTIONS.length * 100) + "%";
+  }
+
+  function showContinue() { continueBtn.classList.add("visible"); }
+  function hideContinue()  { continueBtn.classList.remove("visible"); }
+
+  function destroyAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio.src = ""; currentAudio = null; }
+  }
+
+  function setPlayState(state) {
+    playBtn.className   = "play-btn " + state;
+    playBtn.textContent = state === "playing" ? "⏸" : "▶";
+    playBtn.disabled    = false;
+  }
+
+  function renderSentence(q, filledWord, state) {
+    let blankClass = "blank";
+    if (state === "correct") blankClass += " filled-correct";
+    if (state === "wrong")   blankClass += " filled-wrong";
+    const content = filledWord || "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    sentenceEl.innerHTML =
+      (q.before ? q.before + " " : "") +
+      `<span class="${blankClass}">${content}</span>` +
+      (q.after || "");
+  }
+
+  // ── Load question ──────────────────────────────────────────────────────────
+  function loadQuestion(index) {
+    questionIndex = index;
+    answered      = false;
+    updateCounter();
+    hideContinue();
+    destroyAudio();
+
+    feedbackEl.className = "feedback-box";
+    feedbackEl.innerHTML = "";
+
+    const q = QUESTIONS[index];
+    imgEl.src = q.image;
+    imgEl.alt = q.before;
+
+    const audio = new Audio(q.audio);
+    currentAudio = audio;
+    setPlayState("idle");
+
+    playBtn.onclick = () => {
+      if (!audio.paused) {
+        audio.pause();
+        setPlayState("idle");
+      } else {
+        audio.play().then(() => setPlayState("playing")).catch(()=>{});
+      }
+    };
+
+    audio.onended = () => setPlayState("done");
+
+    // iOS timeupdate fallback
+    audio.addEventListener("timeupdate", function iosCheck() {
+      if (audio.duration && audio.currentTime >= audio.duration - 0.3) {
+        audio.removeEventListener("timeupdate", iosCheck);
+        setPlayState("done");
+      }
+    });
+
+    renderSentence(q, null, null);
+
+    const words = [q.answer, q.wrong].sort(() => Math.random() - 0.5);
+    wordBankEl.innerHTML = "";
+    words.forEach(word => {
+      const chip = document.createElement("button");
+      chip.className   = "chip";
+      chip.textContent = word;
+      chip.addEventListener("click", () => handleChip(chip, word, q));
+      wordBankEl.appendChild(chip);
+    });
+  }
+
+  // ── Handle chip ────────────────────────────────────────────────────────────
+  function handleChip(chip, word, q) {
+    if (answered) return;
+    answered = true;
+
+    wordBankEl.querySelectorAll(".chip").forEach(c => c.disabled = true);
+
+    const isCorrect = word.toLowerCase() === q.answer.toLowerCase();
+
+    if (isCorrect) {
+      totalCorrect++;
+      updateScore();
+      playCorrectSfx();
+      renderSentence(q, word, "correct");
+      feedbackEl.className = "feedback-box correct show";
+      feedbackEl.innerHTML =
+        `✔ Correcto: <strong>${q.before} ${q.answer}${q.after}</strong><br>
+         <span style="color:#0d9488">${q.es}</span>`;
+    } else {
+      totalWrong++;
+      updateScore();
+      playIncorrectSfx();
+      renderSentence(q, word, "wrong");
+      feedbackEl.className = "feedback-box wrong show";
+      feedbackEl.innerHTML =
+        `❌ La respuesta correcta: <strong>${q.before} ${q.answer}${q.after}</strong><br>
+         <span style="color:#0d9488">${q.es}</span>`;
+    }
+
+    showContinue();
+  }
+
+  // ── Continue ───────────────────────────────────────────────────────────────
+  continueBtn.addEventListener("click", () => {
+    const next = questionIndex + 1;
+    if (next >= QUESTIONS.length) {
+      showEnd();
+    } else {
+      loadQuestion(next);
+    }
+  });
+
+  // ── Tiered end screen ──────────────────────────────────────────────────────
+  function showEnd() {
+    mainCard.style.display = "none";
+
+    const key = `inglesco_progress_u${UNIT}`;
+    try {
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data[`l${LESSON}`]) data[`l${LESSON}`] = {};
+      if (!data[`l${LESSON}`].partsCompleted || data[`l${LESSON}`].partsCompleted < PART) {
+        data[`l${LESSON}`].partsCompleted = PART;
+      }
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    const total = QUESTIONS.length;
+    let trophy, heading, sub, btns;
+
+    if (totalCorrect <= 4) {
+      trophy  = "😓";
+      heading = "Necesitas practicar más";
+      sub     = "Recomendación: Repite la lección para mejorar.";
+      btns    = `<a href="p3.html" class="end-btn retry">🔁 Intentar de nuevo</a>`;
+    } else if (totalCorrect <= 7) {
+      trophy  = "🙂";
+      heading = "Buen trabajo, pero puedes mejorar";
+      sub     = "Intenta otra vez para un mejor resultado.";
+      btns    = `<a href="p3.html" class="end-btn retry">🔁 Intentar de nuevo</a>
+                 <a href="p4.html" class="end-btn next">Continuar → Parte 4</a>`;
+    } else {
+      trophy  = "🏆";
+      heading = "¡Muy buen trabajo!";
+      sub     = "¡Listo para continuar!";
+      btns    = `<a href="p4.html" class="end-btn next">Continuar → Parte 4</a>`;
+    }
+
+    endScreen.innerHTML = `
+      <style>
+        .end-btn{display:inline-block;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;touch-action:manipulation}
+        .end-btn.retry{background:#ef4444;color:white}
+        .end-btn.next{background:#2563eb;color:white}
+        .end-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+        .end-score-box{display:inline-flex;gap:20px;background:#f1f5f9;border-radius:12px;padding:10px 24px;margin:14px 0;font-size:15px;font-weight:700}
+        .end-score-box .c{color:#16a34a}.end-score-box .w{color:#dc2626}
+      </style>
+      <div style="font-size:52px;margin-bottom:12px">${trophy}</div>
+      <h2 style="font-size:22px;font-weight:900;color:#1e40af;margin-bottom:8px">${heading}</h2>
+      <div class="end-score-box">
+        <span class="c">✓ ${totalCorrect} / ${total}</span>
+        <span class="w">✗ ${totalWrong} errores</span>
+      </div>
+      <p style="font-size:14px;color:#64748b">${sub}</p>
+      <div class="end-btns">${btns}</div>
+    `;
+
+    endScreen.style.display = "block";
+    endScreen.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  loadQuestion(0);
+})();
+</script>
 </body>
 </html>

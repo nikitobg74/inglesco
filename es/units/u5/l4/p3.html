@@ -2,19 +2,24 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>Unidad 5 • Lección 4 • Parte 3</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
 body{
   background:linear-gradient(135deg,#dbeafe,#fef9c3);
   min-height:100vh;
-  padding:16px 12px 60px;
+  padding:16px 12px 80px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -24,6 +29,7 @@ body{
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
 
+/* ── Progress dots ── */
 .progress-container{
   display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
 }
@@ -34,7 +40,19 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* ── Vocab panel ─────────────────────────────────────────────────────────── */
+/* ── Score pills ── */
+.score-row{
+  display:flex;justify-content:center;gap:16px;margin-bottom:14px;
+}
+.score-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:999px;
+  font-weight:700;font-size:13px;
+}
+.score-pill.correct-pill{background:#dcfce7;color:#16a34a;border:1.5px solid #86efac}
+.score-pill.wrong-pill{background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5}
+
+/* ── Vocab panel ── */
 .vocab-panel{
   background:rgba(255,255,255,.88);
   border-radius:14px;
@@ -48,24 +66,19 @@ body{
   background:none;border:none;cursor:pointer;
   font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;
   color:#1e3a5f;
+  touch-action:manipulation;
 }
 .vocab-toggle:hover{background:rgba(0,0,0,.03)}
 .toggle-arrow{font-size:12px;color:#94a3b8;margin-left:8px}
-
 .vocab-body{
-  display:none;
-  padding:4px 12px 14px;
-  gap:8px;
-  grid-template-columns:1fr 1fr;
+  display:none;padding:4px 12px 14px;
+  gap:8px;grid-template-columns:1fr 1fr;
 }
 .vocab-body.open{display:grid}
-
 .vocab-item{
   display:flex;align-items:center;gap:8px;
-  padding:8px 10px;
-  border-radius:10px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
+  padding:8px 10px;border-radius:10px;
+  background:#f8fafc;border:1px solid #e2e8f0;
 }
 .vocab-play{
   width:32px;height:32px;border-radius:50%;
@@ -74,16 +87,17 @@ body{
   font-size:12px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   transition:background .2s,transform .1s;
+  touch-action:manipulation;
 }
 .vocab-play:active{transform:scale(.92)}
 .vocab-play.vplaying{background:#f59e0b}
 .vocab-word{font-weight:700;font-size:14px;color:#1e3a5f;min-width:70px}
 .vocab-es{font-size:13px;color:#64748b;font-weight:600}
 
-/* ── Card ────────────────────────────────────────────────────────────────── */
+/* ── Card ── */
 .card{
-  background:rgba(255,255,255,.88);border-radius:18px;
-  padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:18px 16px 22px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
   display:flex;justify-content:space-between;
@@ -91,34 +105,37 @@ body{
 }
 .bar-wrap{
   background:#e2e8f0;border-radius:999px;height:7px;
-  margin-bottom:20px;overflow:hidden;
+  margin-bottom:18px;overflow:hidden;
 }
 .bar-fill{
   height:100%;width:0%;background:#a855f7;
   border-radius:999px;transition:width .4s;
 }
 
+/* Image */
 .lesson-img{
-  width:100%;height:auto;max-height:260px;object-fit:contain;
-  border-radius:14px;margin-bottom:14px;display:block;background:#f1f5f9;
+  width:100%;max-height:220px;object-fit:contain;
+  border-radius:14px;margin-bottom:14px;
+  display:block;background:#f1f5f9;
 }
 
 /* Story text */
 .slide-text{
   text-align:center;font-size:15px;font-weight:600;
-  color:#1e3a5f;line-height:1.7;margin-bottom:18px;
+  color:#1e3a5f;line-height:1.75;margin-bottom:18px;
 }
 
-/* Play button */
+/* Audio controls */
 .audio-controls{
   display:flex;align-items:center;justify-content:center;
   margin-bottom:18px;
 }
 .play-btn{
-  width:56px;height:56px;border-radius:50%;
+  width:60px;height:60px;border-radius:50%;
   border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  font-size:22px;transition:background .2s,transform .1s;
+  font-size:24px;transition:background .2s,transform .1s;
+  touch-action:manipulation;
 }
 .play-btn.idle   {background:#2563eb;color:white}
 .play-btn.playing{background:#f59e0b;color:white}
@@ -126,7 +143,7 @@ body{
 .play-btn:active {transform:scale(.93)}
 .play-btn:disabled{opacity:.4;cursor:default}
 
-/* ── True / False questions ──────────────────────────────────────────────── */
+/* ── True/False questions ── */
 #questionsArea{display:none;margin-top:4px}
 
 .tf-block{
@@ -146,29 +163,60 @@ body{
 }
 
 .tf-btn{
-  padding:10px 32px;
+  padding:12px 32px;
   border-radius:12px;
   border:2px solid #0d9488;
   background:#f0fdfa;color:#0f766e;
   font-weight:700;font-size:15px;
   font-family:'Poppins',sans-serif;
-  cursor:pointer;
+  cursor:pointer;min-width:100px;text-align:center;
   transition:background .15s,border-color .15s,color .15s,transform .1s;
-  min-width:100px;text-align:center;
+  touch-action:manipulation;
 }
 .tf-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
-.tf-btn:active{transform:scale(.96)}
+.tf-btn:active:not(:disabled){transform:scale(.96)}
 .tf-btn:disabled{cursor:default}
 .tf-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
-.tf-btn.wrong{
-  background:#fee2e2;border-color:#ef4444;color:#b91c1c;
-  animation:shake .3s ease;
+.tf-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c;animation:shake .3s ease}
+.tf-btn.revealed{background:#fef9c3;border-color:#f59e0b;color:#92400e}
+
+.hint-text{
+  text-align:center;font-size:13px;color:#f59e0b;
+  font-weight:700;margin-top:8px;
+  animation:fadeIn .3s ease;
 }
+
+/* ── End screen ── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.92);border-radius:20px;
+  padding:40px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.end-trophy{font-size:56px;margin-bottom:14px}
+.end-title{font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px}
+.end-sub{font-size:16px;font-weight:600;color:#374151;margin-bottom:6px}
+.end-note{font-size:14px;color:#64748b;margin-bottom:24px}
+.end-score{
+  display:inline-flex;gap:20px;
+  background:#f1f5f9;border-radius:12px;padding:10px 24px;
+  margin-bottom:24px;font-size:15px;font-weight:700;
+}
+.end-score .c{color:#16a34a}
+.end-score .w{color:#dc2626}
+.continue-btn{
+  display:inline-block;padding:13px 32px;
+  background:#2563eb;color:white;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:16px;
+  touch-action:manipulation;
+}
+
 @keyframes shake{
   0%,100%{transform:translateX(0)}
   25%{transform:translateX(-6px)}
   75%{transform:translateX(6px)}
 }
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -185,13 +233,19 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
+  <!-- Score pills -->
+  <div class="score-row">
+    <div class="score-pill correct-pill">✓ <span id="correctCount">0</span></div>
+    <div class="score-pill wrong-pill">✗ <span id="wrongCount">0</span></div>
+  </div>
+
   <!-- Vocab panel -->
   <div class="vocab-panel">
     <button class="vocab-toggle" id="vocabToggle">
       <span>📖 Vocabulario nuevo</span>
       <span class="toggle-arrow" id="toggleArrow">▼</span>
     </button>
-    <div class="vocab-body open" id="vocabBody"></div>
+    <div class="vocab-body" id="vocabBody"></div>
   </div>
 
   <!-- Main card -->
@@ -203,24 +257,392 @@ body{
     <div class="slide-text" id="slideText"></div>
 
     <div class="audio-controls">
-      <button class="play-btn idle" id="playBtn" title="Reproducir">▶</button>
+      <button class="play-btn idle" id="playBtn" title="Reproducir" aria-label="Reproducir audio">▶</button>
     </div>
 
     <div id="questionsArea"></div>
   </div>
+
+  <!-- End screen -->
+  <div id="endScreen" data-unit="5" data-lesson="4" data-part="3">
+    <div class="end-trophy">🏆</div>
+    <h2 class="end-title">¡Muy buen trabajo!</h2>
+    <p class="end-sub">Completaste la Parte 3.</p>
+    <div class="end-score">
+      <span class="c">✓ <span id="finalCorrect">0</span> correctas</span>
+      <span class="w">✗ <span id="finalWrong">0</span> errores</span>
+    </div>
+    <p class="end-note">¡Excelente esfuerzo!</p>
+    <a href="p4.html" class="continue-btn">Continuar → Parte 4</a>
+  </div>
 </div>
 
-<!-- End screen -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:36px 24px;margin:16px auto;max-width:700px"
-     id="endScreen"
-     data-unit="5" data-lesson="4" data-part="3">
-  <div style="font-size:52px;margin-bottom:12px">🏆</div>
-  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px">¡Muy buen trabajo!</h2>
-  <p style="font-size:16px;font-weight:600;color:#374151;margin-bottom:6px">Completaste la Parte 3.</p>
-  <p style="font-size:14px;color:#64748b;margin-bottom:24px">¡Excelente esfuerzo!</p>
-  <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">Continuar → Parte 4</a>
-</div>
+<script>
+(() => {
+  const UNIT   = 5;
+  const LESSON = 4;
+  const PART   = 3;
+  const MAX_ERRORS_BEFORE_REVEAL = 2;
 
-<script src="../../../../js/u5/u5_l4_p3.js"></script>
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = BASE + "images/u5/";
+  const AUDIO_BASE = BASE + "audio/u5/";
+
+  // ── SFX ────────────────────────────────────────────────────────────────────
+  const sfxCorrect   = new Audio(AUDIO_BASE + "correct.wav");
+  const sfxIncorrect = new Audio(AUDIO_BASE + "incorrect.wav");
+  sfxCorrect.preload = sfxIncorrect.preload = "auto";
+  function playCorrectSfx()   { sfxCorrect.currentTime   = 0; sfxCorrect.play().catch(()=>{}); }
+  function playIncorrectSfx() { sfxIncorrect.currentTime = 0; sfxIncorrect.play().catch(()=>{}); }
+
+  // ── Vocab ──────────────────────────────────────────────────────────────────
+  const VOCAB = [
+    { word:"ocean",      es:"océano",            audio: AUDIO_BASE+"u5.ocean.mp3"      },
+    { word:"weather",    es:"clima",              audio: AUDIO_BASE+"u5.weather.mp3"    },
+    { word:"sunny",      es:"soleado",            audio: AUDIO_BASE+"u5.sunny.mp3"      },
+    { word:"sandcastle", es:"castillo de arena",  audio: AUDIO_BASE+"u5.sandcastle.mp3" },
+    { word:"sand",       es:"arena",              audio: AUDIO_BASE+"u5.sand.mp3"       },
+    { word:"summer",     es:"verano",             audio: AUDIO_BASE+"u5.summer.mp3"     },
+    { word:"look",       es:"mira",               audio: AUDIO_BASE+"u5.look.mp3"       }
+  ];
+
+  // ── Slides ─────────────────────────────────────────────────────────────────
+  const SLIDES = [
+    {
+      image: IMG_BASE   + "u5.vacation.hawaii.jpg",
+      audio: AUDIO_BASE + "u5.vacation.hawaii.mp3",
+      lines: [
+        "My cousins are on vacation.",
+        "This summer, my aunt and uncle are on vacation in Hawaii.",
+        "The weather is sunny, and the ocean is blue."
+      ],
+      questions: [
+        { statement:"The ocean is sunny.",   answer:false },
+        { statement:"The weather is sunny.", answer:true  }
+      ]
+    },
+    {
+      image: IMG_BASE   + "u5.hotel.jpg",
+      audio: AUDIO_BASE + "u5.hotel.mp3",
+      lines: [
+        "Look at the photo.",
+        "Their hotel is old and not very expensive.",
+        "Their hotel room is small and cheap."
+      ],
+      questions: [
+        { statement:"The hotel is expensive.",  answer:false },
+        { statement:"The hotel room is small.", answer:true  }
+      ]
+    },
+    {
+      image: IMG_BASE   + "u5.tommy.surf.jpg",
+      audio: AUDIO_BASE + "u5.tommy.surfing.mp3",
+      lines: [
+        "Look at cousin Tommy.",
+        "He is at the beach.",
+        "He is swimming with his surfboard."
+      ],
+      questions: [
+        { statement:"Tommy is at the beach.",     answer:true  },
+        { statement:"Tommy is riding a bicycle.", answer:false },
+        { statement:"Tommy is swimming.",         answer:true  }
+      ]
+    },
+    {
+      image: IMG_BASE   + "u5.shelly.sand.jpg",
+      audio: AUDIO_BASE + "u5.shelly.mp3",
+      lines: [
+        "Look at cousin Shelly.",
+        "She is at the beach too.",
+        "She is building a sandcastle."
+      ],
+      questions: [
+        { statement:"Shelly is at the beach.",          answer:true  },
+        { statement:"Shelly is reading a book.",        answer:false },
+        { statement:"Shelly is building a sandcastle.", answer:true  }
+      ]
+    },
+    {
+      image: IMG_BASE   + "u5.dog.sand.jpg",
+      audio: AUDIO_BASE + "u5.dog.running.mp3",
+      lines: [
+        "Their dog Barky is on vacation too.",
+        "He is running on the sand."
+      ],
+      questions: [
+        { statement:"The dog is on the sand.", answer:true  },
+        { statement:"The dog is sleeping.",    answer:false },
+        { statement:"The dog is running.",     answer:true  }
+      ]
+    },
+    {
+      image: IMG_BASE   + "u5.aunt.uncle.beach.jpg",
+      audio: AUDIO_BASE + "u5.uncle.aunt.hawaii.mp3",
+      lines: [
+        "My aunt is sitting and reading a book.",
+        "My uncle is drinking a cocktail."
+      ],
+      questions: [
+        { statement:"My aunt is reading a book.",       answer:true  },
+        { statement:"My uncle is eating.",              answer:false },
+        { statement:"My uncle is drinking a cocktail.", answer:true  }
+      ]
+    }
+  ];
+
+  // ── DOM ────────────────────────────────────────────────────────────────────
+  const imgEl         = document.getElementById("lessonImg");
+  const slideTextEl   = document.getElementById("slideText");
+  const playBtn       = document.getElementById("playBtn");
+  const counterEl     = document.getElementById("counter");
+  const barEl         = document.getElementById("progressBar");
+  const mainCard      = document.getElementById("mainCard");
+  const endScreen     = document.getElementById("endScreen");
+  const questionsArea = document.getElementById("questionsArea");
+  const vocabToggle   = document.getElementById("vocabToggle");
+  const vocabBody     = document.getElementById("vocabBody");
+  const correctCountEl = document.getElementById("correctCount");
+  const wrongCountEl   = document.getElementById("wrongCount");
+
+  let slideIndex   = 0;
+  let currentAudio = null;
+  let vocabAudio   = null;
+  let totalCorrect = 0;
+  let totalWrong   = 0;
+
+  function updateScore() {
+    correctCountEl.textContent = totalCorrect;
+    wrongCountEl.textContent   = totalWrong;
+  }
+
+  function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  function updateCounter() {
+    counterEl.textContent = `${slideIndex + 1} / ${SLIDES.length}`;
+    barEl.style.width = ((slideIndex + 1) / SLIDES.length * 100) + "%";
+  }
+
+  function setPlayState(state) {
+    playBtn.className   = "play-btn " + state;
+    playBtn.textContent = state === "playing" ? "⏸" : "▶";
+    playBtn.disabled    = false;
+  }
+
+  function destroyAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio.src = ""; currentAudio = null; }
+  }
+
+  // ── Vocab panel ────────────────────────────────────────────────────────────
+  function buildVocab() {
+    VOCAB.forEach(v => {
+      const item = document.createElement("div");
+      item.className = "vocab-item";
+
+      const btn = document.createElement("button");
+      btn.className = "vocab-play";
+      btn.innerHTML = "▶";
+
+      btn.addEventListener("click", () => {
+        if (vocabAudio) { vocabAudio.pause(); vocabAudio.src = ""; }
+        document.querySelectorAll(".vocab-play").forEach(b => {
+          b.innerHTML = "▶"; b.classList.remove("vplaying");
+        });
+        vocabAudio = new Audio(v.audio);
+        btn.innerHTML = "⏸";
+        btn.classList.add("vplaying");
+        vocabAudio.play().catch(()=>{});
+        vocabAudio.onended = () => { btn.innerHTML = "▶"; btn.classList.remove("vplaying"); };
+      });
+
+      const word = document.createElement("span");
+      word.className = "vocab-word";
+      word.textContent = v.word;
+
+      const es = document.createElement("span");
+      es.className = "vocab-es";
+      es.textContent = v.es;
+
+      item.appendChild(btn);
+      item.appendChild(word);
+      item.appendChild(es);
+      vocabBody.appendChild(item);
+    });
+  }
+
+  vocabToggle.addEventListener("click", () => {
+    const open = vocabBody.classList.toggle("open");
+    document.getElementById("toggleArrow").textContent = open ? "▲" : "▼";
+  });
+
+  // ── Single True/False question → resolves on correct answer ───────────────
+  function showOneQuestion(q) {
+    return new Promise(resolve => {
+      let errorsThisQ = 0;
+
+      const block = document.createElement("div");
+      block.className = "tf-block";
+
+      const stmt = document.createElement("p");
+      stmt.className = "tf-statement";
+      stmt.textContent = q.statement;
+
+      const row = document.createElement("div");
+      row.className = "tf-row";
+
+      function lockAll() {
+        row.querySelectorAll(".tf-btn").forEach(b => b.disabled = true);
+      }
+
+      ["True", "False"].forEach(label => {
+        const isTrue = label === "True";
+        const btn = document.createElement("button");
+        btn.className = "tf-btn";
+        btn.textContent = label;
+
+        btn.addEventListener("click", () => {
+          if (btn.disabled) return;
+          const correct = (isTrue === q.answer);
+
+          if (correct) {
+            totalCorrect++;
+            updateScore();
+            btn.classList.add("correct");
+            playCorrectSfx();
+            lockAll();
+            resolve();
+          } else {
+            errorsThisQ++;
+            totalWrong++;
+            updateScore();
+            playIncorrectSfx();
+            btn.classList.add("wrong");
+            setTimeout(() => btn.classList.remove("wrong"), 600);
+
+            if (errorsThisQ >= MAX_ERRORS_BEFORE_REVEAL) {
+              // Highlight correct button
+              row.querySelectorAll(".tf-btn").forEach(b => {
+                const bIsTrue = b.textContent === "True";
+                if (bIsTrue === q.answer) b.classList.add("revealed");
+                b.disabled = true;
+              });
+              // Show hint below row
+              if (!block.querySelector(".hint-text")) {
+                const hint = document.createElement("p");
+                hint.className = "hint-text";
+                hint.textContent = q.answer ? "💡 La respuesta correcta es: True" : "💡 La respuesta correcta es: False";
+                block.appendChild(hint);
+              }
+              setTimeout(resolve, 1600);
+            }
+          }
+        });
+
+        row.appendChild(btn);
+      });
+
+      block.appendChild(stmt);
+      block.appendChild(row);
+      questionsArea.appendChild(block);
+
+      requestAnimationFrame(() => requestAnimationFrame(() => block.classList.add("visible")));
+    });
+  }
+
+  // ── Run questions sequentially ─────────────────────────────────────────────
+  async function runQuestions(questions) {
+    questionsArea.innerHTML = "";
+    questionsArea.style.display = "block";
+
+    for (const q of questions) {
+      await showOneQuestion(q);
+      await delay(900);
+      // Fade out before clearing
+      questionsArea.querySelectorAll(".tf-block").forEach(b => {
+        b.style.opacity = "0";
+        b.style.transform = "translateY(-6px)";
+      });
+      await delay(280);
+      questionsArea.innerHTML = "";
+    }
+  }
+
+  // ── Load slide ─────────────────────────────────────────────────────────────
+  function loadSlide(index) {
+    slideIndex = index;
+    updateCounter();
+    destroyAudio();
+    questionsArea.innerHTML = "";
+    questionsArea.style.display = "none";
+
+    const slide = SLIDES[index];
+    imgEl.src = slide.image;
+    imgEl.alt = slide.lines[0] || "";
+    slideTextEl.innerHTML = slide.lines.map(l => `<span>${l}</span>`).join("<br>");
+
+    const audio = new Audio(slide.audio);
+    currentAudio = audio;
+
+    setPlayState("idle");
+    playBtn.disabled = false;
+
+    function handlePlay() {
+      if (!audio.paused) {
+        audio.pause();
+        setPlayState("idle");
+      } else {
+        audio.play().then(() => setPlayState("playing")).catch(()=>{});
+      }
+    }
+    playBtn.onclick = handlePlay;
+
+    async function afterAudio() {
+      setPlayState("done");
+      await delay(400);
+      await runQuestions(slide.questions);
+      await delay(1200);
+      const next = index + 1;
+      if (next >= SLIDES.length) {
+        showEnd();
+      } else {
+        loadSlide(next);
+      }
+    }
+
+    audio.onended = afterAudio;
+
+    // iOS timeupdate fallback
+    audio.addEventListener("timeupdate", function iosCheck() {
+      if (audio.duration && audio.currentTime >= audio.duration - 0.3) {
+        audio.removeEventListener("timeupdate", iosCheck);
+        if (questionsArea.style.display === "none") afterAudio();
+      }
+    });
+  }
+
+  // ── End ────────────────────────────────────────────────────────────────────
+  function showEnd() {
+    mainCard.style.display = "none";
+
+    const key = `inglesco_progress_u${UNIT}`;
+    try {
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data[`l${LESSON}`]) data[`l${LESSON}`] = {};
+      if (!data[`l${LESSON}`].partsCompleted || data[`l${LESSON}`].partsCompleted < PART) {
+        data[`l${LESSON}`].partsCompleted = PART;
+      }
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+
+    document.getElementById("finalCorrect").textContent = totalCorrect;
+    document.getElementById("finalWrong").textContent   = totalWrong;
+    endScreen.style.display = "block";
+    endScreen.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  buildVocab();
+  loadSlide(0);
+})();
+</script>
 </body>
 </html>

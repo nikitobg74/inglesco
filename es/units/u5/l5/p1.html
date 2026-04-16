@@ -2,19 +2,24 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>Unidad 5 • Lección 5 • Parte 1</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+<!-- Vercel Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
 body{
   background:linear-gradient(135deg,#dbeafe,#fef9c3);
   min-height:100vh;
-  padding:16px 12px 60px;
+  padding:16px 12px 80px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -24,6 +29,7 @@ body{
 .top-title{text-align:center;font-size:18px;font-weight:900;margin-bottom:4px}
 .subline{text-align:center;font-size:14px;font-weight:700;margin-bottom:16px;color:#374151}
 
+/* ── Progress dots ── */
 .progress-container{
   display:flex;justify-content:center;gap:10px;margin:12px 0 20px 0;
 }
@@ -34,7 +40,7 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
-/* ── Grammar panel ───────────────────────────────────────────────────────── */
+/* ── Grammar panel ── */
 .grammar-panel{
   background:rgba(255,255,255,.92);
   border-radius:16px;
@@ -47,8 +53,8 @@ body{
   width:100%;display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px;
   background:none;border:none;cursor:pointer;
-  font-family:'Poppins',sans-serif;
-  text-align:left;
+  font-family:'Poppins',sans-serif;text-align:left;
+  touch-action:manipulation;
 }
 .grammar-toggle:hover{background:rgba(0,0,0,.02)}
 .grammar-toggle-label{
@@ -58,140 +64,79 @@ body{
 .grammar-badge{
   background:#2563eb;color:white;
   font-size:11px;font-weight:700;
-  padding:2px 8px;border-radius:999px;
-  letter-spacing:.04em;
+  padding:2px 8px;border-radius:999px;letter-spacing:.04em;
 }
 .toggle-arrow{font-size:13px;color:#94a3b8;flex-shrink:0}
-
-.grammar-body{
-  display:none;
-  padding:0 18px 18px;
-}
+.grammar-body{display:none;padding:0 18px 18px}
 .grammar-body.open{display:block}
 
-/* Intro rule */
-.grammar-rule{
-  font-size:16px;font-weight:700;color:#1e3a5f;
-  line-height:1.6;margin-bottom:14px;
-}
-.grammar-rule span{
-  display:block;padding:4px 0;
-}
-.grammar-rule .highlight{
-  color:#2563eb;
-}
-.grammar-rule .hook{
-  font-size:18px;font-weight:900;color:#1e40af;
-}
+.grammar-rule{font-size:16px;font-weight:700;color:#1e3a5f;line-height:1.6;margin-bottom:14px}
+.grammar-rule span{display:block;padding:4px 0}
+.grammar-rule .highlight{color:#2563eb}
+.grammar-rule .hook{font-size:18px;font-weight:900;color:#1e40af}
 .map-en{color:#1e40af;font-weight:900}
 .map-es{color:#0d9488;font-weight:900}
 
-/* Structure comparison */
 .structure-box{
-  background:#f0f9ff;
-  border:2px solid #bfdbfe;
-  border-radius:12px;
-  padding:14px 16px;
-  margin-bottom:14px;
+  background:#f0f9ff;border:2px solid #bfdbfe;
+  border-radius:12px;padding:14px 16px;margin-bottom:14px;
 }
 .structure-row{
   display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:6px;
-  margin-bottom:8px;
+  flex-wrap:wrap;gap:6px;margin-bottom:8px;
 }
 .structure-row:last-child{margin-bottom:0}
-.str-pill{
-  padding:6px 14px;border-radius:8px;
-  font-size:15px;font-weight:700;
-  background:#1e40af;color:white;
-}
+.str-pill{padding:6px 14px;border-radius:8px;font-size:15px;font-weight:700;background:#1e40af;color:white}
 .str-pill.apostrophe{background:#f59e0b;color:white}
 .str-pill.es{background:#0d9488;color:white}
 .str-pill.de{background:#0d9488;color:white}
 .str-plus{font-size:18px;font-weight:900;color:#94a3b8}
-.str-arrow{
-  text-align:center;font-size:22px;margin:6px 0;
-  display:block;
-}
+.str-arrow{text-align:center;font-size:22px;margin:6px 0;display:block}
 .str-label{
   font-size:12px;font-weight:700;color:#64748b;
   text-align:center;width:100%;margin-bottom:6px;
   text-transform:uppercase;letter-spacing:.05em;
 }
-.structure-pattern{
-  text-align:center;font-size:14px;font-weight:700;
-  color:#334155;line-height:1.6;margin-bottom:10px;
-}
+.structure-pattern{text-align:center;font-size:14px;font-weight:700;color:#334155;line-height:1.6;margin-bottom:10px}
 .structure-pattern .en-pattern{color:#1e40af}
 .structure-pattern .es-pattern{color:#0d9488}
 
-/* Example comparison table */
-.compare-table{
-  width:100%;border-collapse:collapse;
-  font-size:15px;margin-top:4px;
-}
-.compare-table th{
-  background:#1e40af;color:white;
-  padding:9px 12px;font-weight:700;font-size:14px;
-  text-align:left;
-}
+.compare-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:4px}
+.compare-table th{background:#1e40af;color:white;padding:9px 12px;font-weight:700;font-size:14px;text-align:left}
 .compare-table th:first-child{border-radius:8px 0 0 0}
 .compare-table th:last-child{border-radius:0 8px 0 0}
-.compare-table td{
-  padding:9px 12px;border-bottom:1px solid #e2e8f0;
-  font-weight:600;color:#1e3a5f;vertical-align:middle;
-}
+.compare-table td{padding:9px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#1e3a5f;vertical-align:middle}
 .compare-table tr:last-child td{border-bottom:none}
 .compare-table tr:nth-child(even) td{background:#f8fafc}
 .en-cell{color:#1e40af;font-weight:700}
 .es-cell{color:#0d9488;font-weight:700}
 
-/* ── Slideshow card ──────────────────────────────────────────────────────── */
+/* ── Slideshow card ── */
 .card{
-  background:rgba(255,255,255,.88);border-radius:18px;
-  padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:18px 16px 22px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
-.counter-row{
-  display:flex;justify-content:space-between;
-  margin-bottom:8px;font-size:13px;font-weight:700;color:#486581;
-}
-.bar-wrap{
-  background:#e2e8f0;border-radius:999px;height:7px;
-  margin-bottom:20px;overflow:hidden;
-}
-.bar-fill{
-  height:100%;width:0%;background:#a855f7;
-  border-radius:999px;transition:width .4s;
-}
+.counter-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:700;color:#486581}
+.bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:18px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:#a855f7;border-radius:999px;transition:width .4s}
 
 .lesson-img{
-  width:100%;height:auto;max-height:260px;object-fit:contain;
-  border-radius:14px;margin-bottom:14px;display:block;background:#f1f5f9;
+  width:100%;max-height:220px;object-fit:contain;
+  border-radius:14px;margin-bottom:14px;
+  display:block;background:#f1f5f9;
 }
 
-/* Slide text: EN line + ES translation */
-.slide-lines{
-  text-align:center;margin-bottom:18px;
-}
-.line-en{
-  font-size:16px;font-weight:700;color:#1e3a5f;
-  line-height:1.6;display:block;margin-bottom:2px;
-}
-.line-es{
-  font-size:14px;font-weight:600;color:#0d9488;
-  line-height:1.5;display:block;margin-bottom:10px;
-}
+.slide-lines{text-align:center;margin-bottom:18px}
+.line-en{font-size:16px;font-weight:700;color:#1e3a5f;line-height:1.6;display:block;margin-bottom:2px}
+.line-es{font-size:14px;font-weight:600;color:#0d9488;line-height:1.5;display:block;margin-bottom:10px}
 
-/* Play button */
-.audio-controls{
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:18px;
-}
+.audio-controls{display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .play-btn{
   width:62px;height:62px;border-radius:50%;
   border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   font-size:24px;transition:background .2s,transform .1s;
+  touch-action:manipulation;
 }
 .play-btn.idle   {background:#2563eb;color:white}
 .play-btn.playing{background:#f59e0b;color:white}
@@ -199,18 +144,32 @@ body{
 .play-btn:active {transform:scale(.93)}
 .play-btn:disabled{opacity:.4;cursor:default}
 
-/* Continue button */
 .continue-btn{
-  display:none;
-  margin:0 auto;
-  padding:12px 30px;
-  background:#2563eb;color:white;
+  display:none;margin:0 auto;
+  padding:13px 30px;background:#2563eb;color:white;
   border:none;border-radius:12px;
   font-weight:700;font-size:15px;font-family:'Poppins',sans-serif;
-  cursor:pointer;transition:background .2s;
+  cursor:pointer;transition:background .2s;touch-action:manipulation;
 }
 .continue-btn.visible{display:block}
 .continue-btn:hover{background:#1d4ed8}
+
+/* ── End screen ── */
+#endScreen{
+  display:none;text-align:center;
+  background:rgba(255,255,255,.92);border-radius:20px;
+  padding:40px 24px;margin:0 auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.end-trophy{font-size:56px;margin-bottom:14px}
+.end-title{font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px}
+.end-sub{font-size:16px;font-weight:600;color:#374151;margin-bottom:6px}
+.end-note{font-size:14px;color:#64748b;margin-bottom:24px}
+.end-cta{
+  display:inline-block;padding:13px 32px;
+  background:#2563eb;color:white;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:16px;touch-action:manipulation;
+}
 </style>
 </head>
 <body>
@@ -227,7 +186,7 @@ body{
     <a class="step" href="p5.html">5</a>
   </div>
 
-  <!-- ── Grammar panel ──────────────────────────────────────────────────── -->
+  <!-- Grammar panel -->
   <div class="grammar-panel">
     <button class="grammar-toggle" id="grammarToggle">
       <span class="grammar-toggle-label">
@@ -239,7 +198,6 @@ body{
 
     <div class="grammar-body open" id="grammarBody">
 
-      <!-- Rule -->
       <div class="grammar-rule">
         <span class="hook">👉 ¿De quién es?</span>
         <span><span class="map-en">Tom's dog</span> &nbsp;→&nbsp; <span class="highlight map-es">El perro de Tom</span></span>
@@ -247,7 +205,6 @@ body{
         <span>👉 Es igual a <strong>"de"</strong> en español.</span>
       </div>
 
-      <!-- Structure visual -->
       <div class="structure-box">
         <div class="structure-pattern">
           <div class="en-pattern">En inglés: persona + 's + cosa</div>
@@ -272,7 +229,6 @@ body{
         </div>
       </div>
 
-      <!-- Examples table -->
       <table class="compare-table">
         <thead>
           <tr><th>🇺🇸 EN INGLÉS</th><th>🇲🇽 EN ESPAÑOL</th></tr>
@@ -286,42 +242,206 @@ body{
             <td class="en-cell"><strong>Robert's</strong> house</td>
             <td class="es-cell">la casa <strong>de Robert</strong></td>
           </tr>
-         
         </tbody>
       </table>
 
-    </div><!-- /grammar-body -->
-  </div><!-- /grammar-panel -->
+    </div>
+  </div>
 
-  <!-- ── Slideshow card ─────────────────────────────────────────────────── -->
+  <!-- Slideshow card -->
   <div class="card" id="mainCard">
     <div class="counter-row"><span id="counter">1 / 8</span></div>
     <div class="bar-wrap"><div class="bar-fill" id="progressBar"></div></div>
 
     <img id="lessonImg" class="lesson-img" src="" alt="" />
-
     <div class="slide-lines" id="slideLines"></div>
 
     <div class="audio-controls">
-      <button class="play-btn idle" id="playBtn" title="Reproducir">▶</button>
+      <button class="play-btn idle" id="playBtn" title="Reproducir" aria-label="Reproducir audio">▶</button>
     </div>
 
     <button class="continue-btn" id="continueBtn">Continuar →</button>
   </div>
 
-</div><!-- /wrap -->
-
-<!-- End screen -->
-<div style="display:none;text-align:center;background:rgba(255,255,255,.88);border-radius:18px;padding:36px 24px;margin:16px auto;max-width:700px"
-     id="endScreen"
-     data-unit="5" data-lesson="5" data-part="1">
-  <div style="font-size:52px;margin-bottom:12px">🏆</div>
-  <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:8px">¡Muy buen trabajo!</h2>
-  <p style="font-size:16px;font-weight:600;color:#374151;margin-bottom:6px">Completaste la Parte 1.</p>
-  <p style="font-size:14px;color:#64748b;margin-bottom:24px">¡Excelente esfuerzo!</p>
-  <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px">Continuar → Parte 2</a>
+  <!-- End screen -->
+  <div id="endScreen" data-unit="5" data-lesson="5" data-part="1">
+    <div class="end-trophy">🏆</div>
+    <h2 class="end-title">¡Muy buen trabajo!</h2>
+    <p class="end-sub">Completaste la Parte 1.</p>
+    <p class="end-note">¡Excelente esfuerzo!</p>
+    <a href="p2.html" class="end-cta">Continuar → Parte 2</a>
+  </div>
 </div>
 
-<script src="../../../../js/u5/u5_l5_p1.js"></script>
+<script>
+(() => {
+  const UNIT   = 5;
+  const LESSON = 5;
+  const PART   = 1;
+
+  const BASE       = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_BASE   = BASE + "images/u5/";
+  const AUDIO_BASE = BASE + "audio/u5/";
+
+  const SLIDES = [
+    {
+      image: IMG_BASE   + "u5.tom.dog.jpg",
+      audio: AUDIO_BASE + "u5.tom.dog.mp3",
+      lines: [
+        { en:"This is Tom.",       es:"Este es Tom."             },
+        { en:"This is Tom's dog.", es:"Este es el perro de Tom." }
+      ]
+    },
+    {
+      image: IMG_BASE   + "u5.robert.house.jpg",
+      audio: AUDIO_BASE + "u5.robert.house.mp3",
+      lines: [{ en:"Robert's house is big.",      es:"La casa de Robert es grande."          }]
+    },
+    {
+      image: IMG_BASE   + "u5.linda.car.jpg",
+      audio: AUDIO_BASE + "u5.linda.car.mp3",
+      lines: [{ en:"Linda's car is old.",          es:"El carro de Linda es viejo."           }]
+    },
+    {
+      image: IMG_BASE   + "u5.mike.car.jpg",
+      audio: AUDIO_BASE + "u5.mike.car.mp3",
+      lines: [{ en:"Mike's car is new.",           es:"El carro de Mike es nuevo."            }]
+    },
+    {
+      image: IMG_BASE   + "u5.george.apartment.jpg",
+      audio: AUDIO_BASE + "u5.george.apartment.mp3",
+      lines: [{ en:"George's apartment is small.", es:"El apartamento de George es pequeño."  }]
+    },
+    {
+      image: IMG_BASE   + "u5.dog.noisy.1.jpg",
+      audio: AUDIO_BASE + "u5.dog.noisy.mp3",
+      lines: [{ en:"Carl's dog is noisy.",         es:"El perro de Carl es ruidoso."          }]
+    },
+    {
+      image: IMG_BASE   + "u5.cat.eating.fish.jpg",
+      audio: AUDIO_BASE + "u5.cat.eating.fish.mp3",
+      lines: [{ en:"Lisa's cat is eating a fish.", es:"El gato de Lisa está comiendo un pez." }]
+    },
+    {
+      image: IMG_BASE   + "u5.computer.slow.jpg",
+      audio: AUDIO_BASE + "u5.computer.slow.mp3",
+      lines: [{ en:"Greg's laptop is slow.",       es:"La computadora de Greg es lenta."      }]
+    }
+  ];
+
+  // ── DOM ────────────────────────────────────────────────────────────────────
+  const imgEl         = document.getElementById("lessonImg");
+  const slideLinesEl  = document.getElementById("slideLines");
+  const playBtn       = document.getElementById("playBtn");
+  const continueBtn   = document.getElementById("continueBtn");
+  const counterEl     = document.getElementById("counter");
+  const barEl         = document.getElementById("progressBar");
+  const mainCard      = document.getElementById("mainCard");
+  const endScreen     = document.getElementById("endScreen");
+  const grammarToggle = document.getElementById("grammarToggle");
+  const grammarBody   = document.getElementById("grammarBody");
+  const grammarArrow  = document.getElementById("grammarArrow");
+
+  let slideIndex   = 0;
+  let currentAudio = null;
+
+  grammarToggle.addEventListener("click", () => {
+    const open = grammarBody.classList.toggle("open");
+    grammarArrow.textContent = open ? "▲" : "▼";
+  });
+
+  function updateCounter() {
+    counterEl.textContent = `${slideIndex + 1} / ${SLIDES.length}`;
+    barEl.style.width = ((slideIndex + 1) / SLIDES.length * 100) + "%";
+  }
+
+  function setPlayState(state) {
+    playBtn.className   = "play-btn " + state;
+    playBtn.textContent = state === "playing" ? "⏸" : "▶";
+    playBtn.disabled    = false;
+  }
+
+  function destroyAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio.src = ""; currentAudio = null; }
+  }
+
+  function showContinue() { continueBtn.classList.add("visible"); }
+  function hideContinue()  { continueBtn.classList.remove("visible"); }
+
+  // ── Load slide ─────────────────────────────────────────────────────────────
+  function loadSlide(index) {
+    slideIndex = index;
+    updateCounter();
+    destroyAudio();
+    hideContinue();
+
+    const slide = SLIDES[index];
+    imgEl.src = slide.image;
+    imgEl.alt = slide.lines[0].en;
+
+    slideLinesEl.innerHTML = slide.lines.map(l =>
+      `<span class="line-en">👉 ${l.en}</span>` +
+      (l.es ? `<span class="line-es">${l.es}</span>` : "")
+    ).join("");
+
+    const audio = new Audio(slide.audio);
+    currentAudio = audio;
+    setPlayState("idle");
+
+    playBtn.onclick = () => {
+      if (!audio.paused) {
+        audio.pause();
+        setPlayState("idle");
+      } else {
+        audio.play().then(() => setPlayState("playing")).catch(()=>{});
+      }
+    };
+
+    function afterAudio() {
+      setPlayState("done");
+      showContinue();
+    }
+
+    audio.onended = afterAudio;
+
+    // iOS timeupdate fallback
+    audio.addEventListener("timeupdate", function iosCheck() {
+      if (audio.duration && audio.currentTime >= audio.duration - 0.3) {
+        audio.removeEventListener("timeupdate", iosCheck);
+        if (!continueBtn.classList.contains("visible")) afterAudio();
+      }
+    });
+  }
+
+  // ── Continue ───────────────────────────────────────────────────────────────
+  continueBtn.addEventListener("click", () => {
+    const next = slideIndex + 1;
+    if (next >= SLIDES.length) {
+      showEnd();
+    } else {
+      loadSlide(next);
+    }
+  });
+
+  // ── End ────────────────────────────────────────────────────────────────────
+  function showEnd() {
+    mainCard.style.display = "none";
+    const key = `inglesco_progress_u${UNIT}`;
+    try {
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      if (!data[`l${LESSON}`]) data[`l${LESSON}`] = {};
+      if (!data[`l${LESSON}`].partsCompleted || data[`l${LESSON}`].partsCompleted < PART) {
+        data[`l${LESSON}`].partsCompleted = PART;
+      }
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch(e) {}
+    endScreen.style.display = "block";
+    endScreen.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  loadSlide(0);
+})();
+</script>
 </body>
 </html>
