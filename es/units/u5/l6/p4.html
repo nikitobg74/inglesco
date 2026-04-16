@@ -14,7 +14,7 @@ body{
   padding:16px 12px 80px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -110,6 +110,7 @@ body{
 }
 .feedback.ok{color:#16a34a}
 .feedback.err{color:#dc2626}
+.feedback.reveal{color:#b45309}
 
 /* ── Reiniciar ───────────────────────────────────────────────────────────── */
 .btn-reiniciar{
@@ -126,7 +127,7 @@ body{
 #endScreen{
   display:none;text-align:center;
   background:rgba(255,255,255,.88);border-radius:18px;
-  padding:36px 24px;margin:16px auto;max-width:700px;
+  padding:36px 24px;margin:16px auto;max-width:640px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .score-circle{
@@ -191,9 +192,11 @@ body{
   const UNIT   = 5;
   const LESSON = 4;
   const PART   = 4;
+  const MISTAKE_LIMIT = 3;
 
-  // words: tiles shown to student (shuffled each load)
-  // answer: correct order, all lowercase for comparison
+  const SFX_CORRECT   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/correct.wav";
+  const SFX_INCORRECT = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/incorrect.wav";
+
   const QUESTIONS = [
     { words: ["Are",  "you",     "busy?"],                answer: "are you busy?"              },
     { words: ["Is",   "your",    "dog",    "big?"],       answer: "is your dog big?"           },
@@ -208,9 +211,10 @@ body{
   const TOTAL = QUESTIONS.length;
   let current      = 0;
   let correctCount = 0;
-  let placed       = [];   // [{word, uid}]
-  let bank         = [];   // [{word, uid}]
+  let placed       = [];
+  let bank         = [];
   let locked       = false;
+  let mistakes     = 0;
 
   const answerArea = document.getElementById("answerArea");
   const tileBank   = document.getElementById("tileBank");
@@ -288,6 +292,40 @@ body{
     renderBank();
   }
 
+  function revealAnswer() {
+    locked = true;
+    const correctWords = QUESTIONS[current].answer.split(" ");
+    // Reconstruct placed area with correct answer words (capitalised as original)
+    answerArea.innerHTML = "";
+    QUESTIONS[current].words
+      .slice()
+      .sort((a, b) => {
+        const ai = correctWords.indexOf(a.toLowerCase());
+        const bi = correctWords.indexOf(b.toLowerCase());
+        return ai - bi;
+      })
+      .forEach(word => {
+        const btn = document.createElement("button");
+        btn.className   = "tile placed";
+        btn.textContent = word;
+        btn.style.background = "#b45309";
+        btn.style.cursor = "default";
+        answerArea.appendChild(btn);
+      });
+    tileBank.innerHTML = "";
+    answerArea.classList.remove("wrong-state");
+    answerArea.style.borderColor = "#f59e0b";
+    answerArea.style.background  = "#fef3c7";
+    feedback.textContent = "Respuesta correcta: " + QUESTIONS[current].words.join(" ").replace("?", "").trim() + "... ¡Sigue practicando!";
+    feedback.className   = "feedback reveal";
+    setTimeout(() => {
+      answerArea.style.borderColor = "";
+      answerArea.style.background  = "";
+      current++;
+      if (current >= TOTAL) { showEndScreen(); } else { loadQuestion(); }
+    }, 2800);
+  }
+
   function checkAnswer() {
     const student = placed.map(t => t.word.toLowerCase()).join(" ");
     const correct = QUESTIONS[current].answer;
@@ -297,23 +335,31 @@ body{
       answerArea.classList.add("correct-state");
       feedback.textContent = "✓ ¡Correcto!";
       feedback.className   = "feedback ok";
+      new Audio(SFX_CORRECT).play();
       correctCount++;
       setTimeout(() => {
         current++;
         if (current >= TOTAL) { showEndScreen(); } else { loadQuestion(); }
       }, 2000);
     } else {
+      mistakes++;
       answerArea.classList.add("wrong-state");
-      feedback.textContent = "✗ Inténtalo de nuevo.";
-      feedback.className   = "feedback err";
-      setTimeout(() => answerArea.classList.remove("wrong-state"), 450);
+      new Audio(SFX_INCORRECT).play();
+      if (mistakes >= MISTAKE_LIMIT) {
+        revealAnswer();
+      } else {
+        feedback.textContent = "✗ Inténtalo de nuevo.";
+        feedback.className   = "feedback err";
+        setTimeout(() => answerArea.classList.remove("wrong-state"), 450);
+      }
     }
   }
 
   function loadQuestion() {
-    locked = false;
-    placed = [];
-    bank   = shuffle(QUESTIONS[current].words).map(w => ({ word: w, uid: uid() }));
+    locked   = false;
+    mistakes = 0;
+    placed   = [];
+    bank     = shuffle(QUESTIONS[current].words).map(w => ({ word: w, uid: uid() }));
     feedback.textContent = "";
     feedback.className   = "feedback";
     clearStates();

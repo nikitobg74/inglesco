@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +14,7 @@ body{
   padding:16px 12px 80px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -154,7 +152,7 @@ body{
 #endScreen{
   display:none;text-align:center;
   background:rgba(255,255,255,.88);border-radius:18px;
-  padding:36px 24px;margin:16px auto;max-width:700px;
+  padding:36px 24px;margin:16px auto;max-width:640px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .score-circle{
@@ -240,94 +238,60 @@ body{
 
 <script>
 (() => {
+  const SFX_CORRECT   = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/correct.wav";
+  const SFX_INCORRECT = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/sfx/incorrect.wav";
+
   const ITEMS = [
     {
       prompt: "It is new.",
-      negative: {
-        correct: "It is not new.",
-        wrong: "It is new not."
-      },
-      opposite: {
-        correct: "It is old.",
-        wrong: "It is nice."
-      }
+      negative: { correct: "It is not new.",      wrong: "It is new not."       },
+      opposite: { correct: "It is old.",           wrong: "It is nice."          }
     },
     {
       prompt: "They are quiet.",
-      negative: {
-        correct: "They are not quiet.",
-        wrong: "They quiet are not."
-      },
-      opposite: {
-        correct: "They are noisy.",
-        wrong: "They are happy."
-      }
+      negative: { correct: "They are not quiet.",  wrong: "They quiet are not."  },
+      opposite: { correct: "They are noisy.",      wrong: "They are happy."      }
     },
     {
       prompt: "It is large.",
-      negative: {
-        correct: "It is not large.",
-        wrong: "It large is not."
-      },
-      opposite: {
-        correct: "It is small.",
-        wrong: "It is clean."
-      }
+      negative: { correct: "It is not large.",     wrong: "It large is not."     },
+      opposite: { correct: "It is small.",         wrong: "It is clean."         }
     },
     {
       prompt: "He is single.",
-      negative: {
-        correct: "He is not single.",
-        wrong: "He single is not."
-      },
-      opposite: {
-        correct: "He is married.",
-        wrong: "He is young."
-      }
+      negative: { correct: "He is not single.",    wrong: "He single is not."    },
+      opposite: { correct: "He is married.",       wrong: "He is young."         }
     },
     {
       prompt: "She is young.",
-      negative: {
-        correct: "She is not young.",
-        wrong: "She young is not."
-      },
-      opposite: {
-        correct: "She is old.",
-        wrong: "She is tall."
-      }
+      negative: { correct: "She is not young.",    wrong: "She young is not."    },
+      opposite: { correct: "She is old.",          wrong: "She is tall."         }
     },
     {
       prompt: "They are short.",
-      negative: {
-        correct: "They are not short.",
-        wrong: "They short are not."
-      },
-      opposite: {
-        correct: "They are tall.",
-        wrong: "They are pretty."
-      }
+      negative: { correct: "They are not short.",  wrong: "They short are not."  },
+      opposite: { correct: "They are tall.",       wrong: "They are pretty."     }
     }
   ];
 
   let current = 0;
-  let phase = "negative"; // negative -> opposite
-  let score = 0;
-  let locked = false;
+  let phase   = "negative";
+  let score   = 0;
+  let locked  = false;
 
-  const counterEl = document.getElementById("counter");
-  const progressBar = document.getElementById("progressBar");
+  const counterEl      = document.getElementById("counter");
+  const progressBar    = document.getElementById("progressBar");
   const promptSentence = document.getElementById("promptSentence");
-  const taskTitle = document.getElementById("taskTitle");
-  const taskSubtitle = document.getElementById("taskSubtitle");
-  const optionsBox = document.getElementById("optionsBox");
-  const feedback = document.getElementById("feedback");
+  const taskTitle      = document.getElementById("taskTitle");
+  const taskSubtitle   = document.getElementById("taskSubtitle");
+  const optionsBox     = document.getElementById("optionsBox");
+  const feedback       = document.getElementById("feedback");
   const stageIndicator = document.getElementById("stageIndicator");
-
-  const mainCard = document.getElementById("mainCard");
-  const endScreen = document.getElementById("endScreen");
-  const scoreNum = document.getElementById("scoreNum");
-  const scoreMsg = document.getElementById("scoreMsg");
-  const redoBtn = document.getElementById("redoBtn");
+  const mainCard       = document.getElementById("mainCard");
+  const endScreen      = document.getElementById("endScreen");
+  const scoreNum       = document.getElementById("scoreNum");
+  const scoreMsg       = document.getElementById("scoreMsg");
+  const redoBtn        = document.getElementById("redoBtn");
 
   function shuffle(arr){
     const a = [...arr];
@@ -339,46 +303,44 @@ body{
   }
 
   function updateProgress(){
-    counterEl.textContent = `${current + 1} / ${ITEMS.length}`;
+    counterEl.textContent   = `${current + 1} / ${ITEMS.length}`;
     progressBar.style.width = `${((current + 1) / ITEMS.length) * 100}%`;
   }
 
   function render(){
     locked = false;
     feedback.textContent = "";
-    feedback.className = "feedback";
+    feedback.className   = "feedback";
 
     const item = ITEMS[current];
     promptSentence.textContent = item.prompt;
     updateProgress();
 
-    let correctText = "";
-    let wrongText = "";
+    let correctText, wrongText;
 
     if(phase === "negative"){
       stageIndicator.textContent = "Paso 1 de 2 • Negativo";
-      taskTitle.textContent = "Hazla negativa.";
-      taskSubtitle.textContent = "Toca la respuesta correcta.";
+      taskTitle.textContent      = "Hazla negativa.";
+      taskSubtitle.textContent   = "Toca la respuesta correcta.";
       correctText = item.negative.correct;
-      wrongText = item.negative.wrong;
+      wrongText   = item.negative.wrong;
     } else {
       stageIndicator.textContent = "Paso 2 de 2 • Opuesto";
-      taskTitle.textContent = "Elige la frase opuesta.";
-      taskSubtitle.textContent = "Toca la respuesta correcta.";
+      taskTitle.textContent      = "Elige la frase opuesta.";
+      taskSubtitle.textContent   = "Toca la respuesta correcta.";
       correctText = item.opposite.correct;
-      wrongText = item.opposite.wrong;
+      wrongText   = item.opposite.wrong;
     }
 
     const options = shuffle([
-      { text: correctText, correct: true },
-      { text: wrongText, correct: false }
+      { text: correctText, correct: true  },
+      { text: wrongText,   correct: false }
     ]);
 
     optionsBox.innerHTML = "";
-
     options.forEach(option => {
       const btn = document.createElement("button");
-      btn.className = "option-btn";
+      btn.className   = "option-btn";
       btn.textContent = option.text;
       btn.addEventListener("click", () => handleChoice(btn, option.correct));
       optionsBox.appendChild(btn);
@@ -394,45 +356,33 @@ body{
     if(isCorrect){
       button.classList.add("correct");
       feedback.textContent = "✓ ¡Correcto!";
-      feedback.className = "feedback ok";
+      feedback.className   = "feedback ok";
+      new Audio(SFX_CORRECT).play();
 
       if(phase === "negative"){
-        setTimeout(() => {
-          phase = "opposite";
-          render();
-        }, 1100);
+        setTimeout(() => { phase = "opposite"; render(); }, 1100);
       } else {
         score++;
         setTimeout(() => {
           current++;
-          if(current >= ITEMS.length){
-            showEndScreen();
-          } else {
-            phase = "negative";
-            render();
-          }
+          if(current >= ITEMS.length){ showEndScreen(); }
+          else { phase = "negative"; render(); }
         }, 1100);
       }
     } else {
       button.classList.add("wrong");
       feedback.textContent = "✗ Inténtalo otra vez.";
-      feedback.className = "feedback err";
-
-      buttons.forEach(btn => {
-        if(btn !== button) btn.classList.add("dim");
-      });
-
-      setTimeout(() => {
-        render();
-      }, 1000);
+      feedback.className   = "feedback err";
+      new Audio(SFX_INCORRECT).play();
+      buttons.forEach(btn => { if(btn !== button) btn.classList.add("dim"); });
+      setTimeout(() => { render(); }, 1000);
     }
   }
 
   function showEndScreen(){
-    mainCard.style.display = "none";
+    mainCard.style.display  = "none";
     endScreen.style.display = "block";
-    scoreNum.textContent = `${score} / ${ITEMS.length}`;
-
+    scoreNum.textContent    = `${score} / ${ITEMS.length}`;
     if(score === ITEMS.length){
       scoreMsg.textContent = "¡Perfecto! ¡Todo correcto!";
     } else if(score >= Math.ceil(ITEMS.length * 0.7)){
@@ -444,11 +394,11 @@ body{
 
   redoBtn.addEventListener("click", () => {
     current = 0;
-    phase = "negative";
-    score = 0;
-    locked = false;
+    phase   = "negative";
+    score   = 0;
+    locked  = false;
     endScreen.style.display = "none";
-    mainCard.style.display = "block";
+    mainCard.style.display  = "block";
     render();
   });
 
