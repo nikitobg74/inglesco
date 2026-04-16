@@ -2,19 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>Unidad 5 • Lección 6 • Parte 3</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
   background:linear-gradient(135deg,#dbeafe,#fef9c3);
   min-height:100vh;
-  padding:16px 12px 80px;
+  padding:16px 12px 110px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -34,9 +36,24 @@ body{
 }
 .step.active{background:#2563eb;color:#fff}
 
+/* ── Score tracker ───────────────────────────────────────────────────────── */
+.score-tracker{
+  display:flex;justify-content:center;gap:24px;
+  margin-bottom:16px;
+}
+.score-box{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.88);border-radius:12px;
+  padding:8px 16px;box-shadow:0 2px 8px rgba(0,0,0,.07);
+  font-weight:700;font-size:15px;
+}
+.score-box.correct-box{color:#16a34a}
+.score-box.wrong-box{color:#dc2626}
+.score-icon{font-size:18px}
+
 /* ── Reading card ────────────────────────────────────────────────────────── */
 .reading-card{
-  background:rgba(255,255,255,.88);border-radius:18px;
+  background:rgba(255,255,255,.88);border-radius:20px;
   padding:18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
   margin-bottom:16px;
 }
@@ -47,13 +64,11 @@ body{
 .reading-text{
   font-size:15px;line-height:1.9;color:#1e3a5f;font-weight:600;
 }
-.reading-text span{
-  display:block;padding:2px 0;
-}
+.reading-text span{display:block;padding:2px 0}
 
 /* ── Question card ───────────────────────────────────────────────────────── */
 .card{
-  background:rgba(255,255,255,.88);border-radius:18px;
+  background:rgba(255,255,255,.88);border-radius:20px;
   padding:18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
@@ -94,18 +109,24 @@ body{
   font-family:'Poppins',sans-serif;
   cursor:pointer;min-width:120px;text-align:center;
   transition:background .15s,border-color .15s,color .15s,transform .1s;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
-.opt-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
 .opt-btn:active:not(:disabled){transform:scale(.96)}
-.opt-btn:disabled{cursor:default}
+.opt-btn:disabled{cursor:default;opacity:.85}
 .opt-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
 .opt-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c}
+.opt-btn.revealed{background:#fef9c3;border-color:#f59e0b;color:#92400e;animation:pulse-reveal .5s ease}
+
+@keyframes pulse-reveal{
+  0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}
+}
 
 /* ── End screen ──────────────────────────────────────────────────────────── */
 #endScreen{
   display:none;text-align:center;
-  background:rgba(255,255,255,.88);border-radius:18px;
-  padding:36px 24px;margin:16px auto;max-width:700px;
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:36px 24px;margin:16px auto;max-width:640px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .score-circle{
@@ -116,6 +137,11 @@ body{
 }
 .score-num{font-size:28px;font-weight:900;color:#1e40af}
 .score-label{font-size:11px;font-weight:700;color:#486581}
+.end-btn{
+  padding:12px 28px;border:none;border-radius:12px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;touch-action:manipulation;
+}
 </style>
 </head>
 <body>
@@ -130,6 +156,18 @@ body{
     <a class="step active" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Score tracker -->
+  <div class="score-tracker">
+    <div class="score-box correct-box">
+      <span class="score-icon">✓</span>
+      <span id="correctCount">0</span>
+    </div>
+    <div class="score-box wrong-box">
+      <span class="score-icon">✗</span>
+      <span id="wrongCount">0</span>
+    </div>
   </div>
 
   <!-- Reading passage -->
@@ -156,7 +194,6 @@ body{
   </div>
 </div>
 
-<!-- End screen -->
 <div id="endScreen" data-unit="5" data-lesson="6" data-part="3">
   <div style="font-size:52px;margin-bottom:16px">🏆</div>
   <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
@@ -167,15 +204,202 @@ body{
   <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px" id="scoreMsg"></p>
   <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 3.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-    <button id="redoBtn" style="padding:12px 28px;background:#0d9488;color:white;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;cursor:pointer">
-      Reintentar
-    </button>
+    <button id="redoBtn" class="end-btn" style="background:#0d9488;color:white">Reintentar</button>
     <a href="p4.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
       Continuar → Parte 4
     </a>
   </div>
 </div>
 
-<script src="../../../../js/u5/u5_l6_p3.js"></script>
+<script>
+(() => {
+  const UNIT   = 5;
+  const LESSON = 6;
+  const PART   = 3;
+  const MAX_WRONG_PER_Q = 2;
+  const AUTO_ADVANCE_MS = 1600;
+
+  const BASE    = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const AUD_U5  = BASE + "audio/u5/";
+  const SFX_OK  = new Audio(AUD_U5 + "correct.wav");
+  const SFX_BAD = new Audio(AUD_U5 + "incorrect.wav");
+  SFX_OK.load(); SFX_BAD.load();
+  function playSfx(sfx){ sfx.currentTime=0; sfx.play().catch(()=>{}); }
+
+  const QUESTIONS = [
+    {
+      sentence: "👉 Carlos is Ana's ___",
+      options: [{ text:"brother",correct:true },{ text:"husband",correct:false }]
+    },
+    {
+      sentence: "👉 Ana is Luis's ___",
+      options: [{ text:"wife",correct:true },{ text:"sister",correct:false }]
+    },
+    {
+      sentence: "👉 Mateo is their ___",
+      options: [{ text:"son",correct:true },{ text:"cousin",correct:false }]
+    },
+    {
+      sentence: "👉 Carlos is Sofía and Mateo's ___",
+      options: [{ text:"uncle",correct:true },{ text:"father",correct:false }]
+    },
+    {
+      sentence: "👉 Sofía is Ana and Luis's ___",
+      options: [{ text:"niece",correct:true },{ text:"daughter",correct:false }]
+    },
+    {
+      sentence: "👉 Mateo is Sofía's ___",
+      options: [{ text:"cousin",correct:true },{ text:"brother",correct:false }]
+    }
+  ];
+
+  const TOTAL = QUESTIONS.length;
+  let currentIndex  = 0;
+  let correctTotal  = 0;
+  let wrongTotal    = 0;
+  let advanceTimer  = null;
+
+  const questionArea = document.getElementById("questionArea");
+  const counterEl    = document.getElementById("counter");
+  const barEl        = document.getElementById("progressBar");
+  const mainCard     = document.getElementById("mainCard");
+  const endScreen    = document.getElementById("endScreen");
+  const scoreNum     = document.getElementById("scoreNum");
+  const scoreMsg     = document.getElementById("scoreMsg");
+  const redoBtn      = document.getElementById("redoBtn");
+  const correctDisp  = document.getElementById("correctCount");
+  const wrongDisp    = document.getElementById("wrongCount");
+
+  function updateCounter(index) {
+    counterEl.textContent = `${index + 1} / ${TOTAL}`;
+    barEl.style.width = ((index + 1) / TOTAL * 100) + "%";
+  }
+
+  function updateScoreDisplay() {
+    correctDisp.textContent = correctTotal;
+    wrongDisp.textContent   = wrongTotal;
+  }
+
+  function scheduleNext(nextIndex) {
+    if (advanceTimer) clearTimeout(advanceTimer);
+    advanceTimer = setTimeout(() => {
+      if (nextIndex >= TOTAL) {
+        showEndScreen();
+      } else {
+        showQuestion(nextIndex);
+      }
+    }, AUTO_ADVANCE_MS);
+  }
+
+  function showQuestion(index) {
+    currentIndex = index;
+    updateCounter(index);
+    questionArea.innerHTML = "";
+
+    const q = QUESTIONS[index];
+    const block = document.createElement("div");
+    block.className = "q-block";
+
+    const sentEl = document.createElement("p");
+    sentEl.className = "q-sentence";
+    sentEl.textContent = q.sentence;
+
+    const optRow = document.createElement("div");
+    optRow.className = "options-row";
+
+    let wrongThisQ = 0;
+    let answered   = false;
+
+    q.options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "opt-btn";
+      btn.textContent = opt.text;
+
+      const handleTap = (e) => {
+        e.preventDefault();
+        if (btn.disabled) return;
+
+        if (opt.correct) {
+          if (answered) return;
+          answered = true;
+          optRow.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+          btn.classList.add("correct");
+          sentEl.textContent = q.sentence.replace("___", opt.text);
+          correctTotal++;
+          updateScoreDisplay();
+          playSfx(SFX_OK);
+          scheduleNext(index + 1);
+        } else {
+          wrongThisQ++;
+          wrongTotal++;
+          updateScoreDisplay();
+          btn.classList.add("wrong");
+          btn.disabled = true;
+          playSfx(SFX_BAD);
+
+          if (wrongThisQ >= MAX_WRONG_PER_Q) {
+            if (answered) return;
+            answered = true;
+            optRow.querySelectorAll(".opt-btn").forEach(b => {
+              b.disabled = true;
+              const isCorrect = q.options.find(o => o.text === b.textContent && o.correct);
+              if (isCorrect && !b.classList.contains("wrong")) {
+                b.classList.add("revealed");
+                sentEl.textContent = q.sentence.replace("___", b.textContent);
+              }
+            });
+            scheduleNext(index + 1);
+          }
+        }
+      };
+
+      btn.addEventListener("click",    handleTap);
+      btn.addEventListener("touchend", handleTap, { passive: false });
+      optRow.appendChild(btn);
+    });
+
+    block.appendChild(sentEl);
+    block.appendChild(optRow);
+    questionArea.appendChild(block);
+
+    requestAnimationFrame(() => requestAnimationFrame(() => block.classList.add("visible")));
+  }
+
+  function showEndScreen() {
+    mainCard.style.display  = "none";
+    endScreen.style.display = "block";
+    scoreNum.textContent = `${correctTotal} / ${TOTAL}`;
+    scoreMsg.textContent = correctTotal === TOTAL
+      ? "¡Perfecto! ¡Todo correcto!"
+      : correctTotal >= Math.ceil(TOTAL * 0.7)
+        ? "¡Muy bien! Casi perfecto."
+        : "¡Sigue practicando!";
+
+    // Progress tracking
+    const key = `inglesco_progress_u${UNIT}`;
+    const progress = JSON.parse(localStorage.getItem(key) || "{}");
+    if (!progress[`l${LESSON}`]) progress[`l${LESSON}`] = {};
+    const prev = progress[`l${LESSON}`].partsCompleted || 0;
+    if (PART > prev) progress[`l${LESSON}`].partsCompleted = PART;
+    localStorage.setItem(key, JSON.stringify(progress));
+  }
+
+  const reset = (e) => {
+    if (e) e.preventDefault();
+    if (advanceTimer) clearTimeout(advanceTimer);
+    correctTotal = 0;
+    wrongTotal   = 0;
+    updateScoreDisplay();
+    endScreen.style.display = "none";
+    mainCard.style.display  = "block";
+    showQuestion(0);
+  };
+
+  redoBtn.addEventListener("click",    reset);
+  redoBtn.addEventListener("touchend", reset, { passive: false });
+
+  showQuestion(0);
+})();
+</script>
 </body>
 </html>

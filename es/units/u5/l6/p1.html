@@ -2,19 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>Unidad 5 • Lección 6 • Parte 1</title>
 <link rel="icon" type="image/svg+xml" href="../../../../favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{
   background:linear-gradient(135deg,#dbeafe,#fef9c3);
   min-height:100vh;
-  padding:16px 12px 100px;
+  padding:16px 12px 110px;
   color:#111827;
 }
-.wrap{max-width:700px;margin:0 auto}
+.wrap{max-width:640px;margin:0 auto}
 
 .back-btn{
   display:inline-block;margin-bottom:16px;padding:7px 14px;
@@ -33,6 +35,21 @@ body{
   font-weight:600;text-decoration:none;color:#1f2933;transition:.3s;font-size:15px;
 }
 .step.active{background:#2563eb;color:#fff}
+
+/* ── Score tracker ───────────────────────────────────────────────────────── */
+.score-tracker{
+  display:flex;justify-content:center;gap:24px;
+  margin-bottom:16px;
+}
+.score-box{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.88);border-radius:12px;
+  padding:8px 16px;box-shadow:0 2px 8px rgba(0,0,0,.07);
+  font-weight:700;font-size:15px;
+}
+.score-box.correct-box{color:#16a34a}
+.score-box.wrong-box{color:#dc2626}
+.score-icon{font-size:18px}
 
 /* ── Vocab panel ─────────────────────────────────────────────────────────── */
 .vocab-panel{
@@ -62,7 +79,7 @@ body{
 
 /* ── Card ────────────────────────────────────────────────────────────────── */
 .card{
-  background:rgba(255,255,255,.88);border-radius:18px;
+  background:rgba(255,255,255,.88);border-radius:20px;
   padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .counter-row{
@@ -81,10 +98,19 @@ body{
 /* ── Image + audio ───────────────────────────────────────────────────────── */
 .img-wrap{
   position:relative;width:100%;margin-bottom:20px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 .lesson-img{
-  width:100%;height:auto;max-height:240px;object-fit:contain;
+  width:100%;height:auto;max-height:220px;object-fit:contain;
   border-radius:14px;display:block;background:#f1f5f9;
+  /* prevent long-press save on mobile */
+  -webkit-user-select:none;user-select:none;pointer-events:none;
+}
+/* tap target sits over the image */
+.img-tap-target{
+  position:absolute;inset:0;border-radius:14px;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:8px;
 }
 .audio-hint{
   text-align:center;font-size:13px;font-weight:700;color:#6b7280;
@@ -120,12 +146,18 @@ body{
   font-family:'Poppins',sans-serif;
   cursor:pointer;min-width:110px;text-align:center;
   transition:background .15s,border-color .15s,color .15s,transform .1s;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
-.opt-btn:hover:not(:disabled){background:#ccfbf1;border-color:#0d9488}
 .opt-btn:active:not(:disabled){transform:scale(.96)}
-.opt-btn:disabled{cursor:default}
+.opt-btn:disabled{cursor:default;opacity:.85}
 .opt-btn.correct{background:#22c55e;border-color:#22c55e;color:white}
 .opt-btn.wrong{background:#fee2e2;border-color:#ef4444;color:#b91c1c}
+.opt-btn.revealed{background:#fef9c3;border-color:#f59e0b;color:#92400e;animation:pulse-reveal .5s ease}
+
+@keyframes pulse-reveal{
+  0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}
+}
 
 /* ── Floating Siguiente ──────────────────────────────────────────────────── */
 #sigBtn{
@@ -135,16 +167,19 @@ body{
   border:none;border-radius:14px;font-family:'Poppins',sans-serif;
   font-weight:700;font-size:16px;cursor:pointer;
   box-shadow:0 6px 20px rgba(37,99,235,.4);
-  transition:opacity .3s,transform .3s;
   z-index:100;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  /* safe area for notched phones */
+  bottom:calc(24px + env(safe-area-inset-bottom));
 }
 #sigBtn.visible{display:block}
 
 /* ── End screen ──────────────────────────────────────────────────────────── */
 #endScreen{
   display:none;text-align:center;
-  background:rgba(255,255,255,.88);border-radius:18px;
-  padding:36px 24px;margin:16px auto;max-width:700px;
+  background:rgba(255,255,255,.88);border-radius:20px;
+  padding:36px 24px;margin:16px auto;max-width:640px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .score-circle{
@@ -155,6 +190,11 @@ body{
 }
 .score-num{font-size:28px;font-weight:900;color:#1e40af}
 .score-label{font-size:11px;font-weight:700;color:#486581}
+.end-btn{
+  padding:12px 28px;border:none;border-radius:12px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;touch-action:manipulation;
+}
 </style>
 </head>
 <body>
@@ -169,6 +209,18 @@ body{
     <a class="step" href="p3.html">3</a>
     <a class="step" href="p4.html">4</a>
     <a class="step" href="p5.html">5</a>
+  </div>
+
+  <!-- Score tracker -->
+  <div class="score-tracker">
+    <div class="score-box correct-box">
+      <span class="score-icon">✓</span>
+      <span id="correctCount">0</span>
+    </div>
+    <div class="score-box wrong-box">
+      <span class="score-icon">✗</span>
+      <span id="wrongCount">0</span>
+    </div>
   </div>
 
   <!-- Vocab panel -->
@@ -198,6 +250,7 @@ body{
 
     <div class="img-wrap" id="imgWrap">
       <img id="lessonImg" class="lesson-img" src="" alt="" />
+      <div class="img-tap-target" id="imgTap"></div>
       <p class="audio-hint" id="audioHint">▶ Toca la imagen para escuchar</p>
     </div>
 
@@ -208,7 +261,7 @@ body{
 <!-- Floating Siguiente button -->
 <button id="sigBtn">Siguiente →</button>
 
-<!-- End screen (outside .wrap so trophy sits outside card) -->
+<!-- End screen -->
 <div id="endScreen" data-unit="5" data-lesson="6" data-part="1">
   <div style="font-size:52px;margin-bottom:16px">🏆</div>
   <h2 style="font-size:24px;font-weight:900;color:#1e40af;margin-bottom:16px">¡Muy buen trabajo!</h2>
@@ -219,7 +272,7 @@ body{
   <p style="font-size:15px;font-weight:600;color:#374151;margin-bottom:6px" id="scoreMsg"></p>
   <p style="font-size:13px;color:#64748b;margin-bottom:28px">Completaste la Parte 1.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-    <button id="redoBtn" style="padding:12px 28px;background:#0d9488;color:white;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;cursor:pointer">
+    <button id="redoBtn" class="end-btn" style="background:#0d9488;color:white">
       Reintentar
     </button>
     <a href="p2.html" style="display:inline-block;padding:12px 28px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px">
@@ -228,6 +281,308 @@ body{
   </div>
 </div>
 
-<script src="../../../../js/u5/u5_l6_p1.js"></script>
+<script>
+(() => {
+  const UNIT   = 5;
+  const LESSON = 6;
+  const PART   = 1;
+  const MAX_WRONG_PER_PHRASE = 2; // reveal answer after this many mistakes
+
+  const BASE     = "https://cnbuzahtzqknhhdxncur.supabase.co/storage/v1/object/public/assets/";
+  const IMG_U4   = BASE + "images/u4/";
+  const IMG_U5   = BASE + "images/u5/";
+  const AUD_U5   = BASE + "audio/u5/";
+  const SFX_OK   = new Audio(AUD_U5 + "correct.wav");
+  const SFX_BAD  = new Audio(AUD_U5 + "incorrect.wav");
+
+  // Preload SFX
+  SFX_OK.load();
+  SFX_BAD.load();
+
+  function playSfx(sfx) {
+    sfx.currentTime = 0;
+    sfx.play().catch(() => {});
+  }
+
+  const SLIDES = [
+    {
+      image: IMG_U4 + "u4.l6.p1.noisy.jpg",
+      audio: AUD_U5 + "u5.neighbor.noisy.mp3",
+      phrases: [
+        { text: "John's neighbors are very _____.", options: [{ text:"noisy",correct:true },{ text:"quiet",correct:false }] },
+        { text: "They are not _____.",              options: [{ text:"noisy",correct:false},{ text:"quiet",correct:true  }] }
+      ]
+    },
+    {
+      image: IMG_U4 + "u4.l6.p1.pretty.sister.jpg",
+      audio: AUD_U5 + "u5.sister.pretty.mp3",
+      phrases: [
+        { text: "John's sister is _____.",    options: [{ text:"pretty",correct:true },{ text:"ugly",correct:false}] },
+        { text: "In fact, she is very _____.", options: [{ text:"pretty",correct:true },{ text:"ugly",correct:false}] }
+      ]
+    },
+    {
+      image: IMG_U4 + "u4.l6.p1.handsome.jpg",
+      audio: AUD_U5 + "u5.brother.handsome.mp3",
+      phrases: [
+        { text: "John's brother is _____.",   options: [{ text:"handsome",correct:true },{ text:"ugly",    correct:false}] },
+        { text: "In fact, he is very _____.", options: [{ text:"handsome",correct:true },{ text:"tall",    correct:false}] }
+      ]
+    },
+    {
+      image: IMG_U4 + "u4.l6.p1.ugly.jpg",
+      audio: AUD_U5 + "u5.house.old.mp3",
+      phrases: [
+        { text: "John's house is not _____.", options: [{ text:"pretty",correct:true },{ text:"ugly",  correct:false}] },
+        { text: "It is _____.",               options: [{ text:"pretty",correct:false},{ text:"old",   correct:true }] }
+      ]
+    },
+    {
+      image: IMG_U4 + "u4.l6.p1.noisy.dog.jpg",
+      audio: AUD_U5 + "u5.dog.noisy.2.mp3",
+      phrases: [
+        { text: "John's dog is not _____.", options: [{ text:"noisy",correct:false},{ text:"quiet",correct:true }] },
+        { text: "It is very _____.",        options: [{ text:"noisy",correct:true },{ text:"quiet",correct:false}] }
+      ]
+    },
+    {
+      image: IMG_U5 + "u5.hard.work.jpg",
+      audio: AUD_U5 + "u5.work.difficult.mp3",
+      phrases: [
+        { text: "John's work is not _____.", options: [{ text:"easy",     correct:true },{ text:"difficult",correct:false}] },
+        { text: "It is _____.",              options: [{ text:"easy",     correct:false},{ text:"difficult",correct:true }] }
+      ]
+    }
+  ];
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  let slideIndex    = 0;
+  let correctTotal  = 0;
+  let wrongTotal    = 0;
+  const TOTAL_PHRASES = SLIDES.reduce((s, sl) => s + sl.phrases.length, 0);
+
+  // ── DOM refs ───────────────────────────────────────────────────────────────
+  const imgEl        = document.getElementById("lessonImg");
+  const imgTap       = document.getElementById("imgTap");
+  const audioHint    = document.getElementById("audioHint");
+  const counterEl    = document.getElementById("counter");
+  const barEl        = document.getElementById("progressBar");
+  const mainCard     = document.getElementById("mainCard");
+  const endScreen    = document.getElementById("endScreen");
+  const phraseArea   = document.getElementById("phraseArea");
+  const sigBtn       = document.getElementById("sigBtn");
+  const scoreNum     = document.getElementById("scoreNum");
+  const scoreMsg     = document.getElementById("scoreMsg");
+  const redoBtn      = document.getElementById("redoBtn");
+  const vocabToggle  = document.getElementById("vocabToggle");
+  const vocabBody    = document.getElementById("vocabBody");
+  const correctDisp  = document.getElementById("correctCount");
+  const wrongDisp    = document.getElementById("wrongCount");
+
+  // ── Vocab toggle ───────────────────────────────────────────────────────────
+  vocabToggle.addEventListener("click", () => {
+    const open = vocabToggle.classList.toggle("open");
+    vocabBody.classList.toggle("hidden", !open);
+  });
+
+  // ── Audio ──────────────────────────────────────────────────────────────────
+  let currentAudio   = null;
+  let currentTimerId = null;
+
+  function setupAudio(src) {
+    if (currentTimerId) { clearTimeout(currentTimerId); currentTimerId = null; }
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+
+    currentAudio = new Audio(src);
+
+    const playAudio = () => {
+      if (!currentAudio) return;
+      currentAudio.currentTime = 0;
+      const p = currentAudio.play();
+      if (p) {
+        p.then(() => {
+          audioHint.textContent = "▶ Reproduciendo...";
+          audioHint.classList.add("playing");
+        }).catch(() => {});
+      }
+      currentAudio.onended = () => {
+        audioHint.textContent = "▶ Toca la imagen para escuchar";
+        audioHint.classList.remove("playing");
+      };
+    };
+
+    imgTap.onclick    = playAudio;
+    imgTap.ontouchend = (e) => { e.preventDefault(); playAudio(); };
+  }
+
+  // ── Counter / bar ──────────────────────────────────────────────────────────
+  function updateCounter() {
+    counterEl.textContent = `${slideIndex + 1} / ${SLIDES.length}`;
+    barEl.style.width = ((slideIndex + 1) / SLIDES.length * 100) + "%";
+  }
+
+  function updateScoreDisplay() {
+    correctDisp.textContent = correctTotal;
+    wrongDisp.textContent   = wrongTotal;
+  }
+
+  // ── Render phrases for current slide ──────────────────────────────────────
+  function renderPhrases(slide) {
+    phraseArea.innerHTML = "";
+    sigBtn.classList.remove("visible");
+
+    let answeredOnSlide = 0;
+    const totalOnSlide  = slide.phrases.length;
+
+    slide.phrases.forEach((phrase, pi) => {
+      const block = document.createElement("div");
+      block.className = "phrase-block";
+
+      const textEl = document.createElement("p");
+      textEl.className = "phrase-text";
+      textEl.textContent = phrase.text;
+
+      const optRow = document.createElement("div");
+      optRow.className = "options-row";
+
+      // Track wrong attempts per phrase
+      let wrongThisPhrase = 0;
+
+      phrase.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "opt-btn";
+        btn.textContent = opt.text;
+
+        const handleTap = (e) => {
+          e.preventDefault();
+          if (btn.disabled) return;
+
+          if (opt.correct) {
+            // Lock all buttons
+            optRow.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+            btn.classList.add("correct");
+            textEl.textContent = phrase.text.replace("_____", opt.text);
+            correctTotal++;
+            updateScoreDisplay();
+            playSfx(SFX_OK);
+            answeredOnSlide++;
+            if (answeredOnSlide === totalOnSlide) {
+              sigBtn.classList.add("visible");
+            }
+          } else {
+            wrongThisPhrase++;
+            wrongTotal++;
+            updateScoreDisplay();
+            btn.classList.add("wrong");
+            btn.disabled = true;
+            playSfx(SFX_BAD);
+
+            // After MAX_WRONG_PER_PHRASE mistakes, reveal the correct answer
+            if (wrongThisPhrase >= MAX_WRONG_PER_PHRASE) {
+              optRow.querySelectorAll(".opt-btn").forEach(b => {
+                b.disabled = true;
+                const isCorrect = phrase.options.find(o => o.text === b.textContent && o.correct);
+                if (isCorrect && !b.classList.contains("wrong")) {
+                  b.classList.add("revealed");
+                  textEl.textContent = phrase.text.replace("_____", b.textContent);
+                }
+              });
+              answeredOnSlide++;
+              if (answeredOnSlide === totalOnSlide) {
+                sigBtn.classList.add("visible");
+              }
+            }
+          }
+        };
+
+        btn.addEventListener("click",    handleTap);
+        btn.addEventListener("touchend", handleTap, { passive: false });
+        optRow.appendChild(btn);
+      });
+
+      block.appendChild(textEl);
+      block.appendChild(optRow);
+      phraseArea.appendChild(block);
+
+      // Staggered fade-in
+      currentTimerId = setTimeout(() => {
+        requestAnimationFrame(() => block.classList.add("visible"));
+      }, pi * 180);
+    });
+  }
+
+  // ── Load slide ─────────────────────────────────────────────────────────────
+  function loadSlide(index) {
+    slideIndex = index;
+    updateCounter();
+    phraseArea.innerHTML = "";
+    sigBtn.classList.remove("visible");
+
+    const slide = SLIDES[index];
+    imgEl.src = slide.image;
+    imgEl.alt = slide.phrases[0].text;
+    audioHint.textContent = "▶ Toca la imagen para escuchar";
+    audioHint.classList.remove("playing");
+
+    setupAudio(slide.audio);
+    renderPhrases(slide);
+  }
+
+  // ── Siguiente button ───────────────────────────────────────────────────────
+  sigBtn.addEventListener("click", advance);
+  sigBtn.addEventListener("touchend", (e) => { e.preventDefault(); advance(); });
+
+  function advance() {
+    sigBtn.classList.remove("visible");
+    const next = slideIndex + 1;
+    if (next >= SLIDES.length) {
+      showEndScreen();
+    } else {
+      loadSlide(next);
+    }
+  }
+
+  // ── End screen + progress tracking ────────────────────────────────────────
+  function showEndScreen() {
+    if (currentAudio) currentAudio.pause();
+
+    // localStorage progress tracking
+    const progressKey = `inglesco_progress_u${UNIT}`;
+    const progress = JSON.parse(localStorage.getItem(progressKey) || "{}");
+    if (!progress[`l${LESSON}`]) progress[`l${LESSON}`] = {};
+    const prev = progress[`l${LESSON}`].partsCompleted || 0;
+    if (PART > prev) progress[`l${LESSON}`].partsCompleted = PART;
+    localStorage.setItem(progressKey, JSON.stringify(progress));
+
+    mainCard.style.display = "none";
+    endScreen.style.display = "block";
+    scoreNum.textContent = `${correctTotal} / ${TOTAL_PHRASES}`;
+
+    if (correctTotal === TOTAL_PHRASES) {
+      scoreMsg.textContent = "¡Perfecto! ¡Todo correcto!";
+    } else if (correctTotal >= TOTAL_PHRASES * 0.7) {
+      scoreMsg.textContent = "¡Muy bien! Casi perfecto.";
+    } else {
+      scoreMsg.textContent = "¡Sigue practicando!";
+    }
+  }
+
+  // ── Redo ───────────────────────────────────────────────────────────────────
+  redoBtn.addEventListener("click", resetLesson);
+  redoBtn.addEventListener("touchend", (e) => { e.preventDefault(); resetLesson(); });
+
+  function resetLesson() {
+    correctTotal = 0;
+    wrongTotal   = 0;
+    updateScoreDisplay();
+    endScreen.style.display = "none";
+    mainCard.style.display  = "block";
+    loadSlide(0);
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  loadSlide(0);
+})();
+</script>
 </body>
 </html>
